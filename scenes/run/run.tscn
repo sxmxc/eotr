@@ -1,0 +1,125 @@
+[gd_scene load_steps=11 format=3 uid="uid://bc2hjnwtwhelj"]
+
+[ext_resource type="Script" uid="uid://l13r63ukihp2" path="res://scenes/run/run.gd" id="1_l7o68"]
+[ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="2_o4jfg"]
+[ext_resource type="PackedScene" uid="uid://bj2o5bhx1vq8b" path="res://scenes/map/map.tscn" id="2_wdonh"]
+[ext_resource type="PackedScene" uid="uid://b0lurds536bhp" path="res://ui/run_ui/gold_ui.tscn" id="4_5o40y"]
+[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="4_o4jfg"]
+[ext_resource type="Theme" uid="uid://b4lmppelcf5iu" path="res://resources/themes/run_top_bar.tres" id="4_ux63y"]
+[ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="4_wo0nw"]
+[ext_resource type="PackedScene" uid="uid://dr3yt337ubpq" path="res://ui/run_ui/resources_ui.tscn" id="5_0tt4g"]
+[ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="5_gqbdr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gqbdr"]
+font_size = 40
+
+[node name="Run" type="Node"]
+script = ExtResource("1_l7o68")
+run_bootstrap = ExtResource("2_o4jfg")
+
+[node name="Map" parent="." instance=ExtResource("2_wdonh")]
+
+[node name="CurrentView" type="Node" parent="."]
+
+[node name="DebugButtons" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 104.0
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="MapButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Map"
+
+[node name="GameWorldButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Game World"
+
+[node name="ShopButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Shop"
+
+[node name="TreasureButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Treasure"
+
+[node name="RewardsButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rewards"
+
+[node name="CampfireButton" type="Button" parent="DebugButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Campfire"
+
+[node name="TopBar" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="ColorRect" type="ColorRect" parent="TopBar"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 112.0
+grow_horizontal = 2
+color = Color(0.294118, 0.239216, 0.266667, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar"]
+custom_minimum_size = Vector2(0, 110)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 112.0
+grow_horizontal = 2
+theme = ExtResource("4_ux63y")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 25
+
+[node name="BarItems" type="HBoxContainer" parent="TopBar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HealthUI" parent="TopBar/MarginContainer/BarItems" instance=ExtResource("4_wo0nw")]
+unique_name_in_owner = true
+layout_mode = 2
+show_max_hp = true
+
+[node name="GoldUI" parent="TopBar/MarginContainer/BarItems" instance=ExtResource("4_5o40y")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ResourcesUI" parent="TopBar/MarginContainer/BarItems" instance=ExtResource("5_0tt4g")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Placeholder" type="Control" parent="TopBar/MarginContainer/BarItems"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeckButton" parent="TopBar/MarginContainer/BarItems" node_paths=PackedStringArray("counter") instance=ExtResource("4_o4jfg")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+counter = NodePath("Count")
+
+[node name="Count" type="Label" parent="TopBar/MarginContainer/BarItems/DeckButton"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 56.0
+offset_right = 35.0
+offset_bottom = 111.0
+text = "99"
+label_settings = SubResource("LabelSettings_gqbdr")
+horizontal_alignment = 1
+
+[node name="TopBarDeckView" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="DeckView" parent="TopBarDeckView" instance=ExtResource("5_gqbdr")]
+unique_name_in_owner = true
+visible = false

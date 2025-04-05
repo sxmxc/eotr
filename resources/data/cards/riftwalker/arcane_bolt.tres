@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://xoyjibjonsb5"]
+
+[ext_resource type="AudioStream" uid="uid://cajk6alf5g5a5" path="res://assets/audio/launches/flaunch.wav" id="2_cuu6x"]
+[ext_resource type="Script" uid="uid://cx8ki4gktvqk2" path="res://resources/data/cards/riftwalker/arcane_bolt.gd" id="2_hhtl8"]
+
+[resource]
+script = ExtResource("2_hhtl8")
+card_type = 0
+target_type = 1
+id = "arcane_bolt"
+name = "Arcane Bolt"
+card_rarity = 0
+description = "Deal [b]6[/b] damage to target [b]enemy[/b]"
+energy_cost = 1
+exhaust = false
+sound_fx = ExtResource("2_cuu6x")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

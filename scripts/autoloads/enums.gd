@@ -1,0 +1,59 @@
+extends Node
+
+enum CardType {
+	ATTACK, 
+	DEFENSE, 
+	SKILL, 
+	MUTATION, 
+	POWER, 
+	SUMMON, 
+	RESOURCE, 
+	WARP
+	}
+	
+enum CardRarity {
+	COMMON,
+	UNCOMMON,
+	RARE
+}
+enum TargetType {
+	SELF,
+	SINGLE_ENEMY,
+	MULTIPLE_ENEMIES,
+	ALL_ENEMIES,
+	SURROUNDING_ENEMIES,
+	SINGLE_TILE,
+	MULTIPLE_TILES,
+	EVERYONE,
+	EVERYTHING,
+	ALLY,
+	NO_TARGET
+}
+enum TileType {
+	RESOURCE,
+	CORRUPTED,
+	ANCIENT_RUIN,
+	MANA_WELL,
+	RIFT_GATE
+}
+
+enum MapNodeType {
+	NOT_ASSIGNED,
+	MONSTER,
+	TREASURE,
+	REST,
+	SHOP,
+	BOSS
+}
+
+enum StatusType {
+	START_OF_TURN, 
+	END_OF_TURN,
+	EVENT_BASED
+}
+
+enum StatusStackType {
+	NONE,
+	INTENSITY, 
+	DURATION
+}

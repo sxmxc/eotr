@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cuaebmluocd8f"]
+
+[ext_resource type="Shader" uid="uid://dpsypbjjxsa52" path="res://resources/materials/card_burnable.gdshader" id="1_tgc71"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tgc71"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xgugw"]
+seamless = true
+noise = SubResource("FastNoiseLite_tgc71")
+
+[resource]
+shader = ExtResource("1_tgc71")
+shader_parameter/position = Vector2(0, 0)
+shader_parameter/radius = 0.0
+shader_parameter/borderWidth = 0.02
+shader_parameter/burnMult = 0.135
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_xgugw")
+shader_parameter/burnColor = Color(0.682353, 0.364706, 0.25098, 1)

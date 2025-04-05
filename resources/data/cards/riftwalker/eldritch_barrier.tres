@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://1g187kuqiaba"]
+
+[ext_resource type="Script" uid="uid://dheg1q18j76ek" path="res://resources/data/cards/riftwalker/eldritch_barrier.gd" id="2_ky1jf"]
+
+[resource]
+script = ExtResource("2_ky1jf")
+card_type = 1
+target_type = 0
+id = "eldritch_barrier"
+name = "Eldricth Barrier"
+card_rarity = 0
+description = "Block [b]10[/b] damage for [b]1[/b] turn(s)"
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

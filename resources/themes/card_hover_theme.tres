@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://74tot6at6obv"]
+
+[ext_resource type="StyleBox" uid="uid://b3k5sjqx0nv3y" path="res://resources/themes/card_panel_hover.tres" id="1_aesg8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agitn"]
+bg_color = Color(0.729412, 0.568627, 0.345098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+
+[resource]
+default_font_size = 16
+CardPanelMain/base_type = &"Panel"
+CardPanelMain/styles/panel = ExtResource("1_aesg8")
+CardPanelSecondary/base_type = &"Panel"
+CardPanelSecondary/styles/panel = SubResource("StyleBoxFlat_agitn")

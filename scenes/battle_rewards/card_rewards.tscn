@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://5l1cn6kun873"]
+
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_anek3"]
+[ext_resource type="PackedScene" uid="uid://bc3nktjl4vqur" path="res://ui/card_menu_ui/card_menu_ui.tscn" id="2_74ndw"]
+[ext_resource type="Script" uid="uid://cglgd5qjx4r17" path="res://scenes/battle_rewards/card_rewards.gd" id="2_p2xms"]
+[ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="3_p2xms"]
+[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="3_vcnwr"]
+[ext_resource type="Resource" uid="uid://0korvu55clwk" path="res://resources/data/cards/riftwalker/rift_knowledge.tres" id="4_l1a2y"]
+[ext_resource type="Resource" uid="uid://mwuybg2ka21n" path="res://resources/data/cards/riftwalker/arcane_explosion.tres" id="5_lyrs8"]
+[ext_resource type="Resource" uid="uid://dsc2p3kof2lra" path="res://resources/data/cards/riftwalker/arcane_blast.tres" id="6_vjprj"]
+
+[node name="CardRewards" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_anek3")
+color = Color(0.294118, 0.239216, 0.266667, 0.752941)
+script = ExtResource("2_p2xms")
+rewards = Array[ExtResource("3_vcnwr")]([ExtResource("4_l1a2y"), ExtResource("5_lyrs8"), ExtResource("6_vjprj")])
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -162.5
+offset_right = 290.0
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Cards" type="HBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="CardMenuUI" parent="VBoxContainer/Cards" instance=ExtResource("2_74ndw")]
+layout_mode = 2
+
+[node name="CardMenuUI2" parent="VBoxContainer/Cards" instance=ExtResource("2_74ndw")]
+layout_mode = 2
+
+[node name="CardMenuUI3" parent="VBoxContainer/Cards" instance=ExtResource("2_74ndw")]
+layout_mode = 2
+
+[node name="SkipButton" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Skip"
+
+[node name="CardPopup" parent="." instance=ExtResource("3_p2xms")]
+visible = false
+layout_mode = 1
+
+[node name="TakeButton" type="Button" parent="CardPopup"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -389.0
+offset_right = 100.0
+offset_bottom = -334.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Take"

@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=3 uid="uid://bn20v4c3khchm"]
+
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_1b2yi"]
+[ext_resource type="Script" uid="uid://c674jiftgbg05" path="res://ui/player_ui/stats_ui.gd" id="2_rsvfm"]
+[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="3_3kity"]
+[ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="3_q23b4"]
+[ext_resource type="Texture2D" uid="uid://68ldyofdhxi2" path="res://assets/icons/electric.png" id="4_dex0y"]
+[ext_resource type="Texture2D" uid="uid://c4kmd207x24op" path="res://assets/icons/clay-brick.png" id="6_q23b4"]
+
+[node name="StatsUI" type="Panel"]
+offset_right = 152.0
+offset_bottom = 250.0
+theme = ExtResource("1_1b2yi")
+theme_type_variation = &"HudPanelBackground"
+script = ExtResource("2_rsvfm")
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MainMargin"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="BodyMargin" type="MarginContainer" parent="MainMargin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxRight" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HealthUI" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight" instance=ExtResource("3_q23b4")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Block" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BlockIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_3kity")
+stretch_mode = 5
+
+[node name="BlockLabel" type="Label" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight/Block"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Energy" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="EnergyIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight/Energy"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_dex0y")
+stretch_mode = 5
+
+[node name="EnergyLabel" type="Label" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxRight/Energy"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1 / 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxLeft" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Resources" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxLeft"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="ResourceIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxLeft/Resources"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_q23b4")
+
+[node name="ResourceLabel" type="Label" parent="MainMargin/Panel/BodyMargin/HBoxContainer/VBoxLeft/Resources"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 3

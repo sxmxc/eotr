@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbbu8r744tq8k"]
+
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_vtdrg"]
+[ext_resource type="Script" uid="uid://e6a8g8rheb7s" path="res://scenes/enemy/blob/blob_attack_action.gd" id="2_dpw0f"]
+[ext_resource type="Script" uid="uid://bjeomtc0rh7qd" path="res://scenes/enemy/blob/blob_block_action.gd" id="3_0djfa"]
+[ext_resource type="AudioStream" uid="uid://cmocidu87w7bm" path="res://assets/audio/battle_sound_effects/swish_2.wav" id="3_6cwji"]
+[ext_resource type="Script" uid="uid://chhmrx4fcbifk" path="res://scenes/enemy/blob/blob_move_action.gd" id="4_6cwji"]
+[ext_resource type="Script" uid="uid://vjdn5lrc46h2" path="res://scenes/enemy/blob/blob_mega_block_action.gd" id="5_15k23"]
+[ext_resource type="AudioStream" uid="uid://bi62uwrtjhfdc" path="res://assets/audio/kenney_casino/chip-lay-2.ogg" id="6_15k23"]
+
+[node name="BlobEnemyAI" instance=ExtResource("1_vtdrg")]
+
+[node name="AttackAction" type="Node" parent="." index="0"]
+script = ExtResource("2_dpw0f")
+type = 1
+chance_weight = 1.0
+sound = ExtResource("3_6cwji")
+
+[node name="BlockAction" type="Node" parent="." index="1"]
+script = ExtResource("3_0djfa")
+type = 1
+chance_weight = 1.0
+
+[node name="MoveAction" type="Node" parent="." index="2"]
+script = ExtResource("4_6cwji")
+sound = ExtResource("6_15k23")
+
+[node name="MegaBlockAction" type="Node" parent="." index="3"]
+script = ExtResource("5_15k23")

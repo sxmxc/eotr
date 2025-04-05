@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RunBootstrap" load_steps=3 format=3 uid="uid://c1icg70td725p"]
+
+[ext_resource type="Script" uid="uid://cv1jvec2i87gn" path="res://scripts/resources/run_bootstrap.gd" id="1_tqd7f"]
+[ext_resource type="Resource" uid="uid://cjimv3kddhqjg" path="res://resources/data/stats/player/riftwalker_starting_stats.tres" id="2_b28rd"]
+
+[resource]
+script = ExtResource("1_tqd7f")
+type = 0
+selected_player_class = ExtResource("2_b28rd")
+metadata/_custom_type_script = "uid://cv1jvec2i87gn"

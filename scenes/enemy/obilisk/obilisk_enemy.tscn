@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3 uid="uid://clybmd6dqmpt8"]
+
+[ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obilisk/obilisk_enemy.gd" id="1_d4xxo"]
+[ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_d4xxo"]
+[ext_resource type="Theme" uid="uid://bb06r68q304st" path="res://resources/themes/enemy_stats_theme.tres" id="3_r5q0i"]
+[ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="4_7p1hw"]
+[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="5_30lrn"]
+[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="6_2psl0"]
+[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="7_oi6p1"]
+[ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="8_r5q0i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
+radius = 13.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyepb"]
+bg_color = Color(0.517647, 0.470588, 0.458824, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Obilisk" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy", "obilisk"]]
+script = ExtResource("1_d4xxo")
+stats_ui = NodePath("EnemyStatsUI")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_d4xxo")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_xxaiy")
+
+[node name="EnemyStatsUI" type="Panel" parent="."]
+z_index = 1
+offset_left = -42.0
+offset_top = 14.0
+offset_right = 42.0
+offset_bottom = 36.0
+theme = ExtResource("3_r5q0i")
+script = ExtResource("4_7p1hw")
+
+[node name="MainMargin" type="MarginContainer" parent="EnemyStatsUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Panel" type="Panel" parent="EnemyStatsUI/MainMargin"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oyepb")
+
+[node name="BodyMargin" type="MarginContainer" parent="EnemyStatsUI/MainMargin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Health" type="HBoxContainer" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="HealthIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Health"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("5_30lrn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HealthLabel" type="Label" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Health"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Block" type="HBoxContainer" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="BlockIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Block"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource("6_2psl0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BlockLabel" type="Label" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Block"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("7_oi6p1")]
+z_index = 1
+offset_right = 29.0
+offset_bottom = 40.0
+status_owner = NodePath("..")
+status_icon_size = 16
+quantity_label_settings = ExtResource("8_r5q0i")

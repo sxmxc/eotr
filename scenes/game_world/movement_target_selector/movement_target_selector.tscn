@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cibke4ls75caw"]
+
+[ext_resource type="Script" uid="uid://pavih4tqan8i" path="res://scenes/game_world/movement_target_selector/movement_target_selector.gd" id="1_6f7n0"]
+[ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_ehu6f"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6f7n0"]
+load_path = "res://.godot/imported/32x32-hex-tiles.png-fc333a5fadeed3d9139e20d8647f7dbf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stkcn"]
+atlas = SubResource("CompressedTexture2D_6f7n0")
+region = Rect2(32, 32, 32, 32)
+
+[node name="MovementTargetSelector" type="Node2D"]
+script = ExtResource("1_6f7n0")
+
+[node name="HexIndicator" type="Sprite2D" parent="."]
+self_modulate = Color(0.380392, 1, 0.262745, 0.580392)
+texture = SubResource("AtlasTexture_stkcn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CardArc" parent="CanvasLayer" instance=ExtResource("1_ehu6f")]

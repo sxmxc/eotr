@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://0korvu55clwk"]
+
+[ext_resource type="Script" uid="uid://cd4ui6ecm6w5k" path="res://resources/data/cards/riftwalker/rift_knowledge.gd" id="1_1g81e"]
+
+[resource]
+script = ExtResource("1_1g81e")
+card_type = 2
+target_type = 0
+id = "rift_knowledge"
+name = "Rift Knowledge"
+card_rarity = 2
+description = "Target becomes [b]attuned[/b].
+[b]Exhaust[/b]"
+energy_cost = 2
+exhaust = true
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

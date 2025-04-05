@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc3nktjl4vqur"]
+
+[ext_resource type="Script" uid="uid://dtslnmfncqqsm" path="res://ui/card_menu_ui/card_menu_ui.gd" id="1_cmh45"]
+[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="2_aciqu"]
+[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="2_cmh45"]
+
+[node name="CardMenuUI" type="CenterContainer"]
+offset_right = 180.0
+offset_bottom = 240.0
+size_flags_horizontal = 3
+script = ExtResource("1_cmh45")
+card = ExtResource("2_aciqu")
+
+[node name="Visuals" parent="." instance=ExtResource("2_cmh45")]
+layout_mode = 2
+
+[connection signal="gui_input" from="Visuals" to="." method="_on_visuals_gui_input"]
+[connection signal="mouse_entered" from="Visuals" to="." method="_on_visuals_mouse_entered"]
+[connection signal="mouse_exited" from="Visuals" to="." method="_on_visuals_mouse_exited"]

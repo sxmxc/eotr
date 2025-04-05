@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cm52dbrhax2mh"]
+
+[ext_resource type="Shader" uid="uid://d0cpde6gdx77k" path="res://resources/materials/cloud_material.gdshader" id="1_iyihb"]
+
+[resource]
+shader = ExtResource("1_iyihb")
+shader_parameter/transparency = 1.0
+shader_parameter/color0 = Color(0.407843, 0.372549, 0.360784, 0.65098)
+shader_parameter/color1 = Color(0.517647, 0.470588, 0.458824, 0.921569)
+shader_parameter/color2 = Color(0.517647, 0.470588, 0.458824, 0.964706)
+shader_parameter/color3 = Color(0.459375, 0.417614, 0.407173, 1)
+shader_parameter/Direction = Vector2(1, 1)
+shader_parameter/Speed = 25.0
+shader_parameter/thresholds = PackedFloat32Array(0.6, 0.67, 0.75)
+shader_parameter/OCTAVE = 6
+shader_parameter/pixel_size = 1200
+shader_parameter/dithering = 1.95

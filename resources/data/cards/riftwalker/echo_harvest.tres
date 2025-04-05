@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c4db8mmxp74pk"]
+
+[ext_resource type="Script" uid="uid://cluthlb4ipe3b" path="res://resources/data/cards/riftwalker/echo_harvest.gd" id="1_u8cue"]
+
+[resource]
+script = ExtResource("1_u8cue")
+card_type = 6
+target_type = 5
+id = "echo_harvest"
+name = "Echo Harvest"
+card_rarity = 0
+description = "Gather [b]all[/b] resources from target [b]tile[/b]"
+energy_cost = 1
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -1,0 +1,242 @@
+[gd_scene load_steps=28 format=3 uid="uid://d4jvkhe7x27s0"]
+
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_waix3"]
+[ext_resource type="Script" uid="uid://cyu764cjss5qf" path="res://scenes/menus/class_selector.gd" id="2_b072o"]
+[ext_resource type="Texture2D" uid="uid://c8bfbxul3hsy4" path="res://assets/images/static_title_page.png" id="3_0mac8"]
+[ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="3_8i2et"]
+[ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="3_waix3"]
+[ext_resource type="Texture2D" uid="uid://b5fwi1h2q28bo" path="res://assets/icons/robot-helmet.svg" id="4_0mac8"]
+[ext_resource type="Texture2D" uid="uid://cvm3n0of18n35" path="res://assets/icons/wizard-face.svg" id="5_b072o"]
+
+[sub_resource type="Gradient" id="Gradient_vn8vg"]
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xqga4"]
+gradient = SubResource("Gradient_vn8vg")
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xd5m"]
+font_size = 50
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_waix3"]
+texture = ExtResource("3_waix3")
+modulate_color = Color(0.617777, 1, 0.533526, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b072o"]
+texture = ExtResource("3_waix3")
+modulate_color = Color(0.467188, 0.467188, 0.467188, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_erq25"]
+texture = ExtResource("3_waix3")
+modulate_color = Color(0.617777, 1, 0.533526, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0mac8"]
+texture = ExtResource("3_waix3")
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_b072o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i2et"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_erq25"]
+load_path = "res://.godot/imported/robot-helmet.svg-222432f9180f8310991657ab3e10c119.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yal2t"]
+texture = SubResource("CompressedTexture2D_erq25")
+modulate_color = Color(0.275781, 0.275781, 0.275781, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t76dm"]
+texture = ExtResource("4_0mac8")
+modulate_color = Color(0.467188, 0.467188, 0.467188, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ua2m0"]
+texture = ExtResource("4_0mac8")
+modulate_color = Color(0.617777, 1, 0.533526, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gqhok"]
+texture = ExtResource("4_0mac8")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_erq25"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8i2et"]
+load_path = "res://.godot/imported/wizard-face.svg-1599609b47723e6b4ef669f23d66fc4b.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dhrcn"]
+texture = SubResource("CompressedTexture2D_8i2et")
+modulate_color = Color(0.25625, 0.25625, 0.25625, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lop4v"]
+texture = ExtResource("5_b072o")
+modulate_color = Color(0.467188, 0.467188, 0.467188, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dciuy"]
+texture = ExtResource("5_b072o")
+modulate_color = Color(0.617777, 1, 0.533526, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xiys0"]
+texture = ExtResource("5_b072o")
+
+[node name="ClassSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_waix3")
+script = ExtResource("2_b072o")
+run_bootstrap = ExtResource("3_8i2et")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_0mac8")
+
+[node name="Gradient" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.647059)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_xqga4")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -680.0
+offset_top = -376.0
+offset_right = 680.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ClassNameLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Riftwalker"
+label_settings = SubResource("LabelSettings_3xd5m")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassDescription" type="RichTextLabel" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Explorers attuned to the Rift’s unstable energies. They balance both magic and technology, using adaptability to survive."
+fit_content = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="RiftwalkerButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxTexture_waix3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_b072o")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_erq25")
+theme_override_styles/normal = SubResource("StyleBoxTexture_0mac8")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_b072o")
+
+[node name="SynthforgeButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8i2et")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_yal2t")
+theme_override_styles/hover = SubResource("StyleBoxTexture_t76dm")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ua2m0")
+theme_override_styles/normal = SubResource("StyleBoxTexture_gqhok")
+disabled = true
+toggle_mode = true
+button_group = SubResource("ButtonGroup_b072o")
+
+[node name="VoidbinderButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_erq25")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dhrcn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lop4v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dciuy")
+theme_override_styles/normal = SubResource("StyleBoxTexture_xiys0")
+disabled = true
+toggle_mode = true
+button_group = SubResource("ButtonGroup_b072o")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="StartButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"MainMenuButton"
+text = "Start"
+
+[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/SynthforgeButton" to="." method="_on_synthforge_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/VoidbinderButton" to="." method="_on_voidbinder_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3/StartButton" to="." method="_on_start_button_pressed"]

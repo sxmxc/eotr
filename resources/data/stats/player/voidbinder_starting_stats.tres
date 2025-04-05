@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=4 format=3 uid="uid://c6rqvudx3k64e"]
+
+[ext_resource type="Texture2D" uid="uid://cvm3n0of18n35" path="res://assets/icons/wizard-face.svg" id="1_n411q"]
+[ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="2_x5y4v"]
+[ext_resource type="Resource" uid="uid://b666sw4a8e67g" path="res://resources/data/card_piles/voidbinder_starting_deck.tres" id="3_a2uuv"]
+
+[resource]
+script = ExtResource("2_x5y4v")
+board_icon = ExtResource("1_n411q")
+player_class_name = "Voidbinder"
+player_class_description = "Sorcerers who use the Rift’s chaotic energies to warp reality. They specialize in magic to manipulate the battlefield."
+starting_deck = ExtResource("3_a2uuv")
+cards_per_turn = 4
+max_energy = 3
+max_health = 10
+metadata/_custom_type_script = "uid://bxcq8uqksynw8"

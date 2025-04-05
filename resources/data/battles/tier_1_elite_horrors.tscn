@@ -1,0 +1,39 @@
+[gd_scene load_steps=12 format=3 uid="uid://dnvc2120uisji"]
+
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_m25rp"]
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="2_4nu8b"]
+[ext_resource type="Script" uid="uid://b1mgpmtnrdpwa" path="res://scenes/enemy/horror/horror_attack_action.gd" id="3_cgsdu"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="4_27wnh"]
+[ext_resource type="AudioStream" uid="uid://chf3dla08ikms" path="res://assets/audio/battle_sound_effects/swish_3.wav" id="4_ptfru"]
+[ext_resource type="Script" uid="uid://dft5ilb8xtbtm" path="res://scenes/enemy/horror/horror_block_action.gd" id="5_a41us"]
+[ext_resource type="Script" uid="uid://bperpmikxf7au" path="res://scenes/enemy/horror/horror_move_action.gd" id="6_bdvyk"]
+[ext_resource type="AudioStream" uid="uid://ch10vc8phptoe" path="res://assets/audio/kenney_casino/chip-lay-3.ogg" id="7_4hpfh"]
+
+[sub_resource type="PackedScene" id="PackedScene_bs7fv"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("HorrorEnemyAI", "HorrorAttackAction", "Node", "script", "type", "chance_weight", "sound", "HorrorBlockAction", "Node", "script", "type", "chance_weight", "HorrorMoveAction", "Node", "script", "sound"),
+"node_count": 4,
+"node_paths": [NodePath("."), NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 0, 0, 1073741824, 0, 2, 262145, -1, 4, 3, 1, 4, 2, 5, 3, 6, 4, 0, 1073741825, 0, 8, 524295, -1, 3, 9, 5, 10, 6, 11, 7, 0, 1073741826, 0, 13, 786444, -1, 2, 14, 8, 15, 9, 0),
+"variants": [ExtResource("2_4nu8b"), ExtResource("3_cgsdu"), 1, 3.0, ExtResource("4_ptfru"), ExtResource("5_a41us"), 1, 1.0, ExtResource("6_bdvyk"), ExtResource("7_4hpfh")],
+"version": 3
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ix1ll"]
+load_path = "res://.godot/imported/alien-bug.png-e5a5b7f6d426c9e21b4af814d014734a.ctex"
+
+[sub_resource type="Resource" id="Resource_m7ih0"]
+script = ExtResource("4_27wnh")
+board_icon = SubResource("CompressedTexture2D_ix1ll")
+ai = SubResource("PackedScene_bs7fv")
+max_health = 15
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"
+
+[node name="Tier1EliteHorrors" type="Node2D"]
+
+[node name="EliteHorror1" parent="." instance=ExtResource("1_m25rp")]
+stats = SubResource("Resource_m7ih0")

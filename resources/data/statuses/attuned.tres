@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AttunedStatus" load_steps=3 format=3 uid="uid://vv16q27o2l1o"]
+
+[ext_resource type="Texture2D" uid="uid://cdp87jrbxgv8k" path="res://assets/icons/third-eye.svg" id="1_v0mk7"]
+[ext_resource type="Script" uid="uid://bu5u0cpupp2pw" path="res://resources/data/statuses/attuned.gd" id="2_v0mk7"]
+
+[resource]
+script = ExtResource("2_v0mk7")
+id = "attuned"
+type = 0
+stack_type = 0
+can_expire = false
+duration = 0
+stacks = 0
+icon = ExtResource("1_v0mk7")
+tooltip = "At the [b]start[/b] of your turn, gain [b]1[/b] [b]attunement[/b]"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

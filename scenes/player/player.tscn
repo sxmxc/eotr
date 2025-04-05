@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct8j6u4avyd2y"]
+
+[ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="2_dovo2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
+radius = 13.0
+
+[node name="Player" type="Node2D" groups=["player"]]
+script = ExtResource("1_dovo2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_dovo2")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dovo2")

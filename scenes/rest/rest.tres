@@ -1,0 +1,11 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://h8nhe1yvg062"]
+
+[sub_resource type="Gradient" id="Gradient_x1a1d"]
+interpolation_mode = 2
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
+
+[resource]
+gradient = SubResource("Gradient_x1a1d")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+metadata/_snap_enabled = true

@@ -1,0 +1,116 @@
+[gd_scene load_steps=8 format=3 uid="uid://5jb217mo7kta"]
+
+[ext_resource type="Script" uid="uid://bdqmkh35suft4" path="res://scenes/map/map_node_ui.gd" id="1_0vh7f"]
+[ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="1_ajjoh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0vh7f"]
+radius = 22.0227
+
+[sub_resource type="Animation" id="Animation_oy3es"]
+resource_name = "highlight"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.25, 1.25)]
+}
+
+[sub_resource type="Animation" id="Animation_adidp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Line2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ayx5e"]
+resource_name = "select"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Line2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_map_node_selected"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j1x36"]
+_data = {
+&"RESET": SubResource("Animation_adidp"),
+&"highlight": SubResource("Animation_oy3es"),
+&"select": SubResource("Animation_ayx5e")
+}
+
+[node name="MapNodeUI" type="Area2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_0vh7f")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="Visuals"]
+modulate = Color(1, 1, 1, 0)
+points = PackedVector2Array(-16, -24, -30, 0, -16, 24, 16, 24, 29, 0, 16, -24)
+closed = true
+width = 2.0
+default_color = Color(0.823529, 0.788235, 0.647059, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_ajjoh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_0vh7f")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j1x36")
+}
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

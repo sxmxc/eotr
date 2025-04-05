@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BurnedStatus" load_steps=3 format=3 uid="uid://cuon7y1frs16g"]
+
+[ext_resource type="Texture2D" uid="uid://dcb88qx4c3p1j" path="res://assets/icons/flame.svg" id="1_x4oih"]
+[ext_resource type="Script" uid="uid://dee2wvnljc3bd" path="res://resources/data/statuses/burned.gd" id="2_x4oih"]
+
+[resource]
+script = ExtResource("2_x4oih")
+id = "burned"
+type = 1
+stack_type = 2
+can_expire = true
+duration = 1
+stacks = 0
+icon = ExtResource("1_x4oih")
+tooltip = "TODO"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

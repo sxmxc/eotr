@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cirhx6ykwqtby"]
+
+[ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="1_5tytu"]
+[ext_resource type="AudioStream" uid="uid://b78ygjjoapugw" path="res://assets/audio/kenney_casino/chip-lay-1.ogg" id="2_pcpth"]
+
+[resource]
+script = ExtResource("1_5tytu")
+movement_distance = 1
+card_type = 2
+target_type = 5
+id = "phase_step"
+name = "Phase Step"
+card_rarity = 0
+description = "Move [b]1[/b] tile."
+energy_cost = 1
+exhaust = false
+sound_fx = ExtResource("2_pcpth")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

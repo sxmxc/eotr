@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://0dlopp347r2m"]
+
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_kpu2c"]
+[ext_resource type="Script" uid="uid://b1mgpmtnrdpwa" path="res://scenes/enemy/horror/horror_attack_action.gd" id="2_7o5m4"]
+[ext_resource type="Script" uid="uid://dft5ilb8xtbtm" path="res://scenes/enemy/horror/horror_block_action.gd" id="3_ftlei"]
+[ext_resource type="AudioStream" uid="uid://chf3dla08ikms" path="res://assets/audio/battle_sound_effects/swish_3.wav" id="3_wux45"]
+[ext_resource type="Script" uid="uid://bperpmikxf7au" path="res://scenes/enemy/horror/horror_move_action.gd" id="4_adsyb"]
+[ext_resource type="AudioStream" uid="uid://ch10vc8phptoe" path="res://assets/audio/kenney_casino/chip-lay-3.ogg" id="6_wpt1e"]
+
+[node name="HorrorEnemyAI" instance=ExtResource("1_kpu2c")]
+
+[node name="HorrorAttackAction" type="Node" parent="." index="0"]
+script = ExtResource("2_7o5m4")
+type = 1
+chance_weight = 3.0
+sound = ExtResource("3_wux45")
+
+[node name="HorrorBlockAction" type="Node" parent="." index="1"]
+script = ExtResource("3_ftlei")
+type = 1
+chance_weight = 1.0
+
+[node name="HorrorMoveAction" type="Node" parent="." index="2"]
+script = ExtResource("4_adsyb")
+sound = ExtResource("6_wpt1e")

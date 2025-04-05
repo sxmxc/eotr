@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://idysccphut6h"]
+
+[ext_resource type="Texture2D" uid="uid://b6davomdrg6nv" path="res://assets/icons/broken-skull.svg" id="1_0sws0"]
+[ext_resource type="Script" uid="uid://be6ig40qrkjk3" path="res://ui/status_ui/status_ui.gd" id="1_7w20s"]
+[ext_resource type="Resource" uid="uid://vv16q27o2l1o" path="res://resources/data/statuses/attuned.tres" id="2_fdstx"]
+[ext_resource type="LabelSettings" uid="uid://ci4fh3dk8rdju" path="res://resources/large_label.tres" id="4_1bip1"]
+
+[node name="StatusUI" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("1_7w20s")
+status = ExtResource("2_fdstx")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_0sws0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Duration" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "999"
+label_settings = ExtResource("4_1bip1")
+
+[node name="Stacks" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "999"
+label_settings = ExtResource("4_1bip1")

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=4 format=3 uid="uid://bxbiu0j3jgbic"]
+
+[ext_resource type="PackedScene" uid="uid://0dlopp347r2m" path="res://scenes/enemy/horror/horror_enemy_ai.tscn" id="1_lemrl"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_v5ie3"]
+[ext_resource type="Texture2D" uid="uid://ba2diprnwmuq5" path="res://assets/icons/alien-bug.png" id="2_putlg"]
+
+[resource]
+script = ExtResource("1_v5ie3")
+board_icon = ExtResource("2_putlg")
+ai = ExtResource("1_lemrl")
+max_health = 10
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

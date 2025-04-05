@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cuyx2ruskixd0"]
+
+[ext_resource type="Script" uid="uid://bk81qkmvarevg" path="res://resources/data/cards/riftwalker/arcane_flame.gd" id="1_uyrpw"]
+[ext_resource type="AudioStream" uid="uid://cals3eyw8cnb2" path="res://assets/audio/launches/slimeball.wav" id="2_peej3"]
+
+[resource]
+script = ExtResource("1_uyrpw")
+card_type = 0
+target_type = 1
+id = "arcane_flame"
+name = "Arcane Flame"
+card_rarity = 1
+description = "Deal [b]4[/b] damage to a [b]single[/b] enemy and apply [b]burn[/b]"
+energy_cost = 2
+exhaust = false
+sound_fx = ExtResource("2_peej3")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfupsllnox0ix"]
+
+[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
+[ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vqvlo"]
+font_color = Color(0.294118, 0.239216, 0.266667, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lcjp3"]
+font_size = 12
+font_color = Color(0.294118, 0.239216, 0.266667, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_uo13o"]
+
+[node name="Visuals" type="Control"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_mqmas")
+script = ExtResource("2_uo13o")
+metadata/_edit_vertical_guides_ = [-104.0]
+metadata/_edit_horizontal_guides_ = [232.0]
+
+[node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"CardPanelMain"
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BackgroundPanel" type="Panel" parent="MainMargin"]
+use_parent_material = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"CardPanelSecondary"
+
+[node name="CardCostLabel" type="Label" parent="MainMargin/BackgroundPanel"]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 188.0
+offset_right = -5.0
+offset_bottom = 233.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+
+[node name="CardNameLabel" type="Label" parent="MainMargin/BackgroundPanel"]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 3.0
+offset_right = 56.0
+offset_bottom = 37.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.15
+text = "TITLE"
+label_settings = SubResource("LabelSettings_vqvlo")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="CardTypeLabel" type="Label" parent="MainMargin/BackgroundPanel"]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 2
+offset_left = 5.0
+offset_top = 30.0
+offset_right = 167.0
+offset_bottom = 58.0
+theme_type_variation = &"HeaderSmall"
+text = "TYPE"
+label_settings = SubResource("LabelSettings_lcjp3")
+horizontal_alignment = 1
+
+[node name="CardTextLabel" type="RichTextLabel" parent="MainMargin/BackgroundPanel"]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 2
+anchor_left = 0.00581395
+anchor_top = 0.340517
+anchor_right = 0.994186
+anchor_bottom = 0.780172
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.301961, 0.270588, 0.223529, 1)
+bbcode_enabled = true
+text = "Card Text"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Rarity" type="TextureRect" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 208.0
+offset_right = 40.0
+offset_bottom = 224.0
+rotation = 0.785398
+texture = SubResource("CanvasTexture_uo13o")
+expand_mode = 1
+stretch_mode = 5

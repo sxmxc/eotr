@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxrlbs4ir0thk"]
+
+[ext_resource type="PackedScene" uid="uid://bc3nktjl4vqur" path="res://ui/card_menu_ui/card_menu_ui.tscn" id="1_ee2ks"]
+[ext_resource type="Script" uid="uid://qba1o03gqepd" path="res://ui/card_popup/card_popup.gd" id="1_hcn30"]
+
+[node name="CardPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hcn30")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.294118, 0.239216, 0.266667, 0.956863)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = -206.0
+offset_right = 254.0
+offset_bottom = 206.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PopupCard" type="CenterContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardMenuUI" parent="VBoxContainer/PopupCard" instance=ExtResource("1_ee2ks")]
+layout_mode = 2
+
+[node name="CardDescription" type="RichTextLabel" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "Card Description Properties Card Description "
+fit_content = true
+horizontal_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcvtyeor5sl01"]
+
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_lvlth"]
+[ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="2_mmh16"]
+
+[node name="Tier0Horrors" type="Node2D"]
+
+[node name="Horror1" parent="." instance=ExtResource("1_lvlth")]
+stats = ExtResource("2_mmh16")
+
+[node name="Horror2" parent="." instance=ExtResource("1_lvlth")]
+stats = ExtResource("2_mmh16")

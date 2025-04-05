@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://mwuybg2ka21n"]
+
+[ext_resource type="Script" uid="uid://8yngjq0jkktj" path="res://resources/data/cards/riftwalker/arcane_explosion.gd" id="1_vpsgj"]
+[ext_resource type="AudioStream" uid="uid://bfrbaimdsqm2n" path="res://assets/audio/launches/rlaunch.wav" id="2_lf5nt"]
+
+[resource]
+script = ExtResource("1_vpsgj")
+card_type = 0
+target_type = 4
+id = "arcane_explosion"
+name = "Arcane Explosion"
+card_rarity = 1
+description = "Deal [b]6[/b] damage to [b]surrounding[/b] enemies"
+energy_cost = 3
+exhaust = false
+sound_fx = ExtResource("2_lf5nt")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

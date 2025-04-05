@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dsc2p3kof2lra"]
+
+[ext_resource type="Script" uid="uid://cuip5qqe1q7je" path="res://resources/data/cards/riftwalker/arcane_blast.gd" id="1_b3saq"]
+[ext_resource type="AudioStream" uid="uid://b8h7cmao2hofo" path="res://assets/audio/launches/iceball.wav" id="2_hmx42"]
+
+[resource]
+script = ExtResource("1_b3saq")
+card_type = 0
+target_type = 1
+id = "arcane_blast"
+name = "Arcane Blast"
+card_rarity = 1
+description = "Deal [b]10[b] damage to a [b]single[/b] enemy."
+energy_cost = 2
+exhaust = false
+sound_fx = ExtResource("2_hmx42")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://cy8o186l0hd35"]
+
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_i06qp"]
+[ext_resource type="PackedScene" uid="uid://bcvtyeor5sl01" path="res://resources/data/battles/tier_0_horrors.tscn" id="1_t3t6c"]
+
+[resource]
+script = ExtResource("1_i06qp")
+battle_tier = 0
+weight = 3.0
+gold_reward_min = 60
+gold_reward_max = 100
+resource_reward_min = 3
+resource_reward_max = 5
+enemies = ExtResource("1_t3t6c")
+metadata/_custom_type_script = "uid://dypkpglsm47yj"

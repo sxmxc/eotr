@@ -1,0 +1,18 @@
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://cfsbh25ygujlm"]
+
+[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="1_hb2aw"]
+[ext_resource type="Material" uid="uid://cm52dbrhax2mh" path="res://resources/materials/fog_of_war_tile.tres" id="1_ys71l"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ys71l"]
+texture = ExtResource("1_hb2aw")
+texture_region_size = Vector2i(32, 32)
+1:1/0 = 0
+1:1/0/material = ExtResource("1_ys71l")
+1:1/0/custom_data_0 = &"Fog"
+
+[resource]
+tile_shape = 3
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "tile_type"
+custom_data_layer_0/type = 21
+sources/1 = SubResource("TileSetAtlasSource_ys71l")

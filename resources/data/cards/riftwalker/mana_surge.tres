@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://duhdw4lhgfp84"]
+
+[ext_resource type="Script" uid="uid://mbgpntvymyhi" path="res://resources/data/cards/riftwalker/mana_surge.gd" id="1_gfg65"]
+
+[resource]
+script = ExtResource("1_gfg65")
+card_type = 2
+target_type = 0
+id = "mana_surge"
+name = "Mana Surge"
+card_rarity = 0
+description = "Gain [b]1[/b] extra energy [b]temporarily[/b]"
+energy_cost = 0
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

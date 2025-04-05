@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl0l31t03ehb0"]
+
+[ext_resource type="Script" uid="uid://dudciwr18rxs1" path="res://ui/status_ui/status_handler.gd" id="1_isq1a"]
+[ext_resource type="LabelSettings" uid="uid://ci4fh3dk8rdju" path="res://resources/large_label.tres" id="2_pjf1p"]
+
+[node name="StatusHandler" type="GridContainer"]
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+script = ExtResource("1_isq1a")
+quantity_label_settings = ExtResource("2_pjf1p")

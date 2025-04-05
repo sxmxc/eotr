@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cbdk3w5uysvar"]
+
+[ext_resource type="StyleBox" uid="uid://b4ywip686lty5" path="res://resources/themes/card_panel_dragging.tres" id="1_ecxqd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agitn"]
+bg_color = Color(0.729412, 0.568627, 0.345098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+
+[resource]
+default_font_size = 16
+CardPanelMain/base_type = &"Panel"
+CardPanelMain/styles/panel = ExtResource("1_ecxqd")
+CardPanelSecondary/base_type = &"Panel"
+CardPanelSecondary/styles/panel = SubResource("StyleBoxFlat_agitn")

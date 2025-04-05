@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://xug262m8e12y"]
+
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_t41pk"]
+[ext_resource type="Script" uid="uid://dgxsgu0de63x0" path="res://ui/tool_tip_ui/tool_tip.gd" id="2_cwwuq"]
+
+[node name="ToolTip" type="PanelContainer"]
+modulate = Color(1, 1, 1, 0.423529)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -207.0
+offset_right = 207.0
+offset_bottom = 122.0
+grow_horizontal = 2
+theme = ExtResource("1_t41pk")
+theme_type_variation = &"HudPanelBackground"
+script = ExtResource("2_cwwuq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TooltipTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
