@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdknlta1672ly"]
+[gd_scene load_steps=13 format=3 uid="uid://cdknlta1672ly"]
 
 [ext_resource type="Texture2D" uid="uid://cah7i6k574e1j" path="res://assets/icons/gluttony.png" id="1_4a83h"]
 [ext_resource type="Script" uid="uid://un3nkq58ohs3" path="res://scenes/enemy/enemy.gd" id="1_a3pup"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="6_hvxgb"]
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="7_nbhyu"]
 [ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="8_13gj6"]
+[ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_hvxgb"]
+[ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_peoo5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
@@ -125,3 +127,12 @@ columns = 2
 status_owner = NodePath("..")
 status_icon_size = 16
 quantity_label_settings = ExtResource("8_13gj6")
+
+[node name="ModifierHandler" parent="." instance=ExtResource("9_hvxgb")]
+
+[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("10_peoo5")]
+
+[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_peoo5")]
+type = 1
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

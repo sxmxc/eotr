@@ -1,3 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://bb06r68q304st"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bb06r68q304st"]
+
+[ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="1_7yydw"]
 
 [resource]
+default_font = ExtResource("1_7yydw")

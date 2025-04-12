@@ -11,36 +11,46 @@ class_name PlayerStats
 @export var draftable_cards: CardPile
 @export var cards_per_turn: int
 @export var max_energy: int
+@export var starting_relic: Relic
+@export var view_range: int = 1
 
-
-var energy: int : set = set_energy
-var resources: int : set = set_resources
+var energy: int:
+	set = set_energy
+var resources: int:
+	set = set_resources
 var deck: CardPile
 var discard: CardPile
 var draw_pile: CardPile
+
 
 func set_resources(value: int) -> void:
 	resources = value
 	stats_changed.emit()
 
+
 func add_resource(amount: int) -> void:
 	self.resources += amount
+
 
 func set_energy(value: int) -> void:
 	energy = value
 	stats_changed.emit()
 
+
 func reset_energy() -> void:
 	self.energy = max_energy
-	
+
+
 func can_play_card(card: Card) -> bool:
 	return energy >= card.energy_cost
+
 
 func take_damage(damage: int) -> void:
 	var initial_health := health
 	super.take_damage(damage)
 	if health < initial_health:
 		Events.player_hit.emit()
+
 
 func create_instance() -> Resource:
 	var instance: PlayerStats = self.duplicate()

@@ -1,4 +1,14 @@
-[gd_resource type="Theme" format=3 uid="uid://b4lmppelcf5iu"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b4lmppelcf5iu"]
+
+[ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="1_e6r2p"]
+[ext_resource type="FontFile" uid="uid://1oy6eel7cxhb" path="res://assets/fonts/comic_book/Comic Book Bold.otf" id="1_h2omk"]
+[ext_resource type="FontFile" uid="uid://cr74lne0rgqw7" path="res://assets/fonts/comic_book/Comic Book Bold Italic.otf" id="2_c1kh4"]
+[ext_resource type="FontFile" uid="uid://c757277hct3rl" path="res://assets/fonts/comic_book/Comic Book Italic.otf" id="3_j140v"]
 
 [resource]
+default_font = ExtResource("1_e6r2p")
 default_font_size = 50
+RichTextLabel/fonts/bold_font = ExtResource("1_h2omk")
+RichTextLabel/fonts/bold_italics_font = ExtResource("2_c1kh4")
+RichTextLabel/fonts/italics_font = ExtResource("3_j140v")
+RichTextLabel/fonts/normal_font = ExtResource("1_e6r2p")

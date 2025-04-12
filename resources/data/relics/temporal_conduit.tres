@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cfauwsp41tgk7"]
+
+[ext_resource type="Texture2D" uid="uid://klp2dl2m8y1h" path="res://assets/icons/astrolabe.svg" id="1_un6ud"]
+[ext_resource type="Script" uid="uid://b3u50fy6hqk04" path="res://resources/data/relics/temporal_conduit.gd" id="2_6tvx7"]
+
+[resource]
+script = ExtResource("2_6tvx7")
+base_amount = 5
+relic_name = "Temporal Conduit"
+id = "temporal_conduit"
+type = 3
+character_type = 1
+starter_relic = false
+icon = ExtResource("1_un6ud")
+description = "At the [b]start of battle[/b], heal [b]5[/b]. "
+metadata/_custom_type_script = "uid://bub7h53ncapx2"

@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://ct8j6u4avyd2y"]
+[gd_scene load_steps=7 format=3 uid="uid://ct8j6u4avyd2y"]
 
 [ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="2_dovo2"]
+[ext_resource type="AudioStream" uid="uid://b78ygjjoapugw" path="res://assets/audio/kenney_casino/chip-lay-1.ogg" id="2_p47bc"]
+[ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="3_lvxji"]
+[ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="4_p47bc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
 radius = 13.0
 
 [node name="Player" type="Node2D" groups=["player"]]
 script = ExtResource("1_dovo2")
+movement_sound = ExtResource("2_p47bc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -20,3 +24,16 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_dovo2")
+
+[node name="ModifierHandler" parent="." instance=ExtResource("3_lvxji")]
+
+[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+
+[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+type = 1
+
+[node name="CardCostModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+type = 2
+
+[node name="MovementModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+type = 5

@@ -7,7 +7,7 @@ uniform vec4 color1 : source_color = vec4(0.32, 0.2, 1.0, 1.0);
 uniform vec4 color2 : source_color = vec4(0.34, 0.41, 1.0, 1.0);
 uniform vec4 color3 : source_color = vec4(0.39, 0.52, 1.0, 1.0);
 
-uniform vec2 Direction = vec2(1, 1); 
+uniform vec2 Direction = vec2(1, 1);
 uniform float Speed = 1.00;
 
 uniform float thresholds[3];
@@ -38,14 +38,14 @@ float noise(vec2 uv) {
 float fbm(vec2 input){
 	float value = 0.0;
 	float scale = 0.2;
-	
+
 	input *= TIME/3000.0 + 1.0;
-	
+
 	for(int i = 0; i < OCTAVE; i++){
 		value += noise(input)*scale;
 		input *= dithering;
 	}
-	
+
 	return clamp(value, 0.0, 1.0);
 }
 
@@ -75,7 +75,7 @@ void fragment(){
 	if (COLOR.a > 0.0001){
 	float pixelated_color = get_pixelated_moving_colors(UV, Direction, Speed);
 	vec4 smoothed_color = smooth_extreme_colors(pixelated_color);
-	
+
 	COLOR = smoothed_color * transparency;
 	}
 }

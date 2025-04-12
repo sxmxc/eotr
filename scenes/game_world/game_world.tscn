@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=40 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -25,12 +25,14 @@
 [ext_resource type="Texture2D" uid="uid://bw2e6kofldiiq" path="res://assets/icons/card-burn.svg" id="21_0br8l"]
 [ext_resource type="Texture2D" uid="uid://dte2m4qyg4mfe" path="res://assets/icons/card-draw.svg" id="21_7fs1y"]
 [ext_resource type="Script" uid="uid://bncsfkx6mq4ic" path="res://ui/map_ui/map_ui.gd" id="21_fg3oe"]
+[ext_resource type="PackedScene" uid="uid://80y8in4wjr2c" path="res://ui/player_ui/enemy_info.tscn" id="22_csgag"]
 [ext_resource type="Texture2D" uid="uid://dg0r2ppupt5fk" path="res://assets/icons/magnifying-glass.png" id="22_wgh4l"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="24_mkc5e"]
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
 [ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
+[ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0br8l"]
@@ -60,8 +62,8 @@ size = Vector2(1924, 699)
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
-metadata/_edit_vertical_guides_ = [1876.0, -72.0]
-metadata/_edit_horizontal_guides_ = [1016.0]
+metadata/_edit_vertical_guides_ = [1876.0]
+metadata/_edit_horizontal_guides_ = [112.0]
 
 [node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
 script = ExtResource("4_mq2xb")
@@ -114,17 +116,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("5_cmh4g")
 base_layer = NodePath("../../Tilemap/BaseLayer")
 map_camera = NodePath("../../MapCamera")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/DebugUI"]
 layout_mode = 0
-offset_left = 64.0
-offset_top = 512.0
-offset_right = 104.0
-offset_bottom = 552.0
+offset_left = 1600.0
+offset_top = 448.0
+offset_right = 1640.0
+offset_bottom = 488.0
 
 [node name="DebugContainer" type="VBoxContainer" parent="GameWorldUI/DebugUI/MarginContainer"]
 unique_name_in_owner = true
@@ -137,9 +139,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
-[node name="Hand" type="Control" parent="GameWorldUI/PlayerUI"]
+[node name="Hand" type="Control" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("player")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -152,6 +154,7 @@ offset_right = 488.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("7_pdbwf")
+player = NodePath("../../../Player")
 
 [node name="HandContainer" type="HBoxContainer" parent="GameWorldUI/PlayerUI/Hand"]
 layout_mode = 1
@@ -167,7 +170,7 @@ alignment = 1
 
 [node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("12_odt01")]
 layout_mode = 0
-offset_left = 1688.0
+offset_left = 1664.0
 offset_top = 808.0
 offset_right = 1840.0
 offset_bottom = 1056.0
@@ -179,6 +182,7 @@ offset_top = 808.0
 offset_right = 1592.0
 offset_bottom = 848.0
 status_owner = NodePath("../../../Player")
+status_icon_size = 70
 
 [node name="TileInfo" parent="GameWorldUI/PlayerUI" instance=ExtResource("19_mf52o")]
 layout_mode = 0
@@ -186,6 +190,13 @@ offset_left = 8.0
 offset_top = 112.0
 offset_right = 322.0
 offset_bottom = 360.0
+
+[node name="EnemyInfo" parent="GameWorldUI/PlayerUI" instance=ExtResource("22_csgag")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 392.0
+offset_right = 320.0
+offset_bottom = 680.0
 
 [node name="EndTurnButton" type="Button" parent="GameWorldUI/PlayerUI"]
 unique_name_in_owner = true
@@ -302,10 +313,10 @@ offset_bottom = 1018.0
 anchors_preset = 5
 anchor_top = 0.0
 anchor_bottom = 0.0
-offset_left = -208.0
-offset_top = 192.0
-offset_right = 206.0
-offset_bottom = 314.0
+offset_left = 336.0
+offset_top = 112.0
+offset_right = 750.0
+offset_bottom = 234.0
 grow_vertical = 1
 
 [node name="Effects" type="CanvasLayer" parent="."]
@@ -340,4 +351,10 @@ visible = false
 
 [node name="DiscardPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
 unique_name_in_owner = true
+visible = false
+
+[node name="StatusViewLayer" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="StatusView" parent="StatusViewLayer" instance=ExtResource("33_csgag")]
 visible = false

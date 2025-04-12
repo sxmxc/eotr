@@ -7,12 +7,12 @@
 [ext_resource type="Resource" uid="uid://1g187kuqiaba" path="res://resources/data/cards/riftwalker/eldritch_barrier.tres" id="3_ynn3t"]
 [ext_resource type="Resource" uid="uid://0korvu55clwk" path="res://resources/data/cards/riftwalker/rift_knowledge.tres" id="4_0jgw7"]
 [ext_resource type="Resource" uid="uid://cuyx2ruskixd0" path="res://resources/data/cards/riftwalker/arcane_flame.tres" id="5_5xnss"]
-[ext_resource type="Resource" uid="uid://c4db8mmxp74pk" path="res://resources/data/cards/riftwalker/echo_harvest.tres" id="5_pg58j"]
 [ext_resource type="Resource" uid="uid://cirhx6ykwqtby" path="res://resources/data/cards/riftwalker/phase_step.tres" id="6_6av2o"]
 [ext_resource type="Resource" uid="uid://mwuybg2ka21n" path="res://resources/data/cards/riftwalker/arcane_explosion.tres" id="7_cufju"]
 [ext_resource type="Resource" uid="uid://dsc2p3kof2lra" path="res://resources/data/cards/riftwalker/arcane_blast.tres" id="9_p5due"]
+[ext_resource type="Resource" uid="uid://bxiabb7dpx46y" path="res://resources/data/cards/riftwalker/mana_leech.tres" id="10_0jgw7"]
 
 [resource]
 script = ExtResource("2_q3200")
-cards = Array[ExtResource("1_8bhcb")]([ExtResource("2_drj5w"), ExtResource("2_drj5w"), ExtResource("3_pg58j"), ExtResource("4_0jgw7"), ExtResource("5_5xnss"), ExtResource("3_pg58j"), ExtResource("3_ynn3t"), ExtResource("5_pg58j"), ExtResource("6_6av2o"), ExtResource("6_6av2o"), ExtResource("7_cufju"), ExtResource("9_p5due")])
+cards = Array[ExtResource("1_8bhcb")]([ExtResource("2_drj5w"), ExtResource("2_drj5w"), ExtResource("3_pg58j"), ExtResource("4_0jgw7"), ExtResource("5_5xnss"), ExtResource("3_pg58j"), ExtResource("3_ynn3t"), ExtResource("6_6av2o"), ExtResource("6_6av2o"), ExtResource("7_cufju"), ExtResource("9_p5due"), ExtResource("10_0jgw7")])
 metadata/_custom_type_script = "uid://dkmgiky2ttex"

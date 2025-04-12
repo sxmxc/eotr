@@ -7,6 +7,8 @@ class_name EnemyStatsUI
 @onready var health_container:= %Health
 @onready var block_container:= %Block
 
+
+
 func update_stats(stats: EnemyStats) -> void:
 	if not self.is_node_ready():
 		await ready

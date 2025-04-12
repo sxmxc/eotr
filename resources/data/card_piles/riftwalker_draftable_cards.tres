@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardPile" load_steps=10 format=3 uid="uid://fjjyyc620psd"]
+[gd_resource type="Resource" script_class="CardPile" load_steps=11 format=3 uid="uid://fjjyyc620psd"]
 
 [ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_gv0st"]
 [ext_resource type="Resource" uid="uid://duhdw4lhgfp84" path="res://resources/data/cards/riftwalker/mana_surge.tres" id="2_ga284"]
@@ -9,8 +9,9 @@
 [ext_resource type="Resource" uid="uid://mwuybg2ka21n" path="res://resources/data/cards/riftwalker/arcane_explosion.tres" id="6_5k6rd"]
 [ext_resource type="Resource" uid="uid://cuyx2ruskixd0" path="res://resources/data/cards/riftwalker/arcane_flame.tres" id="7_u64ch"]
 [ext_resource type="Resource" uid="uid://0korvu55clwk" path="res://resources/data/cards/riftwalker/rift_knowledge.tres" id="8_ltrod"]
+[ext_resource type="Resource" uid="uid://bxiabb7dpx46y" path="res://resources/data/cards/riftwalker/mana_leech.tres" id="9_ex2n0"]
 
 [resource]
 script = ExtResource("2_i5lcq")
-cards = Array[ExtResource("1_gv0st")]([ExtResource("2_ga284"), ExtResource("3_ex2n0"), ExtResource("4_64lpb"), ExtResource("5_8ruip"), ExtResource("6_5k6rd"), ExtResource("7_u64ch"), ExtResource("8_ltrod"), ExtResource("8_ltrod"), ExtResource("8_ltrod")])
+cards = Array[ExtResource("1_gv0st")]([ExtResource("2_ga284"), ExtResource("3_ex2n0"), ExtResource("4_64lpb"), ExtResource("5_8ruip"), ExtResource("6_5k6rd"), ExtResource("7_u64ch"), ExtResource("8_ltrod"), ExtResource("9_ex2n0"), ExtResource("8_ltrod")])
 metadata/_custom_type_script = "uid://dkmgiky2ttex"

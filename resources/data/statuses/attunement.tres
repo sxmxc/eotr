@@ -12,5 +12,5 @@ can_expire = false
 duration = 0
 stacks = 1
 icon = ExtResource("1_ccboq")
-tooltip = "Arcane spells do x more damage"
+tooltip = "Arcane spells do [b]%s[/b] more damage"
 metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

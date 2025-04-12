@@ -1,21 +1,9 @@
 extends Node
 
-enum CardType {
-	ATTACK, 
-	DEFENSE, 
-	SKILL, 
-	MUTATION, 
-	POWER, 
-	SUMMON, 
-	RESOURCE, 
-	WARP
-	}
-	
-enum CardRarity {
-	COMMON,
-	UNCOMMON,
-	RARE
-}
+enum CardType { ATTACK, DEFENSE, SKILL, MUTATION, POWER, SUMMON, RESOURCE, WARP }
+
+enum CardRarity { COMMON, UNCOMMON, RARE }
+
 enum TargetType {
 	SELF,
 	SINGLE_ENEMY,
@@ -29,31 +17,19 @@ enum TargetType {
 	ALLY,
 	NO_TARGET
 }
-enum TileType {
-	RESOURCE,
-	CORRUPTED,
-	ANCIENT_RUIN,
-	MANA_WELL,
-	RIFT_GATE
-}
 
-enum MapNodeType {
-	NOT_ASSIGNED,
-	MONSTER,
-	TREASURE,
-	REST,
-	SHOP,
-	BOSS
-}
+enum TileType { RESOURCE, CORRUPTED, ANCIENT_RUIN, MANA_WELL, RIFT_GATE }
 
-enum StatusType {
-	START_OF_TURN, 
-	END_OF_TURN,
-	EVENT_BASED
-}
+enum MapNodeType { NOT_ASSIGNED, MONSTER, TREASURE, REST, SHOP, BOSS }
 
-enum StatusStackType {
-	NONE,
-	INTENSITY, 
-	DURATION
-}
+enum StatusType { START_OF_TURN, END_OF_TURN, EVENT_BASED }
+
+enum StatusStackType { NONE, INTENSITY, DURATION }
+
+enum ModifierValueType { PERCENT_BASED, FLAT }
+
+enum ModifierType { DMG_DEALT, DMG_TAKEN, CARD_COST, SHOP_COST, NO_MODIFIER, MOVEMENT }
+
+enum RelicType { START_OF_TURN, START_OF_COMBAT, END_OF_TURN, END_OF_COMBAT, EVENT_BASED }
+
+enum RelicCharacterType { ALL, RIFTWALKER, SYNTHFORGED, VOIDBINDER }

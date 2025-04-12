@@ -12,5 +12,5 @@ can_expire = true
 duration = 1
 stacks = 0
 icon = ExtResource("1_x4oih")
-tooltip = "TODO"
+tooltip = "At the [b]end[/b] of turn, takes [b]1[/b] burn damage. Lasts for [b]%s[/b] turn(s)."
 metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

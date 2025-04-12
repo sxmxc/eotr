@@ -1,6 +1,10 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cyuh7amffcqvg"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cyuh7amffcqvg"]
 
 [ext_resource type="StyleBox" uid="uid://evc7medpha5u" path="res://resources/themes/card_panel_base.tres" id="1_6jsml"]
+[ext_resource type="FontFile" uid="uid://1oy6eel7cxhb" path="res://assets/fonts/comic_book/Comic Book Bold.otf" id="2_4ecdq"]
+[ext_resource type="FontFile" uid="uid://cr74lne0rgqw7" path="res://assets/fonts/comic_book/Comic Book Bold Italic.otf" id="3_aotej"]
+[ext_resource type="FontFile" uid="uid://c757277hct3rl" path="res://assets/fonts/comic_book/Comic Book Italic.otf" id="4_g53rd"]
+[ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="5_njx5o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jsml"]
 bg_color = Color(0.729412, 0.568627, 0.345098, 1)
@@ -11,8 +15,13 @@ corner_radius_bottom_left = 5
 shadow_size = 2
 
 [resource]
+default_font = ExtResource("5_njx5o")
 default_font_size = 16
 CardPanelMain/base_type = &"Panel"
 CardPanelMain/styles/panel = ExtResource("1_6jsml")
 CardPanelSecondary/base_type = &"Panel"
 CardPanelSecondary/styles/panel = SubResource("StyleBoxFlat_6jsml")
+RichTextLabel/fonts/bold_font = ExtResource("2_4ecdq")
+RichTextLabel/fonts/bold_italics_font = ExtResource("3_aotej")
+RichTextLabel/fonts/italics_font = ExtResource("4_g53rd")
+RichTextLabel/fonts/normal_font = ExtResource("5_njx5o")

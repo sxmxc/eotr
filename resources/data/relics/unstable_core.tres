@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b3cnm8pclsxek"]
+
+[ext_resource type="Texture2D" uid="uid://c8ng3losq3orb" path="res://assets/icons/unstable-orb.svg" id="1_kx6qr"]
+[ext_resource type="Script" uid="uid://botkylunmafcw" path="res://resources/data/relics/unstable_core.gd" id="2_l4iyb"]
+
+[resource]
+script = ExtResource("2_l4iyb")
+relic_name = "Unstable Core"
+id = "unstable_core"
+type = 0
+character_type = 1
+starter_relic = false
+icon = ExtResource("1_kx6qr")
+description = "At the [b]start of turn[/b], deal [b]5[/b] damage to [b]all enemies[/b]. "
+metadata/_custom_type_script = "uid://bub7h53ncapx2"

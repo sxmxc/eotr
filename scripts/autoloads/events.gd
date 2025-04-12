@@ -1,7 +1,5 @@
 extends Node
 
-
-
 @warning_ignore_start("unused_signal")
 # Card-related events
 signal card_drag_started(card_ui: CardUI)
@@ -23,9 +21,12 @@ signal player_died
 signal enemy_died(enemy: Enemy)
 signal enemy_action_completed(enemy: Enemy)
 signal enemy_turn_ended
+signal enemy_selected(enemy: Enemy)
+signal enemy_updated(enemy: Enemy)
+signal enemy_info_hide_requested
 
 # Battle-related events
-#signal status_tooltip_requested(statuses: Array[Status])
+signal status_tooltip_requested(statuses: Array[Status])
 signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
 signal obilisk_destroyed
 signal battle_won
@@ -36,7 +37,6 @@ signal tile_selected(tile_data: HexTileData)
 signal tile_updated(tile_data: HexTileData)
 signal world_message_requested(message: WorldMessageData)
 signal world_message_hide_requested
-
 
 # Shop-related events
 #signal shop_entered(shop: Shop)
@@ -52,5 +52,4 @@ signal battle_reward_exited
 
 # Treasure Room & Relic-related events
 signal treasure_room_exited
-#signal relic_tooltip_requested(relic: Relic)
-@warning_ignore_restore("unused_signal")
+signal relic_tooltip_requested(relic: Relic)

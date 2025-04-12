@@ -1,5 +1,6 @@
-extends Node2D
 class_name Enemy
+extends Node2D
+
 
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
 
@@ -9,6 +10,7 @@ const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_ma
 
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var status_handler: StatusHandler = $StatusHandler
+@onready var modifier_handler: ModifierHandler = $ModifierHandler
 
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
@@ -20,8 +22,11 @@ func set_current_action(value: EnemyAction) -> void:
 
 func _ready():
 	Events.player_died.connect(func(): self.set_process(false))
+	if not $Area2D.input_event.is_connected(_on_area_2d_input_event):
+		$Area2D.input_event.connect(_on_area_2d_input_event)
 	stats_ui.hide()
 	status_handler.status_owner = self
+	
 	
 func _physics_process(_delta):
 	current_tile_position = tilemap.base_layer.local_to_map(position)
@@ -69,6 +74,7 @@ func update_enemy() -> void:
 		
 func update_stats():
 	stats_ui.update_stats(stats)
+	Events.enemy_updated.emit(self)
 
 func do_turn() -> void:
 	print("%s doing turn" % name)
@@ -80,26 +86,25 @@ func do_turn() -> void:
 	current_action.perform_action()
 	turn_ticker += 1
 	
-func take_damage(damage: int) -> void:
+func take_damage(damage: int, which_modifier: Enums.ModifierType) -> void:
 	if stats.health <= 0:
 		return
 		
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
+	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	
 	var tween := create_tween()
 	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
-	tween.tween_callback(stats.take_damage.bind(damage))
+	tween.tween_callback(stats.take_damage.bind(modified_damage))
 	tween.tween_interval(0.17)
 	
-	tween.finished.connect(
-		func():
+	tween.finished.connect( 
+		func(): 
 			sprite_2d.material = null
-			
 			if stats.health <= 0:
 				Events.enemy_died.emit(self)
 				queue_free()
-			)
-	
+				)
 
 func get_player_tile_position() -> Vector2i:
 	var player = get_tree().get_first_node_in_group("player")
@@ -108,3 +113,8 @@ func get_player_tile_position() -> Vector2i:
 		return player_tile
 	
 	return Vector2i.ZERO
+
+
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_action_pressed("left_mouse"):
+		Events.enemy_selected.emit(self)

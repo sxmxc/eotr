@@ -24,8 +24,7 @@ func on_mouse_entered() -> void:
 	if not card_ui.playable or card_ui.disabled:
 		return
 	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_HOVER)
-	var data = TooltipData.new(card_ui.card.description)
-	Events.card_tooltip_requested.emit(data)
+	card_ui.request_description()
 	
 func on_mouse_exited() -> void:
 	if not card_ui.playable or card_ui.disabled:

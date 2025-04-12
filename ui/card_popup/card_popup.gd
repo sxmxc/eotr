@@ -9,27 +9,31 @@ const CARD_MENU_UI_SCENE = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
 @onready var card_description: RichTextLabel = %CardDescription
 @onready var popup_card: CenterContainer = %PopupCard
 
-func _ready() -> void: 
+
+func _ready() -> void:
 	for card: CardMenuUI in popup_card.get_children():
 		card.queue_free()
-		
+
 	background.color = background_color
+
 
 func show_popup(card: Card) -> void:
 	var new_card := CARD_MENU_UI_SCENE.instantiate() as CardMenuUI
 	popup_card.add_child(new_card)
 	new_card.card = card
 	new_card.tooltip_requested.connect(hide_popup.unbind(1))
-	card_description.text = card.description
+	new_card.visuals.card_text_label.text = card.get_default_description()
+	card_description.text = card.get_default_description()
 	show()
-	
+
+
 func hide_popup():
 	if not visible:
 		return
 	for card: CardMenuUI in popup_card.get_children():
 		card.queue_free()
 	hide()
-	
+
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse"):

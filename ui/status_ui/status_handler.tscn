@@ -4,8 +4,11 @@
 [ext_resource type="LabelSettings" uid="uid://ci4fh3dk8rdju" path="res://resources/large_label.tres" id="2_pjf1p"]
 
 [node name="StatusHandler" type="GridContainer"]
+mouse_filter = 0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 script = ExtResource("1_isq1a")
 quantity_label_settings = ExtResource("2_pjf1p")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
