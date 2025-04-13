@@ -11,11 +11,11 @@ config_version=5
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.0.1"
+config/version="0.0.1.0"
 run/main_scene="uid://bofyn0epr8qy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
-config/build="cadf1ca"
+config/build="be3add9"
 
 [autoload]
 
