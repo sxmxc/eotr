@@ -1,6 +1,6 @@
 # This workflow handles building and exporting a Godot project for multiple platforms
 # It triggers on version tags (v*.*.* format) and includes build numbers in the output
-name: Debug build
+name: Release build
 
 on: 
   push:
