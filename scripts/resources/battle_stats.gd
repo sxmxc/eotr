@@ -12,7 +12,7 @@ class_name BattleStats
 var accumlated_weight: float = 0.0
 
 func roll_gold_reward() -> int:
-	return randi_range(gold_reward_min, gold_reward_max)
+	return RNG.instance.randi_range(gold_reward_min, gold_reward_max)
 
 func roll_resource_reward() -> int:
-	return randi_range(resource_reward_min, resource_reward_max)
+	return RNG.instance.randi_range(resource_reward_min, resource_reward_max)

@@ -12,5 +12,6 @@ player_class_description = "Sorcerers who use the Rift’s chaotic energies to w
 starting_deck = ExtResource("3_a2uuv")
 cards_per_turn = 4
 max_energy = 3
+view_range = 1
 max_health = 10
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"

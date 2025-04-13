@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuffedStatus" load_steps=3 format=3 uid="uid://ckxcjeogxkher"]
+
+[ext_resource type="Texture2D" uid="uid://cpm3pemtlri1d" path="res://assets/icons/upgrade.svg" id="1_1p7vg"]
+[ext_resource type="Script" uid="uid://cmwg4kspvn0xp" path="res://resources/data/statuses/buffed.gd" id="2_oits2"]
+
+[resource]
+script = ExtResource("2_oits2")
+id = "buffed"
+type = 0
+stack_type = 0
+can_expire = false
+duration = 0
+stacks = 0
+icon = ExtResource("1_1p7vg")
+tooltip = "At the [b]start[/b] of turn, gain [b]1[/b] [b]strength[/b]"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

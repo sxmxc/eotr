@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c06qfjllo54ft"]
 
 [ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_sa2p5"]
-[ext_resource type="Resource" uid="uid://d3x2ax43x8lji" path="res://resources/data/stats/enemy/blob_enemy.tres" id="2_1blq2"]
+[ext_resource type="Resource" uid="uid://d3x2ax43x8lji" path="res://scenes/enemy/blob/blob_enemy.tres" id="2_1blq2"]
 
 [node name="Tier0Blobs" type="Node2D"]
 

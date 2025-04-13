@@ -12,13 +12,10 @@ func is_performable() -> bool:
 		print("Nope. Not yet")
 		return false
 
+
 func perform_action() -> void:
 	if not enemy or not target:
 		return
-	print("Obilisk spawn not implemented yet")
-	var world_message = WorldMessageData.new("Obilisk spawns a creature from the void")
-	Events.world_message_requested.emit(world_message)
-	get_tree().create_timer(.6).timeout.connect(
-		func():
-			Events.enemy_action_completed.emit(enemy)
-	)
+	var obilisk = enemy as Obilisk
+	obilisk.spawn_random_enemy()
+	get_tree().create_timer(.6).timeout.connect(func(): Events.enemy_action_completed.emit(enemy))

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://bcl5etedpnoss"]
+
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_ak0t1"]
+[ext_resource type="PackedScene" uid="uid://dnpltte715j68" path="res://resources/data/battles/tier_2_void_spectre.tscn" id="1_tnbkk"]
+
+[resource]
+script = ExtResource("1_ak0t1")
+battle_tier = 2
+weight = 10.0
+gold_reward_min = 20
+gold_reward_max = 40
+resource_reward_min = 10
+resource_reward_max = 20
+enemies = ExtResource("1_tnbkk")
+metadata/_custom_type_script = "uid://dypkpglsm47yj"

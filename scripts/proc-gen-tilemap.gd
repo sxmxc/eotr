@@ -63,7 +63,7 @@ func weighted_random_tile() -> Enums.TileType:
 		weight_sum += tile_weights[tile_type]
 		tile_entries.append({"tile": tile_type, "weight": weight_sum})
 
-	var random_value := randf() * weight_sum
+	var random_value := RNG.instance.randf() * weight_sum
 
 	for entry in tile_entries:
 		if random_value < entry["weight"]:
@@ -86,7 +86,7 @@ func generate_tilemap():
 			fog_layer.set_cell(tile_position, 1, Vector2i(1, 1))  # Cover with fog
 			var resources := 0
 			if tile_type == Enums.TileType.RESOURCE:
-				resources = randi_range(0, 3)
+				resources = RNG.instance.randi_range(0, 3)
 			var tile_data = HexTileData.new(tile_position, tile_type, resources)
 			tile_map_data[tile_position] = tile_data
 	map_generated.emit()
@@ -177,7 +177,9 @@ func move_player(tile_pos) -> void:
 
 func place_obilisk() -> void:
 	var obilisk: Enemy = get_tree().get_first_node_in_group("obilisk")
-	var random_tile = Vector2i(randi_range(0, map_width - 1), randi_range(0, map_height - 1))
+	var random_tile = Vector2i(
+		RNG.instance.randi_range(0, map_width - 1), RNG.instance.randi_range(0, map_height - 1)
+	)
 	obilisk_position = base_layer.map_to_local(random_tile)
 	obilisk.position = obilisk_position
 	obilisk.current_tile_position = random_tile

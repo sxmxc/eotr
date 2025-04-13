@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Relic" load_steps=2 format=3 uid="uid://3dykoxgiq7hi"]
+[gd_resource type="Resource" script_class="TraderBadgeRelic" load_steps=3 format=3 uid="uid://3dykoxgiq7hi"]
 
-[ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="1_2q1w1"]
+[ext_resource type="Texture2D" uid="uid://d0icav7p5suom" path="res://assets/icons/shiny-purse.svg" id="1_hhcrt"]
+[ext_resource type="Script" uid="uid://cxv0k7ewrhtxh" path="res://resources/data/relics/trader_badge.gd" id="2_endpm"]
 
 [resource]
-script = ExtResource("1_2q1w1")
+script = ExtResource("2_endpm")
 relic_name = "Trader Badge"
 id = "trader_badge"
 type = 4
 character_type = 0
 starter_relic = false
-description = "All items in the shop are discounted by [b]50%%[/b]."
+icon = ExtResource("1_hhcrt")
+description = "All items in the shop are discounted by [b]50%[/b]."
 metadata/_custom_type_script = "uid://bub7h53ncapx2"

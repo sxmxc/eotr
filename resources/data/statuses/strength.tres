@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StrengthStatus" load_steps=3 format=3 uid="uid://b5k886aut8cq7"]
+
+[ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="1_xkb5y"]
+[ext_resource type="Script" uid="uid://g6a10bf4s0dd" path="res://resources/data/statuses/strength.gd" id="2_ooibm"]
+
+[resource]
+script = ExtResource("2_ooibm")
+id = "strength"
+type = 0
+stack_type = 1
+can_expire = false
+duration = 0
+stacks = 1
+icon = ExtResource("1_xkb5y")
+tooltip = "Does [b]%s[/b] more damage"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

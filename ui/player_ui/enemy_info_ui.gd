@@ -16,6 +16,13 @@ func _ready():
 	hide()
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if !visible:
+		return
+	if event.is_action_pressed("left_mouse") or event.is_action_pressed("right_mouse"):
+		hide()
+
+
 func _on_enemy_selected(enemy_stats: Enemy) -> void:
 	update_info(enemy_stats)
 	show()

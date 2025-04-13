@@ -39,9 +39,9 @@ signal world_message_requested(message: WorldMessageData)
 signal world_message_hide_requested
 
 # Shop-related events
-#signal shop_entered(shop: Shop)
-#signal shop_relic_bought(relic: Relic, gold_cost: int)
-#signal shop_card_bought(card: Card, gold_cost: int)
+signal shop_entered(shop: Shop)
+signal shop_relic_bought(relic: Relic, gold_cost: int)
+signal shop_card_bought(card: Card, gold_cost: int)
 signal shop_exited
 
 # rest zone events
@@ -51,5 +51,5 @@ signal rest_exited
 signal battle_reward_exited
 
 # Treasure Room & Relic-related events
-signal treasure_room_exited
+signal treasure_room_exited(relic: Relic)
 signal relic_tooltip_requested(relic: Relic)

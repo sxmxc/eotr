@@ -12,5 +12,6 @@ player_class_description = "Cybernetically enhanced warriors who rely on advance
 starting_deck = ExtResource("3_nfhtv")
 cards_per_turn = 4
 max_energy = 3
+view_range = 1
 max_health = 10
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"

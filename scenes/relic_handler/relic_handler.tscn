@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cryppjpfbefjn" path="res://scenes/relic_handler/relic_ui.tscn" id="4_dxoqm"]
 
 [node name="RelicHandler" type="HBoxContainer"]
-offset_right = 644.0
-offset_bottom = 64.0
+offset_right = 646.0
+offset_bottom = 105.0
 script = ExtResource("1_4mcmm")
 
 [node name="LeftButton" type="TextureButton" parent="."]
@@ -26,7 +26,7 @@ flip_h = true
 
 [node name="RelicsControl" type="Control" parent="." node_paths=PackedStringArray("left_button", "right_button")]
 clip_contents = true
-custom_minimum_size = Vector2(508, 100)
+custom_minimum_size = Vector2(510, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_dumv5")

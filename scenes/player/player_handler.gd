@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func start_battle(stats: PlayerStats) -> void:
 	player_stats = stats
-	player_stats.draw_pile = player_stats.deck.duplicate(true)
+	player_stats.draw_pile = player_stats.deck.deep_duplicate()
 	player_stats.draw_pile.shuffle()
 	player_stats.discard = CardPile.new()
 	relics.relics_activated.connect(_on_relics_activated)

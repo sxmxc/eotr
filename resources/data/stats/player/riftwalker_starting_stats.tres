@@ -19,5 +19,5 @@ cards_per_turn = 4
 max_energy = 3
 starting_relic = ExtResource("5_sqolq")
 view_range = 2
-max_health = 10
+max_health = 35
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"

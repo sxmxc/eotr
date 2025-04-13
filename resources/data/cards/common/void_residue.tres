@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Card" load_steps=2 format=3 uid="uid://dgcg3kih4nwdd"]
+
+[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_x0751"]
+
+[resource]
+script = ExtResource("1_x0751")
+card_type = 2
+target_type = 0
+id = "void_residue"
+name = "Void Residue"
+card_rarity = 0
+description = "Worthless absolute.
+[b]Exhaust[/b]"
+energy_cost = 1
+exhaust = true
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

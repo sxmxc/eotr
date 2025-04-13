@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnpltte715j68"]
+
+[ext_resource type="PackedScene" uid="uid://bti2nexuunus2" path="res://scenes/enemy/void_spectre/void_spectre_enemy.tscn" id="1_3np5r"]
+
+[node name="Tier2VoidSpectre" type="Node2D"]
+
+[node name="VoidSpectreEnemy" parent="." instance=ExtResource("1_3np5r")]

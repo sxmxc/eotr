@@ -4,6 +4,7 @@ extends Control
 @onready var relic_icon: TextureRect = %RelicIcon
 @onready var relic_description: RichTextLabel = %RelicDescription
 @onready var back_button: Button = %BackButton
+@onready var relic_name: Label = %RelicName
 
 
 func _ready() -> void:
@@ -22,6 +23,7 @@ func _on_gui_input(event: InputEvent) -> void:
 
 
 func show_tooltip(relic: Relic) -> void:
+	relic_name.text = relic.relic_name
 	relic_icon.texture = relic.icon
 	relic_description.text = relic.get_description()
 	show()

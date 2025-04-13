@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleStatsPool" load_steps=7 format=3 uid="uid://dn7lhxxxvlq28"]
+[gd_resource type="Resource" script_class="BattleStatsPool" load_steps=8 format=3 uid="uid://dn7lhxxxvlq28"]
 
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_68ltd"]
 [ext_resource type="Resource" uid="uid://wjslesdobwi1" path="res://resources/data/battles/tier_0_blobs.tres" id="2_0jcvh"]
@@ -6,8 +6,9 @@
 [ext_resource type="Resource" uid="uid://cy8o186l0hd35" path="res://resources/data/battles/tier_0_horrors.tres" id="3_cqy07"]
 [ext_resource type="Resource" uid="uid://ctac13ctpal1i" path="res://resources/data/battles/tier_1_blobs_horrors.tres" id="4_npa5p"]
 [ext_resource type="Resource" uid="uid://dah8jltex8gtv" path="res://resources/data/battles/tier_1_elite_horrors.tres" id="5_yiykm"]
+[ext_resource type="Resource" uid="uid://bcl5etedpnoss" path="res://resources/data/battles/tier_2_void_spectre.tres" id="6_cqy07"]
 
 [resource]
 script = ExtResource("2_pqskn")
-pool = Array[ExtResource("1_68ltd")]([ExtResource("2_0jcvh"), ExtResource("3_cqy07"), ExtResource("4_npa5p"), ExtResource("5_yiykm")])
+pool = Array[ExtResource("1_68ltd")]([ExtResource("2_0jcvh"), ExtResource("3_cqy07"), ExtResource("4_npa5p"), ExtResource("5_yiykm"), ExtResource("6_cqy07")])
 metadata/_custom_type_script = "uid://dkt0xxs746ued"

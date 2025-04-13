@@ -93,6 +93,7 @@ func _on_obilisk_destroyed() -> void:
 
 func _on_player_died() -> void:
 	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
+	SaveGame.delete_data()
 
 
 func _on_relics_activated(type: Enums.RelicType) -> void:

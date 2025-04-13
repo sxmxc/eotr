@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://8ojfyictvua2"]
+[gd_scene load_steps=6 format=3 uid="uid://8ojfyictvua2"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_mblkf"]
 [ext_resource type="Script" uid="uid://psj52cqsemc8" path="res://ui/world_ui/battle_over_panel.gd" id="2_dlsea"]
+[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="3_middh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5stc0"]
 bg_color = Color(0.294118, 0.239216, 0.266667, 0.345098)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dlsea"]
 font_size = 100
-font_color = Color(0.701961, 0.647059, 0.333333, 1)
+font_color = Color(0.54902, 0.670588, 0.631373, 1)
 
 [node name="BattleOverPanel" type="Panel"]
 process_mode = 3
@@ -45,6 +46,10 @@ label_settings = SubResource("LabelSettings_dlsea")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Bouncer" type="Node" parent="VBoxContainer/Label"]
+script = ExtResource("3_middh")
+metadata/_custom_type_script = "uid://c7wfd2um7frkt"
+
 [node name="ContinueButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
@@ -52,9 +57,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Continue"
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Restart"
+text = "Quit"
