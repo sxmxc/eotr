@@ -23,7 +23,7 @@ func update(run_stats: RunStats) -> void:
 		price_label.remove_theme_color_override("font_color")
 		buy_button.disabled = false
 	else:
-		price_label.add_theme_color_override("font_color", Color.RED)
+		price_label.add_theme_color_override("font_color", Colors.theme_critical)
 		buy_button.disabled = true
 
 

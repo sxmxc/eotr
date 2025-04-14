@@ -6,7 +6,7 @@ signal selected(map_node: MapNode)
 
 const ICONS := {
 	Enums.MapNodeType.NOT_ASSIGNED: [null, Vector2.ONE],
-	Enums.MapNodeType.MONSTER: [preload("res://assets/icons/portal.svg"), Vector2(0.1, 0.1)],
+	Enums.MapNodeType.MONSTER: [preload("res://assets/icons/rolling-energy.svg"), Vector2(0.1, 0.1)],
 	Enums.MapNodeType.TREASURE: [preload("res://assets/icons/chest.svg"), Vector2(0.1, 0.1)],
 	Enums.MapNodeType.REST: [preload("res://assets/icons/night-sleep.svg"), Vector2(0.1, 0.1)],
 	Enums.MapNodeType.SHOP: [preload("res://assets/icons/pay-money.svg"), Vector2(0.1, 0.1)],
@@ -40,7 +40,7 @@ func set_map_node(new_value: MapNode) -> void:
 
 
 func show_selected() -> void:
-	line_2d.modulate = Color.WHITE
+	line_2d.modulate = Colors.theme_light
 
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

@@ -28,11 +28,15 @@ monitorable = false
 shape = SubResource("RectangleShape2D_66gff")
 
 [node name="HexIndicator" type="Sprite2D" parent="."]
-self_modulate = Color(0.380392, 1, 0.262745, 0.580392)
+self_modulate = Color(0.701961, 0.647059, 0.333333, 0.713726)
+z_index = 2
 texture = SubResource("AtlasTexture_ws524")
 
 [node name="CircleIndicator" type="Sprite2D" parent="."]
-self_modulate = Color(0.380392, 1, 0.262745, 0.580392)
+self_modulate = Color(0.701961, 0.647059, 0.333333, 0.654902)
+z_index = 2
+position = Vector2(1.43051e-06, 1)
+scale = Vector2(1.125, 1.0625)
 texture = SubResource("AtlasTexture_gwqsc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -64,7 +64,7 @@ func _physics_process(_delta: float) -> void:
 
 				# Reset hex indicator
 				hex_indicator.hide()
-				hex_indicator.self_modulate = Color.hex(0x61ff4394)
+				hex_indicator.self_modulate = Colors.theme_highlight
 
 				# Simulate enter to new tile
 				var cell_tile_data = base_layer.get_cell_tile_data(current_hovered)
@@ -83,10 +83,10 @@ func _physics_process(_delta: float) -> void:
 							if !current_card.card.is_valid_target(
 								[current_tile_target], current_card.player_modifiers
 							):
-								hex_indicator.self_modulate = Color.RED
+								hex_indicator.self_modulate = Colors.theme_critical
 							else:
 								current_card.targets.append(current_tile_target)
-								hex_indicator.self_modulate = Color.hex(0x61ff4394)
+								hex_indicator.self_modulate = Colors.theme_success
 
 							# Always show the hex indicator
 							hex_indicator.show()
@@ -145,7 +145,7 @@ func _on_card_aim_ended(_card: CardUI) -> void:
 	if hex_indicator.visible:
 		hex_indicator.hide()
 		hex_indicator.position = Vector2.ZERO
-		hex_indicator.self_modulate = Color.hex(0x61ff4394)
+		hex_indicator.self_modulate = Colors.theme_highlight
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

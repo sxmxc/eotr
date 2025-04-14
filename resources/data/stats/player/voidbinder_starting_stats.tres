@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=4 format=3 uid="uid://c6rqvudx3k64e"]
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=5 format=3 uid="uid://c6rqvudx3k64e"]
 
 [ext_resource type="Texture2D" uid="uid://cvm3n0of18n35" path="res://assets/icons/wizard-face.svg" id="1_n411q"]
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="2_x5y4v"]
 [ext_resource type="Resource" uid="uid://b666sw4a8e67g" path="res://resources/data/card_piles/voidbinder_starting_deck.tres" id="3_a2uuv"]
+[ext_resource type="Resource" uid="uid://cfauwsp41tgk7" path="res://resources/data/relics/temporal_conduit.tres" id="4_x5y4v"]
 
 [resource]
 script = ExtResource("2_x5y4v")
@@ -12,6 +13,7 @@ player_class_description = "Sorcerers who use the Rift’s chaotic energies to w
 starting_deck = ExtResource("3_a2uuv")
 cards_per_turn = 4
 max_energy = 3
+starting_relic = ExtResource("4_x5y4v")
 view_range = 1
 max_health = 10
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"

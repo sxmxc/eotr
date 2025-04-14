@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=4 format=3 uid="uid://b6ij5882o3liy"]
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=5 format=3 uid="uid://b6ij5882o3liy"]
 
 [ext_resource type="Texture2D" uid="uid://b5fwi1h2q28bo" path="res://assets/icons/robot-helmet.svg" id="1_006r2"]
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="1_im602"]
 [ext_resource type="Resource" uid="uid://dtslrfsyrt0oq" path="res://resources/data/card_piles/synthforged_starting_dec.tres" id="3_nfhtv"]
+[ext_resource type="Resource" uid="uid://b3cnm8pclsxek" path="res://resources/data/relics/unstable_core.tres" id="4_l10xa"]
 
 [resource]
 script = ExtResource("1_im602")
@@ -12,6 +13,7 @@ player_class_description = "Cybernetically enhanced warriors who rely on advance
 starting_deck = ExtResource("3_nfhtv")
 cards_per_turn = 4
 max_energy = 3
+starting_relic = ExtResource("4_l10xa")
 view_range = 1
 max_health = 10
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"

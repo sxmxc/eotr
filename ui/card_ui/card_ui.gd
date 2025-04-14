@@ -60,14 +60,16 @@ func play() -> void:
 
 
 func get_active_enemy_modifiers() -> ModifierHandler:
-	if (
-		not is_instance_valid(targets)
-		or targets.is_empty()
-		or targets.size() > 1
-		or not targets[0] is Enemy
-	):
+	if targets.is_empty():
+		print("Targets is empty")
 		return null
-
+	elif targets.size() > 1:
+		print("More than 1 target")
+		return null
+	elif not targets[0] is Enemy:
+		print("Target 0 not enemy")
+		return null
+	print("Valid target with modifiers found")
 	return targets[0].modifier_handler
 
 

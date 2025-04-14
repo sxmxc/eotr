@@ -1,10 +1,10 @@
 class_name Card
 extends Resource
 
-const RARITY_COLORS := {
-	Enums.CardRarity.COMMON: Color.GRAY,
-	Enums.CardRarity.UNCOMMON: Color.CORNFLOWER_BLUE,
-	Enums.CardRarity.RARE: Color.GOLD
+static var RARITY_COLORS := {
+	Enums.CardRarity.COMMON: Colors.rarity_common,
+	Enums.CardRarity.UNCOMMON: Colors.rarity_uncommon,
+	Enums.CardRarity.RARE: Colors.rarity_rare
 }
 
 @export_group("Card Attributes")

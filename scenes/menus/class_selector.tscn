@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://d4jvkhe7x27s0"]
+[gd_scene load_steps=30 format=3 uid="uid://d4jvkhe7x27s0"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_waix3"]
 [ext_resource type="Script" uid="uid://cyu764cjss5qf" path="res://scenes/menus/class_selector.gd" id="2_b072o"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="3_waix3"]
 [ext_resource type="Texture2D" uid="uid://b5fwi1h2q28bo" path="res://assets/icons/robot-helmet.svg" id="4_0mac8"]
 [ext_resource type="Texture2D" uid="uid://cvm3n0of18n35" path="res://assets/icons/wizard-face.svg" id="5_b072o"]
+[ext_resource type="Texture2D" uid="uid://dchgja3jf6gtn" path="res://assets/icons/cowled (1).svg" id="6_dciuy"]
+[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="6_erq25"]
+[ext_resource type="Texture2D" uid="uid://dd5we27x8cce5" path="res://assets/icons/robot-helmet (1).svg" id="7_t76dm"]
+[ext_resource type="Texture2D" uid="uid://crmgloxridjnu" path="res://assets/icons/wizard-face (1).svg" id="9_gqhok"]
 
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
 colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)
@@ -19,15 +23,14 @@ font_size = 50
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_waix3"]
 texture = ExtResource("3_waix3")
-modulate_color = Color(0.617777, 1, 0.533526, 1)
+modulate_color = Color(0.54902, 0.670588, 0.631373, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0iar"]
+texture = ExtResource("6_dciuy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b072o"]
 texture = ExtResource("3_waix3")
 modulate_color = Color(0.467188, 0.467188, 0.467188, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_erq25"]
-texture = ExtResource("3_waix3")
-modulate_color = Color(0.617777, 1, 0.533526, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0mac8"]
 texture = ExtResource("3_waix3")
@@ -36,12 +39,8 @@ texture = ExtResource("3_waix3")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8i2et"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_erq25"]
-load_path = "res://.godot/imported/robot-helmet.svg-222432f9180f8310991657ab3e10c119.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yal2t"]
-texture = SubResource("CompressedTexture2D_erq25")
-modulate_color = Color(0.275781, 0.275781, 0.275781, 1)
+texture = ExtResource("7_t76dm")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t76dm"]
 texture = ExtResource("4_0mac8")
@@ -56,12 +55,8 @@ texture = ExtResource("4_0mac8")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_erq25"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8i2et"]
-load_path = "res://.godot/imported/wizard-face.svg-1599609b47723e6b4ef669f23d66fc4b.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dhrcn"]
-texture = SubResource("CompressedTexture2D_8i2et")
-modulate_color = Color(0.25625, 0.25625, 0.25625, 1)
+texture = ExtResource("9_gqhok")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lop4v"]
 texture = ExtResource("5_b072o")
@@ -169,13 +164,23 @@ text = "Explorers attuned to the Rift’s unstable energies. They balance both m
 fit_content = true
 horizontal_alignment = 1
 
+[node name="StartingRelicLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Starting Relic: Phase Key"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(0, 335)
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 100
 alignment = 1
 
@@ -185,12 +190,18 @@ custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/focus = SubResource("StyleBoxTexture_waix3")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_v0iar")
 theme_override_styles/hover = SubResource("StyleBoxTexture_b072o")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_erq25")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_waix3")
 theme_override_styles/normal = SubResource("StyleBoxTexture_0mac8")
 toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_b072o")
+
+[node name="Bouncer" type="Node" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton"]
+unique_name_in_owner = true
+script = ExtResource("6_erq25")
+metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
 [node name="SynthforgeButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
 unique_name_in_owner = true

@@ -1,10 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://b5nsik7o77yuu"]
 
-[ext_resource type="Texture2D" uid="uid://ddxqogw3lxtvj" path="res://assets/icons/millenium-key.svg" id="1_awfxf"]
+[ext_resource type="Texture2D" uid="uid://tji3ah2twswn" path="res://assets/icons/cross-flare.svg" id="1_awfxf"]
 [ext_resource type="Script" uid="uid://drxskaarkb2x1" path="res://resources/data/relics/phase_key.gd" id="2_awfxf"]
 
 [resource]
 script = ExtResource("2_awfxf")
+stacks = 1
 relic_name = "Phase Key"
 id = "phase_key"
 type = 1
