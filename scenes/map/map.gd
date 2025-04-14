@@ -5,11 +5,12 @@ const SCROLL_SPEED := 15
 const MAP_NODE_UI_SCENE = preload("res://scenes/map/map_node_ui.tscn")
 const MAP_NODE_LINE_SCENE = preload("res://scenes/map/map_node_line.tscn")
 
-@onready var visuals: Node2D = $Visuals
+@onready var visuals: Node2D = %Visuals
 @onready var lines: Node2D = %Lines
 @onready var map_nodes: Node2D = %MapNodes
-@onready var camera_2d: Camera2D = $Camera2D
+@onready var camera_2d: Camera2D = %Camera2D
 @onready var map_generator: MapGenerator = $MapGenerator
+@onready var ui_layer: CanvasLayer = $UILayer
 
 var map_data: Array[Array]
 var floors_climbed: int
@@ -77,11 +78,13 @@ func unlock_next_map_node() -> void:
 
 func show_map() -> void:
 	show()
+	ui_layer.show()
 	camera_2d.enabled = true
 
 
 func hide_map() -> void:
 	hide()
+	ui_layer.hide()
 	camera_2d.enabled = false
 
 

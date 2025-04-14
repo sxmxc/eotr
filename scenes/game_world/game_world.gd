@@ -29,11 +29,12 @@ func _ready():
 	Events.player_died.connect(_on_player_died)
 	Events.obilisk_destroyed.connect(_on_obilisk_destroyed)
 
-	tilemap.generate_tilemap()
+	
 
 
 func start_world() -> void:
 	get_tree().paused = false
+	tilemap.generate_tilemap(battle_stats)
 
 	game_world_ui.player_stats = player_stats
 	player.stats = player_stats

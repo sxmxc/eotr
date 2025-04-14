@@ -37,7 +37,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 

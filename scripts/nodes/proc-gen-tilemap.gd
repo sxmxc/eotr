@@ -72,11 +72,13 @@ func weighted_random_tile() -> Enums.TileType:
 	return Enums.TileType.RESOURCE  # Fallback (should never happen)
 
 
-func generate_tilemap():
+func generate_tilemap(battle_stats: BattleStats):
 	base_layer.clear()
 	fog_layer.clear()
 	tile_map_data.clear()
 	fog_state.clear()
+	map_height = battle_stats.battle_field_height
+	map_width = battle_stats.battle_field_width
 
 	for x in range(map_width):
 		for y in range(map_height):

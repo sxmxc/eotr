@@ -12,4 +12,6 @@ gold_reward_max = 81
 resource_reward_min = 3
 resource_reward_max = 5
 enemies = ExtResource("1_0en70")
+battle_field_width = 25
+battle_field_height = 25
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

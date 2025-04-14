@@ -18,15 +18,11 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 @onready var resources_ui: ResourceUI = %ResourcesUI
 @onready var deck_button: CardPileButton = %DeckButton
 @onready var deck_view: CardPileView = %DeckView
-@onready var map_button: Button = %MapButton
-@onready var game_world_button: Button = %GameWorldButton
-@onready var shop_button: Button = %ShopButton
-@onready var treasure_button: Button = %TreasureButton
-@onready var rewards_button: Button = %RewardsButton
-@onready var campfire_button: Button = %CampfireButton
 @onready var relic_handler: RelicHandler = %RelicHandler
 @onready var relic_tooltip: RelicTooltip = %RelicTooltip
 @onready var pause_menu: PauseMenu = $PauseMenu
+@onready var map_legend: CanvasLayer = $MapLegendUI
+
 
 var run_stats: RunStats
 var player_stats: PlayerStats
@@ -112,6 +108,7 @@ func _show_map() -> void:
 
 	map.show_map()
 	map.unlock_next_map_node()
+	map_legend.show()
 	_save_run(true)
 
 
@@ -122,13 +119,6 @@ func _setup_event_connections() -> void:
 	Events.map_exited.connect(_on_map_exited)
 	Events.shop_exited.connect(_show_map)
 	Events.treasure_room_exited.connect(_on_treasure_room_exited)
-
-	map_button.pressed.connect(_show_map)
-	game_world_button.pressed.connect(_on_game_world_entered)
-	shop_button.pressed.connect(_change_view.bind(SHOP_SCENE))
-	treasure_button.pressed.connect(_change_view.bind(TREASURE_SCENE))
-	rewards_button.pressed.connect(_change_view.bind(BATTLE_REWARDS_SCENE))
-	campfire_button.pressed.connect(_change_view.bind(REST_SCENE))
 
 	if not LimboConsole.has_command("yeet_em_all"):
 		LimboConsole.register_command(_destroy_all_enemies, "yeet_em_all", "Destroy all enemies")
@@ -206,6 +196,7 @@ func _on_shop_entered() -> void:
 
 
 func _on_map_exited(map_node: MapNode) -> void:
+	map_legend.hide()
 	_save_run(false)
 
 	match map_node.type:

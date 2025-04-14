@@ -8,6 +8,8 @@ class_name BattleStats
 @export var resource_reward_min: int
 @export var resource_reward_max: int
 @export var enemies: PackedScene
+@export var battle_field_width: int
+@export var battle_field_height: int
 
 var accumlated_weight: float = 0.0
 
