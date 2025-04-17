@@ -18,7 +18,7 @@ jobs:
   # This job runs first to establish version information used by all build jobs
   set-version:
     name: Set Version
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     outputs:
       version: ${{ steps.get_version.outputs.version }}
       build_name: ${{ steps.get_version.outputs.build_name }}
@@ -54,7 +54,7 @@ jobs:
   export-windows:
     needs: set-version
     name: Windows Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
       image: barichello/godot-ci:4.4.1
     env:
@@ -86,7 +86,7 @@ jobs:
   export-linux:
     needs: set-version
     name: Linux Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
       image: barichello/godot-ci:4.4.1
     env:
