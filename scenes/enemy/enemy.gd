@@ -11,6 +11,8 @@ const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_ma
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var status_handler: StatusHandler = $StatusHandler
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
+@onready var token_shine_effect: VisualFX = %TokenShineEffect
+@onready var phantom_camera_2d: PhantomCamera2D = %PhantomCamera2D
 
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action

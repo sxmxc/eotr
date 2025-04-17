@@ -46,7 +46,6 @@ func set_movement_target(movement_target: Vector2i):
 		var world_target: Vector2 = tilemap.base_layer.map_to_local(movement_target)
 		navigation_agent_2d.target_position = world_target
 		is_moving = true
-		#await get_tree().process_frame
 
 
 func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
@@ -54,11 +53,19 @@ func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
 		return Vector2i(-1, -1)  # Return an invalid tile position
 
 	var player_tile_pos: Vector2i = get_player_tile_position()
-	var surrounding_cells: Array[Vector2i] = tilemap.base_layer.get_surrounding_cells(
-		player_tile_pos
+	var surrounding_cells: Array[Vector2i] = tilemap.base_layer.get_surrounding_cells(player_tile_pos)
+
+	# Filter to only free tiles
+	var free_tiles: Array[Vector2i] = surrounding_cells.filter(func(tile):
+		return tilemap.is_tile_free(tile)
 	)
-	var rand_idx = RNG.instance.randi_range(0, surrounding_cells.size() - 1)
-	var world_target_pos: Vector2 = tilemap.base_layer.map_to_local(surrounding_cells[rand_idx])
+
+	if free_tiles.is_empty():
+		return Vector2i(-1, -1)  # No valid tiles, return early
+
+	# Pick a random free tile
+	var rand_tile: Vector2i = RNG.array_pick_random(free_tiles)
+	var world_target_pos: Vector2 = tilemap.base_layer.map_to_local(rand_tile)
 
 	navigation_agent_2d.target_position = world_target_pos
 
@@ -66,11 +73,26 @@ func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
 	await get_tree().process_frame
 	var path: PackedVector2Array = navigation_agent_2d.get_current_navigation_path()
 
-	if path.is_empty():
-		return Vector2i(-1, -1)  # Return an invalid tile position
+	if path.is_empty() or path.size() < 2:
+		return Vector2i(-1, -1)
+
+	# Calculate next tile from path
 	var offset = 8
 	var next_offset_pos = path[1] + (position.direction_to(world_target_pos) * offset)
 	var next_tile_pos: Vector2i = tilemap.base_layer.local_to_map(next_offset_pos)
+	if not tilemap.is_tile_free(next_tile_pos):
+		var surrounding_tiles: Array[Vector2i] = tilemap.base_layer.get_surrounding_cells(current_tile_position)
+
+		# Filter to only free tiles
+		var next_free_tiles: Array[Vector2i] = surrounding_tiles.filter(func(tile):
+			return tilemap.is_tile_free(tile)
+		)
+
+		if next_free_tiles.is_empty():
+			return Vector2i(-1, -1)
+		
+		var rand_next_tile: Vector2i = RNG.array_pick_random(next_free_tiles)
+		return rand_next_tile
 
 	return next_tile_pos
 

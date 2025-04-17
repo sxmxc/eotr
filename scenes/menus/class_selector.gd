@@ -27,12 +27,14 @@ func set_current_stats(stats: PlayerStats) -> void:
 	starting_relic_label.text = "Starting Relic: %s" % current_stats.starting_relic.relic_name
 
 func _on_start_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	run_bootstrap.type = RunBootstrap.Type.NEW_RUN
 	run_bootstrap.selected_player_class = current_stats
 	get_tree().change_scene_to_packed(RUN_SCENE)
 
 
 func _on_riftwalker_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	current_stats = RIFTWALKER_STATS
 	if bouncer.get_parent() != riftwalker_button:
 		bouncer.reparent(riftwalker_button)
@@ -40,6 +42,7 @@ func _on_riftwalker_button_pressed() -> void:
 
 
 func _on_synthforge_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	current_stats = SYNTHFORGED_STATS
 	if bouncer.get_parent() != synthforge_button:
 		bouncer.reparent(synthforge_button)
@@ -47,6 +50,7 @@ func _on_synthforge_button_pressed() -> void:
 
 
 func _on_voidbinder_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	current_stats = VOIDBINDER_STATS
 	if bouncer.get_parent() != voidbinder_button:
 		bouncer.reparent(voidbinder_button)

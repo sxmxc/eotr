@@ -64,3 +64,11 @@ func get_modified_description(
 		description
 		% player_modifiers.get_modified_value(movement_distance, Enums.ModifierType.MOVEMENT)
 	)
+
+func is_card_modified(player_modifiers: ModifierHandler) -> bool:
+	var modified_movement := player_modifiers.get_modified_value(
+		movement_distance,  Enums.ModifierType.MOVEMENT
+	)
+	if modified_movement != movement_distance:
+		return true
+	return false

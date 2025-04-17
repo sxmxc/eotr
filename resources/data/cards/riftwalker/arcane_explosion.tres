@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://mwuybg2ka21n"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://mwuybg2ka21n"]
 
 [ext_resource type="Script" uid="uid://8yngjq0jkktj" path="res://resources/data/cards/riftwalker/arcane_explosion.gd" id="1_vpsgj"]
 [ext_resource type="AudioStream" uid="uid://bfrbaimdsqm2n" path="res://assets/audio/launches/rlaunch.wav" id="2_lf5nt"]
+[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="3_0a2cj"]
 
 [resource]
 script = ExtResource("1_vpsgj")
@@ -14,4 +15,5 @@ description = "Deal [b]%s[/b] damage to [b]surrounding[/b] enemies"
 energy_cost = 3
 exhaust = false
 sound_fx = ExtResource("2_lf5nt")
+visual_fx = ExtResource("3_0a2cj")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

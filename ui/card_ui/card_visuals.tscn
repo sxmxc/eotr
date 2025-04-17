@@ -1,7 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfupsllnox0ix"]
+[gd_scene load_steps=8 format=3 uid="uid://bfupsllnox0ix"]
 
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
+[ext_resource type="Shader" uid="uid://cy0ljmw8dfwny" path="res://resources/materials/dark_noise_vignette.gdshader" id="3_2pg18"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ky3w4"]
+shader = ExtResource("3_2pg18")
+shader_parameter/radius = 0.535
+shader_parameter/speed = 1.0
+shader_parameter/effect_color = Color(0.47451, 0.266667, 0.290196, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vqvlo"]
 font_color = Color(0.294118, 0.239216, 0.266667, 1)
@@ -54,6 +61,17 @@ use_parent_material = true
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"CardPanelSecondary"
+
+[node name="CardBoostedEffect" type="ColorRect" parent="MainMargin/BackgroundPanel"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_ky3w4")
+layout_mode = 2
+offset_right = 172.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="CardCostLabel" type="Label" parent="MainMargin/BackgroundPanel"]
 unique_name_in_owner = true

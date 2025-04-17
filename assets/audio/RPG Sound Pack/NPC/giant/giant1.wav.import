@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cvu6p7dldyk44"
+path="res://.godot/imported/giant1.wav-2965a62f1f7af49d9dd98217ae3c97de.sample"
+
+[deps]
+
+source_file="res://assets/audio/RPG Sound Pack/NPC/giant/giant1.wav"
+dest_files=["res://.godot/imported/giant1.wav-2965a62f1f7af49d9dd98217ae3c97de.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

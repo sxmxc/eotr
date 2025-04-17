@@ -1,10 +1,11 @@
-[gd_scene load_steps=40 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=46 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="1_tqoos"]
 [ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="3_0jtfi"]
-[ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="4_mq2xb"]
+[ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="3_bumdp"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_bumdp"]
 [ext_resource type="Script" uid="uid://c5kyjbsoeaeq1" path="res://ui/debug_ui.gd" id="5_cmh4g"]
 [ext_resource type="PackedScene" uid="uid://ct8j6u4avyd2y" path="res://scenes/player/player.tscn" id="5_dlaip"]
 [ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="6_ph1f2"]
@@ -19,6 +20,8 @@
 [ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="13_wek56"]
 [ext_resource type="Script" uid="uid://bj3gfx8l4ra88" path="res://ui/world_ui/game_world_ui.gd" id="13_y5rsn"]
 [ext_resource type="Resource" uid="uid://d3x2ax43x8lji" path="res://scenes/enemy/blob/blob_enemy.tres" id="14_7fs1y"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="16_qc6v1"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="17_lorak"]
 [ext_resource type="PackedScene" uid="uid://dg8i01hcrxwwd" path="res://ui/player_ui/tile_info.tscn" id="19_mf52o"]
 [ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="20_g06lf"]
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="20_g7x0y"]
@@ -32,14 +35,19 @@
 [ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
+[ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
 
+[sub_resource type="Resource" id="Resource_ht6dc"]
+script = ExtResource("17_lorak")
+duration = 1.0
+transition = 0
+ease = 2
+
 [sub_resource type="LabelSettings" id="LabelSettings_0br8l"]
 font_size = 40
-
-[sub_resource type="LabelSettings" id="LabelSettings_g06lf"]
-font_size = 40
+font_color = Color(0.823529, 0.788235, 0.647059, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arcjp"]
 content_margin_left = 5.0
@@ -59,6 +67,16 @@ bg_color = Color(0.294118, 0.239216, 0.266667, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhwwd"]
 size = Vector2(1924, 699)
 
+[sub_resource type="Gradient" id="Gradient_xw31r"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0.47451, 0.266667, 0.290196, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3kc8b"]
+gradient = SubResource("Gradient_xw31r")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
@@ -66,9 +84,15 @@ metadata/_edit_vertical_guides_ = [1876.0]
 metadata/_edit_horizontal_guides_ = [112.0]
 
 [node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
-script = ExtResource("4_mq2xb")
-min_zoom = 5.0
-max_zoom = 1.0
+position = Vector2(944, 400)
+zoom = Vector2(3, 3)
+script = ExtResource("3_bumdp")
+
+[node name="PhantomCameraHost" type="Node" parent="MapCamera"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("4_bumdp")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Tilemap" type="Node2D" parent="." groups=["map_layer"]]
 script = ExtResource("1_3wu0g")
@@ -102,6 +126,17 @@ player_hand = NodePath("../GameWorldUI/PlayerUI/Hand")
 [node name="Player" parent="." node_paths=PackedStringArray("stats_ui", "status_handler") instance=ExtResource("5_dlaip")]
 stats_ui = NodePath("../GameWorldUI/PlayerUI/Stats")
 status_handler = NodePath("../GameWorldUI/PlayerUI/StatusHandler")
+
+[node name="PhantomCamera2D" type="Node2D" parent="Player" node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("16_qc6v1")
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(3, 3)
+tween_resource = SubResource("Resource_ht6dc")
+tween_on_load = false
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="CardTargetSelector" parent="." instance=ExtResource("6_ph1f2")]
 
@@ -161,9 +196,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = -2.0
-offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -252,7 +284,7 @@ offset_top = 80.0
 offset_right = 46.0
 offset_bottom = 135.0
 text = "99"
-label_settings = SubResource("LabelSettings_g06lf")
+label_settings = SubResource("LabelSettings_0br8l")
 horizontal_alignment = 1
 
 [node name="MapUI" type="Control" parent="GameWorldUI"]
@@ -309,32 +341,40 @@ offset_top = 896.0
 offset_right = -384.0
 offset_bottom = 1018.0
 
-[node name="WorldMessage" parent="GameWorldUI" instance=ExtResource("25_g06lf")]
-anchors_preset = 5
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_left = 336.0
-offset_top = 112.0
-offset_right = 750.0
-offset_bottom = 234.0
-grow_vertical = 1
+[node name="WorldMessageContainer" parent="GameWorldUI" instance=ExtResource("30_xw31r")]
+offset_top = 115.0
+offset_bottom = -394.0
 
-[node name="Effects" type="CanvasLayer" parent="."]
-layer = 2
+[node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("25_g06lf")]
+layout_mode = 2
 
-[node name="RedFlash" type="ColorRect" parent="Effects"]
+[node name="Effects" type="CanvasLayer" parent="." groups=["fx_layer"]]
+layer = 4
+
+[node name="RedFlash" type="TextureRect" parent="Effects"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.47451, 0.266667, 0.290196, 0)
+texture = SubResource("GradientTexture2D_3kc8b")
 script = ExtResource("33_hgfka")
 
 [node name="Timer" type="Timer" parent="Effects/RedFlash"]
 wait_time = 0.1
 one_shot = true
+
+[node name="ProjectileStart" type="Control" parent="Effects" groups=["projectile_start"]]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 784.0
+offset_bottom = 784.0
+grow_horizontal = 2
 
 [node name="BattleOverLayer" type="CanvasLayer" parent="."]
 layer = 5

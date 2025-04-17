@@ -1,0 +1,164 @@
+[gd_scene load_steps=22 format=3 uid="uid://b26pgaeesc2u2"]
+
+[ext_resource type="Script" uid="uid://chiqijepcu5b3" path="res://ui/fx/spark_fx.gd" id="1_56bra"]
+[ext_resource type="Texture2D" uid="uid://ckxhm3rq8lcnn" path="res://assets/spritesheets/spark_fx.png" id="2_0pqfg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_32qx2"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_py1fm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eskjs"]
+curve = SubResource("Curve_py1fm")
+
+[sub_resource type="Curve" id="Curve_4rgs2"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ckmc5"]
+curve = SubResource("Curve_4rgs2")
+
+[sub_resource type="Gradient" id="Gradient_sgda6"]
+interpolation_mode = 2
+colors = PackedColorArray(0.701961, 0.647059, 0.333333, 1, 0.823529, 0.788235, 0.647059, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bw2co"]
+gradient = SubResource("Gradient_sgda6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_blw0q"]
+lifetime_randomness = 1.0
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_max = 1000.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+scale_min = 0.05
+scale_max = 0.05
+color_ramp = SubResource("GradientTexture1D_bw2co")
+alpha_curve = SubResource("CurveTexture_eskjs")
+anim_speed_min = 1.0
+anim_speed_max = 16.0
+anim_speed_curve = SubResource("CurveTexture_ckmc5")
+turbulence_initial_displacement_min = 1.49012e-06
+turbulence_initial_displacement_max = 1.49012e-06
+sub_emitter_mode = 1
+sub_emitter_frequency = 100.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_56bra"]
+load_path = "res://.godot/imported/spark_fx.png-51c7ba73223e0334841d27a5f52a69d9.ctex"
+
+[sub_resource type="Curve" id="Curve_htrsy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_empqj"]
+curve = SubResource("Curve_htrsy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0pqfg"]
+lifetime_randomness = 1.0
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_max = 1000.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+scale_min = 0.25
+scale_max = 0.25
+scale_curve = SubResource("CurveTexture_empqj")
+color_ramp = SubResource("GradientTexture1D_bw2co")
+alpha_curve = SubResource("CurveTexture_eskjs")
+anim_speed_min = 1.0
+anim_speed_max = 16.0
+anim_speed_curve = SubResource("CurveTexture_ckmc5")
+turbulence_initial_displacement_min = 1.49012e-06
+turbulence_initial_displacement_max = 1.49012e-06
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 20
+
+[sub_resource type="Curve" id="Curve_56bra"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0pqfg"]
+curve = SubResource("Curve_56bra")
+
+[sub_resource type="Gradient" id="Gradient_56bra"]
+offsets = PackedFloat32Array(0, 0.782609)
+colors = PackedColorArray(0.701961, 0.647059, 0.333333, 1, 0.823529, 0.788235, 0.647059, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0pqfg"]
+gradient = SubResource("Gradient_56bra")
+
+[sub_resource type="Curve" id="Curve_32qx2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_py1fm"]
+curve = SubResource("Curve_32qx2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eskjs"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_py1fm")
+color_ramp = SubResource("GradientTexture1D_0pqfg")
+alpha_curve = SubResource("CurveTexture_0pqfg")
+sub_emitter_mode = 4
+sub_emitter_amount_at_start = 1
+sub_emitter_keep_velocity = true
+
+[node name="SparkFX" type="Node2D"]
+z_index = 1
+script = ExtResource("1_56bra")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_32qx2")
+emitting = false
+amount = 100
+texture = ExtResource("2_0pqfg")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-3489.71, -3763.78, 7024.88, 7309.21)
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_blw0q")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+visible = false
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_32qx2")
+emitting = false
+amount = 100
+texture = SubResource("CompressedTexture2D_56bra")
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-3489.71, -3763.78, 7024.88, 7309.21)
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_0pqfg")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 500
+sub_emitter = NodePath("../GPUParticles2D")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_eskjs")

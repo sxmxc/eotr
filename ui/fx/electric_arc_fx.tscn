@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://wes3rheva03s"]
+
+[ext_resource type="Material" uid="uid://b6qpfpmoyx7tk" path="res://resources/materials/electric_arc.tres" id="1_yklf6"]
+[ext_resource type="Script" uid="uid://6dtnuwj3xtoe" path="res://ui/fx/electric_arc_fx.gd" id="2_eph71"]
+
+[node name="ElectricArcFX" type="Line2D"]
+show_behind_parent = true
+material = ExtResource("1_yklf6")
+width = 50.0
+texture_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("2_eph71")

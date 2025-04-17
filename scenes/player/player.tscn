@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct8j6u4avyd2y"]
+[gd_scene load_steps=8 format=3 uid="uid://ct8j6u4avyd2y"]
 
 [ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="2_dovo2"]
 [ext_resource type="AudioStream" uid="uid://b78ygjjoapugw" path="res://assets/audio/kenney_casino/chip-lay-1.ogg" id="2_p47bc"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="3_lvxji"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="4_75vfm"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="4_p47bc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
@@ -18,7 +19,12 @@ y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_dovo2")
 
+[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("4_75vfm")]
+unique_name_in_owner = true
+visible = false
+
 [node name="Area2D" type="Area2D" parent="."]
+show_behind_parent = true
 collision_layer = 8
 collision_mask = 2
 

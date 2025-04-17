@@ -221,4 +221,5 @@ class AutoExportVersionExporter:
 			return
 
 		var version: String = plugin.get_version(features, is_debug, path, flags)
-		plugin.store_version(version, plugin.STORE_LOCATION)
+		var build : String = plugin.get_build(PackedStringArray(), true, "", 0)
+		plugin.store_version(version, build, plugin.STORE_LOCATION)

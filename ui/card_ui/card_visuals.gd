@@ -9,6 +9,9 @@ class_name CardVisuals
 @onready var card_type_label: Label = %CardTypeLabel
 @onready var card_text_label: RichTextLabel = %CardTextLabel
 @onready var rarity: TextureRect = %Rarity
+@onready var card_boosted_effect: ColorRect = %CardBoostedEffect
+
+var player_modifiers: ModifierHandler
 
 func set_card(value: Card) -> void:
 	if not is_node_ready():
@@ -20,3 +23,4 @@ func set_card(value: Card) -> void:
 	card_type_label.text = Enums.CardType.keys()[card.card_type].capitalize()
 	card_text_label.text = str(card.description)
 	rarity.modulate = Card.RARITY_COLORS[card.card_rarity]
+	

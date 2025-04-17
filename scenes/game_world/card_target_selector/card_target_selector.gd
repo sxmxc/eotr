@@ -12,6 +12,7 @@ var targeting := false
 var current_tile_target: TilemapTarget = null
 
 
+
 func _ready() -> void:
 	hex_indicator.hide()
 	circle_indicator.hide()
@@ -28,6 +29,7 @@ func _physics_process(_delta: float) -> void:
 
 	# Update card arc
 	card_arc.points = _get_points()
+	
 
 	# Manual collision detection against the tilemap
 	if targeting and current_card.card.target_type == Enums.TargetType.SINGLE_TILE:
@@ -53,12 +55,9 @@ func _physics_process(_delta: float) -> void:
 			# If tile changed, handle exit and enter
 			if current_hovered != last_hovered:
 				# Clean up previous target if it exists
-				if (
-					current_tile_target != null
-					and current_card
-					and current_card.targets.has(current_tile_target)
-				):
-					current_card.targets.erase(current_tile_target)
+				if (current_tile_target != null and current_card):
+					if current_card.targets.has(current_tile_target):
+						current_card.targets.erase(current_tile_target)
 					current_tile_target.queue_free()
 					current_tile_target = null
 
@@ -137,8 +136,10 @@ func _on_card_aim_ended(_card: CardUI) -> void:
 	area_2d.position = Vector2.ZERO
 	area_2d.monitoring = false
 	area_2d.monitorable = false
-	current_tile_target = null
 	current_card = null
+	if current_tile_target:
+		current_tile_target.queue_free()
+		current_tile_target = null
 	if circle_indicator.visible:
 		circle_indicator.hide()
 		circle_indicator.position = Vector2.ZERO

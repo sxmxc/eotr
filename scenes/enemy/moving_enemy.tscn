@@ -1,25 +1,31 @@
-[gd_scene load_steps=13 format=3 uid="uid://ypq2eyjf2e5m"]
+[gd_scene load_steps=18 format=3 uid="uid://ypq2eyjf2e5m"]
 
 [ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_0shhr"]
-[ext_resource type="Texture2D" uid="uid://cah7i6k574e1j" path="res://assets/icons/gluttony.png" id="2_4omhe"]
-[ext_resource type="Theme" uid="uid://bb06r68q304st" path="res://resources/themes/enemy_stats_theme.tres" id="3_twcqd"]
+[ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_m8tji"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_m8tji"]
 [ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="4_4851w"]
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="4_xaxy3"]
 [ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="5_knvft"]
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="6_m8tji"]
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="7_4omhe"]
 [ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="8_twcqd"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_knvft"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_m8tji"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_tmm2i"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_fri0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyepb"]
-bg_color = Color(0.517647, 0.470588, 0.458824, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tmm2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fri0r"]
+
+[sub_resource type="Resource" id="Resource_bydut"]
+script = ExtResource("13_fri0r")
+duration = 1.0
+transition = 0
+ease = 2
 
 [node name="MovingEnemy" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy"]]
 script = ExtResource("1_0shhr")
@@ -28,7 +34,12 @@ stats_ui = NodePath("EnemyStatsUI")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
-texture = ExtResource("2_4omhe")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_m8tji")
+
+[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("3_m8tji")]
+unique_name_in_owner = true
+visible = false
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
@@ -38,11 +49,20 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_xxaiy")
 
 [node name="EnemyStatsUI" type="Panel" parent="."]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -42.0
-offset_top = -37.0
+offset_top = -11.0
 offset_right = 42.0
-offset_bottom = -15.0
-theme = ExtResource("3_twcqd")
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_xaxy3")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tmm2i")
 script = ExtResource("4_4851w")
 
 [node name="MainMargin" type="MarginContainer" parent="EnemyStatsUI"]
@@ -59,7 +79,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="Panel" type="Panel" parent="EnemyStatsUI/MainMargin"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oyepb")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fri0r")
 
 [node name="BodyMargin" type="MarginContainer" parent="EnemyStatsUI/MainMargin/Panel"]
 layout_mode = 1
@@ -96,6 +116,7 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_font_sizes/font_size = 16
 text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -119,6 +140,7 @@ stretch_mode = 5
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_font_sizes/font_size = 16
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -132,10 +154,14 @@ path_postprocessing = 1
 [node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("7_4omhe")]
 z_index = 1
 custom_minimum_size = Vector2(16, 16)
-offset_left = 9.0
-offset_top = -8.0
-offset_right = 25.0
-offset_bottom = 8.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_vertical = 2
+columns = 1
 status_owner = NodePath("..")
 status_icon_size = 16
 quantity_label_settings = ExtResource("8_twcqd")
@@ -146,3 +172,13 @@ quantity_label_settings = ExtResource("8_twcqd")
 
 [node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_m8tji")]
 type = 1
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("12_tmm2i")
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(3, 3)
+tween_resource = SubResource("Resource_bydut")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

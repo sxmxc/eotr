@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cy0ef8jv2c0vk"]
+
+[ext_resource type="Shader" uid="uid://bid8s5fttyww1" path="res://resources/materials/highlighter.gdshader" id="1_dfapo"]
+[ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="2_gkdcr"]
+
+[resource]
+shader = ExtResource("1_dfapo")
+shader_parameter/Line_Smoothness = 0.045
+shader_parameter/Line_Width = 0.09
+shader_parameter/Brightness = 3.0
+shader_parameter/Rotation_deg = 30.0
+shader_parameter/Distortion = 1.8
+shader_parameter/Speed = 0.0
+shader_parameter/Position = 0.0
+shader_parameter/Position_Min = 0.25
+shader_parameter/Position_Max = 0.5
+shader_parameter/Alpha = 1.0
+shader_parameter/surface = ExtResource("2_gkdcr")

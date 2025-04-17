@@ -9,10 +9,7 @@ var tween: Tween
 var _visible: bool
 
 func _ready() -> void:
-	Events.world_message_requested.connect(show_message)
-	Events.world_message_hide_requested.connect(hide_message)
 	modulate = Color.TRANSPARENT
-	hide()
 	
 func show_message(data: WorldMessageData) -> void:
 	_visible = true
@@ -21,9 +18,8 @@ func show_message(data: WorldMessageData) -> void:
 		
 	message_text_label.text = data.message
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_callback(show)
 	tween.tween_property(self, "modulate", Color.WHITE, fade_seconds)
-	get_tree().create_timer(1).timeout.connect(hide_message)
+	get_tree().create_timer(2).timeout.connect(hide_message)
 
 func hide_message() -> void:
 	_visible = false
@@ -36,4 +32,4 @@ func hide_animation() -> void:
 	if !_visible:
 		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(self, "modulate", Color.TRANSPARENT, fade_seconds)
-		tween.tween_callback(hide)
+		tween.tween_callback(queue_free)

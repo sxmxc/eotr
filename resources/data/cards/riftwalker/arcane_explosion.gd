@@ -3,11 +3,15 @@ extends Card
 var base_damage := 6
 
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler):
+func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
 	damage_effect.sound_fx = sound_fx
 	damage_effect.execute(targets)
+	for enemy: Enemy in targets:
+		var explosion : VisualFX = visual_fx.instantiate() as VisualFX
+		enemy.add_child(explosion)
+		explosion.execute()
 
 
 func get_default_description() -> String:
@@ -27,3 +31,11 @@ func get_modified_description(
 		)
 
 	return description % modified_dmg
+	
+func is_card_modified(player_modifiers: ModifierHandler) -> bool:
+	var modified_dmg := player_modifiers.get_modified_value(
+		base_damage, Enums.ModifierType.DMG_DEALT
+	)
+	if modified_dmg != base_damage:
+		return true
+	return false

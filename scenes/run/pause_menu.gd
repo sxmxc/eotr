@@ -33,5 +33,6 @@ func _unpause() -> void:
 
 
 func _on_save_and_quit_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().paused = false
 	save_and_quit.emit()

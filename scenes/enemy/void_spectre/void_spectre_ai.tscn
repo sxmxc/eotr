@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3nci3u4bowom"]
+[gd_scene load_steps=7 format=3 uid="uid://b3nci3u4bowom"]
 
 [ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="1_uhmhd"]
 [ext_resource type="Script" uid="uid://csjjqxy63lvn6" path="res://scenes/enemy/void_spectre/void_spectre_buff_action.gd" id="2_5sqje"]
 [ext_resource type="Script" uid="uid://l121yhcncs55" path="res://scenes/enemy/void_spectre/void_spectre_attack_action.gd" id="3_37ror"]
 [ext_resource type="Script" uid="uid://r1jnhetoj4vb" path="res://scenes/enemy/void_spectre/void_spectre_block_action.gd" id="4_dqrld"]
 [ext_resource type="Script" uid="uid://icn6p2w5tblm" path="res://scenes/enemy/void_spectre/void_spectre_move_action.gd" id="5_gio5u"]
+[ext_resource type="AudioStream" uid="uid://cp6xyci4btc" path="res://assets/audio/RPG Sound Pack/inventory/metal-small3.wav" id="6_idcuj"]
 
 [node name="VoidSpectreAI" type="Node"]
 script = ExtResource("1_uhmhd")
@@ -24,3 +25,4 @@ chance_weight = 6.5
 script = ExtResource("4_dqrld")
 type = 1
 chance_weight = 3.5
+sound = ExtResource("6_idcuj")

@@ -14,7 +14,7 @@ extends Node2D
 @onready var hand_container = $GameWorldUI/PlayerUI/Hand/HandContainer
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
-@onready var map_camera: MapCamera = $MapCamera
+@onready var map_camera = $MapCamera
 
 
 func _ready():

@@ -1,0 +1,34 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://b6qpfpmoyx7tk"]
+
+[ext_resource type="Shader" uid="uid://bs1sjbkivyq6r" path="res://scenes/sandbox/electric_arc.gdshader" id="1_60anq"]
+
+[sub_resource type="Gradient" id="Gradient_60anq"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.256198, 0.433884, 0.524793, 0.61157, 0.785124, 1)
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 0, 0.54902, 0.670588, 0.631373, 1, 0.294118, 0.447059, 0.431373, 1, 0.701961, 0.647059, 0.333333, 1, 0.294118, 0.447059, 0.431373, 1, 0.54902, 0.670588, 0.631373, 1, 0.294118, 0.239216, 0.266667, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bc2x3"]
+gradient = SubResource("Gradient_60anq")
+width = 512
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_32ta1"]
+noise_type = 3
+frequency = 0.0171
+cellular_distance_function = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kx5iw"]
+seamless = true
+noise = SubResource("FastNoiseLite_32ta1")
+
+[resource]
+shader = ExtResource("1_60anq")
+shader_parameter/line_gradient = SubResource("GradientTexture1D_bc2x3")
+shader_parameter/width = 0.05
+shader_parameter/fix_start = true
+shader_parameter/fix_end = true
+shader_parameter/inverted = false
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kx5iw")
+shader_parameter/speed = 0.793
+shader_parameter/variation = 0.211
+shader_parameter/scale = 5.506
+shader_parameter/repeats = 0.645

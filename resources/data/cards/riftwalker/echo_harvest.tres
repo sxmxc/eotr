@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c4db8mmxp74pk"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c4db8mmxp74pk"]
 
 [ext_resource type="Script" uid="uid://cluthlb4ipe3b" path="res://resources/data/cards/riftwalker/echo_harvest.gd" id="1_u8cue"]
+[ext_resource type="AudioStream" uid="uid://ko8fpdienedl" path="res://assets/audio/RPG Sound Pack/inventory/wood-small.wav" id="2_k4vjm"]
 
 [resource]
 script = ExtResource("1_u8cue")
@@ -12,4 +13,5 @@ card_rarity = 0
 description = "Gather [b]all[/b] resources from target [b]tile[/b]"
 energy_cost = 1
 exhaust = false
+sound_fx = ExtResource("2_k4vjm")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

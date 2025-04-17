@@ -11,11 +11,13 @@ config_version=5
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.1.0"
+config/version="0.0.1.2"
 run/main_scene="uid://bofyn0epr8qy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
-config/build="be3add9"
+boot_splash/image="uid://cbx47wp1tythp"
+config/icon="uid://cx4gp5ik04vrd"
+config/windows_native_icon="res://assets/icons/icon.ico"
+config/build="ed94b19"
 
 [autoload]
 
@@ -47,6 +49,8 @@ player=""
 enemy=""
 map_camera=""
 obilisk=""
+projectile_start=""
+fx_layer=""
 
 [input]
 
@@ -106,6 +110,7 @@ pause={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
+textures/vram_compression/import_etc2_astc=true
 2d/snap/snap_2d_transforms_to_pixel=true
 
 [shader_globals]

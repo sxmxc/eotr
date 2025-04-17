@@ -37,5 +37,6 @@ func _on_player_hand_drawn() -> void:
 	pass
 
 func _on_end_turn_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	end_turn_button.disabled = true
 	Events.player_turn_ended.emit()

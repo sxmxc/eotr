@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://0dlopp347r2m" path="res://scenes/enemy/horror/horror_enemy_ai.tscn" id="1_lemrl"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_v5ie3"]
-[ext_resource type="Texture2D" uid="uid://ba2diprnwmuq5" path="res://assets/icons/alien-bug.png" id="2_putlg"]
+[ext_resource type="Texture2D" uid="uid://bpb4unvyfgehr" path="res://assets/icons/alien-bug.svg" id="2_putlg"]
 
 [resource]
 script = ExtResource("1_v5ie3")

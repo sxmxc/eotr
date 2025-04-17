@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdknlta1672ly"]
+[gd_scene load_steps=17 format=3 uid="uid://cdknlta1672ly"]
 
-[ext_resource type="Texture2D" uid="uid://cah7i6k574e1j" path="res://assets/icons/gluttony.png" id="1_4a83h"]
 [ext_resource type="Script" uid="uid://un3nkq58ohs3" path="res://scenes/enemy/enemy.gd" id="1_a3pup"]
+[ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_peoo5"]
 [ext_resource type="Theme" uid="uid://bb06r68q304st" path="res://resources/themes/enemy_stats_theme.tres" id="3_cwlon"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_peoo5"]
 [ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="4_13gj6"]
 [ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="5_4efjx"]
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="6_hvxgb"]
@@ -10,6 +11,8 @@
 [ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="8_13gj6"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_hvxgb"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_peoo5"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_dtxhd"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_so3kp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
@@ -21,13 +24,23 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="Resource" id="Resource_5woo5"]
+script = ExtResource("13_so3kp")
+duration = 1.0
+transition = 0
+ease = 2
+
 [node name="Enemy" type="Node2D" groups=["enemy"]]
 script = ExtResource("1_a3pup")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
-texture = ExtResource("1_4a83h")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_peoo5")
+
+[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("3_peoo5")]
+unique_name_in_owner = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
@@ -134,5 +147,15 @@ quantity_label_settings = ExtResource("8_13gj6")
 
 [node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_peoo5")]
 type = 1
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("12_dtxhd")
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(3, 3)
+tween_resource = SubResource("Resource_5woo5")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

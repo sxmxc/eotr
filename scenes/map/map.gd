@@ -118,6 +118,7 @@ func _on_map_node_ui_selected(map_node: MapNode) -> void:
 
 
 func _on_map_node_ui_clicked(map_node: MapNode) -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	for map_node_ui: MapNodeUI in map_nodes.get_children():
 		if map_node_ui.map_node.row == map_node.row:
 			map_node_ui.available = false

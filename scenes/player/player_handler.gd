@@ -28,6 +28,7 @@ func start_battle(stats: PlayerStats) -> void:
 
 
 func start_turn() -> void:
+	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
@@ -37,6 +38,7 @@ func end_turn() -> void:
 	player_hand.disable_hand()
 	relics.activate_relics_by_type(Enums.RelicType.END_OF_TURN)
 	Events.enemy_info_hide_requested.emit()
+	player.phantom_camera_2d.priority = 0
 
 
 func draw_card() -> void:

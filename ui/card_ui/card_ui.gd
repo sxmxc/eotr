@@ -31,6 +31,8 @@ var parent: Control
 var tween: Tween
 var playable := true:
 	set = _set_playable
+var values_modified := false :
+	set = _set_values_modified
 var disabled := false
 
 
@@ -63,6 +65,8 @@ func get_active_enemy_modifiers() -> ModifierHandler:
 	if targets.is_empty():
 		print("Targets is empty")
 		return null
+	if not is_instance_valid(targets[0]):
+		return null
 	elif targets.size() > 1:
 		print("More than 1 target")
 		return null
@@ -72,6 +76,8 @@ func get_active_enemy_modifiers() -> ModifierHandler:
 	print("Valid target with modifiers found")
 	return targets[0].modifier_handler
 
+func is_values_modified() -> bool:
+	return card.is_card_modified(player_modifiers)
 
 func request_description() -> void:
 	var enemy_modifiers := get_active_enemy_modifiers()
@@ -86,6 +92,7 @@ func get_description() -> String:
 
 
 func burn_card() -> void:
+	visuals.card_boosted_effect.hide()
 	visuals.material = CARD_BURNABLE.duplicate()
 	tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_method(set_burn_shader_parameter, 0.0, 2.0, 1.5)
@@ -114,7 +121,9 @@ func _set_card(value: Card) -> void:
 	if not is_node_ready():
 		await ready
 	card = value
+	visuals.player_modifiers = player_modifiers
 	visuals.card = value
+	
 
 
 func _set_playable(value: bool) -> void:
@@ -124,6 +133,12 @@ func _set_playable(value: bool) -> void:
 	else:
 		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_WHITE)
 
+func _set_values_modified(value: bool) -> void:
+	values_modified = value
+	if not values_modified:
+		visuals.card_boosted_effect.hide()
+	else:
+		visuals.card_boosted_effect.show()
 
 func _set_player_stats(value: PlayerStats) -> void:
 	player_stats = value
@@ -153,3 +168,4 @@ func _on_card_drag_or_aiming_ended(_card: CardUI) -> void:
 func _on_char_stats_changed() -> void:
 	self.playable = player_stats.can_play_card(card)
 	visuals.card_text_label.text = get_description()
+	values_modified = is_values_modified()

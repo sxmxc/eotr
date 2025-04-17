@@ -24,6 +24,7 @@ func add_card(card: Card) -> void:
 	new_card_ui.player_stats = player_stats
 	new_card_ui.player_modifiers = player.modifier_handler
 	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
+	new_card_ui.values_modified = new_card_ui.is_values_modified()
 	
 
 

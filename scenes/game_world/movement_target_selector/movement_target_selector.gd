@@ -5,15 +5,22 @@ const ARC_POINTS := 8
 
 @onready var card_arc: Line2D = $CanvasLayer/CardArc
 @onready var hex_indicator = $HexIndicator
+@onready var electric_arc_fx: Line2D = $CanvasLayer/ElectricArcFX
 
 
 var current_card: CardUI
 var targeting := false
 var current_tile_target : TilemapTarget = null
+var current_hovered : Vector2i
+var last_hovered : Vector2i
+var tilemap: ProcGenTilemap
+var base_layer: TileMapLayer
 
 
 func _ready() -> void:
 	hex_indicator.hide()
+	tilemap = get_tree().get_first_node_in_group("map_layer")
+	base_layer = tilemap.base_layer
 
 
 func _physics_process(_delta: float) -> void:
@@ -21,14 +28,12 @@ func _physics_process(_delta: float) -> void:
 		return	
 	# Update card arc
 	card_arc.points = _get_points()
+	electric_arc_fx.points = _get_points()
 	
 	# Manual collision detection against the tilemap
 	if targeting:
 		if current_card.card.target_type != Enums.TargetType.SINGLE_TILE:
-			return
-		# Get the tilemap and necessary layers
-		var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
-		var base_layer = tilemap.base_layer
+			return		
 		
 		# Get current mouse position 
 		var global_mouse_pos = get_global_mouse_position()
@@ -37,13 +42,7 @@ func _physics_process(_delta: float) -> void:
 		
 		# Check if tile position has changed
 		if is_instance_valid(tilemap) and tilemap.is_within_bounds(tile_pos):
-			var current_hovered = tile_pos
-			
-			# Store the last hovered tile position as a class variable if it's not already defined
-			if not has_meta("last_hovered_tile"):
-				set_meta("last_hovered_tile", current_hovered)
-			
-			var last_hovered = get_meta("last_hovered_tile")
+			current_hovered = tile_pos
 			
 			# If tile changed, handle exit and enter
 			if current_hovered != last_hovered:
@@ -75,8 +74,7 @@ func _physics_process(_delta: float) -> void:
 					var tile_type = cell_tile_data.get_custom_data("tile_type")
 					print("Tile: %s, Type: %s" % [str(current_hovered), str(tile_type)])
 				
-				# Update last hovered tile
-				set_meta("last_hovered_tile", current_hovered)
+				last_hovered = current_hovered
 
 func _get_points() -> Array:
 	var points := []
@@ -110,6 +108,7 @@ func _on_move_selection_started(card: CardUI) -> void:
 func _on_move_selection_ended(_card: CardUI) -> void:
 	targeting = false
 	card_arc.clear_points()
+	electric_arc_fx.clear_points()
 	current_tile_target = null
 	current_card = null
 	if hex_indicator.visible:

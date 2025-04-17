@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bti2nexuunus2"]
+[gd_scene load_steps=18 format=3 uid="uid://bti2nexuunus2"]
 
 [ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_t7gmi"]
 [ext_resource type="Resource" uid="uid://bxamo508a0hwr" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="2_0vmyt"]
 [ext_resource type="Texture2D" uid="uid://c7wwsvbjgqf4a" path="res://assets/icons/spectre.svg" id="2_t7gmi"]
 [ext_resource type="Theme" uid="uid://bb06r68q304st" path="res://resources/themes/enemy_stats_theme.tres" id="3_3ryel"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="4_3ryel"]
 [ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="4_hic4f"]
 [ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="5_r7loo"]
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="6_w8bnk"]
@@ -11,6 +12,8 @@
 [ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="8_qy4ig"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_vyw7r"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_7j6fb"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="13_r7loo"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_w8bnk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
@@ -22,6 +25,12 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="Resource" id="Resource_ex3n4"]
+script = ExtResource("14_w8bnk")
+duration = 1.0
+transition = 0
+ease = 2
+
 [node name="VoidSpectreEnemy" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy"]]
 script = ExtResource("1_t7gmi")
 stats = ExtResource("2_0vmyt")
@@ -31,6 +40,10 @@ stats_ui = NodePath("EnemyStatsUI")
 y_sort_enabled = true
 scale = Vector2(0.0546875, 0.0546875)
 texture = ExtResource("2_t7gmi")
+
+[node name="TokenShineFX" parent="Sprite2D" instance=ExtResource("4_3ryel")]
+unique_name_in_owner = true
+visible = false
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
@@ -148,3 +161,13 @@ quantity_label_settings = ExtResource("8_qy4ig")
 
 [node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_7j6fb")]
 type = 1
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("13_r7loo")
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(3, 3)
+tween_resource = SubResource("Resource_ex3n4")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

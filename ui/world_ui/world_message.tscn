@@ -5,6 +5,7 @@
 
 [node name="WorldMessage" type="PanelContainer"]
 modulate = Color(1, 1, 1, 0.45098)
+custom_minimum_size = Vector2(414, 122)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

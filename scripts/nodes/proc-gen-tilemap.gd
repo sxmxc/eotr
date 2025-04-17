@@ -185,4 +185,16 @@ func place_obilisk() -> void:
 	obilisk_position = base_layer.map_to_local(random_tile)
 	obilisk.position = obilisk_position
 	obilisk.current_tile_position = random_tile
-	clear_fog_around(random_tile, fog_clear_radius)
+	clear_fog_around(random_tile, 1)
+	
+func is_tile_free(tile_pos: Vector2i) -> bool:
+	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
+		if enemy.current_tile_position == tile_pos:
+			return false
+	var obilisk: Enemy = get_tree().get_first_node_in_group("obilisk")
+	if obilisk.current_tile_position == tile_pos:
+		return false
+	var player : Player = get_tree().get_first_node_in_group("player")
+	if base_layer.local_to_map(player.position) == tile_pos:
+		return false
+	return true

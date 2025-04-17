@@ -1,4 +1,4 @@
-extends ColorRect
+extends TextureRect
 
 @onready var timer = $Timer
 
@@ -7,8 +7,8 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	
 func _on_player_hit() -> void:
-	color.a = 0.2
+	modulate.a = 0.5
 	timer.start()
 	
 func _on_timer_timeout() -> void:
-	color.a = 0.0
+	modulate.a = 0.0

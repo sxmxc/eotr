@@ -1,0 +1,64 @@
+[gd_scene load_steps=12 format=3 uid="uid://l2pxfjv70yqn"]
+
+[ext_resource type="Script" uid="uid://c0841wa4yj323" path="res://ui/fx/explosion_fx.gd" id="1_jk1vp"]
+[ext_resource type="Texture2D" uid="uid://qfkjhd4qdtuk" path="res://assets/particles/kenney-particles/fire_01.png" id="2_iri2k"]
+
+[sub_resource type="Curve" id="Curve_rh7yt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qkuxb"]
+curve = SubResource("Curve_rh7yt")
+
+[sub_resource type="Gradient" id="Gradient_uwttc"]
+offsets = PackedFloat32Array(0.273913, 0.504348, 0.830435)
+colors = PackedColorArray(0.701961, 0.647059, 0.333333, 1, 0.682353, 0.364706, 0.25098, 1, 0.47451, 0.266667, 0.290196, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ff5c1"]
+gradient = SubResource("Gradient_uwttc")
+
+[sub_resource type="Curve" id="Curve_jk1vp"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yxqrt"]
+curve = SubResource("Curve_jk1vp")
+
+[sub_resource type="Curve" id="Curve_o1v6g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_rahek"]
+curve = SubResource("Curve_o1v6g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qd5nv"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+linear_accel_curve = SubResource("CurveTexture_yxqrt")
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_rahek")
+color_ramp = SubResource("GradientTexture1D_ff5c1")
+alpha_curve = SubResource("CurveTexture_qkuxb")
+turbulence_enabled = true
+turbulence_noise_scale = 2.379
+
+[node name="ExplosionFX" type="Node2D"]
+z_index = 1
+script = ExtResource("1_jk1vp")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+scale = Vector2(0.05, 0.05)
+emitting = false
+amount = 500
+texture = ExtResource("2_iri2k")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 0.28
+process_material = SubResource("ParticleProcessMaterial_qd5nv")

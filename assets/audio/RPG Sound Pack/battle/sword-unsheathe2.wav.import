@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bc060y6ymbpq3"
+path="res://.godot/imported/sword-unsheathe2.wav-b615d0e2df6a15bafca6c5c1ece1390b.sample"
+
+[deps]
+
+source_file="res://assets/audio/RPG Sound Pack/battle/sword-unsheathe2.wav"
+dest_files=["res://.godot/imported/sword-unsheathe2.wav-b615d0e2df6a15bafca6c5c1ece1390b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

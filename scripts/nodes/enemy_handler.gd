@@ -76,6 +76,7 @@ func _start_next_enemy_turn() -> void:
 		return
 
 	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	acting_enemies[0].phantom_camera_2d.priority = 20
 
 
 func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
@@ -85,8 +86,9 @@ func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
 			enemy.do_turn()
 		Enums.StatusType.END_OF_TURN:
 			print("End of turn effects being applied to %s" % enemy.name)
+			enemy.phantom_camera_2d.priority = 0
 			acting_enemies.erase(enemy)
-			_start_next_enemy_turn()
+			get_tree().create_timer(1).timeout.connect(_start_next_enemy_turn)
 
 
 func _on_enemy_died(enemy: Enemy) -> void:

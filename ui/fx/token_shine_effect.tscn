@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://buel4oh7tn55r"]
+
+[ext_resource type="Material" uid="uid://cy0ef8jv2c0vk" path="res://resources/materials/highlighter_material.tres" id="1_ykq8t"]
+[ext_resource type="Script" uid="uid://t7i5ccytsuvj" path="res://ui/fx/token_shine_effect.gd" id="2_2hoqf"]
+
+[node name="TokenShineFX" type="Node2D"]
+script = ExtResource("2_2hoqf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1
+material = ExtResource("1_ykq8t")
+custom_minimum_size = Vector2(512, 512)
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(0.823529, 0.788235, 0.647059, 1)

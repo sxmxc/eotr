@@ -9,8 +9,10 @@ const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_ma
 @export var status_handler: StatusHandler
 @export var movement_sound: AudioStream
 
+@onready var token_shine_effect: VisualFX = %TokenShineEffect
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
+@onready var phantom_camera_2d: PhantomCamera2D = %PhantomCamera2D
 
 
 #func _ready() -> void:
