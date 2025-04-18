@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bxiabb7dpx46y"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bxiabb7dpx46y"]
 
 [ext_resource type="Script" uid="uid://tj64vk8r7j25" path="res://resources/data/cards/riftwalker/mana_leech.gd" id="1_jlex2"]
+[ext_resource type="AudioStream" uid="uid://b1vge246lfhtt" path="res://assets/audio/spells/disenchant2.wav" id="2_0xxly"]
 
 [resource]
 script = ExtResource("1_jlex2")
@@ -9,7 +10,9 @@ target_type = 1
 id = "mana_leech"
 name = "Mana Leech"
 card_rarity = 2
-description = "Target is [b]weakened[/b] for [b]3[/b] turns"
+description = "Target is [b]weakened[/b] for [b]3[/b] turns. 
+Gain [b]2[/b] energy"
 energy_cost = 1
 exhaust = false
+sound_fx = ExtResource("2_0xxly")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

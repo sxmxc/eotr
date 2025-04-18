@@ -192,8 +192,9 @@ func is_tile_free(tile_pos: Vector2i) -> bool:
 		if enemy.current_tile_position == tile_pos:
 			return false
 	var obilisk: Enemy = get_tree().get_first_node_in_group("obilisk")
-	if obilisk.current_tile_position == tile_pos:
-		return false
+	if obilisk != null:
+		if obilisk.current_tile_position == tile_pos:
+			return false
 	var player : Player = get_tree().get_first_node_in_group("player")
 	if base_layer.local_to_map(player.position) == tile_pos:
 		return false

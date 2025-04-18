@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://coohc0sckkjwx"]
+
+[ext_resource type="Script" uid="uid://cousaf55kg3s1" path="res://ui/fx/visual_fx.gd" id="1_l7t7b"]
+
+[node name="VisualFX" type="Node2D"]
+script = ExtResource("1_l7t7b")

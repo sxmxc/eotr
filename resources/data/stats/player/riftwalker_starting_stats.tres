@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="1_h1yhy"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="1_jj0dv"]
 [ext_resource type="Resource" uid="uid://fjjyyc620psd" path="res://resources/data/card_piles/riftwalker_draftable_cards.tres" id="2_5p1yr"]
-[ext_resource type="Resource" uid="uid://cg3hxbmpjkk10" path="res://resources/data/card_piles/riftwalker_starting_deck.tres" id="2_7pda5"]
+[ext_resource type="Resource" uid="uid://bvy6jphqlljcb" path="res://resources/data/card_piles/dev_starting_deck.tres" id="4_sqolq"]
 [ext_resource type="Resource" uid="uid://b5nsik7o77yuu" path="res://resources/data/relics/phase_key.tres" id="5_sqolq"]
 
 [resource]
@@ -11,7 +11,7 @@ script = ExtResource("1_h1yhy")
 board_icon = ExtResource("1_jj0dv")
 player_class_name = "Riftwalker"
 player_class_description = "Explorers attuned to the Rift’s unstable energies. They balance both magic and technology, using adaptability to survive."
-starting_deck = ExtResource("2_7pda5")
+starting_deck = ExtResource("4_sqolq")
 draftable_cards = ExtResource("2_5p1yr")
 cards_per_turn = 4
 max_energy = 3

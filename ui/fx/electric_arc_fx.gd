@@ -2,6 +2,7 @@ class_name ElectricArcFX
 extends Line2D
 
 signal complete
+signal line_drawn
 
 func strike():
 	var player : Player = get_tree().get_first_node_in_group("player") as Player
@@ -10,6 +11,7 @@ func strike():
 	var end = get_tree().get_first_node_in_group("projectile_start").get_global_mouse_position()
 	print("bolt striking: start %s end %s" % [start, end])
 	points = _get_points(start,end)
+	line_drawn.emit()
 	get_tree().create_timer(.3).timeout.connect(_on_strike_end)
 
 func _get_points(start: Vector2, end: Vector2) -> Array:

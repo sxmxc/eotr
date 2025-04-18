@@ -5,8 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="2_cmh45"]
 
 [node name="CardMenuUI" type="CenterContainer"]
+custom_minimum_size = Vector2(180, 240)
 offset_right = 180.0
 offset_bottom = 240.0
+pivot_offset = Vector2(80, 120)
 size_flags_horizontal = 3
 script = ExtResource("1_cmh45")
 card = ExtResource("2_aciqu")

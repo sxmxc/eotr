@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://duhdw4lhgfp84"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://duhdw4lhgfp84"]
 
 [ext_resource type="Script" uid="uid://mbgpntvymyhi" path="res://resources/data/cards/riftwalker/mana_surge.gd" id="1_gfg65"]
+[ext_resource type="AudioStream" uid="uid://cmvwhjnekgydw" path="res://assets/audio/spells/enchant.wav" id="2_47at8"]
 
 [resource]
 script = ExtResource("1_gfg65")
@@ -12,4 +13,5 @@ card_rarity = 0
 description = "Gain [b]%s[/b] extra energy [b]temporarily[/b]"
 energy_cost = 0
 exhaust = false
+sound_fx = ExtResource("2_47at8")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

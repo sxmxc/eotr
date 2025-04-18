@@ -7,11 +7,12 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
 	damage_effect.sound_fx = sound_fx
+	var fireball := projectile_fx.instantiate() as ProjectileFX
+	fireball.visual_fx = visual_fx.instantiate() as VisualFX
+	targets[0].get_tree().get_first_node_in_group("fx_layer").add_child(fireball)
+	fireball.execute(targets[0])
+	await fireball.complete
 	damage_effect.execute(targets)
-	for enemy: Enemy in targets:
-		var explosion : VisualFX = visual_fx.instantiate() as VisualFX
-		enemy.add_child(explosion)
-		explosion.execute()
 
 
 func get_default_description() -> String:

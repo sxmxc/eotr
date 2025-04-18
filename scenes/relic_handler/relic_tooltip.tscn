@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_fqibc"]
 [ext_resource type="Script" uid="uid://bk8nwhbgicue0" path="res://scenes/relic_handler/relic_tooltip.gd" id="2_srgwn"]
-[ext_resource type="Texture2D" uid="uid://ddxqogw3lxtvj" path="res://assets/icons/millenium-key.svg" id="3_0jeqr"]
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="3_srgwn"]
+[ext_resource type="Texture2D" uid="uid://tji3ah2twswn" path="res://assets/icons/cross-flare.svg" id="4_srgwn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fqibc"]
 font_size = 50
@@ -84,7 +84,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-texture = ExtResource("3_0jeqr")
+texture = ExtResource("4_srgwn")
 expand_mode = 1
 stretch_mode = 5
 

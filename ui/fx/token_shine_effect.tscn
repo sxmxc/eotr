@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://t7i5ccytsuvj" path="res://ui/fx/token_shine_effect.gd" id="2_2hoqf"]
 
 [node name="TokenShineFX" type="Node2D"]
+scale = Vector2(0.05, 0.05)
 script = ExtResource("2_2hoqf")
 
 [node name="ColorRect" type="ColorRect" parent="."]

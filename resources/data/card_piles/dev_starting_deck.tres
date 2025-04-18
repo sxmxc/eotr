@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardPile" load_steps=13 format=3 uid="uid://bvy6jphqlljcb"]
+
+[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_m05lb"]
+[ext_resource type="Resource" uid="uid://dsc2p3kof2lra" path="res://resources/data/cards/riftwalker/arcane_blast.tres" id="2_e7e23"]
+[ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_owj58"]
+[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="3_k3miq"]
+[ext_resource type="Resource" uid="uid://mwuybg2ka21n" path="res://resources/data/cards/riftwalker/arcane_explosion.tres" id="4_6vngg"]
+[ext_resource type="Resource" uid="uid://cuyx2ruskixd0" path="res://resources/data/cards/riftwalker/arcane_flame.tres" id="5_i12ao"]
+[ext_resource type="Resource" uid="uid://c4db8mmxp74pk" path="res://resources/data/cards/riftwalker/echo_harvest.tres" id="6_xeyxp"]
+[ext_resource type="Resource" uid="uid://1g187kuqiaba" path="res://resources/data/cards/riftwalker/eldritch_barrier.tres" id="7_v1pfk"]
+[ext_resource type="Resource" uid="uid://bxiabb7dpx46y" path="res://resources/data/cards/riftwalker/mana_leech.tres" id="8_m8a3o"]
+[ext_resource type="Resource" uid="uid://duhdw4lhgfp84" path="res://resources/data/cards/riftwalker/mana_surge.tres" id="9_a1ybp"]
+[ext_resource type="Resource" uid="uid://cirhx6ykwqtby" path="res://resources/data/cards/riftwalker/phase_step.tres" id="10_p0a24"]
+[ext_resource type="Resource" uid="uid://0korvu55clwk" path="res://resources/data/cards/riftwalker/rift_knowledge.tres" id="11_ybn4o"]
+
+[resource]
+script = ExtResource("2_owj58")
+cards = Array[ExtResource("1_m05lb")]([ExtResource("2_e7e23"), ExtResource("3_k3miq"), ExtResource("4_6vngg"), ExtResource("5_i12ao"), ExtResource("6_xeyxp"), ExtResource("7_v1pfk"), ExtResource("8_m8a3o"), ExtResource("9_a1ybp"), ExtResource("10_p0a24"), ExtResource("11_ybn4o")])
+metadata/_custom_type_script = "uid://dkmgiky2ttex"

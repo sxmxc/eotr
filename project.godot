@@ -52,6 +52,16 @@ obilisk=""
 projectile_start=""
 fx_layer=""
 
+[importer_defaults]
+
+oggvorbisstr={
+"bar_beats": 4,
+"beat_count": 0,
+"bpm": 0,
+"loop": false,
+"loop_offset": 0
+}
+
 [input]
 
 drag_camera={

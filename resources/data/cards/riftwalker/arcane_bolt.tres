@@ -1,5 +1,6 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://xoyjibjonsb5"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://xoyjibjonsb5"]
 
+[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="1_kaer2"]
 [ext_resource type="AudioStream" uid="uid://cajk6alf5g5a5" path="res://assets/audio/launches/flaunch.wav" id="2_cuu6x"]
 [ext_resource type="Script" uid="uid://cx8ki4gktvqk2" path="res://resources/data/cards/riftwalker/arcane_bolt.gd" id="2_hhtl8"]
 [ext_resource type="PackedScene" uid="uid://b26pgaeesc2u2" path="res://ui/fx/spark_fx.tscn" id="3_cuu6x"]
@@ -16,4 +17,5 @@ energy_cost = 1
 exhaust = false
 sound_fx = ExtResource("2_cuu6x")
 visual_fx = ExtResource("3_cuu6x")
+projectile_fx = ExtResource("1_kaer2")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cxm3yblciexlw" path="res://addons/uiJuicer/fadeLabel.gd" id="3_6vsj7"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="4_xe37s"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="5_xe37s"]
-[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_fx.tscn" id="6_2mpqm"]
+[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="6_2mpqm"]
 [ext_resource type="Texture2D" uid="uid://jtocsrcear8d" path="res://assets/particles/kenney-particles/spark_06.png" id="7_m4ny6"]
 [ext_resource type="PackedScene" uid="uid://b26pgaeesc2u2" path="res://ui/fx/spark_fx.tscn" id="8_v2a4i"]
 [ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="9_rh7yt"]

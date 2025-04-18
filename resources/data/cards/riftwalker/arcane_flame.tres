@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://cuyx2ruskixd0"]
 
 [ext_resource type="Script" uid="uid://bk81qkmvarevg" path="res://resources/data/cards/riftwalker/arcane_flame.gd" id="1_uyrpw"]
-[ext_resource type="AudioStream" uid="uid://cals3eyw8cnb2" path="res://assets/audio/launches/slimeball.wav" id="2_peej3"]
+[ext_resource type="AudioStream" uid="uid://ckme5cloqbtnf" path="res://assets/audio/spells/magicshield.wav" id="2_peej3"]
 
 [resource]
 script = ExtResource("1_uyrpw")

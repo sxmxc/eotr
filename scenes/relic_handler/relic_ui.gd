@@ -7,7 +7,6 @@ extends Control
 @onready var icon: TextureRect = $Icon
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-
 func set_relic(new_relic: Relic) -> void:
 	if not is_node_ready():
 		await ready
@@ -23,3 +22,14 @@ func flash() -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse"):
 		Events.relic_tooltip_requested.emit(relic)
+
+
+func _on_mouse_entered() -> void:
+	animation_player.play("hover")
+
+	pass # Replace with function body.
+
+
+func _on_mouse_exited() -> void:
+	animation_player.play("RESET")
+	pass # Replace with function body.

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="1_ky1jf"]
 [ext_resource type="Script" uid="uid://dheg1q18j76ek" path="res://resources/data/cards/riftwalker/eldritch_barrier.gd" id="2_ky1jf"]
-[ext_resource type="AudioStream" uid="uid://cp6xyci4btc" path="res://assets/audio/RPG Sound Pack/inventory/metal-small3.wav" id="3_a4iw4"]
+[ext_resource type="AudioStream" uid="uid://ckme5cloqbtnf" path="res://assets/audio/spells/magicshield.wav" id="3_a4iw4"]
 
 [resource]
 script = ExtResource("2_ky1jf")
@@ -16,4 +16,5 @@ description = "Block [b]%s[/b] damage for [b]1[/b] turn(s)"
 energy_cost = 2
 exhaust = false
 sound_fx = ExtResource("3_a4iw4")
+visual_fx = ExtResource("1_ky1jf")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

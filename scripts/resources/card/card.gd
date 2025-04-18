@@ -21,6 +21,7 @@ static var RARITY_COLORS := {
 @export var card_art: Texture2D
 @export var sound_fx: AudioStream
 @export var visual_fx: PackedScene
+@export var projectile_fx: PackedScene
 
 
 func is_single_targeted() -> bool:

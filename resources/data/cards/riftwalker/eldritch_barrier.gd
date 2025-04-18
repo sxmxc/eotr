@@ -1,6 +1,5 @@
 extends Card
 
-@export var node_fx_scene : PackedScene
 var base_block := 10
 
 
@@ -8,7 +7,7 @@ func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	var block_effect := BlockEffect.new()
 	block_effect.amount = base_block
 	block_effect.sound_fx = sound_fx
-	block_effect.visual_fx = node_fx_scene
+	block_effect.visual_fx = visual_fx
 	block_effect.execute(targets)
 
 

@@ -8,5 +8,5 @@ class_name HealthUI
 
 func update_stats(stats: Stats) -> void:
 	health_label.text = str(stats.health)
-	max_health_label.text = "/%s" % str(stats.max_health)
+	max_health_label.text = "/ %s" % str(stats.max_health)
 	max_health_label.visible = show_max_hp

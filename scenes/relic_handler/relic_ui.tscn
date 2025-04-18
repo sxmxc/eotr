@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cryppjpfbefjn"]
+[gd_scene load_steps=9 format=3 uid="uid://cryppjpfbefjn"]
 
 [ext_resource type="Script" uid="uid://c3gustk5j8pu3" path="res://scenes/relic_handler/relic_ui.gd" id="1_m2800"]
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_v7f4x"]
@@ -31,6 +31,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [null]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_v7f4x"]
 resource_name = "flash"
@@ -61,16 +73,34 @@ tracks/1/keys = {
 "values": [null, ExtResource("2_m2800"), null]
 }
 
+[sub_resource type="Animation" id="Animation_u80kx"]
+resource_name = "hover"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, -2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u80kx"]
 _data = {
 &"RESET": SubResource("Animation_fbdia"),
-&"flash": SubResource("Animation_v7f4x")
+&"flash": SubResource("Animation_v7f4x"),
+&"hover": SubResource("Animation_u80kx")
 }
 
 [node name="RelicUI" type="Control"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0
+pivot_offset = Vector2(50, 50)
 theme = ExtResource("1_v7f4x")
 script = ExtResource("1_m2800")
 
@@ -119,3 +149,5 @@ libraries = {
 }
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
