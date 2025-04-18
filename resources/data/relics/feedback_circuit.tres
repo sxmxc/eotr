@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cd45n3jrdgucm"]
+
+[ext_resource type="Texture2D" uid="uid://sdgqblonpvpy" path="res://assets/icons/circuitry.svg" id="1_ui7ic"]
+[ext_resource type="Script" uid="uid://cx2phnwcooft1" path="res://resources/data/relics/feedback_circuit.gd" id="1_uuf6b"]
+
+[resource]
+script = ExtResource("1_uuf6b")
+skills_required = 3
+damage = 5
+relic_name = "Feedback Circuit"
+id = "feedback_circuit"
+type = 4
+character_type = 0
+starter_relic = false
+icon = ExtResource("1_ui7ic")
+description = "Whenver you play [b]3[/b] skills during your turn, deal [b]5[/b] damage to all enemies"
+metadata/_custom_type_script = "uid://bub7h53ncapx2"

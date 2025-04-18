@@ -41,7 +41,7 @@ y_sort_enabled = true
 scale = Vector2(0.0546875, 0.0546875)
 texture = ExtResource("2_t7gmi")
 
-[node name="TokenShineFX" parent="Sprite2D" instance=ExtResource("4_3ryel")]
+[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("4_3ryel")]
 unique_name_in_owner = true
 visible = false
 

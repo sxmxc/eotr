@@ -118,7 +118,7 @@ spawn_pool = Array[ExtResource("9_7ammx")]([ExtResource("14_7fs1y"), ExtResource
 stats = ExtResource("10_lsh46")
 tilemap = NodePath("../../Tilemap")
 
-[node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("player", "player_hand")]
+[node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("player", "player_hand") groups=["player_handler"]]
 script = ExtResource("13_wek56")
 player = NodePath("../Player")
 player_hand = NodePath("../GameWorldUI/PlayerUI/Hand")
@@ -204,9 +204,9 @@ alignment = 1
 
 [node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("12_odt01")]
 layout_mode = 0
-offset_left = 1664.0
+offset_left = 1696.0
 offset_top = 808.0
-offset_right = 1840.0
+offset_right = 1872.0
 offset_bottom = 1056.0
 
 [node name="StatusHandler" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("status_owner") instance=ExtResource("20_g7x0y")]

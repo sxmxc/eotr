@@ -1,6 +1,7 @@
 extends EnemyAction
 
 @export var block := 6
+@export var visual_fx_scene: PackedScene
 
 func perform_action() -> void:
 	if not enemy or not target: 
@@ -11,6 +12,7 @@ func perform_action() -> void:
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block
 	block_effect.sound_fx = sound
+	block_effect.visual_fx = visual_fx_scene
 	block_effect.execute([enemy])
 	
 	

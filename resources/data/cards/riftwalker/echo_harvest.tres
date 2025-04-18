@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_u8cue")
-card_type = 6
+card_type = 2
 target_type = 5
 id = "echo_harvest"
 name = "Echo Harvest"

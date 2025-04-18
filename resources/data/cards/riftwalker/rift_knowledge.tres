@@ -1,6 +1,8 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://0korvu55clwk"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://0korvu55clwk"]
 
 [ext_resource type="Script" uid="uid://cd4ui6ecm6w5k" path="res://resources/data/cards/riftwalker/rift_knowledge.gd" id="1_1g81e"]
+[ext_resource type="AudioStream" uid="uid://calkn7sdjqxuw" path="res://assets/audio/spells/blessing2.wav" id="2_dmm1o"]
+[ext_resource type="PackedScene" uid="uid://clemke10r3mhf" path="res://ui/fx/flash_fx.tscn" id="3_tnuc7"]
 
 [resource]
 script = ExtResource("1_1g81e")
@@ -13,4 +15,6 @@ description = "Target becomes [b]attuned[/b].
 [b]Exhaust[/b]"
 energy_cost = 2
 exhaust = true
+sound_fx = ExtResource("2_dmm1o")
+visual_fx = ExtResource("3_tnuc7")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

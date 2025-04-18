@@ -8,8 +8,11 @@ var burn_duration := 2
 
 func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	var damage_effect = DamageEffect.new()
+	var fire_effect :VisualFX = visual_fx.instantiate()
+	targets[0].add_child(fire_effect)
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
 	damage_effect.sound_fx = sound_fx
+	fire_effect.execute()
 	damage_effect.execute(targets)
 
 	var status_effect = StatusEffect.new()

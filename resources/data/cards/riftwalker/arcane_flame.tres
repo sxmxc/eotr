@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cuyx2ruskixd0"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cuyx2ruskixd0"]
 
 [ext_resource type="Script" uid="uid://bk81qkmvarevg" path="res://resources/data/cards/riftwalker/arcane_flame.gd" id="1_uyrpw"]
-[ext_resource type="AudioStream" uid="uid://ckme5cloqbtnf" path="res://assets/audio/spells/magicshield.wav" id="2_peej3"]
+[ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_43f7b"]
+[ext_resource type="PackedScene" uid="uid://dl3cgeeoktnii" path="res://ui/fx/burn_fx.tscn" id="3_43f7b"]
 
 [resource]
 script = ExtResource("1_uyrpw")
@@ -13,5 +14,6 @@ card_rarity = 2
 description = "Deal [b]%s[/b] damage to a [b]single[/b] enemy and apply [b]burn[/b]"
 energy_cost = 2
 exhaust = false
-sound_fx = ExtResource("2_peej3")
+sound_fx = ExtResource("2_43f7b")
+visual_fx = ExtResource("3_43f7b")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

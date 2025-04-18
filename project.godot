@@ -51,6 +51,7 @@ map_camera=""
 obilisk=""
 projectile_start=""
 fx_layer=""
+player_handler=""
 
 [importer_defaults]
 

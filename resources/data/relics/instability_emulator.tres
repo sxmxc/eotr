@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://7a20icoma78i"]
+
+[ext_resource type="Script" uid="uid://dj38evtbreuvb" path="res://resources/data/relics/instability_emulator.gd" id="1_4sajg"]
+[ext_resource type="Texture2D" uid="uid://cvo54tbjyexr" path="res://assets/icons/cpu.svg" id="1_ow626"]
+
+[resource]
+script = ExtResource("1_4sajg")
+relic_name = "Instability Emulator"
+id = "instability_emulator"
+type = 4
+character_type = 0
+starter_relic = false
+icon = ExtResource("1_ow626")
+description = "Randomize the cost of your cards between [b]0[/b] and [b]3[/b]."
+metadata/_custom_type_script = "uid://bub7h53ncapx2"

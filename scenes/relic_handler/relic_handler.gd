@@ -27,6 +27,8 @@ func activate_relics_by_type(type: Enums.RelicType) -> void:
 
 	var tween := create_tween()
 	for relic_ui: RelicUI in relic_queue:
+		var relic = relic_ui.relic as Relic
+
 		tween.tween_callback(relic_ui.relic.activate_relic.bind(relic_ui))
 		tween.tween_interval(RELIC_APPLY_INTERVAL)
 
