@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.1.2"
+config/version="0.0.1.3"
 run/main_scene="uid://bofyn0epr8qy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="ed94b19"
+config/build="c1326ff"
 
 [autoload]
 
