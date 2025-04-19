@@ -54,6 +54,7 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType) -> void:
 			sprite_2d.material = null
 			if stats.health <= 0:
 				Events.player_died.emit()
+				Talo.stats.track("player_deaths")
 				queue_free()
 	)
 

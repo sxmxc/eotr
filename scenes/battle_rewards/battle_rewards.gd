@@ -50,24 +50,44 @@ func add_resource_reward(amount: int) -> void:
 func _on_gold_reward_taken(amount: int) -> void:
 	if not run_stats:
 		return
+	var event_props := {
+		"gold_amount" : amount
+	}
+	Talo.events.track("gold_prize_taken", event_props)
+	Talo.stats.track("gold_won", amount)
 	run_stats.gold += amount
 
 
 func _on_resource_reward_taken(amount: int) -> void:
 	if not run_stats:
 		return
+	var event_props := {
+		"resource_amount" : amount
+	}
+	Talo.events.track("resource_prize_taken", event_props)
+	Talo.stats.track("resources_won", amount)
 	run_stats.resources += amount
 
 
 func _on_card_reward_taken(card: Card) -> void:
 	if not player_stats or not card:
 		return
+	var event_props := {
+		"card_taken" : card.name
+	}
+	Talo.events.track("card_prize_taken", event_props)
+	Talo.stats.track("cards_won")
 	player_stats.deck.add_card(card)
 
 
 func _on_relic_reward_taken(relic: Relic) -> void:
 	if not relic or not relic_handler:
 		return
+	var event_props := {
+		"relic" : relic.relic_name
+	}
+	Talo.events.track("relic_prize_taken", event_props)
+	Talo.stats.track("treasure_taken")
 	relic_handler.add_relic(relic)
 
 

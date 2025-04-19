@@ -1,12 +1,11 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://1g187kuqiaba"]
 
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="1_ky1jf"]
+[ext_resource type="AudioStream" uid="uid://y8shlp65x13s" path="res://assets/audio/spells/blessing3.wav" id="2_a4iw4"]
 [ext_resource type="Script" uid="uid://dheg1q18j76ek" path="res://resources/data/cards/riftwalker/eldritch_barrier.gd" id="2_ky1jf"]
-[ext_resource type="AudioStream" uid="uid://ckme5cloqbtnf" path="res://assets/audio/spells/magicshield.wav" id="3_a4iw4"]
 
 [resource]
 script = ExtResource("2_ky1jf")
-node_fx_scene = ExtResource("1_ky1jf")
 card_type = 1
 target_type = 0
 id = "eldritch_barrier"
@@ -15,6 +14,6 @@ card_rarity = 0
 description = "Block [b]%s[/b] damage for [b]1[/b] turn(s)"
 energy_cost = 2
 exhaust = false
-sound_fx = ExtResource("3_a4iw4")
+sound_fx = ExtResource("2_a4iw4")
 visual_fx = ExtResource("1_ky1jf")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

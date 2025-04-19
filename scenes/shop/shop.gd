@@ -15,6 +15,8 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @onready var card_popup: CardPopup = %CardPopup
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 
+var item_bought : bool = false
+
 
 func _ready() -> void:
 	for shop_card: ShopCard in cards.get_children():
@@ -97,20 +99,45 @@ func _update_item_costs() -> void:
 
 
 func _on_leave_button_pressed() -> void:
+	if !item_bought:
+		var event_props := {
+			"player_gold": run_stats.gold,
+			"player_resources": run_stats.resources
+		}
+		Talo.events.track("shop_left_empty_handed", event_props)
 	Events.shop_exited.emit()
 
 
 func _on_shop_card_bought(card: Card, gold_cost: int) -> void:
+	item_bought = true
+	var stat_props := {
+		"card" : card.name,
+		"cost" : gold_cost
+	}
+	Talo.events.track("card_bought_in_shop", stat_props)
+	Talo.stats.track("cards_purchased")
 	player_stats.deck.add_card(card)
 	run_stats.gold -= gold_cost
 	_update_items()
 
 
 func _on_shop_relic_bought(relic: Relic, resource_cost: int) -> void:
+	item_bought = true
+	var stat_props := {
+		"relic" : relic.relic_name,
+		"cost" : resource_cost
+	}
+	Talo.events.track("relic_bought_in_shop", stat_props)
+	Talo.stats.track("relics_purchased")
 	relic_handler.add_relic(relic)
 	run_stats.resources -= resource_cost
 
 	if relic is TraderBadgeRelic:
+		var traderbadge_props := {
+			"cost": resource_cost
+		}
+		Talo.events.track("traderbadge_bought_in_shop", traderbadge_props)
+		Talo.stats.track("traderbadges_bought")
 		var discount_relic := relic as TraderBadgeRelic
 		discount_relic.add_shop_modifier(self)
 		_update_item_costs()

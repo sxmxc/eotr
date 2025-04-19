@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="1_jj0dv"]
 [ext_resource type="Resource" uid="uid://fjjyyc620psd" path="res://resources/data/card_piles/riftwalker_draftable_cards.tres" id="2_5p1yr"]
 [ext_resource type="Resource" uid="uid://cg3hxbmpjkk10" path="res://resources/data/card_piles/riftwalker_starting_deck.tres" id="2_7pda5"]
-[ext_resource type="Resource" uid="uid://b5nsik7o77yuu" path="res://resources/data/relics/phase_key.tres" id="5_sqolq"]
+[ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="5_sqolq"]
 
 [resource]
 script = ExtResource("1_h1yhy")

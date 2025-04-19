@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=50 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="7_pdbwf"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="9_7ammx"]
 [ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obilisk/obelisk_enemy.tres" id="10_lsh46"]
-[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obilisk/obilisk_enemy.tscn" id="10_r4vuc"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obilisk/obelisk_enemy.tscn" id="10_r4vuc"]
 [ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="11_g7x0y"]
 [ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="12_lsh46"]
 [ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="12_odt01"]
@@ -38,6 +38,21 @@
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
+[ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
+[ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
+
+[sub_resource type="Gradient" id="Gradient_lorak"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.366197, 1)
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ht6dc"]
+gradient = SubResource("Gradient_lorak")
+width = 1280
+height = 1280
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.985437, 0.490291)
+repeat = 2
 
 [sub_resource type="Resource" id="Resource_ht6dc"]
 script = ExtResource("17_lorak")
@@ -82,6 +97,43 @@ script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
 metadata/_edit_vertical_guides_ = [1876.0]
 metadata/_edit_horizontal_guides_ = [112.0]
+
+[node name="ParallaxBackgroundNode" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="Parallax2D" parent="ParallaxBackgroundNode"]
+physics_interpolation_mode = 1
+scroll_scale = Vector2(0.1, 0.1)
+scroll_offset = Vector2(1280, 1280)
+repeat_size = Vector2(2560, 2560)
+autoscroll = Vector2(10, -20)
+
+[node name="ColorRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxBackground"]
+custom_minimum_size = Vector2(2560, 2560)
+offset_right = 2560.0
+offset_bottom = 2560.0
+texture = SubResource("GradientTexture2D_ht6dc")
+
+[node name="ParallaxMidground" type="Parallax2D" parent="ParallaxBackgroundNode"]
+physics_interpolation_mode = 1
+scroll_scale = Vector2(0.25, 0.25)
+repeat_size = Vector2(2560, 2560)
+autoscroll = Vector2(-5, 5)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxMidground"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("39_lorak")
+
+[node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode"]
+physics_interpolation_mode = 1
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(2560, 2560)
+autoscroll = Vector2(5, -5)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxForeground"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("40_ht6dc")
 
 [node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
 position = Vector2(944, 400)
@@ -206,7 +258,7 @@ alignment = 1
 layout_mode = 0
 offset_left = 1696.0
 offset_top = 808.0
-offset_right = 1872.0
+offset_right = 1876.0
 offset_bottom = 1056.0
 
 [node name="StatusHandler" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("status_owner") instance=ExtResource("20_g7x0y")]
@@ -346,6 +398,7 @@ offset_bottom = 1018.0
 
 [node name="WorldMessageContainer" parent="GameWorldUI" instance=ExtResource("30_xw31r")]
 offset_top = 115.0
+offset_right = -43.0
 offset_bottom = -394.0
 
 [node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("25_g06lf")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bti2nexuunus2"]
+[gd_scene load_steps=19 format=3 uid="uid://bti2nexuunus2"]
 
 [ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_t7gmi"]
 [ext_resource type="Resource" uid="uid://bxamo508a0hwr" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="2_0vmyt"]
@@ -18,12 +18,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oyepb"]
-bg_color = Color(0.517647, 0.470588, 0.458824, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7loo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w8bnk"]
 
 [sub_resource type="Resource" id="Resource_ex3n4"]
 script = ExtResource("14_w8bnk")
@@ -54,10 +51,11 @@ shape = SubResource("CircleShape2D_xxaiy")
 
 [node name="EnemyStatsUI" type="Panel" parent="."]
 offset_left = -42.0
-offset_top = -37.0
+offset_top = -17.0
 offset_right = 42.0
-offset_bottom = -15.0
+offset_bottom = 5.0
 theme = ExtResource("3_3ryel")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_r7loo")
 script = ExtResource("4_hic4f")
 
 [node name="MainMargin" type="MarginContainer" parent="EnemyStatsUI"]
@@ -74,7 +72,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="Panel" type="Panel" parent="EnemyStatsUI/MainMargin"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oyepb")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w8bnk")
 
 [node name="BodyMargin" type="MarginContainer" parent="EnemyStatsUI/MainMargin/Panel"]
 layout_mode = 1
@@ -147,10 +145,9 @@ path_postprocessing = 1
 [node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("7_ex3n4")]
 z_index = 1
 custom_minimum_size = Vector2(16, 16)
-offset_left = 9.0
-offset_top = -8.0
-offset_right = 25.0
-offset_bottom = 8.0
+offset_right = 32.0
+offset_bottom = 23.0
+columns = 2
 status_owner = NodePath("..")
 status_icon_size = 16
 quantity_label_settings = ExtResource("8_qy4ig")

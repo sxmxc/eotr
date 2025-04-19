@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.1.3"
-run/main_scene="uid://bofyn0epr8qy"
+config/version="0.0.2.1"
+run/main_scene="uid://d3ll2gasnw28g"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/use_filter=false
 boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
+config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="c1326ff"
+config/build="4c8a0dd"
 
 [autoload]
 
@@ -28,6 +30,8 @@ SoundManager="*res://addons/sound_manager/sound_manager.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+Talo="*res://addons/talo/talo_manager.gd"
+TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
 
 [display]
 
@@ -39,7 +43,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 
@@ -48,10 +52,10 @@ map_layer=""
 player=""
 enemy=""
 map_camera=""
-obilisk=""
 projectile_start=""
 fx_layer=""
 player_handler=""
+obelisk=""
 
 [importer_defaults]
 

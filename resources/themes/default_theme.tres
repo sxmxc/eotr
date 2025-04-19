@@ -120,6 +120,7 @@ MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_xetsg")
 MediumLabel/base_type = &"Label"
 MediumLabel/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
 MediumLabel/font_sizes/font_size = 50
+RichTextLabel/colors/default_color = Color(0.823529, 0.788235, 0.647059, 1)
 RichTextLabel/fonts/bold_font = ExtResource("2_ttywx")
 RichTextLabel/fonts/bold_italics_font = ExtResource("3_t6fef")
 RichTextLabel/fonts/italics_font = ExtResource("4_tjpgc")

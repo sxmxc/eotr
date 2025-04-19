@@ -1,18 +1,18 @@
 [gd_scene load_steps=18 format=3 uid="uid://clybmd6dqmpt8"]
 
-[ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obilisk/obilisk_enemy.gd" id="1_d4xxo"]
-[ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_d4xxo"]
-[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_2psl0"]
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="4_2psl0"]
-[ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="4_7p1hw"]
-[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="5_30lrn"]
-[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="6_2psl0"]
-[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="7_oi6p1"]
-[ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="8_r5q0i"]
-[ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_30lrn"]
-[ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_2psl0"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_plqok"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_g2g5j"]
+[ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obilisk/obelisk_enemy.gd" id="1_pyj3l"]
+[ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_180ib"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_okv0r"]
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="4_8jl1v"]
+[ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="5_str6b"]
+[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="6_mvxgp"]
+[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="7_3iucp"]
+[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="8_ltj3h"]
+[ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="9_q2bg6"]
+[ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="10_gpe5u"]
+[ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="11_82g5s"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_xeohu"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_ysoax"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
@@ -22,22 +22,22 @@ radius = 13.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plqok"]
 
 [sub_resource type="Resource" id="Resource_fjfnb"]
-script = ExtResource("13_g2g5j")
+script = ExtResource("13_ysoax")
 duration = 1.0
 transition = 0
 ease = 2
 
-[node name="Obilisk" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy", "obilisk"]]
-script = ExtResource("1_d4xxo")
+[node name="Obilisk" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy", "obelisk"]]
+script = ExtResource("1_pyj3l")
 stats_ui = NodePath("EnemyStatsUI")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_d4xxo")
+texture = ExtResource("2_180ib")
 
-[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("3_2psl0")]
+[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("3_okv0r")]
 unique_name_in_owner = true
 visible = false
 
@@ -61,9 +61,9 @@ offset_right = 42.0
 offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_2psl0")
+theme = ExtResource("4_8jl1v")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sc4px")
-script = ExtResource("4_7p1hw")
+script = ExtResource("5_str6b")
 
 [node name="MainMargin" type="MarginContainer" parent="EnemyStatsUI"]
 layout_mode = 1
@@ -104,11 +104,12 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="HealthIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Health"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource("5_30lrn")
+texture = ExtResource("6_mvxgp")
 expand_mode = 1
 stretch_mode = 5
 
@@ -128,11 +129,12 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="BlockIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Block"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-texture = ExtResource("6_2psl0")
+texture = ExtResource("7_3iucp")
 expand_mode = 1
 stretch_mode = 5
 
@@ -145,7 +147,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("7_oi6p1")]
+[node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("8_ltj3h")]
 z_index = 1
 offset_top = -15.0
 offset_right = 29.0
@@ -153,19 +155,19 @@ offset_bottom = 25.0
 columns = 1
 status_owner = NodePath("..")
 status_icon_size = 16
-quantity_label_settings = ExtResource("8_r5q0i")
+quantity_label_settings = ExtResource("9_q2bg6")
 
-[node name="ModifierHandler" parent="." instance=ExtResource("9_30lrn")]
+[node name="ModifierHandler" parent="." instance=ExtResource("10_gpe5u")]
 
-[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("10_2psl0")]
+[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("11_82g5s")]
 
-[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_2psl0")]
+[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("11_82g5s")]
 type = 1
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
-script = ExtResource("12_plqok")
+script = ExtResource("12_xeohu")
 follow_mode = 2
 follow_target = NodePath("..")
 zoom = Vector2(3, 3)

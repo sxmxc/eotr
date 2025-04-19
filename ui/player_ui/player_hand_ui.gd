@@ -45,7 +45,15 @@ func _set_player_stats(value: PlayerStats) -> void:
 	player_stats = value
 
 
-func _on_card_played(_card: Card) -> void:
+func _on_card_played(card: Card) -> void:
+	var event_props:= {
+		"card_name" : card.name,
+		"card_cost" : card.energy_cost,
+		"card_rarity" : Enums.CardRarity.keys()[card.card_rarity],
+		"card_type": Enums.CardType.keys()[card.card_type]
+	}
+	Talo.events.track("card_played", event_props)
+	Talo.stats.track("cards_played")
 	cards_played_this_turn += 1
 
 

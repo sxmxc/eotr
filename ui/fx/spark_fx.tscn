@@ -123,6 +123,7 @@ sub_emitter_amount_at_start = 1
 sub_emitter_keep_velocity = true
 
 [node name="SparkFX" type="Node2D"]
+modulate = Color(1, 1, 1, 0.517647)
 z_index = 1
 script = ExtResource("1_56bra")
 
@@ -131,6 +132,7 @@ material = SubResource("CanvasItemMaterial_32qx2")
 emitting = false
 amount = 100
 texture = ExtResource("2_0pqfg")
+lifetime = 3.0
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
@@ -159,6 +161,7 @@ process_material = SubResource("ParticleProcessMaterial_0pqfg")
 emitting = false
 amount = 500
 sub_emitter = NodePath("../GPUParticles2D")
+lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_eskjs")

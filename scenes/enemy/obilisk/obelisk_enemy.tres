@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyStats" load_steps=4 format=3 uid="uid://bhto68irinlan"]
 
-[ext_resource type="PackedScene" uid="uid://cl7r7mqya2lh7" path="res://scenes/enemy/obilisk/obilisk_enemy_ai.tscn" id="1_0fdxi"]
+[ext_resource type="PackedScene" uid="uid://cl7r7mqya2lh7" path="res://scenes/enemy/obilisk/obelisk_enemy_ai.tscn" id="1_0fdxi"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_d31lb"]
 [ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_0fdxi"]
 

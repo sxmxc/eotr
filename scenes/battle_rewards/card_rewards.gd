@@ -27,6 +27,7 @@ func _ready() -> void:
 	skip_button.pressed.connect(
 		func():
 			card_reward_selected.emit(null)
+			Talo.stats.track("card_prize_skipped")
 			queue_free()
 	)
 

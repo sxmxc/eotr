@@ -11,6 +11,7 @@ const CLICK_5 = preload("res://assets/audio/battle_sound_effects/click5.ogg")
 
 func _ready() -> void:
 	get_tree().paused = false
+	TelemetryManager.generate_host_unique_ident()
 	continue_button.disabled = SaveGame.load_data() == null
 
 

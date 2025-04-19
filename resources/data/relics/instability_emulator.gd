@@ -16,6 +16,7 @@ func _on_player_hand_drawn() -> void:
 	relic_ui.flash()
 	var player_handler := relic_ui.get_tree().get_first_node_in_group("player_handler") as PlayerHandler
 	
-	for card_ui: CardUI in player_handler.hand.get_children():
-		card_ui.card.cost = RNG.instance.randi_range(0, 3)
+	for card_ui: CardUI in player_handler.player_hand.hand_container.get_children():
+		card_ui.card.energy_cost = RNG.instance.randi_range(0, 3)
 		card_ui.card = card_ui.card
+		card_ui.visuals.card_text_label.text = card_ui.get_description()

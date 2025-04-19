@@ -24,10 +24,10 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		return
 
 	for enemy: Enemy in get_children():
-		if !enemy.is_in_group("obilisk"):
+		if !enemy.is_in_group("obelisk"):
 			enemy.queue_free()
 		else:
-			enemy.tree_exited.connect(_obilisk_destroyed)
+			enemy.tree_exited.connect(_obelisk_destroyed)
 			enemy.enemy_handler = self
 			enemy.status_handler.statuses_applied.connect(_on_enemy_statuses_applied.bind(enemy))
 
@@ -103,5 +103,5 @@ func _on_enemy_action_completed(enemy: Enemy) -> void:
 	enemy.status_handler.apply_statuses_by_type(Enums.StatusType.END_OF_TURN)
 
 
-func _obilisk_destroyed() -> void:
-	Events.obilisk_destroyed.emit()
+func _obelisk_destroyed() -> void:
+	Events.obelisk_destroyed.emit()

@@ -1,4 +1,4 @@
-class_name Obilisk
+class_name Obelisk
 extends Enemy
 
 const MOVING_ENEMY_SCENE = preload("res://scenes/enemy/moving_enemy.tscn")
@@ -18,5 +18,10 @@ func spawn_random_enemy() -> void:
 	var random_pos = surrounding_cells[RNG.instance.randi_range(0, surrounding_cells.size() - 1)]
 	new_spawn.stats = spawn_pool[random_idx]
 	enemy_handler.add_enemy(new_spawn, random_pos)
-	var world_message = WorldMessageData.new("Obilisk spawns a creature from the void")
+	var world_message = WorldMessageData.new("Obelisk spawns a creature from the void")
 	Events.world_message_requested.emit(world_message)
+
+func do_death() -> void:
+	Talo.stats.track("obelisks_destroyed")
+	await get_tree().create_timer(.5).timeout
+	queue_free()

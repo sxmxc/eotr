@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjko0fgp88n0o"]
+
+[ext_resource type="PackedScene" uid="uid://bvu7r4ul8bc2r" path="res://ui/fx/projectile_fx.tscn" id="1_mpysr"]
+[ext_resource type="Script" uid="uid://bwlob3rwvj1mu" path="res://ui/fx/arrow_projectile_fx.gd" id="2_7o4kh"]
+
+[node name="ArrowProjectileFX" instance=ExtResource("1_mpysr")]
+script = ExtResource("2_7o4kh")

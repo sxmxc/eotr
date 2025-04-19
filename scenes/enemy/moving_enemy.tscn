@@ -105,6 +105,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="HealthIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Health"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -129,6 +130,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="BlockIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Block"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 size_flags_horizontal = 3

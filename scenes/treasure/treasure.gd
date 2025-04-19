@@ -20,6 +20,10 @@ func generate_relic() -> void:
 
 
 func _on_treasure_opened() -> void:
+	var event_props := {
+		"treasure_spawned" : found_relic.relic_name
+	}
+	Talo.events.track("treasure_room_exited", event_props)
 	Events.treasure_room_exited.emit(found_relic)
 
 

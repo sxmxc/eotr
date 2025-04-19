@@ -22,7 +22,7 @@ signal map_generated
 var base_layer: TileMapLayer
 var fog_layer: TileMapLayer
 var player_position: Vector2i
-var obilisk_position: Vector2i
+var obelisk_position: Vector2i
 var fog_state = {}  # Stores which tiles are cleared
 var tile_map_data: Dictionary[Vector2i, HexTileData] = {}  # Stores generated tile types
 var tile_dict: Dictionary[Enums.TileType, Vector2i] = {
@@ -177,23 +177,23 @@ func move_player(tile_pos) -> void:
 		player_position_updated.emit(base_layer.map_to_local(player_position))
 
 
-func place_obilisk() -> void:
-	var obilisk: Enemy = get_tree().get_first_node_in_group("obilisk")
+func place_obelisk() -> void:
+	var obelisk: Enemy = get_tree().get_first_node_in_group("obelisk")
 	var random_tile = Vector2i(
 		RNG.instance.randi_range(0, map_width - 1), RNG.instance.randi_range(0, map_height - 1)
 	)
-	obilisk_position = base_layer.map_to_local(random_tile)
-	obilisk.position = obilisk_position
-	obilisk.current_tile_position = random_tile
+	obelisk_position = base_layer.map_to_local(random_tile)
+	obelisk.position = obelisk_position
+	obelisk.current_tile_position = random_tile
 	clear_fog_around(random_tile, 1)
 	
 func is_tile_free(tile_pos: Vector2i) -> bool:
 	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
 		if enemy.current_tile_position == tile_pos:
 			return false
-	var obilisk: Enemy = get_tree().get_first_node_in_group("obilisk")
-	if obilisk != null:
-		if obilisk.current_tile_position == tile_pos:
+	var obelisk: Enemy = get_tree().get_first_node_in_group("obelisk")
+	if obelisk != null:
+		if obelisk.current_tile_position == tile_pos:
 			return false
 	var player : Player = get_tree().get_first_node_in_group("player")
 	if base_layer.local_to_map(player.position) == tile_pos:

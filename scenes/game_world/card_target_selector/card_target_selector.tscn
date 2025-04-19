@@ -43,6 +43,7 @@ texture = SubResource("AtlasTexture_gwqsc")
 layer = 2
 
 [node name="CardArc" parent="CanvasLayer" instance=ExtResource("1_dnal8")]
+default_color = Color(0.823529, 0.788235, 0.647059, 1)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

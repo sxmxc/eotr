@@ -27,7 +27,7 @@ func _ready():
 	Events.player_turn_ended.connect(player_handler.end_turn)
 	Events.player_hand_discarded.connect(enemy_handler.start_turn)
 	Events.player_died.connect(_on_player_died)
-	Events.obilisk_destroyed.connect(_on_obilisk_destroyed)
+	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
 
 	
 
@@ -49,7 +49,7 @@ func start_world() -> void:
 	tilemap.fog_clear_radius = player.stats.view_range
 	tilemap.move_player(player_starting_position)
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
-	tilemap.place_obilisk()
+	tilemap.place_obelisk()
 
 	var message = WorldMessageData.new("The World has awakened!")
 	Events.world_message_requested.emit(message)
@@ -60,7 +60,7 @@ func start_world() -> void:
 	get_tree().create_timer(1).timeout.connect(
 		func():
 			Events.world_message_requested.emit(
-				WorldMessageData.new("The Obilisk has revealed itself")
+				WorldMessageData.new("The Obelisk has revealed itself")
 			)
 	)
 
@@ -88,7 +88,7 @@ func _on_enemies_child_order_changed() -> void:
 		relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 
-func _on_obilisk_destroyed() -> void:
+func _on_obelisk_destroyed() -> void:
 	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 

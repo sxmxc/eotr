@@ -28,7 +28,7 @@ signal enemy_info_hide_requested
 # Battle-related events
 signal status_tooltip_requested(statuses: Array[Status])
 signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
-signal obilisk_destroyed
+signal obelisk_destroyed
 signal battle_won
 
 # Map-related events

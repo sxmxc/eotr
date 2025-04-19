@@ -105,8 +105,13 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType) -> void:
 			sprite_2d.material = null
 			if stats.health <= 0:
 				Events.enemy_died.emit(self)
-				queue_free()
+				do_death()
 				)
+
+func do_death() -> void:
+	Talo.stats.track("enemies_killed")
+	await get_tree().create_timer(.5).timeout
+	queue_free()
 
 func get_player_tile_position() -> Vector2i:
 	var player = get_tree().get_first_node_in_group("player")

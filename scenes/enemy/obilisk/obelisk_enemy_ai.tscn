@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cl7r7mqya2lh7"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_xtxkd"]
-[ext_resource type="Script" uid="uid://dwqrdrvgj7qg3" path="res://scenes/enemy/obilisk/obilisk_wait_action.gd" id="2_lgv3n"]
-[ext_resource type="Script" uid="uid://dj3rvh7nn4m2b" path="res://scenes/enemy/obilisk/obilisk_spawn_action.gd" id="3_05bnd"]
+[ext_resource type="Script" uid="uid://dwqrdrvgj7qg3" path="res://scenes/enemy/obilisk/obelisk_wait_action.gd" id="2_lgv3n"]
+[ext_resource type="Script" uid="uid://dj3rvh7nn4m2b" path="res://scenes/enemy/obilisk/obelisk_spawn_action.gd" id="3_05bnd"]
 
 [node name="ObiliskEnemyAI" instance=ExtResource("1_xtxkd")]
 
