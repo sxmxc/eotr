@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_1g81e")
-card_type = 2
+card_type = 4
 target_type = 0
 id = "rift_knowledge"
 name = "Rift Knowledge"

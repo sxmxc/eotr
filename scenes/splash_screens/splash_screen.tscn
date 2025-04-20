@@ -5,33 +5,6 @@
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
 [ext_resource type="Texture2D" uid="uid://cbx47wp1tythp" path="res://assets/splash/godot-moose-px-splash.png" id="3_ttpkl"]
 
-[sub_resource type="Animation" id="Animation_6rt2x"]
-resource_name = "fade_splash_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Splash:self_modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Splash:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0666667, 0.966667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
 [sub_resource type="Animation" id="Animation_exrag"]
 length = 0.001
 tracks/0/type = "value"
@@ -81,6 +54,33 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6rt2x"]
+resource_name = "fade_splash_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Splash:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Splash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_c8ln4"]
@@ -152,13 +152,10 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "To help improve Echoes of the Rift, anonymous gameplay statistics are collected such as:
 
-- Card choices and usage
-
-- Class and relic selection
-
-- Run duration and completion rates
-
-- Bugs and performance issues
+Card choices and usage
+Class and relic selection
+Run duration and completion rates
+Bugs and performance issues
 
 This data contains no personal or identifying information, and is only used to balance the game and enhance the player experience.
 

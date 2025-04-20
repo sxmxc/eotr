@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://b26pgaeesc2u2"]
+[gd_scene load_steps=23 format=3 uid="uid://b26pgaeesc2u2"]
 
 [ext_resource type="Script" uid="uid://chiqijepcu5b3" path="res://ui/fx/spark_fx.gd" id="1_56bra"]
 [ext_resource type="Texture2D" uid="uid://ckxhm3rq8lcnn" path="res://assets/spritesheets/spark_fx.png" id="2_0pqfg"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_32qx2"]
+blend_mode = 1
 particles_animation = true
 particles_anim_h_frames = 4
 particles_anim_v_frames = 1
@@ -88,6 +89,9 @@ turbulence_initial_displacement_max = 1.49012e-06
 sub_emitter_mode = 2
 sub_emitter_amount_at_end = 20
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_56bra"]
+blend_mode = 1
+
 [sub_resource type="Curve" id="Curve_56bra"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -110,6 +114,7 @@ point_count = 2
 curve = SubResource("Curve_32qx2")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eskjs"]
+lifetime_randomness = 0.55
 particle_flag_disable_z = true
 spread = 180.0
 initial_velocity_max = 50.0
@@ -158,6 +163,7 @@ draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_0pqfg")
 
 [node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_56bra")
 emitting = false
 amount = 500
 sub_emitter = NodePath("../GPUParticles2D")

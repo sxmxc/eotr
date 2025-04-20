@@ -3,6 +3,7 @@ class_name DamageEffect
 
 var amount := 0
 var receiver_modifier_type := Enums.ModifierType.DMG_TAKEN
+var direct := false
 
 
 func execute(targets: Array[Node]) -> void:
@@ -10,5 +11,5 @@ func execute(targets: Array[Node]) -> void:
 		if not target:
 			continue
 		if target is Enemy or target is Player:
-			target.take_damage(amount, receiver_modifier_type)
+			target.take_damage(amount, receiver_modifier_type, direct)
 			SoundManager.play_sound_random_pitch(sound_fx)

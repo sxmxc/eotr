@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c6hamm38p4tew"]
+
+[ext_resource type="Script" uid="uid://v61gwou6s1g3" path="res://resources/data/cards/riftwalker/quantum_rift.gd" id="1_1o7qc"]
+
+[resource]
+script = ExtResource("1_1o7qc")
+card_type = 7
+target_type = 5
+id = "quantum_rift"
+name = "Quantum Rift"
+card_rarity = 0
+description = "Teleport to any explored tile."
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

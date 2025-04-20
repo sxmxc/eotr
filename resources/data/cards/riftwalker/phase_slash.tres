@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c0t6w3122bby2"]
+
+[ext_resource type="Script" uid="uid://hbafmp6j0m5m" path="res://resources/data/cards/riftwalker/phase_slash.gd" id="1_006to"]
+
+[resource]
+script = ExtResource("1_006to")
+card_type = 0
+target_type = 1
+id = "phase_slash"
+name = "Phase Slash"
+card_rarity = 1
+description = "Deal [b]%s[/b] damage. Ignores enemy armor if player has played a movement card."
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -8,5 +8,6 @@ func execute(targets: Array[Node]) -> void:
 		if not target or not target.run_stats:
 			continue
 		if target is Player:
+			Talo.stats.track("resources_gathered", amount)
 			target.run_stats.resources += amount
 			SoundManager.play_sound_random_pitch(sound_fx)

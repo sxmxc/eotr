@@ -37,7 +37,7 @@ func update_player() -> void:
 	sprite_2d.texture = stats.board_icon
 
 	
-func take_damage(damage: int, which_modifier: Enums.ModifierType) -> void:
+func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool = false) -> void:
 	if stats.health <= 0:
 		return
 		
@@ -45,9 +45,14 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType) -> void:
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	
 	var tween := create_tween()
-	tween.tween_callback(Shaker.shake.bind(self,16,.15))
-	tween.tween_callback(stats.take_damage.bind(modified_damage))
-	tween.tween_interval(.17)
+	if direct:
+		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
+		tween.tween_interval(0.17)
+	else:
+		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(stats.take_damage.bind(modified_damage))
+		tween.tween_interval(0.17)
 	
 	tween.finished.connect(
 		func():

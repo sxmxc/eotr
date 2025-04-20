@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ddkse6p44eytc"]
+
+[ext_resource type="Script" uid="uid://dtto261n6k0ih" path="res://resources/data/cards/riftwalker/adrenaline_rush.gd" id="1_pd51d"]
+
+[resource]
+script = ExtResource("1_pd51d")
+cards_drawn = 2
+energy_gained = 1
+card_type = 2
+target_type = 0
+id = "adrenaline_rush"
+name = "Adrenaline Rush"
+card_rarity = 0
+description = "Draw [b]2[/b] cards, gain 1 temporary energy."
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

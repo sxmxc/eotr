@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://djvq14reppgx2"]
+
+[ext_resource type="Script" uid="uid://6l1b0pj2rj5v" path="res://resources/data/cards/riftwalker/fracture_pulse.gd" id="1_5imcf"]
+
+[resource]
+script = ExtResource("1_5imcf")
+card_type = 2
+target_type = 3
+id = "fracture_pulse"
+name = "Fracture Pulse"
+card_rarity = 2
+description = "Deal [b]%s[/b] damage to all enemies. Gain 1 energy."
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

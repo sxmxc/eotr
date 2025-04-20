@@ -1,5 +1,8 @@
 extends Node
 
+func _ready() -> void:
+	print("TelemetryManager ready")
+
 func generate_random_ident() -> void:
 	var ident : String = Talo.players.generate_identifier()
 	Talo.players.identify("random_username", ident)

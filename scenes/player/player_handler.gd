@@ -9,6 +9,7 @@ const HAND_DISCARD_INTERVAL := 0.25
 @export var player_hand: PlayerHand
 
 var player_stats: PlayerStats
+var card_types_played: Array[Enums.CardType] = []
 
 
 func _ready() -> void:
@@ -28,6 +29,7 @@ func start_battle(stats: PlayerStats) -> void:
 
 
 func start_turn() -> void:
+	card_types_played = []
 	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()
@@ -79,6 +81,8 @@ func reshuffle_deck_from_discard() -> void:
 
 
 func _on_card_played(card: Card) -> void:
+	if not card_types_played.has(card.card_type):
+		card_types_played.append(card.card_type)
 	if card.exhaust or card.card_type == Enums.CardType.POWER:
 		return
 

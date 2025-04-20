@@ -23,6 +23,11 @@ func take_damage(damage: int) -> void:
 	damage = clampi(damage - block, 0, damage)
 	self.block = clampi(block - initial_damage, 0, block)
 	self.health -= damage
+	
+func take_direct_damage(damage: int) -> void:
+	if damage <= 0:
+		return
+	self.health -= damage
 
 func heal(amount: int) -> void: 
 	self.health += amount

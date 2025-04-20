@@ -42,22 +42,41 @@ func _ready() -> void:
 		RunBootstrap.Type.CONTINUED_RUN:
 			_load_run()
 
-
+func get_total_elapsed_run_time() -> float:
+	if player_stats.is_running:
+		return player_stats.run_elapsed_time + (Time.get_unix_time_from_system() - player_stats.run_start_time)
+	else:
+		return player_stats.run_elapsed_time
 func _destroy_all_enemies() -> void:
+	var event_props := {
+		"command": "yeet_em_all"
+	}
+	Talo.events.track("console_command_used", event_props)
+	Talo.stats.track("console_commands_used")
 	get_tree().call_group("enemy", "queue_free")
 
 
 func _start_run() -> void:
+	var event_props := {
+		"player_class": player_stats.player_class_name,
+	}
+	Talo.events.track("run_started", event_props)
+	Talo.stats.track("runs_started")
 	run_stats = RunStats.new()
 	_setup_event_connections()
 	_setup_top_bar()
 	map.generate_new_map()
 	map.unlock_floor(0)
 	save_data = SaveGame.new()
+	player_stats.run_start_time = Time.get_unix_time_from_system()
+	player_stats.run_elapsed_time = 0.0
+	player_stats.is_running = true
 	_save_run(true)
 
 
 func _save_run(was_on_map: bool):
+	player_stats.run_elapsed_time = get_total_elapsed_run_time()
+	
 	save_data.rng_seed = RNG.instance.seed
 	save_data.rng_state = RNG.instance.state
 	save_data.run_stats = run_stats
@@ -148,11 +167,29 @@ func _show_regular_rewards() -> void:
 
 
 func _on_battle_won() -> void:
+	var props := {
+		"floor" : map.floors_climbed
+	}
+	Talo.events.track("floor_completed", props)
+	Talo.stats.track("floors_completed")
 	if map.floors_climbed == MapGenerator.FLOORS:
+		player_stats.run_elapsed_time = get_total_elapsed_run_time()
+		player_stats.is_running = false
+		var event_props := {
+			"player_class" : player_stats.player_class_name,
+			"run_completion_time" : player_stats.run_elapsed_time
+			}
+		Talo.events.track("run_completed", event_props)
+		
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
 		win_screen.player_stats = player_stats
 		SaveGame.delete_data()
 	else:
+		var event_props := {
+			"player_class" : player_stats.player_class_name
+			}
+		Talo.events.track("battle_won", event_props)
+		Talo.stats.track("battles_won")
 		_show_regular_rewards()
 
 

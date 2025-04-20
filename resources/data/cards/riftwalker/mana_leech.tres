@@ -12,7 +12,7 @@ id = "mana_leech"
 name = "Mana Leech"
 card_rarity = 2
 description = "Target is [b]weakened[/b] for [b]3[/b] turns. 
-Gain [b]2[/b] energy"
+Gain [b]2[/b] energy temporarily."
 energy_cost = 1
 exhaust = false
 sound_fx = ExtResource("2_0xxly")

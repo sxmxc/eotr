@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ddfy372khhev7"]
+
+[ext_resource type="Script" uid="uid://cbrpici73jf4p" path="res://resources/data/cards/riftwalker/nano_shield.gd" id="1_3masv"]
+
+[resource]
+script = ExtResource("1_3masv")
+card_type = 1
+target_type = 0
+id = "nano_shield"
+name = "Nano Shield"
+card_rarity = 1
+description = "Block [b]%s[/b] damage and regain 3 energy."
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

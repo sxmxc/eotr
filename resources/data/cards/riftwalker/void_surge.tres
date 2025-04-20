@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dsu4lma4q6fs8"]
+
+[ext_resource type="Script" uid="uid://dgyveejnbv6dc" path="res://resources/data/cards/riftwalker/void_surge.gd" id="1_um3tt"]
+
+[resource]
+script = ExtResource("1_um3tt")
+card_type = 0
+target_type = 1
+id = "void_surge"
+name = "Void Surge"
+card_rarity = 1
+description = "Deal damage based on missing HP."
+energy_cost = 1
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"
