@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bofyn0epr8qy"]
+[gd_scene load_steps=59 format=3 uid="uid://bofyn0epr8qy"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_ovrgc"]
 [ext_resource type="Script" uid="uid://cus2iy6lkqd8v" path="res://scenes/menus/main_menu.gd" id="2_2o76q"]
@@ -10,11 +10,11 @@
 [ext_resource type="Script" uid="uid://cxwnehr2avcec" path="res://addons/uiJuicer/Fader.gd" id="7_50h1w"]
 [ext_resource type="Script" uid="uid://ewo5es7kglbm" path="res://scenes/menus/player_identity.gd" id="9_50h1w"]
 
-[sub_resource type="Gradient" id="Gradient_vn8vg"]
-colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)
+[sub_resource type="Gradient" id="Gradient_50h1w"]
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xqga4"]
-gradient = SubResource("Gradient_vn8vg")
+gradient = SubResource("Gradient_50h1w")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6bivr"]
 blend_mode = 1
@@ -302,11 +302,6 @@ shadow_size = 20
 shadow_color = Color(0.301961, 0.270588, 0.223529, 0.741176)
 shadow_offset = Vector2(8, 1)
 
-[sub_resource type="Environment" id="Environment_8r73w"]
-background_mode = 3
-background_canvas_max_layer = 9
-tonemap_mode = 1
-
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -564,9 +559,6 @@ offset_right = 267.0
 offset_bottom = 1053.0
 text = "Player Identity"
 script = ExtResource("9_50h1w")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_8r73w")
 
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

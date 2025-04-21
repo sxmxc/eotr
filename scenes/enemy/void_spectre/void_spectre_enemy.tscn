@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://bti2nexuunus2"]
+[gd_scene load_steps=18 format=3 uid="uid://bti2nexuunus2"]
 
-[ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_t7gmi"]
-[ext_resource type="Resource" uid="uid://bxamo508a0hwr" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="2_0vmyt"]
+[ext_resource type="Script" uid="uid://dab3xatiqgpbv" path="res://scenes/enemy/void_spectre/void_spectre_enemy.gd" id="1_hic4f"]
 [ext_resource type="Texture2D" uid="uid://c7wwsvbjgqf4a" path="res://assets/icons/spectre.svg" id="2_t7gmi"]
 [ext_resource type="Theme" uid="uid://bb06r68q304st" path="res://resources/themes/enemy_stats_theme.tres" id="3_3ryel"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="4_3ryel"]
@@ -28,10 +27,8 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[node name="VoidSpectreEnemy" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy"]]
-script = ExtResource("1_t7gmi")
-stats = ExtResource("2_0vmyt")
-stats_ui = NodePath("EnemyStatsUI")
+[node name="VoidSpectreEnemy" type="Node2D" groups=["enemy"]]
+script = ExtResource("1_hic4f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true

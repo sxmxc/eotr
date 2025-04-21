@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch1i8t2vqxven"]
+
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_5vjhp"]
+[ext_resource type="Script" uid="uid://crfgoxa36x3u3" path="res://ui/fx/text_fx.gd" id="2_gkld6"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5vjhp"]
+
+[node name="TextFX" type="Control"]
+z_index = 6
+layout_mode = 3
+anchors_preset = 0
+offset_right = 54.0
+offset_bottom = 40.0
+theme = ExtResource("1_5vjhp")
+script = ExtResource("2_gkld6")
+text = "20"
+scale_size = Vector2(2, 2)
+float_height = Vector2(0, -200)
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_5vjhp")
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.83, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "20"

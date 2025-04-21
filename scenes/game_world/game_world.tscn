@@ -157,7 +157,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAD//wAAAAAAAAA
 tile_set = ExtResource("1_tqoos")
 
 [node name="FogLayer" type="TileMapLayer" parent="Tilemap"]
-modulate = Color(0.830469, 0.830469, 0.830469, 0.929412)
 z_index = 3
 tile_set = ExtResource("3_0jtfi")
 

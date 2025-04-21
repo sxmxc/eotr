@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://bc2hjnwtwhelj"]
+[gd_scene load_steps=67 format=3 uid="uid://bc2hjnwtwhelj"]
 
 [ext_resource type="Script" uid="uid://l13r63ukihp2" path="res://scenes/run/run.gd" id="1_l7o68"]
 [ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="2_o4jfg"]
@@ -281,11 +281,6 @@ turbulence_enabled = true
 turbulence_noise_strength = 11.9
 turbulence_noise_speed_random = 3.34
 turbulence_influence_over_life = SubResource("CurveTexture_r2fsw")
-
-[sub_resource type="Environment" id="Environment_u2bn2"]
-background_mode = 3
-background_canvas_max_layer = 9
-tonemap_mode = 1
 
 [node name="Run" type="Node"]
 script = ExtResource("1_l7o68")
@@ -720,8 +715,5 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Main Menu"
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_u2bn2")
 
 [connection signal="toggled" from="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer/CollapseToggle" to="MapLegendUI/MapLegend" method="_on_collapse_toggle_toggled"]

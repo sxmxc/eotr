@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bn20v4c3khchm"]
+[gd_scene load_steps=8 format=3 uid="uid://bn20v4c3khchm"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_1b2yi"]
 [ext_resource type="Script" uid="uid://c674jiftgbg05" path="res://ui/player_ui/stats_ui.gd" id="2_rsvfm"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="3_q23b4"]
 [ext_resource type="PackedScene" uid="uid://q8rgdk6ij87e" path="res://ui/fx/arrow_up_fx.tscn" id="3_qmogj"]
 [ext_resource type="Texture2D" uid="uid://68ldyofdhxi2" path="res://assets/icons/electric.png" id="4_dex0y"]
+[ext_resource type="PackedScene" uid="uid://ch1i8t2vqxven" path="res://ui/fx/text_fx.tscn" id="4_qmogj"]
 
 [node name="StatsUI" type="Panel"]
 offset_right = 176.0
@@ -14,6 +15,7 @@ theme = ExtResource("1_1b2yi")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_rsvfm")
 stat_change_fx = ExtResource("3_qmogj")
+stat_change_txt_fx = ExtResource("4_qmogj")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -3,6 +3,7 @@ extends Node2D
 
 
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
+const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
 
 @export var stats: EnemyStats : set = set_stats
 @export var stats_ui: EnemyStatsUI
@@ -95,6 +96,10 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var tween := create_tween()
+	var text_fx := TEXT_FX.instantiate() as TextFX
+	text_fx.text = str(damage)
+	add_child(text_fx)
+	text_fx.execute()
 	if direct:
 		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))

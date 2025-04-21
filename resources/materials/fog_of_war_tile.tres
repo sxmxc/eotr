@@ -5,13 +5,13 @@
 [resource]
 shader = ExtResource("1_iyihb")
 shader_parameter/transparency = 1.0
-shader_parameter/color0 = Color(0.407843, 0.372549, 0.360784, 0.65098)
-shader_parameter/color1 = Color(0.517647, 0.470588, 0.458824, 0.921569)
-shader_parameter/color2 = Color(0.517647, 0.470588, 0.458824, 0.964706)
-shader_parameter/color3 = Color(0.459375, 0.417614, 0.407173, 1)
+shader_parameter/color0 = Color(0.407843, 0.372549, 0.360784, 0.937255)
+shader_parameter/color1 = Color(0.517647, 0.470588, 0.458824, 0.980392)
+shader_parameter/color2 = Color(0.294118, 0.239216, 0.266667, 1)
+shader_parameter/color3 = Color(0.301961, 0.270588, 0.223529, 1)
 shader_parameter/Direction = Vector2(1, 1)
 shader_parameter/Speed = 25.0
-shader_parameter/thresholds = PackedFloat32Array(0.6, 0.67, 0.75)
-shader_parameter/OCTAVE = 6
+shader_parameter/thresholds = PackedFloat32Array(0.6, 0.685, 0.13)
+shader_parameter/OCTAVE = 7
 shader_parameter/pixel_size = 1200
 shader_parameter/dithering = 1.95

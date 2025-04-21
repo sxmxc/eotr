@@ -5,11 +5,11 @@
 [ext_resource type="Resource" uid="uid://dn7lhxxxvlq28" path="res://resources/data/battles/battle_stats_pool.tres" id="3_a2pkv"]
 [ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="4_ph54e"]
 
-[sub_resource type="Gradient" id="Gradient_tqkkf"]
-colors = PackedColorArray(0.47451, 0.266667, 0.290196, 1, 0.294118, 0.239216, 0.266667, 1)
+[sub_resource type="Gradient" id="Gradient_vn8vg"]
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_a2pkv"]
-gradient = SubResource("Gradient_tqkkf")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ph54e"]
+gradient = SubResource("Gradient_vn8vg")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a2pkv"]
 blend_mode = 1
@@ -285,14 +285,14 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_ph54e")
 
-[node name="BackgroundTint" type="TextureRect" parent="MapBackground"]
-self_modulate = Color(1, 1, 1, 0.647059)
+[node name="Gradient" type="TextureRect" parent="MapBackground"]
+modulate = Color(1, 1, 1, 0.647059)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_a2pkv")
+texture = SubResource("GradientTexture1D_ph54e")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 layer = 2
