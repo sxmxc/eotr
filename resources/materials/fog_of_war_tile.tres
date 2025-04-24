@@ -5,10 +5,10 @@
 [resource]
 shader = ExtResource("1_iyihb")
 shader_parameter/transparency = 1.0
-shader_parameter/color0 = Color(0.407843, 0.372549, 0.360784, 0.937255)
-shader_parameter/color1 = Color(0.517647, 0.470588, 0.458824, 0.980392)
-shader_parameter/color2 = Color(0.294118, 0.239216, 0.266667, 1)
-shader_parameter/color3 = Color(0.301961, 0.270588, 0.223529, 1)
+shader_parameter/color0 = Color(0.670588, 0.607843, 0.556863, 1)
+shader_parameter/color1 = Color(0.517647, 0.470588, 0.458824, 1)
+shader_parameter/color2 = Color(0.670588, 0.607843, 0.556863, 1)
+shader_parameter/color3 = Color(0.341176, 0.282353, 0.321569, 1)
 shader_parameter/Direction = Vector2(1, 1)
 shader_parameter/Speed = 25.0
 shader_parameter/thresholds = PackedFloat32Array(0.6, 0.685, 0.13)

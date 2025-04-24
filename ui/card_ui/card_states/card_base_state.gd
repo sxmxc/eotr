@@ -13,8 +13,14 @@ func enter() -> void:
 	card_ui.reparent_requested.emit(card_ui)
 	card_ui.state.text = "BASE"
 	card_ui.pivot_offset = Vector2.ZERO
+	if card_ui.playable:
+		card_ui.visuals.card_attention_fx.show()
+	else:
+		card_ui.visuals.card_attention_fx.hide()
 	Events.tooltip_hide_requested.emit()
 
+func exit() -> void:
+	card_ui.visuals.card_attention_fx.hide()
 
 func on_gui_input(event: InputEvent) -> void:
 	if not card_ui.playable or card_ui.disabled:

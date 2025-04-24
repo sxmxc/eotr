@@ -10,6 +10,7 @@ class_name CardVisuals
 @onready var card_text_label: RichTextLabel = %CardTextLabel
 @onready var rarity: TextureRect = %Rarity
 @onready var card_boosted_effect: ColorRect = %CardBoostedEffect
+@onready var card_attention_fx: GPUParticles2D = %CardAttentionFX
 
 var player_modifiers: ModifierHandler
 

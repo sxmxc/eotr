@@ -63,10 +63,17 @@ func discard_cards() -> void:
 		Events.player_hand_discarded.emit()
 		return
 	var tween := create_tween()
+	var world_ui :GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
+	var discard_pile_position = world_ui.discard_pile_button.global_position
+	
 	for card_ui in player_hand.get_cards():
+		var card_ui_offset = Vector2(card_ui.global_position.x, card_ui.global_position.y - 100)
+		tween.tween_property(card_ui,"global_position", card_ui_offset,HAND_DISCARD_INTERVAL/2)
+		tween.tween_property(card_ui,"global_position", discard_pile_position,HAND_DISCARD_INTERVAL/2)
+		tween.parallel().tween_property(card_ui, "scale", Vector2(.05,.05),HAND_DISCARD_INTERVAL)
 		tween.tween_callback(player_stats.discard.add_card.bind(card_ui.card))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
-		tween.tween_interval(HAND_DISCARD_INTERVAL)
+		#tween.tween_interval(HAND_DISCARD_INTERVAL)
 	tween.finished.connect(func(): Events.player_hand_discarded.emit())
 
 

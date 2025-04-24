@@ -17,24 +17,27 @@ size = Vector2(179, 240)
 [node name="CardUI" type="Control"]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1740.0
-offset_bottom = -840.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 180.0
+offset_bottom = 240.0
+pivot_offset = Vector2(90, 240)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_l3rh4")
 script = ExtResource("2_dmw7j")
 discard_sound = ExtResource("3_0oooe")
+metadata/_edit_use_anchors_ = true
 
 [node name="Visuals" parent="." instance=ExtResource("4_l3rh4")]
 unique_name_in_owner = true
-offset_right = 180.0
-offset_bottom = 240.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(90, 120)
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="CardStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_36rxq")

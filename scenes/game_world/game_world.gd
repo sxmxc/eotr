@@ -11,7 +11,6 @@ extends Node2D
 @onready var debug_ui = $GameWorldUI/DebugUI
 @onready var player: Player = $Player
 @onready var game_world_ui = $GameWorldUI
-@onready var hand_container = $GameWorldUI/PlayerUI/Hand/HandContainer
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
 @onready var map_camera = $MapCamera

@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=56 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -30,10 +30,14 @@
 [ext_resource type="Script" uid="uid://bncsfkx6mq4ic" path="res://ui/map_ui/map_ui.gd" id="21_fg3oe"]
 [ext_resource type="PackedScene" uid="uid://80y8in4wjr2c" path="res://ui/player_ui/enemy_info.tscn" id="22_csgag"]
 [ext_resource type="Texture2D" uid="uid://dg0r2ppupt5fk" path="res://assets/icons/magnifying-glass.png" id="22_wgh4l"]
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="23_ht6dc"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="24_mkc5e"]
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
 [ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
+[ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="25_udifo"]
+[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="26_qnbvx"]
+[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="27_0am1i"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
@@ -59,6 +63,15 @@ script = ExtResource("17_lorak")
 duration = 1.0
 transition = 0
 ease = 2
+
+[sub_resource type="Curve" id="Curve_udifo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.498681, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_qnbvx"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.496042, 0.0010246), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_0br8l"]
 font_size = 40
@@ -220,6 +233,252 @@ offset_bottom = 488.0
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="EnemyUI" type="Control" parent="GameWorldUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("23_ht6dc")
+
+[node name="EnemyInfo" parent="GameWorldUI/EnemyUI" instance=ExtResource("22_csgag")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 392.0
+offset_right = 320.0
+offset_bottom = 680.0
+
+[node name="EnemyIntentUI" type="Control" parent="GameWorldUI/EnemyUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -263.0
+offset_top = 114.0
+offset_right = 264.0
+offset_bottom = 228.0
+grow_horizontal = 2
+
+[node name="Panel" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Enemy"
+horizontal_alignment = 1
+
+[node name="IntentIcon" type="TextureRect" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture = ExtResource("25_udifo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("26_qnbvx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "10"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("27_0am1i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "10"
+
+[node name="Panel2" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 48.5
+offset_top = -43.0
+offset_right = 148.5
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(50, 50)
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel2/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="Panel3" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.5
+offset_top = -43.0
+offset_right = -52.5
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(50, 50)
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel3/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="Panel4" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.5
+offset_top = -43.0
+offset_right = -121.5
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(50, 50)
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel4/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="Panel5" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 119.5
+offset_top = -43.0
+offset_right = 219.5
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(50, 50)
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="GameWorldUI/EnemyUI/EnemyIntentUI/Panel5/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
 [node name="PlayerUI" type="Control" parent="GameWorldUI"]
 layout_mode = 3
 anchors_preset = 15
@@ -243,15 +502,8 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("7_pdbwf")
 player = NodePath("../../../Player")
-
-[node name="HandContainer" type="HBoxContainer" parent="GameWorldUI/PlayerUI/Hand"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
+hand_curve = SubResource("Curve_udifo")
+rotation_curve = SubResource("Curve_qnbvx")
 
 [node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("12_odt01")]
 layout_mode = 0
@@ -275,13 +527,6 @@ offset_left = 8.0
 offset_top = 112.0
 offset_right = 322.0
 offset_bottom = 360.0
-
-[node name="EnemyInfo" parent="GameWorldUI/PlayerUI" instance=ExtResource("22_csgag")]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 392.0
-offset_right = 320.0
-offset_bottom = 680.0
 
 [node name="EndTurnButton" type="Button" parent="GameWorldUI/PlayerUI"]
 unique_name_in_owner = true

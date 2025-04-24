@@ -10,6 +10,7 @@ func enter() -> void:
 		card_ui.reparent(ui_layer)
 	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_DRAGGING)
 	Events.card_drag_started.emit(card_ui)
+	card_ui.rotation_degrees = 0
 	minimum_drag_time_elapsed = false
 	var threshold_timer := get_tree().create_timer(DRAG_MINIMUM_THRESHOLD, false)
 	threshold_timer.timeout.connect(func(): minimum_drag_time_elapsed = true)
