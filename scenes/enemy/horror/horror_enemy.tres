@@ -8,5 +8,5 @@
 script = ExtResource("1_v5ie3")
 board_icon = ExtResource("2_putlg")
 ai = ExtResource("1_lemrl")
-max_health = 10
+max_health = 30
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

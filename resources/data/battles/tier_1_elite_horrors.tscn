@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnvc2120uisji"]
+[gd_scene load_steps=14 format=3 uid="uid://dnvc2120uisji"]
 
 [ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_m25rp"]
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="2_4nu8b"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bperpmikxf7au" path="res://scenes/enemy/horror/horror_move_action.gd" id="6_bdvyk"]
 [ext_resource type="AudioStream" uid="uid://ch10vc8phptoe" path="res://assets/audio/kenney_casino/chip-lay-3.ogg" id="7_4hpfh"]
 [ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obilisk/obelisk_enemy.tscn" id="9_4nu8b"]
+[ext_resource type="Resource" uid="uid://fddqe3ier2dp" path="res://scenes/enemy/bat/bat_enemy.tres" id="10_cgsdu"]
 
 [sub_resource type="PackedScene" id="PackedScene_bs7fv"]
 _bundled = {
@@ -36,7 +37,22 @@ metadata/_custom_type_script = "uid://dmnb4jshnwq7q"
 
 [node name="Tier1EliteHorrors" type="Node2D"]
 
+[node name="Obilisk" parent="." instance=ExtResource("9_4nu8b")]
+
 [node name="EliteHorror1" parent="." instance=ExtResource("1_m25rp")]
 stats = SubResource("Resource_m7ih0")
 
-[node name="Obilisk" parent="." instance=ExtResource("9_4nu8b")]
+[node name="Bat1" parent="." instance=ExtResource("1_m25rp")]
+stats = ExtResource("10_cgsdu")
+
+[node name="Bat2" parent="." instance=ExtResource("1_m25rp")]
+stats = ExtResource("10_cgsdu")
+
+[node name="Bat3" parent="." instance=ExtResource("1_m25rp")]
+stats = ExtResource("10_cgsdu")
+
+[node name="Bat4" parent="." instance=ExtResource("1_m25rp")]
+stats = ExtResource("10_cgsdu")
+
+[node name="Bat5" parent="." instance=ExtResource("1_m25rp")]
+stats = ExtResource("10_cgsdu")

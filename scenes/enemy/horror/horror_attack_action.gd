@@ -1,10 +1,11 @@
 extends EnemyAction
 
-@export var damage := 4
+@export var damage := 5
 
 func perform_action():
 	if not enemy or not target: 
 		return
+		
 	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	var tween = create_tween().set_trans(Tween.TRANS_QUINT)

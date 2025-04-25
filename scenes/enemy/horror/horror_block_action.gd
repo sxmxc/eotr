@@ -1,6 +1,6 @@
 extends EnemyAction
 
-@export var block := 4
+@export var block := 10
 
 func perform_action():
 	if not enemy or not target: 

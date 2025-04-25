@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://clybmd6dqmpt8"]
+[gd_scene load_steps=15 format=3 uid="uid://clybmd6dqmpt8"]
 
 [ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obilisk/obelisk_enemy.gd" id="1_pyj3l"]
 [ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obilisk/obelisk_enemy.tres" id="2_2g2p5"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_okv0r"]
 [ext_resource type="Resource" uid="uid://d3x2ax43x8lji" path="res://scenes/enemy/blob/blob_enemy.tres" id="3_ygcrw"]
 [ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="4_pyj3l"]
+[ext_resource type="Resource" uid="uid://fddqe3ier2dp" path="res://scenes/enemy/bat/bat_enemy.tres" id="5_ygcrw"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="10_gpe5u"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="11_82g5s"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_xeohu"]
@@ -23,7 +24,7 @@ ease = 2
 
 [node name="Obilisk" type="Node2D" groups=["enemy", "obelisk"]]
 script = ExtResource("1_pyj3l")
-spawn_pool = Array[ExtResource("2_23345")]([ExtResource("3_ygcrw"), ExtResource("4_pyj3l")])
+spawn_pool = Array[ExtResource("2_23345")]([ExtResource("3_ygcrw"), ExtResource("4_pyj3l"), ExtResource("5_ygcrw")])
 stats = ExtResource("2_2g2p5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

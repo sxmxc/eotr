@@ -1,12 +1,12 @@
 extends EnemyAction
 
-@export var block := 6
+@export var block := 10
 @export var visual_fx_scene: PackedScene
 
 func perform_action() -> void:
 	if not enemy or not target: 
 		return 
-	print("Enemy blocks!")
+	print("%s blocks!" % enemy.name)
 	var world_message = WorldMessageData.new("%s blocks!" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	var block_effect := BlockEffect.new()

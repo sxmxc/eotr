@@ -1,7 +1,7 @@
 extends EnemyAction
 
-@export var block := 15
-@export var hp_threshold := 6
+@export var block := 20
+@export var hp_threshold := 10
 @export var visual_fx_scene: PackedScene
 
 var already_used := false

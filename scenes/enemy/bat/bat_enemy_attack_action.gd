@@ -1,16 +1,12 @@
 extends EnemyAction
 
-const VOID_SLIME = preload("res://resources/data/cards/common/void_slime.tres")
+@export var damage := 5
 
-@export var damage := 7
+
 
 func perform_action() -> void:
 	if not enemy or not target:
 		return
-	var player := target as Player
-	if not player:
-		return
-	
 	print("%s attacks!" % enemy.name)
 	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
 	Events.world_message_requested.emit(world_message)
@@ -22,10 +18,9 @@ func perform_action() -> void:
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound
 	
-	
 	tween.tween_property(enemy, "global_position", end, 0.4)
 	tween.tween_callback(damage_effect.execute.bind(target_array))
-	tween.tween_callback(player.stats.draw_pile.add_card.bind(VOID_SLIME.duplicate()))
+	
 	tween.tween_interval(0.25)
 	tween.tween_property(enemy,"global_position", start, 0.4)
 	

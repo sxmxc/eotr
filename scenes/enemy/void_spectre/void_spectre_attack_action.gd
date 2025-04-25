@@ -12,6 +12,9 @@ func perform_action() -> void:
 	var player := target as Player
 	if not player:
 		return
+	
+	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
+	Events.world_message_requested.emit(world_message)
 
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position

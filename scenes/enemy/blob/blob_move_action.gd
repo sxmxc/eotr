@@ -14,7 +14,7 @@ func is_performable() -> bool:
 func perform_action() -> void:
 	if not enemy:
 		return
-	print("Enemy moves closer to player")
+	print("%s moves closer to player" % enemy.name)
 	var world_message = WorldMessageData.new("%s moves closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	enemy.perform_turn_based_move(1)
