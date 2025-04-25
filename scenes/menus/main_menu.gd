@@ -2,6 +2,7 @@ extends Control
 
 const CLASS_SELECTOR_SCENE = preload("res://scenes/menus/class_selector.tscn")
 const RUN_SCENE = preload("res://scenes/run/run.tscn")
+const SETTINGS_MENU = preload("res://scenes/menus/settings_menu.tscn")
 
 @export var run_bootstrap: RunBootstrap
 
@@ -29,3 +30,9 @@ func _on_exit_button_pressed() -> void:
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().quit()
 	pass  # Replace with function body.
+
+
+func _on_settings_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	get_tree().change_scene_to_packed(SETTINGS_MENU)
+	pass # Replace with function body.

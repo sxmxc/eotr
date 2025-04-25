@@ -189,6 +189,7 @@ zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_ht6dc")
 tween_on_load = false
 follow_offset = Vector2(0, 40)
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="CardTargetSelector" parent="." instance=ExtResource("6_ph1f2")]
