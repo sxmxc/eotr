@@ -41,10 +41,10 @@ func _ready():
 	base_layer = $BaseLayer
 	fog_layer = $FogLayer
 
-	if not LimboConsole.has_command("hide_fog"):
-		LimboConsole.register_command(hide_fog, "hide_fog", "Hide fog layer")
-	if not LimboConsole.has_command("show_fog"):
-		LimboConsole.register_command(show_fog, "show_fog", "Show fog layer")
+	#if not LimboConsole.has_command("hide_fog"):
+		#LimboConsole.register_command(hide_fog, "hide_fog", "Hide fog layer")
+	#if not LimboConsole.has_command("show_fog"):
+		#LimboConsole.register_command(show_fog, "show_fog", "Show fog layer")
 
 	tile_weights = {
 		"RESOURCE": resource_weight,
@@ -177,8 +177,7 @@ func move_player(tile_pos) -> void:
 		player_position_updated.emit(base_layer.map_to_local(player_position))
 
 
-func place_obelisk() -> void:
-	var obelisk: Enemy = get_tree().get_first_node_in_group("obelisk")
+func place_obelisk(obelisk: Obelisk) -> void:
 	var random_tile = Vector2i(
 		RNG.instance.randi_range(0, map_width - 1), RNG.instance.randi_range(0, map_height - 1)
 	)

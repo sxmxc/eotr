@@ -1,4 +1,8 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://bk4twpkhy67d4"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bk4twpkhy67d4"]
+
+[ext_resource type="FontFile" uid="uid://drcf0itkwcbj7" path="res://assets/fonts/m3x6.ttf" id="1_c6ps2"]
 
 [resource]
-font_size = 10
+font = ExtResource("1_c6ps2")
+font_size = 32
+font_color = Color(0.823529, 0.788235, 0.647059, 1)

@@ -2,7 +2,6 @@ extends Control
 
 const CLASS_SELECTOR_SCENE = preload("res://scenes/menus/class_selector.tscn")
 const RUN_SCENE = preload("res://scenes/run/run.tscn")
-const CLICK_5 = preload("res://assets/audio/battle_sound_effects/click5.ogg")
 
 @export var run_bootstrap: RunBootstrap
 

@@ -1,14 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://clybmd6dqmpt8"]
+[gd_scene load_steps=14 format=3 uid="uid://clybmd6dqmpt8"]
 
 [ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obilisk/obelisk_enemy.gd" id="1_pyj3l"]
+[ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obilisk/obelisk_enemy.tres" id="2_2g2p5"]
 [ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_180ib"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_23345"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_okv0r"]
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="4_8jl1v"]
-[ext_resource type="Script" uid="uid://belppxsvi5q8d" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="5_str6b"]
-[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="6_mvxgp"]
-[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="7_3iucp"]
-[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="8_ltj3h"]
-[ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="9_q2bg6"]
+[ext_resource type="Resource" uid="uid://d3x2ax43x8lji" path="res://scenes/enemy/blob/blob_enemy.tres" id="3_ygcrw"]
+[ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="4_pyj3l"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="10_gpe5u"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="11_82g5s"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_xeohu"]
@@ -17,19 +15,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sc4px"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_plqok"]
-
 [sub_resource type="Resource" id="Resource_fjfnb"]
 script = ExtResource("13_ysoax")
 duration = 1.0
 transition = 0
 ease = 2
 
-[node name="Obilisk" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy", "obelisk"]]
+[node name="Obilisk" type="Node2D" groups=["enemy", "obelisk"]]
 script = ExtResource("1_pyj3l")
-stats_ui = NodePath("EnemyStatsUI")
+spawn_pool = Array[ExtResource("2_23345")]([ExtResource("3_ygcrw"), ExtResource("4_pyj3l")])
+stats = ExtResource("2_2g2p5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -47,115 +42,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_xxaiy")
-
-[node name="EnemyStatsUI" type="Panel" parent="."]
-z_index = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.0
-offset_top = -11.0
-offset_right = 42.0
-offset_bottom = 11.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("4_8jl1v")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sc4px")
-script = ExtResource("5_str6b")
-
-[node name="MainMargin" type="MarginContainer" parent="EnemyStatsUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="Panel" type="Panel" parent="EnemyStatsUI/MainMargin"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_plqok")
-
-[node name="BodyMargin" type="MarginContainer" parent="EnemyStatsUI/MainMargin/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin"]
-layout_mode = 2
-alignment = 1
-
-[node name="Health" type="HBoxContainer" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="HealthIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Health"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-texture = ExtResource("6_mvxgp")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="HealthLabel" type="Label" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Health"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 16
-text = "10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Block" type="HBoxContainer" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="BlockIcon" type="TextureRect" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Block"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-texture = ExtResource("7_3iucp")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="BlockLabel" type="Label" parent="EnemyStatsUI/MainMargin/Panel/BodyMargin/HBoxContainer/Block"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 16
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("8_ltj3h")]
-z_index = 1
-offset_top = -15.0
-offset_right = 29.0
-offset_bottom = 25.0
-columns = 1
-status_owner = NodePath("..")
-status_icon_size = 16
-quantity_label_settings = ExtResource("9_q2bg6")
 
 [node name="ModifierHandler" parent="." instance=ExtResource("10_gpe5u")]
 

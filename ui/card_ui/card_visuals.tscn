@@ -186,6 +186,7 @@ stretch_mode = 5
 
 [node name="CardAttentionFX" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
+visible = false
 show_behind_parent = true
 position = Vector2(90, 120)
 amount = 5

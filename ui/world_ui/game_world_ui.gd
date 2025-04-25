@@ -13,6 +13,7 @@ class_name GameWorldUI
 @onready var draw_pile_view: CardPileView = %DrawPileView
 @onready var discard_pile_view: CardPileView = %DiscardPileView
 @onready var status_handler: StatusHandler = $PlayerUI/StatusHandler
+@onready var enemy_stats_container: HBoxContainer = %EnemyStatsContainer
 
 func _ready() -> void:
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
@@ -20,6 +21,8 @@ func _ready() -> void:
 	draw_pile_button.pressed.connect(draw_pile_view.show_current_view.bind("Draw Pile", true))
 	discard_pile_button.pressed.connect(discard_pile_view.show_current_view.bind("Discard Pile"))
 	status_handler.status_owner = get_tree().get_first_node_in_group("player")
+	for child in enemy_stats_container.get_children():
+		child.queue_free()
 	
 func initialize_card_pile_ui() -> void:
 	draw_pile_button.card_pile = player_stats.draw_pile

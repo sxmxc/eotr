@@ -30,12 +30,12 @@ func _physics_process(delta):
 	# Explicitly move the enemy
 	global_position += navigation_agent_2d.velocity * delta
 	current_tile_position = tilemap.base_layer.local_to_map(position)
-	if tilemap.base_layer.get_surrounding_cells(current_tile_position).has(
-		get_player_tile_position()
-	):
-		stats_ui.show()
-	else:
-		stats_ui.hide()
+	#if tilemap.base_layer.get_surrounding_cells(current_tile_position).has(
+		#get_player_tile_position()
+	#):
+		#stats_ui.show()
+	#else:
+		#stats_ui.hide()
 
 	super._physics_process(delta)
 

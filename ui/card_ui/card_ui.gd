@@ -95,18 +95,20 @@ func get_description() -> String:
 
 func burn_card() -> void:
 	var world_ui :GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
+	
 	var target_offset : Vector2 = Vector2(size.x /2, size.y / 2)
 	var discard_pile_position = Vector2(
-		world_ui.discard_pile_button.global_position.x - target_offset.x * .25, 
-		world_ui.discard_pile_button.global_position.y - target_offset.y * .25
+		world_ui.discard_pile_button.global_position.x + world_ui.discard_pile_button.size.x / 2, 
+		world_ui.discard_pile_button.global_position.y + world_ui.discard_pile_button.size.y / 2
 		)
-	var card_ui_offset = Vector2(global_position.x, global_position.y - 120)
+	var center_of_screen = get_viewport().get_visible_rect().size / 2
 	visuals.card_boosted_effect.hide()
+	visuals.card_attention_fx.hide()
 	visuals.material = CARD_BURNABLE.duplicate()
 	tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "global_position", card_ui_offset, .25)
-	tween.tween_property(self, "global_position", discard_pile_position, .25)
-	tween.parallel().tween_property(visuals, "scale", Vector2(.25,.25), .5)
+	tween.tween_property(self, "global_position", center_of_screen - target_offset, .5)
+	tween.tween_property(self, "global_position", discard_pile_position - target_offset, .25)
+	tween.parallel().tween_property(visuals, "scale", Vector2(.25,.25), .25)
 	tween.tween_method(set_burn_shader_parameter, 0.0, 2.0, 1.5)
 	tween.tween_callback(queue_free)
 	SoundManager.play_sound_random_pitch(discard_sound)
@@ -142,8 +144,10 @@ func _set_playable(value: bool) -> void:
 	playable = value
 	if not playable:
 		visuals.card_cost_label.add_theme_color_override("font_color", Color.RED)
+		visuals.card_attention_fx.hide()
 	else:
 		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_WHITE)
+		visuals.card_attention_fx.show()
 
 func _set_values_modified(value: bool) -> void:
 	values_modified = value
@@ -169,6 +173,7 @@ func _on_drop_point_detector_area_exited(area):
 func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
 	if used_card == self:
 		return
+	visuals.card_attention_fx.hide()
 	disabled = true
 
 

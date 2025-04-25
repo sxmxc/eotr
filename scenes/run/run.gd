@@ -139,8 +139,8 @@ func _setup_event_connections() -> void:
 	Events.shop_exited.connect(_show_map)
 	Events.treasure_room_exited.connect(_on_treasure_room_exited)
 
-	if not LimboConsole.has_command("yeet_em_all"):
-		LimboConsole.register_command(_destroy_all_enemies, "yeet_em_all", "Destroy all enemies")
+	#if not LimboConsole.has_command("yeet_em_all"):
+		#LimboConsole.register_command(_destroy_all_enemies, "yeet_em_all", "Destroy all enemies")
 
 
 func _setup_top_bar() -> void:

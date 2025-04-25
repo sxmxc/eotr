@@ -13,10 +13,6 @@ func enter() -> void:
 	card_ui.reparent_requested.emit(card_ui)
 	card_ui.state.text = "BASE"
 	card_ui.pivot_offset = Vector2.ZERO
-	if card_ui.playable:
-		card_ui.visuals.card_attention_fx.show()
-	else:
-		card_ui.visuals.card_attention_fx.hide()
 	Events.tooltip_hide_requested.emit()
 
 func exit() -> void:
@@ -33,6 +29,7 @@ func on_gui_input(event: InputEvent) -> void:
 
 func on_mouse_entered() -> void:
 	mouse_over_card = true
+	card_ui.z_index += 1
 	if not card_ui.playable or card_ui.disabled:
 		return
 	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_HOVER)
@@ -41,6 +38,7 @@ func on_mouse_entered() -> void:
 
 func on_mouse_exited() -> void:
 	mouse_over_card = false
+	card_ui.z_index = 0
 	if not card_ui.playable or card_ui.disabled:
 		return
 	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_BASE)

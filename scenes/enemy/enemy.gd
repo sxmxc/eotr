@@ -8,9 +8,9 @@ const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
 @export var stats: EnemyStats : set = set_stats
 @export var stats_ui: EnemyStatsUI
 @export var tilemap: ProcGenTilemap
+@export var status_handler: StatusHandler
 
 @onready var sprite_2d : Sprite2D = $Sprite2D
-@onready var status_handler: StatusHandler = $StatusHandler
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 @onready var token_shine_effect: VisualFX = %TokenShineEffect
 @onready var phantom_camera_2d: PhantomCamera2D = %PhantomCamera2D
@@ -27,16 +27,16 @@ func _ready():
 	Events.player_died.connect(func(): self.set_process(false))
 	if not $Area2D.input_event.is_connected(_on_area_2d_input_event):
 		$Area2D.input_event.connect(_on_area_2d_input_event)
-	stats_ui.hide()
-	status_handler.status_owner = self
+	#stats_ui.hide()
+	
 	
 	
 func _physics_process(_delta):
 	current_tile_position = tilemap.base_layer.local_to_map(position)
-	if tilemap.base_layer.get_surrounding_cells(current_tile_position).has(get_player_tile_position()):
-		stats_ui.show()
-	else:
-		stats_ui.hide()
+	#if tilemap.base_layer.get_surrounding_cells(current_tile_position).has(get_player_tile_position()):
+		#stats_ui.show()
+	#else:
+		#stats_ui.hide()
 	
 
 func set_stats(value: EnemyStats) -> void:

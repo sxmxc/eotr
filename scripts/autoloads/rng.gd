@@ -45,7 +45,7 @@ func roll(faces: int = 20, amount: int = 1) -> int:
 	for x in range(amount):
 		var result = instance.randi_range(1, faces)
 		outcome += result
-		LimboConsole.print_line(str(result))
-	LimboConsole.print_line("Total: %s" % str(outcome))
-	LimboConsole.print_boxed("Total: %s" % str(outcome))
+		#LimboConsole.print_line(str(result))
+	#LimboConsole.print_line("Total: %s" % str(outcome))
+	#LimboConsole.print_boxed("Total: %s" % str(outcome))
 	return outcome

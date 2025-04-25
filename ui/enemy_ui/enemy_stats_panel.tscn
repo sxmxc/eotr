@@ -1,0 +1,167 @@
+[gd_scene load_steps=10 format=3 uid="uid://wxhnk5epbwkh"]
+
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_wipsd"]
+[ext_resource type="Script" uid="uid://ua48e5l40efp" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="2_m745d"]
+[ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="3_64wux"]
+[ext_resource type="FontFile" uid="uid://drcf0itkwcbj7" path="res://assets/fonts/m3x6.ttf" id="4_xx4al"]
+[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="5_jkjuu"]
+[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="6_d4tyu"]
+[ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="7_f68mt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlwpd"]
+bg_color = Color(0.294118, 0.239216, 0.266667, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obonu"]
+bg_color = Color(0.47451, 0.266667, 0.290196, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="EnemyStatsUI" type="Panel"]
+custom_minimum_size = Vector2(150, 135)
+offset_right = 150.0
+offset_bottom = 133.0
+size_flags_horizontal = 3
+theme = ExtResource("1_wipsd")
+theme_type_variation = &"HudPanelBackground"
+script = ExtResource("2_m745d")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="EnemyNameLabel" type="Label" parent="MarginContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_right = 140.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 16
+text = "Enemy"
+horizontal_alignment = 1
+
+[node name="Intent" type="Control" parent="MarginContainer/Panel"]
+unique_name_in_owner = true
+anchors_preset = 0
+anchor_left = 0.364286
+anchor_top = 0.192
+anchor_right = 0.65
+anchor_bottom = 0.512
+metadata/_edit_use_anchors_ = true
+
+[node name="IntentIcon" type="TextureRect" parent="MarginContainer/Panel/Intent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+offset_left = -6.0
+offset_top = -8.0
+offset_right = 44.0
+offset_bottom = 42.0
+texture = ExtResource("3_64wux")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IntentLabel" type="Label" parent="MarginContainer/Panel/Intent"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 26.0
+offset_top = 13.0
+offset_right = 34.0
+offset_bottom = 39.0
+theme_override_fonts/font = ExtResource("4_xx4al")
+theme_override_font_sizes/font_size = 32
+text = "7"
+
+[node name="Health" type="Control" parent="MarginContainer/Panel"]
+anchors_preset = 0
+anchor_left = 0.214286
+anchor_top = 0.488
+anchor_right = 0.878571
+anchor_bottom = 0.656
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/Panel/Health"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_top = 10.0
+offset_right = 92.0
+offset_bottom = 20.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_nlwpd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_obonu")
+max_value = 30.0
+step = 1.0
+value = 15.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/Panel/Health"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 8.0
+offset_top = -7.0
+offset_right = 80.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("4_xx4al")
+theme_override_font_sizes/font_size = 32
+text = "9999/9999"
+
+[node name="Shield" type="Control" parent="MarginContainer/Panel"]
+unique_name_in_owner = true
+anchors_preset = 0
+anchor_top = 0.488
+anchor_right = 0.207143
+anchor_bottom = 0.72
+metadata/_edit_use_anchors_ = true
+
+[node name="ShieldIcon" type="TextureRect" parent="MarginContainer/Panel/Shield"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 26.0
+offset_bottom = 27.0
+texture = ExtResource("5_jkjuu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ShieldLabel" type="Label" parent="MarginContainer/Panel/Shield"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 15.0
+offset_top = 8.0
+offset_right = 31.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("4_xx4al")
+theme_override_font_sizes/font_size = 32
+text = "10"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.688
+anchor_right = 1.0
+anchor_bottom = 0.96
+metadata/_edit_use_anchors_ = true
+
+[node name="StatusHandler" parent="MarginContainer/Panel/ScrollContainer" instance=ExtResource("6_d4tyu")]
+unique_name_in_owner = true
+layout_mode = 2
+status_icon_size = 32
+quantity_label_settings = ExtResource("7_f68mt")

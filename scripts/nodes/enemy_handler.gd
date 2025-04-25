@@ -1,6 +1,8 @@
 extends Node2D
 class_name EnemyHandler
 
+const ENEMY_STATS_PANEL = preload("res://ui/enemy_ui/enemy_stats_panel.tscn")
+
 @export var tilemap: ProcGenTilemap
 
 var acting_enemies: Array[Enemy] = []
@@ -12,9 +14,13 @@ func _ready() -> void:
 
 
 func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
+	var stats_panel : EnemyStatsUI = ENEMY_STATS_PANEL.instantiate()
+	var world_ui : GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
+	world_ui.enemy_stats_container.add_child(stats_panel)
 	enemy.tilemap = tilemap
 	enemy.position = tilemap.base_layer.map_to_local(tile_pos)
 	enemy.current_tile_position = tile_pos
+	stats_panel.setup_enemy_ui(enemy)
 	add_child(enemy)
 	enemy.status_handler.statuses_applied.connect(_on_enemy_statuses_applied.bind(enemy))
 
@@ -24,16 +30,14 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		return
 
 	for enemy: Enemy in get_children():
-		if !enemy.is_in_group("obelisk"):
-			enemy.queue_free()
-		else:
-			enemy.tree_exited.connect(_obelisk_destroyed)
-			enemy.enemy_handler = self
-			enemy.status_handler.statuses_applied.connect(_on_enemy_statuses_applied.bind(enemy))
+		enemy.queue_free()
 
 	var all_new_enemies := battle_stats.enemies.instantiate()
 
 	for new_enemy: Node2D in all_new_enemies.get_children():
+		var stats_panel : EnemyStatsUI = ENEMY_STATS_PANEL.instantiate()
+		var world_ui : GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
+		world_ui.enemy_stats_container.add_child(stats_panel)
 		var new_enemy_child := new_enemy.duplicate() as Enemy
 		new_enemy_child.tilemap = tilemap
 		var random_tile = Vector2i(
@@ -41,10 +45,16 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		)
 		new_enemy_child.position = tilemap.base_layer.map_to_local(random_tile)
 		new_enemy_child.current_tile_position = random_tile
+		if !stats_panel.ready:
+			await stats_panel.ready
+		stats_panel.setup_enemy_ui(new_enemy_child)
 		add_child(new_enemy_child)
 		new_enemy_child.status_handler.statuses_applied.connect(
 			_on_enemy_statuses_applied.bind(new_enemy_child)
 		)
+		if new_enemy is Obelisk:
+			new_enemy_child.tree_exited.connect(_obelisk_destroyed)
+			new_enemy_child.enemy_handler = self
 
 	all_new_enemies.queue_free()
 

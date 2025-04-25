@@ -59,7 +59,7 @@ func disable_hand() -> void:
 func _update_cards() -> void:
 	var card_count : int = get_child_count()
 	var all_cards_size := CardUI.CARD_UI_SIZE.x * card_count + x_sep * (card_count-1)
-	var final_x_sep := x_sep
+	var final_x_sep : float = x_sep
 	
 	if all_cards_size > size.x:
 		final_x_sep = (size.x - CardUI.CARD_UI_SIZE.x * card_count) / (card_count - 1)
