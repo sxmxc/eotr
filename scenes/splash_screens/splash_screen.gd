@@ -1,12 +1,14 @@
 extends Control
 
 const MAIN_MENU = preload("res://scenes/menus/main_menu.tscn")
+const CASTLE_LOOP = preload("res://assets/audio/music/castle_loop.wav")
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var accept_button: Button = %AcceptButton
 @onready var decline_button: Button = %DeclineButton
 
 func _ready() -> void:
+	SoundManager.play_music(CASTLE_LOOP,2)
 	accept_button.hide()
 	decline_button.hide()
 	show_disclaimer()

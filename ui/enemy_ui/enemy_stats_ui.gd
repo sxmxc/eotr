@@ -12,6 +12,8 @@ extends Panel
 @onready var shield_container: Control = %Shield
 @onready var status_handler: StatusHandler = %StatusHandler
 @onready var intent_container: Control = %Intent
+@onready var bouncer: Bouncer = %Bouncer
+@onready var focus_attention_fx: GPUParticles2D = %FocusAttentionFX
 
 
 func _ready():
@@ -20,6 +22,8 @@ func _ready():
 	for child in status_handler.get_children():
 		child.queue_free()
 	intent_container.hide()
+	focus_attention_fx.emitting = false
+	focus_attention_fx.hide()
 
 func setup_enemy_ui(enemy: Enemy) -> void:
 	if not self.is_node_ready():
@@ -47,3 +51,16 @@ func _on_enemy_selected(_enemy: Enemy) -> void:
 
 func _on_enemy_updated(_enemy: Enemy) -> void:
 	pass
+
+
+func _on_focus_entered() -> void:
+	bouncer.Start()
+	focus_attention_fx.emitting = true
+	focus_attention_fx.show()
+
+
+func _on_focus_exited() -> void:
+	bouncer.stop()
+	focus_attention_fx.emitting = false
+	focus_attention_fx.hide()
+	

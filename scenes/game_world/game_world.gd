@@ -7,6 +7,8 @@ extends Node2D
 	set = set_run_stats
 @export var relics: RelicHandler
 
+@export var audio_playlist: AudioStreamPlaylist
+
 @onready var tilemap: ProcGenTilemap = $Tilemap
 @onready var debug_ui = $GameWorldUI/DebugUI
 @onready var player: Player = $Player
@@ -15,6 +17,7 @@ extends Node2D
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
 @onready var map_camera = $MapCamera
 
+var audio_stream_player : AudioStreamPlayer
 
 func _ready():
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
@@ -27,12 +30,15 @@ func _ready():
 	Events.player_hand_discarded.connect(enemy_handler.start_turn)
 	Events.player_died.connect(_on_player_died)
 	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
+	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
+	audio_stream_player.stream_paused = true
 
 	
 
 
 func start_world() -> void:
 	get_tree().paused = false
+	
 	tilemap.generate_tilemap(battle_stats)
 
 	game_world_ui.player_stats = player_stats
@@ -101,5 +107,7 @@ func _on_relics_activated(type: Enums.RelicType) -> void:
 		Enums.RelicType.START_OF_COMBAT:
 			player_handler.start_battle(player_stats)
 			game_world_ui.initialize_card_pile_ui()
+			audio_stream_player.stream_paused = false
 		Enums.RelicType.END_OF_COMBAT:
+			audio_stream_player.stream_paused = true
 			Events.battle_over_screen_requested.emit("Victory!", BattleOverPanel.Type.WIN)

@@ -1,11 +1,13 @@
-[gd_scene load_steps=49 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=51 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="1_tqoos"]
 [ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="3_0jtfi"]
 [ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="3_bumdp"]
+[ext_resource type="AudioStream" uid="uid://bpxn2u0dlesmt" path="res://assets/audio/music/castle_loop.wav" id="3_qc6v1"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_bumdp"]
+[ext_resource type="AudioStream" uid="uid://dxu3xx8l822w" path="res://assets/audio/music/davina_horror.wav" id="4_lorak"]
 [ext_resource type="Script" uid="uid://c5kyjbsoeaeq1" path="res://ui/debug_ui.gd" id="5_cmh4g"]
 [ext_resource type="PackedScene" uid="uid://ct8j6u4avyd2y" path="res://scenes/player/player.tscn" id="5_dlaip"]
 [ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="6_ph1f2"]
@@ -29,14 +31,19 @@
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
 [ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
-[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_panel.tscn" id="25_oia7h"]
-[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="26_jwlkc"]
+[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="25_oia7h"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
 [ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
 [ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
+shuffle = true
+stream_count = 2
+stream_0 = ExtResource("3_qc6v1")
+stream_1 = ExtResource("4_lorak")
 
 [sub_resource type="Gradient" id="Gradient_lorak"]
 interpolation_mode = 2
@@ -101,7 +108,8 @@ fill_to = Vector2(1, 1)
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
-metadata/_edit_vertical_guides_ = [1876.0]
+audio_playlist = SubResource("AudioStreamPlaylist_ht6dc")
+metadata/_edit_vertical_guides_ = [1876.0, 1367.0]
 metadata/_edit_horizontal_guides_ = [112.0]
 
 [node name="ParallaxBackgroundNode" type="Node2D" parent="."]
@@ -231,7 +239,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("23_ht6dc")
 
-[node name="EnemyIntentUI" type="Control" parent="GameWorldUI/EnemyUI"]
+[node name="EnemyStats" type="Control" parent="GameWorldUI/EnemyUI"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -239,14 +247,15 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -527.0
+offset_left = -553.0
 offset_top = 95.0
 offset_right = -49.0
 offset_bottom = 258.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI"]
+[node name="EnemyStatsScroll" type="ScrollContainer" parent="GameWorldUI/EnemyUI/EnemyStats"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -256,35 +265,31 @@ grow_vertical = 2
 follow_focus = true
 vertical_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="EnemyStatsContainer" type="HBoxContainer" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer/MarginContainer"]
+[node name="EnemyStatsContainer" type="HBoxContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
 layout_mode = 2
 
-[node name="Bouncer" type="Node" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer/MarginContainer/EnemyStatsContainer/EnemyIntentPanel"]
-script = ExtResource("26_jwlkc")
-metadata/_custom_type_script = "uid://c7wfd2um7frkt"
-
-[node name="EnemyIntentPanel2" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel2" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
 layout_mode = 2
 
-[node name="EnemyIntentPanel3" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel3" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
 layout_mode = 2
 
-[node name="EnemyIntentPanel4" parent="GameWorldUI/EnemyUI/EnemyIntentUI/ScrollContainer/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel4" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
 layout_mode = 2
 
 [node name="PlayerUI" type="Control" parent="GameWorldUI"]

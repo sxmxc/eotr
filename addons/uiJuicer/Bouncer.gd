@@ -36,3 +36,8 @@ func Start():
 	lib.add_animation("bounce", animation)
 	animationPlayer.add_animation_library("bouncelib", lib)
 	animationPlayer.play("bouncelib/bounce")
+
+func stop():
+	for child in get_children():
+		if child is AnimationPlayer:
+			child.stop()

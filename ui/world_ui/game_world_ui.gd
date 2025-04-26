@@ -14,6 +14,7 @@ class_name GameWorldUI
 @onready var discard_pile_view: CardPileView = %DiscardPileView
 @onready var status_handler: StatusHandler = $PlayerUI/StatusHandler
 @onready var enemy_stats_container: HBoxContainer = %EnemyStatsContainer
+@onready var enemy_stats_scroll: ScrollContainer = %EnemyStatsScroll
 
 func _ready() -> void:
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)

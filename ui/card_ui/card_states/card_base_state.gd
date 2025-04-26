@@ -30,6 +30,7 @@ func on_gui_input(event: InputEvent) -> void:
 func on_mouse_entered() -> void:
 	mouse_over_card = true
 	card_ui.z_index += 1
+	card_ui.scale = Vector2(1.1,1.1)
 	if not card_ui.playable or card_ui.disabled:
 		return
 	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_HOVER)
@@ -39,6 +40,7 @@ func on_mouse_entered() -> void:
 func on_mouse_exited() -> void:
 	mouse_over_card = false
 	card_ui.z_index = 0
+	card_ui.scale = Vector2.ONE
 	if not card_ui.playable or card_ui.disabled:
 		return
 	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_BASE)

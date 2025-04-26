@@ -10,6 +10,7 @@ const WIN_SCREEN_SCENE = preload("res://scenes/win_screen/win_screen.tscn")
 const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 
 @export var run_bootstrap: RunBootstrap
+@export var music_playlist : AudioStreamPlaylist
 
 @onready var map: Map = $Map
 @onready var current_view: Node = $CurrentView
@@ -27,6 +28,7 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 var run_stats: RunStats
 var player_stats: PlayerStats
 var save_data: SaveGame
+var audio_stream_player: AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -57,6 +59,7 @@ func _destroy_all_enemies() -> void:
 
 
 func _start_run() -> void:
+	SoundManager.play_music_queue(music_playlist,1)
 	var event_props := {
 		"player_class": player_stats.player_class_name,
 	}
@@ -107,6 +110,9 @@ func _load_run() -> void:
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_map_node)
 	if save_data.last_map_node and not save_data.was_on_map:
 		_on_map_exited(save_data.last_map_node)
+		return
+	SoundManager.play_music_queue(music_playlist,1)
+	
 
 
 func _change_view(scene: PackedScene) -> Node:
@@ -117,14 +123,14 @@ func _change_view(scene: PackedScene) -> Node:
 	var new_view := scene.instantiate()
 	current_view.add_child(new_view)
 	map.hide_map()
-
+	
 	return new_view
 
 
 func _show_map() -> void:
 	if current_view.get_child_count() > 0:
 		current_view.get_child(0).queue_free()
-
+	SoundManager.play_music_queue(music_playlist,1)
 	map.show_map()
 	map.unlock_next_map_node()
 	map_legend.show()
@@ -235,7 +241,6 @@ func _on_shop_entered() -> void:
 func _on_map_exited(map_node: MapNode) -> void:
 	map_legend.hide()
 	_save_run(false)
-
 	match map_node.type:
 		Enums.MapNodeType.MONSTER:
 			_on_game_world_entered(map_node)

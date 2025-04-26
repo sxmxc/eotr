@@ -2,6 +2,7 @@ extends Panel
 class_name BattleOverPanel
 
 const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
+const SHINE = preload("res://assets/audio/music/shine.wav")
 
 enum Type { WIN, LOSE }
 
@@ -23,6 +24,9 @@ func show_screen(text: String, type: Type) -> void:
 	continue_button.visible = type == Type.WIN
 	main_menu_button.visible = type == Type.LOSE
 	show()
-	if SoundManager.is_sound_playing():
-		await SoundManager.sound_effects.sound_finished
+	match type:
+		Type.WIN:
+			SoundManager.play_music(SHINE,0)
+		Type.LOSE:
+			SoundManager.play_music(SHINE,0)
 	get_tree().paused = true

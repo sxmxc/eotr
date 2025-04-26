@@ -4,6 +4,7 @@ const MOUSE_Y_CANCEL_THRESHOLD := 1000
 
 
 func enter() -> void:
+	card_ui.scale = Vector2.ONE
 	card_ui.state.text = "AIMING"
 	card_ui.targets.clear()
 	var offset := Vector2(card_ui.parent.size.x / 2, -card_ui.size.y / 2)
