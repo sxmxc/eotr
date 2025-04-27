@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://wxhnk5epbwkh"]
+[gd_scene load_steps=19 format=3 uid="uid://wxhnk5epbwkh"]
 
 [ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_hmu40"]
 [ext_resource type="Script" uid="uid://ua48e5l40efp" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="2_2uy4p"]
 [ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="3_63fb4"]
+[ext_resource type="Script" uid="uid://c318fr0ibc5pj" path="res://ui/enemy_ui/intent_ui.gd" id="3_axkyb"]
 [ext_resource type="FontFile" uid="uid://drcf0itkwcbj7" path="res://assets/fonts/m3x6.ttf" id="4_axkyb"]
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="5_b3y37"]
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="6_2bony"]
@@ -89,17 +90,17 @@ theme_override_font_sizes/font_size = 16
 text = "Enemy"
 horizontal_alignment = 1
 
-[node name="Intent" type="Control" parent="MarginContainer/Panel"]
+[node name="IntentUI" type="Control" parent="MarginContainer/Panel"]
 unique_name_in_owner = true
 anchors_preset = 0
 anchor_left = 0.364286
 anchor_top = 0.192
 anchor_right = 0.65
 anchor_bottom = 0.512
+script = ExtResource("3_axkyb")
 metadata/_edit_use_anchors_ = true
 
-[node name="IntentIcon" type="TextureRect" parent="MarginContainer/Panel/Intent"]
-unique_name_in_owner = true
+[node name="IntentIcon" type="TextureRect" parent="MarginContainer/Panel/IntentUI"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 offset_left = -6.0
@@ -110,8 +111,7 @@ texture = ExtResource("3_63fb4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="IntentLabel" type="Label" parent="MarginContainer/Panel/Intent"]
-unique_name_in_owner = true
+[node name="IntentLabel" type="Label" parent="MarginContainer/Panel/IntentUI"]
 layout_mode = 2
 offset_left = 26.0
 offset_top = 13.0
@@ -207,7 +207,6 @@ metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
 [node name="FocusAttentionFX" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
-visible = false
 show_behind_parent = true
 position = Vector2(75, 67)
 emitting = false

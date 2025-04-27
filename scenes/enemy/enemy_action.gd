@@ -3,6 +3,7 @@ class_name EnemyAction
 
 enum Type {CONDITIONAL, CHANCE_BASED}
 
+@export var intent: Intent
 @export var type: Type
 @export_range(0.0, 10.0) var chance_weight := 0.0
 @export var sound: AudioStream
@@ -17,3 +18,6 @@ func is_performable() -> bool:
 	
 func perform_action() -> void:
 	pass
+
+func update_intent_text() -> void:
+	intent.current_text = intent.base_text

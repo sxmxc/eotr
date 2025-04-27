@@ -43,17 +43,18 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 		
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
-	
+	var cam = get_tree().get_first_node_in_group("map_camera")
 	var tween := create_tween()
 	if direct:
 		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(Shaker.shake.bind(cam, 16, 0.15))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
 		tween.tween_interval(0.17)
 	else:
 		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(Shaker.shake.bind(cam, 16, 0.15))
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
 		tween.tween_interval(0.17)
-	
 	tween.finished.connect(
 		func():
 			sprite_2d.material = null
@@ -72,5 +73,6 @@ func _on_position_updated(pos: Vector2) -> void:
 	tween.tween_callback(
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)
+			Events.player_moved.emit()
 			)
 	

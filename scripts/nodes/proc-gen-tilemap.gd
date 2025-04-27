@@ -35,12 +35,15 @@ var tile_dict: Dictionary[Enums.TileType, Vector2i] = {
 var has_generated := false
 var tile_weights = {}
 
+var player: Player
+var obelisk: Enemy
 
 func _ready():
 	has_generated = false
 	base_layer = $BaseLayer
 	fog_layer = $FogLayer
-
+	player = get_tree().get_first_node_in_group("player")
+	obelisk = get_tree().get_first_node_in_group("obelisk")
 	#if not LimboConsole.has_command("hide_fog"):
 		#LimboConsole.register_command(hide_fog, "hide_fog", "Hide fog layer")
 	#if not LimboConsole.has_command("show_fog"):
@@ -177,7 +180,8 @@ func move_player(tile_pos) -> void:
 		player_position_updated.emit(base_layer.map_to_local(player_position))
 
 
-func place_obelisk(obelisk: Obelisk) -> void:
+func place_obelisk(obelisk_to_place: Obelisk) -> void:
+	obelisk = obelisk_to_place
 	var random_tile = Vector2i(
 		RNG.instance.randi_range(0, map_width - 1), RNG.instance.randi_range(0, map_height - 1)
 	)
@@ -188,13 +192,35 @@ func place_obelisk(obelisk: Obelisk) -> void:
 	
 func is_tile_free(tile_pos: Vector2i) -> bool:
 	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
-		if enemy.current_tile_position == tile_pos:
+		var enemy_tile = base_layer.local_to_map(enemy.global_position)
+		if enemy_tile == tile_pos:
 			return false
-	var obelisk: Enemy = get_tree().get_first_node_in_group("obelisk")
+
 	if obelisk != null:
-		if obelisk.current_tile_position == tile_pos:
+		var obelisk_tile = base_layer.local_to_map(obelisk.global_position)
+		if obelisk_tile == tile_pos:
 			return false
-	var player : Player = get_tree().get_first_node_in_group("player")
-	if base_layer.local_to_map(player.position) == tile_pos:
-		return false
+
+	if player != null:
+		var player_tile = base_layer.local_to_map(player.global_position)
+		if player_tile == tile_pos:
+			return false
+
 	return true
+	
+func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vector2i]:
+	var tiles: Array[Vector2i] = []
+
+	for x_offset in range(-radius, radius + 1):
+		for y_offset in range(-radius, radius + 1):
+			var tile = center + Vector2i(x_offset, y_offset)
+
+			# Skip the center tile itself
+			if tile == center:
+				continue
+
+			# (Optional) If you have a map size, you could clamp here to prevent out-of-bounds
+
+			tiles.append(tile)
+
+	return tiles

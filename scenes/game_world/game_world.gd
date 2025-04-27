@@ -30,14 +30,15 @@ func _ready():
 	Events.player_hand_discarded.connect(enemy_handler.start_turn)
 	Events.player_died.connect(_on_player_died)
 	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
-	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
-	audio_stream_player.stream_paused = true
+	
 
 	
 
 
 func start_world() -> void:
 	get_tree().paused = false
+	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
+	audio_stream_player.stream_paused = false
 	
 	tilemap.generate_tilemap(battle_stats)
 
@@ -46,7 +47,7 @@ func start_world() -> void:
 	player_handler.relics = relics
 	enemy_handler.tilemap = tilemap
 	enemy_handler.setup_enemies(battle_stats)
-	#enemy_handler.reset_enemy_actions()
+	enemy_handler.reset_enemy_actions.call_deferred()
 
 	var player_starting_position = Vector2i(
 		int(tilemap.map_width / 2.0), int(tilemap.map_height / 2.0)

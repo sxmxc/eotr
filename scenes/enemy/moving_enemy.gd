@@ -1,7 +1,11 @@
 class_name MovingEnemy
 extends Enemy
 
+@export var flying: bool = false
+
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
+@onready var shadow: Sprite2D = $Shadow
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var movement_speed: float = 50.0
 var is_moving := false
@@ -30,15 +34,23 @@ func _physics_process(delta):
 	# Explicitly move the enemy
 	global_position += navigation_agent_2d.velocity * delta
 	current_tile_position = tilemap.base_layer.local_to_map(position)
-	#if tilemap.base_layer.get_surrounding_cells(current_tile_position).has(
-		#get_player_tile_position()
-	#):
-		#stats_ui.show()
-	#else:
-		#stats_ui.hide()
 
 	super._physics_process(delta)
 
+
+func update_enemy() -> void:
+	if not stats is EnemyStats:
+		return
+	if not is_inside_tree():
+		await ready
+	
+	sprite_2d.texture = stats.board_icon
+	flying = stats.flying
+	setup_ai()
+	update_stats()
+	if flying:
+		shadow.show()
+		animation_player.play("fly_idle")
 
 func set_movement_target(movement_target: Vector2i):
 	# Use base_layer to convert tile coordinates to world coordinates
@@ -50,6 +62,7 @@ func set_movement_target(movement_target: Vector2i):
 
 func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
 	if not tilemap or not tilemap.base_layer:
+		print("No tilemap or base_layer. No valid moves")
 		return Vector2i(-1, -1)  # Return an invalid tile position
 
 	var player_tile_pos: Vector2i = get_player_tile_position()
@@ -61,6 +74,7 @@ func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
 	)
 
 	if free_tiles.is_empty():
+		print("No free tiles to move to. No valid moves")
 		return Vector2i(-1, -1)  # No valid tiles, return early
 
 	# Pick a random free tile
@@ -74,6 +88,7 @@ func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
 	var path: PackedVector2Array = navigation_agent_2d.get_current_navigation_path()
 
 	if path.is_empty() or path.size() < 2:
+		print("Path is empty. Trying again")
 		return Vector2i(-1, -1)
 
 	# Calculate next tile from path
@@ -89,6 +104,7 @@ func calculate_next_tile_move(_tiles_moved_per_turn) -> Vector2i:
 		)
 
 		if next_free_tiles.is_empty():
+			print("Next free tile is not empty. No valid moves")
 			return Vector2i(-1, -1)
 		
 		var rand_next_tile: Vector2i = RNG.array_pick_random(next_free_tiles)
@@ -114,7 +130,7 @@ func perform_turn_based_move(tiles_per_turn: int = 1):
 
 	# Set movement target and move
 	set_movement_target(next_tile)
-	#is_moving = true
+	is_moving = true
 
 
 func _on_navigation_finished():

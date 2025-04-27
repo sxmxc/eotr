@@ -1,11 +1,33 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3nci3u4bowom"]
+[gd_scene load_steps=14 format=3 uid="uid://b3nci3u4bowom"]
 
 [ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="1_uhmhd"]
 [ext_resource type="Script" uid="uid://csjjqxy63lvn6" path="res://scenes/enemy/void_spectre/void_spectre_buff_action.gd" id="2_5sqje"]
 [ext_resource type="Script" uid="uid://l121yhcncs55" path="res://scenes/enemy/void_spectre/void_spectre_attack_action.gd" id="3_37ror"]
 [ext_resource type="Script" uid="uid://r1jnhetoj4vb" path="res://scenes/enemy/void_spectre/void_spectre_block_action.gd" id="4_dqrld"]
+[ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="4_m7578"]
+[ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="5_50iqw"]
 [ext_resource type="Script" uid="uid://icn6p2w5tblm" path="res://scenes/enemy/void_spectre/void_spectre_move_action.gd" id="5_gio5u"]
 [ext_resource type="AudioStream" uid="uid://cp6xyci4btc" path="res://assets/audio/RPG Sound Pack/inventory/metal-small3.wav" id="6_idcuj"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="6_tiaja"]
+[ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="8_tiaja"]
+
+[sub_resource type="Resource" id="Resource_jy21w"]
+script = ExtResource("6_tiaja")
+base_text = "%s"
+icon = ExtResource("4_m7578")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_m7578"]
+script = ExtResource("6_tiaja")
+base_text = "%s"
+icon = ExtResource("5_50iqw")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_c4cd3"]
+script = ExtResource("6_tiaja")
+base_text = ""
+icon = ExtResource("8_tiaja")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="VoidSpectreAI" type="Node"]
 script = ExtResource("1_uhmhd")
@@ -15,14 +37,17 @@ script = ExtResource("5_gio5u")
 
 [node name="BuffAction" type="Node" parent="."]
 script = ExtResource("2_5sqje")
+intent = SubResource("Resource_jy21w")
 
 [node name="AttackAction" type="Node" parent="."]
 script = ExtResource("3_37ror")
+intent = SubResource("Resource_m7578")
 type = 1
 chance_weight = 6.5
 
 [node name="BlockAction" type="Node" parent="."]
 script = ExtResource("4_dqrld")
+intent = SubResource("Resource_c4cd3")
 type = 1
 chance_weight = 3.5
 sound = ExtResource("6_idcuj")

@@ -16,9 +16,12 @@ func perform_action() -> void:
 		return
 	var world_message = WorldMessageData.new("%s moves closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
+	print("%s moves once" % enemy.name)
 	enemy.perform_turn_based_move(1)
 	await enemy.navigation_agent_2d.navigation_finished
 	SoundManager.play_sound_random_pitch(sound)
+	await get_tree().process_frame
+	print("%s moves again" % enemy.name)
 	enemy.perform_turn_based_move(1)
 	await enemy.navigation_agent_2d.navigation_finished
 	SoundManager.play_sound_random_pitch(sound)

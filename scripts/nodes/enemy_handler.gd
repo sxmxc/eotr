@@ -11,12 +11,15 @@ var world_ui : GameWorldUI
 func _ready() -> void:
 	Events.enemy_died.connect(_on_enemy_died)
 	Events.enemy_action_completed.connect(_on_enemy_action_completed)
+	Events.player_hand_drawn.connect(_on_player_hand_drawn)
+	Events.card_played.connect(reset_enemy_actions)
+	Events.player_moved.connect(reset_enemy_actions)
 	world_ui = get_tree().get_first_node_in_group("ui_layer") as GameWorldUI
 
 
 func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	var stats_panel : EnemyStatsUI = ENEMY_STATS_UI.instantiate()
-	var world_ui : GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
+	world_ui = get_tree().get_first_node_in_group("ui_layer") as GameWorldUI
 	world_ui.enemy_stats_container.add_child(stats_panel)
 	enemy.tilemap = tilemap
 	enemy.position = tilemap.base_layer.map_to_local(tile_pos)
@@ -24,6 +27,7 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	stats_panel.setup_enemy_ui(enemy)
 	add_child(enemy)
 	enemy.status_handler.statuses_applied.connect(_on_enemy_statuses_applied.bind(enemy))
+	enemy.update_action()
 
 
 func setup_enemies(battle_stats: BattleStats) -> void:
@@ -37,8 +41,8 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 
 	for new_enemy: Node2D in all_new_enemies.get_children():
 		var stats_panel : EnemyStatsUI = ENEMY_STATS_UI.instantiate()
-		
 		world_ui.enemy_stats_container.add_child(stats_panel)
+		
 		var new_enemy_child := new_enemy.duplicate() as Enemy
 		new_enemy_child.tilemap = tilemap
 		var random_tile = Vector2i(
@@ -60,10 +64,8 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 	all_new_enemies.queue_free()
 
 
-func reset_enemy_actions() -> void:
-	var enemy: Enemy
-	for child in get_children():
-		enemy = child as Enemy
+func reset_enemy_actions(_args = null) -> void:
+	for enemy: Enemy in get_children():
 		enemy.current_action = null
 		enemy.update_action()
 
@@ -89,6 +91,10 @@ func _start_next_enemy_turn() -> void:
 
 	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 	acting_enemies[0].phantom_camera_2d.priority = 20
+
+func _on_player_hand_drawn() -> void:
+	for enemy: Enemy in get_children():
+		enemy.update_intent()
 
 
 func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:

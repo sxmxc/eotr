@@ -16,6 +16,7 @@ signal player_hand_discarded
 signal player_turn_ended
 signal player_hit
 signal player_died
+signal player_moved
 
 # Enemy-related events
 signal enemy_died(enemy: Enemy)

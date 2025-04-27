@@ -8,5 +8,6 @@
 script = ExtResource("1_xwyds")
 board_icon = ExtResource("2_dy2o3")
 ai = ExtResource("1_rkhoc")
+flying = true
 max_health = 10
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

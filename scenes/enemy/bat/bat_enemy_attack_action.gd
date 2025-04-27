@@ -18,6 +18,8 @@ func perform_action() -> void:
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound
 	
+	intent.current_text = intent.base_text
+	
 	tween.tween_property(enemy, "global_position", end, 0.4)
 	tween.tween_callback(damage_effect.execute.bind(target_array))
 	
@@ -28,3 +30,11 @@ func perform_action() -> void:
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)
+
+func update_intent_text() -> void:
+	var player := target as Player
+	if not player:
+		return
+	
+	var modified_dmg := player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
+	intent.current_text = intent.base_text % modified_dmg

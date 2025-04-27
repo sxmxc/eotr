@@ -145,9 +145,12 @@ func _set_playable(value: bool) -> void:
 	if not playable:
 		visuals.card_cost_label.add_theme_color_override("font_color", Color.RED)
 		visuals.card_attention_fx.hide()
+		visuals.card_attention_fx.emitting = false
 	else:
 		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_WHITE)
+		visuals.card_attention_fx.emitting = true
 		visuals.card_attention_fx.show()
+		
 
 func _set_values_modified(value: bool) -> void:
 	values_modified = value

@@ -21,7 +21,7 @@ font_color = Color(0.294118, 0.239216, 0.266667, 1)
 
 [sub_resource type="Gradient" id="Gradient_2pg18"]
 interpolation_mode = 2
-colors = PackedColorArray(0.184314, 0.870588, 0.8, 0.470588, 0.1827, 0.87, 0.80127, 0.470588)
+colors = PackedColorArray(0.524982, 3, 2.99105, 0.471, 0.524982, 3, 2.99105, 0.471)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2pg18"]
 gradient = SubResource("Gradient_2pg18")
@@ -186,9 +186,9 @@ stretch_mode = 5
 
 [node name="CardAttentionFX" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
-visible = false
 show_behind_parent = true
 position = Vector2(90, 120)
+emitting = false
 amount = 5
 texture = SubResource("GradientTexture2D_2pg18")
 lifetime = 2.5

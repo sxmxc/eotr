@@ -22,21 +22,18 @@ var turn_ticker : int = 0
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
+	if current_action:
+		update_intent()
 
 func _ready():
 	Events.player_died.connect(func(): self.set_process(false))
 	if not $Area2D.input_event.is_connected(_on_area_2d_input_event):
 		$Area2D.input_event.connect(_on_area_2d_input_event)
-	#stats_ui.hide()
 	
 	
 	
 func _physics_process(_delta):
 	current_tile_position = tilemap.base_layer.local_to_map(position)
-	#if tilemap.base_layer.get_surrounding_cells(current_tile_position).has(get_player_tile_position()):
-		#stats_ui.show()
-	#else:
-		#stats_ui.hide()
 	
 
 func set_stats(value: EnemyStats) -> void:
@@ -45,6 +42,7 @@ func set_stats(value: EnemyStats) -> void:
 		stats.stats_changed.connect(update_stats)
 		stats.stats_changed.connect(update_action)
 	update_enemy()
+	
 
 func setup_ai() -> void:
 	if enemy_action_picker:
@@ -64,6 +62,7 @@ func update_action() -> void:
 	var new_conditional_action := enemy_action_picker.get_first_conditional_action()
 	if new_conditional_action and current_action != new_conditional_action:
 		current_action = new_conditional_action
+		
 	
 func update_enemy() -> void:
 	if not stats is EnemyStats:
@@ -78,6 +77,11 @@ func update_enemy() -> void:
 func update_stats():
 	stats_ui.update_stats(stats)
 	Events.enemy_updated.emit(self)
+
+func update_intent() -> void:
+	if current_action:
+		current_action.update_intent_text()
+		stats_ui.intent_ui.update_intent(current_action.intent)
 
 func do_turn() -> void:
 	print("%s doing turn" % name)

@@ -4,14 +4,12 @@ extends Panel
 @export var enemy_stats : EnemyStats
 
 @onready var enemy_name_label: Label = %EnemyNameLabel
-@onready var intent_icon: TextureRect = %IntentIcon
-@onready var intent_label: Label = %IntentLabel
 @onready var health_bar: ProgressBar = %HealthBar
 @onready var health_label: Label = %HealthLabel
 @onready var shield_label: Label = %ShieldLabel
 @onready var shield_container: Control = %Shield
 @onready var status_handler: StatusHandler = %StatusHandler
-@onready var intent_container: Control = %Intent
+@onready var intent_ui: IntentUI = %IntentUI
 @onready var bouncer: Bouncer = %Bouncer
 @onready var focus_attention_fx: GPUParticles2D = %FocusAttentionFX
 
@@ -21,7 +19,7 @@ func _ready():
 	Events.enemy_updated.connect(_on_enemy_updated)
 	for child in status_handler.get_children():
 		child.queue_free()
-	intent_container.hide()
+	intent_ui.hide()
 	focus_attention_fx.emitting = false
 	focus_attention_fx.hide()
 

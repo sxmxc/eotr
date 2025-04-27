@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ypq2eyjf2e5m"]
+[gd_scene load_steps=13 format=3 uid="uid://ypq2eyjf2e5m"]
 
 [ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_0shhr"]
 [ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_m8tji"]
@@ -17,9 +17,100 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[node name="MovingEnemy" type="Node2D" node_paths=PackedStringArray("stats_ui") groups=["enemy"]]
+[sub_resource type="Animation" id="Animation_twcqd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.05, 0.05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.05, 0.05)]
+}
+
+[sub_resource type="Animation" id="Animation_4omhe"]
+resource_name = "fly_idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -3), Vector2(0, -6), Vector2(0, -3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.05, 0.05), Vector2(0.06, 0.06), Vector2(0.05, 0.05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.05, 0.05), Vector2(0.06, 0.06), Vector2(0.05, 0.05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4851w"]
+_data = {
+&"RESET": SubResource("Animation_twcqd"),
+&"fly_idle": SubResource("Animation_4omhe")
+}
+
+[node name="MovingEnemy" type="Node2D" groups=["enemy"]]
 script = ExtResource("1_0shhr")
-stats_ui = NodePath("")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.627451)
+show_behind_parent = true
+y_sort_enabled = true
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_m8tji")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -59,4 +150,10 @@ follow_mode = 2
 follow_target = NodePath("..")
 zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_bydut")
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4851w")
+}

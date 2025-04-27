@@ -13,8 +13,8 @@ var card_types_played: Array[Enums.CardType] = []
 
 
 func _ready() -> void:
-	#if not LimboConsole.has_command("draw_card"):
-		#LimboConsole.register_command(draw_card, "draw_card", "Draw card from deck")
+	if not LimboConsole.has_command("draw_card"):
+		LimboConsole.register_command(draw_card, "draw_card", "Draw card from deck")
 	Events.card_played.connect(_on_card_played)
 
 

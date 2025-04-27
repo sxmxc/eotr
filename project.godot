@@ -32,6 +32,7 @@ RNG="*res://scripts/autoloads/rng.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Talo="*res://addons/talo/talo_manager.gd"
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
+LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 [display]
 
@@ -41,10 +42,15 @@ window/size/mode=3
 window/size/window_width_override=960
 window/size/window_height_override=540
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://b21k6mqf4d"
+
+[editor]
+
+movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 
@@ -127,6 +133,7 @@ pause={
 
 textures/canvas_textures/default_texture_filter=3
 textures/vram_compression/import_etc2_astc=true
+viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 
 [shader_globals]
