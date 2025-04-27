@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.2.3"
+config/version="0.0.3.0"
 run/main_scene="uid://d3ll2gasnw28g"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/use_filter=false
@@ -19,7 +19,7 @@ boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="df7b897"
+config/build="efd4e94"
 
 [autoload]
 
