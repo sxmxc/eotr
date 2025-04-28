@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://5qghcajji6wh"
+path="res://.godot/imported/Behemtoh_Damage.wav-a5c24e6c4289c64351a4884f17f94d36.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Behemtoh_Damage.wav"
+dest_files=["res://.godot/imported/Behemtoh_Damage.wav-a5c24e6c4289c64351a4884f17f94d36.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

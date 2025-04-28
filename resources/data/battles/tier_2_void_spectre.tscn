@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnpltte715j68"]
 
 [ext_resource type="PackedScene" uid="uid://bti2nexuunus2" path="res://scenes/enemy/void_spectre/void_spectre_enemy.tscn" id="1_3np5r"]
-[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obilisk/obelisk_enemy.tscn" id="2_phlc4"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="2_phlc4"]
 
 [node name="Tier2VoidSpectre" type="Node2D"]
 

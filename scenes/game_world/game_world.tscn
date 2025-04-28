@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=51 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -44,9 +44,6 @@ shuffle = true
 stream_count = 2
 stream_0 = ExtResource("3_qc6v1")
 stream_1 = ExtResource("4_lorak")
-
-[sub_resource type="Environment" id="Environment_bumdp"]
-background_mode = 3
 
 [sub_resource type="Gradient" id="Gradient_lorak"]
 interpolation_mode = 2
@@ -118,11 +115,6 @@ player_stats = ExtResource("6_u4x5r")
 audio_playlist = SubResource("AudioStreamPlaylist_ht6dc")
 metadata/_edit_vertical_guides_ = [1876.0, 1367.0]
 metadata/_edit_horizontal_guides_ = [112.0]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_bumdp")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [node name="ParallaxBackgroundNode" type="Node2D" parent="."]
 

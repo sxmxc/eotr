@@ -5,6 +5,6 @@ signal complete
 
 @export var visual_fx: VisualFX
 
-func execute(_target: Node) -> void:
+func execute(_target: Node, _source : Node = null) -> void:
 	complete.emit()
 	pass

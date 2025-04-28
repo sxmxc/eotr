@@ -1,0 +1,53 @@
+[gd_scene load_steps=14 format=3 uid="uid://cl7r7mqya2lh7"]
+
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_xtxkd"]
+[ext_resource type="Script" uid="uid://dwqrdrvgj7qg3" path="res://scenes/enemy/obelisk/obelisk_wait_action.gd" id="2_lgv3n"]
+[ext_resource type="Script" uid="uid://dj3rvh7nn4m2b" path="res://scenes/enemy/obelisk/obelisk_spawn_action.gd" id="3_05bnd"]
+[ext_resource type="Texture2D" uid="uid://dalsrgxsuy5dt" path="res://assets/icons/raise-skeleton.svg" id="3_ts005"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_pgihr"]
+[ext_resource type="Texture2D" uid="uid://cnbgdutmc3s1p" path="res://assets/icons/uncertainty.svg" id="6_pgihr"]
+[ext_resource type="Script" uid="uid://ctek8umo2gwyt" path="res://scenes/enemy/obelisk/obilisk_range_attack_action.gd" id="7_r3d1m"]
+[ext_resource type="Texture2D" uid="uid://bexcpufppxxuo" path="res://assets/icons/striking-arrows.svg" id="8_h1ron"]
+[ext_resource type="AudioStream" uid="uid://odwu6brur0k3" path="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Attack.ogg" id="9_mryia"]
+[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="10_igcnd"]
+
+[sub_resource type="Resource" id="Resource_r3d1m"]
+script = ExtResource("4_pgihr")
+base_text = ""
+icon = ExtResource("3_ts005")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_yhg1e"]
+script = ExtResource("4_pgihr")
+base_text = ""
+icon = ExtResource("6_pgihr")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_raybm"]
+script = ExtResource("4_pgihr")
+base_text = "%s"
+icon = ExtResource("8_h1ron")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[node name="ObiliskEnemyAI" instance=ExtResource("1_xtxkd")]
+
+[node name="ObiliskSpawnAction" type="Node" parent="." index="0"]
+script = ExtResource("3_05bnd")
+intent = SubResource("Resource_r3d1m")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ObiliskWaitAction" type="Node" parent="." index="1"]
+script = ExtResource("2_lgv3n")
+intent = SubResource("Resource_yhg1e")
+type = 1
+chance_weight = 5.0
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ObiliskRangeAttackAction" type="Node" parent="." index="2"]
+script = ExtResource("7_r3d1m")
+intent = SubResource("Resource_raybm")
+type = 1
+chance_weight = 5.0
+sound = ExtResource("9_mryia")
+visual_fx = ExtResource("10_igcnd")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"

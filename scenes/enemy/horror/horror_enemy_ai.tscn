@@ -1,15 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://0dlopp347r2m"]
+[gd_scene load_steps=16 format=3 uid="uid://0dlopp347r2m"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_kpu2c"]
 [ext_resource type="Script" uid="uid://b1mgpmtnrdpwa" path="res://scenes/enemy/horror/horror_attack_action.gd" id="2_7o5m4"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="3_13wc1"]
 [ext_resource type="Script" uid="uid://dft5ilb8xtbtm" path="res://scenes/enemy/horror/horror_block_action.gd" id="3_ftlei"]
-[ext_resource type="AudioStream" uid="uid://chf3dla08ikms" path="res://assets/audio/battle_sound_effects/swish_3.wav" id="3_wux45"]
 [ext_resource type="Script" uid="uid://bperpmikxf7au" path="res://scenes/enemy/horror/horror_move_action.gd" id="4_adsyb"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_gf54p"]
 [ext_resource type="AudioStream" uid="uid://ch10vc8phptoe" path="res://assets/audio/kenney_casino/chip-lay-3.ogg" id="6_wpt1e"]
 [ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="7_gf54p"]
+[ext_resource type="AudioStream" uid="uid://di867hg1wuwmu" path="res://assets/audio/Monster Sounds/Spider/Spider_Attack.ogg" id="8_wo1ee"]
 [ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="9_07lum"]
+[ext_resource type="PackedScene" uid="uid://b0rgvbdigmehm" path="res://ui/fx/slash_fx.tscn" id="9_wo1ee"]
+[ext_resource type="AudioStream" uid="uid://dswcswliolkk0" path="res://assets/audio/Monster Sounds/Spider/Bonus_Spider_Netshot_Attack.wav" id="12_ha0vk"]
 
 [sub_resource type="Resource" id="Resource_ha0vk"]
 script = ExtResource("4_gf54p")
@@ -41,10 +43,12 @@ script = ExtResource("2_7o5m4")
 intent = SubResource("Resource_07lum")
 type = 1
 chance_weight = 3.0
-sound = ExtResource("3_wux45")
+sound = ExtResource("8_wo1ee")
+visual_fx = ExtResource("9_wo1ee")
 
 [node name="HorrorBlockAction" type="Node" parent="." index="2"]
 script = ExtResource("3_ftlei")
 intent = SubResource("Resource_wo1ee")
 type = 1
 chance_weight = 1.0
+sound = ExtResource("12_ha0vk")

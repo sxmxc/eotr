@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b7xs32l224s6j"
+path="res://.godot/imported/Dragon_Death.ogg-5468c90a798be04025ffd52bff44aeeb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Dragon/Dragon_Death.ogg"
+dest_files=["res://.godot/imported/Dragon_Death.ogg-5468c90a798be04025ffd52bff44aeeb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -6,12 +6,21 @@ var speed: float = 600.0
 var has_reached_target: bool = false
 var is_initialized: bool = false
 
-func execute(target) -> void:
+func execute(target, source = null) -> void:
 	target.add_child(visual_fx)
-	var player : Player = get_tree().get_first_node_in_group("player") as Player
 	var fx_layer : CanvasLayer = get_tree().get_first_node_in_group("fx_layer")
-	start = player.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
-	end = get_tree().get_first_node_in_group("projectile_start").get_global_mouse_position()
+	if !source:
+		var player : Player = get_tree().get_first_node_in_group("player") as Player
+		start = player.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
+		end = get_tree().get_first_node_in_group("projectile_start").get_global_mouse_position()
+	else:
+		#var player : Player = get_tree().get_first_node_in_group("player") as Player
+		#start = source.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
+		#end = get_tree().get_first_node_in_group("projectile_start").to_global(player.position)
+		start = source.global_position
+		end = target.global_position
+		
+	
 	position = start
 	print("blast striking: start %s end %s" % [start, end])
 	

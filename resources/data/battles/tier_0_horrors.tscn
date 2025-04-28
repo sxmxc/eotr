@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_lvlth"]
 [ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="2_mmh16"]
-[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obilisk/obelisk_enemy.tscn" id="3_mmh16"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="3_mmh16"]
 [ext_resource type="Resource" uid="uid://fddqe3ier2dp" path="res://scenes/enemy/bat/bat_enemy.tres" id="4_gqxsb"]
 
 [node name="Tier0Horrors" type="Node2D"]

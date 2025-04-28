@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ghsp40je4la7"
+path="res://.godot/imported/Behemoth_Attack.wav-d82876a5ef2c386fca1b20182c52ed8b.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Attack.wav"
+dest_files=["res://.godot/imported/Behemoth_Attack.wav-d82876a5ef2c386fca1b20182c52ed8b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

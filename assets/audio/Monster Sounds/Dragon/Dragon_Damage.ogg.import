@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b2vyl5ew15ila"
+path="res://.godot/imported/Dragon_Damage.ogg-a32bdcfa606f566ec7a09ad51ae305e6.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Dragon/Dragon_Damage.ogg"
+dest_files=["res://.godot/imported/Dragon_Damage.ogg-a32bdcfa606f566ec7a09ad51ae305e6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -12,6 +12,7 @@ func perform_action():
 	var start = enemy.global_position
 	var end = start + start.direction_to(target.global_position) * 2
 	var damage_effect = DamageEffect.new()
+	damage_effect.visual_fx = visual_fx
 	var target_array: Array[Node] = [target]
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound

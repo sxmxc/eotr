@@ -104,11 +104,14 @@ func burn_card() -> void:
 	var center_of_screen = get_viewport().get_visible_rect().size / 2
 	visuals.card_boosted_effect.hide()
 	visuals.card_attention_fx.hide()
+	visuals.card_trail_fx.show()
+	visuals.card_trail_fx.emitting = true
 	visuals.material = CARD_BURNABLE.duplicate()
 	tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "global_position", center_of_screen - target_offset, .5)
 	tween.tween_property(self, "global_position", discard_pile_position - target_offset, .25)
 	tween.parallel().tween_property(visuals, "scale", Vector2(.25,.25), .25)
+	tween.tween_callback(visuals.card_trail_fx.hide)
 	tween.tween_method(set_burn_shader_parameter, 0.0, 2.0, 1.5)
 	tween.tween_callback(queue_free)
 	SoundManager.play_sound_random_pitch(discard_sound)

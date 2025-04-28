@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cmj8eanxymrg8"
+path="res://.godot/imported/Hornet_Step.ogg-5e59670e4aa77c913cb13e423ba782a2.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Hornet/Hornet_Step.ogg"
+dest_files=["res://.godot/imported/Hornet_Step.ogg-5e59670e4aa77c913cb13e423ba782a2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

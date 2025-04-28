@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://den1r4pdeom46"
+path="res://.godot/imported/Slime_Step.ogg-e46c18afb1c915d3ef33cd3ec21ad313.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Slime/Slime_Step.ogg"
+dest_files=["res://.godot/imported/Slime_Step.ogg-e46c18afb1c915d3ef33cd3ec21ad313.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

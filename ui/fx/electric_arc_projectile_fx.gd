@@ -2,7 +2,7 @@ extends ProjectileFX
 
 @onready var electric_arc_fx: ElectricArcFX = $ElectricArcFX
 
-func execute(target) -> void:
+func execute(target, _source = null) -> void:
 	electric_arc_fx.line_drawn.connect(_on_projectile_connect)
 	target.add_child(visual_fx)
 	electric_arc_fx.strike()

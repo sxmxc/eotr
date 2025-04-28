@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://vvoahg31dnus"
+path="res://.godot/imported/Behemoth_Emerge.ogg-1a9f35075ec3613d67ee930e79bc2795.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Emerge.ogg"
+dest_files=["res://.godot/imported/Behemoth_Emerge.ogg-1a9f35075ec3613d67ee930e79bc2795.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

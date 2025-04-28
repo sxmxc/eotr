@@ -16,9 +16,12 @@ func spawn_random_enemy() -> void:
 	var random_idx = RNG.instance.randi_range(0, spawn_pool.size() - 1)
 	var surrounding_cells = tilemap.base_layer.get_surrounding_cells(current_tile_position)
 	var random_pos = surrounding_cells[RNG.instance.randi_range(0, surrounding_cells.size() - 1)]
-	new_spawn.stats = spawn_pool[random_idx]
+	while !tilemap.is_within_bounds(random_pos):
+		random_pos = surrounding_cells[RNG.instance.randi_range(0, surrounding_cells.size() - 1)]
+	new_spawn.stats = spawn_pool[random_idx] as EnemyStats
+	new_spawn.name = new_spawn.stats.enemy_name
 	enemy_handler.add_enemy(new_spawn, random_pos)
-	var world_message = WorldMessageData.new("Obelisk spawns a creature from the void")
+	var world_message = WorldMessageData.new("Obelisk spawns a %s from the void" % new_spawn.stats.enemy_name)
 	Events.world_message_requested.emit(world_message)
 
 func do_death() -> void:

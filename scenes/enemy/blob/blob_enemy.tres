@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=4 format=3 uid="uid://d3x2ax43x8lji"]
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://d3x2ax43x8lji"]
 
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_sgo6m"]
 [ext_resource type="PackedScene" uid="uid://dbbu8r744tq8k" path="res://scenes/enemy/blob/blob_enemy_ai.tscn" id="1_tp0wp"]
 [ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_arlgc"]
+[ext_resource type="AudioStream" uid="uid://kych7v3n0ql1" path="res://assets/audio/Monster Sounds/Slime/Slime_Emerge.wav" id="3_n0fda"]
 
 [resource]
 script = ExtResource("1_sgo6m")
+enemy_name = "Blob"
 board_icon = ExtResource("2_arlgc")
 ai = ExtResource("1_tp0wp")
+call_sound = ExtResource("3_n0fda")
+flying = false
 max_health = 20
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

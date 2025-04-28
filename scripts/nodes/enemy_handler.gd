@@ -89,8 +89,10 @@ func _start_next_enemy_turn() -> void:
 		print("All enemies done")
 		return
 
-	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 	acting_enemies[0].phantom_camera_2d.priority = 20
+	SoundManager.play_sound_random_pitch(acting_enemies[0].stats.call_sound)
+	await acting_enemies[0].phantom_camera_2d.tween_completed
+	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 
 func _on_player_hand_drawn() -> void:
 	for enemy: Enemy in get_children():
@@ -102,6 +104,7 @@ func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
 		Enums.StatusType.START_OF_TURN:
 			enemy.stats_ui.grab_focus()
 			print("Start of turn effects have been applied to %s" % enemy.name)
+			
 			enemy.do_turn()
 		Enums.StatusType.END_OF_TURN:
 			print("End of turn effects being applied to %s" % enemy.name)

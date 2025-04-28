@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dagoqtgvri3e4"
+path="res://.godot/imported/Behemoth_Step.ogg-0e143b2a5f2b5f70d3a7f78625190670.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Step.ogg"
+dest_files=["res://.godot/imported/Behemoth_Step.ogg-0e143b2a5f2b5f70d3a7f78625190670.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

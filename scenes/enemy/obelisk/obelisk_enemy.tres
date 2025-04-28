@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://bhto68irinlan"]
+
+[ext_resource type="PackedScene" uid="uid://cl7r7mqya2lh7" path="res://scenes/enemy/obelisk/obelisk_enemy_ai.tscn" id="1_fkblh"]
+[ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_xou0d"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="3_1axjc"]
+[ext_resource type="AudioStream" uid="uid://oi2o54nowcb5" path="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Emerge.wav" id="3_xou0d"]
+
+[resource]
+script = ExtResource("3_1axjc")
+enemy_name = "Obelisk"
+board_icon = ExtResource("2_xou0d")
+ai = ExtResource("1_fkblh")
+call_sound = ExtResource("3_xou0d")
+flying = false
+max_health = 20
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bh7hakpe16cpm"
+path="res://.godot/imported/Spider_Step.ogg-a602c1a723662341ef4a8f8236ed92ea.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Spider/Spider_Step.ogg"
+dest_files=["res://.godot/imported/Spider_Step.ogg-a602c1a723662341ef4a8f8236ed92ea.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

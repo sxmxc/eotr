@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://duxbq1vblfdny"]
+[gd_scene load_steps=12 format=3 uid="uid://duxbq1vblfdny"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_7tthe"]
 [ext_resource type="Script" uid="uid://biwyia3xrt6c7" path="res://scenes/enemy/bat/bat_enemy_move_action.gd" id="2_i0oq1"]
 [ext_resource type="Script" uid="uid://ckxvd52j3n2mr" path="res://scenes/enemy/bat/bat_enemy_attack_action.gd" id="3_cvap0"]
 [ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="3_k24bj"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_rfrrq"]
+[ext_resource type="AudioStream" uid="uid://bi62uwrtjhfdc" path="res://assets/audio/kenney_casino/chip-lay-2.ogg" id="5_wdej5"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="6_rfrrq"]
+[ext_resource type="AudioStream" uid="uid://dsu7hoc0psteo" path="res://assets/audio/Monster Sounds/Bat/Bat_Attack.wav" id="8_gptsy"]
+[ext_resource type="PackedScene" uid="uid://b0rgvbdigmehm" path="res://ui/fx/slash_fx.tscn" id="9_r3h3o"]
 
 [sub_resource type="Resource" id="Resource_wdej5"]
 script = ExtResource("4_rfrrq")
@@ -24,6 +27,7 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 [node name="BatEnemyMoveAction" type="Node" parent="." index="0"]
 script = ExtResource("2_i0oq1")
 intent = SubResource("Resource_wdej5")
+sound = ExtResource("5_wdej5")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
 [node name="BatEnemyAttackAction" type="Node" parent="." index="1"]
@@ -31,4 +35,6 @@ script = ExtResource("3_cvap0")
 intent = SubResource("Resource_gptsy")
 type = 1
 chance_weight = 10.0
+sound = ExtResource("8_gptsy")
+visual_fx = ExtResource("9_r3h3o")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"

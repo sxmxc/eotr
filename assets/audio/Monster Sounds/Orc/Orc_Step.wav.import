@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://drycfraxbfhdv"
+path="res://.godot/imported/Orc_Step.wav-d83c0400d2481c617f5764041e25ec4e.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Orc/Orc_Step.wav"
+dest_files=["res://.godot/imported/Orc_Step.wav-d83c0400d2481c617f5764041e25ec4e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://oi2o54nowcb5"
+path="res://.godot/imported/Behemoth_Emerge.wav-f59d31ad8c5d9f17d977f265ea76ce3e.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Emerge.wav"
+dest_files=["res://.godot/imported/Behemoth_Emerge.wav-f59d31ad8c5d9f17d977f265ea76ce3e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

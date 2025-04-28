@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bo3h0440pey2u"
+path="res://.godot/imported/Dragon_Step.wav-1b9672373cb4d2d405c51d8570691cf5.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Dragon/Dragon_Step.wav"
+dest_files=["res://.godot/imported/Dragon_Step.wav-1b9672373cb4d2d405c51d8570691cf5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

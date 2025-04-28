@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dsu7hoc0psteo"
+path="res://.godot/imported/Bat_Attack.wav-4ebf291f0eff7f033e549d1d83f1ba0e.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Bat/Bat_Attack.wav"
+dest_files=["res://.godot/imported/Bat_Attack.wav-4ebf291f0eff7f033e549d1d83f1ba0e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

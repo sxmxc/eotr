@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bb6jgon2mfh0i"
+path="res://.godot/imported/Hornet_Emerge.ogg-2b3faaa00433c1aaf30ca187a1d35432.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Hornet/Hornet_Emerge.ogg"
+dest_files=["res://.godot/imported/Hornet_Emerge.ogg-2b3faaa00433c1aaf30ca187a1d35432.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

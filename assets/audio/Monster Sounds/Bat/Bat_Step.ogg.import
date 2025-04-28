@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bfp1dskhjkkys"
+path="res://.godot/imported/Bat_Step.ogg-5a173e8cd52182806282b2cdf4b8ad79.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Bat/Bat_Step.ogg"
+dest_files=["res://.godot/imported/Bat_Step.ogg-5a173e8cd52182806282b2cdf4b8ad79.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

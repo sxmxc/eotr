@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://crp7xjvfylat0"
+path="res://.godot/imported/Slime_Death.ogg-bd87c79bbdf3fac2742867fe42f9284b.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Slime/Slime_Death.ogg"
+dest_files=["res://.godot/imported/Slime_Death.ogg-bd87c79bbdf3fac2742867fe42f9284b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxygeysnp140o"
+path="res://.godot/imported/Dragon_Death.wav-cd248177628cf6e54a8aee3d4a2b3fe9.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Dragon/Dragon_Death.wav"
+dest_files=["res://.godot/imported/Dragon_Death.wav-cd248177628cf6e54a8aee3d4a2b3fe9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

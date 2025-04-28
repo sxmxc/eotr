@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dpvfw8twrcrs6"
+path="res://.godot/imported/Hornet_Attack.ogg-4b89de3d61eaf21d9248cf22630c6134.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Hornet/Hornet_Attack.ogg"
+dest_files=["res://.godot/imported/Hornet_Attack.ogg-4b89de3d61eaf21d9248cf22630c6134.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

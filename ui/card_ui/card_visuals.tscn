@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bfupsllnox0ix"]
+[gd_scene load_steps=21 format=3 uid="uid://bfupsllnox0ix"]
 
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
 [ext_resource type="Shader" uid="uid://cy0ljmw8dfwny" path="res://resources/materials/dark_noise_vignette.gdshader" id="3_2pg18"]
+[ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="4_ky3w4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ky3w4"]
 shader = ExtResource("3_2pg18")
@@ -49,6 +50,30 @@ spread = 0.0
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_lnh5i")
 alpha_curve = SubResource("CurveTexture_ky3w4")
+
+[sub_resource type="Curve" id="Curve_si0b1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xe37s"]
+curve = SubResource("Curve_si0b1")
+
+[sub_resource type="Curve" id="Curve_0qon5"]
+_limits = [0.0, 0.1, 0.0, 1.0]
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m4ny6"]
+curve = SubResource("Curve_0qon5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nb1yb"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(90, 120, 1)
+spread = 0.0
+scale_curve = SubResource("CurveTexture_m4ny6")
+color = Color(0.524982, 3, 2.99105, 0.471)
+alpha_curve = SubResource("CurveTexture_xe37s")
 
 [node name="Visuals" type="Control"]
 custom_minimum_size = Vector2(180, 240)
@@ -196,3 +221,18 @@ preprocess = 5.0
 visibility_rect = Rect2(-240, -240, 480, 480)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_0qon5")
+
+[node name="CardTrailFX" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+show_behind_parent = true
+position = Vector2(83, 116)
+emitting = false
+amount = 5000
+texture = ExtResource("4_ky3w4")
+lifetime = 2.0
+preprocess = 1.0
+speed_scale = 2.0
+visibility_rect = Rect2(-799.526, -631.978, 1401.51, 1263.98)
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_nb1yb")

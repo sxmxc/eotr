@@ -10,6 +10,6 @@ id = "fracture_pulse"
 name = "Fracture Pulse"
 card_rarity = 2
 description = "Deal [b]%s[/b] damage to all enemies. Gain 1 energy."
-energy_cost = 2
+energy_cost = 0
 exhaust = false
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

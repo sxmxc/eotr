@@ -7,6 +7,7 @@ enum Type {CONDITIONAL, CHANCE_BASED}
 @export var type: Type
 @export_range(0.0, 10.0) var chance_weight := 0.0
 @export var sound: AudioStream
+@export var visual_fx: PackedScene
 
 @onready var accumulated_weight := 0.0
 

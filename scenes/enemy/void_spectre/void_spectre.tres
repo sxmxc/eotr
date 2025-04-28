@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=4 format=3 uid="uid://bxamo508a0hwr"]
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://bxamo508a0hwr"]
 
 [ext_resource type="PackedScene" uid="uid://b3nci3u4bowom" path="res://scenes/enemy/void_spectre/void_spectre_ai.tscn" id="1_hcnfm"]
 [ext_resource type="Texture2D" uid="uid://c7wwsvbjgqf4a" path="res://assets/icons/spectre.svg" id="1_ikufh"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_vpbmh"]
+[ext_resource type="AudioStream" uid="uid://bg35vann4lwj2" path="res://assets/audio/Monster Sounds/Ghost/Ghost_Emerge.ogg" id="3_n1ug0"]
 
 [resource]
 script = ExtResource("1_vpbmh")
+enemy_name = "Void Spectre"
 board_icon = ExtResource("1_ikufh")
 ai = ExtResource("1_hcnfm")
-max_health = 80
+call_sound = ExtResource("3_n1ug0")
+flying = false
+max_health = 180
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

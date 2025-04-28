@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=4 format=3 uid="uid://fddqe3ier2dp"]
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://fddqe3ier2dp"]
 
 [ext_resource type="PackedScene" uid="uid://duxbq1vblfdny" path="res://scenes/enemy/bat/bat_enemy_ai.tscn" id="1_rkhoc"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_xwyds"]
 [ext_resource type="Texture2D" uid="uid://dhhvpyyrer6xa" path="res://assets/icons/bat.svg" id="2_dy2o3"]
+[ext_resource type="AudioStream" uid="uid://b2m8fyb2o88fn" path="res://assets/audio/Monster Sounds/Bat/Bat_Emerge.wav" id="3_dy2o3"]
 
 [resource]
 script = ExtResource("1_xwyds")
+enemy_name = "Bat"
 board_icon = ExtResource("2_dy2o3")
 ai = ExtResource("1_rkhoc")
+call_sound = ExtResource("3_dy2o3")
 flying = true
 max_health = 10
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

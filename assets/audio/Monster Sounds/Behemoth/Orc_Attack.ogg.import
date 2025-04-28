@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bgg2brp8laqkh"
+path="res://.godot/imported/Orc_Attack.ogg-e0f5845fd5354c414ee08e91fda4e363.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Orc_Attack.ogg"
+dest_files=["res://.godot/imported/Orc_Attack.ogg-e0f5845fd5354c414ee08e91fda4e363.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

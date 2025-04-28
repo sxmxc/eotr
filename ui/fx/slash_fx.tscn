@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0rgvbdigmehm"]
+
+[ext_resource type="Script" uid="uid://bv7fcwcwqwvfl" path="res://ui/fx/slash_fx.gd" id="1_hpcry"]
+[ext_resource type="Texture2D" uid="uid://gkb453hgljhf" path="res://assets/particles/kenney-particles/slash_03.png" id="2_42puu"]
+
+[sub_resource type="Curve" id="Curve_7pryu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4mfh8"]
+curve = SubResource("Curve_7pryu")
+
+[sub_resource type="Curve" id="Curve_vqin3"]
+_limits = [0.0, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qm1v0"]
+curve = SubResource("Curve_vqin3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w7n1r"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_qm1v0")
+color = Color(1, 0, 0.00394058, 1)
+alpha_curve = SubResource("CurveTexture_4mfh8")
+
+[node name="SlashFX" type="Node2D"]
+script = ExtResource("1_hpcry")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1
+texture = ExtResource("2_42puu")
+one_shot = true
+local_coords = true
+draw_order = 2
+process_material = SubResource("ParticleProcessMaterial_w7n1r")

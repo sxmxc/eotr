@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://clybmd6dqmpt8"]
 
-[ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obilisk/obelisk_enemy.gd" id="1_pyj3l"]
-[ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obilisk/obelisk_enemy.tres" id="2_2g2p5"]
+[ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obelisk/obelisk_enemy.gd" id="1_pyj3l"]
+[ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="2_2g2p5"]
 [ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_180ib"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_23345"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="3_okv0r"]

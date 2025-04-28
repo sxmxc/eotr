@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cby8e6pjap5ib"
+path="res://.godot/imported/Spider_Step.wav-e517341deb6fc0c5d77fe6d78fc47c62.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Spider/Spider_Step.wav"
+dest_files=["res://.godot/imported/Spider_Step.wav-e517341deb6fc0c5d77fe6d78fc47c62.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -51,6 +51,8 @@ func perform_action():
 		return
 
 	# Move to the selected tile
+	var world_message = WorldMessageData.new("%s flys closer to player" % enemy.name)
+	Events.world_message_requested.emit(world_message)
 	bat.set_movement_target(found_tile)
 	bat.is_moving = true
 	await bat.navigation_agent_2d.navigation_finished

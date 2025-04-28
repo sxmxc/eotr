@@ -11,5 +11,10 @@ func execute(targets: Array[Node]) -> void:
 		if not target:
 			continue
 		if target is Enemy or target is Player:
-			target.take_damage(amount, receiver_modifier_type, direct)
 			SoundManager.play_sound_random_pitch(sound_fx)
+			if visual_fx != null:
+				var visual_effect : VisualFX = visual_fx.instantiate()
+				target.add_child(visual_effect)
+				visual_effect.execute()
+			target.take_damage(amount, receiver_modifier_type, direct)
+			

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://qv23ynkibq7f"
+path="res://.godot/imported/Slime_Attack.ogg-df1c8392f5c52118dc22b04aa9d2754a.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Slime/Slime_Attack.ogg"
+dest_files=["res://.godot/imported/Slime_Attack.ogg-df1c8392f5c52118dc22b04aa9d2754a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

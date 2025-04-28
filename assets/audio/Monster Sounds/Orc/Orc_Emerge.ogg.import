@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c2tx34edwmps2"
+path="res://.godot/imported/Orc_Emerge.ogg-f1b2ddede774318eff6b644d2d0ff9bb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Orc/Orc_Emerge.ogg"
+dest_files=["res://.godot/imported/Orc_Emerge.ogg-f1b2ddede774318eff6b644d2d0ff9bb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ckcsqiyw8br81"
+path="res://.godot/imported/Ghost_Attack.ogg-dc2c7086774229c9b472b976a1a9bc2e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Ghost/Ghost_Attack.ogg"
+dest_files=["res://.godot/imported/Ghost_Attack.ogg-dc2c7086774229c9b472b976a1a9bc2e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

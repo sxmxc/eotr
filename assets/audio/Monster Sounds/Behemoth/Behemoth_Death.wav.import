@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dvrmybxyblifm"
+path="res://.godot/imported/Behemoth_Death.wav-c6669bfa8c3b2b099be4e49c2d390525.sample"
+
+[deps]
+
+source_file="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Death.wav"
+dest_files=["res://.godot/imported/Behemoth_Death.wav-c6669bfa8c3b2b099be4e49c2d390525.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
