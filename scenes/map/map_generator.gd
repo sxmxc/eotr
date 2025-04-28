@@ -1,7 +1,7 @@
 extends Node
 class_name MapGenerator
 
-const X_DIST := 110
+const X_DIST := 90
 const Y_DIST := 75
 const PLACEMENT_RANDOMNESS := 5
 const FLOORS := 15
@@ -11,6 +11,7 @@ const MONSTER_NODE_WEIGHT := 10.0
 const SHOP_NODE_WEIGHT := 2.5
 const REST_NODE_WEIGHT := 4.0
 
+@export var left_gutter_offset: int = 50  # <-- You can tweak this value
 @export var battle_stats_pool: BattleStatsPool
 
 var random_map_node_type_weights = {
@@ -47,7 +48,7 @@ func _generate_initial_grid() -> Array[Array]:
 		for j in MAP_WIDTH:
 			var current_map_node := MapNode.new()
 			var offset := Vector2(RNG.instance.randf(), RNG.instance.randf()) * PLACEMENT_RANDOMNESS
-			current_map_node.position = Vector2(j * X_DIST, i * -Y_DIST) + offset
+			current_map_node.position = Vector2(left_gutter_offset + j * X_DIST, i * -Y_DIST) + offset
 			current_map_node.row = i
 			current_map_node.column = j
 			current_map_node.next_nodes = []

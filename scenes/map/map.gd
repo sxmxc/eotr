@@ -49,6 +49,8 @@ func load_map(map: Array[Array], floors_completed: int, last_map_node_climbed: M
 		unlock_next_map_node()
 	else:
 		unlock_floor()
+		
+	center_camera_on_current_floor()
 
 
 func create_map() -> void:
@@ -80,6 +82,7 @@ func show_map() -> void:
 	show()
 	ui_layer.show()
 	camera_2d.enabled = true
+	center_camera_on_current_floor()
 
 
 func hide_map() -> void:
@@ -87,6 +90,13 @@ func hide_map() -> void:
 	ui_layer.hide()
 	camera_2d.enabled = false
 
+func center_camera_on_current_floor():
+	var target_floor = floors_climbed
+
+	var floor_node : MapNode = map_data[target_floor][0]
+	var tween = create_tween()
+	tween.tween_property(camera_2d, "position:y", clamp(floor_node.position.y, -camera_edge_y, 0),1)
+	#camera_2d.position.y = clamp(floor_node.position.y, -camera_edge_y, 0)
 
 func _spawn_map_node(map_node: MapNode) -> void:
 	var new_map_node_ui := MAP_NODE_UI_SCENE.instantiate() as MapNodeUI

@@ -24,9 +24,3 @@ stats = ExtResource("5_sbh2u")
 
 [node name="Bat3" parent="." instance=ExtResource("1_oay3m")]
 stats = ExtResource("5_sbh2u")
-
-[node name="Bat4" parent="." instance=ExtResource("1_oay3m")]
-stats = ExtResource("5_sbh2u")
-
-[node name="Bat5" parent="." instance=ExtResource("1_oay3m")]
-stats = ExtResource("5_sbh2u")

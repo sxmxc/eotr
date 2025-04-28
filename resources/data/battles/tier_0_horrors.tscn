@@ -17,9 +17,3 @@ stats = ExtResource("2_mmh16")
 
 [node name="Bat1" parent="." instance=ExtResource("1_lvlth")]
 stats = ExtResource("4_gqxsb")
-
-[node name="Bat2" parent="." instance=ExtResource("1_lvlth")]
-stats = ExtResource("4_gqxsb")
-
-[node name="Bat3" parent="." instance=ExtResource("1_lvlth")]
-stats = ExtResource("4_gqxsb")

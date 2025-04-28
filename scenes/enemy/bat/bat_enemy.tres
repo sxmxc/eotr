@@ -12,5 +12,5 @@ board_icon = ExtResource("2_dy2o3")
 ai = ExtResource("1_rkhoc")
 call_sound = ExtResource("3_dy2o3")
 flying = true
-max_health = 10
+max_health = 6
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

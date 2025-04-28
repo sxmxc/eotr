@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dea7y4njajvql"]
+
+[ext_resource type="Script" uid="uid://kapgdfinarym" path="res://resources/data/cards/riftwalker/focus.gd" id="1_x6xu6"]
+[ext_resource type="AudioStream" uid="uid://y8shlp65x13s" path="res://assets/audio/spells/blessing3.wav" id="2_arv0s"]
+[ext_resource type="PackedScene" uid="uid://clemke10r3mhf" path="res://ui/fx/flash_fx.tscn" id="3_37eoj"]
+
+[resource]
+script = ExtResource("1_x6xu6")
+card_type = 2
+target_type = 0
+id = "focus"
+name = "Focus"
+card_rarity = 0
+description = "Gain [b]%s[/b] attunement. "
+energy_cost = 1
+exhaust = false
+sound_fx = ExtResource("2_arv0s")
+visual_fx = ExtResource("3_37eoj")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

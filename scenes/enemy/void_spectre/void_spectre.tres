@@ -11,6 +11,6 @@ enemy_name = "Void Spectre"
 board_icon = ExtResource("1_ikufh")
 ai = ExtResource("1_hcnfm")
 call_sound = ExtResource("3_n1ug0")
-flying = false
+flying = true
 max_health = 180
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"
