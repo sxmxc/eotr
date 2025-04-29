@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://c7tqd3hpg67l"]
+
+[ext_resource type="PackedScene" uid="uid://bfq61vnibgnrd" path="res://scenes/enemy/horror/elite_horror_enemy_ai.tscn" id="1_0kr8k"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_aout3"]
+[ext_resource type="Texture2D" uid="uid://bpb4unvyfgehr" path="res://assets/icons/alien-bug.svg" id="2_tlcso"]
+[ext_resource type="AudioStream" uid="uid://dnmpehk88mii3" path="res://assets/audio/Monster Sounds/Spider/Spider_Emerge.wav" id="3_tlcso"]
+
+[resource]
+script = ExtResource("2_aout3")
+enemy_name = "Elite Horror"
+board_icon = ExtResource("2_tlcso")
+ai = ExtResource("1_0kr8k")
+call_sound = ExtResource("3_tlcso")
+flying = false
+max_health = 30
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

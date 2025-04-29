@@ -1,6 +1,5 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://plkam64wo554"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://plkam64wo554"]
 
-[ext_resource type="StyleBox" uid="uid://evc7medpha5u" path="res://resources/themes/card_panel_base.tres" id="1_etnbh"]
 [ext_resource type="FontFile" uid="uid://1oy6eel7cxhb" path="res://assets/fonts/comic_book/Comic Book Bold.otf" id="2_ttywx"]
 [ext_resource type="FontFile" uid="uid://cr74lne0rgqw7" path="res://assets/fonts/comic_book/Comic Book Bold Italic.otf" id="3_t6fef"]
 [ext_resource type="FontFile" uid="uid://c757277hct3rl" path="res://assets/fonts/comic_book/Comic Book Italic.otf" id="4_tjpgc"]
@@ -18,6 +17,17 @@ border_color = Color(0.294118, 0.239216, 0.266667, 1)
 shadow_size = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hrule"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crme1"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.301961, 0.270588, 0.223529, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.294118, 0.239216, 0.266667, 1)
+shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7xis"]
 content_margin_left = 15.0
@@ -54,56 +64,17 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5h5u"]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color(0.517647, 0.470588, 0.458824, 0.670588)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
-shadow_size = 2
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nigdf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yjl7"]
-bg_color = Color(0.301961, 0.270588, 0.223529, 1)
-shadow_size = 2
-shadow_offset = Vector2(1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dce3w"]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color(0.517647, 0.470588, 0.458824, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
-shadow_size = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xetsg"]
-bg_color = Color(0.301961, 0.270588, 0.223529, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.701961, 0.647059, 0.333333, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-shadow_size = 2
-shadow_offset = Vector2(1, 1)
-
 [resource]
 default_font = ExtResource("5_0x5bx")
 default_font_size = 32
 Button/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
+Button/colors/font_disabled_color = Color(0.294118, 0.239216, 0.266667, 1)
+Button/colors/font_hover_color = Color(0.701961, 0.647059, 0.333333, 1)
+Button/colors/font_pressed_color = Color(0.701961, 0.647059, 0.333333, 1)
+Button/fonts/font = ExtResource("5_0x5bx")
 Button/styles/disabled = SubResource("StyleBoxFlat_qlbhd")
 Button/styles/focus = SubResource("StyleBoxEmpty_hrule")
-Button/styles/hover = ExtResource("1_etnbh")
+Button/styles/hover = SubResource("StyleBoxFlat_crme1")
 Button/styles/normal = SubResource("StyleBoxFlat_j7xis")
 Button/styles/pressed = SubResource("StyleBoxFlat_hrule")
 HudPanelBackground/base_type = &"Panel"
@@ -112,11 +83,13 @@ HudPanelMain/base_type = &"Panel"
 HudPanelMain/styles/panel = SubResource("StyleBoxFlat_oyepb")
 Label/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
 MainMenuButton/base_type = &"Button"
-MainMenuButton/styles/disabled = SubResource("StyleBoxFlat_d5h5u")
-MainMenuButton/styles/focus = SubResource("StyleBoxEmpty_nigdf")
-MainMenuButton/styles/hover = SubResource("StyleBoxFlat_6yjl7")
-MainMenuButton/styles/normal = SubResource("StyleBoxFlat_dce3w")
-MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_xetsg")
+MainMenuButton/colors/font_hover_pressed_color = Color(0.701961, 0.647059, 0.333333, 1)
+MainMenuButton/colors/font_pressed_color = Color(0.701961, 0.647059, 0.333333, 1)
+MainMenuButton/styles/disabled = SubResource("StyleBoxFlat_qlbhd")
+MainMenuButton/styles/focus = SubResource("StyleBoxEmpty_hrule")
+MainMenuButton/styles/hover = SubResource("StyleBoxFlat_crme1")
+MainMenuButton/styles/normal = SubResource("StyleBoxFlat_j7xis")
+MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_hrule")
 MediumLabel/base_type = &"Label"
 MediumLabel/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
 MediumLabel/font_sizes/font_size = 50

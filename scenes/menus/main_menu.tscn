@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dno27ykycjlv8" path="res://scripts/nodes/version_label.gd" id="4_6bivr"]
 [ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="4_8r73w"]
 [ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="5_ng0o5"]
-[ext_resource type="FontFile" uid="uid://b0jg6m0wfhv8l" path="res://assets/fonts/Caliste.otf" id="7_1hnlc"]
+[ext_resource type="FontFile" uid="uid://caddq45sym1nl" path="res://assets/fonts/cinzel/Cinzel-Bold.otf" id="6_50h1w"]
 [ext_resource type="Script" uid="uid://cxwnehr2avcec" path="res://addons/uiJuicer/Fader.gd" id="7_50h1w"]
 [ext_resource type="Script" uid="uid://ewo5es7kglbm" path="res://scenes/menus/player_identity.gd" id="9_50h1w"]
 
@@ -273,7 +273,7 @@ turbulence_noise_speed_random = 3.34
 turbulence_influence_over_life = SubResource("CurveTexture_r2fsw")
 
 [sub_resource type="LabelSettings" id="LabelSettings_bre17"]
-font = ExtResource("7_1hnlc")
+font = ExtResource("6_50h1w")
 font_size = 150
 font_color = Color(0.823529, 0.788235, 0.647059, 1)
 outline_size = 30
@@ -283,7 +283,7 @@ shadow_color = Color(0.301961, 0.270588, 0.223529, 0.741176)
 shadow_offset = Vector2(8, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_88kup"]
-font = ExtResource("7_1hnlc")
+font = ExtResource("6_50h1w")
 font_size = 75
 font_color = Color(0.823529, 0.788235, 0.647059, 1)
 outline_size = 20
@@ -293,7 +293,7 @@ shadow_color = Color(0.301961, 0.270588, 0.223529, 0.572549)
 shadow_offset = Vector2(6, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bh4e2"]
-font = ExtResource("7_1hnlc")
+font = ExtResource("6_50h1w")
 font_size = 150
 font_color = Color(0.823529, 0.788235, 0.647059, 1)
 outline_size = 30
@@ -312,6 +312,7 @@ grow_vertical = 2
 theme = ExtResource("1_ovrgc")
 script = ExtResource("2_2o76q")
 run_bootstrap = ExtResource("3_imvie")
+metadata/_edit_horizontal_guides_ = [549.0]
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -440,9 +441,15 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Control/Title"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -292.5
+offset_top = -225.0
+offset_right = 292.5
+offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -482,10 +489,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -640.0
-offset_top = -123.5
-offset_right = -320.0
-offset_bottom = 116.5
+offset_left = -603.0
+offset_top = -150.0
+offset_right = -283.0
+offset_bottom = 168.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/margin_left = 50
@@ -504,9 +511,6 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
-theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_focus_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_pressed_color = Color(0.47451, 0.266667, 0.290196, 1)
 disabled = true
 text = "Continue"
 
@@ -516,9 +520,6 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
-theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_focus_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_pressed_color = Color(0.47451, 0.266667, 0.290196, 1)
 text = "New"
 
 [node name="SettingsButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
@@ -527,9 +528,6 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
-theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_focus_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_pressed_color = Color(0.47451, 0.266667, 0.290196, 1)
 text = "Settings
 "
 
@@ -539,9 +537,6 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
-theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_focus_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_colors/font_pressed_color = Color(0.47451, 0.266667, 0.290196, 1)
 text = "Exit"
 
 [node name="Fader" type="Node" parent="UILayer/Control/Buttons"]

@@ -1,10 +1,12 @@
 extends ProjectileFX
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var phantom_camera_2d: PhantomCamera2D = $PhantomCamera2D
 var start: Vector2
 var end: Vector2
 var speed: float = 100.0
 var has_reached_target: bool = false
 var is_initialized: bool = false
+
 
 func execute(target, source = null) -> void:
 	target.add_child(visual_fx)
@@ -14,11 +16,12 @@ func execute(target, source = null) -> void:
 	
 	position = start
 	print("blast striking: start %s end %s" % [start, end])
-	
+	phantom_camera_2d.priority = 100
 	# Start animation sequence
 	animated_sprite_2d.animation_finished.connect(_on_start_animation_finished)
 	animated_sprite_2d.play("start")
 	is_initialized = true
+	
 	
 func _physics_process(delta: float) -> void:
 	if !is_initialized or has_reached_target:
@@ -61,6 +64,5 @@ func _on_projectile_reached_target():
 func _on_end_animation_finished():
 	# Clean up
 	animated_sprite_2d.animation_finished.disconnect(_on_end_animation_finished)
-	
-	# Here you might want to free the projectile or handle other cleanup
+	phantom_camera_2d.priority = 0
 	queue_free()

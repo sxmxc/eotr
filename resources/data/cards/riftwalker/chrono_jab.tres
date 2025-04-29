@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c7qr2s3i0k6wk"]
+
+[ext_resource type="Script" uid="uid://db8murq58snrm" path="res://resources/data/cards/riftwalker/chrono_jab.gd" id="1_00n2m"]
+
+[resource]
+script = ExtResource("1_00n2m")
+base_damage = 6
+weakened_duration = 3
+card_type = 2
+target_type = 1
+id = "chrono_jab"
+name = "Chrono Jab"
+card_rarity = 0
+description = "Deal [b]%s[/b] damage twice. Applies [b]1[/b] [b]Weakened[/b]."
+energy_cost = 2
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

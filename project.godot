@@ -19,7 +19,7 @@ boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="dc3467a"
+config/build="3b9cb3c"
 
 [autoload]
 

@@ -10,6 +10,6 @@ id = "nano_shield"
 name = "Nano Shield"
 card_rarity = 1
 description = "Block [b]%s[/b] damage and regain 3 energy."
-energy_cost = 2
+energy_cost = 0
 exhaust = false
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

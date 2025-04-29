@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardPile" load_steps=15 format=3 uid="uid://fjjyyc620psd"]
+[gd_resource type="Resource" script_class="CardPile" load_steps=16 format=3 uid="uid://fjjyyc620psd"]
 
 [ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_gv0st"]
 [ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_i5lcq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dea7y4njajvql" path="res://resources/data/cards/riftwalker/focus.tres" id="4_u64ch"]
 [ext_resource type="Resource" uid="uid://c6hamm38p4tew" path="res://resources/data/cards/riftwalker/quantum_rift.tres" id="5_5k6rd"]
 [ext_resource type="Resource" uid="uid://dsc2p3kof2lra" path="res://resources/data/cards/riftwalker/arcane_blast.tres" id="5_8ruip"]
+[ext_resource type="Resource" uid="uid://c7qr2s3i0k6wk" path="res://resources/data/cards/riftwalker/chrono_jab.tres" id="5_ltrod"]
 [ext_resource type="Resource" uid="uid://mwuybg2ka21n" path="res://resources/data/cards/riftwalker/arcane_explosion.tres" id="6_5k6rd"]
 [ext_resource type="Resource" uid="uid://c0t6w3122bby2" path="res://resources/data/cards/riftwalker/phase_slash.tres" id="6_u64ch"]
 [ext_resource type="Resource" uid="uid://ddfy372khhev7" path="res://resources/data/cards/riftwalker/nano_shield.tres" id="7_64lpb"]
@@ -17,5 +18,5 @@
 
 [resource]
 script = ExtResource("2_i5lcq")
-cards = Array[ExtResource("1_gv0st")]([ExtResource("5_8ruip"), ExtResource("6_5k6rd"), ExtResource("4_u64ch"), ExtResource("4_5k6rd"), ExtResource("5_5k6rd"), ExtResource("6_u64ch"), ExtResource("7_ltrod"), ExtResource("7_64lpb"), ExtResource("7_ltrod"), ExtResource("8_ltrod"), ExtResource("9_ex2n0"), ExtResource("7_u64ch"), ExtResource("12_tlkdp")])
+cards = Array[ExtResource("1_gv0st")]([ExtResource("5_8ruip"), ExtResource("6_5k6rd"), ExtResource("4_u64ch"), ExtResource("5_ltrod"), ExtResource("4_5k6rd"), ExtResource("5_5k6rd"), ExtResource("6_u64ch"), ExtResource("7_ltrod"), ExtResource("7_64lpb"), ExtResource("7_ltrod"), ExtResource("8_ltrod"), ExtResource("9_ex2n0"), ExtResource("7_u64ch"), ExtResource("12_tlkdp")])
 metadata/_custom_type_script = "uid://dkmgiky2ttex"
