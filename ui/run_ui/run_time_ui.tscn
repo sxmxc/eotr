@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck2xa3ld451by"]
+
+[ext_resource type="Texture2D" uid="uid://blnixybp55sng" path="res://assets/icons/clockwork.svg" id="1_8mou2"]
+[ext_resource type="Script" uid="uid://1cq7o50otbcr" path="res://ui/run_ui/run_time_ui.gd" id="1_ufay1"]
+
+[node name="RunTimeUI" type="HBoxContainer"]
+size_flags_horizontal = 2
+script = ExtResource("1_ufay1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("1_8mou2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "00:00:00"

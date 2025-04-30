@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_k6yc7"]
 [ext_resource type="Script" uid="uid://vjdn5lrc46h2" path="res://scenes/enemy/blob/blob_mega_block_action.gd" id="5_15k23"]
 [ext_resource type="AudioStream" uid="uid://baube7wf1lenv" path="res://assets/audio/RPG Sound Pack/NPC/slime/slime10.wav" id="5_035o0"]
-[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/token_shine_effect.tscn" id="5_tekdp"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="5_tekdp"]
 [ext_resource type="AudioStream" uid="uid://bi62uwrtjhfdc" path="res://assets/audio/kenney_casino/chip-lay-2.ogg" id="6_15k23"]
 [ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="8_k6yc7"]
 [ext_resource type="AudioStream" uid="uid://dte5vuj2stwyh" path="res://assets/audio/RPG Sound Pack/NPC/slime/slime9.wav" id="9_035o0"]

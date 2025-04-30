@@ -14,6 +14,7 @@ const SAVE_PATH := "user://savegame.res"
 @export var last_map_node: MapNode
 @export var floors_climbed: int
 @export var was_on_map: bool
+@export var elapsed_run_time: float
 
 
 func save_data() -> void:

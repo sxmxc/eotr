@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_x6xu6")
+base_amount = 1
 card_type = 2
 target_type = 0
 id = "focus"

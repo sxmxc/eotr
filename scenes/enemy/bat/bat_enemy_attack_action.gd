@@ -17,6 +17,7 @@ func perform_action() -> void:
 	var target_array: Array[Node] = [target]
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound
+	damage_effect.visual_fx = visual_fx
 	
 	intent.current_text = intent.base_text
 	

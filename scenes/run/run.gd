@@ -23,6 +23,7 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 @onready var relic_tooltip: RelicTooltip = %RelicTooltip
 @onready var pause_menu: PauseMenu = $PauseMenu
 @onready var map_legend: CanvasLayer = $MapLegendUI
+@onready var run_time_ui: RunTimerUI = %RunTimeUI
 
 
 var run_stats: RunStats
@@ -71,14 +72,12 @@ func _start_run() -> void:
 	map.generate_new_map()
 	map.unlock_floor(0)
 	save_data = SaveGame.new()
-	player_stats.run_start_time = Time.get_unix_time_from_system()
-	player_stats.run_elapsed_time = 0.0
 	player_stats.is_running = true
 	_save_run(true)
+	run_time_ui.start()
 
 
 func _save_run(was_on_map: bool):
-	player_stats.run_elapsed_time = get_total_elapsed_run_time()
 	
 	save_data.rng_seed = RNG.instance.seed
 	save_data.rng_state = RNG.instance.state
@@ -91,6 +90,7 @@ func _save_run(was_on_map: bool):
 	save_data.map_data = map.map_data.duplicate()
 	save_data.floors_climbed = map.floors_climbed
 	save_data.was_on_map = was_on_map
+	save_data.elapsed_run_time = run_time_ui.elapsed_time
 	save_data.save_data()
 
 
@@ -106,11 +106,13 @@ func _load_run() -> void:
 	relic_handler.add_relics(save_data.relics)
 	_setup_top_bar()
 	_setup_event_connections()
-
+	run_time_ui.resume_from(save_data.elapsed_run_time)
+	
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_map_node)
 	if save_data.last_map_node and not save_data.was_on_map:
 		_on_map_exited(save_data.last_map_node)
 		return
+	
 	SoundManager.play_music_queue(music_playlist,1)
 	
 
@@ -145,8 +147,8 @@ func _setup_event_connections() -> void:
 	Events.shop_exited.connect(_show_map)
 	Events.treasure_room_exited.connect(_on_treasure_room_exited)
 
-	#if not LimboConsole.has_command("yeet_em_all"):
-		#LimboConsole.register_command(_destroy_all_enemies, "yeet_em_all", "Destroy all enemies")
+	if not LimboConsole.has_command("yeet_em_all"):
+		LimboConsole.register_command(_destroy_all_enemies, "yeet_em_all", "Destroy all enemies")
 
 
 func _setup_top_bar() -> void:
