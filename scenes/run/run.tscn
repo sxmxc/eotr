@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://bc2hjnwtwhelj"]
+[gd_scene load_steps=77 format=3 uid="uid://bc2hjnwtwhelj"]
 
 [ext_resource type="Script" uid="uid://l13r63ukihp2" path="res://scenes/run/run.gd" id="1_l7o68"]
 [ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="2_o4jfg"]
@@ -27,6 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://cpkby7jkl4j6e" path="res://assets/icons/overlord-helm.svg" id="17_ymu0v"]
 [ext_resource type="Texture2D" uid="uid://cdtkxwq6qq66l" path="res://assets/third_party/Keyboard & Mouse/Vector/mouse_scroll_vertical.svg" id="20_ymu0v"]
 [ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="21_vqexm"]
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="28_hu4rv"]
+[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="28_xgkqp"]
+[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="29_xgkqp"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ymu0v"]
 shuffle = true
@@ -299,6 +302,8 @@ turbulence_influence_over_life = SubResource("CurveTexture_r2fsw")
 script = ExtResource("1_l7o68")
 run_bootstrap = ExtResource("2_o4jfg")
 music_playlist = SubResource("AudioStreamPlaylist_ymu0v")
+metadata/_edit_horizontal_guides_ = [127.0, -52.0]
+metadata/_edit_vertical_guides_ = [1429.0]
 
 [node name="Map" parent="." instance=ExtResource("2_wdonh")]
 
@@ -756,4 +761,224 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Main Menu"
 
+[node name="TutorialUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+visible = false
+script = ExtResource("28_xgkqp")
+
+[node name="RunTutorial" type="Control" parent="TutorialUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("28_hu4rv")
+
+[node name="ColorRect" type="ColorRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.294, 0.239, 0.267, 0.625)
+
+[node name="LegendLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 22.0
+offset_top = 890.0
+offset_right = 453.0
+offset_bottom = 987.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Map Legend"
+horizontal_alignment = 1
+
+[node name="TextureRect7" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 184.0
+offset_top = 693.0
+offset_right = 408.0
+offset_bottom = 790.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+stretch_mode = 5
+flip_h = true
+
+[node name="RelicLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 1368.0
+offset_top = 230.0
+offset_right = 1588.0
+offset_bottom = 327.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Relics"
+horizontal_alignment = 1
+
+[node name="DeckLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 1701.0
+offset_top = 232.0
+offset_right = 1921.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Deck"
+horizontal_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 241.0
+offset_right = 501.0
+offset_bottom = 338.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Gold"
+horizontal_alignment = 1
+
+[node name="ResourceLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 0
+offset_left = 478.0
+offset_top = 238.0
+offset_right = 847.0
+offset_bottom = 335.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Resources"
+horizontal_alignment = 1
+
+[node name="RunTimeLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 239.0
+offset_right = 1205.0
+offset_bottom = 336.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Run Time"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = -116.0
+offset_top = 308.0
+offset_right = 351.0
+offset_bottom = 405.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "health"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 121.0
+offset_top = 4.0
+offset_right = 588.0
+offset_bottom = 68.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+stretch_mode = 5
+flip_h = true
+
+[node name="TextureRect2" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 408.0
+offset_top = 128.0
+offset_right = 552.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 1053.0
+offset_top = 128.0
+offset_right = 1197.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect8" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 694.0
+offset_top = 128.0
+offset_right = 838.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect5" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 1525.0
+offset_top = 128.0
+offset_right = 1669.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect6" type="TextureRect" parent="TutorialUI/RunTutorial"]
+layout_mode = 2
+offset_left = 1858.0
+offset_top = 124.0
+offset_right = 2002.0
+offset_bottom = 188.0
+rotation = 1.5708
+texture = ExtResource("29_xgkqp")
+expand_mode = 1
+flip_h = true
+
+[node name="Button" type="Button" parent="TutorialUI/RunTutorial"]
+layout_mode = 0
+offset_left = 1640.0
+offset_top = 904.0
+offset_right = 1798.0
+offset_bottom = 956.0
+text = "Got it"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TutorialUI/RunTutorial"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -188.0
+offset_right = 888.0
+offset_bottom = 287.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/RunTutorial/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Welcome to the Run Map, your journey through the fractured echoes of reality. Here’s what you need to know to survive—and thrive:
+
+[b]Nodes[/b] - These are the points you'll travel between. Each node represents a battle, event, merchant, or other encounter. Choose your path carefully—each decision echoes onward.
+
+[b]Health[/b] - Health carries between battles. Losing all your health means the run ends. Some paths offer healing opportunities—don’t overlook them.
+
+[b]Resources[/b] - Used to purchase relics from shops. Gathered from resource tiles during battles
+
+[b]Deck[/b] - The cards you bring into battle. You will gain new cards as you progress. Your deck defines your tactics—build it with intention.
+
+[b]Map Legend[/b] - For decoding map node types"
+fit_content = true
+
 [connection signal="toggled" from="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer/CollapseToggle" to="MapLegendUI/MapLegend" method="_on_collapse_toggle_toggled"]
+[connection signal="pressed" from="TutorialUI/RunTutorial/Button" to="TutorialUI" method="_on_button_pressed"]

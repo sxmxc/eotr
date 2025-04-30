@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_muhwa"]
 [ext_resource type="Script" uid="uid://cnou8fh6bmgbl" path="res://scenes/menus/settings_menu.gd" id="2_s2d1y"]
-[ext_resource type="Texture2D" uid="uid://c8bfbxul3hsy4" path="res://assets/images/static_title_page.png" id="4_l0eij"]
+[ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="3_s2d1y"]
 
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
 colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)
@@ -32,7 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_l0eij")
+texture = ExtResource("3_s2d1y")
 
 [node name="Gradient" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.647059)
@@ -52,9 +52,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -680.0
-offset_top = -448.0
+offset_top = -490.5
 offset_right = 680.0
-offset_bottom = 448.0
+offset_bottom = 490.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"HudPanelBackground"
@@ -73,7 +73,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Panel" type="Panel" parent="Panel/MarginContainer"]
 layout_mode = 2
-theme_type_variation = &"HudPanelMain"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel"]
 layout_mode = 1
@@ -85,9 +84,8 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 4
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
@@ -99,15 +97,15 @@ horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
 layout_mode = 2
+alignment = 1
 
 [node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
@@ -209,7 +207,7 @@ max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="HSeparator4" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -220,10 +218,18 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 layout_mode = 2
 text = "Telemetry"
 
+[node name="HSeparator6" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
+
 [node name="Telemetry" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
 [node name="TelemetryLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
@@ -235,36 +241,78 @@ layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 button_pressed = true
+text = "Enabled"
+
+[node name="HSeparator9" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
+
+[node name="Label4" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "GamePlay"
+
+[node name="HSeparator7" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
+
+[node name="Tutorials" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="TutorialLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.28
+text = "Show Tutorials"
+
+[node name="TutorialCheckbox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+button_pressed = true
+text = "Show Tutorials"
+
+[node name="HSeparator8" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
 
 [node name="SaveButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"MainMenuButton"
+size_flags_vertical = 4
 disabled = true
 text = "Save"
 
 [node name="MarginContainer4" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
 
 [node name="CancelButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"MainMenuButton"
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Cancel"
 
 [connection signal="toggled" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]
@@ -272,5 +320,6 @@ text = "Cancel"
 [connection signal="value_changed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
 [connection signal="toggled" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry/TelemetryCheckBox" to="." method="_on_telemetry_check_box_toggled"]
+[connection signal="toggled" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials/TutorialCheckbox" to="." method="_on_tutorial_checkbox_toggled"]
 [connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer4/CancelButton" to="." method="_on_cancel_button_pressed"]

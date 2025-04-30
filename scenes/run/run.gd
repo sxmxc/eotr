@@ -24,6 +24,7 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 @onready var pause_menu: PauseMenu = $PauseMenu
 @onready var map_legend: CanvasLayer = $MapLegendUI
 @onready var run_time_ui: RunTimerUI = %RunTimeUI
+@onready var tutorial_ui: TutorialUI = $TutorialUI
 
 
 var run_stats: RunStats
@@ -45,11 +46,6 @@ func _ready() -> void:
 		RunBootstrap.Type.CONTINUED_RUN:
 			_load_run()
 
-func get_total_elapsed_run_time() -> float:
-	if player_stats.is_running:
-		return player_stats.run_elapsed_time + (Time.get_unix_time_from_system() - player_stats.run_start_time)
-	else:
-		return player_stats.run_elapsed_time
 func _destroy_all_enemies() -> void:
 	var event_props := {
 		"command": "yeet_em_all"
@@ -75,6 +71,9 @@ func _start_run() -> void:
 	player_stats.is_running = true
 	_save_run(true)
 	run_time_ui.start()
+	if GameSettings.show_tutorial:
+		tutorial_ui.display_tutorial()
+		await tutorial_ui.completed
 
 
 func _save_run(was_on_map: bool):
@@ -181,11 +180,10 @@ func _on_battle_won() -> void:
 	Talo.events.track("floor_completed", props)
 	Talo.stats.track("floors_completed")
 	if map.floors_climbed == MapGenerator.FLOORS:
-		player_stats.run_elapsed_time = get_total_elapsed_run_time()
 		player_stats.is_running = false
 		var event_props := {
 			"player_class" : player_stats.player_class_name,
-			"run_completion_time" : player_stats.run_elapsed_time
+			"run_completion_time" : run_time_ui.elapsed_time
 			}
 		Talo.events.track("run_completed", event_props)
 		
