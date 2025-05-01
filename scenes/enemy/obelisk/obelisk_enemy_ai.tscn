@@ -29,21 +29,21 @@ base_text = "%s"
 icon = ExtResource("8_h1ron")
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="ObiliskEnemyAI" instance=ExtResource("1_xtxkd")]
+[node name="ObeliskEnemyAI" instance=ExtResource("1_xtxkd")]
 
-[node name="ObiliskSpawnAction" type="Node" parent="." index="0"]
+[node name="ObeliskSpawnAction" type="Node" parent="." index="0"]
 script = ExtResource("3_05bnd")
 intent = SubResource("Resource_r3d1m")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObiliskWaitAction" type="Node" parent="." index="1"]
+[node name="ObeliskWaitAction" type="Node" parent="." index="1"]
 script = ExtResource("2_lgv3n")
 intent = SubResource("Resource_yhg1e")
 type = 1
 chance_weight = 5.0
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObiliskRangeAttackAction" type="Node" parent="." index="2"]
+[node name="ObeliskRangeAttackAction" type="Node" parent="." index="2"]
 script = ExtResource("7_r3d1m")
 intent = SubResource("Resource_raybm")
 type = 1

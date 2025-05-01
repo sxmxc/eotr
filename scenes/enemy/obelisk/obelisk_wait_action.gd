@@ -5,7 +5,7 @@ func perform_action() -> void:
 		return
 	var world_message = WorldMessageData.new("Obelisk waits")
 	Events.world_message_requested.emit(world_message)	
-	get_tree().create_timer(.6).timeout.connect(
+	get_tree().create_timer(.3).timeout.connect(
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)

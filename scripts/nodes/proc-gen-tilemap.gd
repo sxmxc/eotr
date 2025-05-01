@@ -19,6 +19,8 @@ signal map_generated
 
 @export_group("Events")
 
+@onready var center_marker: Marker2D = $CenterMarker
+
 var base_layer: TileMapLayer
 var fog_layer: TileMapLayer
 var player_position: Vector2i
@@ -96,6 +98,7 @@ func generate_tilemap(battle_stats: BattleStats):
 			tile_map_data[tile_position] = tile_data
 	map_generated.emit()
 	has_generated = true
+	center_marker.global_position = get_center_tile_global_position()
 
 
 func hide_fog() -> void:
@@ -142,12 +145,12 @@ func is_within_bounds(pos: Vector2i) -> bool:
 	return pos.x >= 0 and pos.y >= 0 and pos.x < map_width and pos.y < map_height
 
 
-func get_tile_data(tile_pos: Vector2i) -> Dictionary:
+func get_tile_data(tile_pos: Vector2i) -> HexTileData:
 	var tile_data = tile_map_data.get(tile_pos, null)
 	if tile_data:
 		return tile_data
 	else:
-		return {}
+		return null
 
 
 func set_tile_data(tile_pos: Vector2i, data: HexTileData) -> void:
@@ -182,13 +185,11 @@ func move_player(tile_pos) -> void:
 
 func place_obelisk(obelisk_to_place: Obelisk) -> void:
 	obelisk = obelisk_to_place
-	var random_tile = Vector2i(
-		RNG.instance.randi_range(0, map_width - 1), RNG.instance.randi_range(0, map_height - 1)
-	)
-	obelisk_position = base_layer.map_to_local(random_tile)
+	var center_tile = get_center_tile_coord()
+	obelisk_position = base_layer.map_to_local(center_tile)
 	obelisk.position = obelisk_position
-	obelisk.current_tile_position = random_tile
-	clear_fog_around(random_tile, 1)
+	obelisk.current_tile_position = center_tile
+	clear_fog_around(center_tile, 1)
 	
 func is_tile_free(tile_pos: Vector2i) -> bool:
 	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
@@ -208,6 +209,10 @@ func is_tile_free(tile_pos: Vector2i) -> bool:
 
 	return true
 	
+func is_tile_corrupt(tile: Vector2i) -> bool:
+	var data : HexTileData = get_tile_data(tile)
+	return data.type == Enums.TileType.CORRUPTED
+	
 func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vector2i]:
 	var tiles: Array[Vector2i] = []
 
@@ -224,3 +229,62 @@ func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vec
 			tiles.append(tile)
 
 	return tiles
+	
+func get_battlemap_edge_tiles(tilemap: TileMapLayer) -> Array[Vector2i]:
+	if not tilemap:
+		return []
+
+	var used_cells: Array[Vector2i] = tilemap.get_used_cells()
+	if used_cells.is_empty():
+		return []
+
+	var min_x = used_cells[0].x
+	var max_x = used_cells[0].x
+	var min_y = used_cells[0].y
+	var max_y = used_cells[0].y
+
+	for cell in used_cells:
+		min_x = min(min_x, cell.x)
+		max_x = max(max_x, cell.x)
+		min_y = min(min_y, cell.y)
+		max_y = max(max_y, cell.y)
+
+	var edge_tiles: Array[Vector2i] = []
+
+	# Top and bottom edges
+	for x in range(min_x, max_x + 1):
+		edge_tiles.append(Vector2i(x, min_y))  # Top row
+		edge_tiles.append(Vector2i(x, max_y))  # Bottom row
+
+	# Left and right edges (excluding already added corners)
+	for y in range(min_y + 1, max_y):
+		edge_tiles.append(Vector2i(min_x, y))  # Left column
+		edge_tiles.append(Vector2i(max_x, y))  # Right column
+
+	return edge_tiles
+	
+func get_center_tile_coord() -> Vector2i:
+	return Vector2i(int(map_width / 2.0), int(map_height / 2.0))
+	
+func get_center_tile_position() -> Vector2:
+	var center_tile = get_center_tile_coord()
+	return base_layer.map_to_local(center_tile)
+
+func get_center_tile_global_position() -> Vector2:
+	return to_global(get_center_tile_position())
+	
+func get_random_valid_tile() -> Vector2i:
+	var random_tile := Vector2i.ZERO
+	var max_attempts := 1000
+
+	for attempt in max_attempts:
+		random_tile = Vector2i(
+			RNG.instance.randi_range(0, map_width - 1),
+			RNG.instance.randi_range(0, map_height - 1)
+		)
+
+		if is_within_bounds(random_tile) and is_tile_free(random_tile) and not is_tile_corrupt(random_tile):
+			return random_tile
+
+	push_error("No valid tile found after %d attempts." % max_attempts)
+	return Vector2i.ZERO

@@ -12,7 +12,7 @@ func _ready() -> void:
 	Events.enemy_died.connect(_on_enemy_died)
 	Events.enemy_action_completed.connect(_on_enemy_action_completed)
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
-	Events.card_played.connect(reset_enemy_actions)
+	#Events.card_played.connect(reset_enemy_actions)
 	Events.player_moved.connect(reset_enemy_actions)
 	world_ui = get_tree().get_first_node_in_group("ui_layer") as GameWorldUI
 
@@ -45,13 +45,9 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		
 		var new_enemy_child := new_enemy.duplicate() as Enemy
 		new_enemy_child.tilemap = tilemap
-		var random_tile = Vector2i(
-			RNG.instance.randi_range(0, tilemap.map_width - 1), RNG.instance.randi_range(0, tilemap.map_height - 1)
-		)
+		var random_tile = tilemap.get_random_valid_tile()
 		new_enemy_child.position = tilemap.base_layer.map_to_local(random_tile)
 		new_enemy_child.current_tile_position = random_tile
-		if !stats_panel.ready:
-			await stats_panel.ready
 		stats_panel.setup_enemy_ui(new_enemy_child)
 		add_child(new_enemy_child)
 		new_enemy_child.status_handler.statuses_applied.connect(
@@ -104,14 +100,13 @@ func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
 		Enums.StatusType.START_OF_TURN:
 			enemy.stats_ui.grab_focus()
 			print("Start of turn effects have been applied to %s" % enemy.name)
-			
 			enemy.do_turn()
 		Enums.StatusType.END_OF_TURN:
 			print("End of turn effects being applied to %s" % enemy.name)
 			enemy.phantom_camera_2d.priority = 0
 			enemy.stats_ui.release_focus()
 			acting_enemies.erase(enemy)
-			get_tree().create_timer(1).timeout.connect(_start_next_enemy_turn)
+			get_tree().create_timer(.5).timeout.connect(_start_next_enemy_turn)
 
 
 func _on_enemy_died(enemy: Enemy) -> void:

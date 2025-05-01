@@ -32,6 +32,8 @@ func perform_action():
 	)
 	
 func update_intent_text() -> void:
+	if !is_instance_valid(target):
+		return
 	var player := target as Player
 	if not player:
 		return

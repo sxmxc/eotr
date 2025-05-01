@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb5iwy5af4ic7"]
 
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_tcj0g"]
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_khp44"]
 [ext_resource type="Script" uid="uid://cuu74bywb8e76" path="res://ui/world_ui/world_message.gd" id="2_pwgpx"]
 
 [node name="WorldMessage" type="PanelContainer"]
@@ -17,7 +17,7 @@ offset_right = 207.0
 offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_tcj0g")
+theme = ExtResource("1_khp44")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_pwgpx")
 

@@ -18,4 +18,4 @@ func perform_action() -> void:
 		return
 	var obelisk = enemy as Obelisk
 	obelisk.spawn_random_enemy()
-	get_tree().create_timer(.6).timeout.connect(func(): Events.enemy_action_completed.emit(enemy))
+	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(enemy))

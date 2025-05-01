@@ -19,6 +19,7 @@ func perform_action() -> void:
 	print("%s moves once" % enemy.name)
 	enemy.perform_turn_based_move(1)
 	await enemy.navigation_agent_2d.navigation_finished
+	print("Horror now at %s" % enemy.current_tile_position)
 	SoundManager.play_sound_random_pitch(sound)
 	await get_tree().process_frame
 	var enemy_tile = enemy.tilemap.base_layer.local_to_map(enemy.position)
@@ -34,6 +35,7 @@ func perform_action() -> void:
 	print("%s moves again" % enemy.name)
 	enemy.perform_turn_based_move(1)
 	await enemy.navigation_agent_2d.navigation_finished
+	print("Horror now at %s" % enemy.current_tile_position)
 	SoundManager.play_sound_random_pitch(sound)
 	get_tree().create_timer(.6).timeout.connect(
 		func(): 

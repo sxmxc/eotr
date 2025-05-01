@@ -30,6 +30,8 @@ func start_battle(stats: PlayerStats) -> void:
 
 func start_turn() -> void:
 	card_types_played = []
+	if !is_instance_valid(player):
+		return
 	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()

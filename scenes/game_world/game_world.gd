@@ -15,7 +15,8 @@ extends Node2D
 @onready var game_world_ui = $GameWorldUI
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
-@onready var map_camera = $MapCamera
+@onready var map_camera : Camera2D = $MapCamera
+@onready var world_camera: PhantomCamera2D = %WorldCamera
 
 var audio_stream_player : AudioStreamPlayer
 
@@ -48,10 +49,11 @@ func start_world() -> void:
 	enemy_handler.tilemap = tilemap
 	enemy_handler.setup_enemies(battle_stats)
 	enemy_handler.reset_enemy_actions.call_deferred()
+	#var map_edges : Array[Vector2i] = tilemap.get_battlemap_edge_tiles(tilemap.base_layer)
+	#print(map_edges)
+	#debug_ui.draw_tile_coords()
 
-	var player_starting_position = Vector2i(
-		int(tilemap.map_width / 2.0), int(tilemap.map_height / 2.0)
-	)
+	var player_starting_position = tilemap.get_random_valid_tile()
 	tilemap.fog_clear_radius = player.stats.view_range
 	tilemap.move_player(player_starting_position)
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
@@ -82,9 +84,44 @@ func set_run_stats(value: RunStats) -> void:
 		await ready
 	run_stats = value
 	player.run_stats = run_stats
+	
+func shrink_game_board(amount: int = 1) -> void:
+	world_camera.follow_target = tilemap.center_marker
+	world_camera.priority = 50
+	await world_camera.tween_completed
+
+	Events.world_message_requested.emit(
+		WorldMessageData.new("The void consumes")
+	)
+
+	for x in range(amount):
+		var to_destroy: Array[Vector2i] = tilemap.get_battlemap_edge_tiles(tilemap.base_layer)
+
+		for cell in to_destroy:
+			# Damage enemies on this tile
+			for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
+				if enemy.current_tile_position == cell:
+					var death_damage = enemy.stats.health
+					enemy.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
+
+			# Damage player if on this tile
+			if tilemap.player_position == cell:
+				var death_damage = player.stats.health
+				player.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
+				return
+
+			# Erase tile after processing entities
+			tilemap.base_layer.erase_cell(cell)
+			tilemap.fog_layer.erase_cell(cell)
+			tilemap.tile_map_data.erase(cell)
+			await get_tree().create_timer(0.1).timeout
+
+	world_camera.priority = 0
+
 
 
 func _on_enemy_turn_ended() -> void:
+	await shrink_game_board(1)
 	player_handler.start_turn()
 	enemy_handler.reset_enemy_actions()
 

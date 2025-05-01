@@ -57,5 +57,5 @@ func perform_action():
 	void_spectre.is_moving = true
 	await void_spectre.navigation_agent_2d.navigation_finished
 	SoundManager.play_sound(sound)
-	get_tree().create_timer(.6).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 	

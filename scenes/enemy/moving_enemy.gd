@@ -136,5 +136,6 @@ func perform_turn_based_move(tiles_per_turn: int = 1):
 func _on_navigation_finished():
 	is_moving = false
 	var current_tile = tilemap.base_layer.local_to_map(tilemap.base_layer.to_local(position))
+	current_tile_position = current_tile
 	position = tilemap.base_layer.map_to_local(current_tile)
 	position.y += 1

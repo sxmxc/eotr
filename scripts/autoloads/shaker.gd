@@ -18,9 +18,18 @@ func shake(thing: Node2D, strength: float, duration: float = 0.2) -> void:
 			target = orig_pos
 		tween.tween_property(thing, "position", target, duration / float(shake_count))
 		strength *= 0.75
-
-	tween.finished.connect(
-		func():
-			if thing:
+	
+	#bug fix for when player dies	
+	var lambda = func():
+			if is_instance_valid(thing):
 				thing.global_position = orig_pos
+	
+	thing.tree_exiting.connect(
+		func():
+			tween.finished.disconnect(lambda)
 	)
+
+	tween.finished.connect(lambda.bind(thing))
+
+
+	

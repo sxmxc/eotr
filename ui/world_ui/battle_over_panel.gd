@@ -13,7 +13,7 @@ enum Type { WIN, LOSE }
 
 func _ready() -> void:
 	continue_button.pressed.connect(func(): Events.battle_won.emit())
-	main_menu_button.pressed.connect(get_tree().change_scene_to_file.bind(MAIN_MENU_PATH))
+	main_menu_button.pressed.connect(_main_menu_button_pressed)
 	Events.battle_over_screen_requested.connect(show_screen)
 
 
@@ -30,3 +30,6 @@ func show_screen(text: String, type: Type) -> void:
 		Type.LOSE:
 			SoundManager.play_music(SHINE,0)
 	get_tree().paused = true
+	
+func _main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file(MAIN_MENU_PATH)
