@@ -29,7 +29,7 @@ func shake(thing: Node2D, strength: float, duration: float = 0.2) -> void:
 			tween.finished.disconnect(lambda)
 	)
 
-	tween.finished.connect(lambda.bind(thing))
+	tween.finished.connect(lambda)
 
 
 	

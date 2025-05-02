@@ -93,7 +93,7 @@ func hide_map() -> void:
 func center_camera_on_current_floor():
 	var target_floor = floors_climbed
 
-	var floor_node : MapNode = map_data[target_floor][0]
+	var floor_node : MapNode = map_data[target_floor - 1][0]
 	var tween = create_tween()
 	tween.tween_property(camera_2d, "position:y", clamp(floor_node.position.y, -camera_edge_y, 0),1)
 	#camera_2d.position.y = clamp(floor_node.position.y, -camera_edge_y, 0)

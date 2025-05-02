@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3nci3u4bowom"]
+[gd_scene load_steps=16 format=3 uid="uid://b3nci3u4bowom"]
 
 [ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="1_uhmhd"]
 [ext_resource type="Script" uid="uid://csjjqxy63lvn6" path="res://scenes/enemy/void_spectre/void_spectre_buff_action.gd" id="2_5sqje"]
 [ext_resource type="Script" uid="uid://l121yhcncs55" path="res://scenes/enemy/void_spectre/void_spectre_attack_action.gd" id="3_37ror"]
+[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="3_c4cd3"]
 [ext_resource type="Script" uid="uid://r1jnhetoj4vb" path="res://scenes/enemy/void_spectre/void_spectre_block_action.gd" id="4_dqrld"]
 [ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="4_m7578"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="5_50iqw"]
@@ -10,6 +11,12 @@
 [ext_resource type="AudioStream" uid="uid://cp6xyci4btc" path="res://assets/audio/RPG Sound Pack/inventory/metal-small3.wav" id="6_idcuj"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="6_tiaja"]
 [ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="8_tiaja"]
+
+[sub_resource type="Resource" id="Resource_553au"]
+script = ExtResource("6_tiaja")
+base_text = ""
+icon = ExtResource("3_c4cd3")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_jy21w"]
 script = ExtResource("6_tiaja")
@@ -34,6 +41,7 @@ script = ExtResource("1_uhmhd")
 
 [node name="MoveAction" type="Node" parent="."]
 script = ExtResource("5_gio5u")
+intent = SubResource("Resource_553au")
 
 [node name="BuffAction" type="Node" parent="."]
 script = ExtResource("2_5sqje")

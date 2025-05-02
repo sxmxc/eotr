@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=64 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -36,8 +36,14 @@
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
+[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="39_ht6dc"]
 [ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
+[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="39_udifo"]
 [ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
+[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="40_oia7h"]
+[ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="40_qnbvx"]
+[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
+[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -115,12 +121,34 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udifo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sev3"]
+atlas = ExtResource("42_0am1i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypuix"]
+atlas = ExtResource("42_0am1i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mffv"]
+atlas = ExtResource("42_0am1i")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdnyo"]
+atlas = ExtResource("42_0am1i")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qvqp"]
+atlas = ExtResource("42_0am1i")
+region = Rect2(64, 0, 32, 32)
+
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
 audio_playlist = SubResource("AudioStreamPlaylist_ht6dc")
 metadata/_edit_vertical_guides_ = [1876.0, 1367.0]
-metadata/_edit_horizontal_guides_ = [112.0]
+metadata/_edit_horizontal_guides_ = [112.0, 961.0]
 
 [node name="WorldCamera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
@@ -128,7 +156,7 @@ top_level = true
 script = ExtResource("16_qc6v1")
 follow_mode = 2
 follow_target = NodePath("../Tilemap/BaseLayer")
-zoom = Vector2(2, 2)
+zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_bumdp")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
@@ -541,3 +569,543 @@ layer = 6
 
 [node name="StatusView" parent="StatusViewLayer" instance=ExtResource("33_csgag")]
 visible = false
+
+[node name="TutorialUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 4
+visible = false
+script = ExtResource("39_udifo")
+
+[node name="BattleTutorial" type="Control" parent="TutorialUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("23_ht6dc")
+script = ExtResource("40_qnbvx")
+
+[node name="ColorRect" type="ColorRect" parent="TutorialUI/BattleTutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.294, 0.239, 0.267, 0.625)
+
+[node name="TabContainer" type="TabContainer" parent="TutorialUI/BattleTutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_udifo")
+current_tab = 0
+tabs_visible = false
+
+[node name="UI" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="TileLabel" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 382.0
+offset_top = 402.0
+offset_right = 838.0
+offset_bottom = 599.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Current Tile
+Info"
+horizontal_alignment = 1
+
+[node name="TileLabel2" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -228.0
+offset_top = 111.0
+offset_right = 228.0
+offset_bottom = 308.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "UI"
+horizontal_alignment = 1
+
+[node name="TextureRect7" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 277.0
+offset_top = 250.0
+offset_right = 484.0
+offset_bottom = 347.0
+rotation = 0.722988
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect8" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 66.0
+offset_top = 833.0
+offset_right = 187.0
+offset_bottom = 930.0
+rotation = -1.5708
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect9" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 1551.0
+offset_top = 631.0
+offset_right = 1672.0
+offset_bottom = 728.0
+rotation = -1.5708
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect10" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 792.0
+offset_top = 760.0
+offset_right = 913.0
+offset_bottom = 857.0
+rotation = -1.5708
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect11" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 1358.0
+offset_top = 993.0
+offset_right = 1549.0
+offset_bottom = 1090.0
+rotation = -2.63539
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="DeckLabel" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 22.0
+offset_top = 603.0
+offset_right = 386.0
+offset_bottom = 700.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Draw Pile"
+horizontal_alignment = 1
+
+[node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 912.0
+offset_top = 754.0
+offset_right = 1356.0
+offset_bottom = 851.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Discard Pile"
+horizontal_alignment = 1
+
+[node name="DeckLabel2" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 674.0
+offset_top = 545.0
+offset_right = 1038.0
+offset_bottom = 642.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Hand"
+horizontal_alignment = 1
+
+[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 1384.0
+offset_top = 429.0
+offset_right = 1868.0
+offset_bottom = 526.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Enemy Intent"
+horizontal_alignment = 1
+
+[node name="TileTypes" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -662.0
+offset_top = -286.0
+offset_right = 662.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_0sev3")
+
+[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "- Resource Nodes: Provide resources for use in shops."
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ypuix")
+
+[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "- Corrupted Zones: Twisted by the Rift’s energy, these tiles are impassable."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_7mffv")
+
+[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "- Mana Wells: Increases max energy while on tile."
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_hdnyo")
+
+[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "- Rift Gates: Teleports to another gate"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_1qvqp")
+
+[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "- Ancient Ruins: Provides artifacts or lore-based encounters."
+
+[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -242.0
+offset_top = 114.0
+offset_right = 242.0
+offset_bottom = 211.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Tile Types"
+horizontal_alignment = 1
+
+[node name="Cards" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Visuals" parent="TutorialUI/BattleTutorial/TabContainer/Cards" instance=ExtResource("40_oia7h")]
+offset_left = 834.0
+offset_top = 671.0
+offset_right = 1014.0
+offset_bottom = 911.0
+card = ExtResource("41_jwlkc")
+
+[node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 2
+offset_left = 1023.0
+offset_top = 834.0
+offset_right = 1230.0
+offset_bottom = 931.0
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect15" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 2
+offset_left = 972.0
+offset_top = 740.0
+offset_right = 1179.0
+offset_bottom = 837.0
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect13" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 2
+offset_left = 610.0
+offset_top = 830.0
+offset_right = 817.0
+offset_bottom = 927.0
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+
+[node name="TextureRect14" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 2
+offset_left = 692.0
+offset_top = 657.0
+offset_right = 899.0
+offset_bottom = 754.0
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+
+[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 0
+offset_left = 1178.0
+offset_top = 836.0
+offset_right = 1662.0
+offset_bottom = 933.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Card Cost"
+horizontal_alignment = 1
+
+[node name="DeckLabel6" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 0
+offset_left = 1155.0
+offset_top = 745.0
+offset_right = 1639.0
+offset_bottom = 842.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Card Effect"
+horizontal_alignment = 1
+
+[node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 653.0
+offset_right = 754.0
+offset_bottom = 750.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Card Type"
+horizontal_alignment = 1
+
+[node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 818.0
+offset_right = 643.0
+offset_bottom = 915.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Card Rarity"
+horizontal_alignment = 1
+
+[node name="DeckLabel7" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -242.0
+offset_top = 101.0
+offset_right = 242.0
+offset_bottom = 198.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Cards"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -648.0
+offset_top = -344.0
+offset_right = 643.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Combat is turn-based and driven by your deck of cards
+Each card has:
+Cost: The energy required to play it.
+Effect: What the card does—damage, block, etc.
+Type & Rarity: 
+💥 Attack Cards: Deal damage to enemies based on your stats and modifiers.
+🛡️ Block Cards: Add block to reduce incoming damage until your next turn.
+✨ Skill Cards: Manipulate the battlefield, gain buffs, or debuff enemies.
+🔁 Movement Cards: Move across the map. Positioning is crucial for survival.
+And more...
+
+You can only play cards while you have energy, so plan your turn wisely."
+fit_content = true
+
+[node name="HowToBattle" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="TextureRect9" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 1551.0
+offset_top = 744.0
+offset_right = 1785.0
+offset_bottom = 841.0
+rotation = -1.5708
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect11" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 775.0
+offset_right = 1337.0
+offset_bottom = 872.0
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+
+[node name="TextureRect10" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 1582.0
+offset_top = 935.0
+offset_right = 2035.0
+offset_bottom = 1032.0
+rotation = -2.50777
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 1384.0
+offset_top = 429.0
+offset_right = 1868.0
+offset_bottom = 526.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Enemy Status"
+horizontal_alignment = 1
+
+[node name="DeckLabel6" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -242.0
+offset_top = 111.0
+offset_right = 242.0
+offset_bottom = 208.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Battling"
+horizontal_alignment = 1
+
+[node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 1064.0
+offset_top = 522.0
+offset_right = 1548.0
+offset_bottom = 619.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Player Status"
+horizontal_alignment = 1
+
+[node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 696.0
+offset_top = 773.0
+offset_right = 1195.0
+offset_bottom = 870.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "End turn"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 320.0
+offset_right = 1026.0
+offset_bottom = 656.0
+text = "Draw Phase: At the start of your turn, draw cards from your deck.
+Play Phase: Use energy to play cards in any order.
+Move: Use movement cards or effects to change position.
+End Turn: Unused block carries over only if specified.
+
+Periodically, the void will consume the outermost tiles of the map. This will destroy anything occupying.
+"
+fit_content = true
+
+[node name="Control" type="Control" parent="TutorialUI/BattleTutorial"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -105.0
+offset_right = 160.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NextButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 206.0
+offset_right = 308.0
+offset_bottom = 52.0
+text = "Next"
+
+[node name="PrevButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 161.0
+offset_bottom = 52.0
+text = "Previous"
+
+[node name="ContinueButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 207.0
+offset_right = 339.0
+offset_bottom = 52.0
+text = "Got it"
+
+[connection signal="pressed" from="TutorialUI/BattleTutorial/Control/NextButton" to="TutorialUI/BattleTutorial" method="_on_next_button_pressed"]
+[connection signal="pressed" from="TutorialUI/BattleTutorial/Control/PrevButton" to="TutorialUI/BattleTutorial" method="_on_prev_button_pressed"]
+[connection signal="pressed" from="TutorialUI/BattleTutorial/Control/ContinueButton" to="TutorialUI" method="_on_button_pressed"]

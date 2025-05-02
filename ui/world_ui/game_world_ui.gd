@@ -15,6 +15,7 @@ class_name GameWorldUI
 @onready var status_handler: StatusHandler = $PlayerUI/StatusHandler
 @onready var enemy_stats_container: HBoxContainer = %EnemyStatsContainer
 @onready var enemy_stats_scroll: ScrollContainer = %EnemyStatsScroll
+@onready var tutorial_ui: TutorialUI = $"../TutorialUI"
 
 func _ready() -> void:
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
@@ -37,6 +38,13 @@ func _set_player_stats(value: PlayerStats) -> void:
 	hand.player_stats = player_stats
 
 func _on_player_hand_drawn() -> void:
+	if GameSettings.show_tutorial:
+		tutorial_ui.display_tutorial()
+		await tutorial_ui.completed
+		GameSettings.show_tutorial = false
+		var data : SettingsData = GameSettings.get_current_settings()
+		data.tutorial_enabled = false
+		GameSettings.save_settings(data)
 	end_turn_button.disabled = false
 	pass
 

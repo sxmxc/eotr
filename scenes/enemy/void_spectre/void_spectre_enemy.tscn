@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bti2nexuunus2"]
+[gd_scene load_steps=15 format=3 uid="uid://bti2nexuunus2"]
 
 [ext_resource type="Script" uid="uid://dab3xatiqgpbv" path="res://scenes/enemy/void_spectre/void_spectre_enemy.gd" id="1_hic4f"]
 [ext_resource type="Texture2D" uid="uid://c7wwsvbjgqf4a" path="res://assets/icons/spectre.svg" id="2_t7gmi"]
 [ext_resource type="Resource" uid="uid://bxamo508a0hwr" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="2_yqir2"]
+[ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="3_pg2hs"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="4_3ryel"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_vyw7r"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_7j6fb"]
@@ -18,14 +19,106 @@ duration = 1.0
 transition = 0
 ease = 2
 
+[sub_resource type="Animation" id="Animation_twcqd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.05, 0.05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.05, 0.05)]
+}
+
+[sub_resource type="Animation" id="Animation_4omhe"]
+resource_name = "fly_idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -3), Vector2(0, -6), Vector2(0, -3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.05, 0.05), Vector2(0.06, 0.06), Vector2(0.05, 0.05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.05, 0.05), Vector2(0.06, 0.06), Vector2(0.05, 0.05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4851w"]
+_data = {
+&"RESET": SubResource("Animation_twcqd"),
+&"fly_idle": SubResource("Animation_4omhe")
+}
+
 [node name="VoidSpectreEnemy" type="Node2D" groups=["enemy"]]
 script = ExtResource("1_hic4f")
 flying = true
 stats = ExtResource("2_yqir2")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.627451)
+show_behind_parent = true
+y_sort_enabled = true
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_pg2hs")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-scale = Vector2(0.0546875, 0.0546875)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_t7gmi")
 
 [node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("4_3ryel")]
@@ -62,3 +155,8 @@ zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_ex3n4")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4851w")
+}

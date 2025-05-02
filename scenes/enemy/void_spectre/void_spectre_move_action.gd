@@ -1,7 +1,6 @@
 extends EnemyAction
 
-
-@export var max_search_radius: int = 5  # How far out void_spectres are allowed to look
+@export var max_search_radius: int = 5  # How far out allowed to look
 
 func is_performable() -> bool:
 	if target == null:
@@ -56,6 +55,6 @@ func perform_action():
 	void_spectre.set_movement_target(found_tile)
 	void_spectre.is_moving = true
 	await void_spectre.navigation_agent_2d.navigation_finished
-	SoundManager.play_sound(sound)
+	SoundManager.play_sound_random_pitch(sound)
 	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 	

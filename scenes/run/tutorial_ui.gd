@@ -17,6 +17,5 @@ func _unpause() -> void:
 	completed.emit()
 
 func _on_button_pressed() -> void:
-	GameSettings.show_tutorial = false
 	_unpause()
 	pass # Replace with function body.

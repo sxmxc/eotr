@@ -6,8 +6,8 @@ extends Node2D
 @export var run_stats: RunStats:
 	set = set_run_stats
 @export var relics: RelicHandler
-
 @export var audio_playlist: AudioStreamPlaylist
+@export var shrink_frequency : int = 3
 
 @onready var tilemap: ProcGenTilemap = $Tilemap
 @onready var debug_ui = $GameWorldUI/DebugUI
@@ -17,8 +17,10 @@ extends Node2D
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
 @onready var map_camera : Camera2D = $MapCamera
 @onready var world_camera: PhantomCamera2D = %WorldCamera
+@onready var tutorial_ui: TutorialUI = $TutorialUI
 
 var audio_stream_player : AudioStreamPlayer
+var current_round : int = 0
 
 func _ready():
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
@@ -49,6 +51,7 @@ func start_world() -> void:
 	enemy_handler.tilemap = tilemap
 	enemy_handler.setup_enemies(battle_stats)
 	enemy_handler.reset_enemy_actions.call_deferred()
+	current_round = 1
 	#var map_edges : Array[Vector2i] = tilemap.get_battlemap_edge_tiles(tilemap.base_layer)
 	#print(map_edges)
 	#debug_ui.draw_tile_coords()
@@ -88,6 +91,7 @@ func set_run_stats(value: RunStats) -> void:
 func shrink_game_board(amount: int = 1) -> void:
 	world_camera.follow_target = tilemap.center_marker
 	world_camera.priority = 50
+	world_camera.set_zoom(Vector2(2.5,2.5))
 	await world_camera.tween_completed
 
 	Events.world_message_requested.emit(
@@ -117,11 +121,14 @@ func shrink_game_board(amount: int = 1) -> void:
 			await get_tree().create_timer(0.1).timeout
 
 	world_camera.priority = 0
+	world_camera.set_zoom(Vector2.ONE)
 
 
 
 func _on_enemy_turn_ended() -> void:
-	await shrink_game_board(1)
+	if current_round % shrink_frequency == 0:
+		await shrink_game_board(1)
+	current_round += 1
 	player_handler.start_turn()
 	enemy_handler.reset_enemy_actions()
 
