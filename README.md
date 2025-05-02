@@ -1,3 +1,4 @@
+[![Release build](https://github.com/sxmxc/eotr/actions/workflows/build_release.yml/badge.svg)](https://github.com/sxmxc/eotr/actions/workflows/build_release.yml)
 # Echoes of the Rift
 
 **Echoes of the Rift** is a tactical deckbuilding roguelite set in a fractured dimension where technology and magic collide. Traverse shifting rift maps, build powerful decks, battle enemies across a grid-based battlefield, and uncover the story behind the chaos.
