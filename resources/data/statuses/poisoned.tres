@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PoisonedStatus" load_steps=3 format=3 uid="uid://cqax1bdpli5c0"]
+
+[ext_resource type="Texture2D" uid="uid://doh87n6ni6o15" path="res://assets/icons/poison-bottle.svg" id="1_k1mtx"]
+[ext_resource type="Script" uid="uid://bw681f5e8346f" path="res://resources/data/statuses/poisoned.gd" id="1_xx864"]
+
+[resource]
+script = ExtResource("1_xx864")
+id = "poisoned"
+type = 1
+stack_type = 2
+can_expire = true
+duration = 3
+stacks = 0
+icon = ExtResource("1_k1mtx")
+tooltip = "Deals [b]%s[/b] damage at the [b]end of turn[/b]"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

@@ -1,0 +1,70 @@
+[gd_scene load_steps=18 format=3 uid="uid://cy4wpgcdqgtpu"]
+
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_e87vr"]
+[ext_resource type="Script" uid="uid://dj3rvh7nn4m2b" path="res://scenes/enemy/obelisk/obelisk_spawn_action.gd" id="2_yp42w"]
+[ext_resource type="Texture2D" uid="uid://dalsrgxsuy5dt" path="res://assets/icons/raise-skeleton.svg" id="3_tbahi"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_jutti"]
+[ext_resource type="Script" uid="uid://dwqrdrvgj7qg3" path="res://scenes/enemy/obelisk/obelisk_wait_action.gd" id="5_m7yiv"]
+[ext_resource type="Texture2D" uid="uid://cnbgdutmc3s1p" path="res://assets/icons/uncertainty.svg" id="6_i8si5"]
+[ext_resource type="Script" uid="uid://ctek8umo2gwyt" path="res://scenes/enemy/obelisk/obilisk_range_attack_action.gd" id="7_klo23"]
+[ext_resource type="Texture2D" uid="uid://bexcpufppxxuo" path="res://assets/icons/striking-arrows.svg" id="8_qiggi"]
+[ext_resource type="AudioStream" uid="uid://odwu6brur0k3" path="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Attack.ogg" id="9_kppik"]
+[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="10_o2307"]
+[ext_resource type="Script" uid="uid://kx6nafsjijx" path="res://scenes/enemy/obelisk/obelisk_block_action.gd" id="11_tbahi"]
+[ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="12_jutti"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="13_jutti"]
+
+[sub_resource type="Resource" id="Resource_r3d1m"]
+script = ExtResource("4_jutti")
+base_text = ""
+icon = ExtResource("3_tbahi")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_yhg1e"]
+script = ExtResource("4_jutti")
+base_text = ""
+icon = ExtResource("6_i8si5")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_raybm"]
+script = ExtResource("4_jutti")
+base_text = "%s"
+icon = ExtResource("8_qiggi")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_m7yiv"]
+script = ExtResource("4_jutti")
+base_text = ""
+icon = ExtResource("12_jutti")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[node name="ObeliskT1EnemyAI" instance=ExtResource("1_e87vr")]
+
+[node name="ObeliskSpawnAction" type="Node" parent="." index="0"]
+script = ExtResource("2_yp42w")
+intent = SubResource("Resource_r3d1m")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ObeliskWaitAction" type="Node" parent="." index="1"]
+script = ExtResource("5_m7yiv")
+intent = SubResource("Resource_yhg1e")
+type = 1
+chance_weight = 2.0
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ObeliskRangeAttackAction" type="Node" parent="." index="2"]
+script = ExtResource("7_klo23")
+intent = SubResource("Resource_raybm")
+type = 1
+chance_weight = 4.0
+sound = ExtResource("9_kppik")
+visual_fx = ExtResource("10_o2307")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ObeliskBlockAction" type="Node" parent="." index="3"]
+script = ExtResource("11_tbahi")
+intent = SubResource("Resource_m7yiv")
+type = 1
+chance_weight = 4.0
+visual_fx = ExtResource("13_jutti")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"

@@ -61,7 +61,6 @@ func _physics_process(_delta: float) -> void:
 					current_tile_target.queue_free()
 					current_tile_target = null
 
-				# Reset hex indicator
 				hex_indicator.hide()
 				hex_indicator.self_modulate = Colors.theme_highlight
 
@@ -71,7 +70,6 @@ func _physics_process(_delta: float) -> void:
 					# Update hex indicator position
 					var indicator_pos = base_layer.map_to_local(current_hovered)
 					hex_indicator.global_position = base_layer.to_global(indicator_pos)
-
 					# Create and validate new target
 					current_tile_target = TilemapTarget.new(current_hovered, tilemap)
 					add_child(current_tile_target)
@@ -83,17 +81,12 @@ func _physics_process(_delta: float) -> void:
 								[current_tile_target], current_card.player_modifiers
 							):
 								hex_indicator.self_modulate = Colors.theme_critical
+								current_tile_target = null
 							else:
 								current_card.targets.append(current_tile_target)
 								hex_indicator.self_modulate = Colors.theme_success
-
-							# Always show the hex indicator
+								
 							hex_indicator.show()
-
-				# Debug info
-				if cell_tile_data and cell_tile_data.has_custom_data("tile_type"):
-					var tile_type = cell_tile_data.get_custom_data("tile_type")
-					print("Tile: %s, Type: %s" % [str(current_hovered), str(tile_type)])
 
 				# Update last hovered tile
 				set_meta("last_hovered_tile", current_hovered)
@@ -121,6 +114,9 @@ func ease_out_cubic(number: float) -> float:
 
 
 func _on_card_aim_started(card: CardUI) -> void:
+	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
+	var player : Player = get_tree().get_first_node_in_group("player")
+	tilemap.highlight_cells(card.card.get_valid_targets(card, player.modifier_handler))
 	if not card.card.is_single_targeted():
 		return
 
@@ -131,6 +127,8 @@ func _on_card_aim_started(card: CardUI) -> void:
 
 
 func _on_card_aim_ended(_card: CardUI) -> void:
+	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
+	tilemap.clear_highlight()
 	targeting = false
 	card_arc.clear_points()
 	area_2d.position = Vector2.ZERO

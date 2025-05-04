@@ -1,6 +1,8 @@
 extends NodeEffect
 class_name DamageEffect
 
+const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
+
 var amount := 0
 var receiver_modifier_type := Enums.ModifierType.DMG_TAKEN
 var direct := false
@@ -11,6 +13,7 @@ func execute(targets: Array[Node]) -> void:
 		if not target:
 			continue
 		if target is Enemy or target is Player:
+
 			SoundManager.play_sound_random_pitch(sound_fx)
 			if visual_fx != null:
 				var visual_effect : VisualFX = visual_fx.instantiate()

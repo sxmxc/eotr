@@ -6,6 +6,7 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	var damage_effect := DamageEffect.new()
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
 	damage_effect.sound_fx = sound_fx
+	damage_effect.visual_fx = visual_fx
 	var player_handler : PlayerHandler = targets[0].get_tree().get_first_node_in_group("player_handler") as PlayerHandler
 	if player_handler.card_types_played.has(Enums.CardType.MOVEMENT):
 		damage_effect.direct = true

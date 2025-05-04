@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnvc2120uisji"]
+[gd_scene load_steps=6 format=3 uid="uid://dnvc2120uisji"]
 
 [ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_m25rp"]
+[ext_resource type="Resource" uid="uid://c8h36iwvcmede" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="2_qsfvh"]
 [ext_resource type="Resource" uid="uid://c7tqd3hpg67l" path="res://scenes/enemy/horror/elite_horrors.tres" id="3_6sk6i"]
 [ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="9_4nu8b"]
 [ext_resource type="Resource" uid="uid://fddqe3ier2dp" path="res://scenes/enemy/bat/bat_enemy.tres" id="10_cgsdu"]
 
 [node name="Tier1EliteHorrors" type="Node2D"]
 
-[node name="Obilisk" parent="." instance=ExtResource("9_4nu8b")]
+[node name="Obelisk" parent="." instance=ExtResource("9_4nu8b")]
+stats = ExtResource("2_qsfvh")
 
 [node name="EliteHorror1" parent="." instance=ExtResource("1_m25rp")]
 stats = ExtResource("3_6sk6i")

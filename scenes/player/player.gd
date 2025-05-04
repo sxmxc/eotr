@@ -2,6 +2,7 @@ extends Node2D
 class_name Player
 
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
+const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
 
 @export var stats: PlayerStats : set = set_player_stats
 @export var run_stats: RunStats : set = set_run_stats
@@ -45,6 +46,10 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var cam = get_tree().get_first_node_in_group("map_camera")
 	var tween := create_tween()
+	var text_fx := TEXT_FX.instantiate() as TextFX
+	text_fx.text = str(modified_damage)
+	add_child(text_fx)
+	text_fx.execute()
 	if direct:
 		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
 		tween.tween_callback(Shaker.shake.bind(cam, 16, 0.15))

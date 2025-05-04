@@ -52,7 +52,36 @@ func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
 		return true
 	return false
 
+func get_valid_targets(card_ui: CardUI, modifiers: ModifierHandler) -> Array[Vector2i]:
+	var player: Player = card_ui.get_tree().get_first_node_in_group("player")
+	var tilemap: ProcGenTilemap = card_ui.get_tree().get_first_node_in_group("map_layer")
+	var player_tile: Vector2i = tilemap.base_layer.local_to_map(player.position)
+	# Start with the center cell
+	var current_cells : Array[Vector2i] = [player_tile]
+	var all_cells_in_range : Array[Vector2i] = [player_tile]
 
+	# For each level of the radius
+	for r in range(modifiers.get_modified_value(movement_distance, Enums.ModifierType.MOVEMENT)):
+		var next_level_cells : Array[Vector2i] = []
+
+		# Get all neighbors of the current level cells
+		for cell in current_cells:
+			var neighbors = tilemap.base_layer.get_surrounding_cells(cell)
+			for neighbor in neighbors:
+				if (
+					tilemap.is_within_bounds(neighbor)
+					and not all_cells_in_range.has(neighbor)
+				):
+					next_level_cells.append(neighbor)
+					if !tilemap.is_tile_corrupt(neighbor):
+						all_cells_in_range.append(neighbor)
+
+		# Move to the next level
+		current_cells = next_level_cells
+	var cells : Array[Vector2i]
+	cells.append_array(all_cells_in_range)
+	return cells
+	
 func get_default_description() -> String:
 	return description % movement_distance
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dsxowmpws0hp2"]
+
+[ext_resource type="Script" uid="uid://7ix4tr6lkfc" path="res://resources/data/cards/riftwalker/void_fracture.gd" id="1_jt8p2"]
+
+[resource]
+script = ExtResource("1_jt8p2")
+amount = 3
+card_type = 2
+target_type = 0
+id = "void_fracture"
+name = "Void Fracture"
+card_rarity = 1
+description = "Add 3 [b]Sling Shard[b]'s to your hand."
+energy_cost = 2
+exhaust = true
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

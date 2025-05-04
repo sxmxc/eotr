@@ -1,6 +1,8 @@
 class_name GameWorld
 extends Node2D
 
+const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
+
 @export var battle_stats: BattleStats
 @export var player_stats: PlayerStats
 @export var run_stats: RunStats:
@@ -92,15 +94,12 @@ func shrink_game_board(amount: int = 1) -> void:
 	world_camera.follow_target = tilemap.center_marker
 	world_camera.priority = 50
 	world_camera.set_zoom(Vector2(2.5,2.5))
-	await world_camera.tween_completed
-
 	Events.world_message_requested.emit(
 		WorldMessageData.new("The void consumes")
 	)
-
+	await world_camera.tween_completed
 	for x in range(amount):
-		var to_destroy: Array[Vector2i] = tilemap.get_battlemap_edge_tiles(tilemap.base_layer)
-
+		var to_destroy: Array[Vector2i] = tilemap.get_battlemap_edge_clockwise()
 		for cell in to_destroy:
 			# Damage enemies on this tile
 			for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
@@ -113,7 +112,10 @@ func shrink_game_board(amount: int = 1) -> void:
 				var death_damage = player.stats.health
 				player.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
 				return
-
+				
+			var tile_sprite = TILE_SPRITE.instantiate()
+			tile_sprite.position = tilemap.base_layer.map_to_local(cell)
+			tilemap.base_layer.add_child(tile_sprite)
 			# Erase tile after processing entities
 			tilemap.base_layer.erase_cell(cell)
 			tilemap.fog_layer.erase_cell(cell)

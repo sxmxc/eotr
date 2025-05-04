@@ -59,10 +59,10 @@ func _on_projectile_reached_target():
 	animated_sprite_2d.animation_finished.connect(_on_end_animation_finished)
 	animated_sprite_2d.play("end")
 	visual_fx.execute()
+	phantom_camera_2d.priority = 0
 	complete.emit()
 
 func _on_end_animation_finished():
 	# Clean up
 	animated_sprite_2d.animation_finished.disconnect(_on_end_animation_finished)
-	phantom_camera_2d.priority = 0
 	queue_free()

@@ -1,6 +1,14 @@
 extends Node2D
 class_name ProcGenTilemap
 
+const HIGHLIGHT_CELL_ID = Vector2i(3,1)
+const CORRUPT_CELL_ID = Vector2i(1,0)
+enum MapShape {
+	RECTANGLE,
+	DIAMOND,
+	HEX_CIRCLE
+}
+
 signal tile_selected(HexTileData)
 signal player_position_updated(Vector2)
 signal map_generated
@@ -9,6 +17,7 @@ signal map_generated
 @export var map_width: int = 10
 @export var map_height: int = 10
 @export var fog_clear_radius: int = 1
+@export var map_shape: MapShape = MapShape.RECTANGLE
 
 @export_group("Tile Weights")
 @export var resource_weight: int = 50
@@ -23,6 +32,7 @@ signal map_generated
 
 var base_layer: TileMapLayer
 var fog_layer: TileMapLayer
+var highlight_layer : TileMapLayer
 var player_position: Vector2i
 var obelisk_position: Vector2i
 var fog_state = {}  # Stores which tiles are cleared
@@ -44,12 +54,13 @@ func _ready():
 	has_generated = false
 	base_layer = $BaseLayer
 	fog_layer = $FogLayer
+	highlight_layer = $HightlightLayer
 	player = get_tree().get_first_node_in_group("player")
 	obelisk = get_tree().get_first_node_in_group("obelisk")
-	#if not LimboConsole.has_command("hide_fog"):
-		#LimboConsole.register_command(hide_fog, "hide_fog", "Hide fog layer")
-	#if not LimboConsole.has_command("show_fog"):
-		#LimboConsole.register_command(show_fog, "show_fog", "Show fog layer")
+	if not LimboConsole.has_command("hide_fog"):
+		LimboConsole.register_command(hide_fog, "hide_fog", "Hide fog layer")
+	if not LimboConsole.has_command("show_fog"):
+		LimboConsole.register_command(show_fog, "show_fog", "Show fog layer")
 
 	tile_weights = {
 		"RESOURCE": resource_weight,
@@ -84,10 +95,14 @@ func generate_tilemap(battle_stats: BattleStats):
 	fog_state.clear()
 	map_height = battle_stats.battle_field_height
 	map_width = battle_stats.battle_field_width
+	var rando_shape : MapShape = MapShape[RNG.array_pick_random(MapShape.keys())]
+	map_shape = rando_shape
 
 	for x in range(map_width):
 		for y in range(map_height):
 			var tile_position = Vector2i(x, y)
+			if !is_tile_in_shape(tile_position):
+				continue
 			var tile_type: Enums.TileType = weighted_random_tile()
 			base_layer.set_cell(tile_position, 0, tile_dict[tile_type])
 			fog_layer.set_cell(tile_position, 1, Vector2i(1, 1))  # Cover with fog
@@ -142,8 +157,10 @@ func clear_fog_around(center: Vector2i, radius: int):
 
 
 func is_within_bounds(pos: Vector2i) -> bool:
-	return pos.x >= 0 and pos.y >= 0 and pos.x < map_width and pos.y < map_height
-
+	return (
+		base_layer.get_used_cells().has(pos) and
+		is_tile_in_shape(pos)
+	)
 
 func get_tile_data(tile_pos: Vector2i) -> HexTileData:
 	var tile_data = tile_map_data.get(tile_pos, null)
@@ -210,9 +227,37 @@ func is_tile_free(tile_pos: Vector2i) -> bool:
 	return true
 	
 func is_tile_corrupt(tile: Vector2i) -> bool:
+	if !is_within_bounds(tile):
+		return true
 	var data : HexTileData = get_tile_data(tile)
 	return data.type == Enums.TileType.CORRUPTED
 	
+func is_tile_in_shape(pos: Vector2i) -> bool:
+	var center := Vector2i(map_width / 2, map_height / 2)
+
+	match map_shape:
+		MapShape.RECTANGLE:
+			return true
+
+		MapShape.DIAMOND:
+			# Simple Manhattan distance, works for diamond-shaped patterns
+			var dx = abs(pos.x - center.x)
+			var dy = abs(pos.y - center.y)
+			return dx + dy <= min(map_width, map_height) / 2
+
+		MapShape.HEX_CIRCLE:
+			# Convert to cube coordinates for proper hex distance
+			var q = pos.x - center.x
+			var r = pos.y - center.y
+			var s = -q - r
+			var hex_radius = min(map_width, map_height) / 2
+			return max(abs(q), abs(r), abs(s)) <= int(hex_radius)
+
+		_:
+			return true
+
+
+
 func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vector2i]:
 	var tiles: Array[Vector2i] = []
 
@@ -230,36 +275,57 @@ func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vec
 
 	return tiles
 	
-func get_battlemap_edge_tiles(tilemap: TileMapLayer) -> Array[Vector2i]:
-	if not tilemap:
-		return []
-
-	var used_cells: Array[Vector2i] = tilemap.get_used_cells()
-	if used_cells.is_empty():
-		return []
-
-	var min_x = used_cells[0].x
-	var max_x = used_cells[0].x
-	var min_y = used_cells[0].y
-	var max_y = used_cells[0].y
-
-	for cell in used_cells:
-		min_x = min(min_x, cell.x)
-		max_x = max(max_x, cell.x)
-		min_y = min(min_y, cell.y)
-		max_y = max(max_y, cell.y)
-
+	
+func get_battlemap_edge_clockwise() -> Array[Vector2i]:
+	var valid_tiles := base_layer.get_used_cells()
 	var edge_tiles: Array[Vector2i] = []
+	var visited := {}
+	var directions_clockwise = [
+		Vector2i(1, 0),   # Right
+		Vector2i(1, 1),   # Down-Right
+		Vector2i(0, 1),   # Down
+		Vector2i(-1, 1),  # Down-Left
+		Vector2i(-1, 0),  # Left
+		Vector2i(-1, -1), # Up-Left
+		Vector2i(0, -1),  # Up
+		Vector2i(1, -1),  # Up-Right
+	]
+	
 
-	# Top and bottom edges
-	for x in range(min_x, max_x + 1):
-		edge_tiles.append(Vector2i(x, min_y))  # Top row
-		edge_tiles.append(Vector2i(x, max_y))  # Bottom row
+	var start_tile: Vector2i
+	var found := false
+	for pos in valid_tiles:
+		for dir in directions_clockwise:
+			if not valid_tiles.has(pos + dir):
+				start_tile = pos
+				found = true
+				break
+		if found:
+			break
 
-	# Left and right edges (excluding already added corners)
-	for y in range(min_y + 1, max_y):
-		edge_tiles.append(Vector2i(min_x, y))  # Left column
-		edge_tiles.append(Vector2i(max_x, y))  # Right column
+	var current = start_tile
+	var last_direction_index = 0
+
+	while true:
+		edge_tiles.append(current)
+		visited[current] = true
+		var next_found := false
+
+		for i in range(8):
+			var dir_index = (last_direction_index + i) % 8
+			var neighbor = current + directions_clockwise[dir_index]
+			if valid_tiles.has(neighbor) and not visited.has(neighbor):
+				for check_dir in directions_clockwise:
+					if not valid_tiles.has(neighbor + check_dir):
+						current = neighbor
+						last_direction_index = (dir_index + 6) % 8
+						next_found = true
+						break
+				if next_found:
+					break
+
+		if not next_found or current == start_tile:
+			break
 
 	return edge_tiles
 	
@@ -288,3 +354,46 @@ func get_random_valid_tile() -> Vector2i:
 
 	push_error("No valid tile found after %d attempts." % max_attempts)
 	return Vector2i.ZERO
+	
+# Convert from offset coordinates to cube coordinates
+func offset_to_cube(offset: Vector2i) -> Vector3i:
+	var q = offset.x
+	var r = offset.y - (offset.x - (offset.x & 1)) / 2
+	var s = -q - r
+	return Vector3i(q, r, s)
+
+# Convert from cube coordinates to offset coordinates
+func cube_to_offset(cube: Vector3i) -> Vector2i:
+	var x = cube.x
+	var y = cube.y + (cube.x - (cube.x & 1)) / 2
+	return Vector2i(x, y)
+
+# Get hex distance between two positions in cube coordinates
+func hex_distance(a: Vector3i, b: Vector3i) -> int:
+	return max(abs(a.x - b.x), abs(a.y - b.y), abs(a.z - b.z))
+
+# Get all tiles within a certain hex distance
+func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
+	var results: Array[Vector2i] = []
+	var center_cube = offset_to_cube(center)
+	
+	for q in range(-radius, radius + 1):
+		for r in range(max(-radius, -q-radius), min(radius, -q+radius) + 1):
+			var s = -q - r
+			var cube = Vector3i(center_cube.x + q, center_cube.y + r, center_cube.z + s)
+			results.append(cube_to_offset(cube))
+			
+	return results
+	
+func highlight_cells(cells: Array[Vector2i]) -> void:
+	for cell in cells:
+		highlight_cell(cell)
+		
+func highlight_cell(cell: Vector2i) -> void:
+	if is_within_bounds(cell):
+		highlight_layer.set_cell(cell, 0, HIGHLIGHT_CELL_ID)
+		
+func clear_highlight() -> void:
+	highlight_layer.clear()
+	
+	

@@ -12,7 +12,7 @@ func get_default_description() -> String:
 func get_modified_description(
 	_player_modifiers: ModifierHandler, _enemy_modifiers: ModifierHandler
 ) -> String:
-	return description
+	return description % base_amount
 
 
 func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://exmbgiu7r2dv"]
+
+[ext_resource type="PackedScene" uid="uid://db3ay7wd72so0" path="res://scenes/enemy/wasp/wasp_enemy_ai.tscn" id="1_6mu02"]
+[ext_resource type="Texture2D" uid="uid://b818vtrja2v1e" path="res://assets/icons/wasp-sting.svg" id="2_f1pap"]
+[ext_resource type="AudioStream" uid="uid://bb6jgon2mfh0i" path="res://assets/audio/Monster Sounds/Hornet/Hornet_Emerge.ogg" id="3_4cyao"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="4_nq6sp"]
+
+[resource]
+script = ExtResource("4_nq6sp")
+enemy_name = "Wasp"
+board_icon = ExtResource("2_f1pap")
+ai = ExtResource("1_6mu02")
+call_sound = ExtResource("3_4cyao")
+flying = true
+max_health = 6
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

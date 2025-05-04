@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bq88gcnwe4rar"]
+[gd_scene load_steps=15 format=3 uid="uid://bq88gcnwe4rar"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_fc3my"]
 [ext_resource type="PackedScene" uid="uid://dwiv2oit73vcs" path="res://ui/card_ui/card_ui.tscn" id="2_fc3my"]
 [ext_resource type="Texture2D" uid="uid://dmtmnwy38fivy" path="res://assets/particles/kenney-particles/magic_05.png" id="3_6vsj7"]
+[ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="4_ycgp5"]
 
 [sub_resource type="Gradient" id="Gradient_fc3my"]
 interpolation_mode = 2
@@ -68,6 +69,7 @@ draw_order = 2
 process_material = SubResource("ParticleProcessMaterial_m4ny6")
 
 [node name="CardUI" parent="." instance=ExtResource("2_fc3my")]
+visible = false
 layout_mode = 1
 offset_left = -90.0
 offset_top = -121.0
@@ -75,6 +77,7 @@ offset_right = -1830.0
 offset_bottom = -961.0
 
 [node name="CardTrailFX" type="GPUParticles2D" parent="."]
+visible = false
 emitting = false
 texture = ExtResource("3_6vsj7")
 speed_scale = 2.0
@@ -82,6 +85,8 @@ explosiveness = 0.02
 visibility_rect = Rect2(-541.091, -541.211, 1082.96, 1082.46)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_v2a4i")
+
+[node name="SmokeFX" parent="." instance=ExtResource("4_ycgp5")]
 
 [editable path="CardUI"]
 [editable path="CardUI/Visuals"]

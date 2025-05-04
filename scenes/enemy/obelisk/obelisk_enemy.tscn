@@ -22,7 +22,7 @@ duration = 1.0
 transition = 0
 ease = 2
 
-[node name="Obilisk" type="Node2D" groups=["enemy", "obelisk"]]
+[node name="Obelisk" type="Node2D" groups=["enemy", "obelisk"]]
 script = ExtResource("1_pyj3l")
 spawn_pool = Array[ExtResource("2_23345")]([ExtResource("3_ygcrw"), ExtResource("4_pyj3l"), ExtResource("5_ygcrw")])
 stats = ExtResource("2_2g2p5")

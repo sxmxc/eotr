@@ -13,15 +13,13 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	var player_array := targets[0].get_tree().get_nodes_in_group("player")
 	energy_effect.amount = energy_gain
 	energy_effect.sound_fx = energy_sound_fx
-	#energy_effect.visual_fx = energy_visual_fx
+	energy_effect.visual_fx = energy_visual_fx
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
 	damage_effect.sound_fx = sound_fx
+	damage_effect.visual_fx = visual_fx
 	damage_effect.execute(targets)
 	energy_effect.execute(player_array)
-	#for enemy: Enemy in targets:
-		#var explosion : VisualFX = visual_fx.instantiate() as VisualFX
-		#enemy.add_child(explosion)
-		#explosion.execute()
+
 
 
 func get_default_description() -> String:

@@ -1,9 +1,15 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://djvq14reppgx2"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://djvq14reppgx2"]
 
 [ext_resource type="Script" uid="uid://6l1b0pj2rj5v" path="res://resources/data/cards/riftwalker/fracture_pulse.gd" id="1_5imcf"]
+[ext_resource type="AudioStream" uid="uid://y8shlp65x13s" path="res://assets/audio/spells/blessing3.wav" id="1_xqcfa"]
+[ext_resource type="PackedScene" uid="uid://clemke10r3mhf" path="res://ui/fx/flash_fx.tscn" id="2_p6rxa"]
+[ext_resource type="AudioStream" uid="uid://bonkarcwaqe1g" path="res://assets/audio/spells/explode1.wav" id="4_32n7f"]
+[ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="5_g4gsr"]
 
 [resource]
 script = ExtResource("1_5imcf")
+energy_sound_fx = ExtResource("1_xqcfa")
+energy_visual_fx = ExtResource("2_p6rxa")
 card_type = 2
 target_type = 3
 id = "fracture_pulse"
@@ -12,4 +18,6 @@ card_rarity = 2
 description = "Deal [b]%s[/b] damage to all enemies. Gain 1 energy."
 energy_cost = 0
 exhaust = false
+sound_fx = ExtResource("4_32n7f")
+visual_fx = ExtResource("5_g4gsr")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

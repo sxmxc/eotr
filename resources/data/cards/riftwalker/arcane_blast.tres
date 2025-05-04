@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cuip5qqe1q7je" path="res://resources/data/cards/riftwalker/arcane_blast.gd" id="1_b3saq"]
 [ext_resource type="PackedScene" uid="uid://cb50e1rcfvw0r" path="res://ui/fx/fireball_projectile_fx.tscn" id="1_yrhi5"]
-[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="3_3vgl5"]
 [ext_resource type="AudioStream" uid="uid://bonkarcwaqe1g" path="res://assets/audio/spells/explode1.wav" id="3_yrhi5"]
+[ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="4_yrhi5"]
 
 [resource]
 script = ExtResource("1_b3saq")
@@ -16,6 +16,6 @@ description = "Deal [b]%s[b] damage to a [b]single[/b] enemy."
 energy_cost = 2
 exhaust = false
 sound_fx = ExtResource("3_yrhi5")
-visual_fx = ExtResource("3_3vgl5")
+visual_fx = ExtResource("4_yrhi5")
 projectile_fx = ExtResource("1_yrhi5")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -11,9 +11,26 @@ func get_default_description() -> String:
 
 
 func get_modified_description(
-	player_modifiers: ModifierHandler, _enemy_modifiers: ModifierHandler
+	player_modifiers: ModifierHandler, enemy_modifiers: ModifierHandler
 ) -> String:
-	return description % player_modifiers.get_modified_value(base_damage,Enums.ModifierType.DMG_DEALT)
+	var modified_dmg := player_modifiers.get_modified_value(
+		base_damage, Enums.ModifierType.DMG_DEALT
+	)
+
+	if enemy_modifiers:
+		modified_dmg = enemy_modifiers.get_modified_value(
+			modified_dmg, Enums.ModifierType.DMG_TAKEN
+		)
+
+	return description % modified_dmg
+	
+func is_card_modified(player_modifiers: ModifierHandler) -> bool:
+	var modified_dmg := player_modifiers.get_modified_value(
+		base_damage, Enums.ModifierType.DMG_DEALT
+	)
+	if modified_dmg != base_damage:
+		return true
+	return false
 
 
 func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:

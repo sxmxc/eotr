@@ -1,0 +1,40 @@
+[gd_scene load_steps=12 format=3 uid="uid://db3ay7wd72so0"]
+
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_gpb23"]
+[ext_resource type="Script" uid="uid://c0a3c8an4t523" path="res://scenes/enemy/wasp/wasp_enemy_move_action.gd" id="2_2blif"]
+[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="3_2630r"]
+[ext_resource type="Script" uid="uid://dibwrrhojqhrh" path="res://scenes/enemy/wasp/wasp_enemy_attack_action.gd" id="3_xe6n3"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_7ug8v"]
+[ext_resource type="PackedScene" uid="uid://cln3yj26mtsp" path="res://ui/fx/curse_fx.tscn" id="6_t3vsi"]
+[ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="7_1usdb"]
+[ext_resource type="AudioStream" uid="uid://dxigf55kawp72" path="res://assets/audio/Monster Sounds/Hornet/Hornet_Attack.wav" id="7_g25uw"]
+[ext_resource type="PackedScene" uid="uid://bf61do8j56a3t" path="res://ui/fx/claw_slash_fx.tscn" id="9_ot5ce"]
+
+[sub_resource type="Resource" id="Resource_t3vsi"]
+script = ExtResource("4_7ug8v")
+base_text = ""
+icon = ExtResource("3_2630r")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_usjcb"]
+script = ExtResource("4_7ug8v")
+base_text = "%s"
+icon = ExtResource("7_1usdb")
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[node name="WaspEnemyAI" instance=ExtResource("1_gpb23")]
+
+[node name="WaspEnemyMoveAction" type="Node" parent="." index="0"]
+script = ExtResource("2_2blif")
+intent = SubResource("Resource_t3vsi")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="WaspEnemyAttackAction" type="Node" parent="." index="1"]
+script = ExtResource("3_xe6n3")
+curse_fx_scene = ExtResource("6_t3vsi")
+intent = SubResource("Resource_usjcb")
+type = 1
+chance_weight = 10.0
+sound = ExtResource("7_g25uw")
+visual_fx = ExtResource("9_ot5ce")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"

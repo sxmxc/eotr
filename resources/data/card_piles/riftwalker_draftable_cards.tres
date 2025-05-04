@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardPile" load_steps=16 format=3 uid="uid://fjjyyc620psd"]
+[gd_resource type="Resource" script_class="CardPile" load_steps=17 format=3 uid="uid://fjjyyc620psd"]
 
 [ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_gv0st"]
 [ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_i5lcq"]
@@ -14,9 +14,10 @@
 [ext_resource type="Resource" uid="uid://cuyx2ruskixd0" path="res://resources/data/cards/riftwalker/arcane_flame.tres" id="7_u64ch"]
 [ext_resource type="Resource" uid="uid://0korvu55clwk" path="res://resources/data/cards/riftwalker/rift_knowledge.tres" id="8_ltrod"]
 [ext_resource type="Resource" uid="uid://bxiabb7dpx46y" path="res://resources/data/cards/riftwalker/mana_leech.tres" id="9_ex2n0"]
+[ext_resource type="Resource" uid="uid://dsxowmpws0hp2" path="res://resources/data/cards/riftwalker/void_fracture.tres" id="9_tlkdp"]
 [ext_resource type="Resource" uid="uid://djvq14reppgx2" path="res://resources/data/cards/riftwalker/fracture_pulse.tres" id="12_tlkdp"]
 
 [resource]
 script = ExtResource("2_i5lcq")
-cards = Array[ExtResource("1_gv0st")]([ExtResource("5_8ruip"), ExtResource("6_5k6rd"), ExtResource("4_u64ch"), ExtResource("5_ltrod"), ExtResource("4_5k6rd"), ExtResource("5_5k6rd"), ExtResource("6_u64ch"), ExtResource("7_ltrod"), ExtResource("7_64lpb"), ExtResource("7_ltrod"), ExtResource("8_ltrod"), ExtResource("9_ex2n0"), ExtResource("7_u64ch"), ExtResource("12_tlkdp")])
+cards = Array[ExtResource("1_gv0st")]([ExtResource("5_8ruip"), ExtResource("6_5k6rd"), ExtResource("4_u64ch"), ExtResource("5_ltrod"), ExtResource("4_5k6rd"), ExtResource("5_5k6rd"), ExtResource("6_u64ch"), ExtResource("9_tlkdp"), ExtResource("7_64lpb"), ExtResource("7_ltrod"), ExtResource("8_ltrod"), ExtResource("9_ex2n0"), ExtResource("7_u64ch"), ExtResource("12_tlkdp")])
 metadata/_custom_type_script = "uid://dkmgiky2ttex"

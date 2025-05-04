@@ -101,7 +101,7 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var tween := create_tween()
 	var text_fx := TEXT_FX.instantiate() as TextFX
-	text_fx.text = str(damage)
+	text_fx.text = str(modified_damage)
 	add_child(text_fx)
 	text_fx.execute()
 	if direct:
