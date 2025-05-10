@@ -1,6 +1,7 @@
 class_name Enemy
 extends Node2D
 
+signal damage_taken(amount: int)
 
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
 const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
@@ -42,6 +43,8 @@ func set_stats(value: EnemyStats) -> void:
 	if not stats.stats_changed.is_connected(update_stats):
 		stats.stats_changed.connect(update_stats)
 		stats.stats_changed.connect(update_action)
+	if not stats.damage_taken.is_connected(func(arg): damage_taken.emit(arg)):
+		stats.damage_taken.connect(func(arg): damage_taken.emit(arg))
 	update_enemy()
 	
 
@@ -86,7 +89,7 @@ func update_intent() -> void:
 
 func do_turn() -> void:
 	print("%s doing turn" % name)
-	stats.block = 0
+	#stats.block = 0
 	
 	if not current_action:
 		return

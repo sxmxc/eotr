@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_w8bnk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
-radius = 13.0
+radius = 18.0278
 
 [sub_resource type="Resource" id="Resource_ex3n4"]
 script = ExtResource("14_w8bnk")
