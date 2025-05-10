@@ -31,6 +31,7 @@ signal status_tooltip_requested(statuses: Array[Status])
 signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
 signal obelisk_destroyed
 signal battle_won
+signal round_updated(round: int)
 
 # Map-related events
 signal map_exited(map_node: MapNode)

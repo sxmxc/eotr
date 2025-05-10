@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_vcsxv"]
 [ext_resource type="Script" uid="uid://bperpmikxf7au" path="res://scenes/enemy/horror/horror_move_action.gd" id="2_r27tq"]
-[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="3_i2h4w"]
+[ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="3_vcsxv"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_awbm4"]
 [ext_resource type="AudioStream" uid="uid://ch10vc8phptoe" path="res://assets/audio/kenney_casino/chip-lay-3.ogg" id="5_0vrco"]
 [ext_resource type="Script" uid="uid://b1mgpmtnrdpwa" path="res://scenes/enemy/horror/horror_attack_action.gd" id="6_u76hc"]
@@ -16,22 +16,25 @@
 [sub_resource type="Resource" id="Resource_ha0vk"]
 script = ExtResource("4_awbm4")
 base_text = ""
-icon = ExtResource("3_i2h4w")
+icon = ExtResource("3_vcsxv")
+tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_07lum"]
 script = ExtResource("4_awbm4")
 base_text = "%s x2"
 icon = ExtResource("7_1r30j")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_wo1ee"]
 script = ExtResource("4_awbm4")
 base_text = ""
 icon = ExtResource("11_p1erf")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="HorrorEnemyAI" instance=ExtResource("1_vcsxv")]
+[node name="EliteHorrorEnemyAI" instance=ExtResource("1_vcsxv")]
 
 [node name="HorrorMoveAction" type="Node" parent="." index="0"]
 script = ExtResource("2_r27tq")

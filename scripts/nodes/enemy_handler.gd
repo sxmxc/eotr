@@ -80,13 +80,14 @@ func start_turn() -> void:
 
 func _start_next_enemy_turn() -> void:
 	if acting_enemies.is_empty():
+		world_ui.enemy_stats_scroll.scroll_vertical = 0
 		world_ui.enemy_stats_scroll.scroll_horizontal = 0
 		Events.enemy_turn_ended.emit()
 		print("All enemies done")
 		return
 
 	acting_enemies[0].phantom_camera_2d.priority = 20
-	SoundManager.play_sound_random_pitch(acting_enemies[0].stats.call_sound)
+	SoundManager.play_sound(acting_enemies[0].stats.call_sound)
 	await acting_enemies[0].phantom_camera_2d.tween_completed
 	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 

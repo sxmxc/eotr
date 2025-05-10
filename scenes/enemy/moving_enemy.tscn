@@ -157,3 +157,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 libraries = {
 &"": SubResource("AnimationLibrary_4851w")
 }
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

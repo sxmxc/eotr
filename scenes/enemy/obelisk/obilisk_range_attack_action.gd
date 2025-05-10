@@ -2,7 +2,6 @@ extends EnemyAction
 
 const OBELISK_PROJECTILE_FX = preload("res://ui/fx/obelisk_projectile_fx.tscn")
 
-
 var base_damage := 7
 
 func perform_action() -> void:
@@ -39,4 +38,6 @@ func update_intent_text() -> void:
 		return
 	
 	var modified_dmg := player.modifier_handler.get_modified_value(base_damage, Enums.ModifierType.DMG_TAKEN)
-	intent.current_text = intent.base_text % modified_dmg
+	var final_dmg := enemy.modifier_handler.get_modified_value(modified_dmg, Enums.ModifierType.DMG_DEALT)
+	
+	intent.current_text = intent.base_text % final_dmg

@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://0dlopp347r2m"]
+[gd_scene load_steps=17 format=3 uid="uid://0dlopp347r2m"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_kpu2c"]
 [ext_resource type="Script" uid="uid://b1mgpmtnrdpwa" path="res://scenes/enemy/horror/horror_attack_action.gd" id="2_7o5m4"]
+[ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="3_2ieny"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="3_13wc1"]
 [ext_resource type="Script" uid="uid://dft5ilb8xtbtm" path="res://scenes/enemy/horror/horror_block_action.gd" id="3_ftlei"]
 [ext_resource type="Script" uid="uid://bperpmikxf7au" path="res://scenes/enemy/horror/horror_move_action.gd" id="4_adsyb"]
@@ -9,26 +10,29 @@
 [ext_resource type="AudioStream" uid="uid://ch10vc8phptoe" path="res://assets/audio/kenney_casino/chip-lay-3.ogg" id="6_wpt1e"]
 [ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="7_gf54p"]
 [ext_resource type="AudioStream" uid="uid://di867hg1wuwmu" path="res://assets/audio/Monster Sounds/Spider/Spider_Attack.ogg" id="8_wo1ee"]
-[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="9_07lum"]
 [ext_resource type="PackedScene" uid="uid://b0rgvbdigmehm" path="res://ui/fx/slash_fx.tscn" id="9_wo1ee"]
 [ext_resource type="AudioStream" uid="uid://dswcswliolkk0" path="res://assets/audio/Monster Sounds/Spider/Bonus_Spider_Netshot_Attack.wav" id="12_ha0vk"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="13_2ieny"]
 
 [sub_resource type="Resource" id="Resource_ha0vk"]
 script = ExtResource("4_gf54p")
 base_text = ""
-icon = ExtResource("9_07lum")
+icon = ExtResource("3_2ieny")
+tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_07lum"]
 script = ExtResource("4_gf54p")
 base_text = "%s x2"
 icon = ExtResource("3_13wc1")
+tooltip_text = "Plans to attack for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_wo1ee"]
 script = ExtResource("4_gf54p")
 base_text = ""
 icon = ExtResource("7_gf54p")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="HorrorEnemyAI" instance=ExtResource("1_kpu2c")]
@@ -52,3 +56,4 @@ intent = SubResource("Resource_wo1ee")
 type = 1
 chance_weight = 1.0
 sound = ExtResource("12_ha0vk")
+visual_fx = ExtResource("13_2ieny")

@@ -22,7 +22,8 @@ const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
 @onready var tutorial_ui: TutorialUI = $TutorialUI
 
 var audio_stream_player : AudioStreamPlayer
-var current_round : int = 0
+var current_round : int : 
+	set = set_current_round
 
 func _ready():
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
@@ -89,7 +90,13 @@ func set_run_stats(value: RunStats) -> void:
 		await ready
 	run_stats = value
 	player.run_stats = run_stats
-	
+
+func set_current_round(value: int) -> void:
+	if not is_node_ready():
+		await ready
+	current_round = value
+	Events.round_updated.emit(current_round)
+
 func shrink_game_board(amount: int = 1) -> void:
 	world_camera.follow_target = tilemap.center_marker
 	world_camera.priority = 50

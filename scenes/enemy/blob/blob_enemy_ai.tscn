@@ -13,31 +13,35 @@
 [ext_resource type="AudioStream" uid="uid://bi62uwrtjhfdc" path="res://assets/audio/kenney_casino/chip-lay-2.ogg" id="6_15k23"]
 [ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="8_k6yc7"]
 [ext_resource type="AudioStream" uid="uid://dte5vuj2stwyh" path="res://assets/audio/RPG Sound Pack/NPC/slime/slime9.wav" id="9_035o0"]
-[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="11_w3yub"]
+[ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="11_8ge8r"]
 [ext_resource type="Texture2D" uid="uid://b0xtxdooqd7uf" path="res://assets/icons/shield-reflect.svg" id="14_8ge8r"]
 
 [sub_resource type="Resource" id="Resource_w3yub"]
 script = ExtResource("4_k6yc7")
 base_text = "%s"
 icon = ExtResource("3_oj2d5")
+tooltip_text = "Plans to attack for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_8ge8r"]
 script = ExtResource("4_k6yc7")
 base_text = ""
 icon = ExtResource("8_k6yc7")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_aw0ot"]
 script = ExtResource("4_k6yc7")
 base_text = ""
-icon = ExtResource("11_w3yub")
+icon = ExtResource("11_8ge8r")
+tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_wudmm"]
 script = ExtResource("4_k6yc7")
 base_text = ""
 icon = ExtResource("14_8ge8r")
+tooltip_text = "Plans to do special block"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="BlobEnemyAI" instance=ExtResource("1_vtdrg")]

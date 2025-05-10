@@ -43,7 +43,8 @@ func update_stats(stats: EnemyStats) -> void:
 	
 	shield_container.visible = !stats.block <= 0
 	
-func _on_enemy_selected(_enemy: Enemy) -> void:
+func _on_enemy_selected(enemy: Enemy) -> void:
+	enemy.stats_ui.grab_focus()
 	pass
 
 

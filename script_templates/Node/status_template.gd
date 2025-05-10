@@ -1,5 +1,7 @@
+# meta-name: Status Logic
+# meta-description: Create a Status which effects stats and card effects.
+class_name StatusTemplate
 extends Status
-class_name StatusNamePlaceHolderClassName
 
 var member_var := 0
 

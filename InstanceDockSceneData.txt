@@ -1,0 +1,37 @@
+[{
+"name": "Enemies",
+"scenes": [{
+&"scene": "res://scenes/enemy/moving_enemy.tscn"
+}, {
+&"scene": "res://scenes/enemy/obelisk/obelisk_enemy.tscn"
+}, {
+&"scene": "res://scenes/enemy/enemy.tscn"
+}]
+}, {
+"name": "Enemy AIs",
+"scenes": [{
+&"custom_texture": "res://assets/icons/bat.svg",
+&"scene": "res://scenes/enemy/bat/bat_enemy_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/gluttony.svg",
+&"scene": "res://scenes/enemy/blob/blob_enemy_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/wasp-sting.svg",
+&"scene": "res://scenes/enemy/wasp/wasp_enemy_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/alien-bug.svg",
+&"scene": "res://scenes/enemy/horror/horror_enemy_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/alien-bug.svg",
+&"scene": "res://scenes/enemy/horror/elite_horror_enemy_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/spectre.svg",
+&"scene": "res://scenes/enemy/void_spectre/void_spectre_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/crystal-shrine.svg",
+&"scene": "res://scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn"
+}, {
+&"custom_texture": "res://assets/icons/crystal-shrine.svg",
+&"scene": "res://scenes/enemy/obelisk/obelisk_enemy_ai.tscn"
+}]
+}]

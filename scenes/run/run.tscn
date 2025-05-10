@@ -41,6 +41,8 @@ stream_2 = ExtResource("5_0bq42")
 [sub_resource type="LabelSettings" id="LabelSettings_gqbdr"]
 font_size = 40
 font_color = Color(0.823529, 0.788235, 0.647059, 1)
+outline_size = 5
+outline_color = Color(0.294118, 0.239216, 0.266667, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6p45"]
 blend_mode = 1

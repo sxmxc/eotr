@@ -139,3 +139,9 @@ func _on_navigation_finished():
 	current_tile_position = current_tile
 	position = tilemap.base_layer.map_to_local(current_tile)
 	position.y += 1
+
+func _on_area_2d_mouse_entered():
+	super._on_area_2d_mouse_entered()
+	
+func _on_area_2d_mouse_exited():
+	super._on_area_2d_mouse_exited()

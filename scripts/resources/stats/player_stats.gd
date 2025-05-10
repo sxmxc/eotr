@@ -21,6 +21,7 @@ var resources: int:
 var deck: CardPile
 var discard: CardPile
 var draw_pile: CardPile
+var exhaust_pile: CardPile
 var is_running: bool = false
 
 func set_resources(value: int) -> void:

@@ -46,6 +46,22 @@ func _ready() -> void:
 		RunBootstrap.Type.CONTINUED_RUN:
 			_load_run()
 
+func add_resources(amount: int) -> void:
+	var event_props := {
+		"command": "add_resources"
+	}
+	Talo.events.track("console_command_used", event_props)
+	Talo.stats.track("console_commands_used")
+	run_stats.resources += amount
+	
+func add_gold(amount: int) -> void:
+	var event_props := {
+		"command": "add_gold"
+	}
+	Talo.events.track("console_command_used", event_props)
+	Talo.stats.track("console_commands_used")
+	run_stats.gold += amount
+
 func _destroy_all_enemies() -> void:
 	var event_props := {
 		"command": "yeet_em_all"
@@ -148,7 +164,10 @@ func _setup_event_connections() -> void:
 
 	if not LimboConsole.has_command("yeet_em_all"):
 		LimboConsole.register_command(_destroy_all_enemies, "yeet_em_all", "Destroy all enemies")
-
+	if not LimboConsole.has_command("add_resources"):
+		LimboConsole.register_command(add_resources, "add_resources", "Add resources")
+	if not LimboConsole.has_command("add_gold"):
+		LimboConsole.register_command(add_gold, "add_gold", "Add gold")
 
 func _setup_top_bar() -> void:
 	player_stats.stats_changed.connect(health_ui.update_stats.bind(player_stats))

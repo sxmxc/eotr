@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=64 format=4 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -24,8 +24,6 @@
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="20_g7x0y"]
 [ext_resource type="Texture2D" uid="uid://bw2e6kofldiiq" path="res://assets/icons/card-burn.svg" id="21_0br8l"]
 [ext_resource type="Texture2D" uid="uid://dte2m4qyg4mfe" path="res://assets/icons/card-draw.svg" id="21_7fs1y"]
-[ext_resource type="Script" uid="uid://bncsfkx6mq4ic" path="res://ui/map_ui/map_ui.gd" id="21_fg3oe"]
-[ext_resource type="Texture2D" uid="uid://dg0r2ppupt5fk" path="res://assets/icons/magnifying-glass.png" id="22_wgh4l"]
 [ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="23_ht6dc"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="24_mkc5e"]
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
@@ -34,6 +32,8 @@
 [ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="25_oia7h"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
+[ext_resource type="PackedScene" uid="uid://bxte0jljomebr" path="res://ui/player_ui/round_info.tscn" id="31_jwlkc"]
+[ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="32_udifo"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
 [ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="39_ht6dc"]
@@ -100,21 +100,8 @@ point_count = 3
 [sub_resource type="LabelSettings" id="LabelSettings_0br8l"]
 font_size = 40
 font_color = Color(0.823529, 0.788235, 0.647059, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arcjp"]
-content_margin_left = 5.0
-content_margin_right = 5.0
-bg_color = Color(0.517647, 0.470588, 0.458824, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-shadow_size = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y38y"]
-bg_color = Color(0.294118, 0.239216, 0.266667, 1)
+outline_size = 5
+outline_color = Color(0.294118, 0.239216, 0.266667, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhwwd"]
 size = Vector2(1924, 699)
@@ -186,6 +173,7 @@ autoscroll = Vector2(10, -20)
 custom_minimum_size = Vector2(2560, 2560)
 offset_right = 2560.0
 offset_bottom = 2560.0
+mouse_filter = 2
 texture = SubResource("GradientTexture2D_ht6dc")
 
 [node name="ParallaxMidground" type="Parallax2D" parent="ParallaxBackgroundNode"]
@@ -197,6 +185,7 @@ autoscroll = Vector2(-5, 5)
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxMidground"]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("39_lorak")
 
 [node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode"]
@@ -208,6 +197,7 @@ autoscroll = Vector2(5, -5)
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxForeground"]
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource("40_ht6dc")
 
 [node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
@@ -305,6 +295,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("23_ht6dc")
 
 [node name="EnemyStats" type="Control" parent="GameWorldUI/EnemyUI"]
@@ -328,10 +319,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -133.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
-vertical_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll"]
 layout_mode = 2
@@ -340,13 +331,14 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="EnemyStatsContainer" type="HBoxContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer"]
+[node name="EnemyStatsContainer" type="GridContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme_override_constants/separation = 20
-alignment = 1
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 3
 
 [node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
 layout_mode = 2
@@ -369,7 +361,23 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Hand" type="Control" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("player")]
+[node name="CardSpotlight" type="HBoxContainer" parent="GameWorldUI/PlayerUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Hand" type="Control" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("player", "card_spotlight")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -387,6 +395,7 @@ hand_curve = SubResource("Curve_udifo")
 rotation_curve = SubResource("Curve_qnbvx")
 x_sep = -20
 y_max = -25
+card_spotlight = NodePath("../CardSpotlight")
 
 [node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("12_odt01")]
 layout_mode = 0
@@ -410,6 +419,13 @@ offset_left = 8.0
 offset_top = 112.0
 offset_right = 322.0
 offset_bottom = 360.0
+
+[node name="RoundInfoUI" parent="GameWorldUI/PlayerUI" instance=ExtResource("31_jwlkc")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 368.0
+offset_right = 320.0
+offset_bottom = 428.0
 
 [node name="EndTurnButton" type="Button" parent="GameWorldUI/PlayerUI"]
 unique_name_in_owner = true
@@ -468,46 +484,27 @@ text = "99"
 label_settings = SubResource("LabelSettings_0br8l")
 horizontal_alignment = 1
 
-[node name="MapUI" type="Control" parent="GameWorldUI"]
-visible = false
-layout_mode = 3
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -252.0
-offset_right = -40.0
-offset_bottom = 148.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("21_fg3oe")
+[node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = 1336.0
+offset_top = 878.0
+offset_right = 1400.0
+offset_bottom = 942.0
+texture_normal = ExtResource("32_udifo")
+counter = NodePath("Counter")
 
-[node name="VSlider" type="VSlider" parent="GameWorldUI/MapUI"]
-layout_mode = 0
-offset_left = -8.0
-offset_right = 16.0
-offset_bottom = 400.0
-theme_override_styles/slider = SubResource("StyleBoxFlat_arcjp")
-theme_override_styles/grabber_area = SubResource("StyleBoxFlat_0y38y")
-min_value = 1.0
-max_value = 5.0
-step = 0.01
-value = 2.0
-editable = false
-scrollable = false
-tick_count = 20
-ticks_on_borders = true
-
-[node name="TextureRect" type="TextureRect" parent="GameWorldUI/MapUI"]
-layout_mode = 0
-offset_left = -28.0
-offset_top = 396.0
-offset_right = 36.0
-offset_bottom = 460.0
-texture = ExtResource("22_wgh4l")
-stretch_mode = 5
+[node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/ExhaustPileButton"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -30.0
+offset_right = 37.0
+offset_bottom = 12.0
+grow_vertical = 0
+text = "99"
 
 [node name="CardDropArea" type="Area2D" parent="GameWorldUI"]
 collision_layer = 4
@@ -522,11 +519,14 @@ offset_left = -768.0
 offset_top = 896.0
 offset_right = -384.0
 offset_bottom = 1018.0
+theme = ExtResource("23_ht6dc")
 
 [node name="WorldMessageContainer" parent="GameWorldUI" instance=ExtResource("30_xw31r")]
 offset_top = 115.0
 offset_right = -43.0
 offset_bottom = -394.0
+mouse_filter = 2
+theme = ExtResource("23_ht6dc")
 
 [node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("25_g06lf")]
 layout_mode = 2
@@ -567,6 +567,8 @@ layer = 5
 
 [node name="BattleOverPanel" parent="BattleOverLayer" instance=ExtResource("24_vophv")]
 visible = false
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
 
 [node name="CardPileViews" type="CanvasLayer" parent="."]
 layer = 6
@@ -574,8 +576,14 @@ layer = 6
 [node name="DrawPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
 unique_name_in_owner = true
 visible = false
+mouse_filter = 2
 
 [node name="DiscardPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
+unique_name_in_owner = true
+visible = false
+mouse_filter = 2
+
+[node name="ExhaustPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
 unique_name_in_owner = true
 visible = false
 
@@ -584,6 +592,7 @@ layer = 6
 
 [node name="StatusView" parent="StatusViewLayer" instance=ExtResource("33_csgag")]
 visible = false
+mouse_filter = 2
 
 [node name="TutorialUI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -608,6 +617,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.294, 0.239, 0.267, 0.625)
 
 [node name="TabContainer" type="TabContainer" parent="TutorialUI/BattleTutorial"]
@@ -1096,6 +1106,7 @@ offset_right = 160.0
 offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 
 [node name="NextButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
 unique_name_in_owner = true

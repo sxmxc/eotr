@@ -21,7 +21,6 @@ ease = 2
 script = ExtResource("1_a3pup")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_peoo5")
@@ -51,6 +50,9 @@ follow_mode = 2
 follow_target = NodePath("..")
 zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_5woo5")
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

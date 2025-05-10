@@ -4,6 +4,8 @@ var base_damage := 6
 
 
 func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
+	if targets.is_empty():
+		return
 	var damage_effect := DamageEffect.new()
 	var cam = targets[0].get_tree().get_first_node_in_group("map_camera")
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)

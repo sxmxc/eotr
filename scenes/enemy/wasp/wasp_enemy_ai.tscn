@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_gpb23"]
 [ext_resource type="Script" uid="uid://c0a3c8an4t523" path="res://scenes/enemy/wasp/wasp_enemy_move_action.gd" id="2_2blif"]
-[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="3_2630r"]
+[ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="3_t3vsi"]
 [ext_resource type="Script" uid="uid://dibwrrhojqhrh" path="res://scenes/enemy/wasp/wasp_enemy_attack_action.gd" id="3_xe6n3"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_7ug8v"]
 [ext_resource type="PackedScene" uid="uid://cln3yj26mtsp" path="res://ui/fx/curse_fx.tscn" id="6_t3vsi"]
@@ -13,13 +13,15 @@
 [sub_resource type="Resource" id="Resource_t3vsi"]
 script = ExtResource("4_7ug8v")
 base_text = ""
-icon = ExtResource("3_2630r")
+icon = ExtResource("3_t3vsi")
+tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_usjcb"]
 script = ExtResource("4_7ug8v")
 base_text = "%s"
 icon = ExtResource("7_1usdb")
+tooltip_text = "Plans to attack for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="WaspEnemyAI" instance=ExtResource("1_gpb23")]

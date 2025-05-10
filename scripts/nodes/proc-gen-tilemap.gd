@@ -156,11 +156,7 @@ func clear_fog_around(center: Vector2i, radius: int):
 			await get_tree().create_timer(.1).timeout
 
 
-func is_within_bounds(pos: Vector2i) -> bool:
-	return (
-		base_layer.get_used_cells().has(pos) and
-		is_tile_in_shape(pos)
-	)
+
 
 func get_tile_data(tile_pos: Vector2i) -> HexTileData:
 	var tile_data = tile_map_data.get(tile_pos, null)
@@ -256,22 +252,32 @@ func is_tile_in_shape(pos: Vector2i) -> bool:
 		_:
 			return true
 
-
+func is_within_bounds(pos: Vector2i) -> bool:
+	return (
+		base_layer.get_used_cells().has(pos) and
+		is_tile_in_shape(pos)
+	)
+	
+func is_tile_valid(pos: Vector2i) -> bool:
+	return is_within_bounds(pos) and is_tile_free(pos) and !is_tile_corrupt(pos)
 
 func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vector2i]:
 	var tiles: Array[Vector2i] = []
+	var current_cells: Array[Vector2i] = [center]
 
-	for x_offset in range(-radius, radius + 1):
-		for y_offset in range(-radius, radius + 1):
-			var tile = center + Vector2i(x_offset, y_offset)
+	for r in range(radius):
+			var next_level_cells : Array[Vector2i]= []
 
-			# Skip the center tile itself
-			if tile == center:
-				continue
+			# Get all neighbors of the current level cells
+			for cell in current_cells:
+				var neighbors = base_layer.get_surrounding_cells(cell)
+				for neighbor in neighbors:
+					if is_within_bounds(neighbor) and not tiles.has(neighbor):
+						next_level_cells.append(neighbor)
+						tiles.append(neighbor)
 
-			# (Optional) If you have a map size, you could clamp here to prevent out-of-bounds
-
-			tiles.append(tile)
+			# Move to the next level
+			current_cells = next_level_cells
 
 	return tiles
 	

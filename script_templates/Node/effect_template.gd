@@ -1,7 +1,7 @@
-# meta-name: Effect
+# meta-name: Effect Logic
 # meta-description: Create an effect which can be applied to a target
+class_name EffectTemplate
 extends Effect
-class_name SomeAwesomeEffect
 
 var member_var := 0
 

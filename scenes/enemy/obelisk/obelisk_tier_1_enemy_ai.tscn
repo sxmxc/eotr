@@ -18,24 +18,28 @@
 script = ExtResource("4_jutti")
 base_text = ""
 icon = ExtResource("3_tbahi")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_yhg1e"]
 script = ExtResource("4_jutti")
 base_text = ""
 icon = ExtResource("6_i8si5")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_raybm"]
 script = ExtResource("4_jutti")
 base_text = "%s"
 icon = ExtResource("8_qiggi")
+tooltip_text = "Plans to attack for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_m7yiv"]
 script = ExtResource("4_jutti")
 base_text = ""
 icon = ExtResource("12_jutti")
+tooltip_text = ""
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="ObeliskT1EnemyAI" instance=ExtResource("1_e87vr")]

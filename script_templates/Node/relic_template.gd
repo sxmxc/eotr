@@ -1,4 +1,4 @@
-# meta-name: Relic
+# meta-name: Relic Logic
 # meta-description: Create a Relic which can be acquired by the player.
 extends Relic
 

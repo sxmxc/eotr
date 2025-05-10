@@ -13,6 +13,8 @@ class_name PlayerHand
 @export var y_min := 0
 @export var y_max := -15
 
+@export var card_spotlight : HBoxContainer
+
 
 @onready var card_ui_scene = preload("res://ui/card_ui/card_ui.tscn")
 #@onready var hand_container = $HandContainer
@@ -37,6 +39,28 @@ func add_card(card: Card) -> void:
 	new_card_ui.values_modified = new_card_ui.is_values_modified()
 	new_card_ui.playable = player_stats.can_play_card(new_card_ui.card)
 	new_card_ui.size = CardUI.CARD_UI_SIZE
+	_update_cards()
+	
+func add_card_spotlight(card: Card) -> void:
+	var new_card_ui := card_ui_scene.instantiate() as CardUI
+
+	card_spotlight.add_child(new_card_ui)
+	new_card_ui.card = card
+	new_card_ui.parent = card_spotlight
+	new_card_ui.player_stats = player_stats
+	new_card_ui.player_modifiers = player.modifier_handler
+	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
+	new_card_ui.values_modified = new_card_ui.is_values_modified()
+	new_card_ui.playable = player_stats.can_play_card(new_card_ui.card)
+	new_card_ui.size = CardUI.CARD_UI_SIZE
+	await get_tree().create_timer(1).timeout
+	var tween = create_tween()
+	tween.tween_property(new_card_ui,"position", position - Vector2(0, new_card_ui.size.y),.3)
+	await tween.finished
+
+	new_card_ui.reparent_requested.connect(_on_card_ui_reparent_requested)
+	new_card_ui.reparent(self)
+	new_card_ui.parent = self
 	_update_cards()
 
 

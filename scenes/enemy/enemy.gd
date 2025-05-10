@@ -19,6 +19,7 @@ var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
 var current_tile_position : Vector2i
 var turn_ticker : int = 0
+var hovered: bool = false
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
@@ -138,3 +139,17 @@ func get_player_tile_position() -> Vector2i:
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("left_mouse"):
 		Events.enemy_selected.emit(self)
+
+
+func _on_area_2d_mouse_entered() -> void:
+	hovered = true
+	stats_ui.grab_focus()
+	print("%s hovered" % name)
+	pass # Replace with function body.
+
+
+func _on_area_2d_mouse_exited() -> void:
+	hovered = false
+	stats_ui.release_focus()
+	print("%s no longer hovered" % name)
+	pass # Replace with function body.
