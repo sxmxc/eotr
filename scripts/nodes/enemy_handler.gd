@@ -89,6 +89,7 @@ func _start_next_enemy_turn() -> void:
 	acting_enemies[0].phantom_camera_2d.priority = 20
 	SoundManager.play_sound(acting_enemies[0].stats.call_sound)
 	await acting_enemies[0].phantom_camera_2d.tween_completed
+	acting_enemies[0].stats.block = 0
 	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 
 func _on_player_hand_drawn() -> void:

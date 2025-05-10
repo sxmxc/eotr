@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StatusTemplate" load_steps=3 format=3 uid="uid://ctw17yn11k051"]
+
+[ext_resource type="Script" uid="uid://dyuv1r5rs2pk7" path="res://resources/data/statuses/armored.gd" id="1_cxgbk"]
+[ext_resource type="Texture2D" uid="uid://u2ikgwt82e2x" path="res://assets/icons/armor-upgrade.svg" id="1_lo0sh"]
+
+[resource]
+script = ExtResource("1_cxgbk")
+id = "armored"
+type = 0
+stack_type = 1
+can_expire = false
+duration = 0
+stacks = 10
+icon = ExtResource("1_lo0sh")
+tooltip = "Apply's %s block at beginning of turn"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"
