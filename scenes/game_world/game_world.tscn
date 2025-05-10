@@ -689,10 +689,10 @@ flip_h = true
 
 [node name="TextureRect9" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
 layout_mode = 2
-offset_left = 1551.0
-offset_top = 631.0
-offset_right = 1672.0
-offset_bottom = 728.0
+offset_left = 1569.0
+offset_top = 556.0
+offset_right = 1690.0
+offset_bottom = 653.0
 rotation = -1.5708
 texture = ExtResource("39_ht6dc")
 expand_mode = 1
@@ -711,11 +711,22 @@ flip_h = true
 
 [node name="TextureRect11" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
 layout_mode = 2
-offset_left = 1358.0
-offset_top = 993.0
-offset_right = 1549.0
-offset_bottom = 1090.0
-rotation = -2.63539
+offset_left = 1365.0
+offset_top = 1032.0
+offset_right = 1556.0
+offset_bottom = 1129.0
+rotation = -2.88281
+texture = ExtResource("39_ht6dc")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 1318.0
+offset_top = 941.0
+offset_right = 1509.0
+offset_bottom = 1038.0
+rotation = -2.88281
 texture = ExtResource("39_ht6dc")
 expand_mode = 1
 flip_h = true
@@ -733,13 +744,24 @@ horizontal_alignment = 1
 
 [node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
 layout_mode = 2
-offset_left = 912.0
-offset_top = 754.0
-offset_right = 1356.0
-offset_bottom = 851.0
+offset_left = 759.0
+offset_top = 837.0
+offset_right = 1203.0
+offset_bottom = 934.0
 theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
 theme_override_font_sizes/font_size = 75
 text = "Discard Pile"
+horizontal_alignment = 1
+
+[node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
+layout_mode = 2
+offset_left = 759.0
+offset_top = 754.0
+offset_right = 1207.0
+offset_bottom = 851.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Exhaust Pile"
 horizontal_alignment = 1
 
 [node name="DeckLabel2" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
@@ -755,10 +777,10 @@ horizontal_alignment = 1
 
 [node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
 layout_mode = 2
-offset_left = 1384.0
-offset_top = 429.0
-offset_right = 1868.0
-offset_bottom = 526.0
+offset_left = 1387.0
+offset_top = 351.0
+offset_right = 1871.0
+offset_bottom = 448.0
 theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
 theme_override_font_sizes/font_size = 75
 text = "Enemy Intent"
@@ -817,7 +839,7 @@ texture = SubResource("AtlasTexture_7mffv")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "- Mana Wells: Increases max energy while on tile."
+text = "- Mana Wells: Bursting with arcane energy, Gain +1 energy while standing on a Mana Well."
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
@@ -829,7 +851,7 @@ texture = SubResource("AtlasTexture_hdnyo")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "- Rift Gates: Teleports to another gate"
+text = "- Rift Gates: ----"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
@@ -841,7 +863,7 @@ texture = SubResource("AtlasTexture_1qvqp")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-text = "- Ancient Ruins: Provides artifacts or lore-based encounters."
+text = "- Ancient Ruins: ----"
 
 [node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes"]
 layout_mode = 1
@@ -974,22 +996,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -648.0
-offset_top = -344.0
-offset_right = 643.0
-offset_bottom = 118.0
+offset_left = -645.0
+offset_top = -317.0
+offset_right = 646.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
 text = "Combat is turn-based and driven by your deck of cards
-Each card has:
-Cost: The energy required to play it.
-Effect: What the card does—damage, block, etc.
-Type & Rarity: 
-💥 Attack Cards: Deal damage to enemies based on your stats and modifiers.
-🛡️ Block Cards: Add block to reduce incoming damage until your next turn.
-✨ Skill Cards: Manipulate the battlefield, gain buffs, or debuff enemies.
-🔁 Movement Cards: Move across the map. Positioning is crucial for survival.
+
+[b]Attack Cards[/b]: Deal damage to enemies based on your stats and modifiers.
+[b]Block Cards[/b]: Add block to reduce incoming damage until your next turn.
+[b]Skill Cards[/b]: Manipulate the battlefield, gain buffs, or debuff enemies.
+[b]Movement Cards[/b]: Move across the map. Positioning is crucial for survival.
 And more...
 
 You can only play cards while you have energy, so plan your turn wisely."
@@ -1085,12 +1104,14 @@ offset_left = 51.0
 offset_top = 320.0
 offset_right = 1026.0
 offset_bottom = 656.0
+bbcode_enabled = true
 text = "Draw Phase: At the start of your turn, draw cards from your deck.
+
 Play Phase: Use energy to play cards in any order.
-Move: Use movement cards or effects to change position.
+
 End Turn: Unused block carries over only if specified.
 
-Periodically, the void will consume the outermost tiles of the map. This will destroy anything occupying.
+[b]Periodically, the void will consume the outermost tiles of the map. This will destroy anything occupying consumed tiles.[/b]
 "
 fit_content = true
 
