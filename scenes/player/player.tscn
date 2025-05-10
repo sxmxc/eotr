@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct8j6u4avyd2y"]
+[gd_scene load_steps=14 format=3 uid="uid://ct8j6u4avyd2y"]
 
 [ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="2_dovo2"]
@@ -6,9 +6,36 @@
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="3_lvxji"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="4_75vfm"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="4_p47bc"]
+[ext_resource type="Texture2D" uid="uid://dksvpi5cien2y" path="res://assets/particles/kenney-particles/star_08.png" id="7_0owmy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
 radius = 13.0
+
+[sub_resource type="Curve" id="Curve_qek5x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5gtgg"]
+curve = SubResource("Curve_qek5x")
+
+[sub_resource type="Curve" id="Curve_h17s1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_je7p5"]
+curve = SubResource("Curve_h17s1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fm80t"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.06
+scale_max = 0.06
+scale_curve = SubResource("CurveTexture_je7p5")
+color = Color(0.524982, 3, 2.99105, 0.471)
+alpha_curve = SubResource("CurveTexture_5gtgg")
 
 [node name="Player" type="Node2D" groups=["player"]]
 script = ExtResource("1_dovo2")
@@ -43,3 +70,13 @@ type = 2
 
 [node name="MovementModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
 type = 5
+
+[node name="ManaWellEffect" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+show_behind_parent = true
+emitting = false
+amount = 250
+texture = ExtResource("7_0owmy")
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fm80t")

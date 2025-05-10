@@ -485,6 +485,7 @@ offset_bottom = 105.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_wjpkg")
+theme_override_constants/separation = 13
 
 [node name="Title" type="Label" parent="UILayer/VBoxContainer"]
 layout_mode = 2
@@ -495,6 +496,13 @@ horizontal_alignment = 1
 [node name="Spacer" type="Control" parent="UILayer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+
+[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Skip"
 
 [node name="RestButton" type="Button" parent="UILayer/VBoxContainer"]
 unique_name_in_owner = true
@@ -514,4 +522,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_7w0af")
 }
 
+[connection signal="pressed" from="UILayer/VBoxContainer/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="UILayer/VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]

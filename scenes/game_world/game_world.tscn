@@ -487,6 +487,7 @@ horizontal_alignment = 1
 [node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
 offset_left = 1336.0
 offset_top = 878.0
 offset_right = 1400.0

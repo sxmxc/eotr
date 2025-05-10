@@ -16,3 +16,7 @@ func _on_rest_button_pressed() -> void:
 #Called in animation player "fade out"
 func _on_fade_out_finished() -> void:
 	Events.rest_exited.emit()
+
+
+func _on_skip_button_pressed() -> void:
+	animation_player.play("fade_out")

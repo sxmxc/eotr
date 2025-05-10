@@ -51,6 +51,7 @@ func start_world() -> void:
 	game_world_ui.player_stats = player_stats
 	player.stats = player_stats
 	player_handler.relics = relics
+	player_handler.tilemap = tilemap
 	enemy_handler.tilemap = tilemap
 	enemy_handler.setup_enemies(battle_stats)
 	enemy_handler.reset_enemy_actions.call_deferred()

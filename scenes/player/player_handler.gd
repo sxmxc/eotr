@@ -8,6 +8,7 @@ const HEX_TRAIL = preload("res://ui/player_ui/hex_trail.tscn")
 @export var relics: RelicHandler
 @export var player: Player
 @export var player_hand: PlayerHand
+@export var tilemap: ProcGenTilemap
 
 var player_stats: PlayerStats
 var card_types_played: Array[Enums.CardType] = []
@@ -17,6 +18,7 @@ func _ready() -> void:
 	if not LimboConsole.has_command("draw_card"):
 		LimboConsole.register_command(draw_card, "draw_card", "Draw card from deck")
 	Events.card_played.connect(_on_card_played)
+	Events.player_moved.connect(_on_player_moved)
 
 
 func start_battle(stats: PlayerStats) -> void:
@@ -37,6 +39,8 @@ func start_turn() -> void:
 	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()
+	if tilemap.is_tile_mana_well(tilemap.player_position):
+		player_stats.energy += 1
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
 
 
@@ -98,6 +102,14 @@ func reshuffle_deck_from_discard() -> void:
 
 	player_stats.draw_pile.shuffle()
 
+
+func _on_player_moved() -> void:
+	if tilemap.is_tile_mana_well(tilemap.player_position):
+		player_stats.energy += 1
+		player.is_mana_buffed = true
+		return
+	if player.is_mana_buffed:
+		player.mana_well_effect.emitting = false
 
 func _on_card_played(card: Card) -> void:
 	if not card_types_played.has(card.card_type):

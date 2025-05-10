@@ -14,7 +14,9 @@ const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 @onready var phantom_camera_2d: PhantomCamera2D = %PhantomCamera2D
+@onready var mana_well_effect: GPUParticles2D = %ManaWellEffect
 
+var is_mana_buffed : bool = false : set = set_is_mana_buffed
 
 #func _ready() -> void:
 	#status_handler.status_owner = self
@@ -29,6 +31,12 @@ func set_run_stats(value: RunStats) -> void:
 	if not is_node_ready():
 		await ready
 	run_stats = value
+
+func set_is_mana_buffed(value: bool) -> void:
+	if not is_node_ready():
+		await ready
+	is_mana_buffed = value
+	mana_well_effect.emitting = is_mana_buffed
 	
 func update_player() -> void:
 	if not stats is PlayerStats:

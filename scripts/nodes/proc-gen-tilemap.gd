@@ -221,7 +221,13 @@ func is_tile_free(tile_pos: Vector2i) -> bool:
 			return false
 
 	return true
-	
+
+func is_tile_mana_well(tile: Vector2i) -> bool:
+	if !is_within_bounds(tile):
+		return false
+	var data : HexTileData = get_tile_data(tile)
+	return data.type == Enums.TileType.MANA_WELL
+
 func is_tile_corrupt(tile: Vector2i) -> bool:
 	if !is_within_bounds(tile):
 		return true
