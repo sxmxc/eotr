@@ -3,12 +3,15 @@ class_name ProcGenTilemap
 
 const HIGHLIGHT_CELL_ID = Vector2i(3,1)
 const CORRUPT_CELL_ID = Vector2i(1,0)
+const RESOURCE_CELL_ID = Vector2i(0,0)
+const TILE_RESOURCE_COUNT_LABEL = preload("res://resources/tile_resource_count_label.tres")
+const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
+
 enum MapShape {
 	RECTANGLE,
 	DIAMOND,
 	HEX_CIRCLE
 }
-
 signal tile_selected(HexTileData)
 signal player_position_updated(Vector2)
 signal map_generated
@@ -50,6 +53,8 @@ var tile_weights = {}
 var player: Player
 var obelisk: Enemy
 
+var is_resource_count_visible : bool = false : set = set_is_resource_count_visible
+
 func _ready():
 	has_generated = false
 	base_layer = $BaseLayer
@@ -61,6 +66,10 @@ func _ready():
 		LimboConsole.register_command(hide_fog, "hide_fog", "Hide fog layer")
 	if not LimboConsole.has_command("show_fog"):
 		LimboConsole.register_command(show_fog, "show_fog", "Show fog layer")
+	if not LimboConsole.has_command("show_resources"):
+		LimboConsole.register_command(show_resources, "show_resources", "Show resource counts")
+	if not LimboConsole.has_command("hide_resources"):
+		LimboConsole.register_command(hide_resources, "hide_resources", "Hide resource counts")
 
 	tile_weights = {
 		"RESOURCE": resource_weight,
@@ -123,6 +132,11 @@ func hide_fog() -> void:
 func show_fog() -> void:
 	fog_layer.show()
 
+func show_resources() -> void:
+	is_resource_count_visible = true
+	
+func hide_resources() -> void:
+	is_resource_count_visible = false
 
 func clear_fog_around(center: Vector2i, radius: int):
 	# Start with the center cell
@@ -176,6 +190,8 @@ func set_resource_count(tile_pos: Vector2i, amount: int) -> void:
 	if !tile_data:
 		return
 	tile_data.resource_count = amount
+	if is_resource_count_visible:
+		draw_resource_count()
 	Events.tile_updated.emit(tile_data)
 
 
@@ -185,6 +201,14 @@ func get_resource_count(tile_pos: Vector2i) -> int:
 		return 0
 	return tile_data.resource_count
 
+func set_is_resource_count_visible(value: bool) -> void:
+	if !is_node_ready():
+		await ready
+	is_resource_count_visible = value
+	if is_resource_count_visible:
+		draw_resource_count()
+	else:
+		erase_resource_count()
 
 func move_player(tile_pos) -> void:
 	if is_within_bounds(tile_pos):
@@ -396,7 +420,23 @@ func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
 			results.append(cube_to_offset(cube))
 			
 	return results
-	
+
+func draw_resource_count() -> void:
+	erase_resource_count()
+	for cell in base_layer.get_used_cells_by_id(0,RESOURCE_CELL_ID):
+		var label = Label.new()
+		label.label_settings = TILE_RESOURCE_COUNT_LABEL.duplicate()
+		var resource_count = get_resource_count(cell)
+		label.text = str(resource_count)
+		base_layer.add_child(label)
+		var pos_offset = Vector2(base_layer.map_to_local(cell).x - (label.size.x/2), base_layer.map_to_local(cell).y - (label.size.y/2))
+		label.position = pos_offset
+
+func erase_resource_count() -> void:
+	for child in base_layer.get_children():
+		if child is Label:
+			child.queue_free()
+
 func highlight_cells(cells: Array[Vector2i]) -> void:
 	for cell in cells:
 		highlight_cell(cell)
@@ -407,5 +447,32 @@ func highlight_cell(cell: Vector2i) -> void:
 		
 func clear_highlight() -> void:
 	highlight_layer.clear()
+	
+func shrink_map(amount) -> void:
+	for x in range(amount):
+		var to_destroy: Array[Vector2i] = get_battlemap_edge_clockwise()
+		for cell in to_destroy:
+			# Damage enemies on this tile
+			for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
+				if enemy.current_tile_position == cell:
+					var death_damage = enemy.stats.health
+					enemy.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
+
+			# Damage player if on this tile
+			if player_position == cell:
+				var death_damage = player.stats.health
+				player.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
+				return
+				
+			var tile_sprite = TILE_SPRITE.instantiate()
+			tile_sprite.position = base_layer.map_to_local(cell)
+			base_layer.add_child(tile_sprite)
+			# Erase tile after processing entities
+			base_layer.erase_cell(cell)
+			fog_layer.erase_cell(cell)
+			tile_map_data.erase(cell)
+			await get_tree().create_timer(0.1).timeout
+	if is_resource_count_visible:
+		draw_resource_count()
 	
 	

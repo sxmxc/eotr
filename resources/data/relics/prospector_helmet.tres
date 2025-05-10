@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://d0vl20m61tb65"]
+
+[ext_resource type="Texture2D" uid="uid://dsi11acepvvnm" path="res://assets/icons/mining-helmet.svg" id="1_d5esm"]
+[ext_resource type="Script" uid="uid://boauvuvm3l1kd" path="res://resources/data/relics/prospector_helmet.gd" id="2_qdr0v"]
+
+[resource]
+script = ExtResource("2_qdr0v")
+relic_name = "Prospector Helmet"
+id = "prospector_helmet"
+type = 1
+character_type = 0
+starter_relic = false
+icon = ExtResource("1_d5esm")
+description = "Visible resource tiles display their available resources."
+metadata/_custom_type_script = "uid://bub7h53ncapx2"

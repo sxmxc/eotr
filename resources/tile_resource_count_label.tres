@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cu52r3m2g4reb"]
+
+[ext_resource type="FontFile" uid="uid://drcf0itkwcbj7" path="res://assets/fonts/m3x6.ttf" id="1_cja22"]
+
+[resource]
+font = ExtResource("1_cja22")
+font_color = Color(0.823529, 0.788235, 0.647059, 1)
+outline_size = 5
+outline_color = Color(0.294118, 0.239216, 0.266667, 1)
