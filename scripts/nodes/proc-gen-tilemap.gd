@@ -43,9 +43,9 @@ var tile_map_data: Dictionary[Vector2i, HexTileData] = {}  # Stores generated ti
 var tile_dict: Dictionary[Enums.TileType, Vector2i] = {
 	Enums.TileType.RESOURCE: Vector2i(0, 0),
 	Enums.TileType.CORRUPTED: Vector2i(1, 0),
-	Enums.TileType.ANCIENT_RUIN: Vector2i(2, 0),
+	Enums.TileType.ANCIENT_RUIN: Vector2i(0, 1),
 	Enums.TileType.MANA_WELL: Vector2i(3, 0),
-	Enums.TileType.RIFT_GATE: Vector2i(0, 1)
+	Enums.TileType.RIFT_GATE: Vector2i(2, 0)
 }
 var has_generated := false
 var tile_weights = {}
@@ -164,10 +164,14 @@ func clear_fog_around(center: Vector2i, radius: int):
 			# Create a tween for fading out the fog tile
 			var fog_tile_data = fog_layer.get_cell_tile_data(cell)
 			if fog_tile_data:
+				var tile_sprite = TILE_SPRITE.instantiate()
+				tile_sprite.position = base_layer.map_to_local(cell)
+				fog_layer.add_child(tile_sprite)
+				tile_sprite.grow_out()
 				fog_layer.erase_cell(cell)
-				fog_state[cell] = true
+				fog_state[cell] = false
 
-			await get_tree().create_timer(.1).timeout
+			await get_tree().create_timer(.03).timeout
 
 
 
@@ -448,6 +452,9 @@ func highlight_cell(cell: Vector2i) -> void:
 func clear_highlight() -> void:
 	highlight_layer.clear()
 	
+func clear_highlight_cell(cell: Vector2i) -> void:
+	highlight_layer.erase_cell(cell)
+	
 func shrink_map(amount) -> void:
 	for x in range(amount):
 		var to_destroy: Array[Vector2i] = get_battlemap_edge_clockwise()
@@ -468,6 +475,7 @@ func shrink_map(amount) -> void:
 			tile_sprite.position = base_layer.map_to_local(cell)
 			base_layer.add_child(tile_sprite)
 			# Erase tile after processing entities
+			tile_sprite.swirl_out()
 			base_layer.erase_cell(cell)
 			fog_layer.erase_cell(cell)
 			tile_map_data.erase(cell)

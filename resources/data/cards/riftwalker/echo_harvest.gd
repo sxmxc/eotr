@@ -9,6 +9,8 @@ func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	var amount = tilemap.get_resource_count(tile_target)
 	tilemap.set_resource_count(tile_target, 0)
 	tile_effect.amount = amount
+	tile_effect.tile_target_position = tilemap.base_layer.map_to_local(tile_target)
 	tile_effect.sound_fx = sound_fx
+	tile_effect.visual_fx = visual_fx
 	var player_array = targets[0].get_tree().get_nodes_in_group("player")
 	tile_effect.execute(player_array)

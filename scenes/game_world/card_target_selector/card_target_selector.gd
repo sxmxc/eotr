@@ -5,7 +5,6 @@ const ARC_POINTS := 8
 @onready var area_2d: Area2D = $Area2D
 @onready var card_arc: Line2D = $CanvasLayer/CardArc
 @onready var hex_indicator = $HexIndicator
-@onready var circle_indicator = $CircleIndicator
 
 var current_card: CardUI
 var targeting := false
@@ -15,7 +14,6 @@ var current_tile_target: TilemapTarget = null
 
 func _ready() -> void:
 	hex_indicator.hide()
-	circle_indicator.hide()
 	Events.card_aim_started.connect(_on_card_aim_started)
 	Events.card_aim_ended.connect(_on_card_aim_ended)
 
@@ -138,9 +136,6 @@ func _on_card_aim_ended(_card: CardUI) -> void:
 	if current_tile_target:
 		current_tile_target.queue_free()
 		current_tile_target = null
-	if circle_indicator.visible:
-		circle_indicator.hide()
-		circle_indicator.position = Vector2.ZERO
 	if hex_indicator.visible:
 		hex_indicator.hide()
 		hex_indicator.position = Vector2.ZERO
@@ -156,15 +151,11 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			if get_tree().get_nodes_in_group("player").has(area.get_parent()):
 				if not current_card.targets.has(area.get_parent()):
 					current_card.targets.append(area.get_parent())
-					circle_indicator.global_position = area.global_position
-					circle_indicator.show()
 
 		Enums.TargetType.SINGLE_ENEMY:
 			if get_tree().get_nodes_in_group("enemy").has(area.get_parent()):
 				if not current_card.targets.has(area.get_parent()):
 					current_card.targets.append(area.get_parent())
-					circle_indicator.global_position = area.global_position
-					circle_indicator.show()
 					current_card.request_description()
 					Events.enemy_selected.emit(area.get_parent())
 
@@ -174,7 +165,5 @@ func _on_area_2d_area_exited(area: Area2D) -> void:
 		return
 	current_card.targets.erase(area.get_parent())
 	print("%s removed from targets. New targets: %s" % [area, current_card.targets])
-	circle_indicator.hide()
-	circle_indicator.position = Vector2.ZERO
 	current_card.request_description()
 	Events.enemy_info_hide_requested.emit()

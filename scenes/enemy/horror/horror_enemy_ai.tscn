@@ -32,7 +32,7 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 script = ExtResource("4_gf54p")
 base_text = ""
 icon = ExtResource("7_gf54p")
-tooltip_text = ""
+tooltip_text = "Plans to block"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="HorrorEnemyAI" instance=ExtResource("1_kpu2c")]
