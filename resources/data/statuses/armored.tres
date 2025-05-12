@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StatusTemplate" load_steps=3 format=3 uid="uid://ctw17yn11k051"]
+[gd_resource type="Resource" script_class="ArmoredStatus" load_steps=3 format=3 uid="uid://ctw17yn11k051"]
 
 [ext_resource type="Script" uid="uid://dyuv1r5rs2pk7" path="res://resources/data/statuses/armored.gd" id="1_cxgbk"]
 [ext_resource type="Texture2D" uid="uid://u2ikgwt82e2x" path="res://assets/icons/armor-upgrade.svg" id="1_lo0sh"]

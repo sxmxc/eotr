@@ -1,12 +1,74 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdknlta1672ly"]
+[gd_scene load_steps=13 format=3 uid="uid://cdknlta1672ly"]
 
 [ext_resource type="Script" uid="uid://un3nkq58ohs3" path="res://scenes/enemy/enemy.gd" id="1_a3pup"]
 [ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_peoo5"]
-[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="3_peoo5"]
+[ext_resource type="Texture2D" uid="uid://cqa07eh0qjja5" path="res://assets/particles/kenney-particles/magic_03.png" id="3_nbhyu"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_hvxgb"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_peoo5"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_dtxhd"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_so3kp"]
+
+[sub_resource type="Animation" id="Animation_kghx0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_tmnun"]
+resource_name = "rotate"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(3.5, 3.5), Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_onf1d"]
+_data = {
+&"RESET": SubResource("Animation_kghx0"),
+&"rotate": SubResource("Animation_tmnun")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
 radius = 13.0
@@ -25,8 +87,19 @@ y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_peoo5")
 
-[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("3_peoo5")]
+[node name="CircleIndicator" type="Sprite2D" parent="Sprite2D"]
 unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.524982, 3, 2.99105, 0.471)
+z_index = 5
+scale = Vector2(3, 3)
+texture = ExtResource("3_nbhyu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator"]
+libraries = {
+&"": SubResource("AnimationLibrary_onf1d")
+}
+autoplay = "rotate"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
