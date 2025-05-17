@@ -70,6 +70,7 @@ func _ready():
 	if not LimboConsole.has_command("hide_resources"):
 		LimboConsole.register_command(hide_resources, "hide_resources", "Hide resource counts")
 
+
 	tile_weights = {
 		"RESOURCE": resource_weight,
 		"CORRUPTED": corrupted_weight,
