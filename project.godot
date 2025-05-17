@@ -41,7 +41,6 @@ LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 [debug]
 
-settings/stdout/verbose_stdout=true
 gdscript/warnings/integer_division=0
 
 [display]
