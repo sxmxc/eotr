@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3nci3u4bowom"]
+[gd_scene load_steps=20 format=3 uid="uid://b3nci3u4bowom"]
 
 [ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="1_uhmhd"]
 [ext_resource type="Script" uid="uid://csjjqxy63lvn6" path="res://scenes/enemy/void_spectre/void_spectre_buff_action.gd" id="2_5sqje"]
@@ -8,9 +8,19 @@
 [ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="4_m7578"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="5_50iqw"]
 [ext_resource type="Script" uid="uid://icn6p2w5tblm" path="res://scenes/enemy/void_spectre/void_spectre_move_action.gd" id="5_gio5u"]
+[ext_resource type="Script" uid="uid://bnel5vjjvy1tg" path="res://scenes/enemy/void_spectre/void_spectre_defend_action.gd" id="5_jy21w"]
+[ext_resource type="Texture2D" uid="uid://cpm3pemtlri1d" path="res://assets/icons/upgrade.svg" id="6_553au"]
 [ext_resource type="AudioStream" uid="uid://cp6xyci4btc" path="res://assets/audio/RPG Sound Pack/inventory/metal-small3.wav" id="6_idcuj"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="6_tiaja"]
 [ext_resource type="Texture2D" uid="uid://dilmo85pefspk" path="res://assets/icons/intent-shield.svg" id="8_tiaja"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="14_l1740"]
+
+[sub_resource type="Resource" id="Resource_l1740"]
+script = ExtResource("6_tiaja")
+base_text = ""
+icon = ExtResource("6_553au")
+tooltip_text = "Plans to defend and heal the Obelisk"
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_553au"]
 script = ExtResource("6_tiaja")
@@ -23,7 +33,7 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 script = ExtResource("6_tiaja")
 base_text = "%s"
 icon = ExtResource("4_m7578")
-tooltip_text = ""
+tooltip_text = "Plans to buff itself"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_m7578"]
@@ -37,29 +47,37 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 script = ExtResource("6_tiaja")
 base_text = ""
 icon = ExtResource("8_tiaja")
-tooltip_text = ""
+tooltip_text = "Plans to block"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="VoidSpectreAI" type="Node"]
 script = ExtResource("1_uhmhd")
 
-[node name="MoveAction" type="Node" parent="."]
+[node name="VoidSpectreDefendAction" type="Node" parent="."]
+script = ExtResource("5_jy21w")
+intent = SubResource("Resource_l1740")
+sound = ExtResource("6_idcuj")
+visual_fx = ExtResource("14_l1740")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="VoidSpectreMoveAction" type="Node" parent="."]
 script = ExtResource("5_gio5u")
 intent = SubResource("Resource_553au")
 
-[node name="BuffAction" type="Node" parent="."]
+[node name="VoidSpectreBuffAction" type="Node" parent="."]
 script = ExtResource("2_5sqje")
 intent = SubResource("Resource_jy21w")
 
-[node name="AttackAction" type="Node" parent="."]
+[node name="VoidSpectreAttackAction" type="Node" parent="."]
 script = ExtResource("3_37ror")
 intent = SubResource("Resource_m7578")
 type = 1
 chance_weight = 6.5
 
-[node name="BlockAction" type="Node" parent="."]
+[node name="VoidSpectreBlockAction" type="Node" parent="."]
 script = ExtResource("4_dqrld")
 intent = SubResource("Resource_c4cd3")
 type = 1
 chance_weight = 3.5
 sound = ExtResource("6_idcuj")
+visual_fx = ExtResource("14_l1740")

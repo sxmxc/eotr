@@ -1,6 +1,7 @@
 class_name Enemy
 extends Node2D
 
+signal damage_taken(amount: int)
 
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
 const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
@@ -12,8 +13,8 @@ const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
 
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
-@onready var token_shine_effect: VisualFX = %TokenShineEffect
 @onready var phantom_camera_2d: PhantomCamera2D = %PhantomCamera2D
+@onready var circle_indicator: Sprite2D = %CircleIndicator
 
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
@@ -42,6 +43,8 @@ func set_stats(value: EnemyStats) -> void:
 	if not stats.stats_changed.is_connected(update_stats):
 		stats.stats_changed.connect(update_stats)
 		stats.stats_changed.connect(update_action)
+	if not stats.damage_taken.is_connected(func(arg): damage_taken.emit(arg)):
+		stats.damage_taken.connect(func(arg): damage_taken.emit(arg))
 	update_enemy()
 	
 
@@ -86,7 +89,7 @@ func update_intent() -> void:
 
 func do_turn() -> void:
 	print("%s doing turn" % name)
-	stats.block = 0
+	#stats.block = 0
 	
 	if not current_action:
 		return
@@ -106,11 +109,11 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 	add_child(text_fx)
 	text_fx.execute()
 	if direct:
-		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(Utils.shake.bind(self, 16, 0.15))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
 		tween.tween_interval(0.17)
 	else:
-		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(Utils.shake.bind(self, 16, 0.15))
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
 		tween.tween_interval(0.17)
 	
@@ -124,8 +127,9 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 
 func do_death() -> void:
 	Talo.stats.track("enemies_killed")
-	await get_tree().create_timer(.5).timeout
-	queue_free()
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.TRANSPARENT,.5)
+	tween.tween_callback(queue_free)
 
 func get_player_tile_position() -> Vector2i:
 	var player = get_tree().get_first_node_in_group("player")
@@ -143,6 +147,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 
 func _on_area_2d_mouse_entered() -> void:
 	hovered = true
+	circle_indicator.show()
 	stats_ui.grab_focus()
 	print("%s hovered" % name)
 	pass # Replace with function body.
@@ -150,6 +155,7 @@ func _on_area_2d_mouse_entered() -> void:
 
 func _on_area_2d_mouse_exited() -> void:
 	hovered = false
+	circle_indicator.hide()
 	stats_ui.release_focus()
 	print("%s no longer hovered" % name)
 	pass # Replace with function body.

@@ -42,6 +42,7 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.seed = Time.get_datetime_string_from_system().to_int()
 	rng.randomize()
+	print("SoundManager ready")
 
 
 func set_master_volume(volume_between_0_and_1) -> void:
