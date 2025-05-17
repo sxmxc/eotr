@@ -13,7 +13,7 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	targets[0].get_tree().get_first_node_in_group("fx_layer").add_child(fireball)
 	fireball.execute(targets[0])
 	await fireball.complete
-	Shaker.shake(cam, 16, .15)
+	Utils.shake(cam, 16, .15)
 	damage_effect.execute(targets)
 
 

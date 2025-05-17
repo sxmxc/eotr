@@ -109,11 +109,11 @@ func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool =
 	add_child(text_fx)
 	text_fx.execute()
 	if direct:
-		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(Utils.shake.bind(self, 16, 0.15))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
 		tween.tween_interval(0.17)
 	else:
-		tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+		tween.tween_callback(Utils.shake.bind(self, 16, 0.15))
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
 		tween.tween_interval(0.17)
 	

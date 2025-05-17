@@ -55,3 +55,6 @@ signal battle_reward_exited
 # Treasure Room & Relic-related events
 signal treasure_room_exited(relic: Relic)
 signal relic_tooltip_requested(relic: Relic)
+
+func _ready() -> void:
+	print("Eventbus ready")

@@ -12,7 +12,7 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	targets[0].get_tree().get_first_node_in_group("fx_layer").add_child(arc)
 	arc.complete.connect(func(): 
 		damage_effect.execute(targets)
-		Shaker.shake(cam, 16, .15)
+		Utils.shake(cam, 16, .15)
 		)
 	arc.execute(targets[0])
 

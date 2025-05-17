@@ -11,7 +11,7 @@ func strike():
 	var end = get_tree().get_first_node_in_group("projectile_start").get_global_mouse_position()
 	print("bolt striking: start %s end %s" % [start, end])
 	var cam = get_tree().get_first_node_in_group("map_camera")
-	Shaker.shake(cam,20)
+	Utils.shake(cam,20)
 	points = _get_points(start,end)
 	line_drawn.emit()
 	get_tree().create_timer(.3).timeout.connect(_on_strike_end)

@@ -35,7 +35,7 @@ const NAME_TAGS : String = "[u][b]"
 
 ## The reference to your global signal bus. You have to replace null
 ## with your own global bus.
-static var global_bus : Node = Events # <--- REPLACE THIS !!! (for example EventBus, MessageBus, Signalton)
+var global_bus : Node = Events # <--- REPLACE THIS !!! (for example EventBus, MessageBus, Signalton)
 
 ## A property to quickly disable printing from editor, if it makes
 ## the output too cluttered

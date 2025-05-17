@@ -104,6 +104,8 @@ func reshuffle_deck_from_discard() -> void:
 
 
 func _on_player_moved() -> void:
+	if !is_node_ready():
+		await ready
 	if tilemap.is_tile_mana_well(tilemap.player_position):
 		player_stats.energy += 1
 		player.is_mana_buffed = true

@@ -5,6 +5,7 @@ const SETTINGS_PATH = "user://user_settings.ini"
 @export var show_tutorial := true
 
 func _ready() -> void:
+	print("Loading settings")
 	load_settings()
 
 func load_settings() -> void:
@@ -20,6 +21,7 @@ func load_settings() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else: 
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	print("Settings loaded")
 
 func get_current_settings() -> SettingsData:
 	var data = SettingsData.new()

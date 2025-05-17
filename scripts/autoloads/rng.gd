@@ -7,9 +7,11 @@ func _ready() -> void:
 	initialize()
 	#LimboConsole.register_command(roll, "roll", "Roll a d20")
 	#LimboConsole.add_argument_autocomplete_source("roll", 1, func(): return [20, 1])
+	print("RNG ready")
 
 
 func initialize() -> void:
+	print("RNG initializing")
 	instance = RandomNumberGenerator.new()
 	instance.randomize()
 
