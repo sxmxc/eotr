@@ -30,7 +30,7 @@
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/your-username/echoes-of-the-rift.git
+   git clone https://github.com/sxmxc/eotr.git
    ```
 2. Open the project in [Godot 4](https://godotengine.org/).
 3. Press **Play** to launch the game.
@@ -62,7 +62,7 @@
 ## 💬 Credits
 
 Created by Voidmoose
-Inspired by *Slay the Spire*, *Into the Breach*, and *Griftlands*, *Settlers of Catan*
+Inspired by *Slay the Spire*, *Into the Breach*, *Griftlands*, and *Settlers of Catan*
 
 ## 📄 License
 
