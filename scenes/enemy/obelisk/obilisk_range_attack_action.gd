@@ -21,7 +21,7 @@ func perform_action() -> void:
 	add_child(projectile)
 	projectile.execute(target, enemy)
 	await projectile.complete
-	Shaker.shake(cam, 16, .15)
+	Utils.shake(cam, 16, .15)
 	damage_effect.execute(target_array)
 	
 	get_tree().create_timer(.5).timeout.connect(

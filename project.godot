@@ -29,19 +29,19 @@ config/build="cb38c92"
 [autoload]
 
 GameSettings="*res://scripts/autoloads/game_settings.gd"
-Enums="*res://scripts/autoloads/enums.gd"
 Events="*res://scripts/autoloads/events.gd"
-Shaker="*res://scripts/autoloads/shaker.gd"
-SoundManager="*res://addons/sound_manager/sound_manager.gd"
+Enums="*res://scripts/autoloads/enums.gd"
+Utils="*res://scripts/autoloads/utils.gd"
 RNG="*res://scripts/autoloads/rng.gd"
-PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Talo="*res://addons/talo/talo_manager.gd"
+SoundManager="*res://addons/sound_manager/sound_manager.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
 LimboConsole="*res://addons/limbo_console/limbo_console.gd"
-Utils="*res://scripts/autoloads/utils.gd"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/integer_division=0
 
 [display]

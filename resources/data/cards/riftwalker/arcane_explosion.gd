@@ -11,7 +11,7 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
 	damage_effect.sound_fx = sound_fx
 	damage_effect.execute(targets)
-	Shaker.shake(cam, 16, .15)
+	Utils.shake(cam, 16, .15)
 	for enemy: Enemy in targets:
 		var explosion : VisualFX = visual_fx.instantiate() as VisualFX
 		enemy.add_child(explosion)
