@@ -136,11 +136,11 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdnyo"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qvqp"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(0, 32, 32, 32)
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_6c6v5")
@@ -628,10 +628,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_udifo")
-current_tab = 0
+current_tab = 1
 tabs_visible = false
 
 [node name="UI" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -786,7 +787,6 @@ text = "Enemy Intent"
 horizontal_alignment = 1
 
 [node name="TileTypes" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -850,7 +850,7 @@ texture = SubResource("AtlasTexture_hdnyo")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "- Rift Gates: ----"
+text = "- Rift Gates: Fractures of reality. If there are any other gates on map, teleport to a random one"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
