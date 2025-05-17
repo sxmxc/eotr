@@ -2,8 +2,6 @@ extends Node2D
 class_name ProcGenTilemap
 
 const HIGHLIGHT_CELL_ID = Vector2i(3,1)
-const CORRUPT_CELL_ID = Vector2i(1,0)
-const RESOURCE_CELL_ID = Vector2i(0,0)
 const TILE_RESOURCE_COUNT_LABEL = preload("res://resources/tile_resource_count_label.tres")
 const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
 
@@ -12,8 +10,9 @@ enum MapShape {
 	DIAMOND,
 	HEX_CIRCLE
 }
-signal tile_selected(HexTileData)
+
 signal player_position_updated(Vector2)
+signal player_teleported(Vector2)
 signal map_generated
 
 @export_group("Map Settings")
@@ -218,11 +217,17 @@ func move_player(tile_pos) -> void:
 	if is_within_bounds(tile_pos):
 		clear_fog_around(tile_pos, fog_clear_radius)
 		player_position = tile_pos
-		var tile_data = tile_map_data.get(tile_pos, null)
-		tile_selected.emit(tile_data)
+		var tile_data : HexTileData = tile_map_data.get(tile_pos, null)
 		Events.tile_selected.emit(tile_data)
 		player_position_updated.emit(base_layer.map_to_local(player_position))
 
+func teleport_player(tile_pos) -> void:
+	if is_within_bounds(tile_pos):
+		clear_fog_around(tile_pos, fog_clear_radius)
+		player_position = tile_pos
+		var tile_data : HexTileData = tile_map_data.get(tile_pos, null)
+		Events.tile_selected.emit(tile_data)
+		player_teleported.emit(base_layer.map_to_local(player_position))
 
 func place_obelisk(obelisk_to_place: Obelisk) -> void:
 	obelisk = obelisk_to_place
@@ -412,6 +417,9 @@ func cube_to_offset(cube: Vector3i) -> Vector2i:
 func hex_distance(a: Vector3i, b: Vector3i) -> int:
 	return max(abs(a.x - b.x), abs(a.y - b.y), abs(a.z - b.z))
 
+func get_tiles_of_type(type: Enums.TileType) -> Array[Vector2i]:
+	return base_layer.get_used_cells_by_id(0, tile_dict[type])
+
 # Get all tiles within a certain hex distance
 func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
 	var results: Array[Vector2i] = []
@@ -427,7 +435,7 @@ func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
 
 func draw_resource_count() -> void:
 	erase_resource_count()
-	for cell in base_layer.get_used_cells_by_id(0,RESOURCE_CELL_ID):
+	for cell in base_layer.get_used_cells_by_id(0,tile_dict[Enums.TileType.RESOURCE]):
 		var label = Label.new()
 		label.label_settings = TILE_RESOURCE_COUNT_LABEL.duplicate()
 		var resource_count = get_resource_count(cell)

@@ -32,13 +32,15 @@ signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
 signal obelisk_destroyed
 signal battle_won
 signal round_updated(round: int)
+signal tile_selected(tile_data: HexTileData)
+signal tile_updated(tile_data: HexTileData)
+signal tile_entered(tile_data: HexTileData)
+signal tile_exited(tile_data: HexTileData)
+signal world_message_requested(message: WorldMessageData)
+signal world_message_hide_requested
 
 # Map-related events
 signal map_exited(map_node: MapNode)
-signal tile_selected(tile_data: HexTileData)
-signal tile_updated(tile_data: HexTileData)
-signal world_message_requested(message: WorldMessageData)
-signal world_message_hide_requested
 
 # Shop-related events
 signal shop_entered(shop: Shop)

@@ -9,6 +9,10 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(0, -16, -16, -8, -16, 8
 agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_81apj"]
+vertices = PackedVector2Array(16, -8, 16, 8, 0, 16, -16, 8, -16, -8, 0, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -16, -16, -8, -16, 8, 0, 16, 16, 8, 16, -8)])
+agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_meevg"]
 
