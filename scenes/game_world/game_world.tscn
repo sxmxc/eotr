@@ -628,11 +628,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_udifo")
-current_tab = 1
+current_tab = 0
 tabs_visible = false
 
 [node name="UI" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -787,6 +786,7 @@ text = "Enemy Intent"
 horizontal_alignment = 1
 
 [node name="TileTypes" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
