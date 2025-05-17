@@ -88,4 +88,14 @@ func _on_position_updated(pos: Vector2) -> void:
 			SoundManager.play_sound_random_pitch(movement_sound)
 			Events.player_moved.emit()
 			)
+
+func _on_player_teleported(pos: Vector2) -> void:
+	var tween = create_tween()
+	tween.tween_property(self, "self_modulate", Color.TRANSPARENT, .1)
+	tween.tween_property(self, "position", pos, .2)
+	tween.tween_property(self, "self_modulate", Color.WHITE ,.1)
+	tween.tween_callback(
+		func():
+			SoundManager.play_sound_random_pitch(movement_sound)
+			)
 	

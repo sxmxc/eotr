@@ -106,13 +106,22 @@ func reshuffle_deck_from_discard() -> void:
 func _on_player_moved() -> void:
 	if !is_node_ready():
 		await ready
-	if tilemap.is_tile_mana_well(tilemap.player_position):
-		player_stats.energy += 1
-		player.is_mana_buffed = true
-		return
-	if player.is_mana_buffed:
-		player.mana_well_effect.emitting = false
-
+	var tile_type : Enums.TileType = tilemap.get_tile_data(tilemap.player_position).type
+	player.is_mana_buffed = false
+	match tile_type:
+		Enums.TileType.MANA_WELL:
+			player_stats.energy += 1
+			player.is_mana_buffed = true
+		Enums.TileType.RIFT_GATE:
+			var rift_gates : Array[Vector2i] = tilemap.get_tiles_of_type(Enums.TileType.RIFT_GATE)
+			if rift_gates.size() > 1:
+				var destination_gate = RNG.array_pick_random(rift_gates)
+				if destination_gate == tilemap.player_position:
+					while destination_gate == tilemap.player_position:
+						destination_gate = RNG.array_pick_random(rift_gates)
+				tilemap.teleport_player(destination_gate)
+			
+			
 func _on_card_played(card: Card) -> void:
 	if not card_types_played.has(card.card_type):
 		card_types_played.append(card.card_type)

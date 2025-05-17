@@ -27,8 +27,8 @@ func _ready():
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
 	Events.enemy_turn_ended.connect(_on_enemy_turn_ended)
 
-	tilemap.tile_selected.connect(debug_ui._on_tile_selected)
 	tilemap.player_position_updated.connect(player._on_position_updated)
+	tilemap.player_teleported.connect(player._on_player_teleported)
 
 	Events.player_turn_ended.connect(player_handler.end_turn)
 	Events.player_hand_discarded.connect(enemy_handler.start_turn)
@@ -54,9 +54,6 @@ func start_world() -> void:
 	enemy_handler.setup_enemies(battle_stats)
 	enemy_handler.reset_enemy_actions.call_deferred()
 	current_round = 1
-	#var map_edges : Array[Vector2i] = tilemap.get_battlemap_edge_tiles(tilemap.base_layer)
-	#print(map_edges)
-	#debug_ui.draw_tile_coords()
 
 	var player_starting_position = tilemap.get_random_valid_tile()
 	tilemap.fog_clear_radius = player.stats.view_range
