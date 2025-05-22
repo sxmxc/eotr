@@ -12,6 +12,7 @@ class_name CardVisuals
 @onready var card_boosted_effect: ColorRect = %CardBoostedEffect
 @onready var card_attention_fx: GPUParticles2D = %CardAttentionFX
 @onready var card_trail_fx: GPUParticles2D = %CardTrailFX
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var player_modifiers: ModifierHandler
 

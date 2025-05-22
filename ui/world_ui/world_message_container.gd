@@ -3,11 +3,6 @@ extends VBoxContainer
 
 const WORLD_MESSAGE = preload("res://ui/world_ui/world_message.tscn")
 
-@export var fade_seconds := 0.2
-
-var tween: Tween
-
-
 func _ready() -> void:
 	Events.world_message_requested.connect(show_message)
 	_clear_children()
