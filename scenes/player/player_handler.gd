@@ -120,7 +120,83 @@ func _on_player_moved() -> void:
 					while destination_gate == tilemap.player_position:
 						destination_gate = RNG.array_pick_random(rift_gates)
 				tilemap.teleport_player(destination_gate)
-			
+		Enums.TileType.ANCIENT_RUIN:
+			_trigger_ancient_ruin_effect()
+
+func _trigger_ancient_ruin_effect() -> void:
+	var effects = [
+		{
+			"func": func(): player_stats.block += 10,
+			"weight": 4,
+			"desc": "You feel protected by a forgotten power. (+10 Block)"
+		},
+		{
+			"func": func(): player_stats.take_damage(5),
+			"weight": 2,
+			"desc": "A cursed wind cuts through you. (5 Damage)"
+		},
+		{
+			"func": func(): player_stats.energy += 1,
+			"weight": 3,
+			"desc": "Crackling energy surges around you. (+1 Energy)"
+		},
+		{
+			"func": func(): player_stats.add_resource(1),
+			"weight": 2,
+			"desc": "You find a hastley left items thrown about. (+1 Resource)"
+		},
+		{
+			"func": func(): draw_cards(1),
+			"weight": 3,
+			"desc": "You uncover a hidden note. (Draw 1 Card)"
+		},
+		#{
+			#"func": func(): player.status_handler.apply_status(, 2),
+			#"weight": 1,
+			#"desc": "You feel stronger. (+2 Strength)"
+		#},
+		{
+			"func": func(): pass,
+			"weight": 1,
+			"desc": "You feel watched... but nothing happens."
+		}
+	]
+
+	var total_weight = 0
+	for effect in effects:
+		total_weight += effect.weight
+
+	var roll = RNG.instance.randi() % total_weight
+	var current = 0
+	var chosen_effect
+
+	for effect in effects:
+		current += effect.weight
+		if roll < current:
+			chosen_effect = effect
+			break
+
+	if chosen_effect:
+		chosen_effect.func.call()
+		_show_ruin_effect_feedback(chosen_effect.desc)
+		
+func _show_ruin_effect_feedback(text: String) -> void:
+	# Example: play an SFX
+	#if AudioServer.has_bus("SFX"):
+		#var ruin_sfx = preload("res://audio/ruin_trigger.wav")
+		#var player_audio = AudioStreamPlayer.new()
+		#player_audio.stream = ruin_sfx
+		#add_child(player_audio)
+		#player_audio.play()
+
+	# Example: animate a glow (needs a particle, shader or effect scene)
+	#var fx := preload("res://fx/ancient_ruin_flash.tscn").instantiate()
+	#fx.global_position = player.global_position
+	#get_tree().current_scene.add_child(fx)
+
+	# Log flavor text to UI
+	var message = WorldMessageData.new(text)
+	Events.world_message_requested.emit(message)
 			
 func _on_card_played(card: Card) -> void:
 	if not card_types_played.has(card.card_type):

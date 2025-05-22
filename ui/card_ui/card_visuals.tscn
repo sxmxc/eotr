@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bfupsllnox0ix"]
+[gd_scene load_steps=24 format=3 uid="uid://bfupsllnox0ix"]
 
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
@@ -75,10 +75,98 @@ scale_curve = SubResource("CurveTexture_m4ny6")
 color = Color(0.524982, 3, 2.99105, 0.471)
 alpha_curve = SubResource("CurveTexture_xe37s")
 
+[sub_resource type="Animation" id="Animation_ky3w4"]
+resource_name = "swirl_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.2, 0.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lnh5i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_si0b1"]
+_data = {
+&"RESET": SubResource("Animation_lnh5i"),
+&"swirl_out": SubResource("Animation_ky3w4")
+}
+
 [node name="Visuals" type="Control"]
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 240.0
+pivot_offset = Vector2(90, 120)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_mqmas")
@@ -236,3 +324,8 @@ speed_scale = 2.0
 visibility_rect = Rect2(-799.526, -631.978, 1401.51, 1263.98)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_nb1yb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_si0b1")
+}

@@ -16,7 +16,7 @@ instance_dock/preview_resolution=Vector2i(64, 64)
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.4.3"
+config/version="0.0.4.4"
 run/main_scene="uid://d3ll2gasnw28g"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/use_filter=false

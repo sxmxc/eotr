@@ -1,58 +1,68 @@
-[gd_scene load_steps=64 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=76 format=3 uid="uid://nytavinqfhcf"]
 
-[ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
-[ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
-[ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="1_tqoos"]
-[ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="3_0jtfi"]
-[ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="3_bumdp"]
-[ext_resource type="AudioStream" uid="uid://bpxn2u0dlesmt" path="res://assets/audio/music/castle_loop.wav" id="3_qc6v1"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_bumdp"]
-[ext_resource type="AudioStream" uid="uid://dxu3xx8l822w" path="res://assets/audio/music/davina_horror.wav" id="4_lorak"]
-[ext_resource type="Script" uid="uid://c5kyjbsoeaeq1" path="res://ui/debug_ui.gd" id="5_cmh4g"]
-[ext_resource type="PackedScene" uid="uid://ct8j6u4avyd2y" path="res://scenes/player/player.tscn" id="5_dlaip"]
-[ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="6_ph1f2"]
-[ext_resource type="Resource" uid="uid://cjimv3kddhqjg" path="res://resources/data/stats/player/riftwalker_starting_stats.tres" id="6_u4x5r"]
-[ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="7_pdbwf"]
-[ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="12_lsh46"]
-[ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="12_odt01"]
-[ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="13_wek56"]
-[ext_resource type="Script" uid="uid://bj3gfx8l4ra88" path="res://ui/world_ui/game_world_ui.gd" id="13_y5rsn"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="16_qc6v1"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="17_lorak"]
-[ext_resource type="PackedScene" uid="uid://dg8i01hcrxwwd" path="res://ui/player_ui/tile_info.tscn" id="19_mf52o"]
-[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="20_g06lf"]
-[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="20_g7x0y"]
-[ext_resource type="Texture2D" uid="uid://bw2e6kofldiiq" path="res://assets/icons/card-burn.svg" id="21_0br8l"]
-[ext_resource type="Texture2D" uid="uid://dte2m4qyg4mfe" path="res://assets/icons/card-draw.svg" id="21_7fs1y"]
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="23_ht6dc"]
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="24_mkc5e"]
-[ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
-[ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
-[ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
-[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="25_oia7h"]
-[ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
-[ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
-[ext_resource type="PackedScene" uid="uid://bxte0jljomebr" path="res://ui/player_ui/round_info.tscn" id="31_jwlkc"]
-[ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="32_udifo"]
-[ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
-[ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
-[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="39_ht6dc"]
-[ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
-[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="39_udifo"]
-[ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
-[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="40_oia7h"]
-[ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="40_qnbvx"]
-[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
+[ext_resource type="Script" uid="uid://brua13rplft7u" path="res://scenes/sandbox/gameworld_sandbox.gd" id="1_niuid"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="2_i34ry"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_67uxq"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_t2xgr"]
+[ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="7_6y3n0"]
+[ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="8_nsagx"]
+[ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="9_a8cw7"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_6o0wx"]
+[ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="11_5juox"]
+[ext_resource type="Texture2D" uid="uid://g0i25ppabks2" path="res://assets/spritesheets/Terrain - Solid Flat - 128x128.png" id="12_43emx"]
+[ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="13_p8cfx"]
+[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="14_q4o3n"]
+[ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="15_67uxq"]
+[ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="15_pt5dl"]
+[ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="16_rx86s"]
+[ext_resource type="AudioStream" uid="uid://b78ygjjoapugw" path="res://assets/audio/kenney_casino/chip-lay-1.ogg" id="16_t2xgr"]
+[ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="17_6y3n0"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="18_nsagx"]
+[ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="18_vlvkt"]
+[ext_resource type="Script" uid="uid://bj3gfx8l4ra88" path="res://ui/world_ui/game_world_ui.gd" id="19_7jwru"]
+[ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="19_a8cw7"]
+[ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="20_6o0wx"]
+[ext_resource type="Script" uid="uid://c5kyjbsoeaeq1" path="res://ui/debug_ui.gd" id="20_w2d67"]
+[ext_resource type="Texture2D" uid="uid://dksvpi5cien2y" path="res://assets/particles/kenney-particles/star_08.png" id="21_5juox"]
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="21_hjxcq"]
+[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="22_qn8ov"]
+[ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="23_p1chp"]
+[ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="24_ct4r4"]
+[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="25_6b8yr"]
+[ext_resource type="PackedScene" uid="uid://dg8i01hcrxwwd" path="res://ui/player_ui/tile_info.tscn" id="26_rm6ck"]
+[ext_resource type="PackedScene" uid="uid://bxte0jljomebr" path="res://ui/player_ui/round_info.tscn" id="27_xk18e"]
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="28_1bu2y"]
+[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="29_6crkr"]
+[ext_resource type="Texture2D" uid="uid://dte2m4qyg4mfe" path="res://assets/icons/card-draw.svg" id="30_qqmap"]
+[ext_resource type="Texture2D" uid="uid://bw2e6kofldiiq" path="res://assets/icons/card-burn.svg" id="31_nepc7"]
+[ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="32_ht5ok"]
+[ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="33_5bsnx"]
+[ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="34_7lpvj"]
+[ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="35_5gabx"]
+[ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="36_dw6ft"]
+[ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="37_5p3dj"]
+[ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="38_b54ts"]
+[ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="39_mgn1k"]
+[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="40_vg8sg"]
+[ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="41_s7jwm"]
+[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="42_asulx"]
+[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="43_l5hdi"]
+[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="44_5xwvq"]
 
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
-shuffle = true
-stream_count = 2
-stream_0 = ExtResource("3_qc6v1")
-stream_1 = ExtResource("4_lorak")
+[sub_resource type="Resource" id="Resource_cc46j"]
+script = ExtResource("2_i34ry")
+battle_tier = 0
+weight = 0.0
+gold_reward_min = 0
+gold_reward_max = 0
+resource_reward_min = 0
+resource_reward_max = 0
+battle_field_width = 10
+battle_field_height = 10
+metadata/_custom_type_script = "uid://dypkpglsm47yj"
 
 [sub_resource type="Resource" id="Resource_bumdp"]
-script = ExtResource("17_lorak")
+script = ExtResource("6_t2xgr")
 duration = 1.0
 transition = 0
 ease = 2
@@ -70,8 +80,29 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.985437, 0.490291)
 repeat = 2
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vf6jj"]
+texture = ExtResource("12_43emx")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ker11"]
+tile_shape = 3
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(128, 128)
+custom_data_layer_0/name = "tile_type"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_vf6jj")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udifo"]
-texture = ExtResource("42_0am1i")
+texture = ExtResource("14_q4o3n")
 texture_region_size = Vector2i(32, 32)
 3:1/0 = 0
 3:1/0/modulate = Color(0.0913577, 1, 0, 0.523)
@@ -82,8 +113,37 @@ tile_layout = 5
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_udifo")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
+radius = 13.0
+
+[sub_resource type="Curve" id="Curve_qek5x"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5gtgg"]
+curve = SubResource("Curve_qek5x")
+
+[sub_resource type="Curve" id="Curve_h17s1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_je7p5"]
+curve = SubResource("Curve_h17s1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fm80t"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.06
+scale_max = 0.06
+scale_curve = SubResource("CurveTexture_je7p5")
+color = Color(0.524982, 3, 2.99105, 0.471)
+alpha_curve = SubResource("CurveTexture_5gtgg")
+
 [sub_resource type="Resource" id="Resource_ht6dc"]
-script = ExtResource("17_lorak")
+script = ExtResource("6_t2xgr")
 duration = 1.0
 transition = 0
 ease = 2
@@ -123,36 +183,35 @@ fill_to = Vector2(1, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udifo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0sev3"]
-atlas = ExtResource("42_0am1i")
+atlas = ExtResource("14_q4o3n")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypuix"]
-atlas = ExtResource("42_0am1i")
+atlas = ExtResource("14_q4o3n")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mffv"]
-atlas = ExtResource("42_0am1i")
+atlas = ExtResource("14_q4o3n")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdnyo"]
-atlas = ExtResource("42_0am1i")
+atlas = ExtResource("14_q4o3n")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qvqp"]
-atlas = ExtResource("42_0am1i")
+atlas = ExtResource("14_q4o3n")
 region = Rect2(0, 32, 32, 32)
 
-[node name="GameWorld" type="Node2D"]
-script = ExtResource("1_6c6v5")
-player_stats = ExtResource("6_u4x5r")
-audio_playlist = SubResource("AudioStreamPlaylist_ht6dc")
+[node name="GameWorldSandbox" type="Node2D"]
+script = ExtResource("1_niuid")
+sandbox_stats = SubResource("Resource_cc46j")
 metadata/_edit_vertical_guides_ = [1876.0, 1367.0]
 metadata/_edit_horizontal_guides_ = [112.0, 961.0]
 
 [node name="WorldCamera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
-script = ExtResource("16_qc6v1")
+script = ExtResource("5_67uxq")
 follow_mode = 2
 follow_target = NodePath("../Tilemap/BaseLayer")
 zoom = Vector2(3, 3)
@@ -186,7 +245,7 @@ autoscroll = Vector2(-5, 5)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = ExtResource("39_lorak")
+texture = ExtResource("7_6y3n0")
 
 [node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode"]
 physics_interpolation_mode = 1
@@ -198,70 +257,115 @@ autoscroll = Vector2(5, -5)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-texture = ExtResource("40_ht6dc")
+texture = ExtResource("8_nsagx")
 
 [node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
 position = Vector2(0, 40)
-zoom = Vector2(3, 3)
+zoom = Vector2(0.5, 0.5)
 editor_draw_limits = true
-script = ExtResource("3_bumdp")
+script = ExtResource("9_a8cw7")
 
 [node name="PhantomCameraHost" type="Node" parent="MapCamera"]
 process_priority = 300
 process_physics_priority = 300
-script = ExtResource("4_bumdp")
+script = ExtResource("10_6o0wx")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Tilemap" type="Node2D" parent="." groups=["map_layer"]]
-script = ExtResource("1_3wu0g")
+script = ExtResource("11_5juox")
 map_height = 20
 mana_weight = 1
 warp_weight = 1
 
 [node name="BaseLayer" type="TileMapLayer" parent="Tilemap"]
-tile_set = ExtResource("1_tqoos")
+tile_set = SubResource("TileSet_ker11")
 
 [node name="FogLayer" type="TileMapLayer" parent="Tilemap"]
+visible = false
 z_index = 3
-tile_set = ExtResource("3_0jtfi")
+tile_set = ExtResource("13_p8cfx")
 
 [node name="HightlightLayer" type="TileMapLayer" parent="Tilemap"]
+visible = false
 tile_set = SubResource("TileSet_qnbvx")
 
 [node name="CenterMarker" type="Marker2D" parent="Tilemap"]
 
 [node name="EnemyHandler" type="Node2D" parent="."]
-script = ExtResource("12_lsh46")
+script = ExtResource("15_pt5dl")
 
 [node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("player", "player_hand") groups=["player_handler"]]
-script = ExtResource("13_wek56")
+script = ExtResource("16_rx86s")
 player = NodePath("../Player")
 player_hand = NodePath("../GameWorldUI/PlayerUI/Hand")
 
-[node name="Player" parent="." node_paths=PackedStringArray("stats_ui", "status_handler") instance=ExtResource("5_dlaip")]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("stats_ui", "status_handler") groups=["player"]]
+script = ExtResource("15_67uxq")
 stats_ui = NodePath("../GameWorldUI/PlayerUI/Stats")
 status_handler = NodePath("../GameWorldUI/PlayerUI/StatusHandler")
+movement_sound = ExtResource("16_t2xgr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+y_sort_enabled = true
+position = Vector2(354, 523)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("17_6y3n0")
+
+[node name="TokenShineEffect" parent="Player/Sprite2D" instance=ExtResource("18_nsagx")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Area2D" type="Area2D" parent="Player"]
+show_behind_parent = true
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+shape = SubResource("CircleShape2D_dovo2")
+
+[node name="ModifierHandler" parent="Player" instance=ExtResource("19_a8cw7")]
+
+[node name="DamageDealtModifier" parent="Player/ModifierHandler" instance=ExtResource("20_6o0wx")]
+
+[node name="DamageTakenModifier" parent="Player/ModifierHandler" instance=ExtResource("20_6o0wx")]
+type = 1
+
+[node name="CardCostModifier" parent="Player/ModifierHandler" instance=ExtResource("20_6o0wx")]
+type = 2
+
+[node name="MovementModifier" parent="Player/ModifierHandler" instance=ExtResource("20_6o0wx")]
+type = 5
+
+[node name="ManaWellEffect" type="GPUParticles2D" parent="Player"]
+unique_name_in_owner = true
+show_behind_parent = true
+emitting = false
+amount = 250
+texture = ExtResource("21_5juox")
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_fm80t")
 
 [node name="PhantomCamera2D" type="Node2D" parent="Player" node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
 position = Vector2(0, 40)
-script = ExtResource("16_qc6v1")
+script = ExtResource("5_67uxq")
 priority = 1
 follow_mode = 2
 follow_target = NodePath("..")
-zoom = Vector2(3, 3)
+zoom = Vector2(0.5, 0.5)
 tween_resource = SubResource("Resource_ht6dc")
 tween_on_load = false
 follow_offset = Vector2(0, 40)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="CardTargetSelector" parent="." instance=ExtResource("6_ph1f2")]
+[node name="CardTargetSelector" parent="." instance=ExtResource("18_vlvkt")]
 
 [node name="GameWorldUI" type="CanvasLayer" parent="." groups=["ui_layer"]]
 layer = 4
-script = ExtResource("13_y5rsn")
+script = ExtResource("19_7jwru")
 
 [node name="DebugUI" type="Control" parent="GameWorldUI" node_paths=PackedStringArray("base_layer", "map_camera")]
 layout_mode = 3
@@ -271,7 +375,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("5_cmh4g")
+script = ExtResource("20_w2d67")
 base_layer = NodePath("../../Tilemap/BaseLayer")
 map_camera = NodePath("../../MapCamera")
 
@@ -295,7 +399,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("23_ht6dc")
+theme = ExtResource("21_hjxcq")
 
 [node name="EnemyStats" type="Control" parent="GameWorldUI/EnemyUI"]
 unique_name_in_owner = true
@@ -339,16 +443,16 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 3
 
-[node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("22_qn8ov")]
 layout_mode = 2
 
-[node name="EnemyIntentPanel2" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel2" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("22_qn8ov")]
 layout_mode = 2
 
-[node name="EnemyIntentPanel3" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel3" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("22_qn8ov")]
 layout_mode = 2
 
-[node name="EnemyIntentPanel4" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
+[node name="EnemyIntentPanel4" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("22_qn8ov")]
 layout_mode = 2
 
 [node name="PlayerUI" type="Control" parent="GameWorldUI"]
@@ -388,7 +492,7 @@ offset_top = -270.0
 offset_right = 488.0
 grow_horizontal = 2
 grow_vertical = 0
-script = ExtResource("7_pdbwf")
+script = ExtResource("23_p1chp")
 player = NodePath("../../../Player")
 hand_curve = SubResource("Curve_udifo")
 rotation_curve = SubResource("Curve_qnbvx")
@@ -396,14 +500,14 @@ x_sep = -20
 y_max = -25
 card_spotlight = NodePath("../CardSpotlight")
 
-[node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("12_odt01")]
+[node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("24_ct4r4")]
 layout_mode = 0
 offset_left = 1696.0
 offset_top = 808.0
 offset_right = 1876.0
 offset_bottom = 1056.0
 
-[node name="StatusHandler" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("status_owner") instance=ExtResource("20_g7x0y")]
+[node name="StatusHandler" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("status_owner") instance=ExtResource("25_6b8yr")]
 layout_mode = 0
 offset_left = 1552.0
 offset_top = 808.0
@@ -412,14 +516,14 @@ offset_bottom = 848.0
 status_owner = NodePath("../../../Player")
 status_icon_size = 70
 
-[node name="TileInfo" parent="GameWorldUI/PlayerUI" instance=ExtResource("19_mf52o")]
+[node name="TileInfo" parent="GameWorldUI/PlayerUI" instance=ExtResource("26_rm6ck")]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 112.0
 offset_right = 322.0
 offset_bottom = 360.0
 
-[node name="RoundInfoUI" parent="GameWorldUI/PlayerUI" instance=ExtResource("31_jwlkc")]
+[node name="RoundInfoUI" parent="GameWorldUI/PlayerUI" instance=ExtResource("27_xk18e")]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 368.0
@@ -435,12 +539,12 @@ anchor_top = 0.748148
 anchor_right = 0.800521
 anchor_bottom = 0.799074
 offset_right = 1.0
-theme = ExtResource("24_mkc5e")
+theme = ExtResource("28_1bu2y")
 disabled = true
 text = "End Turn"
 metadata/_edit_use_anchors_ = true
 
-[node name="DrawPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
+[node name="DrawPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("29_6crkr")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
@@ -451,7 +555,7 @@ offset_top = -184.0
 offset_right = 192.0
 offset_bottom = -56.0
 grow_vertical = 0
-texture_normal = ExtResource("21_7fs1y")
+texture_normal = ExtResource("30_qqmap")
 counter = NodePath("Counter")
 
 [node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/DrawPileButton"]
@@ -464,14 +568,14 @@ text = "99"
 label_settings = SubResource("LabelSettings_0br8l")
 horizontal_alignment = 1
 
-[node name="DiscardPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
+[node name="DiscardPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("29_6crkr")]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1392.0
 offset_top = 896.0
 offset_right = 1520.0
 offset_bottom = 1024.0
-texture_normal = ExtResource("21_0br8l")
+texture_normal = ExtResource("31_nepc7")
 counter = NodePath("Counter")
 
 [node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/DiscardPileButton"]
@@ -483,7 +587,7 @@ text = "99"
 label_settings = SubResource("LabelSettings_0br8l")
 horizontal_alignment = 1
 
-[node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
+[node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("29_6crkr")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
@@ -491,7 +595,7 @@ offset_left = 1336.0
 offset_top = 878.0
 offset_right = 1400.0
 offset_bottom = 942.0
-texture_normal = ExtResource("32_udifo")
+texture_normal = ExtResource("32_ht5ok")
 counter = NodePath("Counter")
 
 [node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/ExhaustPileButton"]
@@ -514,21 +618,21 @@ position = Vector2(963, 339.5)
 shape = SubResource("RectangleShape2D_bhwwd")
 debug_color = Color(0, 0.6, 0.701961, 0.0509804)
 
-[node name="ToolTip" parent="GameWorldUI" instance=ExtResource("25_5nmku")]
+[node name="ToolTip" parent="GameWorldUI" instance=ExtResource("33_5bsnx")]
 offset_left = -768.0
 offset_top = 896.0
 offset_right = -384.0
 offset_bottom = 1018.0
-theme = ExtResource("23_ht6dc")
+theme = ExtResource("21_hjxcq")
 
-[node name="WorldMessageContainer" parent="GameWorldUI" instance=ExtResource("30_xw31r")]
+[node name="WorldMessageContainer" parent="GameWorldUI" instance=ExtResource("34_7lpvj")]
 offset_top = 115.0
 offset_right = -43.0
 offset_bottom = -394.0
 mouse_filter = 2
-theme = ExtResource("23_ht6dc")
+theme = ExtResource("21_hjxcq")
 
-[node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("25_g06lf")]
+[node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("35_5gabx")]
 layout_mode = 2
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameWorldUI"]
@@ -546,7 +650,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_3kc8b")
-script = ExtResource("33_hgfka")
+script = ExtResource("36_dw6ft")
 
 [node name="Timer" type="Timer" parent="Effects/RedFlash"]
 wait_time = 0.1
@@ -565,7 +669,7 @@ grow_horizontal = 2
 [node name="BattleOverLayer" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="BattleOverPanel" parent="BattleOverLayer" instance=ExtResource("24_vophv")]
+[node name="BattleOverPanel" parent="BattleOverLayer" instance=ExtResource("37_5p3dj")]
 visible = false
 mouse_filter = 2
 mouse_force_pass_scroll_events = false
@@ -573,24 +677,24 @@ mouse_force_pass_scroll_events = false
 [node name="CardPileViews" type="CanvasLayer" parent="."]
 layer = 6
 
-[node name="DrawPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
+[node name="DrawPileView" parent="CardPileViews" instance=ExtResource("38_b54ts")]
 unique_name_in_owner = true
 visible = false
 mouse_filter = 2
 
-[node name="DiscardPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
+[node name="DiscardPileView" parent="CardPileViews" instance=ExtResource("38_b54ts")]
 unique_name_in_owner = true
 visible = false
 mouse_filter = 2
 
-[node name="ExhaustPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
+[node name="ExhaustPileView" parent="CardPileViews" instance=ExtResource("38_b54ts")]
 unique_name_in_owner = true
 visible = false
 
 [node name="StatusViewLayer" type="CanvasLayer" parent="."]
 layer = 6
 
-[node name="StatusView" parent="StatusViewLayer" instance=ExtResource("33_csgag")]
+[node name="StatusView" parent="StatusViewLayer" instance=ExtResource("39_mgn1k")]
 visible = false
 mouse_filter = 2
 
@@ -598,7 +702,7 @@ mouse_filter = 2
 process_mode = 3
 layer = 4
 visible = false
-script = ExtResource("39_udifo")
+script = ExtResource("40_vg8sg")
 
 [node name="BattleTutorial" type="Control" parent="TutorialUI"]
 layout_mode = 3
@@ -607,8 +711,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("23_ht6dc")
-script = ExtResource("40_qnbvx")
+theme = ExtResource("21_hjxcq")
+script = ExtResource("41_s7jwm")
 
 [node name="ColorRect" type="ColorRect" parent="TutorialUI/BattleTutorial"]
 layout_mode = 1
@@ -671,7 +775,7 @@ offset_top = 250.0
 offset_right = 484.0
 offset_bottom = 347.0
 rotation = 0.722988
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -682,7 +786,7 @@ offset_top = 833.0
 offset_right = 187.0
 offset_bottom = 930.0
 rotation = -1.5708
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -693,7 +797,7 @@ offset_top = 556.0
 offset_right = 1690.0
 offset_bottom = 653.0
 rotation = -1.5708
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -704,7 +808,7 @@ offset_top = 760.0
 offset_right = 913.0
 offset_bottom = 857.0
 rotation = -1.5708
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -715,7 +819,7 @@ offset_top = 1032.0
 offset_right = 1556.0
 offset_bottom = 1129.0
 rotation = -2.88281
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -726,7 +830,7 @@ offset_top = 941.0
 offset_right = 1509.0
 offset_bottom = 1038.0
 rotation = -2.88281
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -884,12 +988,12 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="Visuals" parent="TutorialUI/BattleTutorial/TabContainer/Cards" instance=ExtResource("40_oia7h")]
+[node name="Visuals" parent="TutorialUI/BattleTutorial/TabContainer/Cards" instance=ExtResource("43_l5hdi")]
 offset_left = 834.0
 offset_top = 671.0
 offset_right = 1014.0
 offset_bottom = 911.0
-card = ExtResource("41_jwlkc")
+card = ExtResource("44_5xwvq")
 
 [node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
 layout_mode = 2
@@ -897,7 +1001,7 @@ offset_left = 1023.0
 offset_top = 834.0
 offset_right = 1230.0
 offset_bottom = 931.0
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -907,7 +1011,7 @@ offset_left = 972.0
 offset_top = 740.0
 offset_right = 1179.0
 offset_bottom = 837.0
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -917,7 +1021,7 @@ offset_left = 610.0
 offset_top = 830.0
 offset_right = 817.0
 offset_bottom = 927.0
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 
 [node name="TextureRect14" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
@@ -926,7 +1030,7 @@ offset_left = 692.0
 offset_top = 657.0
 offset_right = 899.0
 offset_bottom = 754.0
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 
 [node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
@@ -1025,7 +1129,7 @@ offset_top = 744.0
 offset_right = 1785.0
 offset_bottom = 841.0
 rotation = -1.5708
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
@@ -1035,7 +1139,7 @@ offset_left = 1103.0
 offset_top = 775.0
 offset_right = 1337.0
 offset_bottom = 872.0
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 
 [node name="TextureRect10" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
@@ -1045,7 +1149,7 @@ offset_top = 935.0
 offset_right = 2035.0
 offset_bottom = 1032.0
 rotation = -2.50777
-texture = ExtResource("39_ht6dc")
+texture = ExtResource("42_asulx")
 expand_mode = 1
 flip_h = true
 
