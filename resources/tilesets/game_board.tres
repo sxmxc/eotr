@@ -51,6 +51,7 @@ texture_region_size = Vector2i(32, 32)
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.0899296, -15.8276, -15.7376, -8.2735, -15.9175, 8.2735, -0.269789, 16.1873, 16.4571, 8.09364, 15.9175, -8.2735)
 0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_81apj")
 0:1/0/custom_data_0 = &"Warp"
+2:1/0 = 0
 
 [resource]
 tile_shape = 3

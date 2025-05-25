@@ -5,6 +5,8 @@ const HIGHLIGHT_CELL_ID = Vector2i(3,1)
 const TILE_RESOURCE_COUNT_LABEL = preload("res://resources/tile_resource_count_label.tres")
 const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
 
+const RESOURCE_USED_ID = Vector2i(2,1)
+
 enum MapShape {
 	RECTANGLE,
 	DIAMOND,
@@ -44,7 +46,7 @@ var tile_dict: Dictionary[Enums.TileType, Vector2i] = {
 	Enums.TileType.CORRUPTED: Vector2i(1, 0),
 	Enums.TileType.ANCIENT_RUIN: Vector2i(0, 1),
 	Enums.TileType.MANA_WELL: Vector2i(3, 0),
-	Enums.TileType.RIFT_GATE: Vector2i(2, 0)
+	Enums.TileType.RIFT_GATE: Vector2i(2, 0),
 }
 var has_generated := false
 var tile_weights = {}
@@ -196,6 +198,8 @@ func set_resource_count(tile_pos: Vector2i, amount: int) -> void:
 	tile_data.resource_count = amount
 	if is_resource_count_visible:
 		draw_resource_count()
+	if tile_data.resource_count == 0:
+		base_layer.set_cell(tile_pos,0,RESOURCE_USED_ID)
 	Events.tile_updated.emit(tile_data)
 
 
