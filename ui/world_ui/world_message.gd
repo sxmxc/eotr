@@ -1,7 +1,8 @@
 extends PanelContainer
 class_name WorldMessage
 
-@export var fade_seconds := 0.2
+@export var fade_seconds := 0.5
+@export var show_duration := 3
 
 @onready var message_text_label = %MessageTextLabel
 
@@ -19,7 +20,7 @@ func show_message(data: WorldMessageData) -> void:
 	message_text_label.text = data.message
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "modulate", Color.WHITE, fade_seconds)
-	get_tree().create_timer(2).timeout.connect(hide_message)
+	get_tree().create_timer(show_duration).timeout.connect(hide_message)
 
 func hide_message() -> void:
 	_visible = false
