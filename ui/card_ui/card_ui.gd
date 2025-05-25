@@ -65,17 +65,14 @@ func play() -> void:
 
 func get_active_enemy_modifiers() -> ModifierHandler:
 	if targets.is_empty():
-		print("Targets is empty")
 		return null
 	if not is_instance_valid(targets[0]):
 		return null
 	elif targets.size() > 1:
-		print("More than 1 target")
 		return null
 	elif not targets[0] is Enemy:
-		print("Target 0 not enemy")
+		
 		return null
-	print("Valid target with modifiers found")
 	return targets[0].modifier_handler
 
 func is_values_modified() -> bool:
@@ -108,9 +105,10 @@ func burn_card() -> void:
 	visuals.card_trail_fx.emitting = true
 	visuals.material = CARD_BURNABLE.duplicate()
 	tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "global_position", center_of_screen - target_offset, .5)
-	tween.tween_property(self, "global_position", discard_pile_position - target_offset, .25)
-	tween.parallel().tween_property(visuals, "scale", Vector2(.25,.25), .25)
+	visuals.animation_player.play("swirl_out")
+	tween.tween_property(self, "global_position", center_of_screen - target_offset, .25)
+	tween.tween_property(self, "global_position", discard_pile_position - target_offset, .12)
+	tween.parallel().tween_property(visuals, "scale", Vector2(.25,.25), .12)
 	tween.tween_callback(visuals.card_trail_fx.hide)
 	tween.tween_method(set_burn_shader_parameter, 0.0, 2.0, 1.5)
 	tween.tween_callback(queue_free)
