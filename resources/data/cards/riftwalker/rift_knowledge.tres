@@ -13,7 +13,7 @@ name = "Rift Knowledge"
 card_rarity = 2
 description = "Target becomes [b]attuned[/b].
 [b]Exhaust[/b]"
-energy_cost = 2
+energy_cost = 3
 exhaust = true
 sound_fx = ExtResource("2_dmm1o")
 visual_fx = ExtResource("3_tnuc7")

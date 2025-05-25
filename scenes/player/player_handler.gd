@@ -29,6 +29,7 @@ func start_battle(stats: PlayerStats) -> void:
 	player_stats.exhaust_pile = CardPile.new()
 	relics.relics_activated.connect(_on_relics_activated)
 	player.status_handler.statuses_applied.connect(_on_statuses_applied)
+	player.status_handler.status_added.connect(player_hand._on_status_added)
 	start_turn()
 
 
@@ -74,14 +75,15 @@ func discard_cards() -> void:
 	var world_ui :GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
 	var discard_pile_position = world_ui.discard_pile_button.global_position
 	
-	for card_ui in player_hand.get_cards():
+	for card_ui: CardUI in player_hand.get_cards():
 		var card_ui_offset = Vector2(card_ui.global_position.x, card_ui.global_position.y - 100)
-		tween.tween_property(card_ui,"global_position", card_ui_offset,HAND_DISCARD_INTERVAL/2)
-		tween.tween_property(card_ui,"global_position", discard_pile_position,HAND_DISCARD_INTERVAL/2)
-		tween.parallel().tween_property(card_ui, "scale", Vector2(.05,.05),HAND_DISCARD_INTERVAL)
+		
+		tween.tween_callback(card_ui.visuals.animation_player.play.bind("swirl_out"))
+		tween.tween_property(card_ui,"global_position", card_ui_offset,.12)
+		tween.tween_property(card_ui,"global_position", discard_pile_position,.12)
 		tween.tween_callback(player_stats.discard.add_card.bind(card_ui.card))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
-		tween.tween_interval(HAND_DISCARD_INTERVAL)
+		
 	tween.finished.connect(func(): Events.player_hand_discarded.emit())
 
 
@@ -106,6 +108,8 @@ func reshuffle_deck_from_discard() -> void:
 func _on_player_moved() -> void:
 	if !is_node_ready():
 		await ready
+	if !player_stats:
+		return
 	var tile_type : Enums.TileType = tilemap.get_tile_data(tilemap.player_position).type
 	player.is_mana_buffed = false
 	match tile_type:
@@ -126,35 +130,56 @@ func _on_player_moved() -> void:
 func _trigger_ancient_ruin_effect() -> void:
 	var effects = [
 		{
-			"func": func(): player_stats.block += 10,
+			"func": func(): 
+				var block_effect := BlockEffect.new()
+				block_effect.amount = 10
+				block_effect.execute([player]),
 			"weight": 4,
 			"desc": "You feel protected by a forgotten power. (+10 Block)"
 		},
 		{
-			"func": func(): player_stats.take_damage(5),
+			"func": func(): 
+				var damage_effect := DamageEffect.new()
+				damage_effect.amount = 5
+				damage_effect.execute([player]),
 			"weight": 2,
 			"desc": "A cursed wind cuts through you. (5 Damage)"
 		},
 		{
-			"func": func(): player_stats.energy += 1,
+			"func": func():
+				var energy_effect := EnergyEffect.new()
+				energy_effect.amount = 1
+				energy_effect.execute([player]),
 			"weight": 3,
 			"desc": "Crackling energy surges around you. (+1 Energy)"
 		},
 		{
-			"func": func(): player_stats.add_resource(1),
+			"func": func(): 
+				var gather_effect := GatherEffect.new()
+				gather_effect.amount = 1
+				gather_effect.tile_target_position = tilemap.player_position
+				gather_effect.execute([player]),
 			"weight": 2,
 			"desc": "You find a hastley left items thrown about. (+1 Resource)"
 		},
 		{
-			"func": func(): draw_cards(1),
+			"func": func(): 
+				var draw_effect := DrawEffect.new()
+				draw_effect.amount = 1
+				draw_effect.execute([player]),
 			"weight": 3,
 			"desc": "You uncover a hidden note. (Draw 1 Card)"
 		},
-		#{
-			#"func": func(): player.status_handler.apply_status(, 2),
-			#"weight": 1,
-			#"desc": "You feel stronger. (+2 Strength)"
-		#},
+		{
+			"func": func():
+				var attunement = preload("res://resources/data/statuses/attunement.tres").duplicate()
+				var status_effect = StatusEffect.new()
+				attunement.stacks = 1
+				status_effect.status = attunement
+				status_effect.execute([player]),
+			"weight": 1,
+			"desc": "Your mind clears. (+1 Attunement)"
+		},
 		{
 			"func": func(): pass,
 			"weight": 1,
@@ -181,20 +206,6 @@ func _trigger_ancient_ruin_effect() -> void:
 		_show_ruin_effect_feedback(chosen_effect.desc)
 		
 func _show_ruin_effect_feedback(text: String) -> void:
-	# Example: play an SFX
-	#if AudioServer.has_bus("SFX"):
-		#var ruin_sfx = preload("res://audio/ruin_trigger.wav")
-		#var player_audio = AudioStreamPlayer.new()
-		#player_audio.stream = ruin_sfx
-		#add_child(player_audio)
-		#player_audio.play()
-
-	# Example: animate a glow (needs a particle, shader or effect scene)
-	#var fx := preload("res://fx/ancient_ruin_flash.tscn").instantiate()
-	#fx.global_position = player.global_position
-	#get_tree().current_scene.add_child(fx)
-
-	# Log flavor text to UI
 	var message = WorldMessageData.new(text)
 	Events.world_message_requested.emit(message)
 			

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://3lp7w512a61i"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://3lp7w512a61i"]
 
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="1_jbcjv"]
 
@@ -20,6 +20,12 @@ agent_radius = 0.0
 vertices = PackedVector2Array(16, -8, 16, 8, 0, 16, -16, 8, -16, -8, 0, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(0, -16, -16, -8, -16, 8, 0, 16, 16, 8, 16, -8)])
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4og70"]
+vertices = PackedVector2Array(16, -8, 16, 8, 0, 16, -16, 8, -16, -8, 0, -16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -16, 16, -8, 16, 8, 0, 16, -16, 8, -16, -8)])
 agent_radius = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8826c"]
@@ -51,6 +57,8 @@ texture_region_size = Vector2i(32, 32)
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.0899296, -15.8276, -15.7376, -8.2735, -15.9175, 8.2735, -0.269789, 16.1873, 16.4571, 8.09364, 15.9175, -8.2735)
 0:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_81apj")
 0:1/0/custom_data_0 = &"Warp"
+2:1/0 = 0
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_4og70")
 
 [resource]
 tile_shape = 3

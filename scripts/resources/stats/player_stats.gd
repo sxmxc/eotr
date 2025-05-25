@@ -28,11 +28,6 @@ func set_resources(value: int) -> void:
 	resources = value
 	stats_changed.emit()
 
-
-func add_resource(amount: int) -> void:
-	self.resources += amount
-
-
 func set_energy(value: int) -> void:
 	energy = value
 	stats_changed.emit()

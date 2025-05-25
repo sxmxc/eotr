@@ -2,6 +2,7 @@ extends GridContainer
 class_name StatusHandler
 
 signal statuses_applied(type: Enums.StatusType)
+signal status_added
 
 const STATUS_APPLY_INTERVAL := 0.25
 const STATUS_UI = preload("res://ui/status_ui/status_ui.tscn")
@@ -44,6 +45,7 @@ func add_status(status: Status) -> void:
 		new_status_ui.status = status
 		new_status_ui.status.status_applied.connect(_on_status_applied)
 		new_status_ui.status.initialize_status(status_owner)
+		status_added.emit()
 		return
 
 	if not status.can_expire and not stackable:
@@ -51,11 +53,13 @@ func add_status(status: Status) -> void:
 
 	if status.can_expire and status.stack_type == Enums.StatusStackType.DURATION:
 		_get_status(status.id).duration += status.duration
+		status_added.emit()
 		return
 
 	if status.stack_type == Enums.StatusStackType.INTENSITY:
 		_get_status(status.id).stacks += status.stacks
-
+		status_added.emit()
+	
 
 func _has_status(id: String) -> bool:
 	for status_ui: StatusUI in get_children():

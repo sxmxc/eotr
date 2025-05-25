@@ -17,7 +17,6 @@ class_name PlayerHand
 
 
 @onready var card_ui_scene = preload("res://ui/card_ui/card_ui.tscn")
-#@onready var hand_container = $HandContainer
 
 var cards_played_this_turn := 0
 
@@ -122,6 +121,9 @@ func _on_card_played(card: Card) -> void:
 	cards_played_this_turn += 1
 	_update_cards()
 
+func _on_status_added() -> void:
+	player_stats.stats_changed.emit()
+	_update_cards()
 
 func _on_card_ui_reparent_requested(child: CardUI) -> void:
 	child.disabled = true
