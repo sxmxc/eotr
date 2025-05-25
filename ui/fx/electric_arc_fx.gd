@@ -13,8 +13,14 @@ func strike():
 	var cam = get_tree().get_first_node_in_group("map_camera")
 	Utils.shake(cam,20)
 	points = _get_points(start,end)
+	var tween = create_tween()
+	tween.tween_method(set_shader_value, 1, 0, .15)
+	tween.tween_method(set_shader_value, 0, 1, .15)
+	tween.tween_callback(_on_strike_end)
 	line_drawn.emit()
-	get_tree().create_timer(.3).timeout.connect(_on_strike_end)
+	
+func set_shader_value(value: float) -> void:
+	material.set_shader_parameter("Transparency", value)
 
 func _get_points(start: Vector2, end: Vector2) -> Array:
 	var arc_points := []
