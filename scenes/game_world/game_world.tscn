@@ -486,6 +486,10 @@ horizontal_alignment = 1
 [node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("32_udifo")]
 unique_name_in_owner = true
 layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 64.0
+offset_bottom = 64.0
 counter = NodePath("Counter")
 
 [node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/ExhaustPileButton"]

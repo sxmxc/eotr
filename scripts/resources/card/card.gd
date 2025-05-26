@@ -94,16 +94,21 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 	match target_type:
 		Enums.TargetType.SINGLE_TILE:
 			return tilemap.base_layer.get_used_cells_by_id(0, Vector2i.ZERO)
+		Enums.TargetType.SINGLE_ENEMY:
+			var tiles : Array[Vector2i] = []
+			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
+				tiles.append(enemy.current_tile_position)
+			return tiles
 		Enums.TargetType.SELF:
 			var tile_pos = tilemap.player_position
 			return [tile_pos]
 		Enums.TargetType.ALL_ENEMIES:
-			var tiles : Array = []
+			var tiles : Array[Vector2i] = []
 			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
 				tiles.append(enemy.current_tile_position)
 			return tiles
 		Enums.TargetType.EVERYONE:
-			var tiles : Array = []
+			var tiles : Array[Vector2i] = []
 			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
 				tiles.append(enemy.current_tile_position)
 			tiles.append(tilemap.player_position)
@@ -114,7 +119,7 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			var enemies = tree.get_nodes_in_group("enemy")
 			var player_tile = enemy.tilemap.base_layer.local_to_map(player.position)
 			var surrounding_tiles = enemy.tilemap.base_layer.get_surrounding_cells(player_tile)
-			var aoe_targets: Array = []
+			var aoe_targets: Array[Vector2i] = []
 			for en in enemies:
 				var enemy_tile_position = enemy.tilemap.base_layer.local_to_map(en.position)
 				if surrounding_tiles.has(enemy_tile_position):
