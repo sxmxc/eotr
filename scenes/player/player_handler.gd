@@ -18,7 +18,7 @@ func _ready() -> void:
 	if not LimboConsole.has_command("draw_card"):
 		LimboConsole.register_command(draw_card, "draw_card", "Draw card from deck")
 	Events.card_played.connect(_on_card_played)
-	Events.player_moved.connect(_on_player_moved)
+	#Events.player_moved.connect(_on_player_moved)
 
 
 func start_battle(stats: PlayerStats) -> void:
@@ -105,109 +105,11 @@ func reshuffle_deck_from_discard() -> void:
 	player_stats.draw_pile.shuffle()
 
 
-func _on_player_moved() -> void:
-	if !is_node_ready():
-		await ready
-	if !player_stats:
-		return
-	var tile_type : Enums.TileType = tilemap.get_tile_data(tilemap.player_position).type
-	player.is_mana_buffed = false
-	match tile_type:
-		Enums.TileType.MANA_WELL:
-			player_stats.energy += 1
-			player.is_mana_buffed = true
-		Enums.TileType.RIFT_GATE:
-			var rift_gates : Array[Vector2i] = tilemap.get_tiles_of_type(Enums.TileType.RIFT_GATE)
-			if rift_gates.size() > 1:
-				var destination_gate = RNG.array_pick_random(rift_gates)
-				if destination_gate == tilemap.player_position:
-					while destination_gate == tilemap.player_position:
-						destination_gate = RNG.array_pick_random(rift_gates)
-				tilemap.teleport_player(destination_gate)
-		Enums.TileType.ANCIENT_RUIN:
-			_trigger_ancient_ruin_effect()
-
-func _trigger_ancient_ruin_effect() -> void:
-	var effects = [
-		{
-			"func": func(): 
-				var block_effect := BlockEffect.new()
-				block_effect.amount = 10
-				block_effect.execute([player]),
-			"weight": 4,
-			"desc": "You feel protected by a forgotten power. (+10 Block)"
-		},
-		{
-			"func": func(): 
-				var damage_effect := DamageEffect.new()
-				damage_effect.amount = 5
-				damage_effect.execute([player]),
-			"weight": 2,
-			"desc": "A cursed wind cuts through you. (5 Damage)"
-		},
-		{
-			"func": func():
-				var energy_effect := EnergyEffect.new()
-				energy_effect.amount = 1
-				energy_effect.execute([player]),
-			"weight": 3,
-			"desc": "Crackling energy surges around you. (+1 Energy)"
-		},
-		{
-			"func": func(): 
-				var gather_effect := GatherEffect.new()
-				gather_effect.amount = 1
-				gather_effect.tile_target_position = tilemap.player_position
-				gather_effect.execute([player]),
-			"weight": 2,
-			"desc": "You find a hastley left items thrown about. (+1 Resource)"
-		},
-		{
-			"func": func(): 
-				var draw_effect := DrawEffect.new()
-				draw_effect.amount = 1
-				draw_effect.execute([player]),
-			"weight": 3,
-			"desc": "You uncover a hidden note. (Draw 1 Card)"
-		},
-		{
-			"func": func():
-				var attunement = preload("res://resources/data/statuses/attunement.tres").duplicate()
-				var status_effect = StatusEffect.new()
-				attunement.stacks = 1
-				status_effect.status = attunement
-				status_effect.execute([player]),
-			"weight": 1,
-			"desc": "Your mind clears. (+1 Attunement)"
-		},
-		{
-			"func": func(): pass,
-			"weight": 1,
-			"desc": "You feel watched... but nothing happens."
-		}
-	]
-
-	var total_weight = 0
-	for effect in effects:
-		total_weight += effect.weight
-
-	var roll = RNG.instance.randi() % total_weight
-	var current = 0
-	var chosen_effect
-
-	for effect in effects:
-		current += effect.weight
-		if roll < current:
-			chosen_effect = effect
-			break
-
-	if chosen_effect:
-		chosen_effect.func.call()
-		_show_ruin_effect_feedback(chosen_effect.desc)
-		
-func _show_ruin_effect_feedback(text: String) -> void:
-	var message = WorldMessageData.new(text)
-	Events.world_message_requested.emit(message)
+#func _on_player_moved() -> void:
+	#if !is_node_ready():
+		#await ready
+	#if !player_stats:
+		#return
 			
 func _on_card_played(card: Card) -> void:
 	if not card_types_played.has(card.card_type):
