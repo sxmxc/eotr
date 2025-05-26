@@ -1,29 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://wes3rheva03s"]
+[gd_scene load_steps=5 format=3 uid="uid://wes3rheva03s"]
 
 [ext_resource type="Script" uid="uid://bckyguvb8v833" path="res://ui/fx/electric_arc_projectile_fx.gd" id="1_pehen"]
-[ext_resource type="Shader" uid="uid://c76x14fj01hrv" path="res://ui/fx/electrical_arc_v2.tres" id="2_fg2uu"]
+[ext_resource type="Material" uid="uid://dkx4hqcolxkg8" path="res://resources/materials/electric_arc_v2.tres" id="2_pehen"]
 [ext_resource type="Script" uid="uid://6dtnuwj3xtoe" path="res://ui/fx/electric_arc_fx.gd" id="3_0l4m8"]
-[ext_resource type="Texture2D" uid="uid://crfd6k4j0ykkp" path="res://assets/particles/kenney-particles/spark_07.png" id="3_8766m"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_82sbs"]
-shader = ExtResource("2_fg2uu")
-shader_parameter/Transparency = 0.0
-shader_parameter/Speed = Vector2(-2, 0)
-shader_parameter/basic_texture = ExtResource("3_8766m")
-
-[sub_resource type="Gradient" id="Gradient_fg2uu"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.153285, 0.540146, 0.868613, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+[sub_resource type="Gradient" id="Gradient_pehen"]
+offsets = PackedFloat32Array(0, 0.0474453, 0.521898, 0.952555, 1)
+colors = PackedColorArray(0.525, 3, 2.991, 0, 0.524982, 3, 2.99105, 0.471, 0.525, 3, 2.991, 1, 0.524982, 3, 2.99105, 0.471, 1, 1, 1, 0)
 
 [node name="ElectricArcProjectileFX" type="Node2D"]
 script = ExtResource("1_pehen")
 
 [node name="ElectricArcFX" type="Line2D" parent="."]
-material = SubResource("ShaderMaterial_82sbs")
-width = 100.0
-default_color = Color(0.113284, 1.59, 1.38286, 1)
-gradient = SubResource("Gradient_fg2uu")
+material = ExtResource("2_pehen")
+width = 200.0
+gradient = SubResource("Gradient_pehen")
 texture_mode = 1
 joint_mode = 2
 script = ExtResource("3_0l4m8")
