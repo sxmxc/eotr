@@ -422,9 +422,9 @@ offset_bottom = 360.0
 [node name="RoundInfoUI" parent="GameWorldUI/PlayerUI" instance=ExtResource("31_jwlkc")]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 368.0
-offset_right = 320.0
-offset_bottom = 428.0
+offset_top = 360.0
+offset_right = 322.0
+offset_bottom = 465.0
 
 [node name="EndTurnButton" type="Button" parent="GameWorldUI/PlayerUI"]
 unique_name_in_owner = true
