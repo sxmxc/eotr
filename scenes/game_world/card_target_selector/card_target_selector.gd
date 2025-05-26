@@ -149,7 +149,10 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 					current_card.targets.append(area.get_parent())
 
 		Enums.TargetType.SINGLE_ENEMY:
+			var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
 			if get_tree().get_nodes_in_group("enemy").has(area.get_parent()):
+				if tilemap.is_tile_behind_fog(area.get_parent().current_tile_position):
+					return
 				if not current_card.targets.has(area.get_parent()):
 					current_card.targets.append(area.get_parent())
 					current_card.request_description()

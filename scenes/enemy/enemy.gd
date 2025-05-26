@@ -142,10 +142,14 @@ func get_player_tile_position() -> Vector2i:
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("left_mouse"):
+		if tilemap.is_tile_behind_fog(current_tile_position):
+			return
 		Events.enemy_selected.emit(self)
 
 
 func _on_area_2d_mouse_entered() -> void:
+	if tilemap.is_tile_behind_fog(current_tile_position):
+		return
 	hovered = true
 	circle_indicator.show()
 	stats_ui.grab_focus()
@@ -154,6 +158,8 @@ func _on_area_2d_mouse_entered() -> void:
 
 
 func _on_area_2d_mouse_exited() -> void:
+	if !hovered:
+		return
 	hovered = false
 	circle_indicator.hide()
 	stats_ui.release_focus()

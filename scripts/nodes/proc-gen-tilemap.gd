@@ -429,6 +429,9 @@ func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vec
 
 	return tiles
 	
+
+func is_tile_behind_fog(pos: Vector2i) -> bool:
+	return !fog_state.has(pos)
 	
 func get_battlemap_edge_clockwise() -> Array[Vector2i]:
 	var valid_tiles := base_layer.get_used_cells()
