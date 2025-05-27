@@ -157,6 +157,21 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 					current_card.targets.append(area.get_parent())
 					current_card.request_description()
 					Events.enemy_selected.emit(area.get_parent())
+		
+		Enums.TargetType.ADJACENT_ENEMY:
+			if !area.get_parent() is Enemy:
+				return
+			var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
+			var adjacent_cells = tilemap.base_layer.get_surrounding_cells(tilemap.player_position)
+			var enemy: Enemy = area.get_parent()
+			if get_tree().get_nodes_in_group("enemy").has(enemy):
+				if adjacent_cells.has(enemy.current_tile_position):
+					if tilemap.is_tile_behind_fog(area.get_parent().current_tile_position):
+						return
+					if not current_card.targets.has(area.get_parent()):
+						current_card.targets.append(area.get_parent())
+						current_card.request_description()
+						Events.enemy_selected.emit(area.get_parent())
 
 
 func _on_area_2d_area_exited(area: Area2D) -> void:

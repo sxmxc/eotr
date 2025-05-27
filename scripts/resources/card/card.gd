@@ -26,7 +26,7 @@ static var RARITY_COLORS := {
 
 func is_single_targeted() -> bool:
 	return (
-		target_type == Enums.TargetType.SINGLE_ENEMY or target_type == Enums.TargetType.SINGLE_TILE
+		target_type == Enums.TargetType.SINGLE_ENEMY or target_type == Enums.TargetType.SINGLE_TILE or target_type == Enums.TargetType.ADJACENT_ENEMY
 	)
 
 
