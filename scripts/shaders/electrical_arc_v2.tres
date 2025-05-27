@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://cmp18o31d07k1"]
+[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://7dxj2hpptsm1"]
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_1y8mr"]
 parameter_name = "Transparency"
@@ -99,7 +99,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-291.057, -238.505)
 mode = 1
 modes/blend = 1
 flags/unshaded = true

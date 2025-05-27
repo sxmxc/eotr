@@ -4,9 +4,9 @@
 [ext_resource type="Material" uid="uid://dkx4hqcolxkg8" path="res://resources/materials/electric_arc_v2.tres" id="2_pehen"]
 [ext_resource type="Script" uid="uid://6dtnuwj3xtoe" path="res://ui/fx/electric_arc_fx.gd" id="3_0l4m8"]
 
-[sub_resource type="Gradient" id="Gradient_pehen"]
-offsets = PackedFloat32Array(0, 0.0474453, 0.521898, 0.952555, 1)
-colors = PackedColorArray(0.525, 3, 2.991, 0, 0.524982, 3, 2.99105, 0.471, 0.525, 3, 2.991, 1, 0.524982, 3, 2.99105, 0.471, 1, 1, 1, 0)
+[sub_resource type="Curve" id="Curve_pehen"]
+_data = [Vector2(0, 0.292135), 0.0, 0.0, 0, 0, Vector2(0.507936, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.258427), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="ElectricArcProjectileFX" type="Node2D"]
 script = ExtResource("1_pehen")
@@ -14,7 +14,8 @@ script = ExtResource("1_pehen")
 [node name="ElectricArcFX" type="Line2D" parent="."]
 material = ExtResource("2_pehen")
 width = 200.0
-gradient = SubResource("Gradient_pehen")
+width_curve = SubResource("Curve_pehen")
+default_color = Color(0.524982, 3, 2.99105, 0.471)
 texture_mode = 1
 joint_mode = 2
 script = ExtResource("3_0l4m8")
