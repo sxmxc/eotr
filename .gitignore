@@ -16,3 +16,6 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+.vscode/
+# Visual Studio Code workspace settings
