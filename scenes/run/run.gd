@@ -189,6 +189,8 @@ func _show_regular_rewards() -> void:
 
 	reward_scene.add_gold_reward(map.last_map_node.battle_stats.roll_gold_reward())
 	reward_scene.add_resource_reward(map.last_map_node.battle_stats.roll_resource_reward())
+	reward_scene.add_enemy_gold_reward(map.last_map_node.battle_stats.enemy_gold_reward)
+	reward_scene.add_enemy_resource_reward(map.last_map_node.battle_stats.enemy_resource_reward)
 	reward_scene.add_card_reward()
 
 
