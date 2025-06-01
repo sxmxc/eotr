@@ -112,9 +112,7 @@ func ease_out_cubic(number: float) -> float:
 
 
 func _on_card_aim_started(card: CardUI) -> void:
-	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
-	var player : Player = get_tree().get_first_node_in_group("player")
-	tilemap.highlight_cells(card.card.get_valid_targets(card, player.modifier_handler))
+
 	if not card.card.is_single_targeted():
 		return
 
@@ -125,8 +123,6 @@ func _on_card_aim_started(card: CardUI) -> void:
 
 
 func _on_card_aim_ended(_card: CardUI) -> void:
-	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
-	tilemap.clear_highlight()
 	targeting = false
 	card_arc.clear_points()
 	area_2d.position = Vector2.ZERO
@@ -153,11 +149,29 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 					current_card.targets.append(area.get_parent())
 
 		Enums.TargetType.SINGLE_ENEMY:
+			var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
 			if get_tree().get_nodes_in_group("enemy").has(area.get_parent()):
+				if tilemap.is_tile_behind_fog(area.get_parent().current_tile_position):
+					return
 				if not current_card.targets.has(area.get_parent()):
 					current_card.targets.append(area.get_parent())
 					current_card.request_description()
 					Events.enemy_selected.emit(area.get_parent())
+		
+		Enums.TargetType.ADJACENT_ENEMY:
+			if !area.get_parent() is Enemy:
+				return
+			var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
+			var adjacent_cells = tilemap.base_layer.get_surrounding_cells(tilemap.player_position)
+			var enemy: Enemy = area.get_parent()
+			if get_tree().get_nodes_in_group("enemy").has(enemy):
+				if adjacent_cells.has(enemy.current_tile_position):
+					if tilemap.is_tile_behind_fog(area.get_parent().current_tile_position):
+						return
+					if not current_card.targets.has(area.get_parent()):
+						current_card.targets.append(area.get_parent())
+						current_card.request_description()
+						Events.enemy_selected.emit(area.get_parent())
 
 
 func _on_area_2d_area_exited(area: Area2D) -> void:

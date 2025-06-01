@@ -225,6 +225,110 @@ func move_player(tile_pos) -> void:
 		var tile_data : HexTileData = tile_map_data.get(tile_pos, null)
 		Events.tile_selected.emit(tile_data)
 		player_position_updated.emit(base_layer.map_to_local(player_position))
+		player.is_mana_buffed = false
+		apply_tile_effects()
+		
+				
+func apply_tile_effects() -> void:
+	var tile_type : Enums.TileType = get_tile_data(player_position).type
+	match tile_type:
+			Enums.TileType.MANA_WELL:
+				var energy_effect := EnergyEffect.new()
+				energy_effect.amount = 1
+				energy_effect.execute([player])
+				player.is_mana_buffed = true
+			Enums.TileType.RIFT_GATE:
+				var rift_gates : Array[Vector2i] = get_tiles_of_type(Enums.TileType.RIFT_GATE)
+				if rift_gates.size() > 1:
+					var destination_gate = RNG.array_pick_random(rift_gates)
+					if destination_gate == player_position:
+						while destination_gate == player_position:
+							destination_gate = RNG.array_pick_random(rift_gates)
+					teleport_player(destination_gate)
+			Enums.TileType.ANCIENT_RUIN:
+				_trigger_ancient_ruin_effect()
+
+func _trigger_ancient_ruin_effect() -> void:
+	var effects = [
+		{
+			"func": func(): 
+				var block_effect := BlockEffect.new()
+				block_effect.amount = 10
+				block_effect.execute([player]),
+			"weight": 4,
+			"desc": "You feel protected by a forgotten power. (+10 Block)"
+		},
+		{
+			"func": func(): 
+				var damage_effect := DamageEffect.new()
+				damage_effect.amount = 5
+				damage_effect.execute([player]),
+			"weight": 2,
+			"desc": "A cursed wind cuts through you. (5 Damage)"
+		},
+		{
+			"func": func():
+				var energy_effect := EnergyEffect.new()
+				energy_effect.amount = 1
+				energy_effect.execute([player]),
+			"weight": 3,
+			"desc": "Crackling energy surges around you. (+1 Energy)"
+		},
+		{
+			"func": func(): 
+				var gather_effect := GatherEffect.new()
+				gather_effect.amount = 1
+				gather_effect.tile_target_position = player_position
+				gather_effect.execute([player]),
+			"weight": 2,
+			"desc": "You find a hastley left items thrown about. (+1 Resource)"
+		},
+		{
+			"func": func(): 
+				var draw_effect := DrawEffect.new()
+				draw_effect.amount = 1
+				draw_effect.execute([player]),
+			"weight": 3,
+			"desc": "You uncover a hidden note. (Draw 1 Card)"
+		},
+		{
+			"func": func():
+				var attunement = preload("res://resources/data/statuses/attunement.tres").duplicate()
+				var status_effect = StatusEffect.new()
+				attunement.stacks = 1
+				status_effect.status = attunement
+				status_effect.execute([player]),
+			"weight": 1,
+			"desc": "Your mind clears. (+1 Attunement)"
+		},
+		{
+			"func": func(): pass,
+			"weight": 1,
+			"desc": "You feel watched... but nothing happens."
+		}
+	]
+
+	var total_weight = 0
+	for effect in effects:
+		total_weight += effect.weight
+
+	var roll = RNG.instance.randi() % total_weight
+	var current = 0
+	var chosen_effect
+
+	for effect in effects:
+		current += effect.weight
+		if roll < current:
+			chosen_effect = effect
+			break
+
+	if chosen_effect:
+		chosen_effect.func.call()
+		_show_ruin_effect_feedback(chosen_effect.desc)
+		
+func _show_ruin_effect_feedback(text: String) -> void:
+	var message = WorldMessageData.new(text)
+	Events.world_message_requested.emit(message)
 
 func teleport_player(tile_pos) -> void:
 	if is_within_bounds(tile_pos):
@@ -325,6 +429,9 @@ func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vec
 
 	return tiles
 	
+
+func is_tile_behind_fog(pos: Vector2i) -> bool:
+	return !fog_state.has(pos)
 	
 func get_battlemap_edge_clockwise() -> Array[Vector2i]:
 	var valid_tiles := base_layer.get_used_cells()

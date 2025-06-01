@@ -20,6 +20,10 @@ func on_input(event: InputEvent) -> void:
 	var mouse_motion := event is InputEventMouseMotion
 	var cancel = event.is_action_pressed("right_mouse")
 	var confirm = event.is_action_released("left_mouse") or event.is_action_pressed("left_mouse")
+	var player = get_tree().get_first_node_in_group("player")
+	var tilemap = get_tree().get_first_node_in_group("map_layer")
+	
+	tilemap.highlight_cells(card_ui.card.get_valid_targets(card_ui, player.modifier_handler))
 	
 	if single_targeted and mouse_motion and card_ui.targets.size() > 0:
 		transition_requested.emit(self, CardState.State.AIMING)
@@ -35,4 +39,6 @@ func on_input(event: InputEvent) -> void:
 		transition_requested.emit(self,CardState.State.RELEASED)
 
 func exit() -> void:
+	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
+	tilemap.clear_highlight()
 	Events.card_drag_ended.emit(card_ui)

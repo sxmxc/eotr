@@ -27,7 +27,6 @@ size_flags_vertical = 4
 theme = ExtResource("1_l3rh4")
 script = ExtResource("2_dmw7j")
 discard_sound = ExtResource("3_0oooe")
-metadata/_edit_use_anchors_ = true
 
 [node name="Visuals" parent="." instance=ExtResource("4_l3rh4")]
 unique_name_in_owner = true

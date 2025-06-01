@@ -25,6 +25,8 @@ signal enemy_turn_ended
 signal enemy_selected(enemy: Enemy)
 signal enemy_updated(enemy: Enemy)
 signal enemy_info_hide_requested
+signal enemy_gold_bounty_collected(amount: int)
+signal enemy_resource_bounty_collected(amount: int)
 
 # Battle-related events
 signal status_tooltip_requested(statuses: Array[Status])
@@ -32,6 +34,7 @@ signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
 signal obelisk_destroyed
 signal battle_won
 signal round_updated(round: int)
+signal rounds_until_shrink_updated(val: int)
 signal tile_selected(tile_data: HexTileData)
 signal tile_updated(tile_data: HexTileData)
 signal tile_entered(tile_data: HexTileData)

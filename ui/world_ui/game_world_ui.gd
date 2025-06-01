@@ -22,6 +22,8 @@ class_name GameWorldUI
 
 func _ready() -> void:
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
+	if GameSettings.show_tutorial:
+		Events.player_hand_drawn.connect(show_tutorial)
 	end_turn_button.pressed.connect(_on_end_turn_button_pressed)
 	draw_pile_button.pressed.connect(draw_pile_view.show_current_view.bind("Draw Pile", true))
 	discard_pile_button.pressed.connect(discard_pile_view.show_current_view.bind("Discard Pile"))
@@ -37,6 +39,16 @@ func initialize_card_pile_ui() -> void:
 	discard_pile_view.card_pile = player_stats.discard
 	exhaust_pile_button.card_pile = player_stats.exhaust_pile
 	exhaust_pile_view.card_pile = player_stats.exhaust_pile
+	
+func show_tutorial() -> void:
+	tutorial_ui.display_tutorial()
+	await tutorial_ui.completed
+	GameSettings.show_tutorial = false
+	var data : SettingsData = GameSettings.get_current_settings()
+	data.tutorial_enabled = false
+	GameSettings.save_settings(data)
+	Events.player_hand_drawn.disconnect(show_tutorial)
+	
 
 func _set_player_stats(value: PlayerStats) -> void:
 	player_stats = value
@@ -45,13 +57,6 @@ func _set_player_stats(value: PlayerStats) -> void:
 	hand.card_spotlight = card_spotlight
 
 func _on_player_hand_drawn() -> void:
-	if GameSettings.show_tutorial:
-		tutorial_ui.display_tutorial()
-		await tutorial_ui.completed
-		GameSettings.show_tutorial = false
-		var data : SettingsData = GameSettings.get_current_settings()
-		data.tutorial_enabled = false
-		GameSettings.save_settings(data)
 	end_turn_button.disabled = false
 	pass
 

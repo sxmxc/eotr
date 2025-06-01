@@ -13,3 +13,4 @@ func set_card_pile(new_value: CardPile) -> void:
 		
 func _on_card_pile_size_changed(amount: int) -> void:
 	counter.text = str(amount)
+	

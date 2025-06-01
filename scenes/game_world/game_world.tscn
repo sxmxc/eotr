@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=65 format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -31,9 +31,10 @@
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
 [ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="25_oia7h"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
+[ext_resource type="Script" uid="uid://dmno7vawfhle0" path="res://ui/player_ui/bounty_ui.gd" id="29_qnbvx"]
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
 [ext_resource type="PackedScene" uid="uid://bxte0jljomebr" path="res://ui/player_ui/round_info.tscn" id="31_jwlkc"]
-[ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="32_udifo"]
+[ext_resource type="PackedScene" uid="uid://cugan5jsmxbwp" path="res://ui/card_pile_button/exhaust_pile_button.tscn" id="32_udifo"]
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
 [ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="39_ht6dc"]
@@ -422,9 +423,95 @@ offset_bottom = 360.0
 [node name="RoundInfoUI" parent="GameWorldUI/PlayerUI" instance=ExtResource("31_jwlkc")]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 368.0
-offset_right = 320.0
-offset_bottom = 428.0
+offset_top = 360.0
+offset_right = 322.0
+offset_bottom = 465.0
+
+[node name="BountyUI" type="Panel" parent="GameWorldUI/PlayerUI"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 465.0
+offset_right = 322.0
+offset_bottom = 611.0
+theme = ExtResource("24_mkc5e")
+theme_type_variation = &"HudPanelBackground"
+script = ExtResource("29_qnbvx")
+
+[node name="MainMargin" type="MarginContainer" parent="GameWorldUI/PlayerUI/BountyUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="BodyMargin" type="MarginContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin"]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bounties"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Type" type="HBoxContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.5
+text = "Gold"
+vertical_alignment = 1
+
+[node name="BountyGoldLabel" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="Type2" type="HBoxContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.5
+text = "Resources"
+vertical_alignment = 1
+
+[node name="BountyResLabel" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "0"
 
 [node name="EndTurnButton" type="Button" parent="GameWorldUI/PlayerUI"]
 unique_name_in_owner = true
@@ -483,15 +570,13 @@ text = "99"
 label_settings = SubResource("LabelSettings_0br8l")
 horizontal_alignment = 1
 
-[node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
+[node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("32_udifo")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
-offset_left = 1336.0
-offset_top = 878.0
-offset_right = 1400.0
-offset_bottom = 942.0
-texture_normal = ExtResource("32_udifo")
+offset_left = 1339.0
+offset_top = 876.0
+offset_right = 1403.0
+offset_bottom = 940.0
 counter = NodePath("Counter")
 
 [node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/ExhaustPileButton"]

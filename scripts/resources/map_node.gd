@@ -7,6 +7,7 @@ class_name MapNode
 @export var position: Vector2
 @export var next_nodes: Array[MapNode]
 @export var selected:= false
+
 #only used by monster/boss types
 @export var battle_stats: BattleStats
 

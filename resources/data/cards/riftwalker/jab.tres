@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://kjg6ef2tnu3q"]
+
+[ext_resource type="Script" uid="uid://6igf64g8bats" path="res://resources/data/cards/riftwalker/jab.gd" id="1_3u52m"]
+
+[resource]
+script = ExtResource("1_3u52m")
+base_damage = 3
+card_type = 0
+target_type = 11
+id = "jab"
+name = "Jab"
+card_rarity = 0
+description = "Deal [b]%s[/b] damage twice to adjacent enemy."
+energy_cost = 1
+exhaust = false
+metadata/_custom_type_script = "uid://cre5wuy8yysso"
