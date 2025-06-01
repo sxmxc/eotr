@@ -12,5 +12,7 @@ board_icon = ExtResource("2_f1pap")
 ai = ExtResource("1_6mu02")
 call_sound = ExtResource("3_4cyao")
 flying = true
+gold_value = 1
+resource_value_max = 0
 max_health = 6
 metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

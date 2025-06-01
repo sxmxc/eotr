@@ -43,6 +43,7 @@ func _ready():
 
 func start_world() -> void:
 	get_tree().paused = false
+	Events.enemy_died.connect(_on_enemy_died)
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
 	audio_stream_player.stream_paused = false
 	
@@ -57,6 +58,8 @@ func start_world() -> void:
 	enemy_handler.reset_enemy_actions.call_deferred()
 	current_round = 1
 	rounds_until_shrink = shrink_frequency - 1
+	battle_stats.enemy_gold_reward = 0
+	battle_stats.enemy_resource_reward = 0
 
 	var player_starting_position = tilemap.get_random_valid_tile()
 	tilemap.fog_clear_radius = player.stats.view_range
@@ -124,6 +127,9 @@ func _on_enemy_turn_ended() -> void:
 	player_handler.start_turn()
 	enemy_handler.reset_enemy_actions()
 
+func _on_enemy_died(enemy: Enemy) -> void:
+	battle_stats.enemy_gold_reward += enemy.get_gold_value()
+	battle_stats.enemy_resource_reward += enemy.get_resource_value()
 
 func _on_enemies_child_order_changed() -> void:
 	if enemy_handler.get_child_count() == 0 and is_instance_valid(relics):
@@ -137,7 +143,6 @@ func _on_obelisk_destroyed() -> void:
 func _on_player_died() -> void:
 	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
 	SaveGame.delete_data()
-
 
 func _on_relics_activated(type: Enums.RelicType) -> void:
 	match type:

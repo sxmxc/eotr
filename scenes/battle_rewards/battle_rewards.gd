@@ -15,7 +15,11 @@ const CARD_REWARD_SCENE = preload("res://scenes/battle_rewards/card_rewards.tscn
 @export var relic_handler: RelicHandler
 
 @onready var rewards: VBoxContainer = %Rewards
+@onready var enemy_rewards: VBoxContainer = %EnemyRewards
 @onready var ui_layer: CanvasLayer = $UILayer
+@onready var reward_label: Label = %RewardLabel
+@onready var enemy_reward_label: Label = %EnemyRewardLabel
+@onready var empty_label: Label = %EmptyLabel
 
 var card_reward_total_weight := 0.0
 var card_rarity_weights := {
@@ -26,7 +30,10 @@ var card_rarity_weights := {
 func _ready() -> void:
 	for node: Node in rewards.get_children():
 		node.queue_free()
-
+	for node: Node in enemy_rewards.get_children():
+		node.queue_free()
+	rewards.child_order_changed.connect(_on_reward_order_changed)
+	enemy_rewards.child_order_changed.connect(_on_enemy_reward_order_changed)
 
 func add_gold_reward(amount: int) -> void:
 	var gold_reward := REWARD_BUTTON.instantiate() as RewardButton
@@ -34,6 +41,13 @@ func add_gold_reward(amount: int) -> void:
 	gold_reward.reward_text = GOLD_TEXT % amount
 	gold_reward.pressed.connect(_on_gold_reward_taken.bind(amount))
 	rewards.add_child.call_deferred(gold_reward)
+	
+func add_enemy_gold_reward(amount: int) -> void:
+	var gold_reward := REWARD_BUTTON.instantiate() as RewardButton
+	gold_reward.reward_icon = GOLD_ICON
+	gold_reward.reward_text = GOLD_TEXT % amount
+	gold_reward.pressed.connect(_on_gold_reward_taken.bind(amount))
+	enemy_rewards.add_child.call_deferred(gold_reward)
 
 
 func add_resource_reward(amount: int) -> void:
@@ -46,6 +60,54 @@ func add_resource_reward(amount: int) -> void:
 	resource_reward.pressed.connect(_on_resource_reward_taken.bind(amount))
 	rewards.add_child.call_deferred(resource_reward)
 
+func add_enemy_resource_reward(amount: int) -> void:
+	var resource_reward := REWARD_BUTTON.instantiate() as RewardButton
+	resource_reward.reward_icon = RESOURCE_ICON
+	if amount > 1:
+		resource_reward.reward_text = RESOURCE_TEXT % amount
+	else:
+		resource_reward.reward_text = "%s resource" % amount
+	resource_reward.pressed.connect(_on_resource_reward_taken.bind(amount))
+	enemy_rewards.add_child.call_deferred(resource_reward)
+	
+
+func add_card_reward() -> void:
+	var card_reward := REWARD_BUTTON.instantiate() as RewardButton
+	card_reward.reward_icon = CARD_ICON
+	card_reward.reward_text = CARD_TEXT
+	card_reward.pressed.connect(_show_card_rewards)
+	rewards.add_child.call_deferred(card_reward)
+
+
+func add_relic_reward(relic: Relic) -> void:
+	if not relic:
+		return
+
+	var relic_reward := REWARD_BUTTON.instantiate() as RewardButton
+	relic_reward.reward_icon = relic.icon
+	relic_reward.reward_text = relic.relic_name
+	relic_reward.pressed.connect(_on_relic_reward_taken.bind(relic))
+	rewards.add_child.call_deferred(relic_reward)
+
+func _on_reward_order_changed() -> void:
+	if rewards.get_child_count() <= 0:
+		reward_label.hide()
+		if enemy_rewards.get_child_count() <= 0:
+			empty_label.show()
+		else:
+			empty_label.hide()
+	else:
+		reward_label.show()
+		
+func _on_enemy_reward_order_changed() -> void:
+	if enemy_rewards.get_child_count() <= 0:
+		enemy_reward_label.hide()
+		if rewards.get_child_count() <= 0:
+			empty_label.show()
+		else:
+			empty_label.hide()
+	else:
+		enemy_reward_label.show()
 
 func _on_gold_reward_taken(amount: int) -> void:
 	if not run_stats:
@@ -89,26 +151,6 @@ func _on_relic_reward_taken(relic: Relic) -> void:
 	Talo.events.track("relic_prize_taken", event_props)
 	Talo.stats.track("treasure_taken")
 	relic_handler.add_relic(relic)
-
-
-func add_card_reward() -> void:
-	var card_reward := REWARD_BUTTON.instantiate() as RewardButton
-	card_reward.reward_icon = CARD_ICON
-	card_reward.reward_text = CARD_TEXT
-	card_reward.pressed.connect(_show_card_rewards)
-	rewards.add_child.call_deferred(card_reward)
-
-
-func add_relic_reward(relic: Relic) -> void:
-	if not relic:
-		return
-
-	var relic_reward := REWARD_BUTTON.instantiate() as RewardButton
-	relic_reward.reward_icon = relic.icon
-	relic_reward.reward_text = relic.relic_name
-	relic_reward.pressed.connect(_on_relic_reward_taken.bind(relic))
-	rewards.add_child.call_deferred(relic_reward)
-
 
 func _show_card_rewards() -> void:
 	if not run_stats or not player_stats:

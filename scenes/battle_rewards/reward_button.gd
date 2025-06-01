@@ -23,5 +23,6 @@ func set_reward_text(new_text: String) -> void:
 	custom_text.text = reward_text
 
 func _on_pressed() -> void:
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	queue_free()
 	pass # Replace with function body.

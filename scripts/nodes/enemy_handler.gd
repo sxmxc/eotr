@@ -96,7 +96,6 @@ func _on_player_hand_drawn() -> void:
 	for enemy: Enemy in get_children():
 		enemy.update_intent()
 
-
 func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
 	match type:
 		Enums.StatusType.START_OF_TURN:

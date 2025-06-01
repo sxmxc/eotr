@@ -388,9 +388,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -328.5
+offset_top = -428.5
 offset_right = 300.0
-offset_bottom = 328.5
+offset_bottom = 428.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_qeoyd")
@@ -404,7 +404,7 @@ label_settings = SubResource("LabelSettings_dw2ox")
 horizontal_alignment = 1
 
 [node name="RewardsContainer" type="PanelContainer" parent="UILayer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 500)
+custom_minimum_size = Vector2(600, 700)
 layout_mode = 2
 theme_type_variation = &"HudPanelMain"
 
@@ -415,25 +415,56 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="Rewards" type="VBoxContainer" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RewardLabel" type="Label" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Battle Rewards"
+
+[node name="Rewards" type="VBoxContainer" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="GoldRewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/Rewards" instance=ExtResource("3_kxtc4")]
+[node name="GoldRewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer/Rewards" instance=ExtResource("3_kxtc4")]
 layout_mode = 2
 reward_icon = ExtResource("4_7jb2c")
 reward_text = "50 Gold"
 
-[node name="CardRewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/Rewards" instance=ExtResource("3_kxtc4")]
+[node name="CardRewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer/Rewards" instance=ExtResource("3_kxtc4")]
 layout_mode = 2
 reward_icon = ExtResource("4_gf7kw")
 reward_text = "1 new card"
 
-[node name="ResourceRewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/Rewards" instance=ExtResource("3_kxtc4")]
+[node name="ResourceRewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer/Rewards" instance=ExtResource("3_kxtc4")]
 layout_mode = 2
 reward_icon = ExtResource("5_gf7kw")
 reward_text = "5 Resources"
+
+[node name="EnemyRewardLabel" type="Label" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enemy Rewards"
+
+[node name="EnemyRewards" type="VBoxContainer" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RewardButton" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer/EnemyRewards" instance=ExtResource("3_kxtc4")]
+layout_mode = 2
+
+[node name="EmptyLabel" type="Label" parent="UILayer/VBoxContainer/RewardsContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Nothing"
+horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="UILayer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)

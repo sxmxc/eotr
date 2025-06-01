@@ -25,6 +25,8 @@ signal enemy_turn_ended
 signal enemy_selected(enemy: Enemy)
 signal enemy_updated(enemy: Enemy)
 signal enemy_info_hide_requested
+signal enemy_gold_bounty_collected(amount: int)
+signal enemy_resource_bounty_collected(amount: int)
 
 # Battle-related events
 signal status_tooltip_requested(statuses: Array[Status])

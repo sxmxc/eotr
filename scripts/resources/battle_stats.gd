@@ -10,6 +10,8 @@ class_name BattleStats
 @export var enemies: PackedScene
 @export var battle_field_width: int
 @export var battle_field_height: int
+@export var enemy_gold_reward: int : set = _set_enemy_gold_reward
+@export var enemy_resource_reward: int : set = _set_enemy_resource_reward
 
 var accumlated_weight: float = 0.0
 
@@ -18,3 +20,11 @@ func roll_gold_reward() -> int:
 
 func roll_resource_reward() -> int:
 	return RNG.instance.randi_range(resource_reward_min, resource_reward_max)
+
+func _set_enemy_gold_reward(amount: int) -> void:
+	enemy_gold_reward = amount
+	Events.enemy_gold_bounty_collected.emit(amount)
+	
+func _set_enemy_resource_reward(amount: int) -> void:
+	enemy_resource_reward = amount
+	Events.enemy_resource_bounty_collected.emit(amount)

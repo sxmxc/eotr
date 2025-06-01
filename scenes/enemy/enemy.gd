@@ -88,9 +88,7 @@ func update_intent() -> void:
 		stats_ui.intent_ui.update_intent(current_action.intent)
 
 func do_turn() -> void:
-	print("%s doing turn" % name)
 	#stats.block = 0
-	
 	if not current_action:
 		return
 		
@@ -100,7 +98,7 @@ func do_turn() -> void:
 func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool = false) -> void:
 	if stats.health <= 0:
 		return
-		
+
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var tween := create_tween()
@@ -153,7 +151,6 @@ func _on_area_2d_mouse_entered() -> void:
 	hovered = true
 	circle_indicator.show()
 	stats_ui.grab_focus()
-	print("%s hovered" % name)
 	pass # Replace with function body.
 
 
@@ -163,5 +160,10 @@ func _on_area_2d_mouse_exited() -> void:
 	hovered = false
 	circle_indicator.hide()
 	stats_ui.release_focus()
-	print("%s no longer hovered" % name)
 	pass # Replace with function body.
+
+func get_gold_value()-> int:
+	return stats.gold_value
+	
+func get_resource_value() -> int:
+	return RNG.instance.randi_range(0, stats.resource_value_max)

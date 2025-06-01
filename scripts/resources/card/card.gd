@@ -50,7 +50,7 @@ func _get_targets(targets: Array[Node]) -> Array:
 		Enums.TargetType.SURROUNDING_ENEMIES:
 			var player_tile = tilemap.player_position
 			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
-			var aoe_targets: Array[Vector2i] = []
+			var aoe_targets: Array[Node] = []
 			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
 				var enemy_tile_position = enemy.current_tile_position
 				if surrounding_tiles.has(enemy_tile_position):
