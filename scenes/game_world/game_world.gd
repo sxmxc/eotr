@@ -22,6 +22,8 @@ extends Node2D
 var audio_stream_player : AudioStreamPlayer
 var current_round : int : 
 	set = set_current_round
+var rounds_until_shrink : int :
+	set = set_rounds_until_shrink
 
 func _ready():
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
@@ -54,6 +56,7 @@ func start_world() -> void:
 	enemy_handler.setup_enemies(battle_stats)
 	enemy_handler.reset_enemy_actions.call_deferred()
 	current_round = 1
+	rounds_until_shrink = shrink_frequency - 1
 
 	var player_starting_position = tilemap.get_random_valid_tile()
 	tilemap.fog_clear_radius = player.stats.view_range
@@ -92,6 +95,12 @@ func set_current_round(value: int) -> void:
 		await ready
 	current_round = value
 	Events.round_updated.emit(current_round)
+	
+func set_rounds_until_shrink(value: int) -> void:
+	if not is_node_ready():
+		await ready
+	rounds_until_shrink = value
+	Events.rounds_until_shrink_updated.emit(rounds_until_shrink)
 
 func shrink_game_board(amount: int = 1) -> void:
 	world_camera.follow_target = tilemap.center_marker
@@ -105,11 +114,13 @@ func shrink_game_board(amount: int = 1) -> void:
 
 	world_camera.priority = 0
 	world_camera.set_zoom(Vector2.ONE)
+	rounds_until_shrink = shrink_frequency
 
 func _on_enemy_turn_ended() -> void:
 	if current_round % shrink_frequency == 0:
 		await shrink_game_board(1)
 	current_round += 1
+	rounds_until_shrink -= 1
 	player_handler.start_turn()
 	enemy_handler.reset_enemy_actions()
 

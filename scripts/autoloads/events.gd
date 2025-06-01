@@ -32,6 +32,7 @@ signal battle_over_screen_requested(text: String, type: BattleOverPanel.Type)
 signal obelisk_destroyed
 signal battle_won
 signal round_updated(round: int)
+signal rounds_until_shrink_updated(val: int)
 signal tile_selected(tile_data: HexTileData)
 signal tile_updated(tile_data: HexTileData)
 signal tile_entered(tile_data: HexTileData)

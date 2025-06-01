@@ -26,7 +26,7 @@ static var RARITY_COLORS := {
 
 func is_single_targeted() -> bool:
 	return (
-		target_type == Enums.TargetType.SINGLE_ENEMY or target_type == Enums.TargetType.SINGLE_TILE
+		target_type == Enums.TargetType.SINGLE_ENEMY or target_type == Enums.TargetType.SINGLE_TILE or target_type == Enums.TargetType.ADJACENT_ENEMY
 	)
 
 
@@ -38,6 +38,7 @@ func _get_targets(targets: Array[Node]) -> Array:
 	if not targets:
 		return []
 	var tree := targets[0].get_tree() as SceneTree
+	var tilemap := tree.get_first_node_in_group("map_layer")
 
 	match target_type:
 		Enums.TargetType.SELF:
@@ -47,16 +48,13 @@ func _get_targets(targets: Array[Node]) -> Array:
 		Enums.TargetType.EVERYONE:
 			return tree.get_nodes_in_group("player") + tree.get_nodes_in_group("enemy")
 		Enums.TargetType.SURROUNDING_ENEMIES:
-			var player = tree.get_first_node_in_group("player")
-			var enemy = tree.get_first_node_in_group("enemy")
-			var enemies = tree.get_nodes_in_group("enemy")
-			var player_tile = enemy.tilemap.base_layer.local_to_map(player.position)
-			var surrounding_tiles = enemy.tilemap.base_layer.get_surrounding_cells(player_tile)
-			var aoe_targets: Array[Node]
-			for en in enemies:
-				var enemy_tile_position = enemy.tilemap.base_layer.local_to_map(en.position)
+			var player_tile = tilemap.player_position
+			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
+			var aoe_targets: Array[Vector2i] = []
+			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
+				var enemy_tile_position = enemy.current_tile_position
 				if surrounding_tiles.has(enemy_tile_position):
-					aoe_targets.append(en)
+					aoe_targets.append(enemy)
 			return aoe_targets
 		_:
 			return []
@@ -94,29 +92,26 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 	match target_type:
 		Enums.TargetType.SINGLE_TILE:
 			return tilemap.base_layer.get_used_cells_by_id(0, Vector2i.ZERO)
-		Enums.TargetType.SELF:
-			var tile_pos = tilemap.player_position
-			return [tile_pos]
-		Enums.TargetType.ALL_ENEMIES:
-			var tiles : Array = []
+		Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ALL_ENEMIES:
+			var tiles : Array[Vector2i] = []
 			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
 				tiles.append(enemy.current_tile_position)
 			return tiles
+		Enums.TargetType.SELF:
+			var tile_pos = tilemap.player_position
+			return [tile_pos]
 		Enums.TargetType.EVERYONE:
-			var tiles : Array = []
+			var tiles : Array[Vector2i] = []
 			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
 				tiles.append(enemy.current_tile_position)
 			tiles.append(tilemap.player_position)
 			return tiles
-		Enums.TargetType.SURROUNDING_ENEMIES:
-			var player = tree.get_first_node_in_group("player")
-			var enemy = tree.get_first_node_in_group("enemy")
-			var enemies = tree.get_nodes_in_group("enemy")
-			var player_tile = enemy.tilemap.base_layer.local_to_map(player.position)
-			var surrounding_tiles = enemy.tilemap.base_layer.get_surrounding_cells(player_tile)
-			var aoe_targets: Array = []
-			for en in enemies:
-				var enemy_tile_position = enemy.tilemap.base_layer.local_to_map(en.position)
+		Enums.TargetType.SURROUNDING_ENEMIES, Enums.TargetType.ADJACENT_ENEMY:
+			var player_tile = tilemap.player_position
+			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
+			var aoe_targets: Array[Vector2i] = []
+			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
+				var enemy_tile_position = enemy.current_tile_position
 				if surrounding_tiles.has(enemy_tile_position):
 					aoe_targets.append(enemy_tile_position)
 			return aoe_targets
