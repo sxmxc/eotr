@@ -83,20 +83,8 @@ func _ready():
 
 
 func weighted_random_tile() -> Enums.TileType:
-	var weight_sum := 0.0
-	var tile_entries := []
-
-	for tile_type in Enums.TileType.keys():
-		weight_sum += tile_weights[tile_type]
-		tile_entries.append({"tile": tile_type, "weight": weight_sum})
-
-	var random_value := RNG.instance.randf() * weight_sum
-
-	for entry in tile_entries:
-		if random_value < entry["weight"]:
-			return Enums.TileType[entry["tile"]]
-
-	return Enums.TileType.RESOURCE  # Fallback (should never happen)
+	var probabilities = tile_weights.values()
+	return Enums.TileType[tile_weights.keys()[RNG.instance.rand_weighted(probabilities)]]
 
 
 func generate_tilemap(battle_stats: BattleStats):
