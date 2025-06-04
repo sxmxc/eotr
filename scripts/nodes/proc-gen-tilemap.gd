@@ -295,20 +295,11 @@ func _trigger_ancient_ruin_effect() -> void:
 			"desc": "You feel watched... but nothing happens."
 		}
 	]
-
-	var total_weight = 0
+	var probabilities = []
 	for effect in effects:
-		total_weight += effect.weight
+		probabilities.append(effect.weight) 
 
-	var roll = RNG.instance.randi() % total_weight
-	var current = 0
-	var chosen_effect
-
-	for effect in effects:
-		current += effect.weight
-		if roll < current:
-			chosen_effect = effect
-			break
+	var chosen_effect = effects[RNG.instance.rand_weighted(probabilities)]
 
 	if chosen_effect:
 		chosen_effect.func.call()
