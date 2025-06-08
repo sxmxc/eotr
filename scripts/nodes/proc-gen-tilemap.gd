@@ -30,7 +30,8 @@ signal map_generated
 @export var mana_weight: int = 10
 @export var warp_weight: int = 5
 
-@export_group("Events")
+@export_group("Tile Effects")
+@export var ruin_tile_effects : Array[RuinTileEffect] = []
 
 @onready var center_marker: Marker2D = $CenterMarker
 
@@ -237,73 +238,16 @@ func apply_tile_effects() -> void:
 				_trigger_ancient_ruin_effect()
 
 func _trigger_ancient_ruin_effect() -> void:
-	var effects = [
-		{
-			"func": func(): 
-				var block_effect := BlockEffect.new()
-				block_effect.amount = 10
-				block_effect.execute([player]),
-			"weight": 4,
-			"desc": "You feel protected by a forgotten power. (+10 Block)"
-		},
-		{
-			"func": func(): 
-				var damage_effect := DamageEffect.new()
-				damage_effect.amount = 5
-				damage_effect.execute([player]),
-			"weight": 2,
-			"desc": "A cursed wind cuts through you. (5 Damage)"
-		},
-		{
-			"func": func():
-				var energy_effect := EnergyEffect.new()
-				energy_effect.amount = 1
-				energy_effect.execute([player]),
-			"weight": 3,
-			"desc": "Crackling energy surges around you. (+1 Energy)"
-		},
-		{
-			"func": func(): 
-				var gather_effect := GatherEffect.new()
-				gather_effect.amount = 1
-				gather_effect.tile_target_position = player_position
-				gather_effect.execute([player]),
-			"weight": 2,
-			"desc": "You find a hastley left items thrown about. (+1 Resource)"
-		},
-		{
-			"func": func(): 
-				var draw_effect := DrawEffect.new()
-				draw_effect.amount = 1
-				draw_effect.execute([player]),
-			"weight": 3,
-			"desc": "You uncover a hidden note. (Draw 1 Card)"
-		},
-		{
-			"func": func():
-				var attunement = preload("res://resources/data/statuses/attunement.tres").duplicate()
-				var status_effect = StatusEffect.new()
-				attunement.stacks = 1
-				status_effect.status = attunement
-				status_effect.execute([player]),
-			"weight": 1,
-			"desc": "Your mind clears. (+1 Attunement)"
-		},
-		{
-			"func": func(): pass,
-			"weight": 1,
-			"desc": "You feel watched... but nothing happens."
-		}
-	]
+
 	var probabilities = []
-	for effect in effects:
+	for effect: RuinTileEffect in ruin_tile_effects:
 		probabilities.append(effect.weight) 
 
-	var chosen_effect = effects[RNG.instance.rand_weighted(probabilities)]
+	var chosen_effect : RuinTileEffect = ruin_tile_effects[RNG.instance.rand_weighted(probabilities)]
 
 	if chosen_effect:
-		chosen_effect.func.call()
-		_show_ruin_effect_feedback(chosen_effect.desc)
+		chosen_effect.execute([player], player.modifier_handler)
+		_show_ruin_effect_feedback(chosen_effect.description)
 		
 func _show_ruin_effect_feedback(text: String) -> void:
 	var message = WorldMessageData.new(text)

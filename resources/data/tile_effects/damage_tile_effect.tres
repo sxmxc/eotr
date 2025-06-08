@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://yp6oi15t4x0"]
+
+[ext_resource type="Script" uid="uid://dfcka2fa6fk2n" path="res://resources/data/tile_effects/damage_tile_effect.gd" id="1_wb42c"]
+
+[resource]
+script = ExtResource("1_wb42c")
+weight = 2.0
+description = "A cursed wind cuts through you. (5 Damage)"
+metadata/_custom_type_script = "uid://de80q2cigowdw"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dygkjk4gjxd2o"]
+
+[ext_resource type="Script" uid="uid://brs1h61bkx1is" path="res://resources/data/tile_effects/status_tile_effect.gd" id="1_2awwf"]
+
+[resource]
+script = ExtResource("1_2awwf")
+weight = 1.0
+description = "Your mind clears. (+1 Attunement)"
+metadata/_custom_type_script = "uid://de80q2cigowdw"

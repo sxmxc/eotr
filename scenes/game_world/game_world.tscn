@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=73 format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -13,12 +13,20 @@
 [ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="6_ph1f2"]
 [ext_resource type="Resource" uid="uid://cjimv3kddhqjg" path="res://resources/data/stats/player/riftwalker_starting_stats.tres" id="6_u4x5r"]
 [ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="7_pdbwf"]
+[ext_resource type="Script" uid="uid://de80q2cigowdw" path="res://scripts/effects/tile/ruin_tile_effect.gd" id="12_3lu4o"]
 [ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="12_lsh46"]
 [ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="12_odt01"]
+[ext_resource type="Resource" uid="uid://sp28xxw35dgt" path="res://resources/data/tile_effects/block_tile_effect.tres" id="13_wc6i6"]
 [ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="13_wek56"]
 [ext_resource type="Script" uid="uid://bj3gfx8l4ra88" path="res://ui/world_ui/game_world_ui.gd" id="13_y5rsn"]
+[ext_resource type="Resource" uid="uid://yp6oi15t4x0" path="res://resources/data/tile_effects/damage_tile_effect.tres" id="14_u6b8t"]
+[ext_resource type="Resource" uid="uid://dooia6pfkqp46" path="res://resources/data/tile_effects/draw_card_tile_effect.tres" id="15_g77xe"]
+[ext_resource type="Resource" uid="uid://cncwxv041kjkn" path="res://resources/data/tile_effects/empty_tile_effect.tres" id="16_p5igc"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="16_qc6v1"]
+[ext_resource type="Resource" uid="uid://j7vb2jjk48vl" path="res://resources/data/tile_effects/energy_tile_effect.tres" id="17_3u2ga"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="17_lorak"]
+[ext_resource type="Resource" uid="uid://cw30y55ftjw7y" path="res://resources/data/tile_effects/resource_tile_effect.tres" id="18_dc582"]
+[ext_resource type="Resource" uid="uid://dygkjk4gjxd2o" path="res://resources/data/tile_effects/status_tile_effect.tres" id="19_dpyoc"]
 [ext_resource type="PackedScene" uid="uid://dg8i01hcrxwwd" path="res://ui/player_ui/tile_info.tscn" id="19_mf52o"]
 [ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="20_g06lf"]
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="20_g7x0y"]
@@ -218,6 +226,7 @@ script = ExtResource("1_3wu0g")
 map_height = 20
 mana_weight = 1
 warp_weight = 1
+ruin_tile_effects = Array[ExtResource("12_3lu4o")]([ExtResource("13_wc6i6"), ExtResource("14_u6b8t"), ExtResource("15_g77xe"), ExtResource("16_p5igc"), ExtResource("17_3u2ga"), ExtResource("18_dc582"), ExtResource("19_dpyoc")])
 
 [node name="BaseLayer" type="TileMapLayer" parent="Tilemap"]
 tile_set = ExtResource("1_tqoos")

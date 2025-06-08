@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cncwxv041kjkn"]
+
+[ext_resource type="Script" uid="uid://c12lvvdc7ok2e" path="res://resources/data/tile_effects/empty_tile_effect.gd" id="1_qnfss"]
+
+[resource]
+script = ExtResource("1_qnfss")
+weight = 1.0
+description = "You feel watched... but nothing happens."
+metadata/_custom_type_script = "uid://de80q2cigowdw"

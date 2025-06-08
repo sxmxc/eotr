@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://j7vb2jjk48vl"]
+
+[ext_resource type="Script" uid="uid://c8ulxvughcnyu" path="res://resources/data/tile_effects/energy_tile_effect.gd" id="1_qlm8a"]
+
+[resource]
+script = ExtResource("1_qlm8a")
+weight = 3.0
+description = "Crackling energy surges around you. (+1 Energy)"
+metadata/_custom_type_script = "uid://de80q2cigowdw"
