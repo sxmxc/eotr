@@ -194,6 +194,8 @@ func _set_map_node_randomly(nodes_to_set: MapNode) -> void:
 		nodes_to_set.battle_stats = battle_stats_pool.get_random_battle_for_tier(
 			tier_for_monster_nodes
 		)
+		if nodes_to_set.battle_stats.is_elite:
+			nodes_to_set.type = Enums.MapNodeType.ELITE
 
 
 func _map_node_has_parent_of_type(map_node: MapNode, type: Enums.MapNodeType) -> bool:

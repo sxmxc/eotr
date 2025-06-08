@@ -7,6 +7,7 @@
 script = ExtResource("2_j87ip")
 battle_tier = 1
 weight = 1.0
+is_elite = true
 gold_reward_min = 63
 gold_reward_max = 81
 resource_reward_min = 6
@@ -14,4 +15,6 @@ resource_reward_max = 10
 enemies = ExtResource("1_0en70")
 battle_field_width = 10
 battle_field_height = 10
+enemy_gold_reward = 0
+enemy_resource_reward = 0
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

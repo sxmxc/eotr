@@ -3,6 +3,7 @@ class_name BattleStats
 
 @export_range(0,2) var battle_tier: int
 @export_range(0.0, 10.0) var weight: float
+@export var is_elite : bool = false
 @export var gold_reward_min: int
 @export var gold_reward_max: int
 @export var resource_reward_min: int

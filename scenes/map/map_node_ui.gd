@@ -10,7 +10,8 @@ const ICONS := {
 	Enums.MapNodeType.TREASURE: [preload("res://assets/icons/chest.svg"), Vector2(0.1, 0.1)],
 	Enums.MapNodeType.REST: [preload("res://assets/icons/night-sleep.svg"), Vector2(0.1, 0.1)],
 	Enums.MapNodeType.SHOP: [preload("res://assets/icons/pay-money.svg"), Vector2(0.1, 0.1)],
-	Enums.MapNodeType.BOSS: [preload("res://assets/icons/overlord-helm.svg"), Vector2(0.2, 0.2)]
+	Enums.MapNodeType.BOSS: [preload("res://assets/icons/overlord-helm.svg"), Vector2(0.2, 0.2)],
+	Enums.MapNodeType.ELITE: [preload("res://assets/icons/rolling-energy-2.svg"), Vector2(0.1, 0.1)]
 }
 
 @onready var line_2d: Line2D = $Visuals/Line2D

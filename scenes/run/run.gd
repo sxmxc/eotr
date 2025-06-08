@@ -263,7 +263,7 @@ func _on_map_exited(map_node: MapNode) -> void:
 	map_legend.hide()
 	_save_run(false)
 	match map_node.type:
-		Enums.MapNodeType.MONSTER:
+		Enums.MapNodeType.MONSTER, Enums.MapNodeType.ELITE:
 			_on_game_world_entered(map_node)
 		Enums.MapNodeType.TREASURE:
 			_on_treasure_room_entered()
