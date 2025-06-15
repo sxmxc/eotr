@@ -60,7 +60,7 @@ movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/2d_curved_arrow/plugin.cfg", "res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/2d_curved_arrow/plugin.cfg", "res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 

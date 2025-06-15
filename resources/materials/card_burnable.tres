@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cuaebmluocd8f"]
 
-[ext_resource type="Shader" uid="uid://dpsypbjjxsa52" path="res://resources/materials/card_burnable.gdshader" id="1_tgc71"]
+[ext_resource type="Shader" uid="uid://dpsypbjjxsa52" path="res://scripts/shaders/card_burnable.gdshader" id="1_tgc71"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tgc71"]
 

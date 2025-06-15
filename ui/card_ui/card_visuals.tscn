@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
-[ext_resource type="Shader" uid="uid://cy0ljmw8dfwny" path="res://resources/materials/dark_noise_vignette.gdshader" id="3_2pg18"]
+[ext_resource type="Shader" uid="uid://cy0ljmw8dfwny" path="res://scripts/shaders/dark_noise_vignette.gdshader" id="3_2pg18"]
 [ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="4_ky3w4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ky3w4"]
