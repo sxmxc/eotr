@@ -2,11 +2,19 @@ extends Node2D
 class_name EnemyHandler
 
 const ENEMY_STATS_UI = preload("res://ui/enemy_ui/enemy_stats_ui.tscn")
+# Pacing tunables for spotlighted vs batched enemy turns.
+const SPOTLIGHT_TWEEN_DURATION := 0.6
+const QUICK_TWEEN_DURATION := 0.18
+const QUICK_RESOLVE_DELAY := 0.08
+const SPOTLIGHT_POST_DELAY := 0.3
+const QUICK_POST_DELAY := 0.1
+const MIN_GOLD_FOR_SPOTLIGHT := 3
 
 @export var tilemap: ProcGenTilemap
 
 var acting_enemies: Array[Enemy] = []
 var world_ui : GameWorldUI
+var quick_turn_enemies: Dictionary = {}
 
 func _ready() -> void:
 	Events.enemy_died.connect(_on_enemy_died)
@@ -86,11 +94,21 @@ func _start_next_enemy_turn() -> void:
 		print("All enemies done")
 		return
 
-	acting_enemies[0].phantom_camera_2d.priority = 20
-	SoundManager.play_sound(acting_enemies[0].stats.call_sound)
-	await acting_enemies[0].phantom_camera_2d.tween_completed
-	acting_enemies[0].stats.block = 0
-	acting_enemies[0].status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	var current_enemy := acting_enemies[0]
+	var spotlight := _requires_spotlight(current_enemy)
+
+	_configure_enemy_camera(current_enemy, spotlight)
+
+	if spotlight and current_enemy.stats.call_sound:
+		SoundManager.play_sound(current_enemy.stats.call_sound)
+
+	if spotlight:
+		await current_enemy.phantom_camera_2d.tween_completed
+	else:
+		await get_tree().create_timer(QUICK_RESOLVE_DELAY).timeout
+
+	current_enemy.stats.block = 0
+	current_enemy.status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 
 func _on_player_hand_drawn() -> void:
 	for enemy: Enemy in get_children():
@@ -107,12 +125,16 @@ func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
 			enemy.phantom_camera_2d.priority = 0
 			enemy.stats_ui.release_focus()
 			acting_enemies.erase(enemy)
-			get_tree().create_timer(.5).timeout.connect(_start_next_enemy_turn)
+			var quick_turn: bool = quick_turn_enemies.get(enemy.get_instance_id(), false)
+			quick_turn_enemies.erase(enemy.get_instance_id())
+			var delay := QUICK_POST_DELAY if quick_turn else SPOTLIGHT_POST_DELAY
+			get_tree().create_timer(delay).timeout.connect(_start_next_enemy_turn)
 
 
 func _on_enemy_died(enemy: Enemy) -> void:
 	var is_enemy_turn := acting_enemies.size() > 0
 	acting_enemies.erase(enemy)
+	quick_turn_enemies.erase(enemy.get_instance_id())
 
 	if is_enemy_turn:
 		_start_next_enemy_turn()
@@ -124,3 +146,31 @@ func _on_enemy_action_completed(enemy: Enemy) -> void:
 
 func _obelisk_destroyed() -> void:
 	Events.obelisk_destroyed.emit()
+
+
+func _requires_spotlight(enemy: Enemy) -> bool:
+	if not is_instance_valid(enemy):
+		return false
+	if enemy is Obelisk:
+		return true
+	if enemy.turn_ticker == 0:
+		return true
+	if acting_enemies.size() <= 1:
+		return true
+	if enemy.stats and enemy.stats.gold_value >= MIN_GOLD_FOR_SPOTLIGHT:
+		return true
+	return false
+
+
+func _configure_enemy_camera(enemy: Enemy, spotlight: bool) -> void:
+	if not is_instance_valid(enemy):
+		return
+
+	if spotlight:
+		quick_turn_enemies.erase(enemy.get_instance_id())
+	else:
+		quick_turn_enemies[enemy.get_instance_id()] = true
+
+	var tween_duration := SPOTLIGHT_TWEEN_DURATION if spotlight else QUICK_TWEEN_DURATION
+	enemy.phantom_camera_2d.set_tween_duration(tween_duration)
+	enemy.phantom_camera_2d.priority = 20

@@ -5,8 +5,8 @@
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tgc71"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xgugw"]
-seamless = true
 noise = SubResource("FastNoiseLite_tgc71")
+seamless = true
 
 [resource]
 shader = ExtResource("1_tgc71")
