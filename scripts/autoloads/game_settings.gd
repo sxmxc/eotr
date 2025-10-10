@@ -17,7 +17,7 @@ func load_settings() -> void:
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("SFX"), settings.get_value("audio", "sfx_volume"))
 	if settings.has_section("gameplay"):
 		show_tutorial = settings.get_value("gameplay","tutorials")
-	if settings.get_value("graphics", "fullscreen"):
+	if settings.get_value("graphics", "fullscreen") and !OS.has_feature("editor"):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else: 
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

@@ -1,0 +1,79 @@
+backlog:
+  - id: BKL-001
+    title: "Tighten enemy turn pacing without losing cinematic beats"
+    priority: P0
+    status: in_review
+    owner: Codex
+    blockers: []
+    context:
+      - "Focus on scripts/nodes/enemy_handler.gd tween orchestration and scenes/enemy/enemy.tscn camera resources."
+      - "Preserve key cinematic beats while cutting idle time between enemy actions."
+    next_steps:
+      - "Audit EnemyHandler camera tween timings and provide a faster combat tween preset."
+      - "Identify which enemy actions truly need spotlighting versus quick-resolve handling."
+      - "Prototype batching rules so low-threat enemies can act with minimal interstitial delay."
+
+  - id: BKL-002
+    title: "Streamline encounter feedback UI so messages/FX don’t stall turns"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current world messages (ui/world_ui/world_message.gd) linger ~3s and pile up."
+      - "Card discard/burn animations in ui/card_ui/card_ui.gd serialize multiple tweens."
+    next_steps:
+      - "Shorten default world-message lifetimes and add priority tiers for routine events."
+      - "Rework end-of-turn discard/burn animations to resolve quickly when multiple cards leave play."
+      - "Review audio layering to ensure minor actions use short stingers and don’t serialize playback."
+
+  - id: BKL-003
+    title: "Rebalance obelisk pressure curve to emphasize “rush the pillar” gameplay"
+    priority: P0
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Obelisk spawns immediately via scenes/enemy/obelisk/obelisk_spawn_action.gd (turn_ticker % freq == 0)."
+      - "Early encounters (resources/data/battles/tier_0_*.tscn) already field 5+ mobile enemies."
+    next_steps:
+      - "Gate the first spawn (delay until turn ticker ≥ 1 or obelisk damaged) and set a live-enemy cap."
+      - "Trim initial enemy counts in early-tier battle scenes or stagger their entry."
+      - "Precompute/telegraph spawn tiles so the summon animation feels instant yet predictable."
+
+  - id: BKL-004
+    title: "Rework starting deck & energy economy to support fast, objective-focused openings"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers:
+      - "Align with class fantasies listed in Obsidian GDD (Game Design Doc.md, Classes folder)."
+    context:
+      - "Starter deck heavily weighted toward 1-cost movement/defense; obelisk HP = 20."
+      - "Mana wells grant situational +1 energy; otherwise base energy is 3."
+    next_steps:
+      - "Test free/discounted movement cards or a per-turn first-hit bonus against obelisks."
+      - "Add an early-game finisher card or buff base damage so pillars drop within two player turns."
+      - "Adjust defensive card slots to keep tension while encouraging aggressive play patterns."
+
+  - id: BKL-005
+    title: "Expand combat content breadth to sustain long-term runs"
+    priority: P2
+    status: blocked
+    owner: unassigned
+    blockers:
+      - "Need updated multi-class roadmap and boss pillars from Obsidian vault (Game Vault/Echoes of the Rift)."
+      - "Dependent on resolved pacing/obelisk/energy adjustments for balancing baselines."
+    context:
+      - "Current enemy roster thin; boss concept should follow “Core Nexus” finale, not obelisks."
+      - "Status-effect set limited; reusable card selection UI missing."
+    next_steps:
+      - "Design additional common/uncommon/rare card sets per archetype with distinct synergies."
+      - "Prototype smarter enemy AI variants and new enemy types that exploit the grid (flankers, supports, siegers)."
+      - "Outline a multi-stage boss ladder culminating in the Core Nexus encounter from the GDD."
+      - "Build a reusable in-battle card selection/sacrifice popup component for events, rituals, and rewards."
+      - "Expand the status-effect roster (buffs/debuffs/terrain effects) to support new cards and enemies."
+
+in_review: []
+
+ideas_icebox: []

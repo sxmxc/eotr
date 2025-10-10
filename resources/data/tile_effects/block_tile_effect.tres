@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://sp28xxw35dgt"]
+
+[ext_resource type="Script" uid="uid://0q481jvspjyk" path="res://resources/data/tile_effects/block_tile_effect.gd" id="1_1tjom"]
+
+[resource]
+script = ExtResource("1_1tjom")
+weight = 4.0
+description = "You feel protected by a forgotten power. (+10 Block)"
+metadata/_custom_type_script = "uid://de80q2cigowdw"

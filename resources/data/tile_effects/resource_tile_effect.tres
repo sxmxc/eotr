@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cw30y55ftjw7y"]
+
+[ext_resource type="Script" uid="uid://mkvio2tt4fvj" path="res://resources/data/tile_effects/resource_tile_effect.gd" id="1_05eko"]
+
+[resource]
+script = ExtResource("1_05eko")
+weight = 1.0
+description = "You find a hastley left items thrown about. (+1 Resource)"
+metadata/_custom_type_script = "uid://de80q2cigowdw"

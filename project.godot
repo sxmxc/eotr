@@ -16,21 +16,20 @@ instance_dock/preview_resolution=Vector2i(64, 64)
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.5.0"
+config/version="0.0.5.1"
 run/main_scene="uid://d3ll2gasnw28g"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/use_filter=false
 boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="8e21684"
+config/build="5b08a2d"
 
 [autoload]
 
 GameSettings="*res://scripts/autoloads/game_settings.gd"
 Events="*res://scripts/autoloads/events.gd"
-Enums="*res://scripts/autoloads/enums.gd"
 Utils="*res://scripts/autoloads/utils.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 Talo="*res://addons/talo/talo_manager.gd"
@@ -53,6 +52,7 @@ window/size/window_height_override=540
 window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://b21k6mqf4d"
+window/size/mode.editor=2
 
 [editor]
 
@@ -60,7 +60,7 @@ movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/2d_curved_arrow/plugin.cfg", "res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/2d_curved_arrow/plugin.cfg", "res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 
@@ -143,6 +143,7 @@ pause={
 
 textures/canvas_textures/default_texture_filter=3
 textures/vram_compression/import_etc2_astc=true
+viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 
 [shader_globals]

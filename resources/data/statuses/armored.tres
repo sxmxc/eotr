@@ -12,5 +12,5 @@ can_expire = false
 duration = 0
 stacks = 10
 icon = ExtResource("1_lo0sh")
-tooltip = "Apply's %s block at beginning of turn"
+tooltip = "Apply %s block at beginning of turn"
 metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

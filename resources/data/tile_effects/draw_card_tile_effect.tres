@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dooia6pfkqp46"]
+
+[ext_resource type="Script" uid="uid://ck8ejrsbo8c2e" path="res://resources/data/tile_effects/draw_card_tile_effect.gd" id="1_sme68"]
+
+[resource]
+script = ExtResource("1_sme68")
+weight = 3.0
+description = "You uncover a hidden note. (Draw 1 Card)"
+metadata/_custom_type_script = "uid://de80q2cigowdw"

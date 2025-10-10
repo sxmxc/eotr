@@ -1,4 +1,4 @@
-extends Node
+class_name Enums
 
 enum CardType { ATTACK, DEFENSE, SKILL, MUTATION, POWER, SUMMON, RESOURCE, MOVEMENT }
 
@@ -21,7 +21,7 @@ enum TargetType {
 
 enum TileType { RESOURCE, CORRUPTED, ANCIENT_RUIN, MANA_WELL, RIFT_GATE }
 
-enum MapNodeType { NOT_ASSIGNED, MONSTER, TREASURE, REST, SHOP, BOSS }
+enum MapNodeType { NOT_ASSIGNED, MONSTER, TREASURE, REST, SHOP, BOSS, ELITE }
 
 enum StatusType { START_OF_TURN, END_OF_TURN, EVENT_BASED }
 
@@ -34,6 +34,3 @@ enum ModifierType { DMG_DEALT, DMG_TAKEN, CARD_COST, SHOP_COST, NO_MODIFIER, MOV
 enum RelicType { START_OF_TURN, START_OF_COMBAT, END_OF_TURN, END_OF_COMBAT, EVENT_BASED }
 
 enum RelicCharacterType { ALL, RIFTWALKER, SYNTHFORGED, VOIDBINDER }
-
-func _ready() -> void:
-	print("Enums ready")

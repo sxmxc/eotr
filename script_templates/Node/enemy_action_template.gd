@@ -9,6 +9,9 @@ func perform_action() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position
 	var end := start + start.direction_to(target.global_position) * 2
+
+	tween.tween_property(enemy, "global_position", end, 0.2)
+	tween.tween_property(enemy, "global_position", start, 0.2)
 	
 	SoundManager.play_sound_random_pitch(sound)
 	
