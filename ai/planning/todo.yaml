@@ -2,7 +2,7 @@ backlog:
   - id: BKL-001
     title: "Tighten enemy turn pacing without losing cinematic beats"
     priority: P0
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
@@ -16,8 +16,8 @@ backlog:
   - id: BKL-002
     title: "Streamline encounter feedback UI so messages/FX don’t stall turns"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Current world messages (ui/world_ui/world_message.gd) linger ~3s and pile up."
@@ -30,8 +30,8 @@ backlog:
   - id: BKL-003
     title: "Rebalance obelisk pressure curve to emphasize “rush the pillar” gameplay"
     priority: P0
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Obelisk spawns immediately via scenes/enemy/obelisk/obelisk_spawn_action.gd (turn_ticker % freq == 0)."
@@ -44,35 +44,293 @@ backlog:
   - id: BKL-004
     title: "Rework starting deck & energy economy to support fast, objective-focused openings"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers:
       - "Align with class fantasies listed in Obsidian GDD (Game Design Doc.md, Classes folder)."
     context:
       - "Starter deck heavily weighted toward 1-cost movement/defense; obelisk HP = 20."
       - "Mana wells grant situational +1 energy; otherwise base energy is 3."
     next_steps:
-      - "Test free/discounted movement cards or a per-turn first-hit bonus against obelisks."
-      - "Add an early-game finisher card or buff base damage so pillars drop within two player turns."
-      - "Adjust defensive card slots to keep tension while encouraging aggressive play patterns."
+      - "Playtest early encounters to confirm the refunded movement and obelisk strike bonus consistently enable ≤2 turn pillar drops."
+      - "Review mid-run energy pacing with Adaptive Surge active to ensure it does not trivialize extended battles."
+      - "Capture telemetry or notes for how the new Sever Anchor finisher interacts with future class decks before duplicating the pattern."
 
   - id: BKL-005
     title: "Expand combat content breadth to sustain long-term runs"
     priority: P2
-    status: blocked
-    owner: unassigned
-    blockers:
-      - "Need updated multi-class roadmap and boss pillars from Obsidian vault (Game Vault/Echoes of the Rift)."
-      - "Dependent on resolved pacing/obelisk/energy adjustments for balancing baselines."
+    status: ready
+    owner: Codex
+    blockers: []
     context:
+      - "Class roadmaps documented in Obsidian vault (Game Vault/Echoes of the Rift/Classes/*.md)."
+      - "Boss ladder pillars scoped in Obsidian vault (Game Vault/Echoes of the Rift/Enemies/Boss Pillars.md)."
       - "Current enemy roster thin; boss concept should follow “Core Nexus” finale, not obelisks."
       - "Status-effect set limited; reusable card selection UI missing."
     next_steps:
       - "Design additional common/uncommon/rare card sets per archetype with distinct synergies."
       - "Prototype smarter enemy AI variants and new enemy types that exploit the grid (flankers, supports, siegers)."
-      - "Outline a multi-stage boss ladder culminating in the Core Nexus encounter from the GDD."
+      - "Integrate the documented boss ladder (Rift-Warden Bulwark -> Triune Convergence -> Core Nexus) into encounter scheduling and reward pacing."
       - "Build a reusable in-battle card selection/sacrifice popup component for events, rituals, and rewards."
       - "Expand the status-effect roster (buffs/debuffs/terrain effects) to support new cards and enemies."
+
+  - id: BKL-006
+    title: "Track polish and systems work from Obsidian TODO sync"
+    priority: P1
+    status: complete
+    owner: Codex
+    blockers: []
+    context:
+      - "Initial sync placeholder; individual items now tracked as BKL-007 through BKL-025."
+    next_steps: []
+
+  - id: BKL-007
+    title: "Smooth start-to-map transition with fade"
+    priority: P3
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Start-to-map flow currently cuts abruptly; assess whether a fade improves UX."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Capture current boot sequence and gather feedback on perceived jank."
+      - "Prototype a short fade between start scene and map load; keep optional if UX gains are minor."
+
+  - id: BKL-008
+    title: "Rebalance relic reward rarity"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Players reported relics feeling too common; needs confirmation post-energy economy changes."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Review drop tables and telemetry for relic frequency."
+      - "If rewards remain too frequent, adjust `resources/data/rewards` weights and verify run pacing."
+
+  - id: BKL-009
+    title: "Revise tutorial screens for current mechanics"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Tutorial flow predates recent combat and objective changes; may mislead players."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Audit current tutorial scenes/assets and list outdated guidance."
+      - "Update messaging, UI prompts, and progression to match latest mechanics."
+
+  - id: BKL-010
+    title: "Fix hand order change bug"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Players see unexpected card order shifts, likely in `ui/player_ui/player_hand_ui.gd`."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Reproduce the reorder issue and isolate underlying signal/array misuse."
+      - "Patch the hand management logic and add regression coverage if feasible."
+
+  - id: BKL-011
+    title: "Support special tile battle starts"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Need deterministic handling when encounters begin on non-standard tiles (mana wells, ruins, etc.)."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Catalogue tiles that require bespoke spawn logic."
+      - "Adjust spawn/preview code so edge cases respect tile modifiers without glitches."
+
+  - id: BKL-012
+    title: "Tighten discard-to-draw animations and FX"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Discard-to-draw transitions feel sluggish; improvements likely in `ui/card_ui/card_ui.gd`."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Profile current tween timings/sound layering."
+      - "Implement snappier tweens and align FX to avoid visual/audio desync."
+
+  - id: BKL-013
+    title: "Rebalance enemy roster"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Enemy stats/behaviors need another tuning pass post-pacing adjustments."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Collect current combat telemetry and identify outliers."
+      - "Update `resources/data/enemies` profiles and validate against early/mid/late encounters."
+
+  - id: BKL-014
+    title: "Fix end-of-battle audio bug"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Victory audio either fails to play or loops incorrectly after battles."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Reproduce audio issue and inspect `SoundManager` battle-finish hooks."
+      - "Ensure battle cleanup resets/starts the correct audio cues."
+
+  - id: BKL-015
+    title: "Improve battle start presentation"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Battle entry lacks dramatic framing; define desired beats before implementation."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Storyboard an enhanced intro (camera, SFX, UI)."
+      - "Prototype and user-test to confirm added juice doesn't slow pacing."
+
+  - id: BKL-016
+    title: "Enhance ruin tile feedback"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Ruins currently provide limited feedback when triggered/looted."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Audit ruin tile scripts for feedback hooks."
+      - "Add visuals/audio/tooltips clarifying activation state and rewards."
+
+  - id: BKL-017
+    title: "Boost enemy death feedback"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Enemy deaths need stronger signals (camera, VFX, audio) for clarity."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "List current death cues per enemy tier."
+      - "Layer in additional VFX/audio and ensure sequence completes without delaying turns."
+
+  - id: BKL-018
+    title: "Fix hand spotlight animation"
+    priority: P1
+    status: in_review
+    owner: Codex
+    blockers: []
+    context:
+      - "Spotlight cards stutter when moving back to hand (likely `ui/player_ui/player_hand_ui.gd:43`)."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Recreate the animation glitch and inspect tween reuse."
+      - "Adjust spotlight return animation to align with hand layout."
+
+  - id: BKL-019
+    title: "Implement boss health meter"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Upcoming boss ladder (see Boss Pillars note) needs dedicated health UI."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Design a multi-phase boss health bar that can represent pillar stages."
+      - "Integrate with boss encounters and test visibility/readability."
+
+  - id: BKL-020
+    title: "Add map event nodes"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Roadmap flagged event nodes for v0.0.6.0; confirm they still align with current milestones."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Validate that event node features remain in scope for the next milestone."
+      - "Implement generator hooks, UI, and encounter payloads if confirmed."
+
+  - id: BKL-021
+    title: "Build card cost selection popup"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Needed for rituals/events and ties into BKL-005 deck content expansion."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Design reusable popup UX for selecting card cost targets."
+      - "Implement component and hook into events requiring cost choices."
+
+  - id: BKL-022
+    title: "Design sacrifice card mechanic"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers:
+      - "Dependent on BKL-021 card selection popup to handle sacrifices cleanly."
+    context:
+      - "Sacrifice mechanic planned for v0.0.7.0 content update."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Define sacrifice rules/rewards and update design doc."
+      - "Implement mechanic once card selection popup is available."
+
+  - id: BKL-023
+    title: "Clarify obelisk type definitions and naming"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Ensure obelisk variants have consistent terminology; verify they remain core objectives alongside new boss ladder."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Review current obelisk encounters and confirm future role."
+      - "Update design docs/nomenclature or retire task if obelisks are being sunset."
+
+  - id: BKL-024
+    title: "Evaluate card upgrade system for v0.0.8.0"
+    priority: P3
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Card upgrades flagged for a later milestone; confirm necessity before implementation."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Assess design goals and compare against planned deck growth via new cards."
+      - "Draft upgrade mechanics only if benefits outweigh complexity."
+
+  - id: BKL-025
+    title: "Add card keyword tooltips"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Keywords currently lack hover help, hurting clarity for new cards."
+      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+    next_steps:
+      - "Inventory existing keywords and desired tooltip copy."
+      - "Implement hover/click tooltips in `ui/card_ui` and ensure localization readiness."
 
 in_review: []
 

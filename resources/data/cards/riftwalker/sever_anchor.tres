@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://clyz12x6p6qhc"]
+
+[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="1_proj"]
+[ext_resource type="AudioStream" uid="uid://cajk6alf5g5a5" path="res://assets/audio/launches/flaunch.wav" id="2_sfx"]
+[ext_resource type="Script" path="res://resources/data/cards/riftwalker/sever_anchor.gd" id="3_script"]
+[ext_resource type="PackedScene" uid="uid://b26pgaeesc2u2" path="res://ui/fx/spark_fx.tscn" id="4_vfx"]
+
+[resource]
+script = ExtResource("3_script")
+base_damage = 7
+obelisk_bonus = 5
+card_type = 0
+target_type = 1
+id = "sever_anchor"
+name = "Sever Anchor"
+card_rarity = 0
+description = "Deal [b]%s[/b] damage. Deal an additional [b]%s[/b] if the target is the [b]Obelisk[/b]."
+energy_cost = 1
+exhaust = false
+sound_fx = ExtResource("2_sfx")
+visual_fx = ExtResource("4_vfx")
+projectile_fx = ExtResource("1_proj")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

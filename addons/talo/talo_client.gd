@@ -1,5 +1,8 @@
 class_name TaloClient extends Node
 
+# automatically updated with a pre-commit hook
+const TALO_CLIENT_VERSION = "0.36.1"
+
 var _base_url: String
 
 func _init(base_url: String):
@@ -35,10 +38,11 @@ func make_request(method: HTTPClient.Method, url: String, body: Dictionary = {},
 
 	var http_request := HTTPRequest.new()
 	add_child(http_request)
+	http_request.timeout = 5
 	http_request.name = "%s %s" % [_get_method_name(method), url]
 
 	http_request.request(full_url, all_headers, method, request_body)
-	var res := _simulate_offline_request() if Talo.offline_mode_enabled() else await _build_response(http_request)
+	var res := _simulate_offline_request() if Talo.settings.offline_mode else await _build_response(http_request)
 	var status := res.response_code
 
 	var response_body := res.body
@@ -51,42 +55,49 @@ func make_request(method: HTTPClient.Method, url: String, body: Dictionary = {},
 				"Request failed: result %s, details: https://docs.godotengine.org/en/stable/classes/class_httprequest.html#enum-httprequest-result" % res.result
 		})
 
-	if Talo.settings.get_value("logging", "requests", false):
-		print_rich("[color=%s]--> %s %s %s %s[/color]" % [
+	if Talo.settings.log_requests:
+		print_rich("[color=%s]<-- %s %s%s %s[/color]" % [
 			"yellow" if continuity else "orange",
-			"[CONTINUITY]" if continuity else "",
 			_get_method_name(method),
 			full_url,
+			" [CONTINUITY]" if continuity else "",
 			request_body
 		])
-	
-	if Talo.settings.get_value("logging", "responses", false):
-		print_rich("[color=green]<-- %s %s[/color]" % [status, json.data])
 
-	var ret = {
+	if Talo.settings.log_responses:
+		print_rich("[color=green]--> %s %s [%s] %s[/color]" % [
+			_get_method_name(method),
+			full_url,
+			status,
+			json.data
+		])
+
+	var ret := {
 		status = status,
 		body = json.data
 	}
 
 	if ret.status >= 400:
-		handle_error(ret)
+		handle_error(method, url, ret)
 
-	if res.result != HTTPRequest.RESULT_SUCCESS or ret.status >= 500:
+	await Talo.continuity_manager.handle_post_response_healthcheck(full_url, res)
+	if Talo.continuity_manager.request_can_be_replayed(method, full_url, res):
 		Talo.continuity_manager.push_request(method, full_url, body, all_headers, continuity_timestamp)
 
 	http_request.queue_free()
 
 	return ret
-	
+
 func _build_headers(extra_headers: Array[String] = []) -> Array[String]:
 	var headers: Array[String] = [
-		"Authorization: Bearer %s" % Talo.settings.get_value("", "access_key"),
+		"Authorization: Bearer %s" % Talo.settings.access_key,
 		"Content-Type: application/json",
 		"Accept: application/json",
-		"X-Talo-Dev-Build: %s" % ("1" if OS.is_debug_build() else "0"),
-		"X-Talo-Include-Dev-Data: %s" % ("1" if OS.is_debug_build() else "0")
+		"X-Talo-Dev-Build: %s" % ("1" if Talo.settings.is_debug_build() else "0"),
+		"X-Talo-Include-Dev-Data: %s" % ("1" if Talo.settings.is_debug_build() else "0"),
+		"X-Talo-Client: godot:%s" % TALO_CLIENT_VERSION
 	]
-	
+
 	if Talo.current_alias:
 		headers.append_array([
 			"X-Talo-Player: %s" % Talo.current_player.id,
@@ -98,27 +109,27 @@ func _build_headers(extra_headers: Array[String] = []) -> Array[String]:
 		headers.append("X-Talo-Session: %s" % session_token)
 
 	headers.append_array(extra_headers)
-		
+
 	return headers
 
 func _build_full_url(url: String) -> String:
 	return "%s%s%s" % [
-		Talo.settings.get_value("", "api_url"),
+		Talo.settings.api_url,
 		_base_url,
-		url
+		url.replace(" ", "%20")
 	]
 
-func handle_error(res: Dictionary) -> void:
+func handle_error(method: HTTPClient.Method, url: String, res: Dictionary) -> void:
 	if res.body != null:
 		if res.body.has("message"):
-			push_error("%s: %s" % [res.status, res.body.message])
-			return
-		
-		if res.body.has("errors"):
-			push_error("%s: %s" % [res.status, res.body.errors])
+			push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.message])
 			return
 
-	push_error("%s: Unknown error" % res.status)
+		if res.body.has("errors"):
+			push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.errors])
+			return
+
+	push_error("%s %s [%s]: Unknown error" % [_get_method_name(method), url, res.status])
 
 class TaloClientResponse:
 	var result: int
@@ -127,7 +138,13 @@ class TaloClientResponse:
 	var body: PackedByteArray
 
 	func _init(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-		self.result = result
-		self.response_code = response_code
+		# web builds return RESULT_NO_RESPONSE (6) + status 0 for HTTP 204 responses
+		if result == HTTPRequest.RESULT_NO_RESPONSE and response_code == 0:
+			self.result = HTTPRequest.RESULT_SUCCESS
+			self.response_code = HTTPClient.RESPONSE_NO_CONTENT
+		else:
+			self.result = result
+			self.response_code = response_code
+
 		self.headers = headers
 		self.body = body

@@ -106,18 +106,24 @@ func burn_card() -> void:
 	visuals.material = CARD_BURNABLE.duplicate()
 	tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	visuals.animation_player.play("swirl_out")
-	tween.tween_property(self, "global_position", center_of_screen - target_offset, .25)
-	tween.tween_property(self, "global_position", discard_pile_position - target_offset, .12)
-	tween.parallel().tween_property(visuals, "scale", Vector2(.25,.25), .12)
-	tween.tween_callback(visuals.card_trail_fx.hide)
-	tween.tween_method(set_burn_shader_parameter, 0.0, 2.0, 1.5)
+	tween.tween_property(self, "global_position", center_of_screen - target_offset, 0.16)
+	tween.tween_property(self, "global_position", discard_pile_position - target_offset, 0.14)
+	tween.parallel().tween_property(visuals, "scale", Vector2(0.22, 0.22), 0.14)
+	tween.parallel().tween_method(set_burn_shader_parameter, 0.0, 1.6, 0.45)
+	tween.tween_callback(_stop_trail_fx)
 	tween.tween_callback(queue_free)
-	SoundManager.play_sound_random_pitch(discard_sound)
+	if discard_sound:
+		SoundManager.play_ui_sound_random_pitch(discard_sound)
 
 
 func set_burn_shader_parameter(value: float) -> void:
 	if visuals.material:
 		visuals.material.set_shader_parameter("radius", value)
+
+
+func _stop_trail_fx() -> void:
+	visuals.card_trail_fx.emitting = false
+	visuals.card_trail_fx.hide()
 
 
 func _on_gui_input(event: InputEvent) -> void:

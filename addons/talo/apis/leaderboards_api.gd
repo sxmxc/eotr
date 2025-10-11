@@ -21,24 +21,40 @@ func get_cached_entries_for_current_player(internal_name: String) -> Array[TaloL
 			return entry.player_alias.id == Talo.current_alias.id
 	)
 
-## Get a list of entries for a leaderboard. The page parameter is used for pagination.
-func get_entries(internal_name: String, page: int, alias_id = -1, include_archived = false) -> EntriesPage:
+## Get a list of entries for a leaderboard. The options include "page", "alias_id", "include_archived", "prop_key", "prop_value", "start_date" and "end_date" for additional filtering.
+func get_entries(internal_name: String, options := GetEntriesOptions.new()) -> EntriesPage:
 	var url := "/%s/entries?page=%s"
-	var url_data := [internal_name, page]
+	var url_data := [internal_name, options.page]
 
-	if alias_id != -1:
+	if options.alias_id != -1:
 		url += "&aliasId=%s"
-		url_data.append(alias_id)
+		url_data.append(options.alias_id)
 
-	if include_archived:
+	if options.include_archived:
 		url += "&withDeleted=1"
+
+	if options.prop_key != "":
+		url += "&propKey=%s"
+		url_data.append(options.prop_key)
+
+		if options.prop_value != "":
+			url += "&propValue=%s"
+			url_data.append(options.prop_value)
+
+	if options.start_date != "":
+		url += "&startDate=%s"
+		url_data.append(options.start_date)
+
+	if options.end_date != "":
+		url += "&endDate=%s"
+		url_data.append(options.end_date)
 
 	var res := await client.make_request(HTTPClient.METHOD_GET, url % url_data)
 
 	match res.status:
 		200:
 			var entries: Array[TaloLeaderboardEntry] = Array(res.body.entries.map(
-				func(data: Dictionary):
+				func (data: Dictionary):
 					var entry := TaloLeaderboardEntry.new(data)
 					_entries_manager.upsert_entry(internal_name, entry)
 
@@ -48,23 +64,22 @@ func get_entries(internal_name: String, page: int, alias_id = -1, include_archiv
 		_:
 			return null
 
-## Get a list of entries for a leaderboard for the current player. The page parameter is used for pagination.
-func get_entries_for_current_player(internal_name: String, page: int, include_archived = false) -> EntriesPage:
+func get_entries_for_current_player(internal_name: String, options := GetEntriesOptions.new()) -> EntriesPage:
 	if Talo.identity_check() != OK:
 		return null
 
-	return await get_entries(internal_name, page, Talo.current_alias.id, include_archived)
+	options.alias_id = Talo.current_alias.id
+
+	return await get_entries(internal_name, options)
 
 ## Add an entry to a leaderboard. The props (key-value pairs) parameter is used to store additional data with the entry.
-func add_entry(internal_name: String, score: float, props: Dictionary = {}) -> AddEntryResult:
+func add_entry(internal_name: String, score: float, props: Dictionary[String, Variant] = {}) -> AddEntryResult:
 	if Talo.identity_check() != OK:
 		return null
-
-	var props_to_send := props.keys().map(func(key: String) -> Dictionary: return {key = key, value = str(props[key])})
 
 	var res := await client.make_request(HTTPClient.METHOD_POST, "/%s/entries" % internal_name, {
 		score = score,
-		props = props_to_send
+		props = TaloPropUtils.dictionary_to_array(props)
 	})
 
 	match res.status:
@@ -95,3 +110,12 @@ class AddEntryResult:
 	func _init(entry: TaloLeaderboardEntry, updated: bool) -> void:
 		self.entry = entry
 		self.updated = updated
+
+class GetEntriesOptions:
+	var page: int = 0
+	var alias_id: int = -1
+	var include_archived: bool = false
+	var prop_key: String = ""
+	var prop_value: String = ""
+	var start_date: String = ""
+	var end_date: String = ""

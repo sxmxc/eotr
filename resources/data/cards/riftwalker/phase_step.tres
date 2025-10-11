@@ -5,14 +5,11 @@
 
 [resource]
 script = ExtResource("1_5tytu")
-movement_distance = 1
 card_type = 7
 target_type = 5
 id = "phase_step"
 name = "Phase Step"
-card_rarity = 0
 description = "Move [b]%s[/b] tile."
 energy_cost = 1
-exhaust = false
 sound_fx = ExtResource("2_pcpth")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

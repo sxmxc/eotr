@@ -1,14 +1,17 @@
-[gd_resource type="Resource" script_class="CardPile" load_steps=8 format=3 uid="uid://cg3hxbmpjkk10"]
+[gd_resource type="Resource" script_class="CardPile" load_steps=11 format=3 uid="uid://cg3hxbmpjkk10"]
 
-[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_8bhcb"]
-[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="2_drj5w"]
-[ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_q3200"]
-[ext_resource type="Resource" uid="uid://kjg6ef2tnu3q" path="res://resources/data/cards/riftwalker/jab.tres" id="3_6av2o"]
-[ext_resource type="Resource" uid="uid://1g187kuqiaba" path="res://resources/data/cards/riftwalker/eldritch_barrier.tres" id="3_ynn3t"]
-[ext_resource type="Resource" uid="uid://c4db8mmxp74pk" path="res://resources/data/cards/riftwalker/echo_harvest.tres" id="5_6av2o"]
-[ext_resource type="Resource" uid="uid://cirhx6ykwqtby" path="res://resources/data/cards/riftwalker/phase_step.tres" id="6_6av2o"]
+[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_card"]
+[ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_pile"]
+[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="3_arcbol"]
+[ext_resource type="Resource" uid="uid://kjg6ef2tnu3q" path="res://resources/data/cards/riftwalker/jab.tres" id="4_jab"]
+[ext_resource type="Resource" uid="uid://1g187kuqiaba" path="res://resources/data/cards/riftwalker/eldritch_barrier.tres" id="5_barrier"]
+[ext_resource type="Resource" uid="uid://c4db8mmxp74pk" path="res://resources/data/cards/riftwalker/echo_harvest.tres" id="6_echo"]
+[ext_resource type="Resource" uid="uid://cirhx6ykwqtby" path="res://resources/data/cards/riftwalker/phase_step.tres" id="7_phase"]
+[ext_resource type="Resource" uid="uid://dsc2p3kof2lra" path="res://resources/data/cards/riftwalker/arcane_blast.tres" id="8_blast"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/sever_anchor.tres" id="9_sever"]
+[ext_resource type="Resource" uid="uid://duhdw4lhgfp84" path="res://resources/data/cards/riftwalker/mana_surge.tres" id="11_mana"]
 
 [resource]
-script = ExtResource("2_q3200")
-cards = Array[ExtResource("1_8bhcb")]([ExtResource("2_drj5w"), ExtResource("2_drj5w"), ExtResource("3_6av2o"), ExtResource("3_6av2o"), ExtResource("3_ynn3t"), ExtResource("3_ynn3t"), ExtResource("5_6av2o"), ExtResource("6_6av2o"), ExtResource("6_6av2o"), ExtResource("6_6av2o")])
+script = ExtResource("2_pile")
+cards = Array[ExtResource("1_card")]([ExtResource("3_arcbol"), ExtResource("3_arcbol"), ExtResource("9_sever"), ExtResource("8_blast"), ExtResource("4_jab"), ExtResource("4_jab"), ExtResource("5_barrier"), ExtResource("11_mana"), ExtResource("6_echo"), ExtResource("7_phase"), ExtResource("7_phase")])
 metadata/_custom_type_script = "uid://dkmgiky2ttex"
