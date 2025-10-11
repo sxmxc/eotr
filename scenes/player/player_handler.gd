@@ -4,6 +4,11 @@ extends Node
 const HAND_DRAW_INTERVAL := 0.25
 const HAND_DISCARD_INTERVAL := 0.25
 const HEX_TRAIL = preload("res://ui/player_ui/hex_trail.tscn")
+const OBELISK_ENERGY_BONUS := 1
+const MOMENTUM_FLOW_LABEL := "Momentum Flow"
+const ADAPTIVE_SURGE_LABEL := "Adaptive Surge"
+const MANA_WELL_LABEL := "Mana Well Resonance"
+const OBELISK_FOCUS_LABEL := "Obelisk Focus"
 
 @export var relics: RelicHandler
 @export var player: Player
@@ -12,12 +17,17 @@ const HEX_TRAIL = preload("res://ui/player_ui/hex_trail.tscn")
 
 var player_stats: PlayerStats
 var card_types_played: Array[Enums.CardType] = []
+var player_turn_count := 0
+var free_movement_refund_available := false
+var obelisk_first_hit_awarded := false
+var obelisk: Obelisk
 
 
 func _ready() -> void:
 	if not LimboConsole.has_command("draw_card"):
 		LimboConsole.register_command(draw_card, "draw_card", "Draw card from deck")
 	Events.card_played.connect(_on_card_played)
+	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
 	#Events.player_moved.connect(_on_player_moved)
 
 
@@ -27,6 +37,11 @@ func start_battle(stats: PlayerStats) -> void:
 	player_stats.draw_pile.shuffle()
 	player_stats.discard = CardPile.new()
 	player_stats.exhaust_pile = CardPile.new()
+	player_turn_count = 0
+	free_movement_refund_available = false
+	obelisk_first_hit_awarded = false
+	_disconnect_obelisk_signal()
+	call_deferred("_connect_obelisk_bonus")
 	relics.relics_activated.connect(_on_relics_activated)
 	player.status_handler.statuses_applied.connect(_on_statuses_applied)
 	player.status_handler.status_added.connect(player_hand._on_status_added)
@@ -37,11 +52,16 @@ func start_turn() -> void:
 	card_types_played = []
 	if !is_instance_valid(player):
 		return
+	player_turn_count += 1
+	free_movement_refund_available = true
+	obelisk_first_hit_awarded = false
 	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()
 	if tilemap.is_tile_mana_well(tilemap.player_position):
-		player_stats.energy += 1
+		_grant_energy_bonus(1, MANA_WELL_LABEL)
+	if _is_riftwalker() and player_turn_count % 3 == 0:
+		_grant_energy_bonus(1, ADAPTIVE_SURGE_LABEL)
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
 
 
@@ -108,9 +128,67 @@ func reshuffle_deck_from_discard() -> void:
 
 	player_stats.draw_pile.shuffle()
 			
+func _connect_obelisk_bonus() -> void:
+	if not is_inside_tree():
+		return
+	var current_obelisk := get_tree().get_first_node_in_group("obelisk") as Obelisk
+	if not current_obelisk:
+		call_deferred("_connect_obelisk_bonus")
+		return
+	obelisk = current_obelisk
+	if not obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
+		obelisk.damage_taken.connect(_on_obelisk_damage_taken)
+
+
+func _disconnect_obelisk_signal() -> void:
+	if obelisk and is_instance_valid(obelisk) and obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
+		obelisk.damage_taken.disconnect(_on_obelisk_damage_taken)
+	obelisk = null
+
+
+func _on_obelisk_destroyed() -> void:
+	_disconnect_obelisk_signal()
+
+
+func _on_obelisk_damage_taken(amount: int) -> void:
+	if amount <= 0:
+		return
+	if obelisk_first_hit_awarded:
+		return
+	if player_turn_count <= 0:
+		return
+	obelisk_first_hit_awarded = true
+	_grant_energy_bonus(OBELISK_ENERGY_BONUS, OBELISK_FOCUS_LABEL)
+
+
+func _grant_energy_bonus(amount: int, label: String) -> void:
+	if amount <= 0:
+		return
+	if not player_stats:
+		return
+	player_stats.energy += amount
+	var world_message := WorldMessageData.new("%s: +%s energy" % [label, amount], WorldMessageData.Priority.ROUTINE)
+	Events.world_message_requested.emit(world_message)
+
+
+func _refund_movement_energy(card: Card) -> void:
+	if not free_movement_refund_available:
+		return
+	free_movement_refund_available = false
+	if card.energy_cost <= 0:
+		return
+	_grant_energy_bonus(card.energy_cost, MOMENTUM_FLOW_LABEL)
+
+
+func _is_riftwalker() -> bool:
+	return player_stats and player_stats.player_class_name == "Riftwalker"
+
+
 func _on_card_played(card: Card) -> void:
 	if not card_types_played.has(card.card_type):
 		card_types_played.append(card.card_type)
+	if card.card_type == Enums.CardType.MOVEMENT:
+		_refund_movement_energy(card)
 	if card.exhaust or card.card_type == Enums.CardType.POWER:
 		player_stats.exhaust_pile.add_card(card)
 		return

@@ -10,7 +10,7 @@ on:
 
 # Global environment variables used across all jobs
 env:
-  GODOT_VERSION: 4.4.1
+  GODOT_VERSION: 4.5
   PROJECT_PATH: .
   GAME_NAME: eotr  # Set your game name here in snake_case format
 
@@ -56,7 +56,7 @@ jobs:
     name: Windows Export
     runs-on: ubuntu-22.04
     container:
-      image: barichello/godot-ci:4.4.1
+      image: barichello/godot-ci:4.5
     env:
       EXPORT_NAME: ${{ needs.set-version.outputs.build_name }}
     steps:
@@ -88,7 +88,7 @@ jobs:
     name: Linux Export
     runs-on: ubuntu-22.04
     container:
-      image: barichello/godot-ci:4.4.1
+      image: barichello/godot-ci:4.5
     env:
       EXPORT_NAME: ${{ needs.set-version.outputs.build_name }}
     steps:

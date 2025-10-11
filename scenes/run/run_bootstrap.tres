@@ -5,6 +5,5 @@
 
 [resource]
 script = ExtResource("1_tqd7f")
-type = 0
 selected_player_class = ExtResource("2_b28rd")
 metadata/_custom_type_script = "uid://cv1jvec2i87gn"

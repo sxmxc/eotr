@@ -5,7 +5,7 @@ class_name TaloSocket extends Node
 ##
 ## @tutorial: https://docs.trytalo.com/docs/godot/socket
 
-const DEFAULT_SOCKET_URL = "wss://api.trytalo.com"
+const DEFAULT_SOCKET_URL := "wss://api.trytalo.com"
 
 var _socket := WebSocketPeer.new()
 var _temp_socket_token: String
@@ -43,7 +43,7 @@ func _identify_player() -> void:
 	send("v1.players.identify", payload)
 
 func _get_socket_url(ticket: String) -> String:
-	var url := Talo.settings.get_value("", "socket_url", DEFAULT_SOCKET_URL)
+	var url := Talo.settings.socket_url
 	return "%s/?ticket=%s" % [url, ticket]
 
 ## Open the connection to the Talo Socket server. A new ticket is created to authenticate the connection.
@@ -55,8 +55,8 @@ func open_connection():
 		print_rich("[color=yellow]Warning: Failed connecting to the Talo Socket: %s[/color]" % err)
 
 func _on_message_received(res: String, data: Dictionary) -> void:
-	if Talo.settings.get_value("logging", "responses", false):
-		print_rich("[color=aqua]<-- %s %s[/color]" % [res, data])
+	if Talo.settings.log_responses:
+		print_rich("[color=aqua]--> WSS %s %s[/color]" % [res, data])
 
 	match res:
 		"v1.connected":
@@ -77,12 +77,12 @@ func set_socket_token(token: String) -> void:
 
 ## Send a message to the Talo Socket server. Not recommended for direct use. See the Talo docs for available requests and message structures.
 func send(req: String, data: Dictionary = {}) -> int:
-	if Talo.settings.get_value("logging", "requests", false):
-		print_rich("[color=orange]--> %s %s[/color]" % [req, data])
+	if Talo.settings.log_requests:
+		print_rich("[color=orange]<-- WSS %s %s[/color]" % [req, data])
 
 	return _socket.send_text(JSON.stringify({
 		req = req,
-		data = data 
+		data = data
 	}))
 
 func _get_json() -> String:
@@ -100,6 +100,12 @@ func _emit_message(message: String) -> void:
 ## Close the connection to the Talo Socket server.
 func close_connection(code: int = 1000, reason: String = "") -> void:
 	_socket.close(code, reason)
+
+## Close the current connection and create a new connection to the Talo Socket server.
+func reset_connection() -> void:
+	close_connection()
+	_reset_socket()
+	open_connection()
 
 func _reset_socket() -> void:
 	connection_closed.emit(_socket.get_close_code(), _socket.get_close_reason())

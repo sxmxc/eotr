@@ -16,6 +16,9 @@ func _save_session(session_token: String) -> void:
 	config.save(_SESSION_CONFIG_PATH)
 
 func clear_session() -> void:
+	Talo.current_alias = null
+	Talo.socket.reset_connection()
+
 	var config := _load_config(_SESSION_CONFIG_PATH)
 
 	if config.has_section("session"):
@@ -41,3 +44,6 @@ func handle_session_created(alias: Dictionary, session_token: String, socket_tok
 	Talo.players.identified.emit(Talo.current_player)
 	_save_session(session_token)
 	Talo.socket.set_socket_token(socket_token)
+
+func check_for_session() -> bool:
+	return not get_token().is_empty()

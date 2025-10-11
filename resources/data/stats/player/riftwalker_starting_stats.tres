@@ -11,7 +11,7 @@ script = ExtResource("1_h1yhy")
 board_icon = ExtResource("1_jj0dv")
 player_class_name = "Riftwalker"
 player_class_description = "Explorers attuned to the Rift’s unstable energies. They balance both magic and technology, using adaptability to survive. 
-Riftwalkers gain an additional 1 view range."
+Riftwalkers gain an additional 1 view range, channel Adaptive Surge for +1 energy every third turn, refund their first movement card each turn, and regain 1 energy the first time they damage an Obelisk each round."
 starting_deck = ExtResource("2_7pda5")
 draftable_cards = ExtResource("2_5p1yr")
 cards_per_turn = 4
