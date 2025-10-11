@@ -34,7 +34,7 @@ func is_valid_target(_targets: Array[Node], _modifiers: ModifierHandler) -> bool
 	return true
 
 
-func _get_targets(targets: Array[Node]) -> Array:
+func _get_targets(targets: Array[Node]) -> Array[Node]:
 	if not targets:
 		return []
 	var tree := targets[0].get_tree() as SceneTree

@@ -174,3 +174,17 @@ func _configure_enemy_camera(enemy: Enemy, spotlight: bool) -> void:
 	var tween_duration := SPOTLIGHT_TWEEN_DURATION if spotlight else QUICK_TWEEN_DURATION
 	enemy.phantom_camera_2d.set_tween_duration(tween_duration)
 	enemy.phantom_camera_2d.priority = 20
+
+
+func get_active_mobile_enemy_count() -> int:
+	var count := 0
+	for node in get_children():
+		var active_enemy := node as Enemy
+		if not active_enemy:
+			continue
+		if active_enemy is Obelisk:
+			continue
+		if not is_instance_valid(active_enemy):
+			continue
+		count += 1
+	return count

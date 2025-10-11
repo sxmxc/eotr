@@ -19,11 +19,5 @@ stats = ExtResource("2_1blq2")
 [node name="Blob2" parent="." instance=ExtResource("1_sa2p5")]
 stats = ExtResource("2_1blq2")
 
-[node name="Bat1" parent="." instance=ExtResource("1_sa2p5")]
-stats = ExtResource("4_k0w3a")
-
 [node name="Wasp1" parent="." instance=ExtResource("1_sa2p5")]
-stats = ExtResource("5_n0n4o")
-
-[node name="Wasp2" parent="." instance=ExtResource("1_sa2p5")]
 stats = ExtResource("5_n0n4o")

@@ -41,9 +41,11 @@ func _ready() -> void:
 
 	match run_bootstrap.type:
 		RunBootstrap.Type.NEW_RUN:
+			print("Starting new run")
 			player_stats = run_bootstrap.selected_player_class.create_instance()
 			_start_run()
 		RunBootstrap.Type.CONTINUED_RUN:
+			print("Continuing run")
 			_load_run()
 
 func add_resources(amount: int) -> void:
@@ -73,7 +75,7 @@ func _destroy_all_enemies() -> void:
 
 func _start_run() -> void:
 	SoundManager.play_music_queue(music_playlist,1)
-	var event_props := {
+	var event_props : Dictionary[String, String] = {
 		"player_class": player_stats.player_class_name,
 	}
 	Talo.events.track("run_started", event_props)
@@ -195,8 +197,8 @@ func _show_regular_rewards() -> void:
 
 
 func _on_battle_won() -> void:
-	var props := {
-		"floor" : map.floors_climbed
+	var props : Dictionary [String, String] = {
+		"floor" : "%s" % str(map.floors_climbed)
 	}
 	Talo.events.track("floor_completed", props)
 	Talo.stats.track("floors_completed")

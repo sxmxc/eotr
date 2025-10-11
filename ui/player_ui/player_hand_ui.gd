@@ -42,10 +42,17 @@ func add_card(card: Card) -> void:
 	
 func add_card_spotlight(card: Card) -> void:
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
+	var spotlight_slot := Control.new()
 
-	card_spotlight.add_child(new_card_ui)
+	spotlight_slot.custom_minimum_size = CardUI.CARD_UI_SIZE
+	spotlight_slot.size = CardUI.CARD_UI_SIZE
+	spotlight_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card_spotlight.add_child(spotlight_slot)
+
+	spotlight_slot.add_child(new_card_ui)
+	new_card_ui.position = Vector2.ZERO
 	new_card_ui.card = card
-	new_card_ui.parent = card_spotlight
+	new_card_ui.parent = spotlight_slot
 	new_card_ui.player_stats = player_stats
 	new_card_ui.player_modifiers = player.modifier_handler
 	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
@@ -54,12 +61,14 @@ func add_card_spotlight(card: Card) -> void:
 	new_card_ui.size = CardUI.CARD_UI_SIZE
 	await get_tree().create_timer(1).timeout
 	var tween = create_tween()
-	tween.tween_property(new_card_ui,"position", position - Vector2(0, new_card_ui.size.y),.3)
+	var target_position := new_card_ui.position - Vector2(0, new_card_ui.size.y)
+	tween.tween_property(new_card_ui, "position", target_position, 0.3)
 	await tween.finished
 
 	new_card_ui.reparent_requested.connect(_on_card_ui_reparent_requested)
 	new_card_ui.reparent(self)
 	new_card_ui.parent = self
+	spotlight_slot.queue_free()
 	_update_cards()
 
 

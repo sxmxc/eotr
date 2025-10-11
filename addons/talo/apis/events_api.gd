@@ -8,6 +8,10 @@ class_name EventsAPI extends TaloAPI
 var _queue := []
 var _min_queue_size := 10
 
+var _events_to_flush := []
+var _lock_flushes := false
+var _flush_attempted_during_lock := false
+
 func _get_window_mode() -> String:
 	match DisplayServer.window_get_mode():
 		Window.MODE_EXCLUSIVE_FULLSCREEN: return "Exclusive fullscreen"
@@ -37,15 +41,11 @@ func track(name: String, props: Dictionary = {}) -> void:
 		return
 
 	var final_props := _build_meta_props()
-	final_props.append_array(
-		props
-			.keys()
-			.map(func (key: String): return TaloProp.new(key, str(props[key])))
-	)
+	final_props.append_array(TaloPropUtils.dictionary_to_prop_array(props))
 
 	_queue.push_back({
 		name = name,
-		props = final_props.map(func (prop: TaloProp): return prop.to_dictionary()),
+		props = TaloPropUtils.serialise_prop_array(final_props),
 		timestamp = TaloTimeUtils.get_timestamp_msec()
 	})
 
@@ -57,10 +57,32 @@ func flush() -> void:
 	if _queue.size() == 0:
 		return
 
-	var res := await client.make_request(HTTPClient.METHOD_POST, "/", { events = _queue })
+	if _lock_flushes:
+		_flush_attempted_during_lock = true
+		return
+
+	_lock_flushes = true
+	_events_to_flush.append_array(_queue)
 	_queue.clear()
+
+	var res := await client.make_request(HTTPClient.METHOD_POST, "/", { events = _events_to_flush })
+
+	_events_to_flush.clear()
+	_lock_flushes = false
 
 	match res.status:
 		200:
 			if _has_errors(res.body.errors):
-				push_error("Failed to flush events: %s" % res.body.errors)
+				push_error("Failed to flush events:")
+				push_error(res.body.errors)
+
+	if _flush_attempted_during_lock:
+		_flush_attempted_during_lock = false
+		await flush()
+
+## Clear the queue of events waiting to be flushed.
+func clear_queue() -> void:
+	_queue.clear()
+	_events_to_flush.clear()
+	_lock_flushes = false
+	_flush_attempted_during_lock = false

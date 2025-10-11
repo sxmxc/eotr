@@ -27,8 +27,8 @@ func set_current_stats(stats: PlayerStats) -> void:
 	starting_relic_label.text = "Starting Relic: %s" % current_stats.starting_relic.relic_name
 
 func _on_start_button_pressed() -> void:
-	var stats_props : Dictionary = {
-		"class_name" : current_stats.player_class_name
+	var stats_props : Dictionary[String,String] = {
+		"class_name" : "%s" % current_stats.player_class_name
 	}
 	Talo.events.track("class_chosen", stats_props)
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)

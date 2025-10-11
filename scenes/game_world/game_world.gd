@@ -67,7 +67,10 @@ func start_world() -> void:
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
 
-	var message = WorldMessageData.new("The World has awakened!")
+	var message = WorldMessageData.new(
+		"The World has awakened!",
+		WorldMessageData.Priority.IMPORTANT
+	)
 	Events.world_message_requested.emit(message)
 
 	relics.relics_activated.connect(_on_relics_activated)
@@ -76,7 +79,10 @@ func start_world() -> void:
 	get_tree().create_timer(1).timeout.connect(
 		func():
 			Events.world_message_requested.emit(
-				WorldMessageData.new("The Obelisk has revealed itself")
+				WorldMessageData.new(
+					"The Obelisk has revealed itself",
+					WorldMessageData.Priority.CRITICAL
+				)
 			)
 	)
 
@@ -110,7 +116,10 @@ func shrink_game_board(amount: int = 1) -> void:
 	world_camera.priority = 50
 	world_camera.set_zoom(Vector2(2.5,2.5))
 	Events.world_message_requested.emit(
-		WorldMessageData.new("The void consumes")
+		WorldMessageData.new(
+			"The void consumes",
+			WorldMessageData.Priority.CRITICAL
+		)
 	)
 	await world_camera.tween_completed
 	await tilemap.shrink_map(amount)
