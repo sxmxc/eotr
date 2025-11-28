@@ -12,6 +12,7 @@ offset_left = -207.0
 offset_right = 207.0
 offset_bottom = 122.0
 grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("1_t41pk")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_cwwuq")
@@ -47,4 +48,22 @@ text = "Target becomes [b]Attuned[/b].
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 3
+
+[node name="KeywordTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+bbcode_enabled = true
+text = "Target becomes [b]Attuned[/b]. 
+[i]Exhaust[/i]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 3

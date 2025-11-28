@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_mtw6w"]
 [ext_resource type="Script" uid="uid://nlgoxvipiyex" path="res://ui/card_selection/card_cost_selection.gd" id="1_uieqs"]
-[ext_resource type="PackedScene" uid="uid://qba1o03gqepd" path="res://ui/card_popup/card_popup.tscn" id="3_3qmkr"]
+[ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="3_3qmkr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 46

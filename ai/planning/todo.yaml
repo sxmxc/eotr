@@ -325,8 +325,8 @@ backlog:
   - id: BKL-025
     title: "Add card keyword tooltips"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "Keywords currently lack hover help, hurting clarity for new cards."
