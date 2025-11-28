@@ -5,6 +5,13 @@ signal damage_taken(amount: int)
 
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
 const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
+const DEATH_FLASH_FX : PackedScene = preload("res://ui/fx/flash_fx.tscn")
+const DEATH_SMOKE_FX : PackedScene = preload("res://ui/fx/smoke_fx.tscn")
+const DEFAULT_DEATH_SOUND : AudioStream = preload("res://assets/audio/Monster Sounds/Ghost/Ghost_Death.ogg")
+const DEATH_SHAKE_STRENGTH := 10.0
+const DEATH_SHAKE_DURATION := 0.18
+const DEATH_SCALE_PUNCH := 1.08
+const DEATH_FADE_DURATION := 0.35
 
 @export var stats: EnemyStats : set = set_stats
 @export var stats_ui: EnemyStatsUI
@@ -21,6 +28,7 @@ var current_action: EnemyAction : set = set_current_action
 var current_tile_position : Vector2i
 var turn_ticker : int = 0
 var hovered: bool = false
+var is_dying := false
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
@@ -135,11 +143,48 @@ func take_damage(
 				do_death()
 				)
 
-func do_death() -> void:
-	Talo.stats.track("enemies_killed")
+func _begin_death_sequence() -> bool:
+	if is_dying:
+		return false
+	is_dying = true
+	_play_death_feedback()
+	return true
+
+func _play_death_feedback() -> void:
+	if circle_indicator:
+		circle_indicator.hide()
+	if stats_ui:
+		stats_ui.release_focus()
+
+	var flash_fx := DEATH_FLASH_FX.instantiate() as VisualFX
+	add_child(flash_fx)
+	flash_fx.execute()
+
+	var smoke_fx := DEATH_SMOKE_FX.instantiate() as VisualFX
+	add_child(smoke_fx)
+	smoke_fx.execute()
+
+	if is_instance_valid(phantom_camera_2d):
+		Utils.shake(phantom_camera_2d, DEATH_SHAKE_STRENGTH, DEATH_SHAKE_DURATION)
+
+	var death_sound: AudioStream = DEFAULT_DEATH_SOUND
+	if stats and stats.death_sound:
+		death_sound = stats.death_sound
+	if death_sound:
+		SoundManager.play_sound_random_pitch(death_sound)
+
+func _fade_out_and_queue_free(duration: float = DEATH_FADE_DURATION) -> void:
 	var tween = create_tween()
-	tween.tween_property(self, "modulate", Color.TRANSPARENT,.5)
+	tween.tween_property(sprite_2d, "scale", sprite_2d.scale * DEATH_SCALE_PUNCH, 0.1)\
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(self, "modulate", Color.TRANSPARENT, duration)
 	tween.tween_callback(queue_free)
+
+func do_death() -> void:
+	if not _begin_death_sequence():
+		return
+	Talo.stats.track("enemies_killed")
+	_fade_out_and_queue_free()
 
 func get_player_tile_position() -> Vector2i:
 	var player = get_tree().get_first_node_in_group("player")

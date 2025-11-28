@@ -12,6 +12,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func do_death() -> void:
+	if not _begin_death_sequence():
+		return
 	Talo.stats.track("bosses_defeated")
-	await get_tree().create_timer(.5).timeout
-	queue_free()
+	_fade_out_and_queue_free(0.5)

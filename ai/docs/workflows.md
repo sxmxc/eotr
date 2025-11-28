@@ -3,6 +3,7 @@
 Use these playbooks to accelerate common contributions. Always capture outcomes in `ai/state/journal.md` and `ai/state/progress.json`.
 
 ## 1. Add or Update a Card
+
 1. **Review Existing Card**: Locate script under `resources/data/cards/<class>/<card_id>.gd`.
 2. **Check Pile Registration**: Ensure new cards are referenced in `draftable_cards` or `starting_deck` resources if needed.
 3. **Implement Changes**:
@@ -15,6 +16,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 6. **Document**: Log test steps and any follow-on tasks (balancing, VFX).
 
 ## 2. Create / Modify an Enemy Encounter
+
 1. **Enemy Scene**: Scenes live in `scenes/enemy/<enemy_name>/`. Behaviour extends `Enemy` or `MovingEnemy`.
 2. **Actions & Intents**: Update `EnemyAction` resources or `update_intent()` overrides. Ensure telegraphed intent matches actual effect.
 3. **Stats**: Adjust `resources/stats/enemy_stats_*.tres` or script exported values.
@@ -25,6 +27,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 6. **Record**: Document balance considerations and map tiers affected.
 
 ## 3. Tweak Map Generation or Progression
+
 1. **Entry Point**: `scenes/map/map_generator.gd`.
 2. **Parameters**: Evaluate constants (`FLOORS`, `MAP_WIDTH`, weights) and exported fields (`BattleStatsPool`).
 3. **Connections**: Ensure `_setup_connection()` still prevents path overlaps. Update tests for treasure/rest floors if logic changes.
@@ -35,6 +38,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 5. **Log**: Capture RNG seeds used for reproduction.
 
 ## 4. Update Battle Systems (Player/Enemy Handlers, Tilemap)
+
 1. **Handlers**: `scenes/player/player_handler.gd`, `scripts/nodes/enemy_handler.gd`.
 2. **Tilemap**: `scripts/nodes/proc-gen-tilemap.gd` for map generation, fog, and interactions.
 3. **Events**: Emit new signals via `scripts/autoloads/events.gd` and wire listeners in `_ready()`.
@@ -45,6 +49,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 5. **Notes**: Mention any new console commands and ensure they’re registered once.
 
 ## 5. UI / UX Adjustments
+
 1. **Location**: UI scenes under `ui/` or nested in gameplay scenes (search `%` references).
 2. **Themes**: Maintain pixel aesthetic, reuse `SoundManager` FX for interactions.
 3. **Accessibility**: Preserve keyboard/gamepad navigation (check focus, `grab_focus()` usage).
@@ -52,6 +57,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 5. **Record**: Include before/after behaviour and any follow-up assets required.
 
 ## Verification Checklist
+
 - `context7` consulted?
 - Relevant scenes/scripts updated?
 - Tests or manual QA run?

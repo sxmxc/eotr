@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://dwcnekeajsh5b" path="res://assets/images/riftwalker_bg.png" id="5_lop4v"]
 [ext_resource type="Texture2D" uid="uid://dchgja3jf6gtn" path="res://assets/icons/cowled (1).svg" id="6_dciuy"]
 [ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="6_erq25"]
-[ext_resource type="Texture2D" uid="uid://bc384eg8okyo8" path="res://assets/images/synthforged_bg.png" id="6_xiys0"]
-[ext_resource type="Texture2D" uid="uid://bdsqxtxay7ji4" path="res://assets/images/voidbinder_bg.png" id="7_dhrcn"]
+[ext_resource type="Texture2D" uid="uid://ctxa8vtkkqcxp" path="res://assets/images/synthforged_bg.png" id="6_xiys0"]
+[ext_resource type="Texture2D" uid="uid://d1p116kaq0bsl" path="res://assets/images/voidbinder_bg.png" id="7_dhrcn"]
 [ext_resource type="Texture2D" uid="uid://dd5we27x8cce5" path="res://assets/icons/robot-helmet (1).svg" id="7_t76dm"]
 [ext_resource type="Texture2D" uid="uid://crmgloxridjnu" path="res://assets/icons/wizard-face (1).svg" id="9_gqhok"]
 
@@ -247,6 +247,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_ua2m0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_t76dm")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_yal2t")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8i2et")
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_b072o")
 
@@ -260,6 +261,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_dciuy")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lop4v")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_dhrcn")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_erq25")
+disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_b072o")
 
