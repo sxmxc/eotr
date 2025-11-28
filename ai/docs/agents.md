@@ -13,8 +13,6 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
   - `scripts/resources/card/` – card definitions (`Card` subclasses) with effects.
   - `scripts/resources/stats/` – `PlayerStats`, `EnemyStats`, and shared `Stats` logic.
   - `scripts/autoloads/` – singletons (`Events`, `RNG`, `GameSettings`, `Utils`, etc.).
-- **Do not edit**:
-  - `addons/*` - third party addons
 
 ## 2. Always Sync Context
 
@@ -43,6 +41,7 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
    - Runtime sanity: launch relevant scene if possible (`godot --headless -s scripts/…`).
    - Manual QA: note which scene/card/system to test in the journal.
 5. **Document**: Record progress in `ai/state/journal.md` and update `ai/state/progress.json`.
+6. **Versioning**: Maintain sementic versioning and bump version when needed in export_presets.cfg application/file_version, application/product_version, and build names.
 
 ## 5. Testing & Debug Aids
 

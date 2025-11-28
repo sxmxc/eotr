@@ -1,5 +1,12 @@
 {
   "schema_version": 1,
-  "updated": "2025-10-10T16:51:37-05:00",
-  "tasks": []
+  "updated": "2025-11-27T21:53:10.1322335-06:00",
+  "tasks": [
+    {
+      "id": "BKL-014",
+      "status": "done",
+      "summary": "Fix end-of-battle audio stinger reliability and prevent repeated triggers.",
+      "updated": "2025-11-27T21:53:10.1322335-06:00"
+    }
+  ]
 }
