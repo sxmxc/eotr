@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsnwwomk305qy"]
+
+[ext_resource type="Script" path="res://ui/fx/impact_decal_fx.gd" id="1_vk54m"]
+
+[sub_resource type="Gradient" id="Gradient_core"]
+colors = PackedColorArray(1, 1, 1, 0.85, 0.5, 0.9, 1, 0.35, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.58, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_core"]
+width = 192
+height = 192
+gradient = SubResource("Gradient_core")
+
+[sub_resource type="Gradient" id="Gradient_ring"]
+colors = PackedColorArray(0, 0, 0, 0, 0.35, 0.8, 1, 0.6, 0.35, 0.8, 1, 0.4, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0, 0.68, 0.75, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ring"]
+width = 224
+height = 224
+gradient = SubResource("Gradient_ring")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[node name="ImpactDecalFX" type="Node2D"]
+script = ExtResource("1_vk54m")
+z_index = -1
+
+[node name="Core" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+texture = SubResource("GradientTexture2D_core")
+self_modulate = Color(0.8, 0.95, 1, 0.9)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ring" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+texture = SubResource("GradientTexture2D_ring")
+self_modulate = Color(0.55, 0.85, 1, 0.65)
+scale = Vector2(0.65, 0.65)
+
+[node name="Rune" type="Line2D" parent="."]
+points = PackedVector2Array(-8, 0, 0, 11, 8, 0, 0, -11, -8, 0)
+width = 3.0
+default_color = Color(0.55, 0.95, 1, 0.7)
+texture_mode = 2

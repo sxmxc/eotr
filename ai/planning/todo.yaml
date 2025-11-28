@@ -262,6 +262,7 @@ backlog:
     context:
       - "Roadmap flagged event nodes for v0.0.6.0; confirm they still align with current milestones."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+      - "Event nodes are random encounters with unique rewards/risks outside standard battles."
     next_steps:
       - "Validate that event node features remain in scope for the next milestone."
       - "Implement generator hooks, UI, and encounter payloads if confirmed."
@@ -334,8 +335,8 @@ backlog:
   - id: BKL-026
     title: "Add hit-stop + impact FX kit for combat clarity"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Current hits rely on shake/white flash; no time scaling or decals, so heavy impacts feel light."
@@ -396,6 +397,19 @@ backlog:
       - "Add parallax void/gradient background to the map visuals layer with subtle motion."
       - "Glow/tween available nodes on unlock and highlight hovered paths with animated line thickness or color."
       - "Check readability on wide and narrow viewports and keep shader/lightweight for low-spec targets."
+  - id: BKL-031
+    title: "Redesign boss battles to be unique boards and make them stand out from normal battles"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Boss battles currently use standard battle boards; need unique layouts and mechanics."
+      - "Will need unique boss arenas and environmental hazards and boss ai or state machines."
+    next_steps:
+      - "Design unique board layouts for each boss battle with thematic elements."
+      - "Implement environmental hazards that interact with boss mechanics."
+      - "Develop specialized AI or state machines for bosses to create distinct challenges."
 
 in_review: []
 

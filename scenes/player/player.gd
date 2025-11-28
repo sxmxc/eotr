@@ -46,31 +46,41 @@ func update_player() -> void:
 	sprite_2d.texture = stats.board_icon
 
 	
-func take_damage(damage: int, which_modifier: Enums.ModifierType, direct: bool = false) -> void:
+func take_damage(
+	damage: int, which_modifier: Enums.ModifierType, direct: bool = false, impact_profile: ImpactProfile = null
+) -> void:
 	if stats.health <= 0:
 		return
 		
-	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
-	var cam = get_tree().get_first_node_in_group("map_camera")
+	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
+	var cam: Node2D = get_tree().get_first_node_in_group("map_camera")
+	sprite_2d.material = WHITE_SPRITE_MATERIAL
+	sprite_2d.self_modulate = profile.tint_color
+	if profile.hitstop_duration > 0.0 and profile.hitstop_scale < 1.0:
+		Utils.apply_hitstop(profile.hitstop_scale, profile.hitstop_duration)
 	var tween := create_tween()
 	var text_fx := TEXT_FX.instantiate() as TextFX
 	text_fx.text = str(modified_damage)
 	add_child(text_fx)
 	text_fx.execute()
+	if profile.decal_scene:
+		var decal: VisualFX = profile.decal_scene.instantiate()
+		decal.scale *= profile.decal_scale
+		add_child(decal)
+		decal.execute()
+	tween.tween_callback(Utils.shake.bind(self, profile.shake_strength, profile.shake_duration))
+	if cam:
+		tween.tween_callback(Utils.shake.bind(cam, profile.shake_strength, profile.shake_duration))
 	if direct:
-		tween.tween_callback(Utils.shake.bind(self, 16, 0.15))
-		tween.tween_callback(Utils.shake.bind(cam, 16, 0.15))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
-		tween.tween_interval(0.17)
 	else:
-		tween.tween_callback(Utils.shake.bind(self, 16, 0.15))
-		tween.tween_callback(Utils.shake.bind(cam, 16, 0.15))
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
-		tween.tween_interval(0.17)
+	tween.tween_interval(0.17)
 	tween.finished.connect(
 		func():
 			sprite_2d.material = null
+			sprite_2d.self_modulate = Color.WHITE
 			if stats.health <= 0:
 				Events.player_died.emit()
 				Talo.stats.track("player_deaths")
