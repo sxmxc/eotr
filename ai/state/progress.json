@@ -1,12 +1,18 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-27T21:53:10.1322335-06:00",
+  "updated": "2025-11-27T22:11:38.9113890-06:00",
   "tasks": [
     {
       "id": "BKL-014",
       "status": "done",
       "summary": "Fix end-of-battle audio stinger reliability and prevent repeated triggers.",
       "updated": "2025-11-27T21:53:10.1322335-06:00"
+    },
+    {
+      "id": "BKL-026",
+      "status": "done",
+      "summary": "Add impact profile kit (hit-stop, decals, scaled shakes) to damage handling for players and enemies.",
+      "updated": "2025-11-27T22:11:38.9113890-06:00"
     }
   ]
 }
