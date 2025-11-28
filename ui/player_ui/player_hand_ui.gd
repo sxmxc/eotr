@@ -141,7 +141,7 @@ func _on_card_ui_reparent_requested(child: CardUI) -> void:
 	if child.get_parent() != self:
 		child.reparent(self)
 
-	var max_index := max(get_child_count() - 1, 0)
+	var max_index: int = max(get_child_count() - 1, 0)
 	var new_index := clampi(child.original_index, 0, max_index)
 	if child.get_index() != new_index:
 		move_child(child, new_index)
