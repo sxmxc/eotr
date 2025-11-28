@@ -3,6 +3,7 @@
 Welcome! This guide equips agents contributing to **Echoes of the Rift** with the context, tools, and expectations needed to deliver high‑quality GDScript updates for the Godot 4.5 codebase.
 
 ## 1. Get Your Bearings
+
 - **Genre & Loop**: Tactical deckbuilding roguelite. Players traverse a 15-floor rift map, engage in grid combat, manage resources, and collect relics.
 - **Core Scenes**:
   - `scenes/run/run.tscn` – overworld loop that swaps views (map, battle, shop, etc.).
@@ -12,12 +13,16 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
   - `scripts/resources/card/` – card definitions (`Card` subclasses) with effects.
   - `scripts/resources/stats/` – `PlayerStats`, `EnemyStats`, and shared `Stats` logic.
   - `scripts/autoloads/` – singletons (`Events`, `RNG`, `GameSettings`, `Utils`, etc.).
+- **Do not edit**:
+  - `addons/*` - third party addons
 
 ## 2. Always Sync Context
+
 - **Non-negotiable**: Before editing or reviewing GDScript, always use `context7` mcp to ensure the latest language and API nuances. GDScript evolves quickly; this keeps completions aligned with the current standard library and Godot 4.5 syntax.
 - If the harness output flags updates (e.g., keyword changes, API deprecations) incorporate them immediately or call them out in the plan.
 
 ## 3. Coding Expectations
+
 - **Godot 4.5**: Prefer typed GDScript (`var foo: int`) and modern signal syntax. Keep compatibility with engine features defined in `project.godot` (e.g., `Feature Tag: 4.5`).
 - **Signals & Events**:
   - Prefer `Events` autoload for cross-system communication.
@@ -29,6 +34,7 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
   - Keep resources deterministic (avoid randomness at load time).
 
 ## 4. Working Process
+
 1. **Plan**: Outline intent in the task plan tool (unless change is trivial).
 2. **Inspect**: Gather references via `grep`, `find`, `sed`, or Godot scene paths.
 3. **Edit**: Use `apply_patch` for manual edits. Respect existing user changes; never revert unrelated diffs.
@@ -39,6 +45,7 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
 5. **Document**: Record progress in `ai/state/journal.md` and update `ai/state/progress.json`.
 
 ## 5. Testing & Debug Aids
+
 - **Console Commands**: LimboConsole exposes helpers (`yeet_em_all`, `add_gold`, `hide_fog`, etc.). Register new commands sparingly.
 - **Autoload Utilities**:
   - `Utils.shake()` for feedback.
@@ -49,14 +56,17 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
   - **Battle**: verify `PlayerHandler.start_turn()` / `EnemyHandler.start_turn()` loops and relic interactions.
 
 ## 6. Communication Checklist
+
 - Update `ai/state/journal.md` after meaningful work with date, change summary, verification steps, and follow-ups.
 - Sync `ai/state/progress.json` statuses (`todo`, `in_progress`, `blocked`, `done`).
 - Surface open questions to the maintainer promptly (blocking assumptions, missing assets, Godot version mismatches).
 
 ## 7. Tooling Integrations
+
 - **Godot MCP Server**: Accessible via the MCP client (`mcp godot ...`). Use it to query scenes, run headless checks, or fetch live node/property data without leaving the harness. Prefer MCP-assisted inspections over ad-hoc script edits when feasible, and log noteworthy calls in the journal if they influence decisions.
 
 ## 8. Safe-Guarding the Project
+
 - Use the workspace sandbox responsibly; never request escalated permissions unless required.
 - Do not run destructive git commands. Respect user’s dirty working tree.
 - When introducing new files/resources, ensure import paths reference existing directories (`assets/`, `resources/`, etc.).

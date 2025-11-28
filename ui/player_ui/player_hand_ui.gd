@@ -27,6 +27,7 @@ func _ready() -> void:
 
 func add_card(card: Card) -> void:
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
+	new_card_ui.original_index = get_child_count()
 
 	add_child(new_card_ui)
 	new_card_ui.reparent_requested.connect(_on_card_ui_reparent_requested)
@@ -66,6 +67,7 @@ func add_card_spotlight(card: Card) -> void:
 	await tween.finished
 
 	new_card_ui.reparent_requested.connect(_on_card_ui_reparent_requested)
+	new_card_ui.original_index = get_child_count()
 	new_card_ui.reparent(self)
 	new_card_ui.parent = self
 	spotlight_slot.queue_free()
@@ -136,8 +138,13 @@ func _on_status_added() -> void:
 
 func _on_card_ui_reparent_requested(child: CardUI) -> void:
 	child.disabled = true
-	child.reparent(self)
-	var new_index := clampi(child.original_index, 0, get_child_count())
-	move_child.call_deferred(child, new_index)
+	if child.get_parent() != self:
+		child.reparent(self)
+
+	var max_index: int = max(get_child_count() - 1, 0)
+	var new_index := clampi(child.original_index, 0, max_index)
+	if child.get_index() != new_index:
+		move_child(child, new_index)
+
 	child.set_deferred("disabled", false)
 	_update_cards()
