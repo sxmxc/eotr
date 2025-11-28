@@ -217,8 +217,8 @@ backlog:
   - id: BKL-017
     title: "Boost enemy death feedback"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "Enemy deaths need stronger signals (camera, VFX, audio) for clarity."

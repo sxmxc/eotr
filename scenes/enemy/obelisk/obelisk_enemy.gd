@@ -45,10 +45,11 @@ func spawn_random_enemy() -> bool:
 	return true
 
 func do_death() -> void:
+	if not _begin_death_sequence():
+		return
 	Talo.stats.track("obelisks_destroyed")
 	_clear_spawn_telegraph()
-	await get_tree().create_timer(.1).timeout
-	queue_free()
+	_fade_out_and_queue_free(0.25)
 
 func _on_area_2d_mouse_entered():
 	super._on_area_2d_mouse_entered()
