@@ -43,7 +43,7 @@ sound = ExtResource("5_0vrco")
 
 [node name="HorrorAttackAction" type="Node" parent="." index="1"]
 script = ExtResource("6_u76hc")
-damage = 10
+damage = 8
 intent = SubResource("Resource_07lum")
 type = 1
 chance_weight = 3.0
@@ -52,7 +52,7 @@ visual_fx = ExtResource("9_rngco")
 
 [node name="HorrorBlockAction" type="Node" parent="." index="2"]
 script = ExtResource("10_rp1qs")
-block = 20
+block = 16
 intent = SubResource("Resource_wo1ee")
 type = 1
 chance_weight = 1.0

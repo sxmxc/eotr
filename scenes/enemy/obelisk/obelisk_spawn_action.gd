@@ -1,9 +1,9 @@
 extends EnemyAction
 
-@export var spawn_turn_freq := 4
+@export var spawn_turn_freq := 5
 @export_range(0, 10) var minimum_turns_before_spawn := 1
 @export var allow_damage_override := true
-@export_range(1, 12) var live_enemy_cap := 4
+@export_range(1, 12) var live_enemy_cap := 3
 @export_range(0.05, 1.5, 0.05) var action_complete_delay := 0.3
 
 
