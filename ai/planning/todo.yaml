@@ -126,8 +126,8 @@ backlog:
   - id: BKL-010
     title: "Fix hand order change bug"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "Players see unexpected card order shifts, likely in `ui/player_ui/player_hand_ui.gd`."
@@ -331,6 +331,71 @@ backlog:
     next_steps:
       - "Inventory existing keywords and desired tooltip copy."
       - "Implement hover/click tooltips in `ui/card_ui` and ensure localization readiness."
+  - id: BKL-026
+    title: "Add hit-stop + impact FX kit for combat clarity"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current hits rely on shake/white flash; no time scaling or decals, so heavy impacts feel light."
+      - "Hooks exist in scripts/effects/node/damage_effect.gd and scenes/player/player.gd for damage handling."
+    next_steps:
+      - "Add optional time-scale dip and brief sprite tint for high-damage hits, parameterized by impact weight."
+      - "Spawn short-lived scorch/rune decals and scale shake strength via Utils.shake to match impact tier."
+      - "Guard against turn pacing delays and confirm multiplayer-safe time scaling (if applicable)."
+  - id: BKL-027
+    title: "Corrupted tile ambience and edge FX"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Corrupted tiles are visually flat and idle; they lack a constant threat read."
+      - "ProcGenTilemap and existing tile materials can host overlay shaders/particles."
+    next_steps:
+      - "Add animated noise/desaturation overlay shader for corrupted tiles."
+      - "Spawn slow vertical particles or wisps along corruption edges; cull offscreen for performance."
+      - "Validate readability with resource tiles and ensure color values align with the dark-fantasy sci-fi palette."
+  - id: BKL-028
+    title: "Card targeting highlights"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Card aiming relies on cursor only; valid tiles/targets are not visually marked."
+      - "Card.get_valid_targets and CardStateMachine already compute target sets."
+    next_steps:
+      - "On aim start, pulse valid tiles using highlighter.gdshader (or variant) and clear on cancel/end."
+      - "Cover single, multi-target, and AOE shapes; reuse highlight nodes to avoid per-aim allocations."
+      - "Add a light whoosh/scan SFX for aim mode enter without slowing card play."
+  - id: BKL-029
+    title: "Battle start/finish presentation"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Battle entry/exit are abrupt; vignette shader and audio hooks exist but aren’t orchestrated."
+      - "ui/world_ui/battle_over_panel.gd and scripts/shaders/dark_noise_vignette.gdshader are available."
+    next_steps:
+      - "Storyboard short intro/outro beats (vignette fade, low-pass dip, UI sweep) that don’t slow first actions."
+      - "Prototype and timebox transitions; add skip/fast-path if pacing regresses."
+      - "Verify audio/state resets on victory and defeat flows to avoid the existing end-of-battle audio bug."
+  - id: BKL-030
+    title: "Map atmosphere and path feedback"
+    priority: P3
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Map view feels static; available paths/nodes lack motion cues."
+      - "map.gd manages node unlocks; visuals Node2D can host parallax/line FX."
+    next_steps:
+      - "Add parallax void/gradient background to the map visuals layer with subtle motion."
+      - "Glow/tween available nodes on unlock and highlight hovered paths with animated line thickness or color."
+      - "Check readability on wide and narrow viewports and keep shader/lightweight for low-spec targets."
 
 in_review: []
 
