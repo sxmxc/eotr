@@ -5,6 +5,12 @@ Record notable work here. Use reverse chronological order (newest at top).
 ---
 
 **2025-11-27 – Codex**
+- Summary: Added battle start tile preferences and reservation handling so special tiles (mana wells, ruins, rift gates) can be enforced without enemy overlap; deferred initial placement effects now fire right after START_OF_COMBAT so spawn tiles trigger once cleanly before turn 1.
+- Files: `scripts/resources/battle_stats.gd`, `scripts/nodes/proc-gen-tilemap.gd`, `scripts/nodes/enemy_handler.gd`, `scenes/game_world/game_world.gd`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot scenes/tests not executed in this session).
+- Follow-ups: Mark specific battles that should force special start tiles and sanity-check in-game that effects trigger once at battle start.
+
+**2025-11-27 – Codex**
 - Summary: Boosted enemy death feedback with flash/smoke VFX, camera shake, optional death sound fallback, a shared fade-out helper, and guards against double-triggered deaths (including obelisk/boss overrides).
 - Files: `scenes/enemy/enemy.gd`, `scenes/enemy/obelisk/obelisk_enemy.gd`, `scenes/enemy/void_spectre/void_spectre_enemy.gd`, `scripts/resources/stats/enemy_stats.gd`, `scripts/statics/audio_library.gd`
 - Verification: Not run (Godot scene/gameplay checks not executed in this session).

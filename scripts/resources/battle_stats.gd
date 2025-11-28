@@ -11,6 +11,8 @@ class_name BattleStats
 @export var enemies: PackedScene
 @export var battle_field_width: int
 @export var battle_field_height: int
+@export var enforce_start_tile_type: bool = false
+@export var starting_tile_type: Enums.TileType = Enums.TileType.RESOURCE
 @export var enemy_gold_reward: int : set = _set_enemy_gold_reward
 @export var enemy_resource_reward: int : set = _set_enemy_resource_reward
 

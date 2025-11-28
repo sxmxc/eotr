@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-27T22:41:20.5360895-06:00",
+  "updated": "2025-11-27T23:05:30.0000000-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -19,6 +19,12 @@
       "status": "in_review",
       "summary": "Add punchy enemy death feedback (flash + smoke VFX, shake, optional death sounds) with double-trigger guard.",
       "updated": "2025-11-27T22:41:20.5360895-06:00"
+    },
+    {
+      "id": "BKL-011",
+      "status": "done",
+      "summary": "Reserve start tiles for special battle openings and prefer requested tile types during placement.",
+      "updated": "2025-11-27T23:05:30.0000000-06:00"
     }
   ]
 }

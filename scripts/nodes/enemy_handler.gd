@@ -38,7 +38,7 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	enemy.update_action()
 
 
-func setup_enemies(battle_stats: BattleStats) -> void:
+func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = []) -> void:
 	if not battle_stats:
 		return
 
@@ -53,7 +53,7 @@ func setup_enemies(battle_stats: BattleStats) -> void:
 		
 		var new_enemy_child := new_enemy.duplicate() as Enemy
 		new_enemy_child.tilemap = tilemap
-		var random_tile = tilemap.get_random_valid_tile()
+		var random_tile = tilemap.get_random_valid_tile(reserved_tiles)
 		new_enemy_child.position = tilemap.base_layer.map_to_local(random_tile)
 		new_enemy_child.current_tile_position = random_tile
 		stats_panel.setup_enemy_ui(new_enemy_child)

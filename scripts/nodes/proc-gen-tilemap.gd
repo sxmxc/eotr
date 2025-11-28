@@ -56,6 +56,7 @@ var player: Player
 var obelisk: Enemy
 
 var is_resource_count_visible : bool = false : set = set_is_resource_count_visible
+var start_tile_effects_pending := false
 
 func _ready():
 	has_generated = false
@@ -207,7 +208,7 @@ func set_is_resource_count_visible(value: bool) -> void:
 	else:
 		erase_resource_count()
 
-func move_player(tile_pos) -> void:
+func move_player(tile_pos, apply_effects: bool = true) -> void:
 	if is_within_bounds(tile_pos):
 		clear_fog_around(tile_pos, fog_clear_radius)
 		player_position = tile_pos
@@ -215,7 +216,8 @@ func move_player(tile_pos) -> void:
 		Events.tile_selected.emit(tile_data)
 		player_position_updated.emit(base_layer.map_to_local(player_position))
 		player.is_mana_buffed = false
-		apply_tile_effects()
+		if apply_effects:
+			apply_tile_effects()
 		
 				
 func apply_tile_effects() -> void:
@@ -252,6 +254,18 @@ func _trigger_ancient_ruin_effect() -> void:
 func _show_ruin_effect_feedback(text: String) -> void:
 	var message = WorldMessageData.new(text)
 	Events.world_message_requested.emit(message)
+
+func queue_start_tile_effects() -> void:
+	start_tile_effects_pending = true
+
+func apply_start_tile_effects() -> void:
+	if not start_tile_effects_pending:
+		return
+	start_tile_effects_pending = false
+	apply_tile_effects()
+
+func has_start_tile_effects_pending() -> bool:
+	return start_tile_effects_pending
 
 func teleport_player(tile_pos) -> void:
 	if is_within_bounds(tile_pos):
@@ -419,7 +433,19 @@ func get_center_tile_position() -> Vector2:
 func get_center_tile_global_position() -> Vector2:
 	return to_global(get_center_tile_position())
 	
-func get_random_valid_tile() -> Vector2i:
+func get_starting_tile(
+	preferred_type: Enums.TileType = Enums.TileType.RESOURCE,
+	force_preference: bool = false,
+	excluded_tiles: Array[Vector2i] = []
+) -> Vector2i:
+	if force_preference:
+		var preferred_tiles := _get_available_tiles_of_type(preferred_type, excluded_tiles)
+		if preferred_tiles.size() > 0:
+			return preferred_tiles[0]
+
+	return get_random_valid_tile(excluded_tiles)
+
+func get_random_valid_tile(excluded_tiles: Array[Vector2i] = []) -> Vector2i:
 	var random_tile := Vector2i.ZERO
 	var max_attempts := 1000
 
@@ -429,11 +455,39 @@ func get_random_valid_tile() -> Vector2i:
 			RNG.instance.randi_range(0, map_height - 1)
 		)
 
+		if excluded_tiles.has(random_tile):
+			continue
+
 		if is_within_bounds(random_tile) and is_tile_free(random_tile) and not is_tile_corrupt(random_tile):
 			return random_tile
 
 	push_error("No valid tile found after %d attempts." % max_attempts)
 	return Vector2i.ZERO
+
+func _get_available_tiles_of_type(
+	preferred_type: Enums.TileType,
+	excluded_tiles: Array[Vector2i] = []
+) -> Array[Vector2i]:
+	var preferred_tiles: Array[Vector2i] = []
+	for tile: Vector2i in get_tiles_of_type(preferred_type):
+		if excluded_tiles.has(tile):
+			continue
+		if not is_tile_valid(tile):
+			continue
+		preferred_tiles.append(tile)
+
+	preferred_tiles.sort_custom(_sort_tiles_by_center)
+	return preferred_tiles
+
+func _sort_tiles_by_center(a: Vector2i, b: Vector2i) -> bool:
+	var center := get_center_tile_coord()
+	var distance_a := hex_distance(offset_to_cube(a), offset_to_cube(center))
+	var distance_b := hex_distance(offset_to_cube(b), offset_to_cube(center))
+	if distance_a == distance_b:
+		if a.x == b.x:
+			return a.y < b.y
+		return a.x < b.x
+	return distance_a < distance_b
 	
 # Convert from offset coordinates to cube coordinates
 func offset_to_cube(offset: Vector2i) -> Vector3i:
