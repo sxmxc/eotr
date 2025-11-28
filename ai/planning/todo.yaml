@@ -139,8 +139,8 @@ backlog:
   - id: BKL-011
     title: "Support special tile battle starts for v0.0.6.0"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Need deterministic handling when encounters begin on non-standard tiles (mana wells, ruins, etc.)."
@@ -415,6 +415,20 @@ backlog:
       - "Design unique board layouts for each boss battle with thematic elements."
       - "Implement environmental hazards that interact with boss mechanics."
       - "Develop specialized AI or state machines for bosses to create distinct challenges."
+  
+  - id: BKL-032
+    title: "Create enemy bounty board on the map to show available bounties and their rewards for v0.0.6.0"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Map currently lacks a bounty board to display available enemy bounties and rewards."
+      - "Will need UI elements and data structures to manage bounties."
+    next_steps:
+      - "Design UI for the bounty board to display enemy bounties and rewards."
+      - "Implement data structures to manage and track bounties."
+      - "Integrate bounty board into the map view and ensure smooth navigation." 
 
 in_review: []
 

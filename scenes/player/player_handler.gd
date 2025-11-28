@@ -58,7 +58,8 @@ func start_turn() -> void:
 	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()
-	if tilemap.is_tile_mana_well(tilemap.player_position):
+	var pending_start_tile_effects := tilemap and tilemap.has_start_tile_effects_pending()
+	if tilemap.is_tile_mana_well(tilemap.player_position) and not pending_start_tile_effects:
 		_grant_energy_bonus(1, MANA_WELL_LABEL)
 	if _is_riftwalker() and player_turn_count % 3 == 0:
 		_grant_energy_bonus(1, ADAPTIVE_SURGE_LABEL)

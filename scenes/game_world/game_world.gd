@@ -48,7 +48,7 @@ func start_world() -> void:
 	Events.enemy_died.connect(_on_enemy_died)
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
 	audio_stream_player.stream_paused = false
-	
+
 	tilemap.generate_tilemap(battle_stats)
 
 	game_world_ui.player_stats = player_stats
@@ -56,16 +56,32 @@ func start_world() -> void:
 	player_handler.relics = relics
 	player_handler.tilemap = tilemap
 	enemy_handler.tilemap = tilemap
-	enemy_handler.setup_enemies(battle_stats)
+	var reserved_start_tiles: Array[Vector2i] = []
+	var force_start_tile := battle_stats and battle_stats.enforce_start_tile_type
+	var player_starting_position := Vector2i.ZERO
+
+	if force_start_tile:
+		player_starting_position = tilemap.get_starting_tile(
+			battle_stats.starting_tile_type,
+			true
+		)
+		if tilemap.is_tile_valid(player_starting_position):
+			reserved_start_tiles.append(player_starting_position)
+
+	enemy_handler.setup_enemies(battle_stats, reserved_start_tiles)
 	enemy_handler.reset_enemy_actions.call_deferred()
 	current_round = 1
 	rounds_until_shrink = shrink_frequency - 1
 	battle_stats.enemy_gold_reward = 0
 	battle_stats.enemy_resource_reward = 0
 
-	var player_starting_position = tilemap.get_random_valid_tile()
+	if not force_start_tile or not tilemap.is_tile_valid(player_starting_position):
+		player_starting_position = tilemap.get_starting_tile()
+	if not tilemap.is_tile_valid(player_starting_position):
+		player_starting_position = tilemap.get_random_valid_tile()
 	tilemap.fog_clear_radius = player.stats.view_range
-	tilemap.move_player(player_starting_position)
+	tilemap.move_player(player_starting_position, false)
+	tilemap.queue_start_tile_effects()
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
 
@@ -165,6 +181,7 @@ func _on_relics_activated(type: Enums.RelicType) -> void:
 			player_handler.start_battle(player_stats)
 			game_world_ui.initialize_card_pile_ui()
 			audio_stream_player.stream_paused = false
+			tilemap.apply_start_tile_effects()
 		Enums.RelicType.END_OF_COMBAT:
 			_handle_battle_over("Victory!", BattleOverPanel.Type.WIN)
 
