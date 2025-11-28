@@ -271,15 +271,16 @@ backlog:
   - id: BKL-021
     title: "Build card cost selection popup"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "Needed for rituals/events and ties into BKL-005 deck content expansion."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Design reusable popup UX for selecting card cost targets."
-      - "Implement component and hook into events requiring cost choices."
+      - "Playtest the new card cost selection popup to validate usability/timing."
+      - "Route rituals/events that demand card sacrifices through the new Events.card_cost_selection_requested signal."
+      - "Add audio/FX polish once UX is validated."
 
   - id: BKL-022
     title: "Design sacrifice card mechanic"

@@ -5,6 +5,12 @@ Record notable work here. Use reverse chronological order (newest at top).
 ---
 
 **2025-11-28 – Codex**
+- Summary: Added a reusable card cost selection popup (selectable card grid with hover details and optional tooltips), new event signals, and GameWorld wiring so rituals/events can request card sacrifices.
+- Files: `ui/card_selection/card_cost_selection.tscn`, `ui/card_selection/card_cost_selection.gd`, `ui/card_menu_ui/card_menu_ui.gd`, `scripts/autoloads/events.gd`, `scripts/resources/card/card_cost_selection_request.gd`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (manual code review only; Godot scene/headless checks not executed).
+- Follow-ups: Route rituals/events that consume cards through `Events.card_cost_selection_requested`, and add SFX/animation polish after UX is validated.
+
+**2025-11-28 – Codex**
 - Summary: Marked the tutorial refresh (run + battle overlays) as complete after copy review; no code or layout changes.
 - Files: `ai/planning/todo.yaml`, `ai/state/progress.json`
 - Verification: Not run (status update only).

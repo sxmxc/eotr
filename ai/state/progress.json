@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-28T12:14:24.8846444-06:00",
+  "updated": "2025-11-28T12:27:28.6140519-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -43,6 +43,12 @@
       "status": "blocked",
       "summary": "Boss health meter deferred until the boss redesign lands to avoid rework.",
       "updated": "2025-11-28T11:29:43.1622705-06:00"
+    },
+    {
+      "id": "BKL-021",
+      "status": "in_review",
+      "summary": "Add a reusable card cost selection popup with selectable card grid, hover details, and Events hooks for rituals/events.",
+      "updated": "2025-11-28T12:27:28.6140519-06:00"
     }
   ]
 }
