@@ -1,9 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://bfupsllnox0ix"]
+[gd_scene load_steps=26 format=3 uid="uid://bfupsllnox0ix"]
 
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
 [ext_resource type="Shader" uid="uid://cy0ljmw8dfwny" path="res://scripts/shaders/dark_noise_vignette.gdshader" id="3_2pg18"]
 [ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="4_ky3w4"]
+[ext_resource type="Script" uid="uid://d11kfgsd6jgt" path="res://addons/AutoSizeText/ui/AutoSizeLabel.gd" id="4_lnh5i"]
+[ext_resource type="Script" uid="uid://leehmvr1x5lu" path="res://addons/AutoSizeText/ui/AutoSizeRichTextLabel.gd" id="5_si0b1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ky3w4"]
 shader = ExtResource("3_2pg18")
@@ -210,7 +212,7 @@ theme_type_variation = &"CardPanelSecondary"
 unique_name_in_owner = true
 visible = false
 material = SubResource("ShaderMaterial_ky3w4")
-layout_mode = 2
+layout_mode = 0
 offset_right = 172.0
 offset_bottom = 232.0
 grow_horizontal = 2
@@ -249,15 +251,21 @@ offset_bottom = 37.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.15
+theme_override_font_sizes/font_size = 32
 text = "TITLE"
 label_settings = SubResource("LabelSettings_vqvlo")
 horizontal_alignment = 1
 uppercase = true
+script = ExtResource("4_lnh5i")
+watch_text_change = true
+max_font_size = 32
+step_sizes = Array[int]([8, 16, 32])
+metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
 [node name="CardTypeLabel" type="Label" parent="MainMargin/BackgroundPanel"]
 unique_name_in_owner = true
 use_parent_material = true
-layout_mode = 2
+layout_mode = 0
 offset_left = 5.0
 offset_top = 30.0
 offset_right = 167.0
@@ -270,18 +278,27 @@ horizontal_alignment = 1
 [node name="CardTextLabel" type="RichTextLabel" parent="MainMargin/BackgroundPanel"]
 unique_name_in_owner = true
 use_parent_material = true
-layout_mode = 2
+layout_mode = 0
 anchor_left = 0.00581395
 anchor_top = 0.340517
 anchor_right = 0.994186
 anchor_bottom = 0.780172
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.301961, 0.270588, 0.223529, 1)
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
 bbcode_enabled = true
 text = "Card Text"
-fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("5_si0b1")
+watch_text_change = true
+max_font_size = 16
+step_sizes = Array[int]([8, 16])
+metadata/_custom_type_script = "uid://leehmvr1x5lu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Rarity" type="TextureRect" parent="."]

@@ -79,6 +79,8 @@ func is_values_modified() -> bool:
 	return card.is_card_modified(player_modifiers)
 
 func request_description() -> void:
+	if !is_instance_valid(card) or !is_instance_valid(player_modifiers):
+		return
 	var enemy_modifiers := get_active_enemy_modifiers()
 	var modified_description := card.get_modified_description(player_modifiers, enemy_modifiers)
 	var tooltip_data := TooltipData.new(modified_description)

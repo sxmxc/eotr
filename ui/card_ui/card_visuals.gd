@@ -5,7 +5,7 @@ class_name CardVisuals
 
 @onready var panel: Panel = %Panel
 @onready var card_cost_label: Label = %CardCostLabel
-@onready var card_name_label: Label = %CardNameLabel
+@onready var card_name_label: AutoSizeLabel = %CardNameLabel
 @onready var card_type_label: Label = %CardTypeLabel
 @onready var card_text_label: RichTextLabel = %CardTextLabel
 @onready var rarity: TextureRect = %Rarity

@@ -985,17 +985,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
-text = "Welcome to the Run Map, your journey through the fractured echoes of reality. Here’s what you need to know to survive—and thrive:
+text = "Welcome to the Run Map, your route through the Rift. Quick primer:
 
-[b]Nodes[/b] - These are the points you'll travel between. Each node represents a battle, event, merchant, or other encounter. Choose your path carefully—each decision echoes onward.
+[b]Objective[/b] - Climb to the boss pillar on floor 15 and dismantle it to advance.
 
-[b]Health[/b] - Health carries between battles. Losing all your health means the run ends. Some paths offer healing opportunities—don’t overlook them.
+[b]Nodes[/b] - Monsters/Elites = battles, Treasure = free relic, Rest = heal 30% max HP, Shop = buy cards/relics, Boss = advance the run.
 
-[b]Resources[/b] - Used to purchase relics from shops. Gathered from resource tiles during battles
+[b]Health[/b] - Carries between battles; if it hits 0 the run ends. Rest nodes and some rewards restore health.
 
-[b]Deck[/b] - The cards you bring into battle. You will gain new cards as you progress. Your deck defines your tactics—build it with intention.
+[b]Currencies[/b] - Gold buys cards. Resources buy relics/services. Resource tiles in battle fuel relic costs.
 
-[b]Map Legend[/b] - For decoding map node types"
+[b]Deck[/b] - Grow it via rewards and shops; trimming keeps draws consistent.
+
+[b]Map Legend[/b] - Hover the legend to read icons. Choose paths carefully; once you commit, upstream nodes lock."
 fit_content = true
 
 [connection signal="toggled" from="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer/CollapseToggle" to="MapLegendUI/MapLegend" method="_on_collapse_toggle_toggled"]

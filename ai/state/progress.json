@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-27T23:38:52.5617540-06:00",
+  "updated": "2025-11-28T12:14:24.8846444-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -31,6 +31,18 @@
       "status": "done",
       "summary": "Retune enemy roster for v0.0.6.0 with gentler early threats, slower obelisk spawns, and toned-down elite/void defenses and payouts.",
       "updated": "2025-11-27T23:38:52.5617540-06:00"
+    },
+    {
+      "id": "BKL-009",
+      "status": "done",
+      "summary": "Refresh run and battle tutorial copy to teach obelisk objective, tile effects, and currencies for v0.0.6.0.",
+      "updated": "2025-11-28T12:14:24.8846444-06:00"
+    },
+    {
+      "id": "BKL-019",
+      "status": "blocked",
+      "summary": "Boss health meter deferred until the boss redesign lands to avoid rework.",
+      "updated": "2025-11-28T11:29:43.1622705-06:00"
     }
   ]
 }

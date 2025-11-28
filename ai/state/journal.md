@@ -4,6 +4,24 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-11-28 – Codex**
+- Summary: Marked the tutorial refresh (run + battle overlays) as complete after copy review; no code or layout changes.
+- Files: `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (status update only).
+- Follow-ups: Play through the intro/battle tutorial once to confirm sizing/fit on-device.
+
+**2025-11-28 – Codex**
+- Summary: Clarified battle tutorial text so the movement refund and obelisk hit energy bonus are labeled as Riftwalker-only perks.
+- Files: `scenes/game_world/game_world.tscn`
+- Verification: Not run (text-only tweak).
+- Follow-ups: If other classes later gain similar perks, revisit the tutorial copy to reflect their rules.
+
+**2025-11-28 – Codex**
+- Summary: Refreshed run and battle tutorials to teach the obelisk objective, tile effects (mana wells, rift gates, ruins), movement refund/obelisk energy bonuses, and updated currencies; marked the boss health meter task as blocked pending the boss redesign.
+- Files: `scenes/run/run.tscn`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (UI copy changes only; Godot scenes not launched here).
+- Follow-ups: Play through the run intro and first battle to confirm the new tutorial copy fits on screen and reads clearly; revisit the boss health meter once the redesign spec lands.
+
 **2025-11-27 – Codex**
 - Summary: Retuned the enemy roster for v0.0.6.0 by lowering early-unit damage/HP (bat/wasp/blob/horror), trimming obelisk pressure (range hit to 6, spawn cap 3, slower spawn cadence), and softening elite/void durability and payouts (capped void spectre heal/block, reduced gold rewards, lighter elite stats).
 - Files: `scenes/enemy/bat/bat_enemy_attack_action.gd`, `scenes/enemy/wasp/wasp_enemy_attack_action.gd`, `scenes/enemy/blob/*`, `scenes/enemy/horror/*`, `scenes/enemy/obelisk/*`, `scenes/enemy/void_spectre/*`, `ai/planning/todo.yaml`, `ai/state/progress.json`

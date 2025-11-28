@@ -908,7 +908,7 @@ texture = SubResource("AtlasTexture_0sev3")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
-text = "- Resource Nodes: Provide resources for use in shops."
+text = "- Resource Nodes: Hold 0-3 resources; harvest with cards or effects to pay relic costs."
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
@@ -920,7 +920,7 @@ texture = SubResource("AtlasTexture_ypuix")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
-text = "- Corrupted Zones: Twisted by the Rift’s energy, these tiles are impassable."
+text = "- Corrupted Zones: Twisted by the Rift's energy; impassable for you and enemies."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
@@ -932,7 +932,7 @@ texture = SubResource("AtlasTexture_7mffv")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "- Mana Wells: Bursting with arcane energy, Gain +1 energy while standing on a Mana Well."
+text = "- Mana Wells: Gain +1 energy when you step onto it and while you remain on the well."
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
@@ -944,7 +944,7 @@ texture = SubResource("AtlasTexture_hdnyo")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "- Rift Gates: Fractures of reality. If there are any other gates on map, teleport to a random one"
+text = "- Rift Gates: Step through to blink to another random gate if one exists."
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
 layout_mode = 2
@@ -956,7 +956,7 @@ texture = SubResource("AtlasTexture_1qvqp")
 
 [node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-text = "- Ancient Ruins: ----"
+text = "- Ancient Ruins: Trigger a random effect (block, energy, draw, attunement, resource find, damage, or nothing)."
 
 [node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes"]
 layout_mode = 1
@@ -1096,15 +1096,16 @@ offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "Combat is turn-based and driven by your deck of cards
+text = "Combat runs on your deck. Costs sit at the top-left; type and rarity sit along the footer.
 
-[b]Attack Cards[/b]: Deal damage to enemies based on your stats and modifiers.
-[b]Block Cards[/b]: Add block to reduce incoming damage until your next turn.
-[b]Skill Cards[/b]: Manipulate the battlefield, gain buffs, or debuff enemies.
-[b]Movement Cards[/b]: Move across the map. Positioning is crucial for survival.
-And more...
+[b]Attack[/b]: Deal damage with your current modifiers.
+[b]Defense[/b]: Gain block that clears at the start of your next turn.
+[b]Skill[/b]: Utility plays that buff, debuff, or set up future turns.
+[b]Movement[/b]: Reposition on the grid; some refund or chain with tile bonuses.
+[b]Power/Mutation[/b]: Persistent effects that stay active for the encounter.
+[b]Summon/Resource[/b]: Deploy allies or harvest tiles for resources.
 
-You can only play cards while you have energy, so plan your turn wisely."
+Energy resets each turn—sequence plays around enemy intents and positioning."
 fit_content = true
 
 [node name="HowToBattle" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
@@ -1198,14 +1199,15 @@ offset_top = 320.0
 offset_right = 1026.0
 offset_bottom = 656.0
 bbcode_enabled = true
-text = "Draw Phase: At the start of your turn, draw cards from your deck.
+text = "Objective: Destroy the Obelisk; when it falls the battle ends even if minions remain.
 
-Play Phase: Use energy to play cards in any order.
+Turn Start: Draw your hand; energy resets; block clears. Riftwalker perk: first movement card each turn refunds its cost, and the first Obelisk hit each turn grants +1 energy.
 
-End Turn: Unused block carries over only if specified.
+Turn Flow: Play cards in any order; right-click cancels aiming. End turn to let enemies act.
 
-[b]Periodically, the void will consume the outermost tiles of the map. This will destroy anything occupying consumed tiles.[/b]
-"
+Board Pressure: Obelisks spawn reinforcements on a timer, and every 3 enemy rounds the outer ring is consumed—anything on those tiles dies.
+
+Tips: Mana Wells grant +1 energy on entry; resource tiles feed relic costs; corrupted tiles are off-limits."
 fit_content = true
 
 [node name="Control" type="Control" parent="TutorialUI/BattleTutorial"]
