@@ -15,11 +15,11 @@ var decal_scene: PackedScene
 var decal_scale: float = 1.0
 
 
-static func for_weight(weight: Weight) -> ImpactProfile:
+static func for_weight(arg_weight: Weight) -> ImpactProfile:
 	var profile := ImpactProfile.new()
-	profile.weight = weight
+	profile.weight = arg_weight
 
-	match weight:
+	match arg_weight:
 		Weight.LIGHT:
 			profile.shake_strength = 10.0
 			profile.shake_duration = 0.12

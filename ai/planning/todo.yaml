@@ -137,7 +137,7 @@ backlog:
       - "Patch the hand management logic and add regression coverage if feasible."
 
   - id: BKL-011
-    title: "Support special tile battle starts"
+    title: "Support special tile battle starts for v0.0.6.0"
     priority: P1
     status: ready
     owner: unassigned
@@ -150,7 +150,7 @@ backlog:
       - "Adjust spawn/preview code so edge cases respect tile modifiers without glitches."
 
   - id: BKL-012
-    title: "Tighten discard-to-draw animations and FX"
+    title: "Tighten discard-to-draw animations and FX for v0.0.6.0"
     priority: P2
     status: ready
     owner: unassigned
@@ -163,7 +163,7 @@ backlog:
       - "Implement snappier tweens and align FX to avoid visual/audio desync."
 
   - id: BKL-013
-    title: "Rebalance enemy roster"
+    title: "Rebalance enemy roster for v0.0.6.0"
     priority: P1
     status: ready
     owner: unassigned
@@ -189,7 +189,7 @@ backlog:
       - "Ensure battle cleanup resets/starts the correct audio cues."
 
   - id: BKL-015
-    title: "Improve battle start presentation"
+    title: "Improve battle start presentation for v0.0.6.0"
     priority: P2
     status: ready
     owner: unassigned
@@ -228,7 +228,7 @@ backlog:
       - "Layer in additional VFX/audio and ensure sequence completes without delaying turns."
 
   - id: BKL-018
-    title: "Fix hand spotlight animation"
+    title: "Fix hand spotlight animation for v0.0.6.0"
     priority: P1
     status: in_review
     owner: Codex
@@ -345,6 +345,7 @@ backlog:
       - "Add optional time-scale dip and brief sprite tint for high-damage hits, parameterized by impact weight."
       - "Spawn short-lived scorch/rune decals and scale shake strength via Utils.shake to match impact tier."
       - "Guard against turn pacing delays and confirm multiplayer-safe time scaling (if applicable)."
+  
   - id: BKL-027
     title: "Corrupted tile ambience and edge FX"
     priority: P2
@@ -358,8 +359,9 @@ backlog:
       - "Add animated noise/desaturation overlay shader for corrupted tiles."
       - "Spawn slow vertical particles or wisps along corruption edges; cull offscreen for performance."
       - "Validate readability with resource tiles and ensure color values align with the dark-fantasy sci-fi palette."
+  
   - id: BKL-028
-    title: "Card targeting highlights"
+    title: "Card targeting highlights for v0.0.6.0"
     priority: P2
     status: ready
     owner: unassigned
@@ -371,8 +373,9 @@ backlog:
       - "On aim start, pulse valid tiles using highlighter.gdshader (or variant) and clear on cancel/end."
       - "Cover single, multi-target, and AOE shapes; reuse highlight nodes to avoid per-aim allocations."
       - "Add a light whoosh/scan SFX for aim mode enter without slowing card play."
+  
   - id: BKL-029
-    title: "Battle start/finish presentation"
+    title: "Battle start/finish presentation for v0.0.6.0"
     priority: P2
     status: ready
     owner: unassigned
@@ -384,6 +387,7 @@ backlog:
       - "Storyboard short intro/outro beats (vignette fade, low-pass dip, UI sweep) that don’t slow first actions."
       - "Prototype and timebox transitions; add skip/fast-path if pacing regresses."
       - "Verify audio/state resets on victory and defeat flows to avoid the existing end-of-battle audio bug."
+  
   - id: BKL-030
     title: "Map atmosphere and path feedback"
     priority: P3
@@ -397,6 +401,7 @@ backlog:
       - "Add parallax void/gradient background to the map visuals layer with subtle motion."
       - "Glow/tween available nodes on unlock and highlight hovered paths with animated line thickness or color."
       - "Check readability on wide and narrow viewports and keep shader/lightweight for low-spec targets."
+  
   - id: BKL-031
     title: "Redesign boss battles to be unique boards and make them stand out from normal battles"
     priority: P2
