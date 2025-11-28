@@ -80,9 +80,6 @@ radius = 13.0
 
 [sub_resource type="Resource" id="Resource_fjfnb"]
 script = ExtResource("13_ysoax")
-duration = 1.0
-transition = 0
-ease = 2
 
 [node name="Obelisk" type="Node2D" groups=["enemy", "obelisk"]]
 script = ExtResource("1_pyj3l")

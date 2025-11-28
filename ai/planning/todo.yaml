@@ -217,20 +217,22 @@ backlog:
   - id: BKL-017
     title: "Boost enemy death feedback"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
-      - "Enemy deaths need stronger signals (camera, VFX, audio) for clarity."
+      - "Enemy deaths need stronger signals (camera, VFX, audio) for clarity and satisfaction."
+      - "Obelisk destruction should trigger a rewarding end-of-battle beat, not just a cutoff."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "List current death cues per enemy tier."
-      - "Layer in additional VFX/audio and ensure sequence completes without delaying turns."
+      - "List current death cues per enemy tier and layer in juicier effects (impact punch, dissolve, camera micro-shake) that stay snappy."
+      - "Add an obelisk-destroyed victory beat (audio sting, UI/world message/banner pulse) that flows into battle end without stalling."
+      - "Validate pacing so death and obelisk cues don’t block turn progression or reward handling."
 
   - id: BKL-018
     title: "Fix hand spotlight animation for v0.0.6.0"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
@@ -271,7 +273,7 @@ backlog:
   - id: BKL-021
     title: "Build card cost selection popup"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
@@ -325,7 +327,7 @@ backlog:
   - id: BKL-025
     title: "Add card keyword tooltips"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:

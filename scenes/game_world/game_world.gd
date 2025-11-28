@@ -168,6 +168,12 @@ func _on_enemies_child_order_changed() -> void:
 func _on_obelisk_destroyed() -> void:
 	if battle_over_handled:
 		return
+	var msg := WorldMessageData.new(
+		"Obelisk shattered! The rift calms.",
+		WorldMessageData.Priority.CRITICAL
+	)
+	Events.world_message_requested.emit(msg)
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_rollover)
 	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 
