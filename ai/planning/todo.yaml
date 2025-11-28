@@ -126,7 +126,7 @@ backlog:
   - id: BKL-010
     title: "Fix hand order change bug"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
