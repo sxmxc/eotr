@@ -2,9 +2,9 @@ extends EnemyAction
 
 const POISONED = preload("res://resources/data/statuses/poisoned.tres")
 
-@export var damage := 5
+@export var damage := 4
 @export var curse_fx_scene : PackedScene
-@export var status_duration := 3
+@export var status_duration := 2
 
 func perform_action() -> void:
 	if not enemy or not target:

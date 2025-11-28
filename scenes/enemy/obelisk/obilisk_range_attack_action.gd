@@ -2,7 +2,7 @@ extends EnemyAction
 
 const OBELISK_PROJECTILE_FX = preload("res://ui/fx/obelisk_projectile_fx.tscn")
 
-var base_damage := 7
+var base_damage := 6
 
 func perform_action() -> void:
 	if not enemy or not target: 

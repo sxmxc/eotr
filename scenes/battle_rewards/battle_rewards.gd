@@ -100,6 +100,8 @@ func _on_reward_order_changed() -> void:
 		reward_label.show()
 		
 func _on_enemy_reward_order_changed() -> void:
+	if !is_instance_valid(empty_label):
+		return
 	if enemy_rewards.get_child_count() <= 0:
 		enemy_reward_label.hide()
 		if rewards.get_child_count() <= 0:

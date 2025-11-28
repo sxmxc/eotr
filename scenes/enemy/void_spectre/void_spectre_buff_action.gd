@@ -2,7 +2,7 @@ extends EnemyAction
 
 const STRENGTH_STATUS = preload("res://resources/data/statuses/strength.tres")
 
-@export var stacks_per_action := 2
+@export var stacks_per_action := 1
 
 var hp_threshold := 25
 var usages := 0

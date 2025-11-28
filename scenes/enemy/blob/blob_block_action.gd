@@ -1,6 +1,6 @@
 extends EnemyAction
 
-@export var block := 10
+@export var block := 8
 @export var visual_fx_scene: PackedScene
 
 func perform_action() -> void:

@@ -2,7 +2,7 @@ extends EnemyAction
 
 const VOID_RESIDUE = preload("res://resources/data/cards/common/void_residue.tres")
 
-@export var damage := 8
+@export var damage := 9
 
 
 func perform_action() -> void:

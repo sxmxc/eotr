@@ -2,7 +2,7 @@ extends EnemyAction
 
 const VOID_SLIME = preload("res://resources/data/cards/common/void_slime.tres")
 
-@export var damage := 7
+@export var damage := 6
 
 func perform_action() -> void:
 	if not enemy or not target:

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-27T23:05:30.0000000-06:00",
+  "updated": "2025-11-27T23:38:52.5617540-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -25,6 +25,12 @@
       "status": "done",
       "summary": "Reserve start tiles for special battle openings and prefer requested tile types during placement.",
       "updated": "2025-11-27T23:05:30.0000000-06:00"
+    },
+    {
+      "id": "BKL-013",
+      "status": "done",
+      "summary": "Retune enemy roster for v0.0.6.0 with gentler early threats, slower obelisk spawns, and toned-down elite/void defenses and payouts.",
+      "updated": "2025-11-27T23:38:52.5617540-06:00"
     }
   ]
 }

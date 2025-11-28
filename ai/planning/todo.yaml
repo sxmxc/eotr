@@ -165,8 +165,8 @@ backlog:
   - id: BKL-013
     title: "Rebalance enemy roster for v0.0.6.0"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Enemy stats/behaviors need another tuning pass post-pacing adjustments."
@@ -429,7 +429,40 @@ backlog:
       - "Design UI for the bounty board to display enemy bounties and rewards."
       - "Implement data structures to manage and track bounties."
       - "Integrate bounty board into the map view and ensure smooth navigation." 
+  
+  - id: BKL-033
+    title: "Implement multiple new enemy types with unique abilities and behaviors and more battle stat pools for v0.0.6.0"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current enemy roster is limited; need new enemy types with unique abilities and behaviors."
+      - "Will need to define new enemy stats and behaviors."
+    next_steps:
+      - "Design new enemy types with distinct abilities and behaviors."
+      - "Implement new enemy stats and behaviors in the game."
+      - "Integrate new enemies into battle encounters and test for balance."
 
+  - id: BKL-034
+    title: "Introduce tower defense style summon cards that place defensive objects on the battlefield for v0.0.7.0"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current card mechanics lack tower defense style summon cards."
+      - "Will need new card types and summon mechanics that follow class themes."
+      - "Summons should have health and can be targeted by enemies."
+      - "Need ranged and melee summon variants."
+      - "Summons are stationary and occupy tiles on the battlefield."
+    next_steps:
+      - "Design new summon card types that fit class themes."
+      - "Implement summon mechanics that allow placement of defensive objects on the battlefield."
+      - "Create ranged and melee summon variants with distinct behaviors."
+      
+
+in_progress: []
 in_review: []
 
 ideas_icebox: []
