@@ -178,8 +178,8 @@ backlog:
   - id: BKL-014
     title: "Fix end-of-battle audio bug"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "Victory audio either fails to play or loops incorrectly after battles."

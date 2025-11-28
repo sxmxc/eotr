@@ -34,7 +34,7 @@ func _init() -> void:
 	add_child(ui_sound_effects)
 	add_child(music)
 
-	self.sound_process_mode = PROCESS_MODE_PAUSABLE
+	self.sound_process_mode = PROCESS_MODE_ALWAYS
 	self.ui_sound_process_mode = PROCESS_MODE_ALWAYS
 	self.music_process_mode = PROCESS_MODE_ALWAYS
 	

@@ -18,6 +18,16 @@ func _ready() -> void:
 	Events.battle_over_screen_requested.connect(show_screen)
 
 
+func _play_battle_over_music(stream: AudioStream) -> void:
+	var player := SoundManager.play_music(stream, 0)
+	if player:
+		player.stream_paused = false
+		player.volume_db = 0
+		if not player.is_playing():
+			player.play()
+		player.process_mode = Node.PROCESS_MODE_ALWAYS
+
+
 func show_screen(text: String, type: Type) -> void:
 	if not is_inside_tree():
 		return
@@ -27,9 +37,9 @@ func show_screen(text: String, type: Type) -> void:
 	show()
 	match type:
 		Type.WIN:
-			SoundManager.play_music(SHINE,0)
+			_play_battle_over_music(SHINE)
 		Type.LOSE:
-			SoundManager.play_music(DEFEAT,0)
+			_play_battle_over_music(DEFEAT)
 	get_tree().paused = true
 	
 func _main_menu_button_pressed() -> void:

@@ -24,6 +24,7 @@ var current_round : int :
 	set = set_current_round
 var rounds_until_shrink : int :
 	set = set_rounds_until_shrink
+var battle_over_handled := false
 
 func _ready():
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
@@ -42,6 +43,7 @@ func _ready():
 
 
 func start_world() -> void:
+	battle_over_handled = false
 	get_tree().paused = false
 	Events.enemy_died.connect(_on_enemy_died)
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
@@ -141,16 +143,20 @@ func _on_enemy_died(enemy: Enemy) -> void:
 	battle_stats.enemy_resource_reward += enemy.get_resource_value()
 
 func _on_enemies_child_order_changed() -> void:
+	if battle_over_handled:
+		return
 	if enemy_handler.get_child_count() == 0 and is_instance_valid(relics):
 		relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 
 func _on_obelisk_destroyed() -> void:
+	if battle_over_handled:
+		return
 	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 
 func _on_player_died() -> void:
-	Events.battle_over_screen_requested.emit("Game Over!", BattleOverPanel.Type.LOSE)
+	_handle_battle_over("Game Over!", BattleOverPanel.Type.LOSE)
 	SaveGame.delete_data()
 
 func _on_relics_activated(type: Enums.RelicType) -> void:
@@ -160,5 +166,13 @@ func _on_relics_activated(type: Enums.RelicType) -> void:
 			game_world_ui.initialize_card_pile_ui()
 			audio_stream_player.stream_paused = false
 		Enums.RelicType.END_OF_COMBAT:
-			audio_stream_player.stream_paused = true
-			Events.battle_over_screen_requested.emit("Victory!", BattleOverPanel.Type.WIN)
+			_handle_battle_over("Victory!", BattleOverPanel.Type.WIN)
+
+
+func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
+	if battle_over_handled:
+		return
+	battle_over_handled = true
+	if is_instance_valid(audio_stream_player):
+		audio_stream_player.stream_paused = true
+	Events.battle_over_screen_requested.emit(message, result)
