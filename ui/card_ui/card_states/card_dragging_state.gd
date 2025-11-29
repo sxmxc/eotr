@@ -23,7 +23,7 @@ func on_input(event: InputEvent) -> void:
 	var player = get_tree().get_first_node_in_group("player")
 	var tilemap = get_tree().get_first_node_in_group("map_layer")
 	
-	tilemap.highlight_cells(card_ui.card.get_valid_targets(card_ui, player.modifier_handler))
+	tilemap.show_target_highlights(card_ui.card.get_valid_targets(card_ui, player.modifier_handler))
 	
 	if single_targeted and mouse_motion and card_ui.targets.size() > 0:
 		transition_requested.emit(self, CardState.State.AIMING)
@@ -40,5 +40,5 @@ func on_input(event: InputEvent) -> void:
 
 func exit() -> void:
 	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
-	tilemap.clear_highlight()
+	tilemap.clear_target_highlights()
 	Events.card_drag_ended.emit(card_ui)

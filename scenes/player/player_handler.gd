@@ -45,6 +45,7 @@ func start_battle(stats: PlayerStats) -> void:
 	relics.relics_activated.connect(_on_relics_activated)
 	player.status_handler.statuses_applied.connect(_on_statuses_applied)
 	player.status_handler.status_added.connect(player_hand._on_status_added)
+	_configure_player_camera_targets()
 	start_turn()
 
 
@@ -139,16 +140,19 @@ func _connect_obelisk_bonus() -> void:
 	obelisk = current_obelisk
 	if not obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
 		obelisk.damage_taken.connect(_on_obelisk_damage_taken)
+	_configure_player_camera_targets()
 
 
 func _disconnect_obelisk_signal() -> void:
 	if obelisk and is_instance_valid(obelisk) and obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
 		obelisk.damage_taken.disconnect(_on_obelisk_damage_taken)
 	obelisk = null
+	_configure_player_camera_targets()
 
 
 func _on_obelisk_destroyed() -> void:
 	_disconnect_obelisk_signal()
+	_configure_player_camera_targets()
 
 
 func _on_obelisk_damage_taken(amount: int) -> void:
@@ -211,3 +215,21 @@ func _on_relics_activated(type: Enums.RelicType) -> void:
 			player.status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 		Enums.RelicType.END_OF_TURN:
 			player.status_handler.apply_statuses_by_type(Enums.StatusType.END_OF_TURN)
+
+
+func _configure_player_camera_targets() -> void:
+	if not is_instance_valid(player) or not is_instance_valid(player.phantom_camera_2d):
+		return
+
+	var targets: Array[Node2D] = [player]
+	obelisk = get_tree().get_first_node_in_group("obelisk") as Obelisk
+	if obelisk and is_instance_valid(obelisk):
+		targets.append(obelisk)
+	
+	print("Configuring player camera targets: %s" % [targets])
+
+	player.phantom_camera_2d.follow_mode = PhantomCamera2D.FollowMode.GROUP
+	player.phantom_camera_2d.set_follow_targets(targets)
+	player.phantom_camera_2d.set_auto_zoom(true)
+
+	print("Player camera targets configured: %s" % [player.phantom_camera_2d.get_follow_targets()])

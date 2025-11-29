@@ -84,7 +84,7 @@ func start_world() -> void:
 	tilemap.queue_start_tile_effects()
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
-
+	
 	var message = WorldMessageData.new(
 		"The World has awakened!",
 		WorldMessageData.Priority.IMPORTANT

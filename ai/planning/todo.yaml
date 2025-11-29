@@ -367,16 +367,14 @@ backlog:
   - id: BKL-028
     title: "Card targeting highlights for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Card aiming relies on cursor only; valid tiles/targets are not visually marked."
       - "Card.get_valid_targets and CardStateMachine already compute target sets."
     next_steps:
-      - "On aim start, pulse valid tiles using highlighter.gdshader (or variant) and clear on cancel/end."
-      - "Cover single, multi-target, and AOE shapes; reuse highlight nodes to avoid per-aim allocations."
-      - "Add a light whoosh/scan SFX for aim mode enter without slowing card play."
+      - "Playtest the pulsing tile highlights + aim whoosh in single/aoe targeting to confirm clarity and volume, and ensure obelisk spawn telegraphs remain visible."
   
   - id: BKL-029
     title: "Battle start/finish presentation for v0.0.6.0"
@@ -512,8 +510,8 @@ backlog:
   - id: BKL-038
     title: "Make enemies AI more adaptive to player strategies and smarter in combat"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Current enemy AI is predictable and does not adapt to player strategies."

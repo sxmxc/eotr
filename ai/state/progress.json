@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-29T11:20:00.0000000-06:00",
+  "updated": "2025-11-29T19:05:46.5148848-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -61,6 +61,18 @@
       "status": "done",
       "summary": "Overhauled enemy intent display with consistent formatting, tooltips, and palette-based visual polish.",
       "updated": "2025-11-29T00:50:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-038",
+      "status": "in_review",
+      "summary": "Make enemy AI pick attacks/blocks based on player distance, block, and kill potential instead of flat weights.",
+      "updated": "2025-11-29T19:05:46.5148848-06:00"
+    },
+    {
+      "id": "BKL-028",
+      "status": "done",
+      "summary": "Add pulsing tile highlights with pooled sprites and a scan SFX when aiming cards so valid targets are clearly marked without wiping telegraphs.",
+      "updated": "2025-11-28T20:54:37.389522-06:00"
     }
   ]
 }

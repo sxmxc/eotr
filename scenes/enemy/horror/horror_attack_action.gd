@@ -41,3 +41,7 @@ func update_intent_text() -> void:
 	var modified_dmg := player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
 	var summary := "%d x2" % modified_dmg
 	intent.current_text = intent.base_text % summary
+
+
+func get_weight(decision_context: Dictionary = {}) -> float:
+	return get_attack_weight(damage, 2, decision_context)

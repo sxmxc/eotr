@@ -6,7 +6,8 @@ const MOUSE_Y_CANCEL_THRESHOLD := 1000
 func enter() -> void:
 	var player = get_tree().get_first_node_in_group("player")
 	var tilemap = get_tree().get_first_node_in_group("map_layer")
-	tilemap.highlight_cells(card_ui.card.get_valid_targets(card_ui, player.modifier_handler))
+	tilemap.show_target_highlights(card_ui.card.get_valid_targets(card_ui, player.modifier_handler))
+	SoundManager.play_sound_random_pitch(AudioLibrary.card_aim_scan)
 	card_ui.scale = Vector2.ONE
 	card_ui.state.text = "AIMING"
 	card_ui.targets.clear()
@@ -19,7 +20,7 @@ func enter() -> void:
 
 func exit() -> void:
 	var tilemap : ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
-	tilemap.clear_highlight()
+	tilemap.clear_target_highlights()
 	Events.card_aim_ended.emit(card_ui)
 
 

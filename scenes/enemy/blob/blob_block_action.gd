@@ -24,3 +24,7 @@ func perform_action() -> void:
 
 func update_intent_text() -> void:
 	intent.current_text = intent.base_text % str(block)
+
+
+func get_weight(decision_context: Dictionary = {}) -> float:
+	return get_block_weight(block, decision_context)

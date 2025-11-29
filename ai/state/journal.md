@@ -5,6 +5,18 @@ Record notable work here. Use reverse chronological order (newest at top).
 ---
 
 **2025-11-29 – Codex**
+- Summary: Added pooled pulsing card-target highlights using the highlighter shader (separate overlay to avoid clearing obelisk telegraphs), rewired card drag/aim states to the new layer, and triggered a light scan SFX on aim start.
+- Files: `scripts/nodes/proc-gen-tilemap.gd`, `scenes/game_world/game_world.tscn`, `scenes/sandbox/gameworld_sandbox.tscn`, `ui/card_ui/card_states/card_dragging_state.gd`, `ui/card_ui/card_states/card_aiming_state.gd`, `scripts/statics/audio_library.gd`
+- Verification: `D:\Godot-Editors\godot.cmd --headless --check-only` (timed out after initialization; no errors surfaced before timeout).
+- Follow-ups: In-game check for highlight alignment/readability across card shapes, ensure aim whoosh volume blends with existing UI SFX, and watch for lingering highlight sprites after map rebuilds.
+
+**2025-11-29 – Codex**
+- Summary: Added context-aware enemy action weighting plus attack/block heuristics (distance, expected damage, player block/energy) for common melee enemies to react to turtling/kiting strategies. Updated planning/progress for BKL-038.
+- Files: `scenes/enemy/enemy_action.gd`, `scenes/enemy/enemy_action_picker.gd`, `scenes/enemy/blob/blob_attack_action.gd`, `scenes/enemy/blob/blob_block_action.gd`, `scenes/enemy/bat/bat_enemy_attack_action.gd`, `scenes/enemy/wasp/wasp_enemy_attack_action.gd`, `scenes/enemy/horror/horror_attack_action.gd`, `scenes/enemy/horror/horror_block_action.gd`, `scenes/enemy/void_spectre/void_spectre_attack_action.gd`, `scenes/enemy/void_spectre/void_spectre_block_action.gd`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot/headless checks unavailable here).
+- Follow-ups: Playtest varied encounters to tune the new weight scaling (distance thresholds, finisher bonus) and ensure no AI stalls when targets are hidden or out of range.
+
+**2025-11-29 – Codex**
 - Summary: Fixed channeler/bulwark scene UID mismatches and cleared GDScript errors (indent + type mismatch) that blocked channeler battles from loading.
 - Files: `scenes/enemy/bulwark/bulwark_cleave_action.gd`, `scenes/enemy/channeler/channeler_empower_action.gd`, `scenes/enemy/bulwark/bulwark_enemy_ai.tscn`, `scenes/enemy/channeler/channeler_enemy_ai.tscn`
 - Verification: Not run (Godot executable unavailable in this environment).

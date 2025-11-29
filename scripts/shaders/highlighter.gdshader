@@ -65,5 +65,5 @@ void fragment() {
 	remapped_line = min(remapped_line, Alpha);
 
 	vec4 surface_tex = texture(surface, UV);
-	COLOR.rgba *= vec4(remapped_line) * surface_tex.a;
+	COLOR = vec4(remapped_line, remapped_line, remapped_line, remapped_line) * surface_tex.a;
 }
