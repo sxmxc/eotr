@@ -6,7 +6,8 @@ const TILE_RESOURCE_COUNT_LABEL = preload("res://resources/tile_resource_count_l
 const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
 const TARGET_HIGHLIGHT_SHADER := preload("res://scripts/shaders/tile_target_highlight.gdshader")
 const TARGET_HIGHLIGHT_ATLAS := preload("res://assets/spritesheets/32x32-hex-tiles.png")
-const TARGET_HIGHLIGHT_REGION := Rect2i(96, 32, 32, 32)
+# Match the main tile sprite mask (hex) so highlights keep the correct silhouette.
+const TARGET_HIGHLIGHT_REGION := Rect2i(32, 32, 32, 32)
 
 const RESOURCE_USED_ID = Vector2i(2,1)
 
