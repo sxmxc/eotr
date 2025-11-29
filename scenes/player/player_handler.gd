@@ -1,8 +1,8 @@
 class_name PlayerHandler
 extends Node
 
-const HAND_DRAW_INTERVAL := 0.25
-const HAND_DISCARD_INTERVAL := 0.25
+const HAND_DRAW_INTERVAL := 0.12
+const HAND_DISCARD_INTERVAL := 0.08
 const HEX_TRAIL = preload("res://ui/player_ui/hex_trail.tscn")
 const OBELISK_ENERGY_BONUS := 1
 const MOMENTUM_FLOW_LABEL := "Momentum Flow"
@@ -103,12 +103,11 @@ func discard_cards() -> void:
 		card_ui.z_index += 1
 		var tween := create_tween()
 		card_ui.visuals.animation_player.play("swirl_out")
-		tween.tween_property(card_ui,"global_position", card_ui_offset,.12)
-		tween.tween_property(card_ui,"global_position", discard_pile_position,.12)
+		tween.tween_property(card_ui,"global_position", card_ui_offset,.08)
+		tween.tween_property(card_ui,"global_position", discard_pile_position,.1)
 		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, .12)
 		tween.tween_callback(player_stats.discard.add_card.bind(card_ui.card))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
-		await get_tree().create_timer(.03).timeout
 	Events.player_hand_discarded.emit()
 	#tween.finished.connect(func(): Events.player_hand_discarded.emit())
 
@@ -125,7 +124,7 @@ func reshuffle_deck_from_discard() -> void:
 		var tween = create_tween()
 		world_ui.discard_pile_button.add_child(hex_trail)
 		hex_trail.global_position = world_ui.discard_pile_button.counter.global_position
-		tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(world_ui.draw_pile_button.counter),1)
+		tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(world_ui.draw_pile_button.counter),0.45)
 		tween.tween_callback(hex_trail.queue_free)		
 
 	player_stats.draw_pile.shuffle()

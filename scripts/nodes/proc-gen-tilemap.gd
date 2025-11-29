@@ -604,14 +604,14 @@ func _get_target_highlight_sprite() -> Sprite2D:
 	if not target_highlight_material or not target_highlight_texture:
 		_build_target_highlight_assets()
 	if target_highlight_pool.is_empty():
-		var sprite := Sprite2D.new()
-		sprite.texture = target_highlight_texture
-		sprite.material = target_highlight_material
-		sprite.centered = true
-		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		sprite.z_index = 2
-		target_highlight_layer.add_child(sprite)
-		return sprite
+		var hl_sprite := Sprite2D.new()
+		hl_sprite.texture = target_highlight_texture
+		hl_sprite.material = target_highlight_material
+		hl_sprite.centered = true
+		hl_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		hl_sprite.z_index = 2
+		target_highlight_layer.add_child(hl_sprite)
+		return hl_sprite
 	var sprite: Sprite2D = target_highlight_pool.pop_back()
 	sprite.texture = target_highlight_texture
 	sprite.material = target_highlight_material

@@ -1,6 +1,8 @@
 class_name GameWorld
 extends Node2D
 
+const BATTLE_PRESENTATION := preload("res://ui/world_ui/battle_presentation.gd")
+
 @export var battle_stats: BattleStats
 @export var player_stats: PlayerStats
 @export var run_stats: RunStats:
@@ -19,6 +21,7 @@ extends Node2D
 @onready var world_camera: PhantomCamera2D = %WorldCamera
 @onready var tutorial_ui: TutorialUI = $TutorialUI
 
+var battle_presentation: BattlePresentation
 var audio_stream_player : AudioStreamPlayer
 var current_round : int : 
 	set = set_current_round
@@ -27,6 +30,7 @@ var rounds_until_shrink : int :
 var battle_over_handled := false
 
 func _ready():
+	_ensure_battle_presentation()
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
 	Events.enemy_turn_ended.connect(_on_enemy_turn_ended)
 
@@ -82,6 +86,8 @@ func start_world() -> void:
 	tilemap.fog_clear_radius = player.stats.view_range
 	tilemap.move_player(player_starting_position, false)
 	tilemap.queue_start_tile_effects()
+	if is_instance_valid(battle_presentation):
+		battle_presentation.play_intro(audio_stream_player)
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
 	
@@ -196,6 +202,27 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	if battle_over_handled:
 		return
 	battle_over_handled = true
+	if is_instance_valid(battle_presentation):
+		call_deferred("_play_battle_outro", message, result)
+		return
+	_emit_battle_over(message, result)
+
+
+func _play_battle_outro(message: String, result: BattleOverPanel.Type) -> void:
+	if is_instance_valid(battle_presentation):
+		battle_presentation.play_outro(result == BattleOverPanel.Type.WIN, audio_stream_player)
+		await get_tree().create_timer(0.55).timeout
+	_emit_battle_over(message, result)
+
+
+func _emit_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	if is_instance_valid(audio_stream_player):
 		audio_stream_player.stream_paused = true
 	Events.battle_over_screen_requested.emit(message, result)
+
+
+func _ensure_battle_presentation() -> void:
+	if battle_presentation and is_instance_valid(battle_presentation):
+		return
+	battle_presentation = BATTLE_PRESENTATION.new()
+	add_child(battle_presentation)

@@ -152,15 +152,14 @@ backlog:
   - id: BKL-012
     title: "Tighten discard-to-draw animations and FX for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Discard-to-draw transitions feel sluggish; improvements likely in `ui/card_ui/card_ui.gd`."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Profile current tween timings/sound layering."
-      - "Implement snappier tweens and align FX to avoid visual/audio desync."
+      - "Verify discard/draw pacing in-game with large hands; retune timing if hands feel jumpy."
 
   - id: BKL-013
     title: "Rebalance enemy roster for v0.0.6.0"
@@ -191,15 +190,14 @@ backlog:
   - id: BKL-015
     title: "Improve battle start presentation for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Battle entry lacks dramatic framing; define desired beats before implementation."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Storyboard an enhanced intro (camera, SFX, UI)."
-      - "Prototype and user-test to confirm added juice doesn't slow pacing."
+      - "Playtest the intro vignette/audio dip to ensure it doesn’t obscure obelisk telegraphs."
 
   - id: BKL-016
     title: "Enhance ruin tile feedback"
@@ -259,16 +257,15 @@ backlog:
   - id: BKL-020
     title: "Add map event nodes"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Roadmap flagged event nodes for v0.0.6.0; confirm they still align with current milestones."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
       - "Event nodes are random encounters with unique rewards/risks outside standard battles."
     next_steps:
-      - "Validate that event node features remain in scope for the next milestone."
-      - "Implement generator hooks, UI, and encounter payloads if confirmed."
+      - "Add more event variants/rewards and balance HP/gold/resource swings after playtests."
 
   - id: BKL-021
     title: "Build card cost selection popup"
@@ -379,16 +376,14 @@ backlog:
   - id: BKL-029
     title: "Battle start/finish presentation for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Battle entry/exit are abrupt; vignette shader and audio hooks exist but aren’t orchestrated."
       - "ui/world_ui/battle_over_panel.gd and scripts/shaders/dark_noise_vignette.gdshader are available."
     next_steps:
-      - "Storyboard short intro/outro beats (vignette fade, low-pass dip, UI sweep) that don’t slow first actions."
-      - "Prototype and timebox transitions; add skip/fast-path if pacing regresses."
-      - "Verify audio/state resets on victory and defeat flows to avoid the existing end-of-battle audio bug."
+      - "QA intro/outro beats to ensure pacing stays snappy and audio fades don’t clip the battle stingers."
   
   - id: BKL-030
     title: "Map atmosphere and path feedback"
@@ -421,16 +416,14 @@ backlog:
   - id: BKL-032
     title: "Create enemy bounty board on the map to show available bounties and their rewards for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Map currently lacks a bounty board to display available enemy bounties and rewards."
       - "Will need UI elements and data structures to manage bounties."
     next_steps:
-      - "Design UI for the bounty board to display enemy bounties and rewards."
-      - "Implement data structures to manage and track bounties."
-      - "Integrate bounty board into the map view and ensure smooth navigation." 
+      - "Expand bounty info to include elites/void bonuses and wire into upcoming bounty systems."
   
   - id: BKL-033
     title: "Implement multiple new enemy types with unique abilities and behaviors and more battle stat pools for v0.0.6.0"

@@ -4,6 +4,18 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-11-30 – Codex**
+- Summary: Added battle intro/outro presentation (vignette + audio swell) and tightened discard/draw pacing. New BattlePresentation overlay hooks into GameWorld start/end, and hand cleanup/draw intervals now finish faster with shorter reshuffle trails.
+- Files: `ui/world_ui/battle_presentation.gd`, `scenes/game_world/game_world.gd`, `scenes/player/player_handler.gd`
+- Verification: Not run (visual/audio timing needs in-engine check).
+- Follow-ups: Playtest to confirm intro/outro beats don’t mask telegraphs or clip stingers; ensure faster discard/draw doesn’t desync SFX.
+
+**2025-11-30 – Codex**
+- Summary: Added map event nodes with a lightweight EventRoom (gold/resource/HP trades) and a map bounty board overlay that surfaces reachable battle rewards. Map generator now rolls Event nodes; map UI shows event icon plus bounty panel for available battles.
+- Files: `scenes/event/event_room.tscn`, `scenes/event/event_room.gd`, `scripts/autoloads/enums.gd`, `scenes/map/map_generator.gd`, `scenes/map/map_node_ui.gd`, `scenes/map/map.gd`, `scenes/map/map_bounty_board.gd`, `scenes/run/run.gd`
+- Verification: Not run.
+- Follow-ups: Expand event variety/rewards, and confirm bounty board values match in-game reward rolls and future bounty systems.
+
 **2025-11-29 – Codex**
 - Summary: Added pooled pulsing card-target highlights using the highlighter shader (separate overlay to avoid clearing obelisk telegraphs), rewired card drag/aim states to the new layer, and triggered a light scan SFX on aim start.
 - Files: `scripts/nodes/proc-gen-tilemap.gd`, `scenes/game_world/game_world.tscn`, `scenes/sandbox/gameworld_sandbox.tscn`, `ui/card_ui/card_states/card_dragging_state.gd`, `ui/card_ui/card_states/card_aiming_state.gd`, `scripts/statics/audio_library.gd`

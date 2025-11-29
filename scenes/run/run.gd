@@ -7,6 +7,7 @@ const REST_SCENE = preload("res://scenes/rest/rest.tscn")
 const SHOP_SCENE = preload("res://scenes/shop/shop.tscn")
 const TREASURE_SCENE = preload("res://scenes/treasure/treasure.tscn")
 const WIN_SCREEN_SCENE = preload("res://scenes/win_screen/win_screen.tscn")
+const EVENT_SCENE = preload("res://scenes/event/event_room.tscn")
 const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 
 @export var run_bootstrap: RunBootstrap
@@ -25,6 +26,8 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 @onready var map_legend: CanvasLayer = $MapLegendUI
 @onready var run_time_ui: RunTimerUI = %RunTimeUI
 @onready var tutorial_ui: TutorialUI = $TutorialUI
+@onready var bounty_board_button: TextureButton = %BountyBoardButton
+@onready var bounty_board_popup: Control = %BountyBoardPopup
 
 
 var run_stats: RunStats
@@ -37,6 +40,7 @@ func _ready() -> void:
 	if not run_bootstrap:
 		return
 
+	_connect_bounty_board()
 	pause_menu.save_and_quit.connect(func(): get_tree().change_scene_to_file(MAIN_MENU_PATH))
 
 	match run_bootstrap.type:
@@ -161,6 +165,7 @@ func _setup_event_connections() -> void:
 	Events.battle_reward_exited.connect(_show_map)
 	Events.rest_exited.connect(_show_map)
 	Events.map_exited.connect(_on_map_exited)
+	Events.event_exited.connect(_show_map)
 	Events.shop_exited.connect(_show_map)
 	Events.treasure_room_exited.connect(_on_treasure_room_exited)
 
@@ -181,6 +186,18 @@ func _setup_top_bar() -> void:
 	deck_button.card_pile = player_stats.deck
 	deck_view.card_pile = player_stats.deck
 	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
+	bounty_board_button.toggled.connect(_on_bounty_board_button_toggled)
+
+
+func _connect_bounty_board() -> void:
+	if bounty_board_popup:
+		bounty_board_popup.hide()
+
+
+func _on_bounty_board_button_toggled(pressed: bool) -> void:
+	if not bounty_board_popup:
+		return
+	bounty_board_popup.visible = pressed
 
 
 func _show_regular_rewards() -> void:
@@ -243,6 +260,13 @@ func _on_treasure_room_entered() -> void:
 	treasure_scene.generate_relic()
 
 
+func _on_event_entered() -> void:
+	var event_scene := _change_view(EVENT_SCENE)
+	if event_scene and event_scene.has_method("setup_event"):
+		event_scene.setup_event(player_stats, run_stats, relic_handler)
+	Events.event_entered.emit()
+
+
 func _on_treasure_room_exited(relic: Relic) -> void:
 	var reward_scene := _change_view(BATTLE_REWARDS_SCENE) as BattleRewards
 	reward_scene.run_stats = run_stats
@@ -273,5 +297,7 @@ func _on_map_exited(map_node: MapNode) -> void:
 			_on_rest_entered()
 		Enums.MapNodeType.SHOP:
 			_on_shop_entered()
+		Enums.MapNodeType.EVENT:
+			_on_event_entered()
 		Enums.MapNodeType.BOSS:
 			_on_game_world_entered(map_node)

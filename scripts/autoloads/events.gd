@@ -47,6 +47,8 @@ signal world_message_hide_requested
 
 # Map-related events
 signal map_exited(map_node: MapNode)
+signal event_entered
+signal event_exited
 
 # Shop-related events
 signal shop_entered(shop: Shop)
