@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-28T12:27:28.6140519-06:00",
+  "updated": "2025-11-29T11:20:00.0000000-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -49,6 +49,12 @@
       "status": "in_review",
       "summary": "Add a reusable card cost selection popup with selectable card grid, hover details, and Events hooks for rituals/events.",
       "updated": "2025-11-28T12:27:28.6140519-06:00"
+    },
+    {
+      "id": "BKL-033",
+      "status": "done",
+      "summary": "Introduce Bulwark and Void Channeler enemies with unique actions and expand tier 1/2 battle pools to feature them.",
+      "updated": "2025-11-29T11:20:00.0000000-06:00"
     }
   ]
 }

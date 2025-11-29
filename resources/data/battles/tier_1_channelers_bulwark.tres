@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://dosx5f4al27om"]
+
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_7tro4"]
+[ext_resource type="PackedScene" uid="uid://cac5v2ug1nt3g" path="res://resources/data/battles/tier_1_channelers_bulwark.tscn" id="2_zd52x"]
+
+[resource]
+script = ExtResource("1_7tro4")
+battle_tier = 1
+weight = 1.5
+gold_reward_min = 70
+gold_reward_max = 100
+resource_reward_min = 4
+resource_reward_max = 7
+enemies = ExtResource("2_zd52x")
+battle_field_width = 10
+battle_field_height = 10
+metadata/_custom_type_script = "uid://dypkpglsm47yj"
+metadata/_custom_type_script = "uid://dypkpglsm47yj"

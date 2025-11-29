@@ -4,6 +4,18 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-11-29 – Codex**
+- Summary: Fixed channeler/bulwark scene UID mismatches and cleared GDScript errors (indent + type mismatch) that blocked channeler battles from loading.
+- Files: `scenes/enemy/bulwark/bulwark_cleave_action.gd`, `scenes/enemy/channeler/channeler_empower_action.gd`, `scenes/enemy/bulwark/bulwark_enemy_ai.tscn`, `scenes/enemy/channeler/channeler_enemy_ai.tscn`
+- Verification: Not run (Godot executable unavailable in this environment).
+- Follow-ups: Re-enter battles featuring Channelers/Bulwarks to confirm no remaining script load errors and that actions play correctly.
+
+**2025-11-29 – Codex**
+- Summary: Added Bulwark (frontline brace/cleave) and Void Channeler (ally buffer + weaken beam) enemies with new AI/action scripts, and introduced tier 1/2 battle pools that seed obelisks with the new spawn mix.
+- Files: `scenes/enemy/channeler/*`, `scenes/enemy/bulwark/*`, `resources/data/battles/tier_1_channelers_bulwark.*`, `resources/data/battles/tier_2_bulwark_channelers.*`, `resources/data/battles/battle_stats_pool.tres`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot client/headless checks unavailable in this environment).
+- Follow-ups: Playtest the new battles to tune weights, rewards, and damage/block numbers; sanity-check obelisk spawns still respect caps with the expanded pool.
+
 **2025-11-28 – Codex**
 - Summary: Added a reusable card cost selection popup (selectable card grid with hover details and optional tooltips), new event signals, and GameWorld wiring so rituals/events can request card sacrifices.
 - Files: `ui/card_selection/card_cost_selection.tscn`, `ui/card_selection/card_cost_selection.gd`, `ui/card_menu_ui/card_menu_ui.gd`, `scripts/autoloads/events.gd`, `scripts/resources/card/card_cost_selection_request.gd`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`

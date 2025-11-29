@@ -437,8 +437,8 @@ backlog:
   - id: BKL-033
     title: "Implement multiple new enemy types with unique abilities and behaviors and more battle stat pools for v0.0.6.0"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Current enemy roster is limited; need new enemy types with unique abilities and behaviors."
@@ -465,6 +465,78 @@ backlog:
       - "Implement summon mechanics that allow placement of defensive objects on the battlefield."
       - "Create ranged and melee summon variants with distinct behaviors."
       
+  - id: BKL-035
+    title: "Redesign enemy intent display for clarity and consistency"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current intent labels/tooltips are inconsistent between enemies and can throw formatting errors."
+      - "Need a clearer hierarchy (icon, label, tooltip) that handles single- and multi-value intents."
+    next_steps:
+      - "Audit existing intents for format differences (base_text/tooltips/current_text expectations)."
+      - "Design a consistent intent UI pattern (values vs descriptions) and update intent_ui.gd accordingly."
+      - "Apply the pattern across all enemy AI scenes/actions and add a lightweight regression check."
+      - "Re-evaluate how this information is presented during enemy turn planning vs execution."
+      - "Re-evaluate how this informatin is presented to the player overall for clarity."
+
+  - id: BKL-036
+    title: "Implement dynamic music transitions based on battle intensity and phases"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current battle music is static and does not adapt to the intensity of the battle."
+      - "Need to create a system that adjusts music based on battle phases and intensity."
+    next_steps:
+      - "Define battle intensity metrics (e.g., number of enemies, player health, turn count)."
+      - "Create music layers/tracks that can be blended based on intensity."
+      - "Implement a system to monitor battle intensity and adjust music accordingly."
+
+  - id: BKL-037
+    title: "Add environmental hazards to battlefields that affect gameplay"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current battlefields lack environmental hazards that can impact gameplay."
+      - "Need to design hazards that fit the game's theme and mechanics."
+    next_steps:
+      - "Design various environmental hazards (e.g., lava pools, spike traps, toxic gas)."
+      - "Implement hazard mechanics that interact with players and enemies."
+      - "Integrate hazards into battle encounters and test for balance."
+
+  - id: BKL-038
+    title: "Make enemies AI more adaptive to player strategies and smarter in combat"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current enemy AI is predictable and does not adapt to player strategies."
+      - "Need to enhance AI decision-making to create more challenging encounters."
+    next_steps:
+      - "Analyze common player strategies and identify weaknesses in current AI."
+      - "Implement adaptive AI behaviors that respond to player actions."
+      - "Test enhanced AI in various battle scenarios to ensure balance and challenge."
+  
+  - id: BKL-039
+    title: "Implement teleporting type enemies that can reposition themselves on the battlefield for v0.0.7.0"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "We currently have general moving enemies, and flying enemies, but no teleporting enemies."
+      - "Teleporting enemies should be able to reposition themselves on the battlefield, ignoring movement restrictions."
+      - "Visuals and sound effects should accompany teleportation."
+    next_steps:
+      - "Design teleporting enemy types with unique abilities and behaviors."
+      - "Implement teleportation mechanics that allow enemies to reposition on the battlefield."
+      - "Create visual and sound effects for teleportation."
 
 in_progress: []
 in_review: []

@@ -1,0 +1,61 @@
+[gd_scene load_steps=17 format=3 uid="uid://et3k0fasmcna"]
+
+[ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_55s2j"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="2_hy3dk"]
+[ext_resource type="Script" uid="uid://chhmrx4fcbifk" path="res://scenes/enemy/blob/blob_move_action.gd" id="3_v253m"]
+[ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="4_dveoq"]
+[ext_resource type="Script" uid="uid://bt6yjsjuhr2ed" path="res://scenes/enemy/channeler/channeler_empower_action.gd" id="5_qnxcl"]
+[ext_resource type="Texture2D" uid="uid://u2ikgwt82e2x" path="res://assets/icons/armor-upgrade.svg" id="6_hu5go"]
+[ext_resource type="AudioStream" uid="uid://bi62uwrtjhfdc" path="res://assets/audio/kenney_casino/chip-lay-2.ogg" id="7_5r83q"]
+[ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="8_p3bau"]
+[ext_resource type="Script" uid="uid://bvojm1cu2relw" path="res://scenes/enemy/channeler/channeler_weaken_bolt_action.gd" id="9_4064u"]
+[ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="10_fwhlu"]
+[ext_resource type="AudioStream" uid="uid://ckcsqiyw8br81" path="res://assets/audio/Monster Sounds/Ghost/Ghost_Attack.ogg" id="11_w9k2x"]
+[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="12_5u9ku"]
+[ext_resource type="PackedScene" uid="uid://b26pgaeesc2u2" path="res://ui/fx/spark_fx.tscn" id="13_ek1vm"]
+
+[sub_resource type="Resource" id="Resource_gsaxk"]
+script = ExtResource("2_hy3dk")
+base_text = "%s"
+icon = ExtResource("6_hu5go")
+tooltip_text = "Empowers allies (%s)"
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_move"]
+script = ExtResource("2_hy3dk")
+base_text = ""
+icon = ExtResource("4_dveoq")
+tooltip_text = "Plans to move"
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[sub_resource type="Resource" id="Resource_8w4fn"]
+script = ExtResource("2_hy3dk")
+base_text = "%s"
+icon = ExtResource("10_fwhlu")
+tooltip_text = "Weaken beam (%s)"
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
+
+[node name="ChannelerEnemyAI" instance=ExtResource("1_55s2j")]
+
+[node name="ChannelerMoveAction" type="Node" parent="." index="0"]
+script = ExtResource("3_v253m")
+intent = SubResource("Resource_move")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ChannelerEmpowerAction" type="Node" parent="." index="1"]
+script = ExtResource("5_qnxcl")
+intent = SubResource("Resource_gsaxk")
+sound = ExtResource("7_5r83q")
+visual_fx = ExtResource("8_p3bau")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
+
+[node name="ChannelerWeakenBoltAction" type="Node" parent="." index="2"]
+script = ExtResource("9_4064u")
+projectile_scene = ExtResource("12_5u9ku")
+projectile_visual_fx = ExtResource("13_ek1vm")
+intent = SubResource("Resource_8w4fn")
+type = 1
+chance_weight = 12.0
+sound = ExtResource("11_w9k2x")
+visual_fx = ExtResource("13_ek1vm")
+metadata/_custom_type_script = "uid://bt3vxds6v3dbt"

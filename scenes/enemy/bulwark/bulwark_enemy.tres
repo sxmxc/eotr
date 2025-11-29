@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://bt1n7ljxh76c3"]
+
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_4dh1t"]
+[ext_resource type="Texture2D" uid="uid://bskl5q104p717" path="res://assets/icons/robot-golem.svg" id="2_3eklm"]
+[ext_resource type="PackedScene" uid="uid://cfa8ewg4fgihv" path="res://scenes/enemy/bulwark/bulwark_enemy_ai.tscn" id="2_540fs"]
+[ext_resource type="AudioStream" uid="uid://vvoahg31dnus" path="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Emerge.ogg" id="4_ygybj"]
+
+[resource]
+script = ExtResource("1_4dh1t")
+enemy_name = "Bulwark"
+board_icon = ExtResource("2_3eklm")
+ai = ExtResource("2_540fs")
+call_sound = ExtResource("4_ygybj")
+gold_value = 12
+resource_value_max = 8
+max_health = 20
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

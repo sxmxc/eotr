@@ -1,0 +1,24 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1ojx2f0yy7yj"]
+
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_dfapx"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_ndhx4"]
+[ext_resource type="Resource" uid="uid://c8h36iwvcmede" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="3_276qf"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="4_ggpw2"]
+[ext_resource type="Resource" uid="uid://bt1n7ljxh76c3" path="res://scenes/enemy/bulwark/bulwark_enemy.tres" id="5_1v4tb"]
+[ext_resource type="Resource" uid="uid://4v0fq4myetyw" path="res://scenes/enemy/channeler/channeler_enemy.tres" id="6_kfbi0"]
+[ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="7_wh6m8"]
+
+[node name="Tier2BulwarkChannelers" type="Node2D"]
+
+[node name="Obelisk" parent="." instance=ExtResource("4_ggpw2")]
+spawn_pool = Array[ExtResource("2_ndhx4")]([ExtResource("5_1v4tb"), ExtResource("6_kfbi0"), ExtResource("7_wh6m8")])
+stats = ExtResource("3_276qf")
+
+[node name="BulwarkA" parent="." instance=ExtResource("1_dfapx")]
+stats = ExtResource("5_1v4tb")
+
+[node name="BulwarkB" parent="." instance=ExtResource("1_dfapx")]
+stats = ExtResource("5_1v4tb")
+
+[node name="Channeler" parent="." instance=ExtResource("1_dfapx")]
+stats = ExtResource("6_kfbi0")
