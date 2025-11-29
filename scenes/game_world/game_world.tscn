@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=74 format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -53,6 +53,7 @@
 [ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="40_qnbvx"]
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
+[ext_resource type="PackedScene" uid="uid://ccjhbbs2j2mdk" path="res://ui/card_selection/card_cost_selection.tscn" id="43_ccsel"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -237,6 +238,9 @@ tile_set = ExtResource("3_0jtfi")
 
 [node name="HightlightLayer" type="TileMapLayer" parent="Tilemap"]
 tile_set = SubResource("TileSet_qnbvx")
+
+[node name="CardTargetHighlights" type="Node2D" parent="Tilemap"]
+z_index = 2
 
 [node name="CenterMarker" type="Marker2D" parent="Tilemap"]
 
@@ -624,6 +628,8 @@ theme = ExtResource("23_ht6dc")
 
 [node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("25_g06lf")]
 layout_mode = 2
+
+[node name="CardCostSelection" parent="GameWorldUI" instance=ExtResource("43_ccsel")]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameWorldUI"]
 color = Color(0.814844, 0.814844, 0.814844, 1)

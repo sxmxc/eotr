@@ -1,11 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://8ojfyictvua2"]
+[gd_scene load_steps=8 format=3 uid="uid://8ojfyictvua2"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_mblkf"]
 [ext_resource type="Script" uid="uid://psj52cqsemc8" path="res://ui/world_ui/battle_over_panel.gd" id="2_dlsea"]
 [ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="3_middh"]
+[ext_resource type="Shader" uid="uid://djqoacoai4plx" path="res://scripts/shaders/battle_over_vignette.gdshader" id="4_44arn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5stc0"]
 bg_color = Color(0.294118, 0.239216, 0.266667, 0.345098)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w37v8"]
+shader = ExtResource("4_44arn")
+shader_parameter/radius = 0.75
+shader_parameter/softness = 0.35
+shader_parameter/vignette_color = Color(0, 0, 0, 0.8)
+shader_parameter/noise_amount = 0.05
+shader_parameter/noise_speed = 2.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_dlsea"]
 font_size = 100
@@ -22,6 +31,18 @@ mouse_force_pass_scroll_events = false
 theme = ExtResource("1_mblkf")
 theme_override_styles/panel = SubResource("StyleBoxFlat_5stc0")
 script = ExtResource("2_dlsea")
+
+[node name="VignetteRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_w37v8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.270588)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

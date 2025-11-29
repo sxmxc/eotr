@@ -10,12 +10,16 @@ const PATHS := 6
 const MONSTER_NODE_WEIGHT := 10.0
 const SHOP_NODE_WEIGHT := 2.5
 const REST_NODE_WEIGHT := 4.0
+const EVENT_NODE_WEIGHT := 3.5
 
 @export var left_gutter_offset: int = 50  # <-- You can tweak this value
 @export var battle_stats_pool: BattleStatsPool
 
 var random_map_node_type_weights = {
-	Enums.MapNodeType.MONSTER: 0.0, Enums.MapNodeType.REST: 0.0, Enums.MapNodeType.SHOP: 0.0
+	Enums.MapNodeType.MONSTER: 0.0,
+	Enums.MapNodeType.REST: 0.0,
+	Enums.MapNodeType.SHOP: 0.0,
+	Enums.MapNodeType.EVENT: 0.0
 }
 var random_node_type_total_weight := 0
 var map_data: Array[Array]
@@ -137,8 +141,11 @@ func _setup_random_node_weights() -> void:
 	random_map_node_type_weights[Enums.MapNodeType.SHOP] = (
 		MONSTER_NODE_WEIGHT + REST_NODE_WEIGHT + SHOP_NODE_WEIGHT
 	)
+	random_map_node_type_weights[Enums.MapNodeType.EVENT] = (
+		MONSTER_NODE_WEIGHT + REST_NODE_WEIGHT + SHOP_NODE_WEIGHT + EVENT_NODE_WEIGHT
+	)
 
-	random_node_type_total_weight = random_map_node_type_weights[Enums.MapNodeType.SHOP]
+	random_node_type_total_weight = random_map_node_type_weights[Enums.MapNodeType.EVENT]
 
 
 func _setup_map_node_types() -> void:
@@ -171,10 +178,11 @@ func _set_map_node_randomly(nodes_to_set: MapNode) -> void:
 	var consecutive_rest := true
 	var consecutive_shop := true
 	var rest_on_13 := true
+	var consecutive_event := true
 
 	var type_candidate: Enums.MapNodeType
 
-	while rest_below_4 or consecutive_rest or consecutive_shop or rest_on_13:
+	while rest_below_4 or consecutive_rest or consecutive_shop or rest_on_13 or consecutive_event:
 		type_candidate = _get_random_map_node_type_by_weight()
 
 		rest_below_4 = type_candidate == Enums.MapNodeType.REST and nodes_to_set.row < 3
@@ -187,6 +195,10 @@ func _set_map_node_randomly(nodes_to_set: MapNode) -> void:
 			and _map_node_has_parent_of_type(nodes_to_set, Enums.MapNodeType.SHOP)
 		)
 		rest_on_13 = type_candidate == Enums.MapNodeType.REST and nodes_to_set.row == 12
+		consecutive_event = (
+			type_candidate == Enums.MapNodeType.EVENT
+			and _map_node_has_parent_of_type(nodes_to_set, Enums.MapNodeType.EVENT)
+		)
 
 	nodes_to_set.type = type_candidate
 	if type_candidate == Enums.MapNodeType.MONSTER:

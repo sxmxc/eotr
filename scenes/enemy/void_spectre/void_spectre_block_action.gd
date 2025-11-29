@@ -16,3 +16,11 @@ func perform_action() -> void:
 	get_tree().create_timer(0.3, false).timeout.connect(
 		func(): Events.enemy_action_completed.emit(enemy)
 	)
+
+
+func update_intent_text() -> void:
+	intent.current_text = intent.base_text % str(block)
+
+
+func get_weight(decision_context: Dictionary = {}) -> float:
+	return get_block_weight(block, decision_context)

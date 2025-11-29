@@ -1,8 +1,8 @@
 class_name PlayerHandler
 extends Node
 
-const HAND_DRAW_INTERVAL := 0.25
-const HAND_DISCARD_INTERVAL := 0.25
+const HAND_DRAW_INTERVAL := 0.12
+const HAND_DISCARD_INTERVAL := 0.08
 const HEX_TRAIL = preload("res://ui/player_ui/hex_trail.tscn")
 const OBELISK_ENERGY_BONUS := 1
 const MOMENTUM_FLOW_LABEL := "Momentum Flow"
@@ -45,6 +45,7 @@ func start_battle(stats: PlayerStats) -> void:
 	relics.relics_activated.connect(_on_relics_activated)
 	player.status_handler.statuses_applied.connect(_on_statuses_applied)
 	player.status_handler.status_added.connect(player_hand._on_status_added)
+	_configure_player_camera_targets()
 	start_turn()
 
 
@@ -102,12 +103,11 @@ func discard_cards() -> void:
 		card_ui.z_index += 1
 		var tween := create_tween()
 		card_ui.visuals.animation_player.play("swirl_out")
-		tween.tween_property(card_ui,"global_position", card_ui_offset,.12)
-		tween.tween_property(card_ui,"global_position", discard_pile_position,.12)
+		tween.tween_property(card_ui,"global_position", card_ui_offset,.08)
+		tween.tween_property(card_ui,"global_position", discard_pile_position,.1)
 		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, .12)
 		tween.tween_callback(player_stats.discard.add_card.bind(card_ui.card))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
-		await get_tree().create_timer(.03).timeout
 	Events.player_hand_discarded.emit()
 	#tween.finished.connect(func(): Events.player_hand_discarded.emit())
 
@@ -124,7 +124,7 @@ func reshuffle_deck_from_discard() -> void:
 		var tween = create_tween()
 		world_ui.discard_pile_button.add_child(hex_trail)
 		hex_trail.global_position = world_ui.discard_pile_button.counter.global_position
-		tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(world_ui.draw_pile_button.counter),1)
+		tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(world_ui.draw_pile_button.counter),0.45)
 		tween.tween_callback(hex_trail.queue_free)		
 
 	player_stats.draw_pile.shuffle()
@@ -139,16 +139,19 @@ func _connect_obelisk_bonus() -> void:
 	obelisk = current_obelisk
 	if not obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
 		obelisk.damage_taken.connect(_on_obelisk_damage_taken)
+	_configure_player_camera_targets()
 
 
 func _disconnect_obelisk_signal() -> void:
 	if obelisk and is_instance_valid(obelisk) and obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
 		obelisk.damage_taken.disconnect(_on_obelisk_damage_taken)
 	obelisk = null
+	_configure_player_camera_targets()
 
 
 func _on_obelisk_destroyed() -> void:
 	_disconnect_obelisk_signal()
+	_configure_player_camera_targets()
 
 
 func _on_obelisk_damage_taken(amount: int) -> void:
@@ -211,3 +214,21 @@ func _on_relics_activated(type: Enums.RelicType) -> void:
 			player.status_handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
 		Enums.RelicType.END_OF_TURN:
 			player.status_handler.apply_statuses_by_type(Enums.StatusType.END_OF_TURN)
+
+
+func _configure_player_camera_targets() -> void:
+	if not is_instance_valid(player) or not is_instance_valid(player.phantom_camera_2d):
+		return
+
+	var targets: Array[Node2D] = [player]
+	obelisk = get_tree().get_first_node_in_group("obelisk") as Obelisk
+	if obelisk and is_instance_valid(obelisk):
+		targets.append(obelisk)
+	
+	print("Configuring player camera targets: %s" % [targets])
+
+	player.phantom_camera_2d.follow_mode = PhantomCamera2D.FollowMode.GROUP
+	player.phantom_camera_2d.set_follow_targets(targets)
+	player.phantom_camera_2d.set_auto_zoom(true)
+
+	print("Player camera targets configured: %s" % [player.phantom_camera_2d.get_follow_targets()])

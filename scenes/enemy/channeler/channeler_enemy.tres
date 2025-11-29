@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://4v0fq4myetyw"]
+
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_wkdtb"]
+[ext_resource type="PackedScene" uid="uid://et3k0fasmcna" path="res://scenes/enemy/channeler/channeler_enemy_ai.tscn" id="2_4vdri"]
+[ext_resource type="Texture2D" uid="uid://c0y4o87qjoc2l" path="res://assets/icons/soul.svg" id="2_vs1y3"]
+[ext_resource type="AudioStream" uid="uid://bg35vann4lwj2" path="res://assets/audio/Monster Sounds/Ghost/Ghost_Emerge.ogg" id="4_n8bso"]
+
+[resource]
+script = ExtResource("1_wkdtb")
+enemy_name = "Void Channeler"
+board_icon = ExtResource("2_vs1y3")
+ai = ExtResource("2_4vdri")
+call_sound = ExtResource("4_n8bso")
+gold_value = 9
+resource_value_max = 7
+max_health = 14
+metadata/_custom_type_script = "uid://dmnb4jshnwq7q"

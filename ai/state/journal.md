@@ -4,6 +4,60 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-11-30 – Codex**
+- Summary: Added battle intro/outro presentation (vignette + audio swell) and tightened discard/draw pacing. New BattlePresentation overlay hooks into GameWorld start/end, and hand cleanup/draw intervals now finish faster with shorter reshuffle trails.
+- Files: `ui/world_ui/battle_presentation.gd`, `scenes/game_world/game_world.gd`, `scenes/player/player_handler.gd`
+- Verification: Not run (visual/audio timing needs in-engine check).
+- Follow-ups: Playtest to confirm intro/outro beats don’t mask telegraphs or clip stingers; ensure faster discard/draw doesn’t desync SFX.
+
+**2025-11-30 – Codex**
+- Summary: Added map event nodes with a lightweight EventRoom (gold/resource/HP trades) and a map bounty board overlay that surfaces reachable battle rewards. Map generator now rolls Event nodes; map UI shows event icon plus bounty panel for available battles.
+- Files: `scenes/event/event_room.tscn`, `scenes/event/event_room.gd`, `scripts/autoloads/enums.gd`, `scenes/map/map_generator.gd`, `scenes/map/map_node_ui.gd`, `scenes/map/map.gd`, `scenes/map/map_bounty_board.gd`, `scenes/run/run.gd`
+- Verification: Not run.
+- Follow-ups: Expand event variety/rewards, and confirm bounty board values match in-game reward rolls and future bounty systems.
+
+**2025-11-29 – Codex**
+- Summary: Added pooled pulsing card-target highlights using the highlighter shader (separate overlay to avoid clearing obelisk telegraphs), rewired card drag/aim states to the new layer, and triggered a light scan SFX on aim start.
+- Files: `scripts/nodes/proc-gen-tilemap.gd`, `scenes/game_world/game_world.tscn`, `scenes/sandbox/gameworld_sandbox.tscn`, `ui/card_ui/card_states/card_dragging_state.gd`, `ui/card_ui/card_states/card_aiming_state.gd`, `scripts/statics/audio_library.gd`
+- Verification: `D:\Godot-Editors\godot.cmd --headless --check-only` (timed out after initialization; no errors surfaced before timeout).
+- Follow-ups: In-game check for highlight alignment/readability across card shapes, ensure aim whoosh volume blends with existing UI SFX, and watch for lingering highlight sprites after map rebuilds.
+
+**2025-11-29 – Codex**
+- Summary: Added context-aware enemy action weighting plus attack/block heuristics (distance, expected damage, player block/energy) for common melee enemies to react to turtling/kiting strategies. Updated planning/progress for BKL-038.
+- Files: `scenes/enemy/enemy_action.gd`, `scenes/enemy/enemy_action_picker.gd`, `scenes/enemy/blob/blob_attack_action.gd`, `scenes/enemy/blob/blob_block_action.gd`, `scenes/enemy/bat/bat_enemy_attack_action.gd`, `scenes/enemy/wasp/wasp_enemy_attack_action.gd`, `scenes/enemy/horror/horror_attack_action.gd`, `scenes/enemy/horror/horror_block_action.gd`, `scenes/enemy/void_spectre/void_spectre_attack_action.gd`, `scenes/enemy/void_spectre/void_spectre_block_action.gd`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot/headless checks unavailable here).
+- Follow-ups: Playtest varied encounters to tune the new weight scaling (distance thresholds, finisher bonus) and ensure no AI stalls when targets are hidden or out of range.
+
+**2025-11-29 – Codex**
+- Summary: Fixed channeler/bulwark scene UID mismatches and cleared GDScript errors (indent + type mismatch) that blocked channeler battles from loading.
+- Files: `scenes/enemy/bulwark/bulwark_cleave_action.gd`, `scenes/enemy/channeler/channeler_empower_action.gd`, `scenes/enemy/bulwark/bulwark_enemy_ai.tscn`, `scenes/enemy/channeler/channeler_enemy_ai.tscn`
+- Verification: Not run (Godot executable unavailable in this environment).
+- Follow-ups: Re-enter battles featuring Channelers/Bulwarks to confirm no remaining script load errors and that actions play correctly.
+
+**2025-11-29 – Codex**
+- Summary: Added Bulwark (frontline brace/cleave) and Void Channeler (ally buffer + weaken beam) enemies with new AI/action scripts, and introduced tier 1/2 battle pools that seed obelisks with the new spawn mix.
+- Files: `scenes/enemy/channeler/*`, `scenes/enemy/bulwark/*`, `resources/data/battles/tier_1_channelers_bulwark.*`, `resources/data/battles/tier_2_bulwark_channelers.*`, `resources/data/battles/battle_stats_pool.tres`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot client/headless checks unavailable in this environment).
+- Follow-ups: Playtest the new battles to tune weights, rewards, and damage/block numbers; sanity-check obelisk spawns still respect caps with the expanded pool.
+
+**2025-11-29 – Codex**
+- Summary: Started BKL-035 intent overhaul: normalized intent formatting for Channeler/Bulwark/Blob/Horror (including elite) actions and tooltips; improved intent UI tooltip handling to avoid placeholder errors; marked task in progress.
+- Files: `ui/enemy_ui/intent_ui.gd`, `scenes/enemy/channeler/*`, `scenes/enemy/bulwark/*`, `scenes/enemy/blob/*`, `scenes/enemy/horror/*`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot unavailable here).
+- Follow-ups: Finish audit and apply schema to remaining enemy AIs (void spectre, bats/wasps/obelisk variants), then review visual refresh (color tiers/badges) once formatting is stable.
+
+**2025-11-29 – Codex**
+- Summary: Completed BKL-035 by applying the standardized intent schema across the roster (including obelisk/void spectre/bulwark/blob/horror) and adding palette-based accent colors with pulse animation for intent chips.
+- Files: `ui/enemy_ui/intent_ui.gd`, `scripts/resources/intent.gd`, `scenes/enemy/obelisk/*`, `scenes/enemy/void_spectre/*`, `scenes/enemy/bulwark/*`, `scenes/enemy/blob/*`, `scenes/enemy/horror/*`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: `& "D:\Godot-Editors\godot.cmd" --headless --check-only`
+- Follow-ups: In-game pass to ensure intent colors map well (especially obelisk spawn/wait) and tweak heuristics or explicit accent colors if needed.
+
+**2025-11-28 – Codex**
+- Summary: Added a reusable card cost selection popup (selectable card grid with hover details and optional tooltips), new event signals, and GameWorld wiring so rituals/events can request card sacrifices.
+- Files: `ui/card_selection/card_cost_selection.tscn`, `ui/card_selection/card_cost_selection.gd`, `ui/card_menu_ui/card_menu_ui.gd`, `scripts/autoloads/events.gd`, `scripts/resources/card/card_cost_selection_request.gd`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (manual code review only; Godot scene/headless checks not executed).
+- Follow-ups: Route rituals/events that consume cards through `Events.card_cost_selection_requested`, and add SFX/animation polish after UX is validated.
+
 **2025-11-28 – Codex**
 - Summary: Marked the tutorial refresh (run + battle overlays) as complete after copy review; no code or layout changes.
 - Files: `ai/planning/todo.yaml`, `ai/state/progress.json`

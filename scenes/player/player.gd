@@ -18,9 +18,6 @@ const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
 
 var is_mana_buffed : bool = false : set = set_is_mana_buffed
 
-#func _ready() -> void:
-	#status_handler.status_owner = self
-
 func set_player_stats(value: PlayerStats) -> void:
 	if not is_node_ready():
 		await ready
@@ -108,4 +105,3 @@ func _on_player_teleported(pos: Vector2) -> void:
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)
 			)
-	

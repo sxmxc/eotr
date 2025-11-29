@@ -289,6 +289,9 @@ tile_set = ExtResource("13_p8cfx")
 visible = false
 tile_set = SubResource("TileSet_qnbvx")
 
+[node name="CardTargetHighlights" type="Node2D" parent="Tilemap"]
+z_index = 2
+
 [node name="CenterMarker" type="Marker2D" parent="Tilemap"]
 
 [node name="EnemyHandler" type="Node2D" parent="."]

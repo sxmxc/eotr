@@ -18,3 +18,10 @@ func perform_action():
 			Events.enemy_action_completed.emit(enemy)
 	)
 	
+
+func update_intent_text() -> void:
+	intent.current_text = intent.base_text % str(block)
+
+
+func get_weight(decision_context: Dictionary = {}) -> float:
+	return get_block_weight(block, decision_context)

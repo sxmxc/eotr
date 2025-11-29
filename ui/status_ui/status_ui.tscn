@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://idysccphut6h"]
+[gd_scene load_steps=4 format=3 uid="uid://idysccphut6h"]
 
 [ext_resource type="Texture2D" uid="uid://b6davomdrg6nv" path="res://assets/icons/broken-skull.svg" id="1_0sws0"]
 [ext_resource type="Script" uid="uid://be6ig40qrkjk3" path="res://ui/status_ui/status_ui.gd" id="1_7w20s"]
-[ext_resource type="Resource" uid="uid://vv16q27o2l1o" path="res://resources/data/statuses/attuned.tres" id="2_fdstx"]
 [ext_resource type="LabelSettings" uid="uid://ci4fh3dk8rdju" path="res://resources/large_label.tres" id="4_1bip1"]
 
 [node name="StatusUI" type="Control"]
@@ -13,7 +12,6 @@ offset_right = 32.0
 offset_bottom = 32.0
 mouse_filter = 2
 script = ExtResource("1_7w20s")
-status = ExtResource("2_fdstx")
 
 [node name="Icon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(64, 64)

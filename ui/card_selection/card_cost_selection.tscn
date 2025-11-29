@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccjhbbs2j2mdk"]
+
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_mtw6w"]
+[ext_resource type="Script" uid="uid://nlgoxvipiyex" path="res://ui/card_selection/card_cost_selection.gd" id="1_uieqs"]
+[ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="3_3qmkr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 46
+
+[node name="CardCostSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_mtw6w")
+script = ExtResource("1_uieqs")
+visible = false
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.14902, 0.117647, 0.133333, 0.752941)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select cards"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="BodyLabel" type="RichTextLabel" parent="MarginContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+text = "Choose cards to pay this cost."
+
+[node name="HoverLabel" type="RichTextLabel" parent="MarginContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+text = ""
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
+
+[node name="CardContainer" type="GridContainer" parent="MarginContainer/Panel/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 24
+columns = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="SelectionLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0 / 1 selected"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CancelButton" type="Button" parent="MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 1
+text = "Cancel"
+
+[node name="ConfirmButton" type="Button" parent="MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 1
+text = "Confirm"
+disabled = true
+
+[node name="CardPopup" parent="." instance=ExtResource("3_3qmkr")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1

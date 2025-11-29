@@ -16,10 +16,13 @@ var map_data: Array[Array]
 var floors_climbed: int
 var last_map_node: MapNode
 var camera_edge_y: float
+var bounty_board: MapBountyBoard
+@export_node_path("Control") var bounty_board_path: NodePath
 
 
 func _ready() -> void:
 	camera_edge_y = MapGenerator.Y_DIST * (MapGenerator.FLOORS - 1)
+	_ensure_bounty_board()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -37,6 +40,7 @@ func generate_new_map() -> void:
 	floors_climbed = 0
 	map_data = map_generator.generate_map()
 	create_map()
+	unlock_floor()
 
 
 func load_map(map: Array[Array], floors_completed: int, last_map_node_climbed: MapNode) -> void:
@@ -64,18 +68,21 @@ func create_map() -> void:
 	var map_width_pixels := MapGenerator.X_DIST * (MapGenerator.MAP_WIDTH - 1)
 	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
 	visuals.position.y = get_viewport_rect().size.y / 2
+	_update_bounty_board()
 
 
 func unlock_floor(which: int = floors_climbed) -> void:
 	for map_node_ui: MapNodeUI in map_nodes.get_children():
 		if map_node_ui.map_node.row == which:
 			map_node_ui.available = true
+	_update_bounty_board()
 
 
 func unlock_next_map_node() -> void:
 	for map_node_ui: MapNodeUI in map_nodes.get_children():
 		if last_map_node.next_nodes.has(map_node_ui.map_node):
 			map_node_ui.available = true
+	_update_bounty_board()
 
 
 func show_map() -> void:
@@ -83,6 +90,7 @@ func show_map() -> void:
 	ui_layer.show()
 	camera_2d.enabled = true
 	center_camera_on_current_floor()
+	_update_bounty_board()
 
 
 func hide_map() -> void:
@@ -131,6 +139,7 @@ func _on_map_node_ui_selected(map_node: MapNode) -> void:
 	last_map_node = map_node
 	floors_climbed += 1
 	Events.map_exited.emit(map_node)
+	_update_bounty_board()
 
 
 func _on_map_node_ui_clicked(map_node: MapNode) -> void:
@@ -138,3 +147,23 @@ func _on_map_node_ui_clicked(map_node: MapNode) -> void:
 	for map_node_ui: MapNodeUI in map_nodes.get_children():
 		if map_node_ui.map_node.row == map_node.row:
 			map_node_ui.available = false
+
+
+func _ensure_bounty_board() -> void:
+	if bounty_board and is_instance_valid(bounty_board):
+		return
+	if bounty_board_path != NodePath() and has_node(bounty_board_path):
+		bounty_board = get_node(bounty_board_path) as MapBountyBoard
+	if not bounty_board:
+		bounty_board = MapBountyBoard.new()
+		ui_layer.add_child(bounty_board)
+
+
+func _update_bounty_board() -> void:
+	if not bounty_board or not is_instance_valid(bounty_board):
+		return
+	var available_nodes: Array[MapNode] = []
+	for map_node_ui: MapNodeUI in map_nodes.get_children():
+		if map_node_ui.available and map_node_ui.map_node and map_node_ui.map_node.battle_stats:
+			available_nodes.append(map_node_ui.map_node)
+	bounty_board.update_bounties(available_nodes, floors_climbed)

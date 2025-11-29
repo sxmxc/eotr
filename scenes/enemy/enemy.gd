@@ -7,6 +7,9 @@ const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_ma
 const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
 const DEATH_FLASH_FX : PackedScene = preload("res://ui/fx/flash_fx.tscn")
 const DEATH_SMOKE_FX : PackedScene = preload("res://ui/fx/smoke_fx.tscn")
+const DEATH_SPARK_FX : PackedScene = preload("res://ui/fx/spark_fx.tscn")
+const DEATH_IMPACT_FX : PackedScene = preload("res://ui/fx/impact_decal_fx.tscn")
+const DEATH_EMBER_FX : PackedScene = preload("res://ui/fx/ember_burst_fx.tscn")
 const DEFAULT_DEATH_SOUND : AudioStream = preload("res://assets/audio/Monster Sounds/Ghost/Ghost_Death.ogg")
 const DEATH_SHAKE_STRENGTH := 10.0
 const DEATH_SHAKE_DURATION := 0.18
@@ -163,6 +166,21 @@ func _play_death_feedback() -> void:
 	var smoke_fx := DEATH_SMOKE_FX.instantiate() as VisualFX
 	add_child(smoke_fx)
 	smoke_fx.execute()
+	if DEATH_SPARK_FX:
+		var spark_fx := DEATH_SPARK_FX.instantiate() as VisualFX
+		spark_fx.scale *= 0.8
+		add_child(spark_fx)
+		spark_fx.execute()
+	if DEATH_IMPACT_FX:
+		var impact_fx := DEATH_IMPACT_FX.instantiate() as VisualFX
+		impact_fx.scale *= 0.75
+		add_child(impact_fx)
+		impact_fx.execute()
+	if DEATH_EMBER_FX:
+		var ember_fx := DEATH_EMBER_FX.instantiate() as VisualFX
+		ember_fx.scale *= 0.9
+		add_child(ember_fx)
+		ember_fx.execute()
 
 	if is_instance_valid(phantom_camera_2d):
 		Utils.shake(phantom_camera_2d, DEATH_SHAKE_STRENGTH, DEATH_SHAKE_DURATION)

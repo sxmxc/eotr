@@ -12,6 +12,7 @@ const STYLE_HOVER = preload("res://resources/themes/card_panel_hover.tres")
 const CARD_BURNABLE = preload("res://resources/materials/card_burnable.tres")
 const COST_FONT_COLOR_WHITE = Color(0.824, 0.788, 0.647)
 const COST_FONT_COLOR_RED = Color(0.682, 0.365, 0.251)
+const KEYWORD_TOOLTIP_HELPER = preload("res://ui/tool_tip_ui/keyword_tooltip_helper.gd")
 
 @export var player_modifiers: ModifierHandler
 @export var card: Card:
@@ -83,7 +84,8 @@ func request_description() -> void:
 		return
 	var enemy_modifiers := get_active_enemy_modifiers()
 	var modified_description := card.get_modified_description(player_modifiers, enemy_modifiers)
-	var tooltip_data := TooltipData.new(modified_description)
+	var keyword_tooltips := KEYWORD_TOOLTIP_HELPER.build_keyword_tooltips(modified_description)
+	var tooltip_data := TooltipData.new(modified_description, keyword_tooltips)
 	Events.card_tooltip_requested.emit(tooltip_data)
 
 

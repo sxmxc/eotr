@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-28T12:14:24.8846444-06:00",
+  "updated": "2025-11-30T00:05:00.0000000-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -16,9 +16,9 @@
     },
     {
       "id": "BKL-017",
-      "status": "in_review",
+      "status": "done",
       "summary": "Add punchy enemy death feedback (flash + smoke VFX, shake, optional death sounds) with double-trigger guard.",
-      "updated": "2025-11-27T22:41:20.5360895-06:00"
+      "updated": "2025-11-29T23:55:00.0000000-06:00"
     },
     {
       "id": "BKL-011",
@@ -43,6 +43,66 @@
       "status": "blocked",
       "summary": "Boss health meter deferred until the boss redesign lands to avoid rework.",
       "updated": "2025-11-28T11:29:43.1622705-06:00"
+    },
+    {
+      "id": "BKL-021",
+      "status": "done",
+      "summary": "Add a reusable card cost selection popup with selectable card grid, hover details, and Events hooks for rituals/events.",
+      "updated": "2025-11-29T23:55:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-033",
+      "status": "done",
+      "summary": "Introduce Bulwark and Void Channeler enemies with unique actions and expand tier 1/2 battle pools to feature them.",
+      "updated": "2025-11-29T11:20:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-035",
+      "status": "done",
+      "summary": "Overhauled enemy intent display with consistent formatting, tooltips, and palette-based visual polish.",
+      "updated": "2025-11-29T00:50:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-038",
+      "status": "done",
+      "summary": "Make enemy AI pick attacks/blocks based on player distance, block, and kill potential instead of flat weights.",
+      "updated": "2025-11-29T23:55:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-028",
+      "status": "done",
+      "summary": "Add pulsing tile highlights with pooled sprites and a scan SFX when aiming cards so valid targets are clearly marked without wiping telegraphs.",
+      "updated": "2025-11-28T20:54:37.389522-06:00"
+    },
+    {
+      "id": "BKL-012",
+      "status": "done",
+      "summary": "Shortened discard/draw tweens and reshuffle trails so end-of-turn hand cleanup feels snappier.",
+      "updated": "2025-11-30T00:05:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-015",
+      "status": "done",
+      "summary": "Added a quick battle intro vignette/audio dip beat that plays as combat loads without delaying turn 1.",
+      "updated": "2025-11-30T00:05:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-020",
+      "status": "done",
+      "summary": "Seeded map event nodes and built a lightweight event room with gold/resource/HP tradeoffs.",
+      "updated": "2025-11-30T00:05:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-029",
+      "status": "done",
+      "summary": "Synced battle intro/outro presentation with vignette fades and audio swells around start/end of combat.",
+      "updated": "2025-11-30T00:05:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-032",
+      "status": "done",
+      "summary": "Added a map bounty board overlay that lists gold/resource rewards for currently reachable battles.",
+      "updated": "2025-11-30T00:05:00.0000000-06:00"
     }
   ]
 }

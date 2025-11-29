@@ -9,6 +9,9 @@ signal card_aim_ended(card_ui: CardUI)
 signal card_played(card: Card)
 signal card_tooltip_requested(data: TooltipData)
 signal tooltip_hide_requested
+signal card_cost_selection_requested(request: CardCostSelectionRequest)
+signal card_cost_selection_completed(selected_cards: Array[Card], request: CardCostSelectionRequest)
+signal card_cost_selection_cancelled(request: CardCostSelectionRequest)
 
 # Player-related events
 signal player_hand_drawn
@@ -44,6 +47,8 @@ signal world_message_hide_requested
 
 # Map-related events
 signal map_exited(map_node: MapNode)
+signal event_entered
+signal event_exited
 
 # Shop-related events
 signal shop_entered(shop: Shop)

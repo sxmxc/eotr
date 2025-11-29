@@ -152,15 +152,14 @@ backlog:
   - id: BKL-012
     title: "Tighten discard-to-draw animations and FX for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Discard-to-draw transitions feel sluggish; improvements likely in `ui/card_ui/card_ui.gd`."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Profile current tween timings/sound layering."
-      - "Implement snappier tweens and align FX to avoid visual/audio desync."
+      - "Verify discard/draw pacing in-game with large hands; retune timing if hands feel jumpy."
 
   - id: BKL-013
     title: "Rebalance enemy roster for v0.0.6.0"
@@ -191,15 +190,14 @@ backlog:
   - id: BKL-015
     title: "Improve battle start presentation for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Battle entry lacks dramatic framing; define desired beats before implementation."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Storyboard an enhanced intro (camera, SFX, UI)."
-      - "Prototype and user-test to confirm added juice doesn't slow pacing."
+      - "Playtest the intro vignette/audio dip to ensure it doesn’t obscure obelisk telegraphs."
 
   - id: BKL-016
     title: "Enhance ruin tile feedback"
@@ -217,20 +215,22 @@ backlog:
   - id: BKL-017
     title: "Boost enemy death feedback"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
-      - "Enemy deaths need stronger signals (camera, VFX, audio) for clarity."
+      - "Enemy deaths need stronger signals (camera, VFX, audio) for clarity and satisfaction."
+      - "Obelisk destruction should trigger a rewarding end-of-battle beat, not just a cutoff."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "List current death cues per enemy tier."
-      - "Layer in additional VFX/audio and ensure sequence completes without delaying turns."
+      - "List current death cues per enemy tier and layer in juicier effects (impact punch, dissolve, camera micro-shake) that stay snappy."
+      - "Add an obelisk-destroyed victory beat (audio sting, UI/world message/banner pulse) that flows into battle end without stalling."
+      - "Validate pacing so death and obelisk cues don’t block turn progression or reward handling."
 
   - id: BKL-018
     title: "Fix hand spotlight animation for v0.0.6.0"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
@@ -257,29 +257,29 @@ backlog:
   - id: BKL-020
     title: "Add map event nodes"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Roadmap flagged event nodes for v0.0.6.0; confirm they still align with current milestones."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
       - "Event nodes are random encounters with unique rewards/risks outside standard battles."
     next_steps:
-      - "Validate that event node features remain in scope for the next milestone."
-      - "Implement generator hooks, UI, and encounter payloads if confirmed."
+      - "Add more event variants/rewards and balance HP/gold/resource swings after playtests."
 
   - id: BKL-021
     title: "Build card cost selection popup"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Needed for rituals/events and ties into BKL-005 deck content expansion."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Design reusable popup UX for selecting card cost targets."
-      - "Implement component and hook into events requiring cost choices."
+      - "Playtest the new card cost selection popup to validate usability/timing."
+      - "Route rituals/events that demand card sacrifices through the new Events.card_cost_selection_requested signal."
+      - "Add audio/FX polish once UX is validated."
 
   - id: BKL-022
     title: "Design sacrifice card mechanic"
@@ -324,8 +324,8 @@ backlog:
   - id: BKL-025
     title: "Add card keyword tooltips"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Keywords currently lack hover help, hurting clarity for new cards."
@@ -364,30 +364,26 @@ backlog:
   - id: BKL-028
     title: "Card targeting highlights for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Card aiming relies on cursor only; valid tiles/targets are not visually marked."
       - "Card.get_valid_targets and CardStateMachine already compute target sets."
     next_steps:
-      - "On aim start, pulse valid tiles using highlighter.gdshader (or variant) and clear on cancel/end."
-      - "Cover single, multi-target, and AOE shapes; reuse highlight nodes to avoid per-aim allocations."
-      - "Add a light whoosh/scan SFX for aim mode enter without slowing card play."
+      - "Playtest the pulsing tile highlights + aim whoosh in single/aoe targeting to confirm clarity and volume, and ensure obelisk spawn telegraphs remain visible."
   
   - id: BKL-029
     title: "Battle start/finish presentation for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Battle entry/exit are abrupt; vignette shader and audio hooks exist but aren’t orchestrated."
       - "ui/world_ui/battle_over_panel.gd and scripts/shaders/dark_noise_vignette.gdshader are available."
     next_steps:
-      - "Storyboard short intro/outro beats (vignette fade, low-pass dip, UI sweep) that don’t slow first actions."
-      - "Prototype and timebox transitions; add skip/fast-path if pacing regresses."
-      - "Verify audio/state resets on victory and defeat flows to avoid the existing end-of-battle audio bug."
+      - "QA intro/outro beats to ensure pacing stays snappy and audio fades don’t clip the battle stingers."
   
   - id: BKL-030
     title: "Map atmosphere and path feedback"
@@ -420,22 +416,20 @@ backlog:
   - id: BKL-032
     title: "Create enemy bounty board on the map to show available bounties and their rewards for v0.0.6.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Map currently lacks a bounty board to display available enemy bounties and rewards."
       - "Will need UI elements and data structures to manage bounties."
     next_steps:
-      - "Design UI for the bounty board to display enemy bounties and rewards."
-      - "Implement data structures to manage and track bounties."
-      - "Integrate bounty board into the map view and ensure smooth navigation." 
+      - "Expand bounty info to include elites/void bonuses and wire into upcoming bounty systems."
   
   - id: BKL-033
     title: "Implement multiple new enemy types with unique abilities and behaviors and more battle stat pools for v0.0.6.0"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Current enemy roster is limited; need new enemy types with unique abilities and behaviors."
@@ -462,6 +456,78 @@ backlog:
       - "Implement summon mechanics that allow placement of defensive objects on the battlefield."
       - "Create ranged and melee summon variants with distinct behaviors."
       
+  - id: BKL-035
+    title: "Redesign enemy intent display for clarity and consistency"
+    priority: P1
+    status: complete
+    owner: Codex
+    blockers: []
+    context:
+      - "Current intent labels/tooltips are inconsistent between enemies and can throw formatting errors."
+      - "Need a clearer hierarchy (icon, label, tooltip) that handles single- and multi-value intents."
+    next_steps:
+      - "Audit existing intents for format differences (base_text/tooltips/current_text expectations)."
+      - "Design a consistent intent UI pattern (values vs descriptions) and update intent_ui.gd accordingly."
+      - "Apply the pattern across all enemy AI scenes/actions and add a lightweight regression check."
+      - "Re-evaluate how this information is presented during enemy turn planning vs execution."
+      - "Re-evaluate how this informatin is presented to the player overall for clarity."
+
+  - id: BKL-036
+    title: "Implement dynamic music transitions based on battle intensity and phases"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current battle music is static and does not adapt to the intensity of the battle."
+      - "Need to create a system that adjusts music based on battle phases and intensity."
+    next_steps:
+      - "Define battle intensity metrics (e.g., number of enemies, player health, turn count)."
+      - "Create music layers/tracks that can be blended based on intensity."
+      - "Implement a system to monitor battle intensity and adjust music accordingly."
+
+  - id: BKL-037
+    title: "Add environmental hazards to battlefields that affect gameplay"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Current battlefields lack environmental hazards that can impact gameplay."
+      - "Need to design hazards that fit the game's theme and mechanics."
+    next_steps:
+      - "Design various environmental hazards (e.g., lava pools, spike traps, toxic gas)."
+      - "Implement hazard mechanics that interact with players and enemies."
+      - "Integrate hazards into battle encounters and test for balance."
+
+  - id: BKL-038
+    title: "Make enemies AI more adaptive to player strategies and smarter in combat"
+    priority: P1
+    status: complete
+    owner: Codex
+    blockers: []
+    context:
+      - "Current enemy AI is predictable and does not adapt to player strategies."
+      - "Need to enhance AI decision-making to create more challenging encounters."
+    next_steps:
+      - "Analyze common player strategies and identify weaknesses in current AI."
+      - "Implement adaptive AI behaviors that respond to player actions."
+      - "Test enhanced AI in various battle scenarios to ensure balance and challenge."
+  
+  - id: BKL-039
+    title: "Implement teleporting type enemies that can reposition themselves on the battlefield for v0.0.7.0"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "We currently have general moving enemies, and flying enemies, but no teleporting enemies."
+      - "Teleporting enemies should be able to reposition themselves on the battlefield, ignoring movement restrictions."
+      - "Visuals and sound effects should accompany teleportation."
+    next_steps:
+      - "Design teleporting enemy types with unique abilities and behaviors."
+      - "Implement teleportation mechanics that allow enemies to reposition on the battlefield."
+      - "Create visual and sound effects for teleportation."
 
 in_progress: []
 in_review: []

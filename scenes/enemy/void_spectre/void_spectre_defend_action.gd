@@ -44,3 +44,8 @@ func perform_action() -> void:
 	tween.finished.connect(
 		func(): Events.enemy_action_completed.emit(enemy)
 	)
+
+
+func update_intent_text() -> void:
+	var summary := "%d/%d" % [block, heal_cap]
+	intent.current_text = intent.base_text % summary
