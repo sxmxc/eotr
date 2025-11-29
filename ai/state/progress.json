@@ -58,9 +58,9 @@
     },
     {
       "id": "BKL-035",
-      "status": "in_progress",
-      "summary": "Overhauling enemy intent display for consistency (schema, tooltips, and UI formatting).",
-      "updated": "2025-11-29T12:00:00.0000000-06:00"
+      "status": "done",
+      "summary": "Overhauled enemy intent display with consistent formatting, tooltips, and palette-based visual polish.",
+      "updated": "2025-11-29T00:50:00.0000000-06:00"
     }
   ]
 }
