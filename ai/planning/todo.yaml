@@ -468,8 +468,8 @@ backlog:
   - id: BKL-035
     title: "Redesign enemy intent display for clarity and consistency"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_progress
+    owner: Codex
     blockers: []
     context:
       - "Current intent labels/tooltips are inconsistent between enemies and can throw formatting errors."

@@ -56,5 +56,5 @@ func update_intent_text() -> void:
 
 	var modified_dmg := player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
 	modified_dmg = enemy.modifier_handler.get_modified_value(modified_dmg, Enums.ModifierType.DMG_DEALT)
-	var summary := "%d dmg / %dT weaken" % [modified_dmg, weaken_duration]
+	var summary := "%d/%d" % [modified_dmg, weaken_duration]
 	intent.current_text = intent.base_text % summary

@@ -25,9 +25,9 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_8ge8r"]
 script = ExtResource("4_k6yc7")
-base_text = ""
+base_text = "%s"
 icon = ExtResource("8_k6yc7")
-tooltip_text = ""
+tooltip_text = "Plans to block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_aw0ot"]
@@ -39,9 +39,9 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_wudmm"]
 script = ExtResource("4_k6yc7")
-base_text = ""
+base_text = "%s"
 icon = ExtResource("14_8ge8r")
-tooltip_text = "Plans to do special block"
+tooltip_text = "Plans to mega block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="BlobEnemyAI" instance=ExtResource("1_vtdrg")]

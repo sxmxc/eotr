@@ -21,7 +21,6 @@ func perform_action() -> void:
 		return
 
 	_last_brace_turn = enemy.turn_ticker
-	intent.current_text = intent.base_text
 
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block_amount
@@ -44,4 +43,5 @@ func perform_action() -> void:
 
 
 func update_intent_text() -> void:
-	intent.current_text = intent.base_text % [block_amount, armor_stacks]
+	var summary := "%d/%d" % [block_amount, armor_stacks]
+	intent.current_text = intent.base_text % summary

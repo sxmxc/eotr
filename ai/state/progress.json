@@ -55,6 +55,12 @@
       "status": "done",
       "summary": "Introduce Bulwark and Void Channeler enemies with unique actions and expand tier 1/2 battle pools to feature them.",
       "updated": "2025-11-29T11:20:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-035",
+      "status": "in_progress",
+      "summary": "Overhauling enemy intent display for consistency (schema, tooltips, and UI formatting).",
+      "updated": "2025-11-29T12:00:00.0000000-06:00"
     }
   ]
 }

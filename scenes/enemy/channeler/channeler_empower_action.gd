@@ -49,7 +49,7 @@ func perform_action() -> void:
 
 
 func update_intent_text() -> void:
-	var summary := "%d block / %d str" % [block_amount, strength_stacks]
+	var summary := "%d/%d" % [block_amount, strength_stacks]
 	intent.current_text = intent.base_text % summary
 
 

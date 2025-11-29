@@ -16,6 +16,12 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Verification: Not run (Godot client/headless checks unavailable in this environment).
 - Follow-ups: Playtest the new battles to tune weights, rewards, and damage/block numbers; sanity-check obelisk spawns still respect caps with the expanded pool.
 
+**2025-11-29 – Codex**
+- Summary: Started BKL-035 intent overhaul: normalized intent formatting for Channeler/Bulwark/Blob/Horror (including elite) actions and tooltips; improved intent UI tooltip handling to avoid placeholder errors; marked task in progress.
+- Files: `ui/enemy_ui/intent_ui.gd`, `scenes/enemy/channeler/*`, `scenes/enemy/bulwark/*`, `scenes/enemy/blob/*`, `scenes/enemy/horror/*`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot unavailable here).
+- Follow-ups: Finish audit and apply schema to remaining enemy AIs (void spectre, bats/wasps/obelisk variants), then review visual refresh (color tiers/badges) once formatting is stable.
+
 **2025-11-28 – Codex**
 - Summary: Added a reusable card cost selection popup (selectable card grid with hover details and optional tooltips), new event signals, and GameWorld wiring so rituals/events can request card sacrifices.
 - Files: `ui/card_selection/card_cost_selection.tscn`, `ui/card_selection/card_cost_selection.gd`, `ui/card_menu_ui/card_menu_ui.gd`, `scripts/autoloads/events.gd`, `scripts/resources/card/card_cost_selection_request.gd`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`

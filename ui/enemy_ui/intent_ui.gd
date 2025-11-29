@@ -19,6 +19,8 @@ func update_intent(intent: Intent) -> void:
 	show()
 
 func _get_tooltip(_at_position: Vector2) -> String:
-	if _intent.current_text.length() > 0:
+	if _intent.tooltip_text.find("%") != -1:
 		return _intent.tooltip_text % str(_intent.current_text)
-	return _intent.tooltip_text
+	if _intent.tooltip_text.length() > 0:
+		return _intent.tooltip_text
+	return str(_intent.current_text)

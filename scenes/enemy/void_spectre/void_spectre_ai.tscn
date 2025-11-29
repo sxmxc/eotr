@@ -17,9 +17,9 @@
 
 [sub_resource type="Resource" id="Resource_l1740"]
 script = ExtResource("6_tiaja")
-base_text = ""
+base_text = "%s"
 icon = ExtResource("6_553au")
-tooltip_text = "Plans to defend and heal the Obelisk"
+tooltip_text = "Plans to defend and heal the Obelisk (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_553au"]
@@ -45,9 +45,9 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_c4cd3"]
 script = ExtResource("6_tiaja")
-base_text = ""
+base_text = "%s"
 icon = ExtResource("8_tiaja")
-tooltip_text = "Plans to block"
+tooltip_text = "Plans to block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="VoidSpectreAI" type="Node"]

@@ -22,16 +22,16 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_b2w6y"]
 script = ExtResource("2_2a2ye")
-base_text = "Brace: +%s block, +%s armor"
+base_text = "%s"
 icon = ExtResource("7_mj73q")
-tooltip_text = "Bulwark hardens its plating"
+tooltip_text = "Bulwark hardens its plating (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_h6b5n"]
 script = ExtResource("2_2a2ye")
-base_text = "Cleave for %s"
+base_text = "%s"
 icon = ExtResource("8_695ck")
-tooltip_text = "Heavy cleave against adjacent foes"
+tooltip_text = "Heavy cleave against adjacent foes (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [node name="BulwarkEnemyAI" instance=ExtResource("1_byqtg")]
