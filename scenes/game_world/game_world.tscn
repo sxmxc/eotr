@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=73 format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -63,9 +63,6 @@ stream_1 = ExtResource("4_lorak")
 
 [sub_resource type="Resource" id="Resource_bumdp"]
 script = ExtResource("17_lorak")
-duration = 1.0
-transition = 0
-ease = 2
 
 [sub_resource type="Gradient" id="Gradient_lorak"]
 interpolation_mode = 2
@@ -91,12 +88,6 @@ tile_shape = 3
 tile_layout = 5
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_udifo")
-
-[sub_resource type="Resource" id="Resource_ht6dc"]
-script = ExtResource("17_lorak")
-duration = 1.0
-transition = 0
-ease = 2
 
 [sub_resource type="Curve" id="Curve_udifo"]
 _data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.75), -2.0, 0.0, 0, 0]
@@ -211,8 +202,6 @@ mouse_filter = 2
 texture = ExtResource("40_ht6dc")
 
 [node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
-position = Vector2(0, 40)
-zoom = Vector2(3, 3)
 editor_draw_limits = true
 script = ExtResource("3_bumdp")
 
@@ -255,21 +244,6 @@ player_hand = NodePath("../GameWorldUI/PlayerUI/Hand")
 [node name="Player" parent="." node_paths=PackedStringArray("stats_ui", "status_handler") instance=ExtResource("5_dlaip")]
 stats_ui = NodePath("../GameWorldUI/PlayerUI/Stats")
 status_handler = NodePath("../GameWorldUI/PlayerUI/StatusHandler")
-
-[node name="PhantomCamera2D" type="Node2D" parent="Player" node_paths=PackedStringArray("follow_target")]
-unique_name_in_owner = true
-top_level = true
-position = Vector2(0, 40)
-script = ExtResource("16_qc6v1")
-priority = 1
-follow_mode = 2
-follow_target = NodePath("..")
-zoom = Vector2(3, 3)
-tween_resource = SubResource("Resource_ht6dc")
-tween_on_load = false
-follow_offset = Vector2(0, 40)
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="CardTargetSelector" parent="." instance=ExtResource("6_ph1f2")]
 
@@ -668,7 +642,6 @@ layer = 5
 [node name="BattleOverPanel" parent="BattleOverLayer" instance=ExtResource("24_vophv")]
 visible = false
 mouse_filter = 2
-mouse_force_pass_scroll_events = false
 
 [node name="CardPileViews" type="CanvasLayer" parent="."]
 layer = 6
@@ -736,7 +709,7 @@ layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="TileLabel" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 382.0
 offset_top = 402.0
 offset_right = 838.0
@@ -765,7 +738,7 @@ text = "UI"
 horizontal_alignment = 1
 
 [node name="TextureRect7" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 277.0
 offset_top = 250.0
 offset_right = 484.0
@@ -776,7 +749,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect8" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 66.0
 offset_top = 833.0
 offset_right = 187.0
@@ -787,7 +760,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect9" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1569.0
 offset_top = 556.0
 offset_right = 1690.0
@@ -798,7 +771,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect10" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 792.0
 offset_top = 760.0
 offset_right = 913.0
@@ -809,7 +782,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect11" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1365.0
 offset_top = 1032.0
 offset_right = 1556.0
@@ -820,7 +793,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1318.0
 offset_top = 941.0
 offset_right = 1509.0
@@ -831,7 +804,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="DeckLabel" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 22.0
 offset_top = 603.0
 offset_right = 386.0
@@ -842,7 +815,7 @@ text = "Draw Pile"
 horizontal_alignment = 1
 
 [node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 759.0
 offset_top = 837.0
 offset_right = 1203.0
@@ -853,7 +826,7 @@ text = "Discard Pile"
 horizontal_alignment = 1
 
 [node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 759.0
 offset_top = 754.0
 offset_right = 1207.0
@@ -864,7 +837,7 @@ text = "Exhaust Pile"
 horizontal_alignment = 1
 
 [node name="DeckLabel2" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 674.0
 offset_top = 545.0
 offset_right = 1038.0
@@ -875,7 +848,7 @@ text = "Hand"
 horizontal_alignment = 1
 
 [node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1387.0
 offset_top = 351.0
 offset_right = 1871.0
@@ -985,6 +958,7 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="Visuals" parent="TutorialUI/BattleTutorial/TabContainer/Cards" instance=ExtResource("40_oia7h")]
+layout_mode = 1
 offset_left = 834.0
 offset_top = 671.0
 offset_right = 1014.0
@@ -992,7 +966,7 @@ offset_bottom = 911.0
 card = ExtResource("41_jwlkc")
 
 [node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 1023.0
 offset_top = 834.0
 offset_right = 1230.0
@@ -1002,7 +976,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect15" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 972.0
 offset_top = 740.0
 offset_right = 1179.0
@@ -1012,7 +986,7 @@ expand_mode = 1
 flip_h = true
 
 [node name="TextureRect13" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 610.0
 offset_top = 830.0
 offset_right = 817.0
@@ -1021,7 +995,7 @@ texture = ExtResource("39_ht6dc")
 expand_mode = 1
 
 [node name="TextureRect14" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 692.0
 offset_top = 657.0
 offset_right = 899.0
