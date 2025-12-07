@@ -137,7 +137,7 @@ backlog:
       - "Patch the hand management logic and add regression coverage if feasible."
 
   - id: BKL-011
-    title: "Support special tile battle starts for v0.0.6.0"
+    title: "Support special tile battle starts for v0.0.6.1"
     priority: P1
     status: complete
     owner: Codex
@@ -150,7 +150,7 @@ backlog:
       - "Adjust spawn/preview code so edge cases respect tile modifiers without glitches."
 
   - id: BKL-012
-    title: "Tighten discard-to-draw animations and FX for v0.0.6.0"
+    title: "Tighten discard-to-draw animations and FX for v0.0.6.1"
     priority: P2
     status: complete
     owner: Codex
@@ -162,7 +162,7 @@ backlog:
       - "Verify discard/draw pacing in-game with large hands; retune timing if hands feel jumpy."
 
   - id: BKL-013
-    title: "Rebalance enemy roster for v0.0.6.0"
+    title: "Rebalance enemy roster for v0.0.6.1"
     priority: P1
     status: complete
     owner: Codex
@@ -188,7 +188,7 @@ backlog:
       - "Ensure battle cleanup resets/starts the correct audio cues."
 
   - id: BKL-015
-    title: "Improve battle start presentation for v0.0.6.0"
+    title: "Improve battle start presentation for v0.0.6.1"
     priority: P2
     status: complete
     owner: Codex
@@ -228,7 +228,7 @@ backlog:
       - "Validate pacing so death and obelisk cues don’t block turn progression or reward handling."
 
   - id: BKL-018
-    title: "Fix hand spotlight animation for v0.0.6.0"
+    title: "Fix hand spotlight animation for v0.0.6.1"
     priority: P1
     status: complete
     owner: Codex
@@ -261,7 +261,7 @@ backlog:
     owner: Codex
     blockers: []
     context:
-      - "Roadmap flagged event nodes for v0.0.6.0; confirm they still align with current milestones."
+      - "Roadmap flagged event nodes for v0.0.6.1; confirm they still align with current milestones."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
       - "Event nodes are random encounters with unique rewards/risks outside standard battles."
     next_steps:
@@ -362,7 +362,7 @@ backlog:
       - "Validate readability with resource tiles and ensure color values align with the dark-fantasy sci-fi palette."
   
   - id: BKL-028
-    title: "Card targeting highlights for v0.0.6.0"
+    title: "Card targeting highlights for v0.0.6.1"
     priority: P2
     status: complete
     owner: Codex
@@ -374,7 +374,7 @@ backlog:
       - "Playtest the pulsing tile highlights + aim whoosh in single/aoe targeting to confirm clarity and volume, and ensure obelisk spawn telegraphs remain visible."
   
   - id: BKL-029
-    title: "Battle start/finish presentation for v0.0.6.0"
+    title: "Battle start/finish presentation for v0.0.6.1"
     priority: P2
     status: complete
     owner: Codex
@@ -414,7 +414,7 @@ backlog:
       - "Develop specialized AI or state machines for bosses to create distinct challenges."
   
   - id: BKL-032
-    title: "Create enemy bounty board on the map to show available bounties and their rewards for v0.0.6.0"
+    title: "Create enemy bounty board on the map to show available bounties and their rewards for v0.0.6.1"
     priority: P2
     status: complete
     owner: Codex
@@ -426,7 +426,7 @@ backlog:
       - "Expand bounty info to include elites/void bonuses and wire into upcoming bounty systems."
   
   - id: BKL-033
-    title: "Implement multiple new enemy types with unique abilities and behaviors and more battle stat pools for v0.0.6.0"
+    title: "Implement multiple new enemy types with unique abilities and behaviors and more battle stat pools for v0.0.6.1"
     priority: P1
     status: complete
     owner: Codex

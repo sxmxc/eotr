@@ -29,13 +29,13 @@
     {
       "id": "BKL-013",
       "status": "done",
-      "summary": "Retune enemy roster for v0.0.6.0 with gentler early threats, slower obelisk spawns, and toned-down elite/void defenses and payouts.",
+      "summary": "Retune enemy roster for v0.0.6.1 with gentler early threats, slower obelisk spawns, and toned-down elite/void defenses and payouts.",
       "updated": "2025-11-27T23:38:52.5617540-06:00"
     },
     {
       "id": "BKL-009",
       "status": "done",
-      "summary": "Refresh run and battle tutorial copy to teach obelisk objective, tile effects, and currencies for v0.0.6.0.",
+      "summary": "Refresh run and battle tutorial copy to teach obelisk objective, tile effects, and currencies for v0.0.6.1.",
       "updated": "2025-11-28T12:14:24.8846444-06:00"
     },
     {
