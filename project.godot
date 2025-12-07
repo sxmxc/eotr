@@ -24,7 +24,7 @@ boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="2265ce4"
+config/build="975441f"
 
 [autoload]
 
@@ -142,6 +142,7 @@ pause={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+textures/vram_compression/import_etc2_astc=true
 viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 

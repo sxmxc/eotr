@@ -96,5 +96,4 @@ follow_targets = [NodePath("..")]
 tween_resource = SubResource("Resource_h17s1")
 auto_zoom = true
 auto_zoom_max = 3.0
-auto_zoom_margin = Vector4(100, 500, 100, 500)
 draw_limits = true
