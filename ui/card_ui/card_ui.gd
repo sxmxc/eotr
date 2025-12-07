@@ -6,9 +6,6 @@ const CARD_UI_SIZE := Vector2(180,240)
 @warning_ignore("unused_signal")
 signal reparent_requested(which_card_ui: CardUI)
 
-const STYLE_BASE = preload("res://resources/themes/card_panel_base.tres")
-const STYLE_DRAGGING = preload("res://resources/themes/card_panel_dragging.tres")
-const STYLE_HOVER = preload("res://resources/themes/card_panel_hover.tres")
 const CARD_BURNABLE = preload("res://resources/materials/card_burnable.tres")
 const COST_FONT_COLOR_WHITE = Color(0.824, 0.788, 0.647)
 const COST_FONT_COLOR_RED = Color(0.682, 0.365, 0.251)
@@ -37,6 +34,7 @@ var playable := true:
 var values_modified := false :
 	set = _set_values_modified
 var disabled := false
+var _hovering := false
 
 
 func _ready() -> void:
@@ -45,6 +43,7 @@ func _ready() -> void:
 	Events.card_aim_started.connect(_on_card_drag_or_aiming_started)
 	Events.card_aim_ended.connect(_on_card_drag_or_aiming_ended)
 	card_state_machine.init(self)
+	_refresh_interaction_visuals()
 
 
 func _input(event):
@@ -103,8 +102,8 @@ func burn_card() -> void:
 		world_ui.discard_pile_button.global_position.y + world_ui.discard_pile_button.size.y / 2
 		)
 	var center_of_screen = get_viewport().get_visible_rect().size / 2
-	visuals.card_boosted_effect.hide()
-	visuals.card_attention_fx.hide()
+	if visuals.has_method("set_boosted_effect"):
+		visuals.set_boosted_effect(false)
 	visuals.card_trail_fx.show()
 	visuals.card_trail_fx.emitting = true
 	visuals.material = CARD_BURNABLE.duplicate()
@@ -135,10 +134,16 @@ func _on_gui_input(event: InputEvent) -> void:
 
 
 func _on_mouse_entered() -> void:
+	_hovering = true
+	if visuals.has_method("set_hover_outline"):
+		visuals.set_hover_outline(playable and not disabled)
 	card_state_machine.on_mouse_entered()
 
 
 func _on_mouse_exited() -> void:
+	_hovering = false
+	if visuals.has_method("set_hover_outline"):
+		visuals.set_hover_outline(false)
 	card_state_machine.on_mouse_exited()
 
 
@@ -148,6 +153,7 @@ func _set_card(value: Card) -> void:
 	card = value
 	visuals.player_modifiers = player_modifiers
 	visuals.card = value
+	_update_cost_label()
 	
 
 
@@ -155,24 +161,20 @@ func _set_playable(value: bool) -> void:
 	playable = value
 	if not playable:
 		visuals.card_cost_label.add_theme_color_override("font_color", Color.RED)
-		visuals.card_attention_fx.hide()
-		visuals.card_attention_fx.emitting = false
 	else:
 		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_WHITE)
-		visuals.card_attention_fx.emitting = true
-		visuals.card_attention_fx.show()
+	_refresh_interaction_visuals()
 		
 
 func _set_values_modified(value: bool) -> void:
 	values_modified = value
-	if not values_modified:
-		visuals.card_boosted_effect.hide()
-	else:
-		visuals.card_boosted_effect.show()
+	if visuals.has_method("set_boosted_effect"):
+		visuals.set_boosted_effect(values_modified)
 
 func _set_player_stats(value: PlayerStats) -> void:
 	player_stats = value
 	player_stats.stats_changed.connect(_on_char_stats_changed)
+	_update_cost_label()
 
 
 func _on_drop_point_detector_area_entered(area: Area2D) -> void:
@@ -187,16 +189,39 @@ func _on_drop_point_detector_area_exited(area):
 func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
 	if used_card == self:
 		return
-	visuals.card_attention_fx.hide()
 	disabled = true
+	_refresh_interaction_visuals()
 
 
 func _on_card_drag_or_aiming_ended(_card: CardUI) -> void:
 	disabled = false
 	self.playable = player_stats.can_play_card(card)
+	_update_cost_label()
+	_refresh_interaction_visuals()
 
 
 func _on_char_stats_changed() -> void:
 	self.playable = player_stats.can_play_card(card)
 	visuals.card_text_label.text = get_description()
 	values_modified = is_values_modified()
+	_update_cost_label()
+
+func _update_cost_label() -> void:
+	if not visuals or not card:
+		return
+	var cost := card.energy_cost
+	if is_instance_valid(player_stats):
+		cost = card.get_energy_cost(player_stats)
+	visuals.set_cost(cost)
+
+
+func _refresh_interaction_visuals() -> void:
+	if not visuals or not visuals.is_node_ready():
+		return
+	var active := playable and not disabled
+	if visuals.has_method("set_interactable"):
+		visuals.set_interactable(active)
+	if not active and visuals.has_method("set_hover_outline"):
+		visuals.set_hover_outline(false)
+	elif _hovering and visuals.has_method("set_hover_outline"):
+		visuals.set_hover_outline(true)

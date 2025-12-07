@@ -10,22 +10,21 @@
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="8_p3bau"]
 [ext_resource type="Script" uid="uid://bvojm1cu2relw" path="res://scenes/enemy/channeler/channeler_weaken_bolt_action.gd" id="9_4064u"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="10_fwhlu"]
+[ext_resource type="PackedScene" uid="uid://dawywslw1xm6u" path="res://ui/fx/fireball_small_projectile_fx.tscn" id="10_p1l0x"]
 [ext_resource type="AudioStream" uid="uid://ckcsqiyw8br81" path="res://assets/audio/Monster Sounds/Ghost/Ghost_Attack.ogg" id="11_w9k2x"]
-[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="12_5u9ku"]
 [ext_resource type="PackedScene" uid="uid://b26pgaeesc2u2" path="res://ui/fx/spark_fx.tscn" id="13_ek1vm"]
+
+[sub_resource type="Resource" id="Resource_move"]
+script = ExtResource("2_hy3dk")
+icon = ExtResource("4_dveoq")
+tooltip_text = "Plans to move"
+metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_gsaxk"]
 script = ExtResource("2_hy3dk")
 base_text = "%s"
 icon = ExtResource("6_hu5go")
 tooltip_text = "Empowers allies (%s)"
-metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
-
-[sub_resource type="Resource" id="Resource_move"]
-script = ExtResource("2_hy3dk")
-base_text = ""
-icon = ExtResource("4_dveoq")
-tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_8w4fn"]
@@ -51,7 +50,7 @@ metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
 [node name="ChannelerWeakenBoltAction" type="Node" parent="." index="2"]
 script = ExtResource("9_4064u")
-projectile_scene = ExtResource("12_5u9ku")
+projectile_scene = ExtResource("10_p1l0x")
 projectile_visual_fx = ExtResource("13_ek1vm")
 intent = SubResource("Resource_8w4fn")
 type = 1

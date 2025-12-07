@@ -1,5 +1,5 @@
 shader_type canvas_item;
-render_mode blend_premul_alpha;
+render_mode blend_mix;
 
 uniform float Line_Smoothness : hint_range(0, 0.1) = 0.045;
 uniform float Line_Width : hint_range(0, 0.2) = 0.09;
@@ -63,7 +63,22 @@ void fragment() {
 	}
 	remapped_line *= Brightness;
 	remapped_line = min(remapped_line, Alpha);
-
 	vec4 surface_tex = texture(surface, UV);
-	COLOR = vec4(remapped_line, remapped_line, remapped_line, remapped_line) * surface_tex.a;
+
+	// Your shine strength
+	float shine = clamp(remapped_line, 0.0, 1.0);
+
+	// Use ONLY alpha as the mask
+	float mask = surface_tex.a;
+
+	// White shine masked by sprite
+	float final_alpha = shine * mask;
+	vec3 final_color = vec3(1.0) * final_alpha;
+
+	COLOR = vec4(final_color, final_alpha);
+
+	//vec4 surface_tex = texture(surface, UV);
+	//float a = remapped_line * surface_tex.a;
+	//COLOR = vec4(surface_tex.rgb, a);
+	//COLOR = vec4(remapped_line, remapped_line, remapped_line, remapped_line) * surface_tex.a;
 }

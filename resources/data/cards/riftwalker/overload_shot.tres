@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="1_projectile"]
+[ext_resource type="AudioStream" path="res://assets/audio/launches/flaunch.wav" id="2_sound"]
+[ext_resource type="Script" path="res://resources/data/cards/riftwalker/overload_shot.gd" id="3_script"]
+[ext_resource type="PackedScene" path="res://ui/fx/spark_fx.tscn" id="4_fx"]
+
+[resource]
+script = ExtResource("3_script")
+card_type = 0
+target_type = 1
+id = "overload_shot"
+name = "Overload Shot"
+card_rarity = 2
+description = "Spend all Energy. Deal [b]%s[/b] damage to a single enemy."
+energy_cost = 0
+exhaust = false
+sound_fx = ExtResource("2_sound")
+visual_fx = ExtResource("4_fx")
+projectile_fx = ExtResource("1_projectile")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

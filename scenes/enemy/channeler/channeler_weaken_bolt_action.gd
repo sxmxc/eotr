@@ -14,6 +14,7 @@ func perform_action() -> void:
 
 	var player := target as Player
 	if not player:
+		Events.enemy_action_completed.emit(enemy)
 		return
 
 	var world_message := WorldMessageData.new("%s channels a weakening bolt" % enemy.name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://2lbb3o8s61p3"]
+[gd_scene load_steps=77 format=3 uid="uid://2lbb3o8s61p3"]
 
 [ext_resource type="Script" uid="uid://ci0s82s7h0wph" path="res://scenes/treasure/treasure.gd" id="1_b65ik"]
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="2_8auyv"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://cd45n3jrdgucm" path="res://resources/data/relics/feedback_circuit.tres" id="6_bbvtr"]
 [ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="7_ko1oj"]
 [ext_resource type="Resource" uid="uid://d0vl20m61tb65" path="res://resources/data/relics/prospector_helmet.tres" id="8_2i7av"]
+[ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="9_energy"]
 [ext_resource type="Texture2D" uid="uid://b0smcjr2p45fs" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_coin_8x8.png" id="12_odogb"]
 [ext_resource type="Texture2D" uid="uid://cb0gy21niwki8" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_shine_8x8.png" id="13_2i7av"]
 [ext_resource type="Texture2D" uid="uid://btlqw2o1x21s8" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_cup_8x8.png" id="14_wp70s"]
@@ -609,7 +610,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_b65ik")
-treasure_relic_pool = Array[ExtResource("2_8auyv")]([ExtResource("3_bbvtr"), ExtResource("5_ab3yx"), ExtResource("4_ko1oj"), ExtResource("6_bbvtr"), ExtResource("7_ko1oj"), ExtResource("8_2i7av")])
+treasure_relic_pool = Array[ExtResource("2_8auyv")]([ExtResource("3_bbvtr"), ExtResource("5_ab3yx"), ExtResource("4_ko1oj"), ExtResource("6_bbvtr"), ExtResource("7_ko1oj"), ExtResource("8_2i7av"), ExtResource("9_energy")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 

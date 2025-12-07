@@ -77,7 +77,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Follow-ups: Play through the run intro and first battle to confirm the new tutorial copy fits on screen and reads clearly; revisit the boss health meter once the redesign spec lands.
 
 **2025-11-27 – Codex**
-- Summary: Retuned the enemy roster for v0.0.6.0 by lowering early-unit damage/HP (bat/wasp/blob/horror), trimming obelisk pressure (range hit to 6, spawn cap 3, slower spawn cadence), and softening elite/void durability and payouts (capped void spectre heal/block, reduced gold rewards, lighter elite stats).
+- Summary: Retuned the enemy roster for v0.0.6.1 by lowering early-unit damage/HP (bat/wasp/blob/horror), trimming obelisk pressure (range hit to 6, spawn cap 3, slower spawn cadence), and softening elite/void durability and payouts (capped void spectre heal/block, reduced gold rewards, lighter elite stats).
 - Files: `scenes/enemy/bat/bat_enemy_attack_action.gd`, `scenes/enemy/wasp/wasp_enemy_attack_action.gd`, `scenes/enemy/blob/*`, `scenes/enemy/horror/*`, `scenes/enemy/obelisk/*`, `scenes/enemy/void_spectre/*`, `ai/planning/todo.yaml`, `ai/state/progress.json`
 - Verification: Not run (Godot gameplay/headless checks not executed in this session).
 - Follow-ups: Playtest tier 0–2 fights to ensure spawn pacing and rewards still feel fair; watch void spectre defend timing with the new heal cap; re-evaluate gold/resource yields if runs become too generous after these nerfs.

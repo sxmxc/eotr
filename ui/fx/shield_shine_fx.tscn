@@ -107,7 +107,6 @@ scale = Vector2(0.05, 0.05)
 script = ExtResource("1_pi1m4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-z_index = 1
 material = ExtResource("2_u7cs5")
 custom_minimum_size = Vector2(512, 512)
 offset_left = -256.0

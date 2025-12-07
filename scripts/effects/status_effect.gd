@@ -7,10 +7,17 @@ func execute(targets: Array[Node]) -> void:
 	for target in targets:
 		if not target:
 			continue
-		if target is Enemy or target is Player:
-			SoundManager.play_sound_random_pitch(sound_fx)
-			if visual_fx:
-				var fx : VisualFX = visual_fx.instantiate() as VisualFX
-				target.add_child(fx)
-				fx.execute()
-			target.status_handler.add_status(status)
+		if not (target is Enemy or target is Player):
+			continue
+		if not status:
+			continue
+
+		var status_instance := status.duplicate(true) as Status
+
+		SoundManager.play_sound_random_pitch(sound_fx)
+		if visual_fx:
+			var fx : VisualFX = visual_fx.instantiate() as VisualFX
+			target.add_child(fx)
+			fx.execute()
+
+		target.status_handler.add_status(status_instance)

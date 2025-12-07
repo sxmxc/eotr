@@ -34,13 +34,13 @@ var run_stats: RunStats
 var player_stats: PlayerStats
 var save_data: SaveGame
 var audio_stream_player: AudioStreamPlayer
+var bounty_board_view: BountyBoardView
 
 
 func _ready() -> void:
 	if not run_bootstrap:
 		return
 
-	_connect_bounty_board()
 	pause_menu.save_and_quit.connect(func(): get_tree().change_scene_to_file(MAIN_MENU_PATH))
 
 	match run_bootstrap.type:
@@ -85,7 +85,9 @@ func _start_run() -> void:
 	Talo.events.track("run_started", event_props)
 	Talo.stats.track("runs_started")
 	run_stats = RunStats.new()
+	map.run_stats = run_stats
 	_setup_event_connections()
+	_connect_bounty_board()
 	_setup_top_bar()
 	map.generate_new_map()
 	map.unlock_floor(0)
@@ -121,11 +123,13 @@ func _load_run() -> void:
 
 	RNG.set_from_save_data(save_data.rng_seed, save_data.rng_state)
 	run_stats = save_data.run_stats
+	map.run_stats = run_stats
 	player_stats = save_data.player_stats
 	player_stats.deck = save_data.current_deck
 	player_stats.health = save_data.current_health
 	relic_handler.add_relics(save_data.relics)
 	_setup_top_bar()
+	_connect_bounty_board()
 	_setup_event_connections()
 	run_time_ui.resume_from(save_data.elapsed_run_time)
 	
@@ -186,18 +190,29 @@ func _setup_top_bar() -> void:
 	deck_button.card_pile = player_stats.deck
 	deck_view.card_pile = player_stats.deck
 	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
-	bounty_board_button.toggled.connect(_on_bounty_board_button_toggled)
-
+	
 
 func _connect_bounty_board() -> void:
 	if bounty_board_popup:
+		bounty_board_view = bounty_board_popup as BountyBoardView
+		bounty_board_button.pressed.connect(_on_bounty_board_button_pressed)
 		bounty_board_popup.hide()
+	var bounty_callable := Callable(self, "_on_bounties_updated")
+	if map and not map.bounties_updated.is_connected(bounty_callable):
+		map.bounties_updated.connect(bounty_callable)
 
 
-func _on_bounty_board_button_toggled(pressed: bool) -> void:
+func _on_bounty_board_button_pressed() -> void:
 	if not bounty_board_popup:
 		return
-	bounty_board_popup.visible = pressed
+	if bounty_board_view and run_stats:
+		bounty_board_view.apply_bounties(run_stats.bounty_contracts, map.floors_climbed, run_stats.next_bounty_refresh_floor)
+	bounty_board_popup.show()
+
+
+func _on_bounties_updated(contracts: Array[BountyContract], floors_climbed: int, next_refresh_floor: int) -> void:
+	if bounty_board_view:
+		bounty_board_view.apply_bounties(contracts, floors_climbed, next_refresh_floor)
 
 
 func _show_regular_rewards() -> void:

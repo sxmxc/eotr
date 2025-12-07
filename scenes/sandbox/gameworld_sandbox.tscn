@@ -46,7 +46,7 @@
 [ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="40_vg8sg"]
 [ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="41_s7jwm"]
 [ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="42_asulx"]
-[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="43_l5hdi"]
+[ext_resource type="PackedScene" uid="uid://b3x0n5j034cie" path="res://ui/card_ui/card_visuals.tscn" id="43_l5hdi"]
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="44_5xwvq"]
 
 [sub_resource type="Resource" id="Resource_cc46j"]

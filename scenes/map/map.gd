@@ -4,6 +4,9 @@ extends Node2D
 const SCROLL_SPEED := 15
 const MAP_NODE_UI_SCENE = preload("res://scenes/map/map_node_ui.tscn")
 const MAP_NODE_LINE_SCENE = preload("res://scenes/map/map_node_line.tscn")
+const MAP_BOUNTY_BOARD_SCENE: PackedScene = preload("res://scenes/map/map_bounty_board.tscn")
+
+signal bounties_updated(contracts: Array[BountyContract], floors_climbed: int, next_refresh_floor: int)
 
 @onready var visuals: Node2D = %Visuals
 @onready var lines: Node2D = %Lines
@@ -17,6 +20,7 @@ var floors_climbed: int
 var last_map_node: MapNode
 var camera_edge_y: float
 var bounty_board: MapBountyBoard
+var run_stats: RunStats
 @export_node_path("Control") var bounty_board_path: NodePath
 
 
@@ -155,15 +159,24 @@ func _ensure_bounty_board() -> void:
 	if bounty_board_path != NodePath() and has_node(bounty_board_path):
 		bounty_board = get_node(bounty_board_path) as MapBountyBoard
 	if not bounty_board:
-		bounty_board = MapBountyBoard.new()
+		bounty_board = MAP_BOUNTY_BOARD_SCENE.instantiate() as MapBountyBoard
 		ui_layer.add_child(bounty_board)
 
 
 func _update_bounty_board() -> void:
 	if not bounty_board or not is_instance_valid(bounty_board):
 		return
+	if not run_stats:
+		return
+
 	var available_nodes: Array[MapNode] = []
 	for map_node_ui: MapNodeUI in map_nodes.get_children():
 		if map_node_ui.available and map_node_ui.map_node and map_node_ui.map_node.battle_stats:
 			available_nodes.append(map_node_ui.map_node)
-	bounty_board.update_bounties(available_nodes, floors_climbed)
+
+	var battle_pool: BattleStatsPool = null
+	if map_generator:
+		battle_pool = map_generator.battle_stats_pool
+	BountySystem.ensure_contracts(run_stats, floors_climbed, available_nodes, battle_pool)
+	bounty_board.update_bounties(run_stats.bounty_contracts, floors_climbed, run_stats.next_bounty_refresh_floor)
+	bounties_updated.emit(run_stats.bounty_contracts, floors_climbed, run_stats.next_bounty_refresh_floor)

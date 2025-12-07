@@ -161,8 +161,7 @@ func _on_enemy_turn_ended() -> void:
 	enemy_handler.reset_enemy_actions()
 
 func _on_enemy_died(enemy: Enemy) -> void:
-	battle_stats.enemy_gold_reward += enemy.get_gold_value()
-	battle_stats.enemy_resource_reward += enemy.get_resource_value()
+	BountySystem.apply_bounty_for_enemy(run_stats, enemy.stats.enemy_name, battle_stats)
 
 func _on_enemies_child_order_changed() -> void:
 	if battle_over_handled:

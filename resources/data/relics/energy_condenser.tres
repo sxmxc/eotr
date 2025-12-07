@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://resources/data/relics/energy_condenser.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/icons/astrolabe.svg" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+relic_name = "Energy Condenser"
+id = "energy_condenser"
+type = 0
+character_type = 0
+starter_relic = false
+icon = ExtResource("2_icon")
+description = "Your unused Energy carries over to the next turn."
+metadata/_custom_type_script = "uid://bub7h53ncapx2"

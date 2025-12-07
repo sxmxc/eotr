@@ -49,7 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
 [ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="39_udifo"]
 [ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
-[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="40_oia7h"]
+[ext_resource type="PackedScene" uid="uid://b3x0n5j034cie" path="res://ui/card_ui/card_visuals.tscn" id="40_oia7h"]
 [ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="40_qnbvx"]
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]

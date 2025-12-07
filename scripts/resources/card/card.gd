@@ -16,6 +16,7 @@ static var RARITY_COLORS := {
 @export_multiline var description: String
 @export var energy_cost: int
 @export var exhaust: bool = false
+var last_energy_cost: int = 0
 
 @export_group("Card Sound and Visuals")
 @export var card_art: Texture2D
@@ -62,7 +63,9 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 
 func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
 	Events.card_played.emit(self)
-	player_stats.energy -= energy_cost
+	var cost := get_energy_cost(player_stats)
+	last_energy_cost = cost
+	player_stats.energy -= cost
 
 	if is_single_targeted():
 		apply_effects(targets, modifiers)
@@ -84,6 +87,9 @@ func is_card_modified(_player_modifiers: ModifierHandler) -> bool:
 
 func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass
+
+func get_energy_cost(_player_stats: PlayerStats) -> int:
+	return energy_cost
 
 func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
 	var tree := card_ui.get_tree() as SceneTree

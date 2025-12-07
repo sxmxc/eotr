@@ -123,7 +123,7 @@ func _set_player_stats(value: PlayerStats) -> void:
 func _on_card_played(card: Card) -> void:
 	var event_props:= {
 		"card_name" : card.name,
-		"card_cost" : card.energy_cost,
+		"card_cost" : card.last_energy_cost,
 		"card_rarity" : Enums.CardRarity.keys()[card.card_rarity],
 		"card_type": Enums.CardType.keys()[card.card_type]
 	}

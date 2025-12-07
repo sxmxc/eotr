@@ -3,7 +3,8 @@ extends Status
 
 
 func initialize_status(target: Node) -> void:
-	status_changed.connect(_on_status_changed.bind(target))
+	if not status_changed.is_connected(_on_status_changed):
+		status_changed.connect(_on_status_changed.bind(target))
 	_on_status_changed(target)
 
 

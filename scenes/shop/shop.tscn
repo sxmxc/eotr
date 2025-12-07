@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cs1i5d3k8wpeo"]
+[gd_scene load_steps=69 format=3 uid="uid://cs1i5d3k8wpeo"]
 
 [ext_resource type="Script" uid="uid://ce1trfycndk5j" path="res://scenes/shop/shop.gd" id="1_100s2"]
 [ext_resource type="Theme" uid="uid://b4lmppelcf5iu" path="res://resources/themes/run_top_bar.tres" id="1_ctpgp"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="9_36j3v"]
 [ext_resource type="PackedScene" uid="uid://coupj55agy31s" path="res://scenes/relic_handler/relic_tooltip.tscn" id="9_tp26b"]
 [ext_resource type="Resource" uid="uid://d0vl20m61tb65" path="res://resources/data/relics/prospector_helmet.tres" id="10_5y7fm"]
+[ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="11_energy"]
 [ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="10_6kbe7"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="15_k5co3"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="16_6kbe7"]
@@ -350,7 +351,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_ctpgp")
 script = ExtResource("1_100s2")
-shop_relics = Array[ExtResource("3_131kw")]([ExtResource("4_xoc10"), ExtResource("5_k5co3"), ExtResource("6_6kbe7"), ExtResource("7_hbyua"), ExtResource("8_hbyua"), ExtResource("9_36j3v"), ExtResource("10_5y7fm")])
+shop_relics = Array[ExtResource("3_131kw")]([ExtResource("4_xoc10"), ExtResource("5_k5co3"), ExtResource("6_6kbe7"), ExtResource("7_hbyua"), ExtResource("8_hbyua"), ExtResource("9_36j3v"), ExtResource("10_5y7fm"), ExtResource("11_energy")])
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 

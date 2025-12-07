@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardPile" load_steps=20 format=3 uid="uid://fjjyyc620psd"]
+[gd_resource type="Resource" script_class="CardPile" load_steps=21 format=3 uid="uid://fjjyyc620psd"]
 
 [ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_card"]
 [ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_pile"]
@@ -19,8 +19,9 @@
 [ext_resource type="Resource" uid="uid://o1k4vbsoeksj" path="res://resources/data/cards/riftwalker/deminishing_returns.tres" id="17_returns"]
 [ext_resource type="Resource" uid="uid://c51k046oh632c" path="res://resources/data/cards/riftwalker/echo.tres" id="18_echo"]
 [ext_resource type="Resource" path="res://resources/data/cards/riftwalker/sever_anchor.tres" id="19_sever"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/overload_shot.tres" id="20_overload"]
 
 [resource]
 script = ExtResource("2_pile")
-cards = Array[ExtResource("1_card")]([ExtResource("6_blast"), ExtResource("19_sever"), ExtResource("8_explosion"), ExtResource("4_focus"), ExtResource("7_chrono"), ExtResource("3_adrenaline"), ExtResource("5_quantum"), ExtResource("9_phase_slash"), ExtResource("15_fracture"), ExtResource("10_nano"), ExtResource("11_void_surge"), ExtResource("13_rift"), ExtResource("14_leech"), ExtResource("12_flame"), ExtResource("16_pulse"), ExtResource("17_returns"), ExtResource("18_echo")])
+cards = Array[ExtResource("1_card")]([ExtResource("6_blast"), ExtResource("19_sever"), ExtResource("8_explosion"), ExtResource("4_focus"), ExtResource("7_chrono"), ExtResource("3_adrenaline"), ExtResource("5_quantum"), ExtResource("9_phase_slash"), ExtResource("15_fracture"), ExtResource("10_nano"), ExtResource("11_void_surge"), ExtResource("13_rift"), ExtResource("14_leech"), ExtResource("12_flame"), ExtResource("16_pulse"), ExtResource("17_returns"), ExtResource("18_echo"), ExtResource("20_overload")])
 metadata/_custom_type_script = "uid://dkmgiky2ttex"
