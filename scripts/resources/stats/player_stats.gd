@@ -38,7 +38,7 @@ func reset_energy() -> void:
 
 
 func can_play_card(card: Card) -> bool:
-	return energy >= card.energy_cost
+	return energy >= card.get_energy_cost(self)
 
 
 func take_damage(damage: int) -> void:

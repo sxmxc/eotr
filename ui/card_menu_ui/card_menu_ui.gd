@@ -6,9 +6,6 @@ signal selection_toggled(card: Card, selected: bool)
 signal hovered(card: Card)
 signal hover_ended(card: Card)
 
-const CARD_PANEL_BASE = preload("res://resources/themes/card_panel_base.tres")
-const CARD_PANEL_HOVER = preload("res://resources/themes/card_panel_hover.tres")
-
 @export var card: Card : set = set_card
 @export var selectable := false
 @export var tooltip_on_right_click := false
@@ -64,12 +61,8 @@ func clear_selection() -> void:
 
 
 func _update_panel_style() -> void:
-	if _selected:
-		visuals.panel.set("theme_override_styles/panel", CARD_PANEL_HOVER)
-	elif _is_hovered:
-		visuals.panel.set("theme_override_styles/panel", CARD_PANEL_HOVER)
-	else:
-		visuals.panel.set("theme_override_styles/panel", CARD_PANEL_BASE)
+	if visuals and visuals.has_method("set_hover_outline"):
+		visuals.set_hover_outline(_selected or _is_hovered)
 
 
 func set_card(value: Card) -> void:

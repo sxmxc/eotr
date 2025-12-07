@@ -11,6 +11,8 @@ const BASE_COMMON_WEIGHT := 6.0
 const BASE_UNCOMMON_WEIGHT := 3.7
 const BASE_RARE_WEIGHT := 0.3
 
+@export var bounty_contracts: Array[BountyContract] = []
+@export var next_bounty_refresh_floor: int = 0
 @export var gold := STARTING_GOLD:
 	set = set_gold
 @export var resources := STARTING_RESOURCES:

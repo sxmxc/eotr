@@ -8,7 +8,8 @@ func enter() -> void:
 	var ui_layer := get_tree().get_first_node_in_group("ui_layer")
 	if ui_layer:
 		card_ui.reparent(ui_layer)
-	card_ui.visuals.panel.set("theme_override_styles/panel", card_ui.STYLE_DRAGGING)
+	card_ui.visuals.set_hover_outline(false)
+	card_ui.visuals.set_interactable(false)
 	Events.card_drag_started.emit(card_ui)
 	card_ui.rotation_degrees = 0
 	minimum_drag_time_elapsed = false
@@ -42,3 +43,4 @@ func exit() -> void:
 	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
 	tilemap.clear_target_highlights()
 	Events.card_drag_ended.emit(card_ui)
+	card_ui.visuals.set_interactable(card_ui.playable and not card_ui.disabled)

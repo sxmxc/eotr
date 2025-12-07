@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bbmmcym0ollws" path="res://ui/card_ui/card_ui.gd" id="2_dmw7j"]
 [ext_resource type="AudioStream" uid="uid://0grla4p64a7o" path="res://assets/audio/battle_sound_effects/foom_0.wav" id="3_0oooe"]
 [ext_resource type="Script" uid="uid://balj0jrb1odb2" path="res://ui/card_ui/card_states/card_state_machine.gd" id="3_36rxq"]
-[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="4_l3rh4"]
+[ext_resource type="PackedScene" uid="uid://b3x0n5j034cie" path="res://ui/card_ui/card_visuals.tscn" id="4_l3rh4"]
 [ext_resource type="Script" uid="uid://kk46ghamplms" path="res://ui/card_ui/card_states/card_base_state.gd" id="4_swrim"]
 [ext_resource type="Script" uid="uid://hd18xsjj42v8" path="res://ui/card_ui/card_states/card_clicked_state.gd" id="5_c6fjk"]
 [ext_resource type="Script" uid="uid://c4ajblop0vkls" path="res://ui/card_ui/card_states/card_dragging_state.gd" id="6_0oooe"]

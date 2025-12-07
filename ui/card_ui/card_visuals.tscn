@@ -1,57 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://bfupsllnox0ix"]
+[gd_scene load_steps=22 format=3 uid="uid://b3x0n5j034cie"]
 
-[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_mqmas"]
-[ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_uo13o"]
-[ext_resource type="Shader" uid="uid://cy0ljmw8dfwny" path="res://scripts/shaders/dark_noise_vignette.gdshader" id="3_2pg18"]
-[ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="4_ky3w4"]
-[ext_resource type="Script" uid="uid://d11kfgsd6jgt" path="res://addons/AutoSizeText/ui/AutoSizeLabel.gd" id="4_lnh5i"]
-[ext_resource type="Script" uid="uid://leehmvr1x5lu" path="res://addons/AutoSizeText/ui/AutoSizeRichTextLabel.gd" id="5_si0b1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ky3w4"]
-shader = ExtResource("3_2pg18")
-shader_parameter/radius = 0.535
-shader_parameter/speed = 1.0
-shader_parameter/effect_color = Color(0.47451, 0.266667, 0.290196, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_vqvlo"]
-font_color = Color(0.294118, 0.239216, 0.266667, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_lcjp3"]
-font_size = 12
-font_color = Color(0.294118, 0.239216, 0.266667, 1)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_uo13o"]
-
-[sub_resource type="Gradient" id="Gradient_2pg18"]
-interpolation_mode = 2
-colors = PackedColorArray(0.524982, 3, 2.99105, 0.471, 0.524982, 3, 2.99105, 0.471)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2pg18"]
-gradient = SubResource("Gradient_2pg18")
-width = 180
-height = 240
-
-[sub_resource type="Curve" id="Curve_ky3w4"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_ky3w4"]
-curve = SubResource("Curve_ky3w4")
-
-[sub_resource type="Curve" id="Curve_lnh5i"]
-_limits = [0.99, 1.1, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1.1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_lnh5i"]
-curve = SubResource("Curve_lnh5i")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0qon5"]
-direction = Vector3(0, 0, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_lnh5i")
-alpha_curve = SubResource("CurveTexture_ky3w4")
+[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_theme"]
+[ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://clb2uaudrydbm" path="res://assets/card/card_background.png" id="3_0p8qx"]
+[ext_resource type="Texture2D" uid="uid://bd67k5uobulf8" path="res://assets/card/art/default_card_image.jpg" id="4_1bfbl"]
+[ext_resource type="Texture2D" uid="uid://bcic1hvuu2eis" path="res://assets/card/card_description_background.png" id="4_nxj80"]
+[ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="6_flare"]
+[ext_resource type="Texture2D" uid="uid://dapg2sx650j4" path="res://assets/card/card_foreground_frame.png" id="6_kin56"]
+[ext_resource type="Script" uid="uid://d11kfgsd6jgt" path="res://addons/AutoSizeText/ui/AutoSizeLabel.gd" id="7_autolabel"]
+[ext_resource type="Texture2D" uid="uid://bd1d8psrr1hdj" path="res://assets/card/card_rarity.png" id="7_eqiyl"]
+[ext_resource type="Script" uid="uid://leehmvr1x5lu" path="res://addons/AutoSizeText/ui/AutoSizeRichTextLabel.gd" id="8_autortl"]
+[ext_resource type="Texture2D" uid="uid://cm62v7tixluoj" path="res://assets/card/card_cost_background.png" id="8_ld3x3"]
 
 [sub_resource type="Curve" id="Curve_si0b1"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -74,7 +33,7 @@ emission_shape = 3
 emission_box_extents = Vector3(90, 120, 1)
 spread = 0.0
 scale_curve = SubResource("CurveTexture_m4ny6")
-color = Color(0.524982, 3, 2.99105, 0.471)
+color = Color(0.827451, 0.741176, 0.533333, 0.6)
 alpha_curve = SubResource("CurveTexture_xe37s")
 
 [sub_resource type="Animation" id="Animation_lnh5i"]
@@ -162,127 +121,97 @@ _data = {
 &"swirl_out": SubResource("Animation_ky3w4")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_vqvlo"]
+font_color = Color(0.294118, 0.239216, 0.266667, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lcjp3"]
+font_size = 12
+font_color = Color(0.294118, 0.239216, 0.266667, 1)
+
 [node name="Visuals" type="Control"]
-custom_minimum_size = Vector2(180, 240)
+custom_minimum_size = Vector2(187, 262)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 180.0
-offset_bottom = 240.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -131.0
+offset_right = 93.5
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(90, 120)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("1_mqmas")
-script = ExtResource("2_uo13o")
-metadata/_edit_vertical_guides_ = [-104.0]
-metadata/_edit_horizontal_guides_ = [232.0]
+theme = ExtResource("1_theme")
+script = ExtResource("2_script")
+metadata/_edit_horizontal_guides_ = [244.0]
 
-[node name="Panel" type="Panel" parent="."]
+[node name="CardBackgroundTexture" type="TextureRect" parent="."]
 unique_name_in_owner = true
-use_parent_material = true
+custom_minimum_size = Vector2(187, 262)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -131.0
+offset_right = 93.5
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_0p8qx")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardArt" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07754026
+anchor_top = 0.08778623
+anchor_right = 0.93315524
+anchor_bottom = 0.480916
+mouse_filter = 2
+texture = ExtResource("4_1bfbl")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="CardTextBackground" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.41984734
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_nxj80")
+expand_mode = 1
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_type_variation = &"CardPanelMain"
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 18
 
-[node name="MainMargin" type="MarginContainer" parent="."]
-use_parent_material = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="BackgroundPanel" type="Panel" parent="MainMargin"]
+[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer"]
+unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 2
-mouse_filter = 2
-theme_type_variation = &"CardPanelSecondary"
-
-[node name="CardBoostedEffect" type="ColorRect" parent="MainMargin/BackgroundPanel"]
-unique_name_in_owner = true
-visible = false
-material = SubResource("ShaderMaterial_ky3w4")
-layout_mode = 0
-offset_right = 172.0
-offset_bottom = 232.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="CardCostLabel" type="Label" parent="MainMargin/BackgroundPanel"]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_top = 188.0
-offset_right = -5.0
-offset_bottom = 233.0
-grow_horizontal = 0
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_font_sizes/font_size = 32
-text = "0"
-horizontal_alignment = 1
-
-[node name="CardNameLabel" type="Label" parent="MainMargin/BackgroundPanel"]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -56.0
-offset_top = 3.0
-offset_right = 56.0
-offset_bottom = 37.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 6.15
-theme_override_font_sizes/font_size = 32
-text = "TITLE"
-label_settings = SubResource("LabelSettings_vqvlo")
-horizontal_alignment = 1
-uppercase = true
-script = ExtResource("4_lnh5i")
-watch_text_change = true
-max_font_size = 32
-step_sizes = Array[int]([8, 16, 32])
-metadata/_custom_type_script = "uid://d11kfgsd6jgt"
-
-[node name="CardTypeLabel" type="Label" parent="MainMargin/BackgroundPanel"]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 0
-offset_left = 5.0
-offset_top = 30.0
-offset_right = 167.0
-offset_bottom = 58.0
-theme_type_variation = &"HeaderSmall"
-text = "TYPE"
-label_settings = SubResource("LabelSettings_lcjp3")
-horizontal_alignment = 1
-
-[node name="CardTextLabel" type="RichTextLabel" parent="MainMargin/BackgroundPanel"]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 0
-anchor_left = 0.00581395
-anchor_top = 0.340517
-anchor_right = 0.994186
-anchor_bottom = 0.780172
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.301961, 0.270588, 0.223529, 1)
 theme_override_font_sizes/normal_font_size = 16
@@ -294,47 +223,87 @@ bbcode_enabled = true
 text = "Card Text"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("5_si0b1")
+script = ExtResource("8_autortl")
 watch_text_change = true
 max_font_size = 16
 step_sizes = Array[int]([8, 16])
 metadata/_custom_type_script = "uid://leehmvr1x5lu"
-metadata/_edit_use_anchors_ = true
+
+[node name="CardForegroundFrame" type="TextureRect" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+offset_right = 187.0
+offset_bottom = 142.0
+mouse_filter = 2
+texture = ExtResource("6_kin56")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="OutlineOverlay" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 4
 
 [node name="Rarity" type="TextureRect" parent="."]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 0
-offset_left = 24.0
-offset_top = 208.0
-offset_right = 40.0
-offset_bottom = 224.0
-rotation = 0.785398
-texture = SubResource("CanvasTexture_uo13o")
+offset_left = 75.0
+offset_top = 115.0
+offset_right = 114.0
+offset_bottom = 152.0
+texture = ExtResource("7_eqiyl")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 4
 
-[node name="CardAttentionFX" type="GPUParticles2D" parent="."]
+[node name="CardCost" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 140.0
+offset_top = -19.0
+offset_right = 206.0
+offset_bottom = 47.0
+texture = ExtResource("8_ld3x3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="CardCostLabel" type="Label" parent="CardCost"]
 unique_name_in_owner = true
-show_behind_parent = true
-position = Vector2(90, 120)
-emitting = false
-amount = 5
-texture = SubResource("GradientTexture2D_2pg18")
-lifetime = 2.5
-preprocess = 5.0
-visibility_rect = Rect2(-240, -240, 480, 480)
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_0qon5")
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -25.0
+offset_right = 22.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
 
 [node name="CardTrailFX" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
 process_mode = 3
 show_behind_parent = true
-position = Vector2(83, 116)
+position = Vector2(94, 134)
 emitting = false
 amount = 5000
-texture = ExtResource("4_ky3w4")
+texture = ExtResource("6_flare")
 lifetime = 2.0
 preprocess = 1.0
 speed_scale = 2.0
@@ -346,3 +315,48 @@ process_material = SubResource("ParticleProcessMaterial_nb1yb")
 libraries = {
 &"": SubResource("AnimationLibrary_si0b1")
 }
+
+[node name="CardNameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.5
+offset_top = 3.0
+offset_right = 56.5
+offset_bottom = 37.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.15
+theme_override_font_sizes/font_size = 32
+text = "TITLE"
+label_settings = SubResource("LabelSettings_vqvlo")
+horizontal_alignment = 1
+uppercase = true
+script = ExtResource("7_autolabel")
+watch_text_change = true
+max_font_size = 32
+step_sizes = Array[int]([8, 16, 32])
+metadata/_custom_type_script = "uid://d11kfgsd6jgt"
+
+[node name="CardTypeLabel" type="Label" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -20.0
+offset_right = 81.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HeaderSmall"
+text = "TYPE"
+label_settings = SubResource("LabelSettings_lcjp3")
+horizontal_alignment = 1

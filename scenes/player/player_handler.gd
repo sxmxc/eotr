@@ -179,9 +179,10 @@ func _refund_movement_energy(card: Card) -> void:
 	if not free_movement_refund_available:
 		return
 	free_movement_refund_available = false
-	if card.energy_cost <= 0:
+	var cost := card.last_energy_cost
+	if cost <= 0:
 		return
-	_grant_energy_bonus(card.energy_cost, MOMENTUM_FLOW_LABEL)
+	_grant_energy_bonus(cost, MOMENTUM_FLOW_LABEL)
 
 
 func _is_riftwalker() -> bool:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqvmg8kciy6th"]
 
-[ext_resource type="Script" path="res://scenes/event/event_room.gd" id="1_kgld7"]
+[ext_resource type="Script" uid="uid://btl3x4ojg4jq7" path="res://scenes/event/event_room.gd" id="1_kgld7"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="2_jwbhv"]
 
 [node name="EventRoom" type="Control"]
@@ -14,15 +14,16 @@ theme = ExtResource("2_jwbhv")
 script = ExtResource("1_kgld7")
 
 [node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(900, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -380.0
+offset_left = -450.0
 offset_top = -260.0
-offset_right = 380.0
+offset_right = 450.0
 offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -57,8 +58,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "..."
 bbcode_enabled = true
+text = "..."
 fit_content = true
 scroll_active = false
 

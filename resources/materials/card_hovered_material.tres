@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bn6q875mb3n0h"]
+
+[ext_resource type="Shader" uid="uid://exbfi7erw76p" path="res://scripts/shaders/basic_outline.gdshader" id="1_qdbhb"]
+
+[resource]
+shader = ExtResource("1_qdbhb")
+shader_parameter/color = Color(0.701961, 0.647059, 0.333333, 1)
+shader_parameter/thickness = 10.000000475
+shader_parameter/rect_size = Vector2(0, 0)
+shader_parameter/tolerance = 0.0
+shader_parameter/diagonals = true
+shader_parameter/rounded = true

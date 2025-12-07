@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bslic4sprybrw" path="res://ui/card_menu_ui/card_menu_ui.gd" id="1_cmh45"]
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="2_aciqu"]
-[ext_resource type="PackedScene" uid="uid://bfupsllnox0ix" path="res://ui/card_ui/card_visuals.tscn" id="2_cmh45"]
+[ext_resource type="PackedScene" uid="uid://b3x0n5j034cie" path="res://ui/card_ui/card_visuals.tscn" id="2_cmh45"]
 
 [node name="CardMenuUI" type="CenterContainer"]
 custom_minimum_size = Vector2(180, 240)

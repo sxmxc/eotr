@@ -15,9 +15,9 @@
 
 [sub_resource type="Resource" id="Resource_eylj1"]
 script = ExtResource("2_2a2ye")
-base_text = ""
+base_text = "+%s block"
 icon = ExtResource("6_1ff4h")
-tooltip_text = "Plans to move"
+tooltip_text = "Plans to move (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_b2w6y"]
