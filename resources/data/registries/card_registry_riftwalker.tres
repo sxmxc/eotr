@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardRegistry" load_steps=31 format=3 uid="uid://o20mde5eqxtu"]
+[gd_resource type="Resource" script_class="CardRegistry" load_steps=31 format=3 uid="uid://b84eu1klb7uxe"]
 
 [ext_resource type="Script" uid="uid://bobotokh0ioa7" path="res://scripts/resources/registry/card_registry.gd" id="1_script"]
 [ext_resource type="Resource" uid="uid://dgcg3kih4nwdd" path="res://resources/data/cards/common/void_residue.tres" id="2_void_residue"]
@@ -34,15 +34,19 @@
 [resource]
 script = ExtResource("1_script")
 entries = Array[Dictionary]([{
+"allow_draft": false,
 "card": ExtResource("2_void_residue"),
 "class_id": "",
-"tags": ["common", "reward", "shop"],
+"rarity": 0,
+"tags": Array[String](["common", "reward", "shop"]),
 "unlocked": true,
 "weight": 1.0
 }, {
+"allow_draft": false,
 "card": ExtResource("3_void_slime"),
 "class_id": "",
-"tags": ["common", "reward", "shop"],
+"rarity": 0,
+"tags": Array[String](["common", "reward", "shop"]),
 "unlocked": true,
 "weight": 1.0
 }, {

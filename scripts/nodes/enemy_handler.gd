@@ -15,7 +15,7 @@ const MIN_GOLD_FOR_SPOTLIGHT := 3
 @export var tilemap: ProcGenTilemap
 
 var acting_enemies: Array[Enemy] = []
-var world_ui : GameWorldUI
+var world_ui: CanvasLayer
 var quick_turn_enemies: Dictionary = {}
 var enemy_turn_count := 0
 
@@ -25,13 +25,13 @@ func _ready() -> void:
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
 	#Events.card_played.connect(reset_enemy_actions)
 	Events.player_moved.connect(reset_enemy_actions)
-	world_ui = get_tree().get_first_node_in_group("ui_layer") as GameWorldUI
+	world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
 
 
 func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	if not enemy:
 		return
-	world_ui = get_tree().get_first_node_in_group("ui_layer") as GameWorldUI
+	world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
 	if world_ui and world_ui.enemy_stats_container:
 		var queue_button := _build_queue_button(enemy)
 		world_ui.enemy_stats_container.add_child(queue_button)
@@ -134,7 +134,7 @@ func start_turn() -> void:
 func _start_next_enemy_turn() -> void:
 	if acting_enemies.is_empty():
 		if not world_ui:
-			world_ui = get_tree().get_first_node_in_group("ui_layer") as GameWorldUI
+			world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
 		if world_ui and world_ui.enemy_stats_scroll:
 			world_ui.enemy_stats_scroll.scroll_vertical = 0
 			world_ui.enemy_stats_scroll.scroll_horizontal = 0

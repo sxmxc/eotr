@@ -39,6 +39,7 @@ PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_came
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
 LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 PostFx="*res://scenes/post_fx/post_fx.tscn"
+UIAnimation="*res://addons/godot_ui_animations/UIAnimationHandler.tscn"
 
 [debug]
 
@@ -63,7 +64,7 @@ movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 
