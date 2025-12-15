@@ -13,6 +13,8 @@ const CARD_REWARD_SCENE = preload("res://scenes/battle_rewards/card_rewards.tscn
 @export var run_stats: RunStats
 @export var player_stats: PlayerStats
 @export var relic_handler: RelicHandler
+@export var card_registry: CardRegistry
+@export var card_reward_tags: Array[String] = []
 
 @onready var rewards: VBoxContainer = %Rewards
 @onready var enemy_rewards: VBoxContainer = %EnemyRewards
@@ -34,6 +36,8 @@ func _ready() -> void:
 		node.queue_free()
 	rewards.child_order_changed.connect(_on_reward_order_changed)
 	enemy_rewards.child_order_changed.connect(_on_enemy_reward_order_changed)
+	_on_reward_order_changed()
+	_on_enemy_reward_order_changed()
 
 func add_gold_reward(amount: int) -> void:
 	var gold_reward := REWARD_BUTTON.instantiate() as RewardButton
@@ -43,6 +47,8 @@ func add_gold_reward(amount: int) -> void:
 	rewards.add_child.call_deferred(gold_reward)
 	
 func add_enemy_gold_reward(amount: int) -> void:
+	if amount <= 0:
+		return
 	var gold_reward := REWARD_BUTTON.instantiate() as RewardButton
 	gold_reward.reward_icon = GOLD_ICON
 	gold_reward.reward_text = GOLD_TEXT % amount
@@ -61,6 +67,8 @@ func add_resource_reward(amount: int) -> void:
 	rewards.add_child.call_deferred(resource_reward)
 
 func add_enemy_resource_reward(amount: int) -> void:
+	if amount <= 0:
+		return
 	var resource_reward := REWARD_BUTTON.instantiate() as RewardButton
 	resource_reward.reward_icon = RESOURCE_ICON
 	if amount > 1:
@@ -90,6 +98,13 @@ func add_relic_reward(relic: Relic) -> void:
 	rewards.add_child.call_deferred(relic_reward)
 
 func _on_reward_order_changed() -> void:
+	if (
+		!is_instance_valid(rewards)
+		or !is_instance_valid(enemy_rewards)
+		or !is_instance_valid(empty_label)
+		or !is_instance_valid(reward_label)
+	):
+		return
 	if rewards.get_child_count() <= 0:
 		reward_label.hide()
 		if enemy_rewards.get_child_count() <= 0:
@@ -100,7 +115,12 @@ func _on_reward_order_changed() -> void:
 		reward_label.show()
 		
 func _on_enemy_reward_order_changed() -> void:
-	if !is_instance_valid(empty_label):
+	if (
+		!is_instance_valid(enemy_rewards)
+		or !is_instance_valid(rewards)
+		or !is_instance_valid(empty_label)
+		or !is_instance_valid(enemy_reward_label)
+	):
 		return
 	if enemy_rewards.get_child_count() <= 0:
 		enemy_reward_label.hide()
@@ -157,13 +177,22 @@ func _on_relic_reward_taken(relic: Relic) -> void:
 func _show_card_rewards() -> void:
 	if not run_stats or not player_stats:
 		return
+	if card_registry and card_registry.entries.is_empty():
+		card_registry.clear_entries()
+		card_registry.build_from_card_pile(
+			player_stats.draftable_cards, card_reward_tags, player_stats.player_class_name
+		)
 
 	var card_rewards := CARD_REWARD_SCENE.instantiate() as CardRewards
 	ui_layer.add_child(card_rewards)
 	card_rewards.card_reward_selected.connect(_on_card_reward_taken)
 
 	var card_rewards_array: Array[Card] = []
-	var available_cards: Array[Card] = player_stats.draftable_cards.duplicate_cards()
+	var available_cards: Array[Card] = []
+	if card_registry:
+		available_cards = card_registry.get_all_cards(player_stats.player_class_name)
+	else:
+		available_cards = player_stats.draftable_cards.duplicate_cards()
 
 	for i in run_stats.card_rewards:
 		_setup_card_chances()
@@ -172,9 +201,16 @@ func _show_card_rewards() -> void:
 		for rarity: Enums.CardRarity in card_rarity_weights:
 			if card_rarity_weights[rarity] > roll:
 				_modify_weights(rarity)
-				var picked_card := _get_random_available_card(available_cards, rarity)
-				card_rewards_array.append(picked_card)
-				available_cards.erase(picked_card)
+				var picked_card := _pick_card_reward(
+					rarity,
+					available_cards,
+					card_rewards_array,
+					player_stats.player_class_name,
+					card_reward_tags
+				)
+				if picked_card:
+					card_rewards_array.append(picked_card)
+					available_cards.erase(picked_card)
 				break
 	card_rewards.rewards = card_rewards_array
 	card_rewards.show()
@@ -203,6 +239,23 @@ func _get_random_available_card(available_cards: Array[Card], rarity: Enums.Card
 		func(card: Card): return card.card_rarity == rarity
 	)
 	return RNG.array_pick_random(all_possible_cards)
+
+
+func _pick_card_reward(
+	rarity: Enums.CardRarity,
+	available_cards: Array[Card],
+	current_rewards: Array[Card],
+	player_class: String,
+	tags: Array[String] = []
+) -> Card:
+	if card_registry:
+		var picked_from_registry := card_registry.pick_random_card(
+			rarity, current_rewards, player_class, tags, true, RNG.instance
+		)
+		if picked_from_registry:
+			return picked_from_registry
+
+	return _get_random_available_card(available_cards, rarity)
 
 
 func _on_back_button_pressed() -> void:

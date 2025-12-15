@@ -9,7 +9,8 @@ func execute(targets: Array[Node]) -> void:
 		if not target or not target.run_stats:
 			continue
 		if target is Player:
-			Talo.stats.track("resources_gathered", amount)
+			if Talo.current_player:
+				Talo.stats.track("resources_gathered", amount)
 			target.run_stats.resources += amount
 			if visual_fx != null:
 				var visual_effect : VisualFX = visual_fx.instantiate()

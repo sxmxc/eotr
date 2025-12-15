@@ -11,7 +11,7 @@ extends Panel
 @onready var status_handler: StatusHandler = %StatusHandler
 @onready var intent_ui: IntentUI = %IntentUI
 @onready var bouncer: Bouncer = %Bouncer
-@onready var focus_attention_fx: GPUParticles2D = %FocusAttentionFX
+@onready var focus_indicator: TextureRect = %FocusIndicator
 
 
 func _ready():
@@ -20,8 +20,8 @@ func _ready():
 	for child in status_handler.get_children():
 		child.queue_free()
 	intent_ui.hide()
-	focus_attention_fx.emitting = false
-	focus_attention_fx.hide()
+	focus_indicator.hide()
+	hide()
 
 func setup_enemy_ui(enemy: Enemy) -> void:
 	if not self.is_node_ready():
@@ -44,8 +44,13 @@ func update_stats(stats: EnemyStats) -> void:
 	shield_container.visible = !stats.block <= 0
 	
 func _on_enemy_selected(enemy: Enemy) -> void:
-	enemy.stats_ui.grab_focus()
-	pass
+	if not enemy_stats:
+		return
+	if enemy == enemy_stats.owner:
+		show()
+		grab_focus()
+	else:
+		hide()
 
 
 func _on_enemy_updated(_enemy: Enemy) -> void:
@@ -54,12 +59,10 @@ func _on_enemy_updated(_enemy: Enemy) -> void:
 
 func _on_focus_entered() -> void:
 	bouncer.Start()
-	focus_attention_fx.emitting = true
-	focus_attention_fx.show()
+	focus_indicator.show()
 
 
 func _on_focus_exited() -> void:
 	bouncer.stop()
-	focus_attention_fx.emitting = false
-	focus_attention_fx.hide()
+	focus_indicator.hide()
 	

@@ -94,13 +94,15 @@ func get_description() -> String:
 
 
 func burn_card() -> void:
-	var world_ui :GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
-	
+	var world_ui := get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
+	var discard_pile_position := Vector2.ZERO
+	if world_ui:
+		var discard_button := world_ui.get_node_or_null("DiscardPileButton") as Node2D
+		if discard_button:
+			discard_pile_position = discard_button.global_position
+	if discard_pile_position == Vector2.ZERO:
+		discard_pile_position = global_position
 	var target_offset : Vector2 = Vector2(size.x /2, size.y / 2)
-	var discard_pile_position = Vector2(
-		world_ui.discard_pile_button.global_position.x + world_ui.discard_pile_button.size.x / 2, 
-		world_ui.discard_pile_button.global_position.y + world_ui.discard_pile_button.size.y / 2
-		)
 	var center_of_screen = get_viewport().get_visible_rect().size / 2
 	if visuals.has_method("set_boosted_effect"):
 		visuals.set_boosted_effect(false)

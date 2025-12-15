@@ -24,7 +24,7 @@ boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="975441f"
+config/build="daa125d"
 
 [autoload]
 
@@ -32,11 +32,13 @@ GameSettings="*res://scripts/autoloads/game_settings.gd"
 Events="*res://scripts/autoloads/events.gd"
 Utils="*res://scripts/autoloads/utils.gd"
 RNG="*res://scripts/autoloads/rng.gd"
+RegistryData="*res://scripts/autoloads/registry_data.gd"
 Talo="*res://addons/talo/talo_manager.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
 LimboConsole="*res://addons/limbo_console/limbo_console.gd"
+PostFx="*res://scenes/post_fx/post_fx.tscn"
 
 [debug]
 
@@ -51,6 +53,7 @@ window/size/window_width_override=960
 window/size/window_height_override=540
 window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
+window/per_pixel_transparency/allowed=true
 mouse_cursor/custom_image="uid://b21k6mqf4d"
 window/size/mode.editor=2
 
@@ -60,7 +63,7 @@ movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/2d_curved_arrow/plugin.cfg", "res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 

@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1a2c3vc8g0o1"]
+
+[ext_resource type="Script" path="res://scenes/sandbox/dev_sandbox_panel.gd" id="1_b0ovg"]
+
+[node name="DevSandboxPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 16.0
+theme = null
+script = ExtResource("1_b0ovg")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(520, 180)
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 520.0
+offset_bottom = 180.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+theme = null
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Dev Sandbox Controls"
+
+[node name="MapRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 26)
+
+[node name="RegenMapButton" type="Button" parent="Panel/VBoxContainer/MapRow"]
+layout_mode = 2
+text = "Regenerate Map"
+
+[node name="EnemyRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnemyPathEdit" type="LineEdit" parent="Panel/VBoxContainer/EnemyRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enemy scene path (e.g. res://scenes/enemy/bat/bat_enemy_ai.tscn)"
+
+[node name="SpawnEnemyButton" type="Button" parent="Panel/VBoxContainer/EnemyRow"]
+layout_mode = 2
+text = "Spawn Enemy"
+
+[node name="ClearEnemiesButton" type="Button" parent="Panel/VBoxContainer/EnemyRow"]
+layout_mode = 2
+text = "Clear Enemies"
+
+[node name="CardRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CardPathEdit" type="LineEdit" parent="Panel/VBoxContainer/CardRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Card resource path (e.g. res://resources/data/cards/riftwalker/arcane_bolt.tres)"
+
+[node name="AddHandButton" type="Button" parent="Panel/VBoxContainer/CardRow"]
+layout_mode = 2
+text = "Add to Hand"
+
+[node name="AddDrawButton" type="Button" parent="Panel/VBoxContainer/CardRow"]
+layout_mode = 2
+text = "Add to Draw"
+
+[node name="AddDiscardButton" type="Button" parent="Panel/VBoxContainer/CardRow"]
+layout_mode = 2
+text = "Add to Discard"
+
+[node name="DrawRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="DrawCardButton" type="Button" parent="Panel/VBoxContainer/DrawRow"]
+layout_mode = 2
+text = "Draw Top Card"

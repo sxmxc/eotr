@@ -29,15 +29,7 @@ func perform_action():
 
 		# Collect free tiles in current radius
 		for tile in surrounding_tiles:
-			if not bat.tilemap.is_tile_free(tile):
-				continue
-
-			var world_pos = bat.tilemap.base_layer.map_to_local(tile)
-			bat.navigation_agent_2d.target_position = world_pos
-			await  get_tree().process_frame
-
-			# Important: Check if tile is reachable using the navmesh!
-			if bat.navigation_agent_2d.is_target_reachable():
+			if bat.can_move_to_tile(tile) and bat.can_reach_tile(tile):
 				available_tiles.append(tile)
 
 		# If we found any available tiles at this radius, pick one and break
@@ -53,8 +45,9 @@ func perform_action():
 	# Move to the selected tile
 	var world_message = WorldMessageData.new("%s flys closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
-	bat.set_movement_target(found_tile)
-	bat.is_moving = true
-	await bat.navigation_agent_2d.navigation_finished
+	if not bat.set_movement_target(found_tile):
+		get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+		return
+	await bat.movement_finished
 	SoundManager.play_sound_random_pitch(sound)
 	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(bat))

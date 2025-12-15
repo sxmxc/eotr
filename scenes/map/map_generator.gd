@@ -14,6 +14,8 @@ const EVENT_NODE_WEIGHT := 3.5
 
 @export var left_gutter_offset: int = 50  # <-- You can tweak this value
 @export var battle_stats_pool: BattleStatsPool
+@export var encounter_registry: EncounterRegistry
+@export var encounter_tags: Array[String] = []
 
 var random_map_node_type_weights = {
 	Enums.MapNodeType.MONSTER: 0.0,
@@ -35,6 +37,8 @@ func generate_map() -> Array[Array]:
 			current_j = _setup_connection(i, current_j)
 
 	battle_stats_pool.setup()
+	if encounter_registry and encounter_registry.entries.is_empty():
+		encounter_registry.build_from_pool(battle_stats_pool)
 
 	_setup_boss_room()
 	_setup_random_node_weights()
@@ -132,7 +136,9 @@ func _setup_boss_room() -> void:
 			current_map_node.next_nodes.append(boss_room)
 
 	boss_room.type = Enums.MapNodeType.BOSS
-	boss_room.battle_stats = battle_stats_pool.get_random_battle_for_tier(2)
+	var boss_tags := encounter_tags.duplicate()
+	boss_tags.append("boss")
+	boss_room.battle_stats = _pick_battle_for_tier(2, true, true, boss_tags)
 
 
 func _setup_random_node_weights() -> void:
@@ -153,7 +159,7 @@ func _setup_map_node_types() -> void:
 	for map_node: MapNode in map_data[0]:
 		if map_node.next_nodes.size() > 0:
 			map_node.type = Enums.MapNodeType.MONSTER
-			map_node.battle_stats = battle_stats_pool.get_random_battle_for_tier(0)
+			map_node.battle_stats = _pick_battle_for_tier(0, true, false, encounter_tags)
 
 	# 9th floor is always a treasure
 	for map_node: MapNode in map_data[8]:
@@ -203,8 +209,8 @@ func _set_map_node_randomly(nodes_to_set: MapNode) -> void:
 	nodes_to_set.type = type_candidate
 	if type_candidate == Enums.MapNodeType.MONSTER:
 		var tier_for_monster_nodes := 0 if nodes_to_set.row <= 2 else 1
-		nodes_to_set.battle_stats = battle_stats_pool.get_random_battle_for_tier(
-			tier_for_monster_nodes
+		nodes_to_set.battle_stats = _pick_battle_for_tier(
+			tier_for_monster_nodes, true, false, encounter_tags
 		)
 		if nodes_to_set.battle_stats.is_elite:
 			nodes_to_set.type = Enums.MapNodeType.ELITE
@@ -243,3 +249,19 @@ func _get_random_map_node_type_by_weight() -> Enums.MapNodeType:
 			return type
 
 	return Enums.MapNodeType.MONSTER
+
+
+func _pick_battle_for_tier(
+	tier: int,
+	allow_elites: bool = true,
+	allow_bosses: bool = false,
+	required_tags: Array[String] = []
+) -> BattleStats:
+	if encounter_registry:
+		var from_registry := encounter_registry.get_random_battle(
+			tier, required_tags, allow_elites, allow_bosses, RNG.instance
+		)
+		if from_registry:
+			return from_registry
+
+	return battle_stats_pool.get_random_battle_for_tier(tier)

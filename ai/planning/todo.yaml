@@ -59,7 +59,7 @@ backlog:
   - id: BKL-005
     title: "Expand combat content breadth to sustain long-term runs"
     priority: P2
-    status: ready
+    status: in_review
     owner: Codex
     blockers: []
     context:
@@ -73,6 +73,7 @@ backlog:
       - "Integrate the documented boss ladder (Rift-Warden Bulwark -> Triune Convergence -> Core Nexus) into encounter scheduling and reward pacing."
       - "Build a reusable in-battle card selection/sacrifice popup component for events, rituals, and rewards."
       - "Expand the status-effect roster (buffs/debuffs/terrain effects) to support new cards and enemies."
+      - "Playtest and tune the new Corroded debuff package (Corroding Shot, Corrosion Wave) to ensure the block shred + true damage cadence feels fair."
 
   - id: BKL-006
     title: "Track polish and systems work from Obsidian TODO sync"
@@ -528,6 +529,20 @@ backlog:
       - "Design teleporting enemy types with unique abilities and behaviors."
       - "Implement teleportation mechanics that allow enemies to reposition on the battlefield."
       - "Create visual and sound effects for teleportation."
+  - id: BKL-040
+    title: "Streamline encounter/card data architecture for sandbox + reward systems"
+    priority: P1
+    status: in_review
+    owner: Codex
+    blockers: []
+    context:
+      - "BattleStatsPool tiers and CardPile draft lists are disconnected, so encounters/rewards/sandbox rely on separate resource scans."
+      - "Dev sandbox dropdowns scan folders and can expose invalid enemy scenes without tier/biome filters."
+      - "Random battle selection and prize card rolls lack shared metadata for weights, unlocks, or tagging to control content surfaces."
+      - "Encounter/Card registry scaffolding now exists with optional hooks in map generation and battle rewards."
+    next_steps:
+      - "Validate registry-backed selection in map gen, rewards, shops, and sandbox filters using the new assets and tags."
+      - "Expand registries to additional classes/biomes and add tooling to toggle unlock flags per run/save."
 
 in_progress: []
 in_review: []

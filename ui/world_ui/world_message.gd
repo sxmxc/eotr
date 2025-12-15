@@ -13,6 +13,8 @@ func _ready() -> void:
 	modulate = Color.TRANSPARENT
 	
 func show_message(data: WorldMessageData) -> void:
+	if !is_instance_valid(message_text_label):
+		return
 	_data = data
 	_visible = true
 	if tween:

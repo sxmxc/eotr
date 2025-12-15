@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d4jvkhe7x27s0"]
+[gd_scene load_steps=34 format=3 uid="uid://d4jvkhe7x27s0"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_waix3"]
 [ext_resource type="Script" uid="uid://cyu764cjss5qf" path="res://scenes/menus/class_selector.gd" id="2_b072o"]
@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://crmgloxridjnu" path="res://assets/icons/wizard-face (1).svg" id="9_gqhok"]
 
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
-colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)
+colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xqga4"]
 gradient = SubResource("Gradient_vn8vg")
@@ -71,6 +71,11 @@ modulate_color = Color(0.467188, 0.467188, 0.467188, 1)
 texture = ExtResource("9_gqhok")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_erq25"]
+
+[sub_resource type="Environment" id="Environment_xiys0"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="ClassSelector" type="Control"]
 layout_mode = 3
@@ -281,6 +286,9 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
 text = "Start"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xiys0")
 
 [connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/SynthforgeButton" to="." method="_on_synthforge_button_pressed"]

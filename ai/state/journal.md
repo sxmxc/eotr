@@ -4,6 +4,12 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-12-07 – Codex**
+- Summary: Added a Corroded end-of-turn debuff (true damage + block shred) and two Riftwalker cards—Corroding Shot (single-target) and Corrosion Wave (AoE, exhaust)—then seeded them into the draftable pool to broaden combat builds.
+- Files: `resources/data/statuses/corroded.gd`, `resources/data/statuses/corroded.tres`, `resources/data/cards/riftwalker/corroding_shot.gd`, `resources/data/cards/riftwalker/corroding_shot.tres`, `resources/data/cards/riftwalker/corrosion_wave.gd`, `resources/data/cards/riftwalker/corrosion_wave.tres`, `resources/data/card_piles/riftwalker_draftable_cards.tres`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot/headless client not available here).
+- Follow-ups: Playtest the corroded package to tune damage/block shred and energy costs; confirm card reward tables surface the new cards at intended rarities.
+
 **2025-11-30 – Codex**
 - Summary: Added battle intro/outro presentation (vignette + audio swell) and tightened discard/draw pacing. New BattlePresentation overlay hooks into GameWorld start/end, and hand cleanup/draw intervals now finish faster with shorter reshuffle trails.
 - Files: `ui/world_ui/battle_presentation.gd`, `scenes/game_world/game_world.gd`, `scenes/player/player_handler.gd`

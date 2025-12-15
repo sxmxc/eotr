@@ -1,0 +1,211 @@
+[gd_resource type="Resource" script_class="CardRegistry" load_steps=31 format=3 uid="uid://o20mde5eqxtu"]
+
+[ext_resource type="Script" uid="uid://bobotokh0ioa7" path="res://scripts/resources/registry/card_registry.gd" id="1_script"]
+[ext_resource type="Resource" uid="uid://dgcg3kih4nwdd" path="res://resources/data/cards/common/void_residue.tres" id="2_void_residue"]
+[ext_resource type="Resource" uid="uid://dlewpt4hfherl" path="res://resources/data/cards/common/void_slime.tres" id="3_void_slime"]
+[ext_resource type="Resource" uid="uid://ddkse6p44eytc" path="res://resources/data/cards/riftwalker/adrenaline_rush.tres" id="4_adrenaline_rush"]
+[ext_resource type="Resource" uid="uid://dsc2p3kof2lra" path="res://resources/data/cards/riftwalker/arcane_blast.tres" id="5_arcane_blast"]
+[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="6_arcane_bolt"]
+[ext_resource type="Resource" uid="uid://mwuybg2ka21n" path="res://resources/data/cards/riftwalker/arcane_explosion.tres" id="7_arcane_explosion"]
+[ext_resource type="Resource" uid="uid://cuyx2ruskixd0" path="res://resources/data/cards/riftwalker/arcane_flame.tres" id="8_arcane_flame"]
+[ext_resource type="Resource" uid="uid://c7qr2s3i0k6wk" path="res://resources/data/cards/riftwalker/chrono_jab.tres" id="9_chrono_jab"]
+[ext_resource type="Resource" uid="uid://ct7m3k507tp5j" path="res://resources/data/cards/riftwalker/corroding_shot.tres" id="10_corroding_shot"]
+[ext_resource type="Resource" uid="uid://cwaveng3xr2y" path="res://resources/data/cards/riftwalker/corrosion_wave.tres" id="11_corrosion_wave"]
+[ext_resource type="Resource" uid="uid://o1k4vbsoeksj" path="res://resources/data/cards/riftwalker/deminishing_returns.tres" id="12_deminishing_returns"]
+[ext_resource type="Resource" uid="uid://c51k046oh632c" path="res://resources/data/cards/riftwalker/echo.tres" id="13_echo"]
+[ext_resource type="Resource" uid="uid://c4db8mmxp74pk" path="res://resources/data/cards/riftwalker/echo_harvest.tres" id="14_echo_harvest"]
+[ext_resource type="Resource" uid="uid://1g187kuqiaba" path="res://resources/data/cards/riftwalker/eldritch_barrier.tres" id="15_eldritch_barrier"]
+[ext_resource type="Resource" uid="uid://dea7y4njajvql" path="res://resources/data/cards/riftwalker/focus.tres" id="16_focus"]
+[ext_resource type="Resource" uid="uid://djvq14reppgx2" path="res://resources/data/cards/riftwalker/fracture_pulse.tres" id="17_fracture_pulse"]
+[ext_resource type="Resource" uid="uid://kjg6ef2tnu3q" path="res://resources/data/cards/riftwalker/jab.tres" id="18_jab"]
+[ext_resource type="Resource" uid="uid://bxiabb7dpx46y" path="res://resources/data/cards/riftwalker/mana_leech.tres" id="19_mana_leech"]
+[ext_resource type="Resource" uid="uid://duhdw4lhgfp84" path="res://resources/data/cards/riftwalker/mana_surge.tres" id="20_mana_surge"]
+[ext_resource type="Resource" uid="uid://ddfy372khhev7" path="res://resources/data/cards/riftwalker/nano_shield.tres" id="21_nano_shield"]
+[ext_resource type="Resource" uid="uid://d4kltxwqyufoy" path="res://resources/data/cards/riftwalker/overload_shot.tres" id="22_overload_shot"]
+[ext_resource type="Resource" uid="uid://c0t6w3122bby2" path="res://resources/data/cards/riftwalker/phase_slash.tres" id="23_phase_slash"]
+[ext_resource type="Resource" uid="uid://cirhx6ykwqtby" path="res://resources/data/cards/riftwalker/phase_step.tres" id="24_phase_step"]
+[ext_resource type="Resource" uid="uid://c6hamm38p4tew" path="res://resources/data/cards/riftwalker/quantum_rift.tres" id="25_quantum_rift"]
+[ext_resource type="Resource" uid="uid://0korvu55clwk" path="res://resources/data/cards/riftwalker/rift_knowledge.tres" id="26_rift_knowledge"]
+[ext_resource type="Resource" uid="uid://cly012x6p6qhc" path="res://resources/data/cards/riftwalker/sever_anchor.tres" id="27_sever_anchor"]
+[ext_resource type="Resource" uid="uid://dsxowmpws0hp2" path="res://resources/data/cards/riftwalker/void_fracture.tres" id="28_void_fracture"]
+[ext_resource type="Resource" uid="uid://br5m0y8n8mifq" path="res://resources/data/cards/riftwalker/void_shard.tres" id="29_void_shard"]
+[ext_resource type="Resource" uid="uid://dsu4lma4q6fs8" path="res://resources/data/cards/riftwalker/void_surge.tres" id="30_void_surge"]
+
+[resource]
+script = ExtResource("1_script")
+entries = Array[Dictionary]([{
+"card": ExtResource("2_void_residue"),
+"class_id": "",
+"tags": ["common", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("3_void_slime"),
+"class_id": "",
+"tags": ["common", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("4_adrenaline_rush"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("5_arcane_blast"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("6_arcane_bolt"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("7_arcane_explosion"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("8_arcane_flame"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("9_chrono_jab"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("10_corroding_shot"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop", "corrosion"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("11_corrosion_wave"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop", "corrosion"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("15_eldritch_barrier"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("12_deminishing_returns"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("13_echo"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("14_echo_harvest"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("16_focus"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("22_overload_shot"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop", "corrosion"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("17_fracture_pulse"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("18_jab"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("19_mana_leech"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("20_mana_surge"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("21_nano_shield"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("23_phase_slash"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("24_phase_step"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("25_quantum_rift"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("26_rift_knowledge"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("27_sever_anchor"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("28_void_fracture"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("29_void_shard"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"card": ExtResource("30_void_surge"),
+"class_id": "Riftwalker",
+"tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}])

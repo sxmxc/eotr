@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CorrodedStatus" load_steps=3 format=3 uid="uid://coty7yryabpnv"]
+
+[ext_resource type="Texture2D" uid="uid://ci1pw3ahgqx7h" path="res://assets/icons/metal-bar-fg-only.svg" id="1_icon"]
+[ext_resource type="Script" uid="uid://c2w0zr2kzjdlh" path="res://resources/data/statuses/corroded.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+id = "corroded"
+type = 1
+stack_type = 1
+can_expire = true
+duration = 2
+stacks = 1
+icon = ExtResource("1_icon")
+tooltip = "At the [b]end[/b] of turn, take [b]%s[/b] true damage and lose [b]%s[/b] block per stack. Lasts [b]%s[/b] turn(s)."
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"

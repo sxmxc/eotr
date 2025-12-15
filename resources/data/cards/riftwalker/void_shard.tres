@@ -6,14 +6,11 @@
 
 [resource]
 script = ExtResource("2_yaxaw")
-card_type = 0
 target_type = 1
 id = "void_shard"
 name = "Void Shard"
-card_rarity = 0
 description = "Deal [b]%s[/b] damage to target [b]enemy[/b]
 [b]Exhaust[/b]"
-energy_cost = 0
 exhaust = true
 visual_fx = ExtResource("3_n7teo")
 projectile_fx = ExtResource("1_f12lp")

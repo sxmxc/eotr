@@ -64,6 +64,15 @@ func start_turn() -> void:
 		_grant_energy_bonus(1, MANA_WELL_LABEL)
 	if _is_riftwalker() and player_turn_count % 3 == 0:
 		_grant_energy_bonus(1, ADAPTIVE_SURGE_LABEL)
+
+	var event_props := {
+		"turn_number": player_turn_count,
+		"player_class": player_stats.player_class_name,
+		"energy": player_stats.energy,
+		"health": player_stats.health,
+	}
+	if Talo.current_player:
+		Talo.events.track("player_turn_started", event_props)
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
 
 
@@ -94,8 +103,15 @@ func discard_cards() -> void:
 		Events.player_hand_discarded.emit()
 		return
 	
-	var world_ui :GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
-	var discard_pile_position = world_ui.discard_pile_button.global_position
+	var world_ui : CanvasLayer = get_tree().get_first_node_in_group("ui_layer")
+	var discard_button: Node2D = null
+	if world_ui:
+		var candidate: Variant = world_ui.get("discard_pile_button")
+		if candidate is Node2D:
+			discard_button = candidate
+	var discard_pile_position: Vector2 = Vector2.ZERO
+	if discard_button:
+		discard_pile_position = discard_button.global_position
 	
 	for card_ui: CardUI in player_hand.get_cards():
 		var card_ui_offset = Vector2(card_ui.global_position.x, card_ui.global_position.y - 100)
@@ -104,7 +120,8 @@ func discard_cards() -> void:
 		var tween := create_tween()
 		card_ui.visuals.animation_player.play("swirl_out")
 		tween.tween_property(card_ui,"global_position", card_ui_offset,.08)
-		tween.tween_property(card_ui,"global_position", discard_pile_position,.1)
+		var target_position: Vector2 = discard_pile_position if discard_pile_position != Vector2.ZERO else card_ui_offset
+		tween.tween_property(card_ui,"global_position", target_position,.1)
 		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, .12)
 		tween.tween_callback(player_stats.discard.add_card.bind(card_ui.card))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
@@ -116,15 +133,18 @@ func reshuffle_deck_from_discard() -> void:
 	if not player_stats.draw_pile.is_empty():
 		return
 	
-	var world_ui :GameWorldUI = get_tree().get_first_node_in_group("ui_layer")
+	var world_ui := get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
 
 	while not player_stats.discard.is_empty():
 		player_stats.draw_pile.add_card(player_stats.discard.draw_card())
 		var hex_trail = HEX_TRAIL.instantiate()
 		var tween = create_tween()
-		world_ui.discard_pile_button.add_child(hex_trail)
-		hex_trail.global_position = world_ui.discard_pile_button.counter.global_position
-		tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(world_ui.draw_pile_button.counter),0.45)
+		if world_ui and world_ui.has_node("DiscardPileButton") and world_ui.has_node("DrawPileButton"):
+			var discard_pile_button := world_ui.get_node("DiscardPileButton") as Node2D
+			var draw_pile_button := world_ui.get_node("DrawPileButton") as Node2D
+			discard_pile_button.add_child(hex_trail)
+			hex_trail.global_position = discard_pile_button.global_position
+			tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(draw_pile_button),0.45)
 		tween.tween_callback(hex_trail.queue_free)		
 
 	player_stats.draw_pile.shuffle()
@@ -134,7 +154,6 @@ func _connect_obelisk_bonus() -> void:
 		return
 	var current_obelisk := get_tree().get_first_node_in_group("obelisk") as Obelisk
 	if not current_obelisk:
-		call_deferred("_connect_obelisk_bonus")
 		return
 	obelisk = current_obelisk
 	if not obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
@@ -146,12 +165,12 @@ func _disconnect_obelisk_signal() -> void:
 	if obelisk and is_instance_valid(obelisk) and obelisk.damage_taken.is_connected(_on_obelisk_damage_taken):
 		obelisk.damage_taken.disconnect(_on_obelisk_damage_taken)
 	obelisk = null
-	_configure_player_camera_targets()
+	
 
 
 func _on_obelisk_destroyed() -> void:
 	_disconnect_obelisk_signal()
-	_configure_player_camera_targets()
+	
 
 
 func _on_obelisk_damage_taken(amount: int) -> void:

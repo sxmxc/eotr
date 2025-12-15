@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://byyc2fbl2lt2d" path="res://scenes/map/map.gd" id="1_sxf4j"]
 [ext_resource type="Script" uid="uid://xnnvu4xhg15l" path="res://scenes/map/map_generator.gd" id="2_tqkkf"]
 [ext_resource type="Resource" uid="uid://dn7lhxxxvlq28" path="res://resources/data/battles/battle_stats_pool.tres" id="3_a2pkv"]
+[ext_resource type="Resource" path="res://resources/data/registries/encounter_registry_act1.tres" id="5_encounter_registry"]
 [ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="4_ph54e"]
 
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
@@ -273,6 +274,8 @@ script = ExtResource("1_sxf4j")
 [node name="MapGenerator" type="Node" parent="."]
 script = ExtResource("2_tqkkf")
 battle_stats_pool = ExtResource("3_a2pkv")
+encounter_registry = ExtResource("5_encounter_registry")
+encounter_tags = PackedStringArray("act1")
 
 [node name="MapBackground" type="CanvasLayer" parent="."]
 layer = -40

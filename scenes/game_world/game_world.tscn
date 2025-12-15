@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=72 format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -37,7 +37,6 @@
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
 [ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
-[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="25_oia7h"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
 [ext_resource type="Script" uid="uid://dmno7vawfhle0" path="res://ui/player_ui/bounty_ui.gd" id="29_qnbvx"]
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
@@ -293,12 +292,26 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -553.0
+offset_left = -245.0
 offset_top = 95.0
 offset_right = -49.0
 offset_bottom = 258.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameWorldUI/EnemyUI/EnemyStats"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = -42.0
+offset_right = 89.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Turn Queue"
 
 [node name="EnemyStatsScroll" type="ScrollContainer" parent="GameWorldUI/EnemyUI/EnemyStats"]
 unique_name_in_owner = true
@@ -310,34 +323,15 @@ offset_top = -133.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 10
-
-[node name="EnemyStatsContainer" type="GridContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer"]
+[node name="EnemyStatsContainer" type="GridContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
-columns = 3
-
-[node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="EnemyIntentPanel2" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="EnemyIntentPanel3" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="EnemyIntentPanel4" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
 
 [node name="PlayerUI" type="Control" parent="GameWorldUI"]
 layout_mode = 3

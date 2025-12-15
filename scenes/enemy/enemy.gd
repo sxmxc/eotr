@@ -31,6 +31,8 @@ var current_action: EnemyAction : set = set_current_action
 var current_tile_position : Vector2i
 var turn_ticker : int = 0
 var hovered: bool = false
+var queue_button: Button = null
+var queue_hovered: bool = false
 var is_dying := false
 
 func set_current_action(value: EnemyAction) -> void:
@@ -87,16 +89,21 @@ func update_enemy() -> void:
 	
 	sprite_2d.texture = stats.board_icon
 	setup_ai()
-	update_stats()
+	if stats_ui:
+		update_stats()
+		stats_ui.hide()
 		
 func update_stats():
+	if not stats_ui or not stats:
+		return
 	stats_ui.update_stats(stats)
 	Events.enemy_updated.emit(self)
 
 func update_intent() -> void:
 	if current_action:
 		current_action.update_intent_text()
-		stats_ui.intent_ui.update_intent(current_action.intent)
+		if stats_ui and stats_ui.intent_ui:
+			stats_ui.intent_ui.update_intent(current_action.intent)
 
 func do_turn() -> void:
 	#stats.block = 0
@@ -218,6 +225,9 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		if tilemap.is_tile_behind_fog(current_tile_position):
 			return
 		Events.enemy_selected.emit(self)
+		if queue_button:
+			queue_button.grab_focus()
+			queue_button.modulate = Color.WHITE
 
 
 func _on_area_2d_mouse_entered() -> void:
@@ -225,7 +235,9 @@ func _on_area_2d_mouse_entered() -> void:
 		return
 	hovered = true
 	circle_indicator.show()
-	stats_ui.grab_focus()
+	if stats_ui:
+		stats_ui.show()
+		stats_ui.grab_focus()
 	pass # Replace with function body.
 
 
@@ -234,8 +246,33 @@ func _on_area_2d_mouse_exited() -> void:
 		return
 	hovered = false
 	circle_indicator.hide()
-	stats_ui.release_focus()
+	if stats_ui:
+		stats_ui.hide()
+		stats_ui.release_focus()
 	pass # Replace with function body.
+
+
+func set_queue_button(button: Button) -> void:
+	queue_button = button
+	if not queue_button:
+		return
+	queue_button.mouse_entered.connect(_on_queue_button_entered)
+	queue_button.mouse_exited.connect(_on_queue_button_exited)
+
+
+func _on_queue_button_entered() -> void:
+	queue_hovered = true
+	circle_indicator.show()
+	if stats_ui:
+		stats_ui.show()
+
+
+func _on_queue_button_exited() -> void:
+	queue_hovered = false
+	if not hovered:
+		circle_indicator.hide()
+		if stats_ui:
+			stats_ui.hide()
 
 func get_gold_value()-> int:
 	return stats.gold_value

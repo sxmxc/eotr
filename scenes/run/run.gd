@@ -305,6 +305,7 @@ func _on_map_exited(map_node: MapNode) -> void:
 	_save_run(false)
 	match map_node.type:
 		Enums.MapNodeType.MONSTER, Enums.MapNodeType.ELITE:
+			_track_floor_started(map_node)
 			_on_game_world_entered(map_node)
 		Enums.MapNodeType.TREASURE:
 			_on_treasure_room_entered()
@@ -315,4 +316,19 @@ func _on_map_exited(map_node: MapNode) -> void:
 		Enums.MapNodeType.EVENT:
 			_on_event_entered()
 		Enums.MapNodeType.BOSS:
+			_track_floor_started(map_node)
 			_on_game_world_entered(map_node)
+
+
+func _track_floor_started(map_node: MapNode) -> void:
+	if not map_node or not map_node.battle_stats:
+		return
+
+	var battle_stats := map_node.battle_stats
+	var event_props := {
+		"floor": "%s" % str(map.floors_climbed),
+		"map_node_type": Enums.MapNodeType.keys()[map_node.type],
+		"battle_tier": battle_stats.battle_tier,
+		"is_elite": battle_stats.is_elite,
+	}
+	Talo.events.track("floor_started", event_props)

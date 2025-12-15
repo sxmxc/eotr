@@ -16,6 +16,7 @@ static var RARITY_COLORS := {
 @export_multiline var description: String
 @export var energy_cost: int
 @export var exhaust: bool = false
+@export var tags: Array[String] = []
 var last_energy_cost: int = 0
 
 @export_group("Card Sound and Visuals")
@@ -93,14 +94,21 @@ func get_energy_cost(_player_stats: PlayerStats) -> int:
 
 func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
 	var tree := card_ui.get_tree() as SceneTree
-	var tilemap : ProcGenTilemap = tree.get_first_node_in_group("enemy").tilemap
+	var tilemap := tree.get_first_node_in_group("map_layer") as ProcGenTilemap
+	if not tilemap:
+		return []
+	var enemies: Array[Enemy] = []
+	for node in tree.get_nodes_in_group("enemy"):
+		var enemy := node as Enemy
+		if enemy:
+			enemies.append(enemy)
 	
 	match target_type:
 		Enums.TargetType.SINGLE_TILE:
-			return tilemap.base_layer.get_used_cells_by_id(0, Vector2i.ZERO)
+			return tilemap.base_layer.get_used_cells()
 		Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ALL_ENEMIES:
 			var tiles : Array[Vector2i] = []
-			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
+			for enemy : Enemy in enemies:
 				tiles.append(enemy.current_tile_position)
 			return tiles
 		Enums.TargetType.SELF:
@@ -108,7 +116,7 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			return [tile_pos]
 		Enums.TargetType.EVERYONE:
 			var tiles : Array[Vector2i] = []
-			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
+			for enemy : Enemy in enemies:
 				tiles.append(enemy.current_tile_position)
 			tiles.append(tilemap.player_position)
 			return tiles
@@ -116,7 +124,7 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			var player_tile = tilemap.player_position
 			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
 			var aoe_targets: Array[Vector2i] = []
-			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
+			for enemy: Enemy in enemies:
 				var enemy_tile_position = enemy.current_tile_position
 				if surrounding_tiles.has(enemy_tile_position):
 					aoe_targets.append(enemy_tile_position)

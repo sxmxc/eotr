@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b0adyk2uptrd6"]
+[gd_scene load_steps=54 format=3 uid="uid://b0adyk2uptrd6"]
 
 [ext_resource type="Script" uid="uid://layfbne1xgmr" path="res://scenes/battle_rewards/battle_rewards.gd" id="1_h8f4m"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_qeoyd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dhj5kkndltdbv" path="res://assets/icons/two-coins.svg" id="4_7jb2c"]
 [ext_resource type="Texture2D" uid="uid://u6apckerq1e6" path="res://assets/icons/card-random.svg" id="4_gf7kw"]
 [ext_resource type="Texture2D" uid="uid://ci1pw3ahgqx7h" path="res://assets/icons/metal-bar-fg-only.svg" id="5_gf7kw"]
+[ext_resource type="Resource" path="res://resources/data/registries/card_registry_riftwalker.tres" id="6_card_registry"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ynr1d"]
 blend_mode = 1
@@ -277,6 +278,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_qeoyd")
 script = ExtResource("1_h8f4m")
+card_registry = ExtResource("6_card_registry")
+card_reward_tags = PackedStringArray("reward")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 

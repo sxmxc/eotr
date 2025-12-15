@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://bc2hjnwtwhelj"]
+[gd_scene load_steps=83 format=3 uid="uid://bc2hjnwtwhelj"]
 
 [ext_resource type="Script" uid="uid://l13r63ukihp2" path="res://scenes/run/run.gd" id="1_l7o68"]
 [ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="2_o4jfg"]
@@ -304,6 +304,11 @@ turbulence_enabled = true
 turbulence_noise_strength = 11.9
 turbulence_noise_speed_random = 3.34
 turbulence_influence_over_life = SubResource("CurveTexture_r2fsw")
+
+[sub_resource type="Environment" id="Environment_6w2u5"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="Run" type="Node"]
 script = ExtResource("1_l7o68")
@@ -1025,6 +1030,9 @@ text = "Welcome to the Run Map, your route through the Rift. Quick primer:
 
 [b]Map Legend[/b] - Hover the legend to read icons. Choose paths carefully; once you commit, upstream nodes lock."
 fit_content = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6w2u5")
 
 [connection signal="toggled" from="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer/CollapseToggle" to="MapLegendUI/MapLegend" method="_on_collapse_toggle_toggled"]
 [connection signal="mouse_entered" from="MapLegendUI/BountyBoardButton" to="MapLegendUI/BountyBoardButton" method="_on_mouse_entered"]

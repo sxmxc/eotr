@@ -80,6 +80,8 @@ func set_target(value: Node2D) -> void:
 
 
 func _build_decision_context() -> Dictionary:
+	if !is_instance_valid(enemy) or not is_instance_valid(target):
+		return {}
 	var context := {}
 	var player := target as Player
 	var player_stats := player.stats if player else null

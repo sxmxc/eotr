@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="EncounterRegistry" load_steps=9 format=3 uid="uid://c4encounterreg"]
+
+[ext_resource type="Script" path="res://scripts/resources/registry/encounter_registry.gd" id="1_script"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_0_blobs.tres" id="2_t0_blobs"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_0_horrors.tres" id="3_t0_horrors"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_1_blobs_horrors.tres" id="4_t1_blobs_horrors"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_1_channelers_bulwark.tres" id="5_t1_channelers"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_1_elite_horrors.tres" id="6_t1_elite_horrors"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_2_bulwark_channelers.tres" id="7_t2_bulwark"]
+[ext_resource type="Resource" path="res://resources/data/battles/tier_2_void_spectre.tres" id="8_t2_void_spectre"]
+
+[resource]
+script = ExtResource("1_script")
+entries = [{
+"stats": ExtResource("2_t0_blobs"),
+"tier": 0,
+"weight": 2.5,
+"tags": ["act1", "early"],
+"is_elite": false,
+"is_boss": false,
+"unlocked": true
+}, {
+"stats": ExtResource("3_t0_horrors"),
+"tier": 0,
+"weight": 3.0,
+"tags": ["act1", "early"],
+"is_elite": false,
+"is_boss": false,
+"unlocked": true
+}, {
+"stats": ExtResource("4_t1_blobs_horrors"),
+"tier": 1,
+"weight": 2.0,
+"tags": ["act1", "mid"],
+"is_elite": false,
+"is_boss": false,
+"unlocked": true
+}, {
+"stats": ExtResource("5_t1_channelers"),
+"tier": 1,
+"weight": 1.5,
+"tags": ["act1", "mid"],
+"is_elite": false,
+"is_boss": false,
+"unlocked": true
+}, {
+"stats": ExtResource("6_t1_elite_horrors"),
+"tier": 1,
+"weight": 1.0,
+"tags": ["act1", "mid", "elite"],
+"is_elite": true,
+"is_boss": false,
+"unlocked": true
+}, {
+"stats": ExtResource("7_t2_bulwark"),
+"tier": 2,
+"weight": 6.0,
+"tags": ["act1", "late", "boss"],
+"is_elite": false,
+"is_boss": true,
+"unlocked": true
+}, {
+"stats": ExtResource("8_t2_void_spectre"),
+"tier": 2,
+"weight": 10.0,
+"tags": ["act1", "late", "boss"],
+"is_elite": false,
+"is_boss": true,
+"unlocked": true
+}]

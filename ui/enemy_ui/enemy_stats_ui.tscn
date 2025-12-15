@@ -1,14 +1,26 @@
-[gd_scene load_steps=19 format=3 uid="uid://wxhnk5epbwkh"]
+[gd_scene load_steps=15 format=3 uid="uid://wxhnk5epbwkh"]
 
 [ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_hmu40"]
 [ext_resource type="Script" uid="uid://ua48e5l40efp" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="2_2uy4p"]
 [ext_resource type="Texture2D" uid="uid://d23p0xfafjqer" path="res://assets/icons/muscle-up.svg" id="3_63fb4"]
 [ext_resource type="Script" uid="uid://c318fr0ibc5pj" path="res://ui/enemy_ui/intent_ui.gd" id="3_axkyb"]
+[ext_resource type="Shader" uid="uid://ythkw58wiofd" path="res://scripts/shaders/blotchy_aura.gdshader" id="3_b3y37"]
+[ext_resource type="Texture2D" uid="uid://54t1hmmkxg64" path="res://assets/card/art/arcane_bolt.png" id="4_2bony"]
 [ext_resource type="FontFile" uid="uid://drcf0itkwcbj7" path="res://assets/fonts/m3x6.ttf" id="4_axkyb"]
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="5_b3y37"]
 [ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="6_2bony"]
 [ext_resource type="LabelSettings" uid="uid://bk4twpkhy67d4" path="res://resources/small_label.tres" id="7_f1xjr"]
 [ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="8_2uy4p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1xjr"]
+shader = ExtResource("3_b3y37")
+shader_parameter/maxLineWidth = 3.8930001849174998
+shader_parameter/minLineWidth = 0.0
+shader_parameter/speed = 9.4730004499675
+shader_parameter/blockSize = 17.710000841225
+shader_parameter/color = Color(0.294118, 0.447059, 0.431373, 1)
+shader_parameter/tolerance = 0.0
+shader_parameter/rect_size = Vector2(121, 70)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlwpd"]
 bg_color = Color(0.294118, 0.239216, 0.266667, 1)
@@ -24,46 +36,29 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="Gradient" id="Gradient_6vsj7"]
-interpolation_mode = 2
-colors = PackedColorArray(0.184314, 0.870588, 0.8, 0.470588, 0.1827, 0.87, 0.80127, 0.470588)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2uy4p"]
-gradient = SubResource("Gradient_6vsj7")
-width = 150
-height = 135
-
-[sub_resource type="Curve" id="Curve_63fb4"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_2mpqm"]
-curve = SubResource("Curve_63fb4")
-
-[sub_resource type="Curve" id="Curve_axkyb"]
-_limits = [0.99, 1.1, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1.1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_si0b1"]
-curve = SubResource("Curve_axkyb")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b3y37"]
-direction = Vector3(0, 0, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_si0b1")
-alpha_curve = SubResource("CurveTexture_2mpqm")
-
 [node name="EnemyStatsUI" type="Panel"]
-custom_minimum_size = Vector2(150, 135)
-offset_right = 150.0
-offset_bottom = 133.0
+custom_minimum_size = Vector2(90, 70)
+offset_right = 121.0
+offset_bottom = 70.0
 size_flags_horizontal = 3
 focus_mode = 2
 theme = ExtResource("1_hmu40")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_2uy4p")
+
+[node name="FocusIndicator" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+show_behind_parent = true
+material = SubResource("ShaderMaterial_f1xjr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_2bony")
+expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -83,10 +78,10 @@ theme_type_variation = &"HudPanelMain"
 
 [node name="EnemyNameLabel" type="Label" parent="MarginContainer/Panel"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_right = 140.0
-offset_bottom = 22.0
-theme_override_font_sizes/font_size = 16
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 14.0
+theme_override_font_sizes/font_size = 11
 text = "Enemy"
 horizontal_alignment = 1
 
@@ -101,24 +96,24 @@ script = ExtResource("3_axkyb")
 metadata/_edit_use_anchors_ = true
 
 [node name="IntentIcon" type="TextureRect" parent="MarginContainer/Panel/IntentUI"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-offset_left = -6.0
-offset_top = -8.0
-offset_right = 44.0
-offset_bottom = 42.0
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 21.0
+offset_bottom = 21.0
 texture = ExtResource("3_63fb4")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="IntentLabel" type="Label" parent="MarginContainer/Panel/IntentUI"]
-layout_mode = 2
-offset_left = 26.0
-offset_top = 13.0
-offset_right = 34.0
-offset_bottom = 39.0
+layout_mode = 0
+offset_left = 14.0
+offset_top = 4.0
+offset_right = 30.0
+offset_bottom = 22.0
 theme_override_fonts/font = ExtResource("4_axkyb")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 14
 text = "7"
 
 [node name="Health" type="Control" parent="MarginContainer/Panel"]
@@ -131,10 +126,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HealthBar" type="ProgressBar" parent="MarginContainer/Panel/Health"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_top = 10.0
-offset_right = 92.0
-offset_bottom = 20.0
+layout_mode = 0
+offset_top = 4.0
+offset_right = 80.0
+offset_bottom = 10.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_nlwpd")
@@ -146,13 +141,13 @@ show_percentage = false
 
 [node name="HealthLabel" type="Label" parent="MarginContainer/Panel/Health"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_left = 8.0
-offset_top = -7.0
-offset_right = 80.0
-offset_bottom = 19.0
+layout_mode = 0
+offset_left = 4.0
+offset_top = -3.0
+offset_right = 60.0
+offset_bottom = 12.0
 theme_override_fonts/font = ExtResource("4_axkyb")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 12
 text = "9999/9999"
 
 [node name="Shield" type="Control" parent="MarginContainer/Panel"]
@@ -164,25 +159,23 @@ anchor_bottom = 0.72
 metadata/_edit_use_anchors_ = true
 
 [node name="ShieldIcon" type="TextureRect" parent="MarginContainer/Panel/Shield"]
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-offset_left = 1.0
-offset_top = 2.0
-offset_right = 26.0
-offset_bottom = 27.0
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 14.0
 texture = ExtResource("5_b3y37")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="ShieldLabel" type="Label" parent="MarginContainer/Panel/Shield"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_left = 15.0
-offset_top = 8.0
-offset_right = 31.0
-offset_bottom = 34.0
+layout_mode = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 24.0
+offset_bottom = 18.0
 theme_override_fonts/font = ExtResource("4_axkyb")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 12
 text = "10"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel"]
@@ -196,7 +189,7 @@ metadata/_edit_use_anchors_ = true
 [node name="StatusHandler" parent="MarginContainer/Panel/ScrollContainer" instance=ExtResource("6_2bony")]
 unique_name_in_owner = true
 layout_mode = 2
-status_icon_size = 32
+status_icon_size = 14
 quantity_label_settings = ExtResource("7_f1xjr")
 
 [node name="Bouncer" type="Node" parent="."]
@@ -204,19 +197,6 @@ unique_name_in_owner = true
 script = ExtResource("8_2uy4p")
 AutoStart = false
 metadata/_custom_type_script = "uid://c7wfd2um7frkt"
-
-[node name="FocusAttentionFX" type="GPUParticles2D" parent="."]
-unique_name_in_owner = true
-show_behind_parent = true
-position = Vector2(75, 67)
-emitting = false
-amount = 5
-texture = SubResource("GradientTexture2D_2uy4p")
-lifetime = 2.5
-preprocess = 5.0
-visibility_rect = Rect2(-240, -240, 480, 480)
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_b3y37")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

@@ -8,6 +8,8 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @export var player_stats: PlayerStats
 @export var run_stats: RunStats
 @export var relic_handler: RelicHandler
+@export var card_registry: CardRegistry
+@export var shop_card_tags: Array[String] = ["shop"]
 
 @onready var cards: HBoxContainer = %Cards
 @onready var relics: HBoxContainer = %Relics
@@ -43,9 +45,33 @@ func populate_shop() -> void:
 
 func _generate_shop_cards() -> void:
 	var shop_card_array: Array[Card] = []
-	var available_cards := player_stats.draftable_cards.duplicate_cards()
-	RNG.array_shuffle(available_cards)
-	shop_card_array = available_cards.slice(0, 3)
+
+	if card_registry:
+		if card_registry.entries.is_empty():
+			card_registry.clear_entries()
+			card_registry.build_from_card_pile(
+				player_stats.draftable_cards, shop_card_tags, player_stats.player_class_name
+			)
+		var chosen: Array[Card] = []
+		for i in range(3):
+			var card := card_registry.pick_random_card(
+				Enums.CardRarity.COMMON, chosen, player_stats.player_class_name, shop_card_tags, true, RNG.instance
+			)
+			if not card:
+				card = card_registry.pick_random_card(
+					Enums.CardRarity.UNCOMMON, chosen, player_stats.player_class_name, shop_card_tags, true, RNG.instance
+				)
+			if not card:
+				card = card_registry.pick_random_card(
+					Enums.CardRarity.RARE, chosen, player_stats.player_class_name, shop_card_tags, true, RNG.instance
+				)
+			if card:
+				chosen.append(card)
+		shop_card_array = chosen
+	else:
+		var available_cards := player_stats.draftable_cards.duplicate_cards()
+		RNG.array_shuffle(available_cards)
+		shop_card_array = available_cards.slice(0, 3)
 
 	for card: Card in shop_card_array:
 		var new_shop_card := SHOP_CARD.instantiate() as ShopCard

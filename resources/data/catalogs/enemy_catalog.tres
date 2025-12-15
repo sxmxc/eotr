@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="EnemyCatalog" load_steps=12 format=3 uid="uid://enemycatalog"]
+
+[ext_resource type="Script" path="res://scripts/resources/catalog/enemy_catalog.gd" id="1_catalog"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="2_moving_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="3_obelisk_enemy"]
+[ext_resource type="Resource" path="res://scenes/enemy/bat/bat_enemy.tres" id="4_bat_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/blob/blob_enemy.tres" id="5_blob_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/bulwark/bulwark_enemy.tres" id="6_bulwark_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/channeler/channeler_enemy.tres" id="7_channeler_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/horror/horror_enemy.tres" id="8_horror_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="9_obelisk_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="10_void_spectre_stats"]
+[ext_resource type="Resource" path="res://scenes/enemy/wasp/wasp_enemy.tres" id="11_wasp_stats"]
+
+[resource]
+script = ExtResource("1_catalog")
+entries = [{
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("4_bat_stats"),
+"label": "Bat",
+"tags": ["flying", "tier0"]
+}, {
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("5_blob_stats"),
+"label": "Blob",
+"tags": ["tier0"]
+}, {
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("8_horror_stats"),
+"label": "Horror",
+"tags": ["tier0"]
+}, {
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("6_bulwark_stats"),
+"label": "Bulwark",
+"tags": ["tier1"]
+}, {
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("7_channeler_stats"),
+"label": "Channeler",
+"tags": ["tier1"]
+}, {
+"scene": ExtResource("3_obelisk_enemy"),
+"stats": ExtResource("9_obelisk_stats"),
+"label": "Obelisk",
+"tags": ["boss"]
+}, {
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("10_void_spectre_stats"),
+"label": "Void Spectre",
+"tags": ["tier2", "flying"]
+}, {
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("11_wasp_stats"),
+"label": "Wasp",
+"tags": ["tier0", "flying"]
+}]
