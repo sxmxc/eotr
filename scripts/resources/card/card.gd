@@ -19,6 +19,9 @@ static var RARITY_COLORS := {
 @export var tags: Array[String] = []
 var last_energy_cost: int = 0
 
+@export_group("Card Effects")
+@export var effect_configs: Array[CardEffectConfig] = []
+
 @export_group("Card Sound and Visuals")
 @export var card_art: Texture2D
 @export var sound_fx: AudioStream
@@ -68,10 +71,15 @@ func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHa
 	last_energy_cost = cost
 	player_stats.energy -= cost
 
-	if is_single_targeted():
-		apply_effects(targets, modifiers)
+	var resolved_targets := targets
+	if not is_single_targeted():
+		resolved_targets = _get_targets(targets)
+
+	if not effect_configs.is_empty():
+		var resolver := CardResolver.new()
+		await resolver.resolve(self, resolved_targets, player_stats, modifiers, effect_configs)
 	else:
-		apply_effects(_get_targets(targets), modifiers)
+		apply_effects(resolved_targets, modifiers)
 
 
 func get_default_description() -> String:

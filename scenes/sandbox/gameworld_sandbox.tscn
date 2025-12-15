@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d1txe8gty0p6t"]
+[gd_scene load_steps=34 format=3 uid="uid://d1txe8gty0p6t"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_tilemap"]
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="2_base_tileset"]
@@ -24,8 +24,9 @@
 [ext_resource type="Resource" uid="uid://j7vb2jjk48vl" path="res://resources/data/tile_effects/energy_tile_effect.tres" id="21_energy_effect"]
 [ext_resource type="Resource" uid="uid://cw30y55ftjw7y" path="res://resources/data/tile_effects/resource_tile_effect.tres" id="22_resource_effect"]
 [ext_resource type="Resource" uid="uid://dygkjk4gjxd2o" path="res://resources/data/tile_effects/status_tile_effect.tres" id="23_status_effect"]
-[ext_resource type="Resource" uid="uid://o20mde5eqxtu" path="res://resources/data/registries/card_registry_riftwalker.tres" id="24_card_registry"]
+[ext_resource type="Resource" uid="uid://b84eu1klb7uxe" path="res://resources/data/registries/card_registry_riftwalker.tres" id="24_card_registry"]
 [ext_resource type="Resource" uid="uid://rgkxgojapvgc" path="res://resources/data/registries/encounter_registry_act1.tres" id="25_encounter_registry"]
+[ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="27_npu87"]
 
 [sub_resource type="Resource" id="BattleStatsResource"]
 script = ExtResource("13_battle_stats")
@@ -47,6 +48,20 @@ tile_shape = 3
 tile_layout = 5
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_highlight")
+
+[sub_resource type="Gradient" id="Gradient_xw31r"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.605536, 1)
+colors = PackedColorArray(0, 0, 0, 0, 2, 0, 0.026, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xayf6"]
+gradient = SubResource("Gradient_xw31r")
+width = 1920
+height = 1080
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
 
 [node name="GameWorldSandbox" type="Node2D"]
 script = ExtResource("12_sandbox_script")
@@ -111,6 +126,9 @@ unique_name_in_owner = true
 offset_right = 669.0
 offset_bottom = 310.0
 
+[node name="FreeCameraToggle" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" index="3"]
+button_pressed = false
+
 [node name="EnemyTierFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" index="0"]
 custom_minimum_size = Vector2(115, 0)
 size_flags_horizontal = 0
@@ -130,6 +148,34 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -323.0
 offset_right = 323.0
+grow_horizontal = 2
+
+[node name="Effects" type="CanvasLayer" parent="." groups=["fx_layer"]]
+layer = 4
+
+[node name="RedFlash" type="TextureRect" parent="Effects"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xayf6")
+script = ExtResource("27_npu87")
+
+[node name="Timer" type="Timer" parent="Effects/RedFlash"]
+wait_time = 0.1
+one_shot = true
+
+[node name="ProjectileStart" type="Control" parent="Effects" groups=["projectile_start"]]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 784.0
+offset_bottom = 784.0
 grow_horizontal = 2
 
 [editable path="DevGameWorldUI"]

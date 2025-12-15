@@ -132,6 +132,11 @@ func generate_tilemap(battle_stats: BattleStats):
 
 
 func hide_fog() -> void:
+	# Sandbox/dev helper: clear fog visuals and mark all tiles as revealed
+	var used_cells := base_layer.get_used_cells()
+	for cell in used_cells:
+		fog_layer.erase_cell(cell)
+		fog_state[cell] = false
 	fog_layer.hide()
 
 
@@ -176,7 +181,9 @@ func clear_fog_around(center: Vector2i, radius: int):
 				tile_sprite.grow_out()
 				fog_layer.erase_cell(cell)
 				fog_state[cell] = false
-
+			else:
+				# If visuals already cleared (e.g., sandbox clear fog), ensure logical fog is marked cleared
+				fog_state[cell] = false
 			await get_tree().create_timer(.03).timeout
 
 

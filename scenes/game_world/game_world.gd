@@ -17,6 +17,7 @@ const BATTLE_PRESENTATION := preload("res://ui/world_ui/battle_presentation.gd")
 @onready var game_world_ui = $GameWorldUI
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
+@onready var battle_state: BattleStateController = $BattleState
 @onready var map_camera : Camera2D = $MapCamera
 @onready var world_camera: PhantomCamera2D = %WorldCamera
 @onready var tutorial_ui: TutorialUI = $TutorialUI
@@ -32,13 +33,11 @@ var battle_over_handled := false
 func _ready():
 	_ensure_battle_presentation()
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
-	Events.enemy_turn_ended.connect(_on_enemy_turn_ended)
+	battle_state.shrink_frequency = shrink_frequency
 
 	tilemap.player_position_updated.connect(player._on_position_updated)
 	tilemap.player_teleported.connect(player._on_player_teleported)
 
-	Events.player_turn_ended.connect(player_handler.end_turn)
-	Events.player_hand_discarded.connect(enemy_handler.start_turn)
 	Events.player_died.connect(_on_player_died)
 	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
 	
@@ -48,6 +47,8 @@ func _ready():
 
 func start_world() -> void:
 	battle_over_handled = false
+	battle_state.end_battle()
+	battle_state.shrink_frequency = shrink_frequency
 	get_tree().paused = false
 	Events.enemy_died.connect(_on_enemy_died)
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
@@ -74,8 +75,6 @@ func start_world() -> void:
 
 	enemy_handler.setup_enemies(battle_stats, reserved_start_tiles)
 	enemy_handler.reset_enemy_actions.call_deferred()
-	current_round = 1
-	rounds_until_shrink = shrink_frequency - 1
 	battle_stats.enemy_gold_reward = 0
 	battle_stats.enemy_resource_reward = 0
 
@@ -152,14 +151,6 @@ func shrink_game_board(amount: int = 1) -> void:
 	world_camera.set_zoom(Vector2.ONE)
 	rounds_until_shrink = shrink_frequency
 
-func _on_enemy_turn_ended() -> void:
-	if current_round % shrink_frequency == 0:
-		await shrink_game_board(1)
-	current_round += 1
-	rounds_until_shrink -= 1
-	player_handler.start_turn()
-	enemy_handler.reset_enemy_actions()
-
 func _on_enemy_died(enemy: Enemy) -> void:
 	BountySystem.apply_bounty_for_enemy(run_stats, enemy.stats.enemy_name, battle_stats)
 
@@ -189,6 +180,7 @@ func _on_player_died() -> void:
 func _on_relics_activated(type: Enums.RelicType) -> void:
 	match type:
 		Enums.RelicType.START_OF_COMBAT:
+			battle_state.start_battle()
 			player_handler.start_battle(player_stats)
 			game_world_ui.initialize_card_pile_ui()
 			audio_stream_player.stream_paused = false
@@ -201,6 +193,7 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	if battle_over_handled:
 		return
 	battle_over_handled = true
+	battle_state.end_battle()
 	if is_instance_valid(battle_presentation):
 		call_deferred("_play_battle_outro", message, result)
 		return

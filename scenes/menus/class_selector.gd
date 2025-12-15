@@ -66,6 +66,7 @@ func set_background(background_texture_rect: TextureRect) -> void:
 	
 
 func _on_start_button_pressed() -> void:
+	UIAnimation.animate_shrink(%ClassPanel)
 	var stats_props : Dictionary[String,String] = {
 		"class_name" : "%s" % current_stats.player_class_name
 	}

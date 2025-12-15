@@ -26,7 +26,7 @@ func on_input(event: InputEvent) -> void:
 	
 	tilemap.show_target_highlights(card_ui.card.get_valid_targets(card_ui, player.modifier_handler))
 	
-	if single_targeted and mouse_motion and card_ui.targets.size() > 0:
+	if single_targeted and mouse_motion:
 		transition_requested.emit(self, CardState.State.AIMING)
 		return
 	

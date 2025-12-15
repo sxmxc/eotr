@@ -18,7 +18,11 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	var projectile := projectile_fx.instantiate() as ProjectileFX
 	if visual_fx:
 		projectile.visual_fx = visual_fx.instantiate() as VisualFX
-	target.get_tree().get_first_node_in_group("fx_layer").add_child(projectile)
+	var parent: Node = target.get_tree().get_first_node_in_group("fx_layer")
+	if not parent:
+		parent = target.get_tree().current_scene
+	if parent:
+		parent.add_child(projectile)
 	projectile.complete.connect(func():
 		damage_effect.execute(targets)
 		Utils.shake(cam, 18, 0.18)

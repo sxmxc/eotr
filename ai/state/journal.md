@@ -4,6 +4,18 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-12-15 – Codex**
+- Summary: Added a CardResolver + CardEffectConfig pipeline for data-driven effects and migrated sample damage/block/move/gather cards (Arcane Bolt, Eldritch Barrier, Phase Step, Echo Harvest) to the resolver; base Card now uses resolver-driven effects when configs are present.
+- Files: `scripts/systems/card_resolver.gd`, `scripts/resources/card/card_effect_config.gd`, `scripts/resources/card/card.gd`, `resources/data/cards/riftwalker/arcane_bolt.gd`, `resources/data/cards/riftwalker/eldritch_barrier.gd`, `resources/data/cards/riftwalker/phase_step.gd`, `resources/data/cards/riftwalker/echo_harvest.gd`
+- Verification: Not run (Godot/headless client not available here).
+- Follow-ups: Expand resolver coverage to the remaining card set/effect types and validate FX/camera context injection in-engine.
+
+**2025-12-15 – Codex**
+- Summary: Added a BattleStateController to own turn/shrink phases, rewired GameWorld to route player end -> enemy loop -> shrink via the controller, and hooked the scene to the new node; updated planning/progress for BKL-041.
+- Files: `scenes/game_world/battle_state_controller.gd`, `scenes/game_world/game_world.gd`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot/headless checks unavailable here).
+- Follow-ups: Play through a few battles to confirm end-turn -> discard -> enemy loop -> shrink sequencing stays in sync and that battle-over handling stops further phase transitions.
+
 **2025-12-07 – Codex**
 - Summary: Added a Corroded end-of-turn debuff (true damage + block shred) and two Riftwalker cards—Corroding Shot (single-target) and Corrosion Wave (AoE, exhaust)—then seeded them into the draftable pool to broaden combat builds.
 - Files: `resources/data/statuses/corroded.gd`, `resources/data/statuses/corroded.tres`, `resources/data/cards/riftwalker/corroding_shot.gd`, `resources/data/cards/riftwalker/corroding_shot.tres`, `resources/data/cards/riftwalker/corrosion_wave.gd`, `resources/data/cards/riftwalker/corrosion_wave.tres`, `resources/data/card_piles/riftwalker_draftable_cards.tres`, `ai/planning/todo.yaml`, `ai/state/progress.json`

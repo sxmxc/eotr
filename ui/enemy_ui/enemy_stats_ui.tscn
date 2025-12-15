@@ -45,6 +45,8 @@ focus_mode = 2
 theme = ExtResource("1_hmu40")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_2uy4p")
+z_index = 50
+z_as_relative = false
 
 [node name="FocusIndicator" type="TextureRect" parent="."]
 unique_name_in_owner = true

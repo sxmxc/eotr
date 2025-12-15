@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene load_steps=73 format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
@@ -53,6 +53,7 @@
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
 [ext_resource type="PackedScene" uid="uid://ccjhbbs2j2mdk" path="res://ui/card_selection/card_cost_selection.tscn" id="43_ccsel"]
+[ext_resource type="Script" uid="uid://ccfhmn0cjs704" path="res://scenes/game_world/battle_state_controller.gd" id="44_btlsf"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -106,13 +107,13 @@ outline_color = Color(0.294118, 0.239216, 0.266667, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhwwd"]
 size = Vector2(1924, 699)
 
-[sub_resource type="Gradient" id="Gradient_xw31r"]
+[sub_resource type="Gradient" id="Gradient_wc6i6"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.605536, 1)
 colors = PackedColorArray(0, 0, 0, 0, 2, 0, 0.026, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3kc8b"]
-gradient = SubResource("Gradient_xw31r")
+gradient = SubResource("Gradient_wc6i6")
 width = 1920
 height = 1080
 use_hdr = true
@@ -234,6 +235,12 @@ z_index = 2
 
 [node name="EnemyHandler" type="Node2D" parent="."]
 script = ExtResource("12_lsh46")
+
+[node name="BattleState" type="Node" parent="." node_paths=PackedStringArray("game_world", "player_handler", "enemy_handler")]
+script = ExtResource("44_btlsf")
+game_world = NodePath("..")
+player_handler = NodePath("../PlayerHandler")
+enemy_handler = NodePath("../EnemyHandler")
 
 [node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("player", "player_hand") groups=["player_handler"]]
 script = ExtResource("13_wek56")

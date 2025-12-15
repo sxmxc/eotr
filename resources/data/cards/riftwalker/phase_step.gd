@@ -3,13 +3,8 @@ extends Card
 @export var movement_distance := 1
 
 
-func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
-	var move_effect := MoveEffect.new()
-	var tilemap_target = targets[0] as TilemapTarget
-	move_effect.tilemap_target = tilemap_target
-	move_effect.sound_fx = sound_fx
-	var player_array = targets[0].get_tree().get_nodes_in_group("player")
-	move_effect.execute(player_array)
+func _init() -> void:
+	effect_configs = [CardEffectConfig.for_move()]
 
 
 func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:

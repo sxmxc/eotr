@@ -547,8 +547,8 @@ backlog:
   - id: BKL-041
     title: "Centralize battle phases with an authoritative turn/shrink state machine"
     priority: P0
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Turn flow is split across game_world.gd, player_handler.gd, and enemy_handler.gd via global signals; shrink pacing is coupled to enemy turns."
@@ -561,16 +561,16 @@ backlog:
   - id: BKL-042
     title: "Make card effects data-driven with a CardResolver and shared effect library"
     priority: P0
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "Card scripts directly query scene tree (map_camera, fx_layer) and hardcode logic, slowing new card creation."
       - "Reusable effects already exist under scripts/effects/node and scripts/effects/tile but aren’t orchestrated by a resolver."
     next_steps:
-      - "Introduce a CardResolver service that receives caster/targets/context and executes a list of effect resources."
-      - "Refactor representative cards (damage, block, move, gather) to use declarative effect lists and resolver previews."
-      - "Ensure resolver supplies FX/camera references so card scripts no longer call get_tree()."
+      - "QA the resolver-driven damage/block/move/gather cards and confirm camera/FX references stay injected via context."
+      - "Migrate remaining card scripts to effect configs and expand resolver coverage for other effect types."
+      - "Document the declarative effect patterns for designers and watch for lingering get_tree() calls in card scripts."
 
   - id: BKL-043
     title: "Unify targeting/aiming selectors and cache valid targets"

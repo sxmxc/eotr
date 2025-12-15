@@ -28,6 +28,14 @@ func _physics_process(_delta: float) -> void:
 	# Update card arc
 	card_arc.points = _get_points()
 	
+	# Fallback overlap polling in case Area2D signals miss
+	if current_card:
+		var target_type := current_card.card.target_type
+		if target_type == Enums.TargetType.SELF \
+		or target_type == Enums.TargetType.SINGLE_ENEMY \
+		or target_type == Enums.TargetType.ADJACENT_ENEMY:
+			for area in area_2d.get_overlapping_areas():
+				_on_area_2d_area_entered(area)
 
 	# Manual collision detection against the tilemap
 	if targeting and current_card.card.target_type == Enums.TargetType.SINGLE_TILE:
@@ -112,8 +120,10 @@ func ease_out_cubic(number: float) -> float:
 
 
 func _on_card_aim_started(card: CardUI) -> void:
+	print("Card aim started for card: %s" % card.card.name)
 
 	if not card.card.is_single_targeted():
+		print("Card is not single targeted; ignoring aim start.")
 		return
 
 	targeting = true
@@ -141,6 +151,7 @@ func _on_card_aim_ended(_card: CardUI) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if not current_card or not targeting:
 		return
+	print("Area entered: %s" % area.name)
 
 	match current_card.card.target_type:
 		Enums.TargetType.SELF:
@@ -149,11 +160,14 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 					current_card.targets.append(area.get_parent())
 
 		Enums.TargetType.SINGLE_ENEMY:
+			print("SINGLE_ENEMY target type detected.")
 			var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
 			if get_tree().get_nodes_in_group("enemy").has(area.get_parent()):
 				if tilemap.is_tile_behind_fog(area.get_parent().current_tile_position):
+					print("Target is behind fog; ignoring.")
 					return
 				if not current_card.targets.has(area.get_parent()):
+					print("Adding target: %s" % area.get_parent().name)
 					current_card.targets.append(area.get_parent())
 					current_card.request_description()
 					Events.enemy_selected.emit(area.get_parent())
@@ -174,10 +188,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 						Events.enemy_selected.emit(area.get_parent())
 
 
-func _on_area_2d_area_exited(area: Area2D) -> void:
-	if not current_card or not targeting:
+func _on_area_2d_area_exited(_area: Area2D) -> void:
+	if current_card == null or not targeting:
 		return
-	current_card.targets.erase(area.get_parent())
-	print("%s removed from targets. New targets: %s" % [area, current_card.targets])
-	current_card.request_description()
-	Events.enemy_info_hide_requested.emit()
+	current_card.targets.clear()
+	return

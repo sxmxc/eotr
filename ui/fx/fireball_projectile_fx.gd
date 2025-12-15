@@ -7,16 +7,25 @@ var has_reached_target: bool = false
 var is_initialized: bool = false
 
 func execute(target, source = null) -> void:
-	target.add_child(visual_fx)
-	var fx_layer : CanvasLayer = get_tree().get_first_node_in_group("fx_layer")
-	if !source:
-		var player : Player = get_tree().get_first_node_in_group("player") as Player
-		start = player.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
-		end = get_tree().get_first_node_in_group("projectile_start").get_global_mouse_position()
+	if visual_fx:
+		target.add_child(visual_fx)
+
+	var fx_layer := get_tree().get_first_node_in_group("fx_layer") as CanvasLayer
+	if not fx_layer:
+		fx_layer = target.get_tree().current_scene
+
+	if not source:
+		var player: Player = get_tree().get_first_node_in_group("player") as Player
+		if player and fx_layer and fx_layer is CanvasLayer:
+			start = player.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
+		else:
+			start = player.global_position if player else global_position
+		var projectile_anchor := get_tree().get_first_node_in_group("projectile_start")
+		if projectile_anchor and projectile_anchor.has_method("get_global_mouse_position"):
+			end = projectile_anchor.get_global_mouse_position()
+		else:
+			end = target.global_position
 	else:
-		#var player : Player = get_tree().get_first_node_in_group("player") as Player
-		#start = source.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
-		#end = get_tree().get_first_node_in_group("projectile_start").to_global(player.position)
 		start = source.global_position
 		end = target.global_position
 		

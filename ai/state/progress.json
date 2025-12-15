@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-30T00:05:00.0000000-06:00",
+  "updated": "2025-12-15T00:00:00.0000000-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -109,6 +109,18 @@
       "status": "in_progress",
       "summary": "Started corrosion content expansion: added Corroded status plus Corroding Shot and Corrosion Wave cards to the Riftwalker draft pool.",
       "updated": "2025-12-07T00:00:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-041",
+      "status": "done",
+      "summary": "Added a BattleState controller to own turn/shrink phases and route player/end/enemy loops through validated transitions.",
+      "updated": "2025-12-15T00:00:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-042",
+      "status": "in_review",
+      "summary": "Introduced CardResolver + declarative effect configs and migrated sample damage/block/move/gather cards off get_tree coupling.",
+      "updated": "2025-12-15T00:00:00.0000000-06:00"
     }
   ]
 }

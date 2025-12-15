@@ -136,7 +136,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_xqga4")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ClassPanel" type="Panel" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -151,7 +152,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"MenuPanelBackground"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="ClassPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -163,11 +164,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="ClassPanel/MarginContainer"]
 layout_mode = 2
 theme_type_variation = &"MenuPanelMainTransparent"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ClassPanel/MarginContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -175,10 +176,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ClassPanel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
 
-[node name="ClassNameLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+[node name="ClassNameLabel" type="Label" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Riftwalker"
@@ -186,13 +187,13 @@ label_settings = SubResource("LabelSettings_3xd5m")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="ClassDescription" type="RichTextLabel" parent="Panel/MarginContainer/Panel/VBoxContainer/VBoxContainer/ScrollContainer"]
+[node name="ClassDescription" type="RichTextLabel" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
@@ -203,7 +204,7 @@ text = "Explorers attuned to the Rift’s unstable energies. They balance both m
 fit_content = true
 horizontal_alignment = 1
 
-[node name="StartingRelicLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/VBoxContainer"]
+[node name="StartingRelicLabel" type="Label" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
@@ -211,19 +212,19 @@ text = "Starting Relic: Phase Key"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="ClassPanel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(0, 335)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="RiftwalkerButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="RiftwalkerButton" type="Button" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
@@ -237,12 +238,12 @@ toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_b072o")
 
-[node name="Bouncer" type="Node" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton"]
+[node name="Bouncer" type="Node" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton"]
 unique_name_in_owner = true
 script = ExtResource("6_erq25")
 metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
-[node name="SynthforgeButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="SynthforgeButton" type="Button" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
@@ -256,7 +257,7 @@ disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_b072o")
 
-[node name="VoidbinderButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="VoidbinderButton" type="Button" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
@@ -270,18 +271,18 @@ disabled = true
 toggle_mode = true
 button_group = SubResource("ButtonGroup_b072o")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ClassPanel/MarginContainer/Panel/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="StartButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="StartButton" type="Button" parent="ClassPanel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"
@@ -290,7 +291,7 @@ text = "Start"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xiys0")
 
-[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/SynthforgeButton" to="." method="_on_synthforge_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/VoidbinderButton" to="." method="_on_voidbinder_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
+[connection signal="pressed" from="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/SynthforgeButton" to="." method="_on_synthforge_button_pressed"]
+[connection signal="pressed" from="ClassPanel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/VoidbinderButton" to="." method="_on_voidbinder_button_pressed"]
+[connection signal="pressed" from="ClassPanel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3/StartButton" to="." method="_on_start_button_pressed"]

@@ -54,6 +54,7 @@ func start_turn() -> void:
 	if !is_instance_valid(player):
 		return
 	player_turn_count += 1
+	print("Starting player turn %d" % player_turn_count)
 	free_movement_refund_available = true
 	obelisk_first_hit_awarded = false
 	player.phantom_camera_2d.priority = 20
@@ -65,14 +66,15 @@ func start_turn() -> void:
 	if _is_riftwalker() and player_turn_count % 3 == 0:
 		_grant_energy_bonus(1, ADAPTIVE_SURGE_LABEL)
 
-	var event_props := {
-		"turn_number": player_turn_count,
-		"player_class": player_stats.player_class_name,
-		"energy": player_stats.energy,
-		"health": player_stats.health,
-	}
 	if Talo.current_player:
-		Talo.events.track("player_turn_started", event_props)
+		var event_props := {
+			"turn_number": player_turn_count,
+			"player_class": player_stats.player_class_name,
+			"energy": player_stats.energy,
+			"health": player_stats.health,
+		}
+		if Talo.current_player:
+			Talo.events.track("player_turn_started", event_props)
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
 
 

@@ -3,18 +3,14 @@ extends Card
 var base_damage = 10
 
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	var damage_effect := DamageEffect.new()
-	var cam = targets[0].get_tree().get_first_node_in_group("map_camera")
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
-	damage_effect.sound_fx = sound_fx
-	var fireball := projectile_fx.instantiate() as ProjectileFX
-	fireball.visual_fx = visual_fx.instantiate() as VisualFX
-	targets[0].get_tree().get_first_node_in_group("fx_layer").add_child(fireball)
-	fireball.execute(targets[0])
-	await fireball.complete
-	Utils.shake(cam, 16, .15)
-	damage_effect.execute(targets)
+func _init() -> void:
+	var damage_effect := CardEffectConfig.for_damage(base_damage)
+	damage_effect.attach_visual_to_effect = false
+	damage_effect.projectile_fx = projectile_fx
+	damage_effect.projectile_visual_fx = visual_fx
+	damage_effect.camera_shake_strength = 16.0
+	damage_effect.camera_shake_duration = 0.15
+	effect_configs = [damage_effect]
 
 
 func get_default_description() -> String:
@@ -24,21 +20,15 @@ func get_default_description() -> String:
 func get_modified_description(
 	player_modifiers: ModifierHandler, enemy_modifiers: ModifierHandler
 ) -> String:
-	var modified_dmg := player_modifiers.get_modified_value(
-		base_damage, Enums.ModifierType.DMG_DEALT
-	)
-
-	if enemy_modifiers:
-		modified_dmg = enemy_modifiers.get_modified_value(
-			modified_dmg, Enums.ModifierType.DMG_TAKEN
-		)
-
+	if effect_configs.is_empty():
+		return description % base_damage
+	var effect := effect_configs[0]
+	var modified_dmg := effect.get_preview_amount(player_modifiers, enemy_modifiers)
 	return description % modified_dmg
 
 func is_card_modified(player_modifiers: ModifierHandler) -> bool:
-	var modified_dmg := player_modifiers.get_modified_value(
-		base_damage, Enums.ModifierType.DMG_DEALT
-	)
-	if modified_dmg != base_damage:
-		return true
-	return false
+	if effect_configs.is_empty():
+		return false
+	var effect := effect_configs[0]
+	var modified_dmg := effect.get_effect_amount(player_modifiers)
+	return modified_dmg != base_damage
