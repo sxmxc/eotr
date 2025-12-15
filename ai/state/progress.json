@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated": "2025-12-15T00:00:00.0000000-06:00",
+  "updated": "2025-12-15T14:28:23.6852440-06:00",
   "tasks": [
     {
       "id": "BKL-014",
@@ -121,6 +121,12 @@
       "status": "in_review",
       "summary": "Introduced CardResolver + declarative effect configs and migrated sample damage/block/move/gather cards off get_tree coupling.",
       "updated": "2025-12-15T00:00:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-043",
+      "status": "in_review",
+      "summary": "Centralized card/movement targeting with a shared TargetSelector that caches valid cells and reuses validators for drag/aim flows.",
+      "updated": "2025-12-15T14:28:23.6852440-06:00"
     }
   ]
 }

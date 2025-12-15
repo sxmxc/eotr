@@ -24,6 +24,7 @@ func take_damage(damage: int) -> void:
 	damage = clampi(damage - block, 0, damage)
 	self.block = clampi(block - initial_damage, 0, block)
 	self.health -= damage
+	print("[Stats] take_damage initial=%s applied=%s block_after=%s health_after=%s" % [initial_damage, damage, block, health])
 	if damage > 0:
 		damage_taken.emit(damage)
 	

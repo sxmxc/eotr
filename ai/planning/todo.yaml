@@ -575,8 +575,8 @@ backlog:
   - id: BKL-043
     title: "Unify targeting/aiming selectors and cache valid targets"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: in_review
+    owner: Codex
     blockers: []
     context:
       - "card_target_selector.gd and movement_target_selector.gd duplicate arc drawing, hover, and validity checks."

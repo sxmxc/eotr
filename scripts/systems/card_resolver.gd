@@ -27,11 +27,21 @@ func resolve(
 	effect_configs: Array[CardEffectConfig]
 ) -> void:
 	if effect_configs.is_empty():
+		print("[CardResolver] No effect configs supplied for %s; skipping." % (card.id if card else "unknown card"))
 		return
 
+	print(
+		"[CardResolver] Resolving %s with %s config(s) against %s target(s)"
+		% [
+			card.id if card else "unknown card",
+			effect_configs.size(),
+			targets.size()
+		]
+	)
 	var context := _build_context(card, targets, player_stats)
 	for config in effect_configs:
 		if not config:
+			print("[CardResolver] Skipping null CardEffectConfig for %s" % (card.id if card else "unknown card"))
 			continue
 		await _resolve_effect(config, context, player_modifiers)
 
@@ -68,8 +78,9 @@ func _resolve_effect(
 func _resolve_damage(
 	config: CardEffectConfig, context: ResolveContext, player_modifiers: ModifierHandler
 ) -> void:
-	var targets := _get_targets_for_config(config, context)
+	var targets := _filter_damage_targets(_get_targets_for_config(config, context), context)
 	if targets.is_empty():
+		print("[CardResolver] Damage effect skipped; no valid targets for %s" % (context.card.id if context.card else "unknown card"))
 		return
 
 	var effect := DamageEffect.new()
@@ -85,6 +96,14 @@ func _resolve_damage(
 		profile = ImpactProfile.for_damage(max(effect.amount, 0))
 	effect.impact_profile = profile
 
+	print(
+		"[CardResolver] Damage effect for %s -> amount: %s, targets: %s"
+		% [
+			context.card.id if context.card else "unknown card",
+			effect.amount,
+			targets.size()
+		]
+	)
 	await _play_projectile_if_needed(config, targets[0], context)
 	effect.execute(targets)
 	_apply_camera_impact(profile, context, config)
@@ -149,6 +168,22 @@ func _get_targets_for_config(
 	if config.should_use_player_targets():
 		return context.get_player_targets()
 	return context.targets
+
+
+func _filter_damage_targets(targets: Array[Node], context: ResolveContext) -> Array[Node]:
+	if targets.is_empty():
+		return targets
+	var filtered: Array[Node] = []
+	for target in targets:
+		if target is Enemy or target is Player:
+			filtered.append(target)
+	# If no valid actors were supplied but we can find an enemy via context, fall back to the first enemy in the scene.
+	if filtered.is_empty() and context.tilemap:
+		for enemy: Enemy in context.tilemap.get_tree().get_nodes_in_group("enemy"):
+			if enemy:
+				filtered.append(enemy)
+				break
+	return filtered
 
 
 func _choose_sound(config: CardEffectConfig, context: ResolveContext) -> AudioStream:

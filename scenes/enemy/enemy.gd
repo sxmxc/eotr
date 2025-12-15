@@ -120,6 +120,7 @@ func take_damage(
 		return
 
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
+	print("[Enemy] %s incoming dmg=%s mod=%s direct=%s -> modified=%s (health=%s, block=%s)" % [name, damage, which_modifier, direct, modified_damage, stats.health, stats.block])
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	sprite_2d.self_modulate = profile.tint_color
@@ -208,7 +209,8 @@ func _fade_out_and_queue_free(duration: float = DEATH_FADE_DURATION) -> void:
 func do_death() -> void:
 	if not _begin_death_sequence():
 		return
-	Talo.stats.track("enemies_killed")
+	if Talo.current_player:
+		Talo.stats.track("enemies_killed")
 	_fade_out_and_queue_free()
 
 func get_player_tile_position() -> Vector2i:

@@ -5,6 +5,18 @@ Record notable work here. Use reverse chronological order (newest at top).
 ---
 
 **2025-12-15 – Codex**
+- Summary: Centralized targeting into a single TargetSelector with cached valid cells and reusable validators; card drag/aim states now pull highlights from the cache and the movement selector inherits the shared logic (electric arc enabled). Updated planning to mark BKL-043 in review.
+- Files: `scenes/game_world/card_target_selector/card_target_selector.gd`, `scenes/game_world/movement_target_selector/movement_target_selector.gd`, `ui/card_ui/card_states/card_aiming_state.gd`, `ui/card_ui/card_states/card_dragging_state.gd`, `ai/planning/todo.yaml`
+- Verification: Not run (Godot/headless checks not executed here).
+- Follow-ups: In-engine pass to ensure enemy/tile targeting respects fog/adjacency rules, arcs/indicators update smoothly, and cached targets refresh correctly after movement or enemy deaths.
+
+**2025-12-15 – Codex**
+- Summary: Fixed movement card validation by ensuring tile targets enter the scene tree before checks and removing get_tree reliance in Phase Step/Quantum Rift; preserved aimed targets on release to keep damage cards (e.g., Arcane Bolt) from losing their selected enemy.
+- Files: `scenes/game_world/card_target_selector/card_target_selector.gd`, `resources/data/cards/riftwalker/phase_step.gd`, `resources/data/cards/riftwalker/quantum_rift.gd`
+- Verification: Not run (Godot/headless checks not executed here).
+- Follow-ups: Re-test movement cards and Arcane Bolt in-engine to confirm targeting sticks, damage applies, and tile validation no longer errors when hovering.
+
+**2025-12-15 – Codex**
 - Summary: Added a CardResolver + CardEffectConfig pipeline for data-driven effects and migrated sample damage/block/move/gather cards (Arcane Bolt, Eldritch Barrier, Phase Step, Echo Harvest) to the resolver; base Card now uses resolver-driven effects when configs are present.
 - Files: `scripts/systems/card_resolver.gd`, `scripts/resources/card/card_effect_config.gd`, `scripts/resources/card/card.gd`, `resources/data/cards/riftwalker/arcane_bolt.gd`, `resources/data/cards/riftwalker/eldritch_barrier.gd`, `resources/data/cards/riftwalker/phase_step.gd`, `resources/data/cards/riftwalker/echo_harvest.gd`
 - Verification: Not run (Godot/headless client not available here).

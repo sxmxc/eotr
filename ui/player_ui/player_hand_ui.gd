@@ -43,6 +43,7 @@ func add_card(card: Card) -> void:
 	
 func add_card_spotlight(card: Card) -> void:
 	if not card_spotlight:
+		add_card(card)
 		return
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
 	var spotlight_slot := Control.new()
