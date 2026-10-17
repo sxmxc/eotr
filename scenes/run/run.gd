@@ -15,26 +15,18 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 
 @onready var map: Map = $Map
 @onready var current_view: Node = $CurrentView
-@onready var health_ui: HealthUI = %HealthUI
-@onready var gold_ui: GoldUI = %GoldUI
-@onready var resources_ui: ResourceUI = %ResourcesUI
-@onready var deck_button: CardPileButton = %DeckButton
-@onready var deck_view: CardPileView = %DeckView
-@onready var relic_handler: RelicHandler = %RelicHandler
-@onready var relic_tooltip: RelicTooltip = %RelicTooltip
+@onready var hud = $TopBar
+@onready var relic_handler: RelicHandler = hud.relic_handler
 @onready var pause_menu: PauseMenu = $PauseMenu
-@onready var map_legend: CanvasLayer = $MapLegendUI
-@onready var run_time_ui: RunTimerUI = %RunTimeUI
+@onready var map_legend = $MapLegendUI
+@onready var run_time_ui: RunTimerUI = hud.run_time_ui
 @onready var tutorial_ui: TutorialUI = $TutorialUI
-@onready var bounty_board_button: TextureButton = %BountyBoardButton
-@onready var bounty_board_popup: Control = %BountyBoardPopup
 
 
 var run_stats: RunStats
 var player_stats: PlayerStats
 var save_data: SaveGame
 var audio_stream_player: AudioStreamPlayer
-var bounty_board_view: BountyBoardView
 
 
 func _ready() -> void:
@@ -146,7 +138,9 @@ func _load_run() -> void:
 
 func _change_view(scene: PackedScene) -> Node:
 	if current_view.get_child_count() > 0:
-		current_view.get_child(0).queue_free()
+		var old_view := current_view.get_child(0)
+		current_view.remove_child(old_view)
+		old_view.queue_free()
 
 	get_tree().paused = false
 	var new_view := scene.instantiate()
@@ -158,7 +152,9 @@ func _change_view(scene: PackedScene) -> Node:
 
 func _show_map() -> void:
 	if current_view.get_child_count() > 0:
-		current_view.get_child(0).queue_free()
+		var old_view := current_view.get_child(0)
+		current_view.remove_child(old_view)
+		old_view.queue_free()
 	SoundManager.play_music_queue(music_playlist,1)
 	map.show_map()
 	map.unlock_next_map_node()
@@ -184,38 +180,17 @@ func _setup_event_connections() -> void:
 		LimboConsole.register_command(add_gold, "add_gold", "Add gold")
 
 func _setup_top_bar() -> void:
-	player_stats.stats_changed.connect(health_ui.update_stats.bind(player_stats))
-	health_ui.update_stats(player_stats)
-	gold_ui.run_stats = run_stats
-	resources_ui.run_stats = run_stats
+	hud.bind_run(player_stats, run_stats)
 	relic_handler.add_relic(player_stats.starting_relic)
-	Events.relic_tooltip_requested.connect(relic_tooltip.show_tooltip)
-	deck_button.card_pile = player_stats.deck
-	deck_view.card_pile = player_stats.deck
-	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
 	
 
 func _connect_bounty_board() -> void:
-	if bounty_board_popup:
-		bounty_board_view = bounty_board_popup as BountyBoardView
-		bounty_board_button.pressed.connect(_on_bounty_board_button_pressed)
-		bounty_board_popup.hide()
-	var bounty_callable := Callable(self, "_on_bounties_updated")
-	if map and not map.bounties_updated.is_connected(bounty_callable):
-		map.bounties_updated.connect(bounty_callable)
+	map_legend.bounty_board_requested.connect(_on_bounty_board_button_pressed)
+	map.bounties_updated.connect(hud.update_bounties)
 
 
 func _on_bounty_board_button_pressed() -> void:
-	if not bounty_board_popup:
-		return
-	if bounty_board_view and run_stats:
-		bounty_board_view.apply_bounties(run_stats.bounty_contracts, map.floors_climbed, run_stats.next_bounty_refresh_floor)
-	bounty_board_popup.show()
-
-
-func _on_bounties_updated(contracts: Array[BountyContract], floors_climbed: int, next_refresh_floor: int) -> void:
-	if bounty_board_view:
-		bounty_board_view.apply_bounties(contracts, floors_climbed, next_refresh_floor)
+	hud.show_bounties(run_stats.bounty_contracts, map.floors_climbed, run_stats.next_bounty_refresh_floor)
 
 
 func _show_regular_rewards() -> void:

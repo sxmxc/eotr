@@ -3,11 +3,8 @@
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [ext_resource type="Script" uid="uid://b1jqhouqnh5b5" path="res://scenes/rest/rest.gd" id="1_mfytg"]
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="2_wjpkg"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2_wjpkg"]
 [ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="2_x1a1d"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_7w0af"]
-font_size = 50
 
 [sub_resource type="Animation" id="Animation_j8u1v"]
 length = 0.001
@@ -141,6 +138,7 @@ mouse_filter = 2
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1822260249]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer" unique_id=501821599]
+theme_type_variation = &"RestOptionsStack"
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -153,12 +151,11 @@ offset_bottom = 105.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_wjpkg")
-theme_override_constants/separation = 13
 
 [node name="Title" type="Label" parent="UILayer/VBoxContainer" unique_id=1285411372]
+theme_type_variation = &"RestTitle"
 layout_mode = 2
 text = "Rest"
-label_settings = SubResource("LabelSettings_7w0af")
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="UILayer/VBoxContainer" unique_id=1379534242]

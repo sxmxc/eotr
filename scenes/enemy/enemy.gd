@@ -102,8 +102,6 @@ func update_stats():
 func update_intent() -> void:
 	if current_action:
 		current_action.update_intent_text()
-		if stats_ui and stats_ui.intent_ui:
-			stats_ui.intent_ui.update_intent(current_action.intent)
 	Events.enemy_updated.emit(self)
 
 func do_turn() -> void:

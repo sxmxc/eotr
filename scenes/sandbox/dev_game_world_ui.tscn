@@ -1,11 +1,16 @@
 [gd_scene format=3 uid="uid://dk3m00a8m3h4"]
 
 [ext_resource type="Script" uid="uid://bycpdl3aolr2j" path="res://scenes/sandbox/dev_game_world_ui.gd" id="1_script"]
+
 [ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="2_pile_button"]
-[ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="3_stats"]
-[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="4_status"]
+
+[ext_resource type="PackedScene" path="res://ui/player_ui/stats_ui_sandbox.tscn" id="3_stats"]
+
 [ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="5_hand_script"]
-[ext_resource type="Script" uid="uid://qevmdyyes1eq" path="res://scenes/sandbox/dev_sandbox_panel.gd" id="6_devpanel_script"]
+
+[ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
+
+[ext_resource type="PackedScene" path="res://scenes/sandbox/dev_sandbox_panel.tscn" id="dev_panel_scene"]
 
 [sub_resource type="Curve" id="Curve_hand"]
 _data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.75), -2.0, 0.0, 0, 0]
@@ -19,181 +24,18 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lsin"]
 size = Vector2(1924, 699)
 
-[node name="GameWorldUI" type="CanvasLayer" unique_id=1269372028 node_paths=PackedStringArray("hand", "stats_ui", "status_handler", "draw_pile_button", "discard_pile_button", "exhaust_pile_button", "dev_panel", "player", "enemy_stats_container", "enemy_stats_scroll") groups=["ui_layer"]]
+[node name="GameWorldUI" type="CanvasLayer" unique_id=1269372028 node_paths=PackedStringArray("hand", "stats_ui", "draw_pile_button", "discard_pile_button", "exhaust_pile_button", "dev_panel") groups=["ui_layer"]]
 script = ExtResource("1_script")
 hand = NodePath("Hand")
 stats_ui = NodePath("Stats")
-status_handler = NodePath("StatusHandler")
 draw_pile_button = NodePath("DrawPileButton")
 discard_pile_button = NodePath("DiscardPileButton")
 exhaust_pile_button = NodePath("ExhaustPileButton")
 dev_panel = NodePath("DevPanel")
-player = NodePath("../Player")
-enemy_stats_container = NodePath("EnemyStatsScroll/EnemyStatsContainer")
-enemy_stats_scroll = NodePath("EnemyStatsScroll")
 
-[node name="DevPanel" type="Control" parent="." unique_id=1502978721]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 25.0
-offset_top = 12.0
-offset_right = 25.0
-offset_bottom = 12.0
-script = ExtResource("6_devpanel_script")
+[node name="DevPanel" parent="." instance=ExtResource("dev_panel_scene")]
 
-[node name="Panel" type="Panel" parent="DevPanel" unique_id=819548652]
-custom_minimum_size = Vector2(520, 220)
-layout_mode = 1
-offset_right = 520.0
-offset_bottom = 267.0
-
-[node name="MarginContainer" type="MarginContainer" parent="DevPanel/Panel" unique_id=1088785418]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DevPanel/Panel/MarginContainer" unique_id=848317999]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=512128151]
-layout_mode = 2
-text = "Dev Sandbox Controls"
-
-[node name="MapRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=1839812061]
-custom_minimum_size = Vector2(0, 26)
-layout_mode = 2
-
-[node name="RegenMapButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/MapRow" unique_id=1799375135]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Regenerate Map"
-
-[node name="CameraRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=2055796932]
-layout_mode = 2
-
-[node name="CenterCameraButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=2043719959]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Center Camera"
-
-[node name="ZoomInButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=35493260]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Zoom In"
-
-[node name="ZoomOutButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=613215364]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Zoom Out"
-
-[node name="FreeCameraToggle" type="CheckButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=195596]
-unique_name_in_owner = true
-layout_mode = 2
-button_pressed = true
-text = "Free Camera"
-
-[node name="EnemyRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=804887800]
-layout_mode = 2
-
-[node name="EnemyTierFilter" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=420537928]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(90, 0)
-layout_mode = 2
-
-[node name="EnemyDropdown" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=19908075]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-fit_to_longest_item = false
-
-[node name="SpawnEnemyButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=780474970]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Spawn Enemy"
-
-[node name="ClearEnemiesButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=1836525671]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Clear Enemies"
-
-[node name="CardRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=588751453]
-layout_mode = 2
-
-[node name="CardRarityFilter" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1598849347]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(90, 0)
-layout_mode = 2
-
-[node name="CardDropdown" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=235195797]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-fit_to_longest_item = false
-
-[node name="AddHandButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1863873357]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add to Hand"
-
-[node name="AddDrawButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=68182942]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add to Draw"
-
-[node name="AddDiscardButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1321132793]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add to Discard"
-
-[node name="DrawRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=2000752968]
-layout_mode = 2
-
-[node name="DrawCardButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/DrawRow" unique_id=1556235503]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Draw Top Card"
-
-[node name="UtilityRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=314727150]
-layout_mode = 2
-
-[node name="ClearFogButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=19832651]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Clear Fog"
-
-[node name="RefillEnergyButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=750987837]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Refill Energy"
-
-[node name="RefillHealthButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=384748053]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Refill Health"
-
-[node name="PassTurnButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=1081359550]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Pass Turn"
-
-[node name="EnemyStatsScroll" type="ScrollContainer" parent="." unique_id=717978419]
-offset_left = 1472.0
-offset_top = 32.0
-offset_right = 1888.0
-offset_bottom = 512.0
-horizontal_scroll_mode = 0
-
-[node name="EnemyStatsContainer" type="GridContainer" parent="EnemyStatsScroll" unique_id=1687937566]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="EnemyRail" parent="." instance=ExtResource("enemy_rail")]
 
 [node name="CardSpotlight" type="HBoxContainer" parent="." unique_id=1766627346]
 anchors_preset = 8
@@ -208,7 +50,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Hand" type="Control" parent="." unique_id=1008837630]
+[node name="Hand" type="Control" parent="." unique_id=1008837630 node_paths=PackedStringArray("card_spotlight")]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -222,7 +64,6 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("5_hand_script")
-player = NodePath("../Player")
 hand_curve = SubResource("Curve_hand")
 rotation_curve = SubResource("Curve_rot")
 x_sep = -20
@@ -235,61 +76,28 @@ offset_top = 787.0
 offset_right = 1831.0
 offset_bottom = 1005.0
 
-[node name="StatusHandler" parent="." unique_id=1657246922 instance=ExtResource("4_status")]
-offset_left = 32.0
-offset_top = 160.0
-status_owner = NodePath("../Player")
-status_icon_size = 48
-
-[node name="DrawPileButton" parent="." unique_id=312347470 node_paths=PackedStringArray("counter") instance=ExtResource("2_pile_button")]
+[node name="DrawPileButton" parent="." unique_id=312347470 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 32.0
 offset_top = 880.0
 offset_right = 160.0
 offset_bottom = 1008.0
-counter = NodePath("Counter")
-
-[node name="Counter" type="Label" parent="DrawPileButton"]
-offset_left = 80.0
-offset_top = 80.0
-offset_right = 126.0
-offset_bottom = 128.0
-mouse_filter = 2
-text = "0"
 
 
-[node name="DiscardPileButton" parent="." unique_id=1487224827 node_paths=PackedStringArray("counter") instance=ExtResource("2_pile_button")]
+[node name="DiscardPileButton" parent="." unique_id=1487224827 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 200.0
 offset_top = 880.0
 offset_right = 328.0
 offset_bottom = 1008.0
-counter = NodePath("Counter")
-
-[node name="Counter" type="Label" parent="DiscardPileButton"]
-offset_left = 80.0
-offset_top = 80.0
-offset_right = 126.0
-offset_bottom = 128.0
-mouse_filter = 2
-text = "0"
 
 
-[node name="ExhaustPileButton" parent="." unique_id=287794363 node_paths=PackedStringArray("counter") instance=ExtResource("2_pile_button")]
+[node name="ExhaustPileButton" parent="." unique_id=287794363 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 368.0
 offset_top = 880.0
 offset_right = 496.0
 offset_bottom = 1008.0
-counter = NodePath("Counter")
-
-[node name="Counter" type="Label" parent="ExhaustPileButton"]
-offset_left = 80.0
-offset_top = 80.0
-offset_right = 126.0
-offset_bottom = 128.0
-mouse_filter = 2
-text = "0"
 
 
 [node name="CardDropArea" type="Area2D" parent="." unique_id=1784851812]

@@ -56,12 +56,12 @@ anchor_bottom = 1.0
 texture = SubResource("veil")
 mouse_filter = 2
 [node name="ClassPanel" type="VBoxContainer" parent="."]
+theme_type_variation = &"ContentStack"
 unique_name_in_owner = true
 offset_left = 96.0
 offset_top = 96.0
 offset_right = 736.0
 offset_bottom = 980.0
-theme_override_constants/separation = 16
 [node name="Eyebrow" type="Label" parent="ClassPanel"]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
@@ -69,53 +69,50 @@ text = "ECHOES OF THE RIFT / NEW EXPEDITION"
 [node name="ClassNameLabel" type="Label" parent="ClassPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"Title"
-theme_override_font_sizes/font_size = 62
+theme_type_variation = &"CharacterTitle"
 text = "Riftwalker"
 [node name="ScrollContainer" type="ScrollContainer" parent="ClassPanel"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 300)
 horizontal_scroll_mode = 0
 [node name="ClassDescription" type="RichTextLabel" parent="ClassPanel/ScrollContainer"]
+theme_type_variation = &"CharacterDescription"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 fit_content = true
-theme_override_font_sizes/normal_font_size = 22
-theme_override_font_sizes/bold_font_size = 22
-theme_override_constants/line_separation = 4
 text = "Class description"
 [node name="RelicCaption" type="Label" parent="ClassPanel"]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "STARTING RELIC"
 [node name="StartingRelicLabel" type="Label" parent="ClassPanel"]
+theme_type_variation = &"RunClockText"
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
 text = "Phase Key"
 [node name="ChooseCaption" type="Label" parent="ClassPanel"]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "CHOOSE YOUR TRAVELER"
 [node name="Classes" type="HBoxContainer" parent="ClassPanel"]
+theme_type_variation = &"ChoiceRow"
 layout_mode = 2
-theme_override_constants/separation = 12
 [node name="RiftwalkerButton" type="Button" parent="ClassPanel/Classes"]
+theme_type_variation = &"SelectedClassButton"
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
 text = "Riftwalker"
 icon = ExtResource("icon1")
 expand_icon = true
-theme_override_constants/icon_max_width = 40
-theme_override_font_sizes/font_size = 19
 [node name="Bouncer" type="Node" parent="ClassPanel/Classes/RiftwalkerButton"]
 unique_name_in_owner = true
 script = ExtResource("bouncer")
 AutoStart = false
 [node name="SynthforgeButton" type="Button" parent="ClassPanel/Classes"]
+theme_type_variation = &"LockedClassButton"
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
@@ -124,9 +121,8 @@ text = "Synthforged
 Locked"
 icon = ExtResource("icon2")
 expand_icon = true
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 18
 [node name="VoidbinderButton" type="Button" parent="ClassPanel/Classes"]
+theme_type_variation = &"LockedClassButton"
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
@@ -135,8 +131,6 @@ text = "Voidbinder
 Locked"
 icon = ExtResource("icon3")
 expand_icon = true
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 18
 [node name="Spacer" type="Control" parent="ClassPanel"]
 layout_mode = 2
 size_flags_vertical = 3

@@ -17,6 +17,7 @@ class_name PlayerHand
 
 
 @onready var card_ui_scene = preload("res://ui/card_ui/card_ui.tscn")
+const SPOTLIGHT_SLOT = preload("res://ui/player_ui/card_spotlight_slot.tscn")
 
 var cards_played_this_turn := 0
 var layout_tween: Tween
@@ -40,7 +41,6 @@ func add_card(card: Card) -> void:
 	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
 	new_card_ui.values_modified = new_card_ui.is_values_modified()
 	new_card_ui.playable = player_stats.can_play_card(new_card_ui.card)
-	new_card_ui.size = CardUI.CARD_UI_SIZE
 	_update_cards()
 	
 func add_card_spotlight(card: Card) -> void:
@@ -48,15 +48,10 @@ func add_card_spotlight(card: Card) -> void:
 		add_card(card)
 		return
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
-	var spotlight_slot := Control.new()
-
-	spotlight_slot.custom_minimum_size = CardUI.CARD_UI_SIZE
-	spotlight_slot.size = CardUI.CARD_UI_SIZE
-	spotlight_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var spotlight_slot: Control = SPOTLIGHT_SLOT.instantiate()
 	card_spotlight.add_child(spotlight_slot)
 
 	spotlight_slot.add_child(new_card_ui)
-	new_card_ui.position = Vector2.ZERO
 	new_card_ui.card = card
 	new_card_ui.parent = spotlight_slot
 	new_card_ui.player_stats = player_stats
@@ -64,7 +59,6 @@ func add_card_spotlight(card: Card) -> void:
 	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
 	new_card_ui.values_modified = new_card_ui.is_values_modified()
 	new_card_ui.playable = player_stats.can_play_card(new_card_ui.card)
-	new_card_ui.size = CardUI.CARD_UI_SIZE
 	await get_tree().create_timer(1).timeout
 	var tween = create_tween()
 	var target_position := new_card_ui.position - Vector2(0, new_card_ui.size.y)
@@ -102,7 +96,7 @@ func _update_cards() -> void:
 	if layout_tween and layout_tween.is_valid():
 		layout_tween.kill()
 	layout_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	var width := CardUI.CARD_UI_SIZE.x
+	var width := (get_child(0) as Control).get_combined_minimum_size().x
 	var step := minf(width + x_sep, maxf(0.0, size.x - width) / maxf(1.0, count - 1.0))
 	var offset := (size.x - width - step * (count - 1)) / 2.0
 	for i in count:

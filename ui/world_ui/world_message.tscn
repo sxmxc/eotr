@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bb5iwy5af4ic7"]
 
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_khp44"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_khp44"]
 [ext_resource type="Script" uid="uid://cuu74bywb8e76" path="res://ui/world_ui/world_message.gd" id="2_pwgpx"]
 
 [node name="WorldMessage" type="PanelContainer" unique_id=247552165]
@@ -22,11 +22,8 @@ theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_pwgpx")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=585113185]
+theme_type_variation = &"InsetTight"
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
 [node name="Panel" type="Panel" parent="MarginContainer" unique_id=1832458934]
 layout_mode = 2
@@ -43,12 +40,12 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="MessageTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1485093460]
+theme_type_variation = &"WorldMessageText"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
-theme_override_font_sizes/normal_font_size = 20
 mouse_filter = 2
 horizontal_alignment = 1
 vertical_alignment = 1

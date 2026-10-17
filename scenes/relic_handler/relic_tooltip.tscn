@@ -46,19 +46,16 @@ offset_left = 264.0
 offset_top = 124.0
 offset_right = 760.0
 offset_bottom = 186.0
-theme_type_variation = &"Title"
-theme_override_font_sizes/font_size = 36
+theme_type_variation = &"RelicTitle"
 text = "Relic"
 [node name="RelicDescription" type="RichTextLabel" parent="Card"]
+theme_type_variation = &"RelicDescription"
 unique_name_in_owner = true
 offset_left = 264.0
 offset_top = 204.0
 offset_right = 760.0
 offset_bottom = 348.0
 bbcode_enabled = true
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-theme_override_constants/line_separation = 6
 text = "Relic description"
 [node name="BackButton" type="Button" parent="Card"]
 unique_name_in_owner = true

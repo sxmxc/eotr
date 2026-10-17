@@ -87,11 +87,16 @@ func end_turn() -> void:
 
 func draw_card() -> void:
 	reshuffle_deck_from_discard()
+	if player_stats.draw_pile.is_empty():
+		return
 	player_hand.add_card(player_stats.draw_pile.draw_card())
 	reshuffle_deck_from_discard()
 
 
 func draw_cards(amount: int) -> void:
+	if amount <= 0:
+		Events.player_hand_drawn.emit()
+		return
 	var tween := create_tween()
 	for i in range(amount):
 		tween.tween_callback(draw_card)
@@ -118,8 +123,13 @@ func discard_cards() -> void:
 	if player_hand.layout_tween and player_hand.layout_tween.is_valid():
 		player_hand.layout_tween.kill()
 	for card_ui: CardUI in player_hand.get_cards():
+		# Animations can be interrupted; commit pile changes before advancing.
+		player_stats.discard.add_card(card_ui.card)
+		card_ui.disabled = true
 		if world_ui:
 			card_ui.reparent(world_ui)
+		else:
+			card_ui.reparent(self)
 		var card_ui_offset = Vector2(card_ui.global_position.x, card_ui.global_position.y - 100)
 		card_ui.visuals.card_trail_fx.emitting = true
 		card_ui.z_index += 1
@@ -130,10 +140,8 @@ func discard_cards() -> void:
 		var target_position: Vector2 = discard_pile_position if discard_pile_position != Vector2.ZERO else card_ui_offset
 		tween.tween_property(card_ui,"global_position", target_position,.1)
 		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, .12)
-		tween.tween_callback(player_stats.discard.add_card.bind(card_ui.card))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
 	Events.player_hand_discarded.emit()
-	#tween.finished.connect(func(): Events.player_hand_discarded.emit())
 
 
 func reshuffle_deck_from_discard() -> void:

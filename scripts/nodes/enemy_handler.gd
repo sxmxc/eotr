@@ -3,8 +3,8 @@ class_name EnemyHandler
 
 const QUEUE_ENTRY = preload("res://ui/enemy_ui/enemy_queue_entry.tscn")
 const ENEMY_STATS_UI = preload("res://ui/enemy_ui/enemy_stats_ui.tscn")
-const ENEMY_STATS_UI_SCALE := Vector2(0.75, 0.75)
-const ENEMY_STATS_UI_OFFSET := Vector2(0, -42)
+const ENEMY_STATS_PREVIEW = preload("res://ui/enemy_ui/enemy_stats_preview.tscn")
+const EnemyRailUI = preload("res://ui/enemy_ui/enemy_rail.gd")
 # Pacing tunables for spotlighted vs batched enemy turns.
 const SPOTLIGHT_TWEEN_DURATION := 0.6
 const QUICK_TWEEN_DURATION := 0.18
@@ -16,7 +16,7 @@ const MIN_GOLD_FOR_SPOTLIGHT := 3
 @export var tilemap: ProcGenTilemap
 
 var acting_enemies: Array[Enemy] = []
-var world_ui: CanvasLayer
+var enemy_rail: EnemyRailUI
 var quick_turn_enemies: Dictionary = {}
 var enemy_turn_count := 0
 
@@ -26,7 +26,6 @@ func _ready() -> void:
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
 	#Events.card_played.connect(reset_enemy_actions)
 	Events.player_moved.connect(reset_enemy_actions)
-	world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
 
 
 func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
@@ -35,30 +34,23 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	enemy.tilemap = tilemap
 	enemy.position = tilemap.base_layer.map_to_local(tile_pos)
 	enemy.current_tile_position = tile_pos
-	world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
-	if world_ui and world_ui.enemy_stats_container:
+	if enemy_rail:
 		var entry := QUEUE_ENTRY.instantiate()
-		world_ui.enemy_stats_container.add_child(entry)
+		enemy_rail.queue.add_child(entry)
 		entry.bind_enemy(enemy)
 	if not enemy.status_handler:
 		enemy.status_handler = enemy.get_node_or_null("StatusHandler") as StatusHandler
 	if not enemy.stats_ui:
 		# Combat owns inspection in screen space; standalone enemy previews retain a fallback.
-		var floating_ui := ENEMY_STATS_UI.instantiate() as EnemyStatsUI
-		if is_instance_valid(world_ui):
-			world_ui.add_child(floating_ui)
-			floating_ui.anchor_left = 1.0
-			floating_ui.anchor_right = 1.0
-			floating_ui.offset_left = -320.0
-			floating_ui.offset_right = -40.0
-			floating_ui.offset_top = 540.0
-			floating_ui.offset_bottom = 792.0
+		var inspector: EnemyStatsUI
+		if is_instance_valid(enemy_rail):
+			inspector = ENEMY_STATS_UI.instantiate() as EnemyStatsUI
+			enemy_rail.inspection.add_child(inspector)
 		else:
-			enemy.add_child(floating_ui)
-			floating_ui.position = ENEMY_STATS_UI_OFFSET
-			floating_ui.scale = ENEMY_STATS_UI_SCALE
-		floating_ui.setup_enemy_ui(enemy)
-		enemy.stats_ui = floating_ui
+			inspector = ENEMY_STATS_PREVIEW.instantiate() as EnemyStatsUI
+			enemy.add_child(inspector)
+		inspector.setup_enemy_ui(enemy)
+		enemy.stats_ui = inspector
 	if enemy.stats_ui and enemy.stats:
 		enemy.stats_ui.update_stats(enemy.stats)
 		enemy.stats_ui.hide()
@@ -124,11 +116,9 @@ func start_turn() -> void:
 
 func _start_next_enemy_turn() -> void:
 	if acting_enemies.is_empty():
-		if not world_ui:
-			world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
-		if world_ui and world_ui.enemy_stats_scroll:
-			world_ui.enemy_stats_scroll.scroll_vertical = 0
-			world_ui.enemy_stats_scroll.scroll_horizontal = 0
+		if enemy_rail:
+			enemy_rail.scroll.scroll_vertical = 0
+			enemy_rail.scroll.scroll_horizontal = 0
 		Events.enemy_turn_ended.emit()
 		print("All enemies done")
 		return

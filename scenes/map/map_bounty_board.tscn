@@ -14,13 +14,11 @@ offset_bottom = 34.0
 theme_type_variation = &"Muted"
 text = "Refreshes in 4 floors"
 [node name="Body" type="RichTextLabel" parent="."]
+theme_type_variation = &"BountyDescription"
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 52.0
 bbcode_enabled = true
-theme_override_font_sizes/normal_font_size = 23
-theme_override_font_sizes/bold_font_size = 23
-theme_override_constants/line_separation = 4
 text = "No active contracts"

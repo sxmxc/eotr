@@ -10,15 +10,10 @@ func show_save_error(message: String) -> void:
 		existing.dialog_text = message
 		existing.popup_centered()
 		return
-	var dialog := AcceptDialog.new()
-	dialog.name = "SaveError"
-	dialog.title = "Save unavailable"
+	var dialog: AcceptDialog = preload("res://ui/save_error.tscn").instantiate()
 	dialog.dialog_text = message
-	dialog.dialog_autowrap = true
-	dialog.process_mode = Node.PROCESS_MODE_ALWAYS
-	dialog.theme = preload("res://resources/themes/default_theme.tres")
 	add_child(dialog)
-	dialog.popup_centered(Vector2i(680, 200))
+	dialog.popup_centered()
 
 func _ready() -> void:
 	await get_tree().root.ready

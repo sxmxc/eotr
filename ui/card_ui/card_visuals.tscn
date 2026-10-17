@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3x0n5j034cie"]
 
-[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_theme"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://clb2uaudrydbm" path="res://assets/card/card_background.png" id="3_0p8qx"]
 [ext_resource type="Texture2D" uid="uid://bd67k5uobulf8" path="res://assets/card/art/default_card_image.jpg" id="4_1bfbl"]
@@ -152,18 +152,20 @@ corner_radius_top_left = 8
 corner_radius_bottom_right = 8
 
 [node name="Visuals" type="Control"]
+custom_minimum_size = Vector2(180, 240)
+pivot_offset = Vector2(90, 240)
 offset_right = 180.0
 offset_bottom = 240.0
 mouse_filter = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_script")
 [node name="CardBackgroundTexture" type="Panel" parent="."]
+theme_type_variation = &"CardFace"
 unique_name_in_owner = true
 offset_right = 180.0
 offset_bottom = 240.0
 mouse_filter = 2
 use_parent_material = true
-theme_override_styles/panel = SubResource("face")
 [node name="ArtWell" type="ColorRect" parent="."]
 offset_left = 10.0
 offset_top = 42.0
@@ -194,13 +196,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 [node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer"]
+theme_type_variation = &"CardRules"
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 use_parent_material = true
-theme_override_colors/default_color = Color(0.90, 0.92, 0.89, 1)
-theme_override_font_sizes/normal_font_size = 17
-theme_override_font_sizes/bold_font_size = 17
 bbcode_enabled = true
 scroll_active = false
 text = "Card effect"
@@ -223,40 +223,37 @@ texture = ExtResource("7_eqiyl")
 expand_mode = 1
 stretch_mode = 5
 [node name="CardTypeLabel" type="Label" parent="."]
+theme_type_variation = &"CardType"
 unique_name_in_owner = true
 offset_left = 25.0
 offset_top = 116.0
 offset_right = 170.0
 offset_bottom = 138.0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.52, 0.66, 0.72, 1)
-theme_override_font_sizes/font_size = 12
 text = "ATTACK"
 [node name="CardCost" type="Panel" parent="."]
+theme_type_variation = &"CardCostPanel"
 offset_right = 34.0
 offset_bottom = 34.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("cost")
 [node name="CardCostLabel" type="Label" parent="CardCost"]
+theme_type_variation = &"CardCost"
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.91, 0.98, 0.92, 1)
-theme_override_font_sizes/font_size = 24
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 [node name="CardNameLabel" type="Label" parent="."]
+theme_type_variation = &"CardName"
 unique_name_in_owner = true
 offset_left = 42.0
 offset_top = 7.0
 offset_right = 172.0
 offset_bottom = 34.0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.92, 0.93, 0.88, 1)
-theme_override_font_sizes/font_size = 18
 text = "Card name"
 text_overrun_behavior = 3
 script = ExtResource("7_autolabel")

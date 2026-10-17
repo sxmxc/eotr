@@ -13,5 +13,5 @@ func _on_round_updated(new_round: int) -> void:
 	
 func _on_rounds_until_shrink_updated(val: int) -> void:
 	void_label.text = "Collapse in %d round%s" % [val, "" if val == 1 else "s"]
-	void_label.add_theme_color_override("font_color", Color("ef887a") if val <= 1 else Color("ede6d6"))
+	void_label.theme_type_variation = &"CollapseDanger" if val <= 1 else &"CollapseLabel"
 	tooltip_text = "Outer hexes collapse in %d round(s). Units on collapsing tiles take lethal direct damage. Move inward before the countdown ends." % val

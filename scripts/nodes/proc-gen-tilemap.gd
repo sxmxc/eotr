@@ -2,7 +2,7 @@ extends Node2D
 class_name ProcGenTilemap
 
 const HIGHLIGHT_CELL_ID = Vector2i(3,1)
-const TILE_RESOURCE_COUNT_LABEL = preload("res://resources/tile_resource_count_label.tres")
+const TILE_RESOURCE_COUNT = preload("res://ui/world_ui/resource_count.tscn")
 const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
 const RESOURCE_USED_ID = Vector2i(2,1)
 
@@ -537,8 +537,7 @@ func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
 func draw_resource_count() -> void:
 	erase_resource_count()
 	for cell in base_layer.get_used_cells_by_id(0,tile_dict[Enums.TileType.RESOURCE]):
-		var label = Label.new()
-		label.label_settings = TILE_RESOURCE_COUNT_LABEL.duplicate()
+		var label: Label = TILE_RESOURCE_COUNT.instantiate()
 		var resource_count = get_resource_count(cell)
 		label.text = str(resource_count)
 		base_layer.add_child(label)

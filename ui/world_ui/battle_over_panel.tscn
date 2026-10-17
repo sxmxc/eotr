@@ -1,22 +1,24 @@
 [gd_scene format=3 uid="uid://8ojfyictvua2"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
 [ext_resource type="Script" path="res://ui/world_ui/battle_over_panel.gd" id="script"]
-[sub_resource type="StyleBoxFlat" id="scrim"]
-bg_color = Color(0.008, 0.014, 0.025, 0.88)
+[ext_resource type="Material" path="res://resources/materials/battle_over_vignette.tres" id="vignette"]
 [node name="BattleOverPanel" type="Panel"]
+visible = false
+theme_type_variation = &"BattleScrim"
 process_mode = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
-theme_override_styles/panel = SubResource("scrim")
 script = ExtResource("script")
 [node name="VignetteRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+material = ExtResource("vignette")
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0,0,0,0)
+color = Color(1, 1, 1, 1)
 [node name="Card" type="Panel" parent="."]
+pivot_offset = Vector2(330, 200)
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_top = 0.5
@@ -39,8 +41,7 @@ offset_left = 40.0
 offset_top = 90.0
 offset_right = 620.0
 offset_bottom = 190.0
-theme_type_variation = &"Title"
-theme_override_font_sizes/font_size = 64
+theme_type_variation = &"OutcomeTitle"
 text = "Victory"
 horizontal_alignment = 1
 [node name="ContinueButton" type="Button" parent="Card"]

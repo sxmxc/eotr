@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dwiv2oit73vcs"]
 
-[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_l3rh4"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_l3rh4"]
 [ext_resource type="Script" uid="uid://bbmmcym0ollws" path="res://ui/card_ui/card_ui.gd" id="2_dmw7j"]
 [ext_resource type="AudioStream" uid="uid://0grla4p64a7o" path="res://assets/audio/battle_sound_effects/foom_0.wav" id="3_0oooe"]
 [ext_resource type="Script" uid="uid://balj0jrb1odb2" path="res://ui/card_ui/card_states/card_state_machine.gd" id="3_36rxq"]
@@ -27,6 +27,8 @@ size_flags_vertical = 4
 theme = ExtResource("1_l3rh4")
 script = ExtResource("2_dmw7j")
 discard_sound = ExtResource("3_0oooe")
+inspected_scale = Vector2(1.32, 1.32)
+inspected_offset = Vector2(0, -32)
 
 [node name="Visuals" parent="." unique_id=981619667 instance=ExtResource("4_l3rh4")]
 unique_name_in_owner = true

@@ -78,6 +78,10 @@ fx_layer=""
 player_handler=""
 obelisk=""
 
+[gui]
+
+theme/custom="res://resources/themes/rift_ui.tres"
+
 [importer_defaults]
 
 oggvorbisstr={

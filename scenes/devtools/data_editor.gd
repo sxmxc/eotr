@@ -792,7 +792,7 @@ func _update_dirty_label() -> void:
 	if not dirty_label:
 		return
 	dirty_label.text = "Unsaved" if is_dirty else "Saved"
-	dirty_label.modulate = Color(1, 0.85, 0.5) if is_dirty else Color(0.8, 1, 0.8)
+	dirty_label.theme_type_variation = &"EditorUnsaved" if is_dirty else &"EditorSaved"
 
 func _open_picker(which: PickTarget, start_dir: String, filters: Array[String], file_mode: FileDialog.FileMode = FileDialog.FILE_MODE_OPEN_FILE) -> void:
 	pick_target = which
@@ -834,7 +834,7 @@ func _on_save_dialog_file_selected(path: String) -> void:
 
 func _set_status(message: String, is_error: bool = false) -> void:
 	status_label.text = message
-	status_label.modulate = Color(1, 0.6, 0.6) if is_error else Color(0.8, 1, 0.8)
+	status_label.theme_type_variation = &"EditorError" if is_error else &"EditorSaved"
 
 
 func _gather_resources(base_path: String, extensions: Array[String]) -> Array[String]:

@@ -6,58 +6,76 @@
 [ext_resource type="PackedScene" path="res://ui/fx/text_fx.tscn" id="text"]
 [ext_resource type="Texture2D" path="res://assets/icons/electric.png" id="energy"]
 [ext_resource type="Texture2D" path="res://assets/icons/shield.png" id="block"]
-[sub_resource type="StyleBoxEmpty" id="empty"]
-[node name="StatsUI" type="Panel"]
+[ext_resource type="PackedScene" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
+[ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_combat.tscn" id="status_widget"]
+
+[node name="StatsUI" type="PanelContainer"]
 offset_right = 248.0
 offset_bottom = 152.0
 theme = ExtResource("theme")
-theme_override_styles/panel = SubResource("empty")
+theme_type_variation = &"EmptyPanel"
 script = ExtResource("script")
 stat_change_fx = ExtResource("fx")
 stat_change_txt_fx = ExtResource("text")
-[node name="Caption" type="Label" parent="."]
-offset_right = 248.0
-offset_bottom = 24.0
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"SmallStack"
+
+[node name="StatusSlot" type="MarginContainer" parent="Content"]
+layout_mode = 2
+
+[node name="StatusHandler" parent="Content/StatusSlot" instance=ExtResource("statuses")]
+unique_name_in_owner = true
+layout_mode = 2
+status_ui_scene = ExtResource("status_widget")
+
+[node name="Caption" type="Label" parent="Content"]
+layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "ENERGY"
-[node name="EnergyIcon" type="TextureRect" parent="."]
+
+[node name="Energy" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+theme_type_variation = &"ContentRow"
+
+[node name="EnergyIcon" type="TextureRect" parent="Content/Energy"]
 unique_name_in_owner = true
-offset_top = 40.0
-offset_right = 28.0
-offset_bottom = 74.0
+custom_minimum_size = Vector2(28, 34)
+layout_mode = 2
+size_flags_vertical = 4
 texture = ExtResource("energy")
 expand_mode = 1
 stretch_mode = 5
 mouse_filter = 2
-[node name="EnergyLabel" type="Label" parent="."]
+
+[node name="EnergyLabel" type="Label" parent="Content/Energy"]
 unique_name_in_owner = true
-offset_left = 44.0
-offset_top = 26.0
-offset_right = 248.0
-offset_bottom = 92.0
-theme_override_font_sizes/font_size = 48
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"ResourceValue"
 text = "3 / 3"
-[node name="BlockIcon" type="TextureRect" parent="."]
+
+[node name="Block" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+theme_type_variation = &"ContentRow"
+
+[node name="BlockIcon" type="TextureRect" parent="Content/Block"]
 unique_name_in_owner = true
-offset_top = 112.0
-offset_right = 24.0
-offset_bottom = 138.0
+custom_minimum_size = Vector2(24, 26)
+layout_mode = 2
+size_flags_vertical = 4
 texture = ExtResource("block")
 expand_mode = 1
 stretch_mode = 5
-[node name="BlockLabel" type="Label" parent="."]
+mouse_filter = 2
+
+[node name="BlockLabel" type="Label" parent="Content/Block"]
 unique_name_in_owner = true
-offset_left = 40.0
-offset_top = 106.0
-offset_right = 116.0
-offset_bottom = 142.0
+layout_mode = 2
 text = "0"
-[node name="HealthUI" parent="." instance=ExtResource("health")]
+
+[node name="HealthUI" parent="Content" instance=ExtResource("health")]
 unique_name_in_owner = true
 visible = false
-[node name="blockfx_marker" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(30, 124)
-[node name="energyfx_marker" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(30, 58)
+layout_mode = 2

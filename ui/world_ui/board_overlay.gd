@@ -1,13 +1,10 @@
 extends Node2D
 # Presentation only. Board state, generation and targeting validity stay on ProcGenTilemap.
-const TARGET_HIGHLIGHT_SHADER := preload("res://scripts/shaders/tile_target_highlight.gdshader")
-const TARGET_HIGHLIGHT_ATLAS := preload("res://assets/spritesheets/32x32-hex-tiles.png")
-# Match the main tile sprite mask (hex) so highlights keep the correct silhouette.
-const TARGET_HIGHLIGHT_REGION := Rect2i(32, 32, 32, 32)
+const TARGET_HIGHLIGHT := preload("res://ui/world_ui/target_highlight.tscn")
+const COLLAPSE_OUTLINE := preload("res://ui/world_ui/collapse_outline.tscn")
+var collapse_outlines: Array[Line2D] = []
 
 
-var target_highlight_texture: Texture2D
-var target_highlight_material: ShaderMaterial
 var target_highlight_pool: Array[Sprite2D] = []
 var active_target_highlights: Array[Sprite2D] = []
 var last_target_highlight_cells: Array[Vector2i] = []
@@ -36,24 +33,27 @@ func _refresh() -> void:
 	var cells := last_target_highlight_cells.duplicate()
 	last_target_highlight_cells.clear()
 	show_target_highlights(cells)
-	queue_redraw()
+	_refresh_collapse_outlines()
 
-func _draw() -> void:
-	# 32px hex art, horizontal offset axis (tile_layout 5); no coordinate substitution.
+func _refresh_collapse_outlines() -> void:
+	for outline in collapse_outlines:
+		outline.hide()
+	var index := 0
 	for cell in edge:
 		if board.is_tile_behind_fog(cell) or not board.tile_map_data.has(cell):
 			continue
-		var center := board.base_layer.map_to_local(cell)
-		var points := PackedVector2Array()
-		for offset in [Vector2(0,-15), Vector2(15,-8), Vector2(15,8), Vector2(0,15), Vector2(-15,8), Vector2(-15,-8), Vector2(0,-15)]:
-			points.append(center + offset)
-		draw_polyline(points, Color("ef887a"), 1.5, true)
+		if index == collapse_outlines.size():
+			var outline: Line2D = COLLAPSE_OUTLINE.instantiate()
+			add_child(outline)
+			collapse_outlines.append(outline)
+		var outline := collapse_outlines[index]
+		outline.position = board.base_layer.map_to_local(cell)
+		outline.show()
+		index += 1
 
 func show_target_highlights(cells: Array[Vector2i]) -> void:
 	if not board.base_layer:
 		return
-	if not target_highlight_material or not target_highlight_texture:
-		_build_target_highlight_assets()
 	if cells.is_empty():
 		clear_target_highlights()
 		return
@@ -84,35 +84,9 @@ func _clear_target_highlight_nodes() -> void:
 	active_target_highlights.clear()
 
 func _get_target_highlight_sprite() -> Sprite2D:
-	if not target_highlight_material or not target_highlight_texture:
-		_build_target_highlight_assets()
 	if target_highlight_pool.is_empty():
-		var hl_sprite := Sprite2D.new()
-		hl_sprite.texture = target_highlight_texture
-		hl_sprite.material = target_highlight_material
-		hl_sprite.centered = true
-		hl_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		hl_sprite.z_index = 2
-		add_child(hl_sprite)
-		return hl_sprite
-	var sprite: Sprite2D = target_highlight_pool.pop_back()
-	sprite.texture = target_highlight_texture
-	sprite.material = target_highlight_material
-	sprite.z_index = 2
-	return sprite
-
-func _build_target_highlight_assets() -> void:
-	var atlas_texture := AtlasTexture.new()
-	atlas_texture.atlas = TARGET_HIGHLIGHT_ATLAS
-	atlas_texture.region = TARGET_HIGHLIGHT_REGION
-	target_highlight_texture = atlas_texture
-
-	target_highlight_material = ShaderMaterial.new()
-	target_highlight_material.shader = TARGET_HIGHLIGHT_SHADER
-	target_highlight_material.set_shader_parameter("PulseSpeed", 1.35)
-	target_highlight_material.set_shader_parameter("MinAlpha", 0.1)
-	target_highlight_material.set_shader_parameter("MaxAlpha", 0.95)
-	target_highlight_material.set_shader_parameter("OutlineWidth", 0.065)
-	# Lost Century-friendly teal that stands off resource yellows.
-	target_highlight_material.set_shader_parameter("HighlightColor", Color(0.29, 0.75, 0.67, 1.0))
+		var sprite: Sprite2D = TARGET_HIGHLIGHT.instantiate()
+		add_child(sprite)
+		return sprite
+	return target_highlight_pool.pop_back()
 	

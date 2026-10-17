@@ -1,14 +1,10 @@
 class_name CardUI
 extends Control
 
-const CARD_UI_SIZE := Vector2(180,240)
-
 @warning_ignore("unused_signal")
 signal reparent_requested(which_card_ui: CardUI)
 
 const CARD_BURNABLE = preload("res://resources/materials/card_burnable.tres")
-const COST_FONT_COLOR_WHITE = Color("ede6d6")
-const COST_FONT_COLOR_RED = Color("ef887a")
 const KEYWORD_TOOLTIP_HELPER = preload("res://ui/tool_tip_ui/keyword_tooltip_helper.gd")
 
 @export var player_modifiers: ModifierHandler
@@ -19,6 +15,12 @@ const KEYWORD_TOOLTIP_HELPER = preload("res://ui/tool_tip_ui/keyword_tooltip_hel
 @export var hover_sound: AudioStream
 @export var discard_sound: AudioStream
 @export var clicked_sound: AudioStream
+@export_group("Inspection and aiming")
+@export var inspected_scale := Vector2.ONE
+@export var inspected_offset := Vector2.ZERO
+@export var inspection_duration := 0.12
+@export var aim_bottom_inset := 28.0
+@export var aim_cancel_margin := 60.0
 
 @onready var drop_point_detector = $DropPointDetector
 @onready var state = $DebugState
@@ -168,10 +170,7 @@ func _set_card(value: Card) -> void:
 
 func _set_playable(value: bool) -> void:
 	playable = value
-	if not playable:
-		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_RED)
-	else:
-		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_WHITE)
+	visuals.card_cost_label.theme_type_variation = &"CardCost" if playable else &"CardCostUnavailable"
 	_refresh_interaction_visuals()
 		
 
@@ -239,13 +238,12 @@ func _refresh_interaction_visuals() -> void:
 func set_inspected(inspected: bool, immediate: bool = false) -> void:
 	if hover_tween and hover_tween.is_valid():
 		hover_tween.kill()
-	visuals.pivot_offset = Vector2(size.x / 2.0, size.y)
-	var target_scale := Vector2(1.32, 1.32) if inspected else Vector2.ONE
-	var target_position := Vector2(0, -32) if inspected else Vector2.ZERO
+	var target_scale := inspected_scale if inspected else Vector2.ONE
+	var target_position := inspected_offset if inspected else Vector2.ZERO
 	if immediate:
 		visuals.scale = target_scale
 		visuals.position = target_position
 		return
 	hover_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	hover_tween.tween_property(visuals, "scale", target_scale, 0.12)
-	hover_tween.tween_property(visuals, "position", target_position, 0.12)
+	hover_tween.tween_property(visuals, "scale", target_scale, inspection_duration)
+	hover_tween.tween_property(visuals, "position", target_position, inspection_duration)

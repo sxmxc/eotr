@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://80y8in4wjr2c"]
 
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_t412h"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_t412h"]
 [ext_resource type="Script" uid="uid://cfqjgpp2m8fxx" path="res://ui/player_ui/enemy_info_ui.gd" id="2_t412h"]
 [ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="3_t412h"]
 [ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="4_4m4ps"]
@@ -13,22 +13,20 @@ theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_t412h")
 
 [node name="MainMargin" type="MarginContainer" parent="." unique_id=1575233072]
+theme_type_variation = &"InsetTight"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
 [node name="Panel" type="Panel" parent="MainMargin" unique_id=681008041]
 layout_mode = 2
 theme_type_variation = &"HudPanelMain"
 
 [node name="BodyMargin" type="MarginContainer" parent="MainMargin/Panel" unique_id=69235648]
+theme_type_variation = &"InsetCompact"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,10 +37,6 @@ offset_right = 6.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin" unique_id=289686071]
 layout_mode = 2
@@ -54,8 +48,8 @@ text = "Enemy"
 horizontal_alignment = 1
 
 [node name="Health" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=218919881]
+theme_type_variation = &"CompactRow"
 layout_mode = 2
-theme_override_constants/separation = 10
 alignment = 1
 
 [node name="HealthIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Health" unique_id=586701461]
@@ -73,9 +67,9 @@ text = "20/20"
 vertical_alignment = 1
 
 [node name="Shield" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=34257930]
+theme_type_variation = &"CompactRow"
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 10
 alignment = 1
 
 [node name="ShieldIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Shield" unique_id=35754456]

@@ -17,6 +17,8 @@ var _is_hovered := false
 
 
 func _ready() -> void:
+	focus_entered.connect(_update_panel_style)
+	focus_exited.connect(_update_panel_style)
 	_update_panel_style()
 
 
@@ -33,13 +35,15 @@ func _on_visuals_mouse_exited() -> void:
 
 
 func _on_visuals_gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_mouse"):
+	if event.is_action_pressed("left_mouse") or event.is_action_pressed("ui_accept"):
+		accept_event()
 		if selectable:
 			set_selected(!_selected)
 			selection_toggled.emit(card, _selected)
 		else:
 			tooltip_requested.emit(card)
 	elif tooltip_on_right_click and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		accept_event()
 		tooltip_requested.emit(card)
 
 
@@ -62,7 +66,7 @@ func clear_selection() -> void:
 
 func _update_panel_style() -> void:
 	if visuals and visuals.has_method("set_hover_outline"):
-		visuals.set_hover_outline(_selected or _is_hovered)
+		visuals.set_hover_outline(_selected or _is_hovered or has_focus())
 
 
 func set_card(value: Card) -> void:

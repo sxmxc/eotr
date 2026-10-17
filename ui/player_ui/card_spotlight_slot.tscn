@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[node name="CardSpotlightSlot" type="Control"]
+custom_minimum_size = Vector2(180, 240)
+offset_right = 180.0
+offset_bottom = 240.0
+mouse_filter = 2

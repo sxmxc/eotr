@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button.tscn" id="base"]
+
+[node name="CardPileButton" instance=ExtResource("base")]
+custom_minimum_size = Vector2(64, 64)
+
+[node name="Counter" parent="." index="0"]
+theme_type_variation = &"PileCountCompact"

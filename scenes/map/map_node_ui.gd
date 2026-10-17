@@ -4,16 +4,7 @@ class_name MapNodeUI
 signal clicked(map_node: MapNode)
 signal selected(map_node: MapNode)
 
-const ICONS := {
-	Enums.MapNodeType.NOT_ASSIGNED: [null, Vector2.ONE],
-	Enums.MapNodeType.MONSTER: [preload("res://assets/icons/rolling-energy.svg"), Vector2(0.1, 0.1)],
-	Enums.MapNodeType.TREASURE: [preload("res://assets/icons/chest.svg"), Vector2(0.1, 0.1)],
-	Enums.MapNodeType.REST: [preload("res://assets/icons/night-sleep.svg"), Vector2(0.1, 0.1)],
-	Enums.MapNodeType.SHOP: [preload("res://assets/icons/pay-money.svg"), Vector2(0.1, 0.1)],
-	Enums.MapNodeType.EVENT: [preload("res://assets/icons/perspective-dice-six-faces-random.svg"), Vector2(0.1, 0.1)],
-	Enums.MapNodeType.BOSS: [preload("res://assets/icons/overlord-helm.svg"), Vector2(0.2, 0.2)],
-	Enums.MapNodeType.ELITE: [preload("res://assets/icons/rolling-energy-2.svg"), Vector2(0.1, 0.1)]
-}
+@export var presentation_theme: Theme
 
 @onready var line_2d: Line2D = $Visuals/Line2D
 @onready var sprite_2d: Sprite2D = $Visuals/Sprite2D
@@ -41,13 +32,15 @@ func set_map_node(new_value: MapNode) -> void:
 	map_node = new_value
 	position = map_node.position
 	line_2d.rotation_degrees = randi_range(0, 360)
-	sprite_2d.texture = ICONS[map_node.type][0]
-	sprite_2d.scale = ICONS[map_node.type][1]
+	var kind: StringName = Enums.MapNodeType.keys()[map_node.type]
+	sprite_2d.texture = presentation_theme.get_icon(kind, &"MapNode") if presentation_theme.has_icon(kind, &"MapNode") else null
+	var scale_key := &"boss_icon_scale_percent" if map_node.type == Enums.MapNodeType.BOSS else &"icon_scale_percent"
+	sprite_2d.scale = Vector2.ONE * presentation_theme.get_constant(scale_key, &"MapNode") / 100.0
 	update_route_state(false)
 
 
 func show_selected() -> void:
-	line_2d.modulate = Colors.theme_light
+	line_2d.modulate = presentation_theme.get_color(&"selected", &"MapNode")
 
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
@@ -88,8 +81,8 @@ func update_route_state(current: bool) -> void:
 	$RouteLabel.text = "%s\n%s" % [kind, state] if inspecting else (kind if available else state)
 	$RouteLabel.visible = inspecting or available or map_node.selected
 	z_index = 5 if inspecting else 0
-	line_2d.modulate = Color.WHITE if available or map_node.selected else Color(1, 1, 1, 0.20)
-	line_2d.default_color = Color("d9b76f") if map_node.selected else Color("66d9c7")
+	line_2d.modulate = presentation_theme.get_color(&"active", &"MapNode") if available or map_node.selected else presentation_theme.get_color(&"inactive_route", &"MapNode")
+	line_2d.default_color = presentation_theme.get_color(&"cleared", &"MapNode") if map_node.selected else presentation_theme.get_color(&"available", &"MapNode")
 	var accent := Color("d9b76f") if map_node.selected else Color("66d9c7")
-	$RouteLabel.modulate = accent if available or map_node.selected else Color("ede6d6")
-	sprite_2d.modulate = Color.WHITE if available or map_node.selected or inspecting else Color(0.6, 0.65, 0.72)
+	$RouteLabel.modulate = accent if available or map_node.selected else presentation_theme.get_color(&"text", &"MapNode")
+	sprite_2d.modulate = Color.WHITE if available or map_node.selected or inspecting else presentation_theme.get_color(&"inactive_icon", &"MapNode")

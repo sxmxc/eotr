@@ -6,7 +6,7 @@ const CARD_MENU_UI_SCENE = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
 @export var card_pile: CardPile
 
 @onready var title: Label = %Title
-@onready var card_container: GridContainer = %CardContainer
+@onready var card_container: HFlowContainer = %CardContainer
 @onready var card_popup: CardPopup = %CardPopup
 @onready var back_button: Button = %BackButton
 

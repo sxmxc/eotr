@@ -20,7 +20,11 @@ Follow-up: after the run scene was converted from binary to `scenes/run/run.tscn
 
 `BattlePresentation` created a ColorRect, Label, and ShaderMaterial in code. They now live in `ui/world_ui/battle_presentation.tscn`, instanced directly in `game_world.tscn`. Its script handles the animations and text. The shader material is local to each scene instance so one battle's tint cannot affect another. The overlay ignores mouse input and starts hidden.
 
-## Remaining work, in priority order
+## Follow-up status
+
+The list below records the original audit findings. The subsequent implementation resolved items 1–5: owned enemy queue entries; recoverable atomic saves with fresh independent loads; a monotonic active-play clock; node-bound local-space shakes; and a small legend toggle. Board presentation now lives in `board_overlay.gd` with authored highlight/outline/label scenes. The run and battle composition roots have also been split into focused UI/tutorial scenes and shared theme variations. Current details and verification limits are in `continuous-improvement.md` and `ui-authoring.md`. Particle profiling and further separation of board simulation remain opportunities, not completed performance work.
+
+### Original findings
 
 1. **Enemy queue signal ownership and repeated setup.** `scripts/nodes/enemy_handler.gd::_build_queue_button()` tests `is_connected()` with a fresh anonymous callable, then connects a different anonymous callable. These cannot identify the same connection. The callback captures a button whose lifetime is controlled elsewhere. Move the queue entry into a small scene with a script-owned update method and explicit enemy/stats binding. Verify enemy death, repeated encounter setup, stats changes after a button is freed, and scene teardown. `setup_enemies()` and `add_enemy()` also duplicate queue/floating-UI setup; consolidate that after preserving the obelisk-specific hooks.
 2. **Save loading cache behavior and write failure handling.** `scripts/resources/save_game.gd::load_data()` uses ResourceLoader's default cache behavior for a mutable save path. Test reading, overwriting, and reading again in the same process, and choose explicit cache semantics for the save graph. `save_data()` reports failure only through `assert`, which is unsuitable for release error handling. Add a user-visible recoverable failure path and consider atomic replacement. Do not change the save format incidentally.

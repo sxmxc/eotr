@@ -33,7 +33,7 @@ func set_current_stats(stats: PlayerStats) -> void:
 	current_stats = stats
 	class_name_label.text = current_stats.player_class_name
 	var paragraphs := current_stats.player_class_description.split("\n", false, 1)
-	class_description.text = "[color=#a6b5bd]%s[/color]" % paragraphs[0]
+	class_description.text = "[color=#%s]%s[/color]" % [class_description.get_theme_color("font_color", "Muted").to_html(), paragraphs[0]]
 	if paragraphs.size() > 1:
 		class_description.text += "\n\n" + paragraphs[1]
 	starting_relic_label.text = current_stats.starting_relic.relic_name

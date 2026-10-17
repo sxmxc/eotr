@@ -1,0 +1,223 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="31_7uco7"]
+
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="32_djwbl"]
+
+[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="33_nwf7k"]
+
+[node name="TutorialUI" type="CanvasLayer" unique_id=1275530150]
+process_mode = 3
+layer = 2
+visible = false
+script = ExtResource("31_7uco7")
+
+[node name="RunTutorial" type="Control" parent="." unique_id=1729361230]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("32_djwbl")
+
+[node name="ColorRect" type="ColorRect" parent="RunTutorial" unique_id=109742490]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.294, 0.239, 0.267, 0.625)
+
+[node name="LegendLabel" type="Label" parent="RunTutorial" unique_id=618308228]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 890.0
+offset_right = 453.0
+offset_bottom = 987.0
+size_flags_horizontal = 3
+theme_type_variation = &"TutorialMarker"
+text = "Map Legend"
+horizontal_alignment = 1
+
+[node name="TextureRect7" type="TextureRect" parent="RunTutorial" unique_id=1843964522]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 693.0
+offset_right = 408.0
+offset_bottom = 790.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+stretch_mode = 5
+flip_h = true
+
+[node name="RelicLabel" type="Label" parent="RunTutorial" unique_id=840979690]
+layout_mode = 0
+offset_left = 1368.0
+offset_top = 230.0
+offset_right = 1588.0
+offset_bottom = 327.0
+theme_type_variation = &"TutorialMarker"
+text = "Relics"
+horizontal_alignment = 1
+
+[node name="DeckLabel" type="Label" parent="RunTutorial" unique_id=55252247]
+layout_mode = 0
+offset_left = 1701.0
+offset_top = 232.0
+offset_right = 1921.0
+offset_bottom = 329.0
+theme_type_variation = &"TutorialMarker"
+text = "Deck"
+horizontal_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="RunTutorial" unique_id=35506027]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 241.0
+offset_right = 501.0
+offset_bottom = 338.0
+theme_type_variation = &"TutorialMarker"
+text = "Gold"
+horizontal_alignment = 1
+
+[node name="ResourceLabel" type="Label" parent="RunTutorial" unique_id=221329605]
+layout_mode = 0
+offset_left = 478.0
+offset_top = 186.0
+offset_right = 847.0
+offset_bottom = 283.0
+theme_type_variation = &"TutorialMarker"
+text = "Resources"
+horizontal_alignment = 1
+
+[node name="RunTimeLabel" type="Label" parent="RunTutorial" unique_id=1560650554]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 239.0
+offset_right = 1205.0
+offset_bottom = 336.0
+theme_type_variation = &"TutorialMarker"
+text = "Run Time"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="RunTutorial" unique_id=1908742783]
+layout_mode = 0
+offset_left = -116.0
+offset_top = 308.0
+offset_right = 351.0
+offset_bottom = 405.0
+theme_type_variation = &"TutorialMarker"
+text = "health"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="RunTutorial" unique_id=2108048791]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 4.0
+offset_right = 588.0
+offset_bottom = 68.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+stretch_mode = 5
+flip_h = true
+
+[node name="TextureRect2" type="TextureRect" parent="RunTutorial" unique_id=272313052]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 128.0
+offset_right = 552.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="RunTutorial" unique_id=880609630]
+layout_mode = 0
+offset_left = 1053.0
+offset_top = 128.0
+offset_right = 1197.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect8" type="TextureRect" parent="RunTutorial" unique_id=403839304]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 128.0
+offset_right = 779.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect5" type="TextureRect" parent="RunTutorial" unique_id=306623880]
+layout_mode = 0
+offset_left = 1525.0
+offset_top = 128.0
+offset_right = 1669.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect6" type="TextureRect" parent="RunTutorial" unique_id=473845916]
+layout_mode = 0
+offset_left = 1858.0
+offset_top = 124.0
+offset_right = 2002.0
+offset_bottom = 188.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="Button" type="Button" parent="RunTutorial" unique_id=367219980]
+layout_mode = 0
+offset_left = 1640.0
+offset_top = 904.0
+offset_right = 1798.0
+offset_bottom = 956.0
+text = "Got it"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RunTutorial" unique_id=2043898848]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -188.0
+offset_right = 888.0
+offset_bottom = 287.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="RunTutorial/ScrollContainer" unique_id=277373548]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Welcome to the Run Map, your route through the Rift. Quick primer:
+
+[b]Objective[/b] - Climb to the boss pillar on floor 15 and dismantle it to advance.
+
+[b]Nodes[/b] - Monsters/Elites = battles, Treasure = free relic, Rest = heal 30% max HP, Shop = buy cards/relics, Boss = advance the run.
+
+[b]Health[/b] - Carries between battles; if it hits 0 the run ends. Rest nodes and some rewards restore health.
+
+[b]Currencies[/b] - Gold buys cards. Resources buy relics/services. Resource tiles in battle fuel relic costs.
+
+[b]Deck[/b] - Grow it via rewards and shops; trimming keeps draws consistent.
+
+[b]Map Legend[/b] - Open the encounter legend to read icons. Choose paths carefully; once you commit, upstream nodes lock."
+fit_content = true
+
+[connection signal="pressed" from="RunTutorial/Button" to="." method="_on_button_pressed"]

@@ -29,9 +29,9 @@ offset_top = 100.0
 offset_bottom = -40.0
 theme = ExtResource("theme")
 [node name="Content" type="VBoxContainer" parent="UILayer/Center"]
+theme_type_variation = &"PageStack"
 layout_mode = 2
 custom_minimum_size = Vector2(720, 0)
-theme_override_constants/separation = 24
 [node name="Eyebrow" type="Label" parent="UILayer/Center/Content"]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
@@ -49,27 +49,27 @@ unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 0
 [node name="List" type="VBoxContainer" parent="UILayer/Center/Content/RewardScroll"]
+theme_type_variation = &"ListStack"
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 12
 [node name="RewardLabel" type="Label" parent="UILayer/Center/Content/RewardScroll/List"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "BATTLE REWARDS"
 [node name="Rewards" type="VBoxContainer" parent="UILayer/Center/Content/RewardScroll/List"]
+theme_type_variation = &"CompactStack"
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 10
 [node name="EnemyRewardLabel" type="Label" parent="UILayer/Center/Content/RewardScroll/List"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "ENEMY BOUNTIES"
 [node name="EnemyRewards" type="VBoxContainer" parent="UILayer/Center/Content/RewardScroll/List"]
+theme_type_variation = &"CompactStack"
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 10
 [node name="EmptyLabel" type="Label" parent="UILayer/Center/Content/RewardScroll/List"]
 unique_name_in_owner = true
 layout_mode = 2

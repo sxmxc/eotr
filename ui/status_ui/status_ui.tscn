@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://b6davomdrg6nv" path="res://assets/icons/broken-skull.svg" id="1_0sws0"]
 [ext_resource type="Script" uid="uid://be6ig40qrkjk3" path="res://ui/status_ui/status_ui.gd" id="1_7w20s"]
-[ext_resource type="LabelSettings" uid="uid://ci4fh3dk8rdju" path="res://resources/large_label.tres" id="4_1bip1"]
 
 [node name="StatusUI" type="Control" unique_id=1028765798]
 custom_minimum_size = Vector2(64, 64)
@@ -14,10 +13,10 @@ mouse_filter = 2
 script = ExtResource("1_7w20s")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1450946738]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_right = 16.0
-offset_bottom = 16.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource("1_0sws0")
 expand_mode = 1
 stretch_mode = 5
@@ -35,7 +34,7 @@ offset_bottom = 13.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "999"
-label_settings = ExtResource("4_1bip1")
+theme_type_variation = &"StatusCount"
 
 [node name="Stacks" type="Label" parent="." unique_id=445400280]
 layout_mode = 1
@@ -50,4 +49,4 @@ offset_bottom = 11.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "999"
-label_settings = ExtResource("4_1bip1")
+theme_type_variation = &"StatusCount"

@@ -32,20 +32,20 @@ func _apply_accent() -> void:
 	if not _intent:
 		return
 
-	var default_color := Color(0.7, 0.9, 1.0, 1.0)
+	var default_color := get_theme_color(&"default", &"IntentPalette")
 	var accent := _intent.accent_color
 	if accent == default_color:
 		var tip := _intent.tooltip_text.to_lower()
 		if tip.find("attack") != -1:
-			accent = Color("c77b58") # Lost Century rust for attacks
+			accent = get_theme_color(&"attack", &"IntentPalette")
 		elif tip.find("block") != -1 or tip.find("defend") != -1 or tip.find("heal") != -1:
-			accent = Color("927441") # Olive for defense
+			accent = get_theme_color(&"defense", &"IntentPalette")
 		elif tip.find("move") != -1:
-			accent = Color("4b726e") # Teal for movement
+			accent = get_theme_color(&"movement", &"IntentPalette")
 		elif tip.find("buff") != -1 or tip.find("empower") != -1 or tip.find("raise") != -1 or tip.find("spawn") != -1:
-			accent = Color("8caba1") # Sage for buffs/support
+			accent = get_theme_color(&"support", &"IntentPalette")
 		elif tip.find("wait") != -1 or tip.find("deliberate") != -1:
-			accent = Color("d1b187") # Neutral sand for idle/special
+			accent = get_theme_color(&"idle", &"IntentPalette")
 
 	intent_label.modulate = accent
 	intent_icon.modulate = accent

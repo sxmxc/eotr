@@ -77,8 +77,7 @@ func refresh() -> void:
 			intent = intent.trim_prefix(title + " ")
 	text = "%s%s  ·  %d/%d%s\n%s" % [prefix, title, bound_stats.health, bound_stats.max_health, block, intent.replace(" For ", " ")]
 	tooltip_text = intent + "\nCurrent plan; may change with position and conditions.\nSelect to inspect statuses and details."
-	if enemy is Obelisk:
-		add_theme_color_override("font_color", Color("d9b76f"))
+	theme_type_variation = &"ObjectiveQueueEntry" if enemy is Obelisk else &"EnemyQueueEntry"
 
 
 func _hover(entered: bool) -> void:

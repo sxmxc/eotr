@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_6ojrk"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_6ojrk"]
 [ext_resource type="Script" uid="uid://g83gsoqxgk7i" path="res://scenes/win_screen/win_screen.gd" id="2_8vb36"]
 [ext_resource type="Resource" uid="uid://cjimv3kddhqjg" path="res://resources/data/stats/player/riftwalker_starting_stats.tres" id="3_70qtx"]
 [ext_resource type="Texture2D" uid="uid://c8bfbxul3hsy4" path="res://assets/images/static_title_page.png" id="4_tm2bo"]
 [ext_resource type="Script" uid="uid://i3w1a3c08jt1" path="res://addons/uiJuicer/timed_label.gd" id="5_1gpf6"]
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="5_6ojrk"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="5_6ojrk"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="5_bsdxc"]
 [ext_resource type="Script" uid="uid://cxm3yblciexlw" path="res://addons/uiJuicer/fadeLabel.gd" id="6_h14ad"]
 [ext_resource type="Script" uid="uid://cxwnehr2avcec" path="res://addons/uiJuicer/Fader.gd" id="9_85x5u"]
@@ -72,16 +72,13 @@ theme = ExtResource("5_6ojrk")
 theme_type_variation = &"HudPanelBackground"
 
 [node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel" unique_id=980178122]
+theme_type_variation = &"InsetCompact"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
 [node name="Panel" type="Panel" parent="UILayer/Panel/MarginContainer" unique_id=1183723452]
 layout_mode = 2
@@ -96,12 +93,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer" unique_id=1921145596]
+theme_type_variation = &"InsetCompact"
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=786876473]
 layout_mode = 2
@@ -109,8 +103,7 @@ layout_mode = 2
 [node name="WinTitle" type="Label" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer" unique_id=303387010]
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"MediumLabel"
-theme_override_colors/font_color = Color(0.294118, 0.239216, 0.266667, 1)
+theme_type_variation = &"VictoryTitle"
 text = "The Riftwalker is Victorious!"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -147,8 +140,8 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2" unique_id=1193253374]
+theme_type_variation = &"RewardOptionsRow"
 layout_mode = 2
-theme_override_constants/separation = 100
 alignment = 1
 
 [node name="ClassIcon" type="TextureRect" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1446794303]
@@ -169,11 +162,8 @@ layout_mode = 2
 alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=204535283]
+theme_type_variation = &"InsetSpacious"
 layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
 
 [node name="MainMenuButton" type="Button" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3" unique_id=1278669371]
 unique_name_in_owner = true

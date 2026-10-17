@@ -1,17 +1,19 @@
 extends CanvasLayer
 class_name DevGameWorldUI
 
-@export var player_stats: PlayerStats : set = set_player_stats
+var player_stats: PlayerStats: set = set_player_stats
 @export var hand: PlayerHand
 @export var stats_ui: StatsUI
-@export var status_handler: StatusHandler
+@onready var status_handler: StatusHandler = stats_ui.status_handler
 @export var draw_pile_button: CardPileButton
 @export var discard_pile_button: CardPileButton
 @export var exhaust_pile_button: CardPileButton
 @export var dev_panel: DevSandboxPanel
 @export var player: Player
-@export var enemy_stats_container: GridContainer
-@export var enemy_stats_scroll: ScrollContainer
+@onready var enemy_rail = $EnemyRail
+@onready var enemy_stats_container: GridContainer = $EnemyRail.queue
+@onready var enemy_stats_scroll: ScrollContainer = $EnemyRail.scroll
+@onready var enemy_inspection_container: Container = $EnemyRail.inspection
 
 
 func _ready() -> void:

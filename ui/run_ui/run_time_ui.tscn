@@ -15,8 +15,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="." unique_id=1846059398]
+theme_type_variation = &"RunClockText"
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
 text = "00:00:00"
 
 [node name="UpdateTimer" type="Timer" parent="."]

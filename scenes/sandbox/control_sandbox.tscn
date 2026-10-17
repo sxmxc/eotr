@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bq88gcnwe4rar"]
 
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_fc3my"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_fc3my"]
 [ext_resource type="PackedScene" uid="uid://dwiv2oit73vcs" path="res://ui/card_ui/card_ui.tscn" id="2_fc3my"]
 [ext_resource type="Texture2D" uid="uid://dmtmnwy38fivy" path="res://assets/particles/kenney-particles/magic_05.png" id="3_6vsj7"]
 [ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="4_ycgp5"]
@@ -83,11 +83,7 @@ offset_left = 0.0
 offset_top = 0.0
 
 [node name="CardTextLabel" parent="CardUI/Visuals/CardTextBackground/MarginContainer" index="0"]
-theme_override_font_sizes/normal_font_size = 8
-theme_override_font_sizes/bold_font_size = 8
-theme_override_font_sizes/bold_italics_font_size = 8
-theme_override_font_sizes/italics_font_size = 8
-theme_override_font_sizes/mono_font_size = 8
+theme_type_variation = &"SandboxMicroRules"
 
 [node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1831339361]
 visible = false

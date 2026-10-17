@@ -1,13 +1,12 @@
 [gd_scene format=3 uid="uid://bxte0jljomebr"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
 [ext_resource type="Script" path="res://ui/player_ui/round_info.gd" id="script"]
-[sub_resource type="StyleBoxEmpty" id="empty"]
 [node name="RoundInfoUI" type="Panel"]
+theme_type_variation = &"EmptyPanel"
 offset_right = 250.0
 offset_bottom = 76.0
 mouse_filter = 1
 theme = ExtResource("theme")
-theme_override_styles/panel = SubResource("empty")
 script = ExtResource("script")
 [node name="TurnLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -16,9 +15,9 @@ offset_bottom = 26.0
 theme_type_variation = &"Eyebrow"
 text = "ROUND 01"
 [node name="VoidLabel" type="Label" parent="."]
+theme_type_variation = &"SectionHeading"
 unique_name_in_owner = true
 offset_top = 34.0
 offset_right = 250.0
 offset_bottom = 66.0
-theme_override_font_sizes/font_size = 22
 text = "Collapse in 2 rounds"

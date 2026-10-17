@@ -65,15 +65,12 @@ func _wire_world_nodes() -> void:
 		await ui.hand.ready
 	if ui.status_handler and not ui.status_handler.is_node_ready():
 		await ui.status_handler.ready
-	var panel := ui.dev_panel if ui.dev_panel else ui.get_node_or_null("DevPanel") as DevSandboxPanel
+	var panel := ui.dev_panel
 	if panel and not panel.is_node_ready():
 		await panel.ready
-	var hand := ui.hand if ui.hand else ui.get_node_or_null("Hand") as PlayerHand
-	var status_handler := ui.status_handler if ui.status_handler else ui.get_node_or_null("StatusHandler") as StatusHandler
-	var stats_ui := ui.stats_ui if ui.stats_ui else ui.get_node_or_null("Stats") as StatsUI
-	ui.hand = hand
-	ui.status_handler = status_handler
-	ui.stats_ui = stats_ui
+	var hand := ui.hand
+	var status_handler := ui.status_handler
+	var stats_ui := ui.stats_ui
 
 	tilemap.fog_clear_radius = player_stats.view_range
 	tilemap.player = player
@@ -81,7 +78,7 @@ func _wire_world_nodes() -> void:
 	tilemap.player_teleported.connect(player._on_player_teleported)
 
 	enemy_handler.tilemap = tilemap
-	enemy_handler.world_ui = ui
+	enemy_handler.enemy_rail = ui.enemy_rail
 
 	player.stats = player_stats
 	player.run_stats = run_stats
@@ -106,7 +103,6 @@ func _wire_world_nodes() -> void:
 		panel.battle_stats = battle_stats
 		panel.map_camera = map_camera
 		panel.phantom_host = phantom_host
-		panel.map_camera = map_camera
 		panel.card_registry = card_registry
 		panel.encounter_registry = encounter_registry
 

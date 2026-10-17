@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://b6davomdrg6nv" path="res://assets/icons/broken-skull.svg" id="1_80vkg"]
 
 [node name="StatusTooltip" type="HBoxContainer" unique_id=1222848113]
+theme_type_variation = &"FlushRow"
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 256.0
 grow_horizontal = 2
-theme_override_constants/separation = 0
 script = ExtResource("1_6wbko")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1296705464]

@@ -33,6 +33,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", default=shutil.which("godot"))
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--capture-ui", action="store_true", help="Run the native renderer offscreen and save UI captures")
+    parser.add_argument("--ui-transactions-only", action="store_true", help="Run only reward and shop interaction checks")
     args = parser.parse_args()
     if not args.godot or Path(args.godot).suffix.lower() in (".cmd", ".bat"):
         parser.error("Pass --godot with the Godot 4.7.2 executable path")
@@ -67,11 +69,13 @@ def main() -> int:
     for variable in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
         env[variable] = str(user_data)
     log_path = root / "build" / "compatibility-smoke.log"
+    display_args = ["--windowed", "--position", "-32000,-32000", "--resolution", "1920x1080"] if args.capture_ui else ["--headless"]
+    user_args = (["--capture-ui"] if args.capture_ui else []) + (["--ui-transactions-only"] if args.ui_transactions_only else [])
     result = subprocess.run([
-        args.godot, "--headless", "--path", str(validation),
+        args.godot, *display_args, "--path", str(validation),
         "res://scripts/tests/compatibility_smoke.tscn", "--quit-after", "20000",
         "--log-file", str(log_path),
-    ] + (["--verbose"] if args.verbose else []), env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
+    ] + (["--verbose"] if args.verbose else []) + (["--", *user_args] if user_args else []), env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
     output = result.stdout + result.stderr
     print(output)
     # Godot can report a script failure and still return exit code zero.

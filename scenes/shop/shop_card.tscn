@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://reltmlqdjpbr"]
 
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_q5376"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_q5376"]
 [ext_resource type="Script" uid="uid://o5nv282ngkyy" path="res://scenes/shop/shop_card.gd" id="2_ve2vk"]
 [ext_resource type="PackedScene" uid="uid://bc3nktjl4vqur" path="res://ui/card_menu_ui/card_menu_ui.tscn" id="2_w7nxn"]
 [ext_resource type="Texture2D" uid="uid://dhj5kkndltdbv" path="res://assets/icons/two-coins.svg" id="3_ve2vk"]
@@ -20,9 +20,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Price" type="HBoxContainer" parent="." unique_id=1739171233]
+theme_type_variation = &"FlushRow"
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 0
 alignment = 1
 
 [node name="PriceLabel" type="Label" parent="Price" unique_id=3636367]

@@ -34,12 +34,12 @@ left_button = NodePath("../LeftButton")
 right_button = NodePath("../RightButton")
 
 [node name="Relics" type="HBoxContainer" parent="RelicsControl" unique_id=686676428]
+theme_type_variation = &"RelicRow"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(328, 64)
 layout_mode = 1
 offset_right = 964.0
 offset_bottom = 64.0
-theme_override_constants/separation = 2
 
 [node name="RelicUI" parent="RelicsControl/Relics" unique_id=1875492522 instance=ExtResource("4_dxoqm")]
 layout_mode = 2

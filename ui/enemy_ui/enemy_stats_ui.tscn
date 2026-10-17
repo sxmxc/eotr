@@ -1,104 +1,94 @@
 [gd_scene format=3 uid="uid://wxhnk5epbwkh"]
+
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
 [ext_resource type="Script" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="script"]
-[ext_resource type="Script" path="res://ui/enemy_ui/intent_ui.gd" id="intent"]
 [ext_resource type="PackedScene" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
 [ext_resource type="Script" path="res://addons/uiJuicer/Bouncer.gd" id="bounce"]
-[sub_resource type="StyleBoxFlat" id="hpbg"]
-bg_color = Color(0.11,0.16,0.20,1)
-[sub_resource type="StyleBoxFlat" id="hpfill"]
-bg_color = Color(0.65,0.31,0.29,1)
-[node name="EnemyStatsUI" type="Panel"]
+
+[ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_enemy.tscn" id="status_widget"]
+
+[node name="EnemyStatsUI" type="PanelContainer"]
+custom_minimum_size = Vector2(280, 252)
 offset_right = 280.0
 offset_bottom = 252.0
 theme = ExtResource("theme")
 script = ExtResource("script")
 focus_mode = 2
+
+[node name="ContentMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"InspectionMargin"
+
+[node name="Content" type="VBoxContainer" parent="ContentMargin"]
+layout_mode = 2
+theme_type_variation = &"InspectionStack"
+
+[node name="Caption" type="Label" parent="ContentMargin/Content"]
+layout_mode = 2
+theme_type_variation = &"Eyebrow"
+text = "INSPECTED ENEMY"
+
+[node name="EnemyNameLabel" type="Label" parent="ContentMargin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InspectionName"
+text = "Enemy"
+text_overrun_behavior = 3
+
+[node name="Vitals" type="HBoxContainer" parent="ContentMargin/Content"]
+layout_mode = 2
+
+[node name="HealthLabel" type="Label" parent="ContentMargin/Content/Vitals"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"InspectionHealth"
+text = "16 / 16 HP"
+
+[node name="Shield" type="HBoxContainer" parent="ContentMargin/Content/Vitals"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ShieldLabel" type="Label" parent="ContentMargin/Content/Vitals/Shield"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"Eyebrow"
+text = "Block 0"
+
+[node name="HealthBar" type="ProgressBar" parent="ContentMargin/Content"]
+theme_type_variation = &"EnemyHealthBar"
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+show_percentage = false
+
+[node name="Statuses" type="ScrollContainer" parent="ContentMargin/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="StatusHandler" parent="ContentMargin/Content/Statuses" instance=ExtResource("statuses")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 7
+status_ui_scene = ExtResource("status_widget")
+
+[node name="Plan" type="Label" parent="ContentMargin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"InspectionPlan"
+autowrap_mode = 2
+mouse_filter = 2
+text = "Considering…"
+
 [node name="FocusIndicator" type="TextureRect" parent="."]
 unique_name_in_owner = true
 visible = false
+layout_mode = 2
 mouse_filter = 2
-[node name="Caption" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 14.0
-offset_right = 264.0
-offset_bottom = 38.0
-theme_type_variation = &"Eyebrow"
-text = "INSPECTED ENEMY"
-[node name="EnemyNameLabel" type="Label" parent="."]
-unique_name_in_owner = true
-offset_left = 16.0
-offset_top = 44.0
-offset_right = 264.0
-offset_bottom = 72.0
-theme_override_font_sizes/font_size = 22
-text = "Enemy"
-text_overrun_behavior = 3
-[node name="HealthLabel" type="Label" parent="."]
-unique_name_in_owner = true
-offset_left = 16.0
-offset_top = 80.0
-offset_right = 164.0
-offset_bottom = 108.0
-theme_override_font_sizes/font_size = 20
-text = "16 / 16 HP"
-[node name="HealthBar" type="ProgressBar" parent="."]
-unique_name_in_owner = true
-offset_left = 16.0
-offset_top = 118.0
-offset_right = 264.0
-offset_bottom = 122.0
-theme_override_styles/background = SubResource("hpbg")
-theme_override_styles/fill = SubResource("hpfill")
-show_percentage = false
-[node name="Shield" type="Control" parent="."]
-unique_name_in_owner = true
-offset_left = 172.0
-offset_top = 80.0
-offset_right = 264.0
-offset_bottom = 110.0
-[node name="ShieldLabel" type="Label" parent="Shield"]
-unique_name_in_owner = true
-offset_right = 92.0
-offset_bottom = 28.0
-theme_override_font_sizes/font_size = 18
-text = "Block 0"
-[node name="IntentUI" type="Control" parent="."]
-unique_name_in_owner = true
-visible = false
-offset_left = 200.0
-offset_top = 14.0
-offset_right = 260.0
-offset_bottom = 36.0
-script = ExtResource("intent")
-[node name="IntentIcon" type="TextureRect" parent="IntentUI"]
-offset_right = 20.0
-offset_bottom = 20.0
-expand_mode = 1
-stretch_mode = 5
-[node name="IntentLabel" type="Label" parent="IntentUI"]
-offset_left = 24.0
-offset_right = 60.0
-offset_bottom = 24.0
-theme_override_font_sizes/font_size = 16
-[node name="StatusHandler" parent="." instance=ExtResource("statuses")]
-unique_name_in_owner = true
-offset_left = 16.0
-offset_top = 140.0
-offset_right = 264.0
-offset_bottom = 188.0
-columns = 7
-status_icon_size = 30
+
 [node name="Bouncer" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("bounce")
 AutoStart = false
-
-[node name="Plan" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 196.0
-offset_right = 264.0
-offset_bottom = 246.0
-theme_override_font_sizes/font_size = 17
-autowrap_mode = 2
-mouse_filter = 2

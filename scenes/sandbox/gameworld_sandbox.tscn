@@ -1,31 +1,57 @@
 [gd_scene format=3 uid="uid://d1txe8gty0p6t"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_tilemap"]
+
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="2_base_tileset"]
+
 [ext_resource type="Script" uid="uid://dq60gbbm6fjsn" path="res://scripts/resources/bounty_contract.gd" id="3_8hace"]
+
 [ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="3_fog_tileset"]
+
 [ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="4_map_camera"]
+
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_phantom_host"]
+
 [ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="6_enemy_handler"]
+
 [ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="7_player_handler"]
+
 [ext_resource type="Script" uid="uid://de80q2cigowdw" path="res://scripts/effects/tile/ruin_tile_effect.gd" id="8_obysa"]
+
 [ext_resource type="PackedScene" uid="uid://ct8j6u4avyd2y" path="res://scenes/player/player.tscn" id="8_player_scene"]
+
 [ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="9_target_selector"]
+
 [ext_resource type="PackedScene" uid="uid://dk3m00a8m3h4" path="res://scenes/sandbox/dev_game_world_ui.tscn" id="10_dev_ui"]
+
 [ext_resource type="PackedScene" uid="uid://bk80dhbki0i22" path="res://scenes/relic_handler/relic_handler.tscn" id="11_relic_handler"]
+
 [ext_resource type="Script" uid="uid://c7scdih6eyh6c" path="res://scenes/sandbox/gameworld_sandbox.gd" id="12_sandbox_script"]
+
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="13_battle_stats"]
+
 [ext_resource type="Script" uid="uid://dil4vy2ujmryb" path="res://scripts/resources/run_stats.gd" id="15_run_stats"]
+
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="16_highlight_atlas"]
+
 [ext_resource type="Resource" uid="uid://sp28xxw35dgt" path="res://resources/data/tile_effects/block_tile_effect.tres" id="17_block_effect"]
+
 [ext_resource type="Resource" uid="uid://yp6oi15t4x0" path="res://resources/data/tile_effects/damage_tile_effect.tres" id="18_damage_effect"]
+
 [ext_resource type="Resource" uid="uid://dooia6pfkqp46" path="res://resources/data/tile_effects/draw_card_tile_effect.tres" id="19_draw_effect"]
+
 [ext_resource type="Resource" uid="uid://cncwxv041kjkn" path="res://resources/data/tile_effects/empty_tile_effect.tres" id="20_empty_effect"]
+
 [ext_resource type="Resource" uid="uid://j7vb2jjk48vl" path="res://resources/data/tile_effects/energy_tile_effect.tres" id="21_energy_effect"]
+
 [ext_resource type="Resource" uid="uid://cw30y55ftjw7y" path="res://resources/data/tile_effects/resource_tile_effect.tres" id="22_resource_effect"]
+
 [ext_resource type="Resource" uid="uid://dygkjk4gjxd2o" path="res://resources/data/tile_effects/status_tile_effect.tres" id="23_status_effect"]
+
 [ext_resource type="Resource" uid="uid://b84eu1klb7uxe" path="res://resources/data/registries/card_registry_riftwalker.tres" id="24_card_registry"]
+
 [ext_resource type="Resource" uid="uid://rgkxgojapvgc" path="res://resources/data/registries/encounter_registry_act1.tres" id="25_encounter_registry"]
+
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="27_npu87"]
 
 [ext_resource type="Script" path="res://ui/world_ui/board_overlay.gd" id="28_overlay"]
@@ -126,23 +152,6 @@ tilemap = NodePath("../Tilemap")
 [node name="DevGameWorldUI" parent="." unique_id=675904541 instance=ExtResource("10_dev_ui")]
 unique_name_in_owner = true
 
-[node name="Panel" parent="DevGameWorldUI/DevPanel" parent_id_path=PackedInt32Array(675904541, 1502978721) index="0" unique_id=819548652]
-offset_right = 669.0
-offset_bottom = 310.0
-
-[node name="FreeCameraToggle" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" parent_id_path=PackedInt32Array(675904541, 2055796932) index="3" unique_id=195596]
-button_pressed = false
-
-[node name="EnemyTierFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" parent_id_path=PackedInt32Array(675904541, 804887800) index="0" unique_id=420537928]
-custom_minimum_size = Vector2(115, 0)
-size_flags_horizontal = 0
-fit_to_longest_item = false
-
-[node name="CardRarityFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" parent_id_path=PackedInt32Array(675904541, 588751453) index="0" unique_id=1598849347]
-custom_minimum_size = Vector2(115, 0)
-size_flags_horizontal = 0
-fit_to_longest_item = false
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=548829697]
 
 [node name="RelicHandler" parent="CanvasLayer" unique_id=1025240401 instance=ExtResource("11_relic_handler")]
@@ -181,5 +190,3 @@ anchor_right = 0.5
 offset_top = 784.0
 offset_bottom = 784.0
 grow_horizontal = 2
-
-[editable path="DevGameWorldUI"]

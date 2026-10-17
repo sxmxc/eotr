@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d33qs53kyq4cb"]
 
 [ext_resource type="Script" uid="uid://byawxd5slw6yu" path="res://scenes/devtools/data_editor.gd" id="1_qdcrr"]
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="2_theme"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2_theme"]
 [ext_resource type="PackedScene" uid="uid://dwiv2oit73vcs" path="res://ui/card_ui/card_ui.tscn" id="3_cardui"]
 
 [node name="DataEditor" type="Control" unique_id=1562475502]
@@ -21,23 +21,20 @@ anchor_bottom = 1.0
 color = Color(0.0588235, 0.0666667, 0.0901961, 1)
 
 [node name="MainMargin" type="MarginContainer" parent="." unique_id=337625753]
+theme_type_variation = &"EditorMainInset"
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="MainMargin" unique_id=1487939137]
+theme_type_variation = &"CompactStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
 
 [node name="Header" type="HBoxContainer" parent="MainMargin/VBox" unique_id=2047691732]
+theme_type_variation = &"InlineRow"
 layout_mode = 2
-theme_override_constants/separation = 8
 
 [node name="BackButton" type="Button" parent="MainMargin/VBox/Header" unique_id=1521825629]
 unique_name_in_owner = true
@@ -45,8 +42,8 @@ layout_mode = 2
 text = "Back"
 
 [node name="Title" type="Label" parent="MainMargin/VBox/Header" unique_id=2075444340]
+theme_type_variation = &"SectionHeading"
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
 text = "Card, Registry, and Deck Editor"
 
 [node name="DirtyLabel" type="Label" parent="MainMargin/VBox/Header" unique_id=640005894]
@@ -70,11 +67,11 @@ layout_mode = 2
 text = "Reload Lists"
 
 [node name="Tabs" type="TabContainer" parent="MainMargin/VBox" unique_id=982867094]
+theme_type_variation = &"EditorTabs"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 16
 current_tab = 0
 
 [node name="Cards" type="Control" parent="MainMargin/VBox/Tabs" unique_id=1615206066]
@@ -95,22 +92,19 @@ split_offset = 350
 layout_mode = 2
 
 [node name="CardListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel" unique_id=608343688]
+theme_type_variation = &"InsetSmall"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
 
 [node name="CardListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin" unique_id=461664966]
+theme_type_variation = &"SmallStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 8
 
 [node name="CardSearch" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox" unique_id=1170538291]
 unique_name_in_owner = true
@@ -128,8 +122,8 @@ size_flags_vertical = 3
 auto_height = true
 
 [node name="CardListButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox" unique_id=1509803051]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardNewButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox/CardListButtons" unique_id=1694793548]
 unique_name_in_owner = true
@@ -146,20 +140,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CardDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel" unique_id=315472969]
+theme_type_variation = &"EditorDetailInset"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin" unique_id=202968208]
+theme_type_variation = &"ContentStack"
 layout_mode = 2
-theme_override_constants/separation = 16
 
 [node name="CardPreview" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer" unique_id=1473241984 instance=ExtResource("3_cardui")]
 unique_name_in_owner = true
@@ -173,13 +164,13 @@ size_flags_vertical = 3
 follow_focus = true
 
 [node name="CardDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll" unique_id=1399136237]
+theme_type_variation = &"CompactStack"
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
 
 [node name="CardPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=1897095077]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardPathLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardPathRow" unique_id=423254909]
 layout_mode = 2
@@ -279,8 +270,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="CardArtRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=1327922024]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardArtLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardArtRow" unique_id=1505621155]
 layout_mode = 2
@@ -297,8 +288,8 @@ layout_mode = 2
 text = "Pick"
 
 [node name="CardSoundRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=210376808]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardSoundLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardSoundRow" unique_id=1948888361]
 layout_mode = 2
@@ -315,8 +306,8 @@ layout_mode = 2
 text = "Pick"
 
 [node name="CardVisualRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=585177063]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardVisualLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardVisualRow" unique_id=74984031]
 layout_mode = 2
@@ -333,8 +324,8 @@ layout_mode = 2
 text = "Pick"
 
 [node name="CardProjectileRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=447499006]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardProjectileLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardProjectileRow" unique_id=604775210]
 layout_mode = 2
@@ -351,8 +342,8 @@ layout_mode = 2
 text = "Pick"
 
 [node name="CardButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=1685343664]
+theme_type_variation = &"InlineRow"
 layout_mode = 2
-theme_override_constants/separation = 8
 
 [node name="CardSaveButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardButtons" unique_id=589528041]
 unique_name_in_owner = true
@@ -383,22 +374,19 @@ split_offset = 280
 layout_mode = 2
 
 [node name="CardRegistryListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel" unique_id=334523281]
+theme_type_variation = &"InsetSmall"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
 
 [node name="CardRegistryListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel/CardRegistryListMargin" unique_id=1192116155]
+theme_type_variation = &"SmallStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 8
 
 [node name="CardRegistryList" type="ItemList" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel/CardRegistryListMargin/CardRegistryListVBox" unique_id=1442531825]
 unique_name_in_owner = true
@@ -415,26 +403,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CardRegistryDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel" unique_id=376943342]
+theme_type_variation = &"InsetMedium"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
 
 [node name="CardRegistryDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin" unique_id=277733736]
+theme_type_variation = &"CompactStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
 
 [node name="CardRegistryPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=1026170659]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardRegistryPathLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryPathRow" unique_id=588973169]
 layout_mode = 2
@@ -452,8 +437,8 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="CardRegistryEntryButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=1237944555]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="CardRegistryAddEntry" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryEntryButtons" unique_id=640243277]
 unique_name_in_owner = true
@@ -471,8 +456,8 @@ layout_mode = 2
 text = "Apply"
 
 [node name="RegistryCardRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=519832265]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="RegistryCardLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/RegistryCardRow" unique_id=892937135]
 layout_mode = 2
@@ -566,22 +551,19 @@ split_offset = 280
 layout_mode = 2
 
 [node name="EncounterRegistryListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel" unique_id=373549461]
+theme_type_variation = &"InsetSmall"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
 
 [node name="EncounterRegistryListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel/EncounterRegistryListMargin" unique_id=208812365]
+theme_type_variation = &"SmallStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 8
 
 [node name="EncounterRegistryList" type="ItemList" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel/EncounterRegistryListMargin/EncounterRegistryListVBox" unique_id=1014775846]
 unique_name_in_owner = true
@@ -598,26 +580,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="EncounterRegistryDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel" unique_id=1958556068]
+theme_type_variation = &"InsetMedium"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
 
 [node name="EncounterRegistryDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin" unique_id=746296908]
+theme_type_variation = &"CompactStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
 
 [node name="EncounterRegistryPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=274470228]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="EncounterRegistryPathLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryPathRow" unique_id=41131777]
 layout_mode = 2
@@ -635,8 +614,8 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="EncounterRegistryEntryButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=398675217]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="EncounterRegistryAddEntry" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryEntryButtons" unique_id=2043553043]
 unique_name_in_owner = true
@@ -654,8 +633,8 @@ layout_mode = 2
 text = "Apply"
 
 [node name="EncounterStatsRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=1016493545]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="EncounterStatsLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterStatsRow" unique_id=2118384456]
 layout_mode = 2
@@ -751,22 +730,19 @@ split_offset = 280
 layout_mode = 2
 
 [node name="DeckListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel" unique_id=945539886]
+theme_type_variation = &"InsetSmall"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
 
 [node name="DeckListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel/DeckListMargin" unique_id=394893890]
+theme_type_variation = &"SmallStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 8
 
 [node name="DeckList" type="ItemList" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel/DeckListMargin/DeckListVBox" unique_id=1205387591]
 unique_name_in_owner = true
@@ -783,26 +759,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="DeckDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel" unique_id=833618923]
+theme_type_variation = &"InsetMedium"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
 
 [node name="DeckDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin" unique_id=1961877400]
+theme_type_variation = &"CompactStack"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
 
 [node name="DeckPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox" unique_id=1905329855]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="DeckPathLabel" type="Label" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckPathRow" unique_id=853206880]
 layout_mode = 2
@@ -820,8 +793,8 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="DeckButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox" unique_id=1732812247]
+theme_type_variation = &"TightRow"
 layout_mode = 2
-theme_override_constants/separation = 6
 
 [node name="DeckAddCard" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckButtons" unique_id=2094742712]
 unique_name_in_owner = true

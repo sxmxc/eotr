@@ -12,11 +12,10 @@ content_margin_bottom = 6.0
 border_width_bottom = 1
 border_color = Color(0.2, 0.3, 0.36, 1)
 [node name="EnemyQueueEntry" type="Button"]
+theme_type_variation = &"EnemyQueueEntry"
 custom_minimum_size = Vector2(280, 64)
 size_flags_horizontal = 3
 theme = ExtResource("2")
-theme_override_font_sizes/font_size = 19
-theme_override_styles/normal = SubResource("row")
 alignment = 0
 text_overrun_behavior = 3
 script = ExtResource("1")

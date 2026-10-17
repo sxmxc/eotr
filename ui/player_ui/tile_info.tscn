@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://dg8i01hcrxwwd"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
 [ext_resource type="Script" path="res://ui/player_ui/tile_info.gd" id="script"]
-[sub_resource type="StyleBoxEmpty" id="empty"]
 [node name="TileInfoUI" type="Panel"]
+theme_type_variation = &"EmptyPanel"
 offset_right = 260.0
 offset_bottom = 100.0
 theme = ExtResource("theme")
-theme_override_styles/panel = SubResource("empty")
 script = ExtResource("script")
 [node name="Caption" type="Label" parent="."]
 offset_right = 260.0
@@ -14,11 +13,11 @@ offset_bottom = 24.0
 theme_type_variation = &"Eyebrow"
 text = "CURRENT TILE"
 [node name="TypeLabel" type="Label" parent="."]
+theme_type_variation = &"BodyText"
 unique_name_in_owner = true
 offset_top = 30.0
 offset_right = 260.0
 offset_bottom = 60.0
-theme_override_font_sizes/font_size = 24
 text = "Terrain"
 [node name="LocLabel" type="Label" parent="."]
 unique_name_in_owner = true

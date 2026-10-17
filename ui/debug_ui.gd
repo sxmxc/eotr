@@ -1,6 +1,7 @@
 extends Control
 
-const DEBUG_COORDS_LABEL = preload("res://resources/debug_coords_label.tres")
+const DEBUG_COORDINATE = preload("res://ui/world_ui/debug_coordinate.tscn")
+const DEBUG_READOUT = preload("res://ui/world_ui/debug_readout.tscn")
 
 @onready var debug_container: VBoxContainer = %DebugContainer
 @export var base_layer: TileMapLayer
@@ -12,7 +13,7 @@ func set_debug_value(which: String, value: String) -> void:
 	if value_map.has(which):
 		value_map[which].node.text = which + ": " + value
 		return
-	var label = Label.new()
+	var label: Label = DEBUG_READOUT.instantiate()
 	value_map[which] = { "node": label }
 	value_map[which].node.text = which + ": " + value
 	debug_container.add_child(label)
@@ -23,10 +24,8 @@ func _on_tile_selected(data: HexTileData):
 
 func draw_tile_coords() -> void:
 	for cell in base_layer.get_used_cells():
-		var label = Label.new()
+		var label: Label = DEBUG_COORDINATE.instantiate()
 		label.text = str(cell)
-		label.z_index = 5
-		label.label_settings = DEBUG_COORDS_LABEL.duplicate()
 		base_layer.add_child(label)
 		var pos_offset = Vector2(base_layer.map_to_local(cell).x - (label.size.x/2), base_layer.map_to_local(cell).y - (label.size.y/2))
 		label.position = pos_offset

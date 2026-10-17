@@ -1,5 +1,5 @@
 class_name EnemyStatsUI
-extends Panel
+extends PanelContainer
 
 var bound_enemy: Enemy
 var inspection_pinned := false
@@ -13,9 +13,9 @@ var _aiming := false
 @onready var shield_label: Label = %ShieldLabel
 @onready var shield_container: Control = %Shield
 @onready var status_handler: StatusHandler = %StatusHandler
-@onready var intent_ui: IntentUI = %IntentUI
 @onready var bouncer: Bouncer = %Bouncer
 @onready var focus_indicator: TextureRect = %FocusIndicator
+@onready var plan_label: Label = %Plan
 
 
 func _ready():
@@ -29,7 +29,6 @@ func _ready():
 	Events.enemy_updated.connect(_on_enemy_updated)
 	for child in status_handler.get_children():
 		child.queue_free()
-	intent_ui.hide()
 	focus_indicator.hide()
 	hide()
 
@@ -75,9 +74,9 @@ func _on_enemy_updated(enemy: Enemy) -> void:
 		var description := plan.tooltip_text
 		if description.contains("%s"):
 			description = description % plan.current_text
-		$Plan.text = description.trim_prefix("Plans to ").capitalize()
+		plan_label.text = description.trim_prefix("Plans to ").capitalize()
 	else:
-		$Plan.text = "Considering…"
+		plan_label.text = "Considering…"
 
 
 func close_inspection() -> void:

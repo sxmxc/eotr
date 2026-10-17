@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="2_wbl7p"]
 
 [node name="HealthUI" type="HBoxContainer" unique_id=1187274256]
-theme_override_constants/separation = 0
+theme_type_variation = &"FlushRow"
 alignment = 1
 script = ExtResource("1_seohp")
 

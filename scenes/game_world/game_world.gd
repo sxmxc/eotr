@@ -10,9 +10,9 @@ extends Node2D
 @export var shrink_frequency : int = 3
 
 @onready var tilemap: ProcGenTilemap = $Tilemap
-@onready var debug_ui = $GameWorldUI/DebugUI
 @onready var player: Player = $Player
 @onready var game_world_ui = $GameWorldUI
+@onready var debug_ui = game_world_ui.debug_ui
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
 @onready var battle_state: BattleStateController = $BattleState
@@ -29,6 +29,13 @@ var rounds_until_shrink : int :
 var battle_over_handled := false
 
 func _ready():
+	game_world_ui.bind_world(player, tilemap, map_camera)
+	player_handler.player_hand = game_world_ui.hand
+	player.stats_ui = game_world_ui.stats_ui
+	enemy_handler.enemy_rail = game_world_ui.enemy_rail
+	player.status_handler = game_world_ui.status_handler
+	game_world_ui.status_handler.status_owner = player
+	game_world_ui.tutorial_ui = tutorial_ui
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
 	battle_state.shrink_frequency = shrink_frequency
 
@@ -83,7 +90,7 @@ func start_world() -> void:
 	tilemap.move_player(player_starting_position, false)
 	tilemap.queue_start_tile_effects()
 	if is_instance_valid(battle_presentation):
-		battle_presentation.play_intro(audio_stream_player)
+		battle_presentation.play_intro()
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
 	
@@ -198,13 +205,17 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 
 
 func _play_battle_outro(message: String, result: BattleOverPanel.Type) -> void:
+	if not is_inside_tree():
+		return
 	if is_instance_valid(battle_presentation):
-		battle_presentation.play_outro(result == BattleOverPanel.Type.WIN, audio_stream_player)
-		await get_tree().create_timer(0.55).timeout
+		battle_presentation.play_outro(result == BattleOverPanel.Type.WIN)
+		await battle_presentation.finished
 	_emit_battle_over(message, result)
 
 
 func _emit_battle_over(message: String, result: BattleOverPanel.Type) -> void:
+	if not is_inside_tree():
+		return
 	if is_instance_valid(audio_stream_player):
 		audio_stream_player.stream_paused = true
 	Events.battle_over_screen_requested.emit(message, result)

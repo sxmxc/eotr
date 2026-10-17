@@ -268,4 +268,4 @@ func _on_back_button_pressed() -> void:
 
 func _resize_reward_list() -> void:
 	var scroll := %RewardScroll as ScrollContainer
-	scroll.custom_minimum_size.y = minf(480.0, scroll.get_child(0).get_combined_minimum_size().y)
+	scroll.custom_minimum_size.y = minf(get_theme_constant("max_height", "RewardList"), scroll.get_child(0).get_combined_minimum_size().y)

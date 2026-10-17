@@ -14,25 +14,25 @@ class_name DevSandboxPanel
 @export var enemy_catalog: EnemyCatalog
 var registry_data: RegistryData
 
-var regen_map_button: Button
-var enemy_dropdown: OptionButton
-var enemy_tier_filter_dropdown: OptionButton
-var spawn_enemy_button: Button
-var clear_enemies_button: Button
-var card_dropdown: OptionButton
-var card_rarity_filter_dropdown: OptionButton
-var add_hand_button: Button
-var add_draw_button: Button
-var add_discard_button: Button
-var draw_card_button: Button
-var center_camera_button: Button
-var zoom_in_button: Button
-var zoom_out_button: Button
-var free_camera_toggle: CheckButton
-var clear_fog_button: Button
-var refill_energy_button: Button
-var refill_health_button: Button
-var pass_turn_button: Button
+@onready var regen_map_button: Button = %RegenMapButton
+@onready var enemy_dropdown: OptionButton = %EnemyDropdown
+@onready var enemy_tier_filter_dropdown: OptionButton = %EnemyTierFilter
+@onready var spawn_enemy_button: Button = %SpawnEnemyButton
+@onready var clear_enemies_button: Button = %ClearEnemiesButton
+@onready var card_dropdown: OptionButton = %CardDropdown
+@onready var card_rarity_filter_dropdown: OptionButton = %CardRarityFilter
+@onready var add_hand_button: Button = %AddHandButton
+@onready var add_draw_button: Button = %AddDrawButton
+@onready var add_discard_button: Button = %AddDiscardButton
+@onready var draw_card_button: Button = %DrawCardButton
+@onready var center_camera_button: Button = %CenterCameraButton
+@onready var zoom_in_button: Button = %ZoomInButton
+@onready var zoom_out_button: Button = %ZoomOutButton
+@onready var free_camera_toggle: CheckButton = %FreeCameraToggle
+@onready var clear_fog_button: Button = %ClearFogButton
+@onready var refill_energy_button: Button = %RefillEnergyButton
+@onready var refill_health_button: Button = %RefillHealthButton
+@onready var pass_turn_button: Button = %PassTurnButton
 
 var card_paths: Array[String] = []
 var enemy_paths: Array[String] = []
@@ -43,64 +43,24 @@ var obelisk_enemy_scene_path := "res://scenes/enemy/obelisk/obelisk_enemy.tscn"
 
 
 func _ready() -> void:
-	_bind_nodes()
-	if regen_map_button:
-		regen_map_button.pressed.connect(_on_regen_map_pressed)
-	if spawn_enemy_button:
-		spawn_enemy_button.pressed.connect(_on_spawn_enemy_pressed)
-	if clear_enemies_button:
-		clear_enemies_button.pressed.connect(_on_clear_enemies_pressed)
-	if enemy_tier_filter_dropdown:
-		enemy_tier_filter_dropdown.item_selected.connect(_on_enemy_filter_changed)
-	if add_hand_button:
-		add_hand_button.pressed.connect(_on_add_to_hand_pressed)
-	if add_draw_button:
-		add_draw_button.pressed.connect(_on_add_to_draw_pressed)
-	if add_discard_button:
-		add_discard_button.pressed.connect(_on_add_to_discard_pressed)
-	if draw_card_button:
-		draw_card_button.pressed.connect(_on_draw_card_pressed)
-	if card_rarity_filter_dropdown:
-		card_rarity_filter_dropdown.item_selected.connect(_on_card_filter_changed)
-	if center_camera_button:
-		center_camera_button.pressed.connect(_on_center_camera_pressed)
-	if zoom_in_button:
-		zoom_in_button.pressed.connect(_on_zoom_in_pressed)
-	if zoom_out_button:
-		zoom_out_button.pressed.connect(_on_zoom_out_pressed)
-	if free_camera_toggle:
-		free_camera_toggle.toggled.connect(_on_free_camera_toggled)
-	if clear_fog_button:
-		clear_fog_button.pressed.connect(_on_clear_fog_pressed)
-	if refill_energy_button:
-		refill_energy_button.pressed.connect(_on_refill_energy_pressed)
-	if refill_health_button:
-		refill_health_button.pressed.connect(_on_refill_health_pressed)
-	if pass_turn_button:
-		pass_turn_button.pressed.connect(_on_pass_turn_pressed)
+	regen_map_button.pressed.connect(_on_regen_map_pressed)
+	spawn_enemy_button.pressed.connect(_on_spawn_enemy_pressed)
+	clear_enemies_button.pressed.connect(_on_clear_enemies_pressed)
+	enemy_tier_filter_dropdown.item_selected.connect(_on_enemy_filter_changed)
+	add_hand_button.pressed.connect(_on_add_to_hand_pressed)
+	add_draw_button.pressed.connect(_on_add_to_draw_pressed)
+	add_discard_button.pressed.connect(_on_add_to_discard_pressed)
+	draw_card_button.pressed.connect(_on_draw_card_pressed)
+	card_rarity_filter_dropdown.item_selected.connect(_on_card_filter_changed)
+	center_camera_button.pressed.connect(_on_center_camera_pressed)
+	zoom_in_button.pressed.connect(_on_zoom_in_pressed)
+	zoom_out_button.pressed.connect(_on_zoom_out_pressed)
+	free_camera_toggle.toggled.connect(_on_free_camera_toggled)
+	clear_fog_button.pressed.connect(_on_clear_fog_pressed)
+	refill_energy_button.pressed.connect(_on_refill_energy_pressed)
+	refill_health_button.pressed.connect(_on_refill_health_pressed)
+	pass_turn_button.pressed.connect(_on_pass_turn_pressed)
 	_build_databases()
-
-
-func _bind_nodes() -> void:
-	regen_map_button = get_node_or_null("%RegenMapButton")
-	enemy_dropdown = get_node_or_null("%EnemyDropdown")
-	enemy_tier_filter_dropdown = get_node_or_null("%EnemyTierFilter")
-	spawn_enemy_button = get_node_or_null("%SpawnEnemyButton")
-	clear_enemies_button = get_node_or_null("%ClearEnemiesButton")
-	card_dropdown = get_node_or_null("%CardDropdown")
-	card_rarity_filter_dropdown = get_node_or_null("%CardRarityFilter")
-	add_hand_button = get_node_or_null("%AddHandButton")
-	add_draw_button = get_node_or_null("%AddDrawButton")
-	add_discard_button = get_node_or_null("%AddDiscardButton")
-	draw_card_button = get_node_or_null("%DrawCardButton")
-	center_camera_button = get_node_or_null("%CenterCameraButton")
-	zoom_in_button = get_node_or_null("%ZoomInButton")
-	zoom_out_button = get_node_or_null("%ZoomOutButton")
-	free_camera_toggle = get_node_or_null("%FreeCameraToggle")
-	clear_fog_button = get_node_or_null("%ClearFogButton")
-	refill_energy_button = get_node_or_null("%RefillEnergyButton")
-	refill_health_button = get_node_or_null("%RefillHealthButton")
-	pass_turn_button = get_node_or_null("%PassTurnButton")
 
 
 func _on_regen_map_pressed() -> void:

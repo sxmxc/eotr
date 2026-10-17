@@ -3,6 +3,24 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "UI-COMPOSITION-001",
+      "status": "done",
+      "summary": "Migrated first-party UI to the shared Rift theme and named variations, authored fixed visuals as native scenes, repaired reward/shop layout and activation, and split run/battle HUDs, tutorials, pause, legend and sandbox panel into owned components. Removed private child injection and UI group discovery. Native scene save/reload ownership and interaction checks pass; see ai/docs/continuous-improvement.md for validation and shutdown limits.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "BATTLE-TRANSITIONS-001",
+      "status": "done",
+      "summary": "Fixed shaders ignoring CanvasItem fade alpha, inverted outcome vignette, fullscreen scaling, frozen intros over paused tutorials, arbitrary victory timing and overlapping view lifetimes. Removed competing music-volume swells. Rendered zero/half/full alpha samples and transition completion checks pass; native texture shutdown diagnostics remain.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "HAND-CYCLE-001",
+      "status": "done",
+      "summary": "Fixed null-card draws from exhausted decks and animation-dependent discard state. Added runtime regression checks for phase ordering, interrupted/completed discard animations, immediate reshuffle, overdraw, zero-card draws, and standalone cleanup. See ai/docs/continuous-improvement.md for validation and limits.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "DATA-EDITOR-ENUM-001",
       "status": "done",
       "summary": "Fixed two DataEditor enum lookups that used the inherited node name instead of the loop key. Added runtime scene-startup coverage for all enum dropdowns and resource-list initialization. Zero failed smoke assertions and no script errors; runner still reports the existing intermittent shutdown resource leaks.",

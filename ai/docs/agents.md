@@ -21,6 +21,8 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
 
 ## 3. Coding Expectations
 
+- **UI authoring**: Follow `ai/docs/ui-authoring.md`. Fixed visuals belong in scenes; shared styling belongs in `resources/themes/rift_ui.tres` and named variations. Scripts bind data and behavior. Do not rebuild fixed UI or styleboxes in GDScript or introduce local theme overrides.
+
 - **Godot 4.7.2**: Prefer typed GDScript (`var foo: int`) and modern signal syntax. Keep compatibility with engine features defined in `project.godot` (e.g., `Feature Tag: 4.7`).
 - **Signals & Events**:
   - Prefer `Events` autoload for cross-system communication.
