@@ -2,6 +2,9 @@ extends Card
 
 @export var base_damage := 6
 
+func _init() -> void:
+	_sync_effect_configs()
+
 func get_default_description() -> String:
 	return description % base_damage
 
@@ -35,11 +38,12 @@ func is_valid_target(targets: Array[Node], _modifiers: ModifierHandler) -> bool:
 	return tilemap.base_layer.get_surrounding_cells(tilemap.player_position).has(enemy.current_tile_position)
 
 func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	var damage_effect := DamageEffect.new()
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
+	pass
+	
+
+func _sync_effect_configs() -> void:
+	var damage_effect := CardEffectConfig.for_multi_damage(base_damage, 2, 0.3)
+	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 	damage_effect.sound_fx = sound_fx
 	damage_effect.visual_fx = visual_fx
-	damage_effect.execute(targets)
-	await targets[0].get_tree().create_timer(.3).timeout
-	damage_effect.execute(targets)
-	
+	effect_configs = [damage_effect]

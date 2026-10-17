@@ -131,8 +131,8 @@ func _on_card_played(card: Card) -> void:
 			"card_rarity" : Enums.CardRarity.keys()[card.card_rarity],
 			"card_type": Enums.CardType.keys()[card.card_type]
 		}
-		Talo.events.track("card_played", event_props)
-		Talo.stats.track("cards_played")
+		TelemetryManager.track_event("card_played", event_props)
+		TelemetryManager.track_stat("cards_played")
 	cards_played_this_turn += 1
 	_update_cards()
 

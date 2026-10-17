@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://d1txe8gty0p6t"]
+[gd_scene format=3 uid="uid://d1txe8gty0p6t"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_tilemap"]
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="2_base_tileset"]
@@ -63,27 +63,28 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
-[node name="GameWorldSandbox" type="Node2D"]
+[node name="GameWorldSandbox" type="Node2D" unique_id=317889488]
 script = ExtResource("12_sandbox_script")
 battle_stats = SubResource("BattleStatsResource")
 run_stats = SubResource("RunStatsResource")
 card_registry = ExtResource("24_card_registry")
 encounter_registry = ExtResource("25_encounter_registry")
 
-[node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
+[node name="MapCamera" type="Camera2D" parent="." unique_id=254770348 groups=["map_camera"]]
+top_level = true
 editor_draw_limits = true
 script = ExtResource("4_map_camera")
 mouse_edge_pan = true
 starting_zoom = 1.0
 max_zoom = 0.4
 
-[node name="PhantomCameraHost" type="Node" parent="MapCamera"]
+[node name="PhantomCameraHost" type="Node" parent="MapCamera" unique_id=1995697573]
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("5_phantom_host")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="Tilemap" type="Node2D" parent="." groups=["map_layer"]]
+[node name="Tilemap" type="Node2D" parent="." unique_id=333079200 groups=["map_layer"]]
 script = ExtResource("1_tilemap")
 map_width = 12
 map_height = 12
@@ -91,57 +92,57 @@ mana_weight = 1
 warp_weight = 1
 ruin_tile_effects = Array[ExtResource("8_obysa")]([ExtResource("17_block_effect"), ExtResource("18_damage_effect"), ExtResource("19_draw_effect"), ExtResource("20_empty_effect"), ExtResource("21_energy_effect"), ExtResource("22_resource_effect"), ExtResource("23_status_effect")])
 
-[node name="BaseLayer" type="TileMapLayer" parent="Tilemap"]
+[node name="BaseLayer" type="TileMapLayer" parent="Tilemap" unique_id=1172089255]
 tile_set = ExtResource("2_base_tileset")
 
-[node name="FogLayer" type="TileMapLayer" parent="Tilemap"]
+[node name="FogLayer" type="TileMapLayer" parent="Tilemap" unique_id=822207692]
 z_index = 3
 tile_set = ExtResource("3_fog_tileset")
 
-[node name="HightlightLayer" type="TileMapLayer" parent="Tilemap"]
+[node name="HightlightLayer" type="TileMapLayer" parent="Tilemap" unique_id=2033321971]
 tile_set = SubResource("TileSet_highlight")
 
-[node name="CardTargetHighlights" type="Node2D" parent="Tilemap"]
+[node name="CardTargetHighlights" type="Node2D" parent="Tilemap" unique_id=86499316]
 z_index = 2
 
-[node name="CenterMarker" type="Marker2D" parent="Tilemap"]
+[node name="CenterMarker" type="Marker2D" parent="Tilemap" unique_id=654286966]
 
-[node name="EnemyHandler" type="Node2D" parent="."]
+[node name="EnemyHandler" type="Node2D" parent="." unique_id=556909619]
 script = ExtResource("6_enemy_handler")
 
-[node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("relics", "player", "tilemap") groups=["player_handler"]]
+[node name="PlayerHandler" type="Node" parent="." unique_id=204200636 node_paths=PackedStringArray("relics", "player", "tilemap") groups=["player_handler"]]
 script = ExtResource("7_player_handler")
 relics = NodePath("../CanvasLayer/RelicHandler")
 player = NodePath("../Player")
 tilemap = NodePath("../Tilemap")
 
-[node name="Player" parent="." instance=ExtResource("8_player_scene")]
+[node name="Player" parent="." unique_id=1927649645 instance=ExtResource("8_player_scene")]
 
-[node name="CardTargetSelector" parent="." instance=ExtResource("9_target_selector")]
+[node name="CardTargetSelector" parent="." unique_id=626415022 instance=ExtResource("9_target_selector")]
 
-[node name="DevGameWorldUI" parent="." instance=ExtResource("10_dev_ui")]
+[node name="DevGameWorldUI" parent="." unique_id=675904541 instance=ExtResource("10_dev_ui")]
 unique_name_in_owner = true
 
-[node name="Panel" parent="DevGameWorldUI/DevPanel" index="0"]
+[node name="Panel" parent="DevGameWorldUI/DevPanel" parent_id_path=PackedInt32Array(675904541, 1502978721) index="0" unique_id=819548652]
 offset_right = 669.0
 offset_bottom = 310.0
 
-[node name="FreeCameraToggle" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" index="3"]
+[node name="FreeCameraToggle" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" parent_id_path=PackedInt32Array(675904541, 2055796932) index="3" unique_id=195596]
 button_pressed = false
 
-[node name="EnemyTierFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" index="0"]
+[node name="EnemyTierFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" parent_id_path=PackedInt32Array(675904541, 804887800) index="0" unique_id=420537928]
 custom_minimum_size = Vector2(115, 0)
 size_flags_horizontal = 0
 fit_to_longest_item = false
 
-[node name="CardRarityFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" index="0"]
+[node name="CardRarityFilter" parent="DevGameWorldUI/DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" parent_id_path=PackedInt32Array(675904541, 588751453) index="0" unique_id=1598849347]
 custom_minimum_size = Vector2(115, 0)
 size_flags_horizontal = 0
 fit_to_longest_item = false
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=548829697]
 
-[node name="RelicHandler" parent="CanvasLayer" instance=ExtResource("11_relic_handler")]
+[node name="RelicHandler" parent="CanvasLayer" unique_id=1025240401 instance=ExtResource("11_relic_handler")]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -150,10 +151,10 @@ offset_left = -323.0
 offset_right = 323.0
 grow_horizontal = 2
 
-[node name="Effects" type="CanvasLayer" parent="." groups=["fx_layer"]]
+[node name="Effects" type="CanvasLayer" parent="." unique_id=652493271 groups=["fx_layer"]]
 layer = 4
 
-[node name="RedFlash" type="TextureRect" parent="Effects"]
+[node name="RedFlash" type="TextureRect" parent="Effects" unique_id=603704872]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,11 +165,11 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_xayf6")
 script = ExtResource("27_npu87")
 
-[node name="Timer" type="Timer" parent="Effects/RedFlash"]
+[node name="Timer" type="Timer" parent="Effects/RedFlash" unique_id=1618064746]
 wait_time = 0.1
 one_shot = true
 
-[node name="ProjectileStart" type="Control" parent="Effects" groups=["projectile_start"]]
+[node name="ProjectileStart" type="Control" parent="Effects" unique_id=1185846417 groups=["projectile_start"]]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 5

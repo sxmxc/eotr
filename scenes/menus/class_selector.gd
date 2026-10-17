@@ -3,7 +3,7 @@ extends Control
 const RIFTWALKER_STATS = preload("res://resources/data/stats/player/riftwalker_starting_stats.tres")
 const SYNTHFORGED_STATS = preload("res://resources/data/stats/player/synthforged_starting_stats.tres")
 const VOIDBINDER_STATS = preload("res://resources/data/stats/player/voidbinder_starting_stats.tres")
-const RUN_SCENE = preload("res://scenes/run/run.tscn")
+const RUN_SCENE = preload("res://scenes/run/run.scn")
 
 @export var run_bootstrap: RunBootstrap
 
@@ -70,7 +70,7 @@ func _on_start_button_pressed() -> void:
 	var stats_props : Dictionary[String,String] = {
 		"class_name" : "%s" % current_stats.player_class_name
 	}
-	Talo.events.track("class_chosen", stats_props)
+	TelemetryManager.track_event("class_chosen", stats_props)
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	run_bootstrap.type = RunBootstrap.Type.NEW_RUN
 	run_bootstrap.selected_player_class = current_stats

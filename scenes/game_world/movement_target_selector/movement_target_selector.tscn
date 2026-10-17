@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cibke4ls75caw"]
+[gd_scene format=3 uid="uid://cibke4ls75caw"]
 
 [ext_resource type="Script" uid="uid://pavih4tqan8i" path="res://scenes/game_world/movement_target_selector/movement_target_selector.gd" id="1_6f7n0"]
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_ehu6f"]
@@ -11,16 +11,16 @@ load_path = "res://.godot/imported/32x32-hex-tiles.png-fc333a5fadeed3d9139e20d86
 atlas = SubResource("CompressedTexture2D_6f7n0")
 region = Rect2(96, 32, 32, 32)
 
-[node name="MovementTargetSelector" type="Node2D"]
+[node name="MovementTargetSelector" type="Node2D" unique_id=2037679228]
 script = ExtResource("1_6f7n0")
 
-[node name="HexIndicator" type="Sprite2D" parent="."]
+[node name="HexIndicator" type="Sprite2D" parent="." unique_id=1040261360]
 self_modulate = Color(0.380392, 1, 0.262745, 0.580392)
 texture = SubResource("AtlasTexture_stkcn")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=470035443]
 
-[node name="ElectricArcFX" parent="CanvasLayer" instance=ExtResource("3_vfed1")]
+[node name="ElectricArcFX" parent="CanvasLayer" unique_id=381660455 instance=ExtResource("3_vfed1")]
 
-[node name="CardArc" parent="CanvasLayer" instance=ExtResource("1_ehu6f")]
+[node name="CardArc" parent="CanvasLayer" unique_id=741290404 instance=ExtResource("1_ehu6f")]
 visible = false

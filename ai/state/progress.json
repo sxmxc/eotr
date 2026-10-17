@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "updated": "2025-12-15T14:28:23.6852440-06:00",
+  "updated": "2026-10-17",
   "tasks": [
+    {
+      "id": "GODOT-472",
+      "status": "done",
+      "summary": "Reviewed Godot 4.7.2 and Talo 1.2.0 compatibility; migrated telemetry, repaired resource references and scene cleanup, updated CI/docs, and verified offline headless and D3D12 gameplay smoke tests. Remaining live-service/release validation and shutdown diagnostics are documented in ai/docs/godot-4.7.2-upgrade.md.",
+      "updated": "2026-10-17"
+    },
     {
       "id": "BKL-014",
       "status": "done",

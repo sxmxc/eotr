@@ -71,6 +71,8 @@ func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = 
 	var all_new_enemies := battle_stats.enemies.instantiate()
 
 	for new_enemy: Node2D in all_new_enemies.get_children():
+		if not (new_enemy is Enemy):
+			continue
 		var new_enemy_child := new_enemy.duplicate() as Enemy
 		new_enemy_child.tilemap = tilemap
 		var random_tile = tilemap.get_random_valid_tile(reserved_tiles)
@@ -99,14 +101,16 @@ func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = 
 				_on_enemy_statuses_applied.bind(new_enemy_child)
 			)
 		if new_enemy is Obelisk:
-			new_enemy_child.tree_exited.connect(_obelisk_destroyed)
+			new_enemy_child.tree_exiting.connect(_obelisk_destroyed.bind(new_enemy_child))
 			new_enemy_child.enemy_handler = self
 
 	all_new_enemies.queue_free()
 
 
 func reset_enemy_actions(_args = null) -> void:
-	for enemy: Enemy in get_children():
+	for enemy in get_children():
+		if not (enemy is Enemy):
+			continue
 		enemy.current_action = null
 		enemy.update_action()
 
@@ -126,7 +130,7 @@ func start_turn() -> void:
 			"turn_number": enemy_turn_count,
 			"enemy_count": acting_enemies.size(),
 		}
-		Talo.events.track("enemy_turn_started", event_props)
+		TelemetryManager.track_event("enemy_turn_started", event_props)
 
 	_start_next_enemy_turn()
 
@@ -196,7 +200,15 @@ func _on_enemy_action_completed(enemy: Enemy) -> void:
 		enemy.status_handler.apply_statuses_by_type(Enums.StatusType.END_OF_TURN)
 
 
-func _obelisk_destroyed() -> void:
+func _obelisk_destroyed(obelisk: Obelisk) -> void:
+	if not obelisk.is_dying:
+		return
+	# Removing a battle scene must not count as destroying its objective.
+	var ancestor: Node = self
+	while ancestor:
+		if ancestor.is_queued_for_deletion():
+			return
+		ancestor = ancestor.get_parent()
 	Events.obelisk_destroyed.emit()
 
 

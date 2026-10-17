@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bvgsdc5hdxw5t"]
+[gd_scene format=3 uid="uid://bvgsdc5hdxw5t"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_6ojrk"]
 [ext_resource type="Script" uid="uid://g83gsoqxgk7i" path="res://scenes/win_screen/win_screen.gd" id="2_8vb36"]
@@ -273,7 +273,7 @@ turbulence_noise_strength = 11.9
 turbulence_noise_speed_random = 3.34
 turbulence_influence_over_life = SubResource("CurveTexture_r2fsw")
 
-[node name="WinScreen" type="Control"]
+[node name="WinScreen" type="Control" unique_id=1733487333]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -284,10 +284,10 @@ theme = ExtResource("1_6ojrk")
 script = ExtResource("2_8vb36")
 player_stats = ExtResource("3_70qtx")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=211540736]
 layer = 10
 
-[node name="Background" type="TextureRect" parent="BackgroundLayer"]
+[node name="Background" type="TextureRect" parent="BackgroundLayer" unique_id=2128328857]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -295,7 +295,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_tm2bo")
 
-[node name="Gradient" type="TextureRect" parent="BackgroundLayer"]
+[node name="Gradient" type="TextureRect" parent="BackgroundLayer" unique_id=346228813]
 modulate = Color(1, 1, 1, 0.647059)
 anchors_preset = 15
 anchor_right = 1.0
@@ -304,10 +304,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_xqga4")
 
-[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+[node name="ParticlesLayer" type="CanvasLayer" parent="." unique_id=128338399]
 layer = 11
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1334319592]
 material = SubResource("CanvasItemMaterial_1gpf6")
 position = Vector2(959, 523)
 amount = 1000
@@ -321,7 +321,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_sw20m")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1944368420]
 material = SubResource("CanvasItemMaterial_at4fh")
 position = Vector2(959, 523)
 amount = 1000
@@ -333,7 +333,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_uaidm")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1055243769]
 material = SubResource("CanvasItemMaterial_1gpf6")
 position = Vector2(1587, 523)
 amount = 1000
@@ -347,7 +347,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_sw20m")
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer" unique_id=519402953]
 material = SubResource("CanvasItemMaterial_at4fh")
 position = Vector2(1587, 523)
 amount = 1000
@@ -359,7 +359,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_uaidm")
 
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1931098012]
 material = SubResource("CanvasItemMaterial_1gpf6")
 position = Vector2(272, 523)
 amount = 1000
@@ -373,7 +373,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_sw20m")
 
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1903654455]
 material = SubResource("CanvasItemMaterial_at4fh")
 position = Vector2(272, 523)
 amount = 1000
@@ -385,10 +385,10 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_uaidm")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1889355762]
 layer = 12
 
-[node name="Panel" type="Panel" parent="UILayer"]
+[node name="Panel" type="Panel" parent="UILayer" unique_id=2088889629]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -403,7 +403,7 @@ grow_vertical = 2
 theme = ExtResource("5_6ojrk")
 theme_type_variation = &"HudPanelBackground"
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel" unique_id=980178122]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -415,11 +415,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="UILayer/Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="UILayer/Panel/MarginContainer" unique_id=1183723452]
 layout_mode = 2
 theme_type_variation = &"HudPanelMain"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Panel/MarginContainer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Panel/MarginContainer/Panel" unique_id=533427958]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -427,7 +427,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer" unique_id=1921145596]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
@@ -435,10 +435,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=786876473]
 layout_mode = 2
 
-[node name="WinTitle" type="Label" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="WinTitle" type="Label" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer" unique_id=303387010]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"MediumLabel"
@@ -449,11 +449,11 @@ vertical_alignment = 1
 script = ExtResource("6_h14ad")
 metadata/_custom_type_script = "uid://cxm3yblciexlw"
 
-[node name="Bouncer" type="Node" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer/WinTitle"]
+[node name="Bouncer" type="Node" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer/WinTitle" unique_id=1388829447]
 script = ExtResource("10_tm2bo")
 metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
-[node name="Message" type="Label" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Message" type="Label" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer" unique_id=2108282481]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1320, 447)
 layout_mode = 2
@@ -474,16 +474,16 @@ Interval = 0.1
 Interval_Variation = 0.0
 metadata/_custom_type_script = "uid://i3w1a3c08jt1"
 
-[node name="MarginContainer2" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer" unique_id=141858489]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2" unique_id=1193253374]
 layout_mode = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="ClassIcon" type="TextureRect" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="ClassIcon" type="TextureRect" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer" unique_id=1446794303]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
@@ -491,23 +491,23 @@ texture = ExtResource("5_bsdxc")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Fader" type="Node" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/ClassIcon"]
+[node name="Fader" type="Node" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/HBoxContainer/ClassIcon" unique_id=1905418119]
 script = ExtResource("9_85x5u")
 FadeInTime = 2.0
 metadata/_custom_type_script = "uid://cxwnehr2avcec"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer" unique_id=514226365]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=204535283]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="MainMenuButton" type="Button" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="MainMenuButton" type="Button" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3" unique_id=1278669371]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"MainMenuButton"

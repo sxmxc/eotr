@@ -88,7 +88,10 @@ func _register_validators() -> void:
 		if map.is_tile_behind_fog(candidate.current_tile_position):
 			return false
 		var adjacent_cells: Array[Vector2i] = map.base_layer.get_surrounding_cells(map.player_position)
-		return adjacent_cells.has(candidate.current_tile_position)
+		var valid_cells: Array = ctx.get("valid_cells", [])
+		var in_range := adjacent_cells.has(candidate.current_tile_position)
+		var matches_valid := valid_cells.is_empty() or valid_cells.has(candidate.current_tile_position)
+		return in_range and matches_valid
 
 
 func _update_overlap_targets() -> void:
@@ -102,13 +105,26 @@ func _update_overlap_targets() -> void:
 		"tilemap": tilemap,
 		"valid_cells": get_cached_targets(current_card),
 	}
+	var best_target: Node = null
+	var best_distance := INF
+	var mouse_pos := area_2d.global_position
+
 	for overlap in area_2d.get_overlapping_areas():
 		var target_node := overlap.get_parent()
 		if not is_instance_valid(target_node):
 			continue
 		if not validator.call(target_node, ctx):
 			continue
-		_set_current_target(target_node)
+		if not (target_node is Node2D):
+			continue
+		var target_pos: Vector2 = (target_node as Node2D).global_position
+		var dist := mouse_pos.distance_to(target_pos)
+		if dist < best_distance:
+			best_distance = dist
+			best_target = target_node
+
+	if best_target:
+		_set_current_target(best_target)
 
 
 func _set_current_target(target_node: Node) -> void:

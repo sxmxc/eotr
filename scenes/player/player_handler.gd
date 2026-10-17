@@ -74,7 +74,7 @@ func start_turn() -> void:
 			"health": player_stats.health,
 		}
 		if Talo.current_player:
-			Talo.events.track("player_turn_started", event_props)
+			TelemetryManager.track_event("player_turn_started", event_props)
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
 
 

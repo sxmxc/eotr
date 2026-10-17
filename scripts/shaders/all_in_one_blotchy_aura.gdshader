@@ -110,6 +110,7 @@ float get_distance(vec2 maxDistance, sampler2D tex, vec2 uv) {
 			return float(i) / float (gradientResolution);
 		}
 	}
+	return 1.0;
 }
 
 void fragment() {

@@ -25,7 +25,7 @@ func _on_accept_button_pressed() -> void:
 
 func _on_decline_button_pressed() -> void:
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
-	get_tree().quit()
+	TelemetryManager.request_quit()
 
 func show_disclaimer() -> void:
 	animation_player.play("fade_splash_out")

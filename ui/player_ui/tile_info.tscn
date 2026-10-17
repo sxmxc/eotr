@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dg8i01hcrxwwd"]
+[gd_scene format=3 uid="uid://dg8i01hcrxwwd"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_jrtt8"]
 [ext_resource type="Texture2D" uid="uid://drf72jnbhq72x" path="res://assets/icons/mountain-road.png" id="2_c3vxi"]
@@ -6,14 +6,14 @@
 [ext_resource type="Script" uid="uid://cr37wlf4w8jrs" path="res://ui/player_ui/tile_info.gd" id="2_jrtt8"]
 [ext_resource type="Texture2D" uid="uid://c4kmd207x24op" path="res://assets/icons/clay-brick.png" id="3_c3vxi"]
 
-[node name="TileInfo" type="Panel"]
+[node name="TileInfo" type="Panel" unique_id=1613527976]
 offset_right = 278.0
 offset_bottom = 226.0
 theme = ExtResource("1_jrtt8")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_jrtt8")
 
-[node name="MainMargin" type="MarginContainer" parent="."]
+[node name="MainMargin" type="MarginContainer" parent="." unique_id=456309354]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,11 +25,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Panel" type="Panel" parent="MainMargin"]
+[node name="Panel" type="Panel" parent="MainMargin" unique_id=230923412]
 layout_mode = 2
 theme_type_variation = &"HudPanelMain"
 
-[node name="BodyMargin" type="MarginContainer" parent="MainMargin/Panel"]
+[node name="BodyMargin" type="MarginContainer" parent="MainMargin/Panel" unique_id=1844772830]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,22 +45,22 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin" unique_id=1800872857]
 layout_mode = 2
 alignment = 1
 
-[node name="Type" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer"]
+[node name="Type" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=99749622]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="TypeIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
+[node name="TypeIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type" unique_id=1174624986]
 layout_mode = 2
 size_flags_horizontal = 2
 texture = ExtResource("2_c3vxi")
 stretch_mode = 5
 
-[node name="TypeLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
+[node name="TypeLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type" unique_id=654221042]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -68,19 +68,19 @@ size_flags_stretch_ratio = 3.5
 text = "Resource"
 vertical_alignment = 1
 
-[node name="Location" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer"]
+[node name="Location" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=1252752892]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="LocIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Location"]
+[node name="LocIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Location" unique_id=463906200]
 layout_mode = 2
 size_flags_horizontal = 2
 texture = ExtResource("2_ey67h")
 stretch_mode = 5
 
-[node name="LocLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Location"]
+[node name="LocLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Location" unique_id=1168312749]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -88,19 +88,19 @@ size_flags_stretch_ratio = 3.5
 text = "0,0"
 vertical_alignment = 1
 
-[node name="Resources" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer"]
+[node name="Resources" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=1102633424]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="ResourceIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Resources"]
+[node name="ResourceIcon" type="TextureRect" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Resources" unique_id=887084667]
 layout_mode = 2
 size_flags_horizontal = 2
 texture = ExtResource("3_c3vxi")
 stretch_mode = 5
 
-[node name="ResourceLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Resources"]
+[node name="ResourceLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Resources" unique_id=1095634095]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

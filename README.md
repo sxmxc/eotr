@@ -14,7 +14,7 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
 
 ## Quickstart
 
-1. Install Godot 4.5 (GL Compatibility enabled).
+1. Install Godot 4.7.2 (use the renderer configured in project.godot).
 2. Open the project and run the default main scene (`scenes/splash_screens/splash_screen.tscn`) for the full flow, or run `scenes/sandbox/gameworld_sandbox.tscn` for instant combat iteration.
 3. Controls: drag/aim cards to targets, right-click to cancel aim, End Turn ends the player phase.
 
@@ -56,6 +56,16 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
 - Sandbox Dev Panel: spawn enemies, add cards, refill stats, center/zoom camera, clear fog.
 - RegistryData autoload scans registries/resources for cards and encounters.
 - Audio/FX libraries are prewired; `SoundManager` and PhantomCamera handle feedback.
+
+## Compatibility Validation
+
+After importing the project in Godot 4.7.2, run:
+
+```powershell
+python tools/validate_project.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe
+```
+
+Use your own executable path. The runner uses a separate project configuration and save directory under `build/`, with offline Talo settings and no access key. It checks first-party resource loading, Talo event/identity compatibility, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
 
 ## 📂 Repository Structure
 

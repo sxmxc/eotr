@@ -137,8 +137,8 @@ func _on_gold_reward_taken(amount: int) -> void:
 	var event_props := {
 		"gold_amount" : amount
 	}
-	Talo.events.track("gold_prize_taken", event_props)
-	Talo.stats.track("gold_won", amount)
+	TelemetryManager.track_event("gold_prize_taken", event_props)
+	TelemetryManager.track_stat("gold_won", amount)
 	run_stats.gold += amount
 
 
@@ -148,8 +148,8 @@ func _on_resource_reward_taken(amount: int) -> void:
 	var event_props := {
 		"resource_amount" : amount
 	}
-	Talo.events.track("resource_prize_taken", event_props)
-	Talo.stats.track("resources_won", amount)
+	TelemetryManager.track_event("resource_prize_taken", event_props)
+	TelemetryManager.track_stat("resources_won", amount)
 	run_stats.resources += amount
 
 
@@ -159,8 +159,8 @@ func _on_card_reward_taken(card: Card) -> void:
 	var event_props := {
 		"card_taken" : card.name
 	}
-	Talo.events.track("card_prize_taken", event_props)
-	Talo.stats.track("cards_won")
+	TelemetryManager.track_event("card_prize_taken", event_props)
+	TelemetryManager.track_stat("cards_won")
 	player_stats.deck.add_card(card)
 
 
@@ -170,8 +170,8 @@ func _on_relic_reward_taken(relic: Relic) -> void:
 	var event_props := {
 		"relic" : relic.relic_name
 	}
-	Talo.events.track("relic_prize_taken", event_props)
-	Talo.stats.track("treasure_taken")
+	TelemetryManager.track_event("relic_prize_taken", event_props)
+	TelemetryManager.track_stat("treasure_taken")
 	relic_handler.add_relic(relic)
 
 func _show_card_rewards() -> void:

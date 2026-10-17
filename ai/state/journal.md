@@ -11,6 +11,18 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Follow-ups: In-engine pass to ensure enemy/tile targeting respects fog/adjacency rules, arcs/indicators update smoothly, and cached targets refresh correctly after movement or enemy deaths.
 
 **2025-12-15 – Codex**
+- Summary: Migrated more Riftwalker cards to the CardResolver pipeline: Arcane Explosion and Void Shard now use data-driven damage configs; Overload Shot, Void Surge, and Deminishing Returns build resolver configs at play time for dynamic damage. Added a resolver-first note to the card workflow doc.
+- Files: `resources/data/cards/riftwalker/arcane_explosion.gd`, `.tres`, `resources/data/cards/riftwalker/void_shard.gd`, `.tres`, `resources/data/cards/riftwalker/overload_shot.gd`, `resources/data/cards/riftwalker/void_surge.gd`, `resources/data/cards/riftwalker/deminishing_returns.gd`, `ai/docs/workflows.md`
+- Verification: Manual sandbox check advised for new resolver cards; no automated tests run.
+- Follow-ups: Migrate remaining cards once resolver supports energy/status/multi-hit, and consider adding resolver effect types for energy/status.
+
+**2025-12-15 – Codex**
+- Summary: Expanded CardResolver to support ENERGY, DRAW, STATUS, and MULTI_DAMAGE effects (with multi-hit + intervals) and migrated a wide set of Riftwalker cards to resolver configs: Adrenaline Rush, Arcane Flame, Chrono Jab, Corroding Shot, Corrosion Wave, Focus, Mana Leech, Mana Surge, Nano Shield, Fracture Pulse, Jab. Resolver now handles status/energy/draw/multi-hit in data-driven configs.
+- Files: `scripts/resources/card/card_effect_config.gd`, `scripts/systems/card_resolver.gd`, `resources/data/cards/riftwalker/adrenaline_rush.gd`, `arcane_flame.gd`, `chrono_jab.gd`, `corroding_shot.gd`, `corrosion_wave.gd`, `focus.gd`, `mana_leech.gd`, `mana_surge.gd`, `nano_shield.gd`, `fracture_pulse.gd`, `jab.gd`
+- Verification: Not run; sandbox smoke test recommended for migrated cards.
+- Follow-ups: Consider migrating remaining complex/status-heavy cards once comfortable; extend resolver with any additional effect types if needed.
+
+**2025-12-15 – Codex**
 - Summary: Fixed movement card validation by ensuring tile targets enter the scene tree before checks and removing get_tree reliance in Phase Step/Quantum Rift; preserved aimed targets on release to keep damage cards (e.g., Arcane Bolt) from losing their selected enemy.
 - Files: `scenes/game_world/card_target_selector/card_target_selector.gd`, `resources/data/cards/riftwalker/phase_step.gd`, `resources/data/cards/riftwalker/quantum_rift.gd`
 - Verification: Not run (Godot/headless checks not executed here).
@@ -135,3 +147,11 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Files: `scenes/game_world/game_world.gd`, `ui/world_ui/battle_over_panel.gd`, `ai/planning/todo.yaml`, `ai/state/progress.json`
 - Verification: Not run (Godot headless/audio checks not executed here).
 - Follow-ups: Verify in-game that the victory/defeat audio plays immediately on the battle over screen and stops cleanly when moving to rewards/map; keep an ear out for any remaining overlap with battle playlists.
+**2026-10-17 – Codex: Godot 4.7.2 / Talo 1.2.0 compatibility**
+- Preserved the existing dirty working tree and addon upgrades. Consulted Godot 4.7 documentation via Context7 and Talo's 1.x identification/events documentation.
+- Migrated identity callbacks to TaloPlayerAlias; centralized event string conversion and identity/preference guards; prevented overlapping identification; applied telemetry opt-out cleanup; routed menu quit through Talo's flush notification.
+- Added safe defaults for partial settings, restored sandbox offline state, removed the menu/data-editor preload cycle, repaired 18 external-resource UIDs, corrected the renderer feature tag, and updated CI to 4.7.2.
+- Fixed Obelisk scene teardown triggering victory and detached world-message timer calls. Added fallback returns to four gradient shaders.
+- Verification: loaded 487 first-party resources; numeric event/alias/opt-out checks; menu, sandbox, new run, save/load, and combat startup. Final isolated headless runner exited 0 with zero failed assertions and no script errors. Hidden D3D12/Forward+ smoke run also passed, with no shader compilation errors.
+- Remaining diagnostics/limits: headless dummy-renderer sampler diagnostics, sandbox Windows certificate-store access failure, a retained MapNode script at shutdown, and stale imported-background UID cache warnings. Live backend delivery, packaged exports, and complete campaign QA remain unverified. Details: `ai/docs/godot-4.7.2-upgrade.md`; repeatable runner: `tools/validate_project.py`.
+

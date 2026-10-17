@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dkkgouxh43dvc"]
+[gd_scene format=3 uid="uid://dkkgouxh43dvc"]
 
 [ext_resource type="Script" uid="uid://b1jqhouqnh5b5" path="res://scenes/rest/rest.gd" id="1_mfytg"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="2_wjpkg"]
@@ -361,7 +361,7 @@ _data = {
 &"fade_out": SubResource("Animation_x1a1d")
 }
 
-[node name="Rest" type="Control"]
+[node name="Rest" type="Control" unique_id=246489424]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -371,9 +371,9 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_mfytg")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=504833040]
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=753438460]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -381,7 +381,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_x1a1d")
 
-[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
+[node name="ColorRect" type="ColorRect" parent="BackgroundLayer" unique_id=1427562918]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -390,9 +390,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+[node name="ParticlesLayer" type="CanvasLayer" parent="." unique_id=607661174]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer" unique_id=580954957]
 material = SubResource("CanvasItemMaterial_wjpkg")
 position = Vector2(959, 523)
 amount = 1000
@@ -406,7 +406,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_67ce0")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer" unique_id=82411301]
 material = SubResource("CanvasItemMaterial_5rewm")
 position = Vector2(959, 523)
 amount = 1000
@@ -418,7 +418,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_mr34h")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1817192334]
 material = SubResource("CanvasItemMaterial_wjpkg")
 position = Vector2(1587, 523)
 amount = 1000
@@ -432,7 +432,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_67ce0")
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer" unique_id=261536731]
 material = SubResource("CanvasItemMaterial_5rewm")
 position = Vector2(1587, 523)
 amount = 1000
@@ -444,7 +444,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_mr34h")
 
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1006404170]
 material = SubResource("CanvasItemMaterial_wjpkg")
 position = Vector2(272, 523)
 amount = 1000
@@ -458,7 +458,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_67ce0")
 
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1117632861]
 material = SubResource("CanvasItemMaterial_5rewm")
 position = Vector2(272, 523)
 amount = 1000
@@ -470,9 +470,9 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_mr34h")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1822260249]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer" unique_id=501821599]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -487,40 +487,38 @@ grow_vertical = 2
 theme = ExtResource("2_wjpkg")
 theme_override_constants/separation = 13
 
-[node name="Title" type="Label" parent="UILayer/VBoxContainer"]
+[node name="Title" type="Label" parent="UILayer/VBoxContainer" unique_id=1285411372]
 layout_mode = 2
 text = "Rest"
 label_settings = SubResource("LabelSettings_7w0af")
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="UILayer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="UILayer/VBoxContainer" unique_id=1379534242]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer"]
+[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer" unique_id=50898083]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Skip"
 
-[node name="RestButton" type="Button" parent="UILayer/VBoxContainer"]
+[node name="RestButton" type="Button" parent="UILayer/VBoxContainer" unique_id=277007256]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Rest"
 
-[node name="Description" type="Label" parent="UILayer/VBoxContainer"]
+[node name="Description" type="Label" parent="UILayer/VBoxContainer" unique_id=742281533]
 layout_mode = 2
 text = "Regain 30% health"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_7w0af")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=7745090]
+libraries/ = SubResource("AnimationLibrary_7w0af")
 
 [connection signal="pressed" from="UILayer/VBoxContainer/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="UILayer/VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]

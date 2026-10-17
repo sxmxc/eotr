@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://q8rgdk6ij87e"]
+[gd_scene format=3 uid="uid://q8rgdk6ij87e"]
 
 [ext_resource type="PackedScene" uid="uid://coohc0sckkjwx" path="res://ui/fx/visual_fx.tscn" id="1_mbdnq"]
 [ext_resource type="Script" uid="uid://ci7sxaiitf7hj" path="res://ui/fx/arrow_up_fx.gd" id="2_puog4"]
@@ -343,14 +343,14 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lhhhu")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 30.0
 }]
 
-[node name="ArrowUpFX" instance=ExtResource("1_mbdnq")]
+[node name="ArrowUpFX" unique_id=174998586 instance=ExtResource("1_mbdnq")]
 script = ExtResource("2_puog4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=218166232]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_grvr8")

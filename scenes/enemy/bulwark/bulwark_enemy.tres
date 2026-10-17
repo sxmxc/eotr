@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://bt1n7ljxh76c3"]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://bt1n7ljxh76c3"]
 
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_4dh1t"]
 [ext_resource type="Texture2D" uid="uid://bskl5q104p717" path="res://assets/icons/robot-golem.svg" id="2_3eklm"]

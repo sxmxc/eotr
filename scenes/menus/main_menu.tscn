@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bofyn0epr8qy"]
+[gd_scene format=3 uid="uid://bofyn0epr8qy"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_ovrgc"]
 [ext_resource type="Script" uid="uid://cus2iy6lkqd8v" path="res://scenes/menus/main_menu.gd" id="2_2o76q"]
@@ -307,7 +307,7 @@ background_mode = 3
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=360297674]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -319,7 +319,7 @@ script = ExtResource("2_2o76q")
 run_bootstrap = ExtResource("3_imvie")
 metadata/_edit_horizontal_guides_ = [549.0]
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=197901643]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -328,7 +328,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_8r73w")
 
-[node name="Gradient" type="TextureRect" parent="."]
+[node name="Gradient" type="TextureRect" parent="." unique_id=1156032522]
 modulate = Color(1, 1, 1, 0.647059)
 layout_mode = 1
 anchors_preset = 15
@@ -338,9 +338,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_xqga4")
 
-[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+[node name="ParticlesLayer" type="CanvasLayer" parent="." unique_id=1713959028]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer" unique_id=2066661000]
 material = SubResource("CanvasItemMaterial_6bivr")
 position = Vector2(959, 523)
 amount = 1000
@@ -354,7 +354,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_bre17")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1471474248]
 material = SubResource("CanvasItemMaterial_88kup")
 position = Vector2(959, 523)
 amount = 1000
@@ -366,7 +366,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_w32d4")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer" unique_id=770896594]
 material = SubResource("CanvasItemMaterial_6bivr")
 position = Vector2(1587, 523)
 amount = 1000
@@ -380,7 +380,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_bre17")
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer" unique_id=2103164140]
 material = SubResource("CanvasItemMaterial_88kup")
 position = Vector2(1587, 523)
 amount = 1000
@@ -392,7 +392,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_w32d4")
 
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer" unique_id=362805242]
 material = SubResource("CanvasItemMaterial_6bivr")
 position = Vector2(272, 523)
 amount = 1000
@@ -406,7 +406,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_bre17")
 
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer" unique_id=11864266]
 material = SubResource("CanvasItemMaterial_88kup")
 position = Vector2(272, 523)
 amount = 1000
@@ -418,10 +418,10 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_w32d4")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1121084982]
 layer = 2
 
-[node name="Control" type="Control" parent="UILayer"]
+[node name="Control" type="Control" parent="UILayer" unique_id=1249509189]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -430,7 +430,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ovrgc")
 
-[node name="Title" type="Control" parent="UILayer/Control"]
+[node name="Title" type="Control" parent="UILayer/Control" unique_id=1333165821]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -444,7 +444,7 @@ offset_bottom = 251.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Control/Title"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Control/Title" unique_id=1542897677]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -460,7 +460,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Label" type="Label" parent="UILayer/Control/Title/VBoxContainer"]
+[node name="Label" type="Label" parent="UILayer/Control/Title/VBoxContainer" unique_id=1864023194]
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 text = "Echoes"
@@ -468,7 +468,7 @@ label_settings = SubResource("LabelSettings_bre17")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="UILayer/Control/Title/VBoxContainer"]
+[node name="Label2" type="Label" parent="UILayer/Control/Title/VBoxContainer" unique_id=557441290]
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 text = "of the"
@@ -476,18 +476,18 @@ label_settings = SubResource("LabelSettings_88kup")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="UILayer/Control/Title/VBoxContainer"]
+[node name="Label3" type="Label" parent="UILayer/Control/Title/VBoxContainer" unique_id=1830782874]
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 text = "Rift"
 label_settings = SubResource("LabelSettings_bh4e2")
 horizontal_alignment = 1
 
-[node name="Fader" type="Node" parent="UILayer/Control/Title"]
+[node name="Fader" type="Node" parent="UILayer/Control/Title" unique_id=700761613]
 script = ExtResource("7_50h1w")
 metadata/_custom_type_script = "uid://cxwnehr2avcec"
 
-[node name="Buttons" type="MarginContainer" parent="UILayer/Control"]
+[node name="Buttons" type="MarginContainer" parent="UILayer/Control" unique_id=1319771817]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -505,12 +505,12 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Control/Buttons"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Control/Buttons" unique_id=2073974763]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="ContinueButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1788880217]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -519,7 +519,7 @@ theme_type_variation = &"MainMenuButton"
 disabled = true
 text = "Continue"
 
-[node name="NewGameButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=346328372]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -527,7 +527,7 @@ theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
 text = "New"
 
-[node name="SettingsButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1813833348]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -536,7 +536,7 @@ theme_type_variation = &"MainMenuButton"
 text = "Settings
 "
 
-[node name="SandboxButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
+[node name="SandboxButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1012888355]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -544,7 +544,7 @@ theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
 text = "Sandbox"
 
-[node name="DataEditorButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
+[node name="DataEditorButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=48162659]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -552,7 +552,7 @@ theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
 text = "Data Editor"
 
-[node name="ExitButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1896684852]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -560,13 +560,13 @@ theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
 text = "Exit"
 
-[node name="Fader" type="Node" parent="UILayer/Control/Buttons"]
+[node name="Fader" type="Node" parent="UILayer/Control/Buttons" unique_id=554410555]
 script = ExtResource("7_50h1w")
 FadeInTime = 2.0
 FadeOutTime = 2.0
 metadata/_custom_type_script = "uid://cxwnehr2avcec"
 
-[node name="Version" type="Label" parent="UILayer/Control"]
+[node name="Version" type="Label" parent="UILayer/Control" unique_id=1335728534]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -579,7 +579,7 @@ grow_vertical = 0
 text = "vX.X.X.X-build"
 script = ExtResource("4_6bivr")
 
-[node name="PlayerIdentity" type="Label" parent="UILayer/Control"]
+[node name="PlayerIdentity" type="Label" parent="UILayer/Control" unique_id=1098404744]
 layout_mode = 0
 offset_left = 31.0
 offset_top = 1011.0
@@ -588,7 +588,7 @@ offset_bottom = 1053.0
 text = "Player Identity"
 script = ExtResource("9_50h1w")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=991796566]
 environment = SubResource("Environment_bre17")
 
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

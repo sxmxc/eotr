@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bna8mnm416b6y"]
+[gd_scene format=3 uid="uid://bna8mnm416b6y"]
 
 [ext_resource type="Script" uid="uid://bhoe4jbbt4wv0" path="res://scenes/post_fx/post_fx.gd" id="1_2l1mm"]
 [ext_resource type="Shader" uid="uid://cjn1qqeytqyk8" path="res://scripts/shaders/vignette.gdshader" id="1_bewl5"]
@@ -9,13 +9,13 @@ shader_parameter/outerRadius = 4.00000019
 shader_parameter/MainAlpha = 0.800000038
 shader_parameter/vignette_color = Color(0.29411766, 0.23921569, 0.26666668, 1)
 
-[node name="PostFX" type="Node2D"]
+[node name="PostFX" type="Node2D" unique_id=1067642187]
 script = ExtResource("1_2l1mm")
 
-[node name="PostFXLayer" type="CanvasLayer" parent="."]
+[node name="PostFXLayer" type="CanvasLayer" parent="." unique_id=1243963403]
 layer = 100
 
-[node name="Vignette" type="ColorRect" parent="PostFXLayer"]
+[node name="Vignette" type="ColorRect" parent="PostFXLayer" unique_id=2077884879]
 material = SubResource("ShaderMaterial_2l1mm")
 anchors_preset = 15
 anchor_right = 1.0

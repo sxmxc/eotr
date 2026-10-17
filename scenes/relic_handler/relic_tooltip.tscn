@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://coupj55agy31s"]
+[gd_scene format=3 uid="uid://coupj55agy31s"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_fqibc"]
 [ext_resource type="Script" uid="uid://bk8nwhbgicue0" path="res://scenes/relic_handler/relic_tooltip.gd" id="2_srgwn"]
@@ -8,7 +8,7 @@
 [sub_resource type="LabelSettings" id="LabelSettings_fqibc"]
 font_size = 50
 
-[node name="RelicTooltip" type="Control"]
+[node name="RelicTooltip" type="Control" unique_id=1035219774]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ grow_vertical = 2
 theme = ExtResource("1_fqibc")
 script = ExtResource("2_srgwn")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=281239283]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +28,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.294118, 0.239216, 0.266667, 0.956863)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=661096817]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,7 +44,7 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="RelicName" type="Label" parent="VBoxContainer"]
+[node name="RelicName" type="Label" parent="VBoxContainer" unique_id=1482097760]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
@@ -52,13 +52,13 @@ text = "Relic Name"
 label_settings = SubResource("LabelSettings_fqibc")
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="VBoxContainer"]
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=1817170839]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 theme = ExtResource("3_srgwn")
 theme_type_variation = &"CardPanelMain"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Panel" unique_id=1671417896]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,11 +70,11 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Panel" type="Panel" parent="VBoxContainer/Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="VBoxContainer/Panel/MarginContainer" unique_id=1029609762]
 layout_mode = 2
 theme_type_variation = &"CardPanelSecondary"
 
-[node name="RelicIcon" type="TextureRect" parent="VBoxContainer/Panel/MarginContainer/Panel"]
+[node name="RelicIcon" type="TextureRect" parent="VBoxContainer/Panel/MarginContainer/Panel" unique_id=1157463149]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
@@ -88,7 +88,7 @@ texture = ExtResource("4_srgwn")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RelicDescription" type="RichTextLabel" parent="VBoxContainer"]
+[node name="RelicDescription" type="RichTextLabel" parent="VBoxContainer" unique_id=1602376438]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -101,7 +101,7 @@ Relic Description"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=1990892368]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cncwxv041kjkn"]
+[gd_resource type="Resource" format=3 uid="uid://cncwxv041kjkn"]
 
 [ext_resource type="Script" uid="uid://c12lvvdc7ok2e" path="res://resources/data/tile_effects/empty_tile_effect.gd" id="1_qnfss"]
 

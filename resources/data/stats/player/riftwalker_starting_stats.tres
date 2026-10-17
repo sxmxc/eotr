@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=6 format=3 uid="uid://cjimv3kddhqjg"]
+[gd_resource type="Resource" script_class="PlayerStats" format=3 uid="uid://cjimv3kddhqjg"]
 
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="1_h1yhy"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="1_jj0dv"]
-[ext_resource type="Resource" uid="uid://fjjyyc620psd" path="res://resources/data/card_piles/riftwalker_draftable_cards.tres" id="2_5p1yr"]
+[ext_resource type="Resource" uid="uid://cqdwg2b3rmyhr" path="res://resources/data/card_piles/riftwalker_draftable_cards.tres" id="2_5p1yr"]
 [ext_resource type="Resource" uid="uid://cg3hxbmpjkk10" path="res://resources/data/card_piles/riftwalker_starting_deck.tres" id="2_7pda5"]
 [ext_resource type="Resource" uid="uid://b5nsik7o77yuu" path="res://resources/data/relics/phase_key.tres" id="5_sqolq"]
 

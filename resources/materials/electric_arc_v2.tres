@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dkx4hqcolxkg8"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dkx4hqcolxkg8"]
 
 [ext_resource type="Shader" uid="uid://dgju2o0by61sc" path="res://scripts/shaders/electrical_arc_v2.gdshader" id="1_wespv"]
 [ext_resource type="Texture2D" uid="uid://crfd6k4j0ykkp" path="res://assets/particles/kenney-particles/spark_07.png" id="2_4jvxd"]

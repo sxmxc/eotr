@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://caroyj14p8w02"]
+[gd_scene format=3 uid="uid://caroyj14p8w02"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_muhwa"]
 [ext_resource type="Script" uid="uid://cnou8fh6bmgbl" path="res://scenes/menus/settings_menu.gd" id="2_s2d1y"]
@@ -15,7 +15,7 @@ bg_color = Color(0.670588, 0.607843, 0.556863, 1)
 expand_margin_top = 1.0
 expand_margin_bottom = 1.0
 
-[node name="SettingsMenu" type="Control"]
+[node name="SettingsMenu" type="Control" unique_id=620276990]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +25,7 @@ grow_vertical = 2
 theme = ExtResource("1_muhwa")
 script = ExtResource("2_s2d1y")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=879831247]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_s2d1y")
 
-[node name="Gradient" type="TextureRect" parent="."]
+[node name="Gradient" type="TextureRect" parent="." unique_id=1398625210]
 modulate = Color(1, 1, 1, 0.647059)
 layout_mode = 1
 anchors_preset = 15
@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_xqga4")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=427057277]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,7 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"HudPanelBackground"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=455705952]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,10 +71,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="Panel/MarginContainer" unique_id=1555838814]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel" unique_id=1497854631]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,20 +82,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer" unique_id=1069758841]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=2091454603]
 layout_mode = 2
 theme_type_variation = &"TitleLabel"
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer" unique_id=2122376161]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -103,45 +103,45 @@ size_flags_stretch_ratio = 2.0
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_right = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2" unique_id=73529162]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1427580597]
 layout_mode = 2
 text = "Graphics"
 
-[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1695385907]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="FullScreen" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="FullScreen" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=997602239]
 layout_mode = 2
 
-[node name="FullscreenLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen"]
+[node name="FullscreenLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen" unique_id=1415323517]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
 text = "Fullscreen"
 
-[node name="FullscreenButton" type="CheckButton" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen"]
+[node name="FullscreenButton" type="CheckButton" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen" unique_id=1383805798]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Resolution" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Resolution" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=567663848]
 layout_mode = 2
 
-[node name="ResolutionLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution"]
+[node name="ResolutionLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution" unique_id=703989317]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
 text = "Resolution"
 
-[node name="OptionButton" type="OptionButton" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution"]
+[node name="OptionButton" type="OptionButton" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution" unique_id=2032319349]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -152,34 +152,34 @@ item_count = 1
 popup/item_0/text = "1920x1080"
 popup/item_0/id = 0
 
-[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=982640218]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="Label2" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label2" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1546046461]
 layout_mode = 2
 text = "Audio"
 
-[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=388233750]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="MasterVolume" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="MasterVolume" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=904175831]
 layout_mode = 2
 
-[node name="MasterVolumeLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume"]
+[node name="MasterVolumeLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume" unique_id=1694863467]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
 text = "Master Volume"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume"]
+[node name="MasterVolumeSlider" type="HSlider" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume" unique_id=1620195444]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -188,16 +188,16 @@ max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="SFXVolume" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="SFXVolume" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1575514947]
 layout_mode = 2
 
-[node name="SFXVolumeLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume"]
+[node name="SFXVolumeLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume" unique_id=1482552590]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
 text = "SFX Volume"
 
-[node name="SFXVolumeSlider" type="HSlider" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume"]
+[node name="SFXVolumeSlider" type="HSlider" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume" unique_id=737123628]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -207,35 +207,35 @@ max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="HSeparator5" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1224894052]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="Label3" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label3" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1500542795]
 layout_mode = 2
 text = "Telemetry"
 
-[node name="HSeparator6" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1132600866]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="Telemetry" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Telemetry" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=672021148]
 layout_mode = 2
 
-[node name="TelemetryLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry"]
+[node name="TelemetryLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry" unique_id=101351747]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
 text = "Enabled"
 
-[node name="TelemetryCheckBox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry"]
+[node name="TelemetryCheckBox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry" unique_id=310984040]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -243,35 +243,35 @@ size_flags_vertical = 4
 button_pressed = true
 text = "Enabled"
 
-[node name="HSeparator9" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator9" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1607107033]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="Label4" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label4" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=82563279]
 layout_mode = 2
 text = "GamePlay"
 
-[node name="HSeparator7" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator7" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=283683254]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="Tutorials" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Tutorials" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=818880392]
 layout_mode = 2
 
-[node name="TutorialLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials"]
+[node name="TutorialLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials" unique_id=209941933]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.28
 text = "Show Tutorials"
 
-[node name="TutorialCheckbox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials"]
+[node name="TutorialCheckbox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials" unique_id=707771416]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -279,36 +279,36 @@ size_flags_vertical = 4
 button_pressed = true
 text = "Show Tutorials"
 
-[node name="HSeparator8" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="HSeparator8" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=2138586345]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_ojvp1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer" unique_id=689787629]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1528315303]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_right = 40
 
-[node name="SaveButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="SaveButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3" unique_id=1154586324]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 disabled = true
 text = "Save"
 
-[node name="MarginContainer4" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer4" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=613571409]
 layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_right = 40
 
-[node name="CancelButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer4"]
+[node name="CancelButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer4" unique_id=1768503708]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

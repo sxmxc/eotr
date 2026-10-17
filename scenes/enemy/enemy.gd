@@ -210,7 +210,7 @@ func do_death() -> void:
 	if not _begin_death_sequence():
 		return
 	if Talo.current_player:
-		Talo.stats.track("enemies_killed")
+		TelemetryManager.track_stat("enemies_killed")
 	_fade_out_and_queue_free()
 
 func get_player_tile_position() -> Vector2i:

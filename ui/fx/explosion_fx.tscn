@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://l2pxfjv70yqn"]
+[gd_scene format=3 uid="uid://l2pxfjv70yqn"]
 
 [ext_resource type="Script" uid="uid://c0841wa4yj323" path="res://ui/fx/explosion_fx.gd" id="1_jk1vp"]
 [ext_resource type="Texture2D" uid="uid://qfkjhd4qdtuk" path="res://assets/particles/kenney-particles/fire_01.png" id="2_iri2k"]
@@ -48,11 +48,11 @@ alpha_curve = SubResource("CurveTexture_qkuxb")
 turbulence_enabled = true
 turbulence_noise_scale = 2.379
 
-[node name="ExplosionFX" type="Node2D"]
+[node name="ExplosionFX" type="Node2D" unique_id=1087908466]
 z_index = 1
 script = ExtResource("1_jk1vp")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1156343401]
 scale = Vector2(0.05, 0.05)
 emitting = false
 amount = 500

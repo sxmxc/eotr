@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://et3k0fasmcna"]
+[gd_scene format=3 uid="uid://et3k0fasmcna"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_55s2j"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="2_hy3dk"]
@@ -34,21 +34,21 @@ icon = ExtResource("10_fwhlu")
 tooltip_text = "Weaken beam (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="ChannelerEnemyAI" instance=ExtResource("1_55s2j")]
+[node name="ChannelerEnemyAI" unique_id=1223080051 instance=ExtResource("1_55s2j")]
 
-[node name="ChannelerMoveAction" type="Node" parent="." index="0"]
+[node name="ChannelerMoveAction" type="Node" parent="." index="0" unique_id=1695411024]
 script = ExtResource("3_v253m")
 intent = SubResource("Resource_move")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ChannelerEmpowerAction" type="Node" parent="." index="1"]
+[node name="ChannelerEmpowerAction" type="Node" parent="." index="1" unique_id=439389167]
 script = ExtResource("5_qnxcl")
 intent = SubResource("Resource_gsaxk")
 sound = ExtResource("7_5r83q")
 visual_fx = ExtResource("8_p3bau")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ChannelerWeakenBoltAction" type="Node" parent="." index="2"]
+[node name="ChannelerWeakenBoltAction" type="Node" parent="." index="2" unique_id=1449444566]
 script = ExtResource("9_4064u")
 projectile_scene = ExtResource("10_p1l0x")
 projectile_visual_fx = ExtResource("13_ek1vm")

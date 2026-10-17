@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3x0n5j034cie"]
+[gd_scene format=3 uid="uid://b3x0n5j034cie"]
 
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_script"]
@@ -128,7 +128,7 @@ font_color = Color(0.294118, 0.239216, 0.266667, 1)
 font_size = 12
 font_color = Color(0.294118, 0.239216, 0.266667, 1)
 
-[node name="Visuals" type="Control"]
+[node name="Visuals" type="Control" unique_id=1541876400]
 custom_minimum_size = Vector2(187, 262)
 layout_mode = 3
 anchors_preset = 8
@@ -149,7 +149,7 @@ theme = ExtResource("1_theme")
 script = ExtResource("2_script")
 metadata/_edit_horizontal_guides_ = [244.0]
 
-[node name="CardBackgroundTexture" type="TextureRect" parent="."]
+[node name="CardBackgroundTexture" type="TextureRect" parent="." unique_id=170568023]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(187, 262)
 layout_mode = 1
@@ -169,7 +169,7 @@ texture = ExtResource("3_0p8qx")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CardArt" type="TextureRect" parent="."]
+[node name="CardArt" type="TextureRect" parent="." unique_id=1084253666]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -183,7 +183,7 @@ expand_mode = 1
 stretch_mode = 6
 metadata/_edit_use_anchors_ = true
 
-[node name="CardTextBackground" type="TextureRect" parent="."]
+[node name="CardTextBackground" type="TextureRect" parent="." unique_id=1672243496]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.41984734
@@ -196,7 +196,7 @@ expand_mode = 1
 stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground"]
+[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground" unique_id=1679591947]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,7 +208,7 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 18
 
-[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer"]
+[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer" unique_id=888640555]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 2
@@ -229,7 +229,7 @@ max_font_size = 16
 step_sizes = Array[int]([8, 16])
 metadata/_custom_type_script = "uid://leehmvr1x5lu"
 
-[node name="CardForegroundFrame" type="TextureRect" parent="."]
+[node name="CardForegroundFrame" type="TextureRect" parent="." unique_id=686301827]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 1
@@ -240,7 +240,7 @@ texture = ExtResource("6_kin56")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="OutlineOverlay" type="TextureRect" parent="."]
+[node name="OutlineOverlay" type="TextureRect" parent="." unique_id=516535861]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 1, 0)
@@ -253,7 +253,7 @@ grow_vertical = 2
 mouse_filter = 2
 stretch_mode = 4
 
-[node name="Rarity" type="TextureRect" parent="."]
+[node name="Rarity" type="TextureRect" parent="." unique_id=1910562756]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 0
@@ -265,7 +265,7 @@ texture = ExtResource("7_eqiyl")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="CardCost" type="TextureRect" parent="."]
+[node name="CardCost" type="TextureRect" parent="." unique_id=904126701]
 layout_mode = 0
 offset_left = 140.0
 offset_top = -19.0
@@ -275,7 +275,7 @@ texture = ExtResource("8_ld3x3")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="CardCostLabel" type="Label" parent="CardCost"]
+[node name="CardCostLabel" type="Label" parent="CardCost" unique_id=234002410]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 1
@@ -296,7 +296,7 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 
-[node name="CardTrailFX" type="GPUParticles2D" parent="."]
+[node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1357946861]
 unique_name_in_owner = true
 process_mode = 3
 show_behind_parent = true
@@ -311,12 +311,10 @@ visibility_rect = Rect2(-799.526, -631.978, 1401.51, 1263.98)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_nb1yb")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_si0b1")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=100911302]
+libraries/ = SubResource("AnimationLibrary_si0b1")
 
-[node name="CardNameLabel" type="Label" parent="."]
+[node name="CardNameLabel" type="Label" parent="." unique_id=1061145344]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 1
@@ -341,7 +339,7 @@ max_font_size = 32
 step_sizes = Array[int]([8, 16, 32])
 metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
-[node name="CardTypeLabel" type="Label" parent="."]
+[node name="CardTypeLabel" type="Label" parent="." unique_id=543075485]
 unique_name_in_owner = true
 use_parent_material = true
 layout_mode = 1

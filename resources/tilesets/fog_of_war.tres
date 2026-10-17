@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://cfsbh25ygujlm"]
+[gd_resource type="TileSet" format=3 uid="uid://cfsbh25ygujlm"]
 
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="1_hb2aw"]
 [ext_resource type="Shader" uid="uid://ceduxyygjw202" path="res://scripts/shaders/fog_of_war.gdshader" id="1_ys71l"]

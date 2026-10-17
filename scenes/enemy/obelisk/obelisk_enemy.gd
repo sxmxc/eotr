@@ -49,7 +49,7 @@ func spawn_random_enemy() -> bool:
 func do_death() -> void:
 	if not _begin_death_sequence():
 		return
-	Talo.stats.track("obelisks_destroyed")
+	TelemetryManager.track_stat("obelisks_destroyed")
 	if SHATTER_EMBER_FX:
 		var shatter_fx := SHATTER_EMBER_FX.instantiate() as VisualFX
 		shatter_fx.scale = Vector2(1.2, 1.2)

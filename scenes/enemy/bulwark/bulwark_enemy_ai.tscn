@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://ce98ewg4fgihv"]
+[gd_scene format=3 uid="uid://cfa8ewg4fgihv"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_byqtg"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="2_2a2ye"]
-[ext_resource type="Script" path="res://scenes/enemy/bulwark/bulwark_cleave_action.gd" id="3_huqy2"]
-[ext_resource type="Script" path="res://scenes/enemy/bulwark/bulwark_brace_action.gd" id="4_12f37"]
-[ext_resource type="Script" path="res://scenes/enemy/bulwark/bulwark_advance_action.gd" id="5_b3pbc"]
+[ext_resource type="Script" uid="uid://dlgtstnkq28ur" path="res://scenes/enemy/bulwark/bulwark_cleave_action.gd" id="3_huqy2"]
+[ext_resource type="Script" uid="uid://dqih1v7rkve1n" path="res://scenes/enemy/bulwark/bulwark_brace_action.gd" id="4_12f37"]
+[ext_resource type="Script" uid="uid://c3lyng5m5y2sd" path="res://scenes/enemy/bulwark/bulwark_advance_action.gd" id="5_b3pbc"]
 [ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="6_1ff4h"]
 [ext_resource type="Texture2D" uid="uid://b0xtxdooqd7uf" path="res://assets/icons/shield-reflect.svg" id="7_mj73q"]
 [ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="8_695ck"]
@@ -13,11 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://b0rgvbdigmehm" path="res://ui/fx/slash_fx.tscn" id="11_xme1p"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="12_p7aov"]
 
-[sub_resource type="Resource" id="Resource_eylj1"]
+[sub_resource type="Resource" id="Resource_h6b5n"]
 script = ExtResource("2_2a2ye")
-base_text = "+%s block"
-icon = ExtResource("6_1ff4h")
-tooltip_text = "Plans to move (%s)"
+base_text = "%s"
+icon = ExtResource("8_695ck")
+tooltip_text = "Heavy cleave against adjacent foes (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_b2w6y"]
@@ -27,30 +27,30 @@ icon = ExtResource("7_mj73q")
 tooltip_text = "Bulwark hardens its plating (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[sub_resource type="Resource" id="Resource_h6b5n"]
+[sub_resource type="Resource" id="Resource_eylj1"]
 script = ExtResource("2_2a2ye")
-base_text = "%s"
-icon = ExtResource("8_695ck")
-tooltip_text = "Heavy cleave against adjacent foes (%s)"
+base_text = "+%s block"
+icon = ExtResource("6_1ff4h")
+tooltip_text = "Plans to move (%s)"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="BulwarkEnemyAI" instance=ExtResource("1_byqtg")]
+[node name="BulwarkEnemyAI" unique_id=1064674815 instance=ExtResource("1_byqtg")]
 
-[node name="BulwarkCleaveAction" type="Node" parent="." index="0"]
+[node name="BulwarkCleaveAction" type="Node" parent="." index="0" unique_id=180820455]
 script = ExtResource("3_huqy2")
 intent = SubResource("Resource_h6b5n")
 sound = ExtResource("9_6a4mi")
 visual_fx = ExtResource("11_xme1p")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="BulwarkBraceAction" type="Node" parent="." index="1"]
+[node name="BulwarkBraceAction" type="Node" parent="." index="1" unique_id=1178640830]
 script = ExtResource("4_12f37")
 intent = SubResource("Resource_b2w6y")
 sound = ExtResource("10_8pg5q")
 visual_fx = ExtResource("12_p7aov")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="BulwarkAdvanceAction" type="Node" parent="." index="2"]
+[node name="BulwarkAdvanceAction" type="Node" parent="." index="2" unique_id=93359157]
 script = ExtResource("5_b3pbc")
 intent = SubResource("Resource_eylj1")
 type = 1

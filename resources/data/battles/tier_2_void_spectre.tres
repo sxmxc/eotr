@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://bcl5etedpnoss"]
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://bcl5etedpnoss"]
 
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_ak0t1"]
 [ext_resource type="PackedScene" uid="uid://dnpltte715j68" path="res://resources/data/battles/tier_2_void_spectre.tscn" id="1_tnbkk"]

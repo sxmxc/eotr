@@ -7,34 +7,21 @@ var has_reached_target: bool = false
 var is_initialized: bool = false
 
 func execute(target, source = null) -> void:
-	if visual_fx:
-		target.add_child(visual_fx)
+	_attach_visual(target)
 
-	var fx_layer := get_tree().get_first_node_in_group("fx_layer") as CanvasLayer
-	if not fx_layer:
-		fx_layer = target.get_tree().current_scene
-
-	if not source:
-		var player: Player = get_tree().get_first_node_in_group("player") as Player
-		if player and fx_layer and fx_layer is CanvasLayer:
-			start = player.get_global_transform_with_canvas().origin + fx_layer.get_final_transform().origin
-		else:
-			start = player.global_position if player else global_position
-		var projectile_anchor := get_tree().get_first_node_in_group("projectile_start")
-		if projectile_anchor and projectile_anchor.has_method("get_global_mouse_position"):
-			end = projectile_anchor.get_global_mouse_position()
-		else:
-			end = target.global_position
-	else:
-		start = source.global_position
-		end = target.global_position
-		
-	
-	position = start
-	print("blast striking: start %s end %s" % [start, end])
+	start = resolve_start(source)
+	end = resolve_end(target, start)
+	global_position = start
+	print("[FireballProjectileFX] spawned at %s -> %s (source=%s target=%s parent=%s)" % [
+		start,
+		end,
+		source,
+		target,
+		get_parent()
+	])
 	
 	# Start animation sequence
-	animated_sprite_2d.animation_finished.connect(_on_start_animation_finished)
+	animated_sprite_2d.animation_finished.connect(_on_start_animation_finished, CONNECT_ONE_SHOT)
 	animated_sprite_2d.play("start")
 	is_initialized = true
 	
@@ -46,21 +33,19 @@ func _physics_process(delta: float) -> void:
 	look_at(target_pos)
 	
 	# Move toward target
-	var direction = (end - position).normalized()
-	var distance_to_target = position.distance_to(end)
+	var direction = (end - global_position).normalized()
+	var distance_to_target = global_position.distance_to(end)
 	var move_distance = speed * delta
 	
 	if move_distance >= distance_to_target:
 		# We've reached the target
-		position = end
+		global_position = end
 		_on_projectile_reached_target()
 	else:
-		position += direction * move_distance
+		global_position += direction * move_distance
+
 
 func _on_start_animation_finished():
-	# Disconnect the previous signal
-	animated_sprite_2d.animation_finished.disconnect(_on_start_animation_finished)
-	
 	# Connect the end animation signal and play loop animation
 	animated_sprite_2d.play("loop")
 
@@ -69,16 +54,20 @@ func _on_projectile_reached_target():
 		return
 		
 	has_reached_target = true
+	print("[FireballProjectileFX] reached target at %s" % end)
 	
 	# Stop movement and play end animation
-	animated_sprite_2d.animation_finished.connect(_on_end_animation_finished)
+	animated_sprite_2d.animation_finished.connect(_on_end_animation_finished, CONNECT_ONE_SHOT)
 	animated_sprite_2d.play("end")
-	visual_fx.execute()
-	complete.emit()
+	if visual_fx and visual_fx.has_method("execute"):
+		visual_fx.execute()
+	mark_complete()
 
 func _on_end_animation_finished():
-	# Clean up
-	animated_sprite_2d.animation_finished.disconnect(_on_end_animation_finished)
-	
-	# Here you might want to free the projectile or handle other cleanup
 	queue_free()
+
+
+func _attach_visual(target: Node) -> void:
+	if not visual_fx or not target:
+		return
+	target.add_child(visual_fx)

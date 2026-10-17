@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dawywslw1xm6u"]
+[gd_scene format=3 uid="uid://dawywslw1xm6u"]
 
 [ext_resource type="PackedScene" uid="uid://bvu7r4ul8bc2r" path="res://ui/fx/projectile_fx.tscn" id="1_fi3jx"]
 [ext_resource type="Script" uid="uid://o006mm8d3sv5" path="res://ui/fx/fireball_small_projectile_fx.gd" id="2_fi3jx"]
@@ -206,7 +206,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nsa2o")
 }],
-"loop": false,
+"loop": 0,
 "name": &"end",
 "speed": 30.0
 }, {
@@ -256,7 +256,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uy14v")
 }],
-"loop": true,
+"loop": 1,
 "name": &"loop",
 "speed": 30.0
 }, {
@@ -297,16 +297,16 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k3rqp")
 }],
-"loop": false,
+"loop": 0,
 "name": &"start",
 "speed": 30.0
 }]
 
-[node name="FireballSmallProjectileFX" instance=ExtResource("1_fi3jx")]
+[node name="FireballSmallProjectileFX" unique_id=1897960018 instance=ExtResource("1_fi3jx")]
 script = ExtResource("2_fi3jx")
 speed = 1200.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=200408676]
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_cpsmu")
 animation = &"start"

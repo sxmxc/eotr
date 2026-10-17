@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://xoyjibjonsb5"]
+[gd_resource type="Resource" format=3 uid="uid://xoyjibjonsb5"]
 
 [ext_resource type="Texture2D" uid="uid://54t1hmmkxg64" path="res://assets/card/art/arcane_bolt.png" id="1_1gc72"]
 [ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="1_kaer2"]

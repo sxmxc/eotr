@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dpbs7gkyy2ud7"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dpbs7gkyy2ud7"]
 
 [ext_resource type="Shader" uid="uid://c0ia2a33rw3m0" path="res://scripts/shaders/all_in_one_blotchy_aura.gdshader" id="1_mjll3"]
 

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cbdk3w5uysvar"]
+[gd_resource type="Theme" format=3 uid="uid://cbdk3w5uysvar"]
 
 [ext_resource type="StyleBox" uid="uid://b4ywip686lty5" path="res://resources/themes/card_panel_dragging.tres" id="1_ecxqd"]
 

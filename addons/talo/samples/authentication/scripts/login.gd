@@ -8,6 +8,7 @@ signal go_to_register
 @onready var password: TextEdit = %Password
 @onready var validation_label: Label = %ValidationLabel
 
+
 func _on_submit_pressed() -> void:
 	validation_label.text = ""
 
@@ -20,20 +21,19 @@ func _on_submit_pressed() -> void:
 		return
 
 	var res := await Talo.player_auth.login(username.text, password.text)
-	match res:
-		Talo.player_auth.LoginResult.FAILED:
-			match Talo.player_auth.last_error.get_code():
-				TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
-					validation_label.text = "Username or password is incorrect"
-				_:
-					validation_label.text = Talo.player_auth.last_error.get_string()
-		Talo.player_auth.LoginResult.VERIFICATION_REQUIRED:
-			verification_required.emit()
-		Talo.player_auth.LoginResult.OK:
-			pass
+	if res.verification_required:
+		verification_required.emit()
+	elif not res.success:
+		match res.error.code:
+			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
+				validation_label.text = "Username or password is incorrect"
+			_:
+				validation_label.text = res.error.message
+
 
 func _on_forgot_password_pressed() -> void:
 	go_to_forgot_password.emit()
+
 
 func _on_register_pressed() -> void:
 	go_to_register.emit()

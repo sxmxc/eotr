@@ -20,12 +20,25 @@ const DEFAULT_PLAYER_STATS := preload("res://resources/data/stats/player/riftwal
 
 var player_stats: PlayerStats
 var battle_started := false
+var _previous_offline_mode := false
+var _previous_telemetry_suspended := false
+
+
+func _enter_tree() -> void:
+	_previous_offline_mode = Talo.settings.offline_mode
+	_previous_telemetry_suspended = TelemetryManager.suspended
+	Talo.settings.offline_mode = true
+	TelemetryManager.suspended = true
+
+
+func _exit_tree() -> void:
+	Talo.settings.offline_mode = _previous_offline_mode
+	TelemetryManager.suspended = _previous_telemetry_suspended
 
 
 func _ready() -> void:
 	if not ui.is_node_ready():
 		await ui.ready
-	Talo.settings.offline_mode = true
 	_initialize_resources()
 	await _wire_world_nodes()
 	tilemap.map_generated.connect(_on_map_generated)

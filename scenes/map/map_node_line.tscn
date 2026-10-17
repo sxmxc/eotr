@@ -1,5 +1,5 @@
 [gd_scene format=3 uid="uid://cmk4kqv11k30q"]
 
-[node name="MapNodeLine" type="Line2D"]
+[node name="MapNodeLine" type="Line2D" unique_id=677444439]
 width = 5.0
 default_color = Color(0.670588, 0.607843, 0.556863, 1)

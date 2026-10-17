@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://wes3rheva03s"]
+[gd_scene format=3 uid="uid://wes3rheva03s"]
 
 [ext_resource type="Script" uid="uid://bckyguvb8v833" path="res://ui/fx/electric_arc_projectile_fx.gd" id="1_pehen"]
 [ext_resource type="Material" uid="uid://dkx4hqcolxkg8" path="res://resources/materials/electric_arc_v2.tres" id="2_pehen"]
@@ -8,10 +8,10 @@
 _data = [Vector2(0, 0.292135), 0.0, 0.0, 0, 0, Vector2(0.507936, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.258427), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="ElectricArcProjectileFX" type="Node2D"]
+[node name="ElectricArcProjectileFX" type="Node2D" unique_id=688596695]
 script = ExtResource("1_pehen")
 
-[node name="ElectricArcFX" type="Line2D" parent="."]
+[node name="ElectricArcFX" type="Line2D" parent="." unique_id=1233003033]
 material = ExtResource("2_pehen")
 width = 200.0
 width_curve = SubResource("Curve_pehen")

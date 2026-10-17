@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://2lbb3o8s61p3"]
+[gd_scene format=3 uid="uid://2lbb3o8s61p3"]
 
 [ext_resource type="Script" uid="uid://ci0s82s7h0wph" path="res://scenes/treasure/treasure.gd" id="1_b65ik"]
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="2_8auyv"]
@@ -601,7 +601,7 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 8
 particles_anim_loop = true
 
-[node name="Treasure" type="Control"]
+[node name="Treasure" type="Control" unique_id=404450698]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -612,9 +612,9 @@ mouse_filter = 2
 script = ExtResource("1_b65ik")
 treasure_relic_pool = Array[ExtResource("2_8auyv")]([ExtResource("3_bbvtr"), ExtResource("5_ab3yx"), ExtResource("4_ko1oj"), ExtResource("6_bbvtr"), ExtResource("7_ko1oj"), ExtResource("8_2i7av"), ExtResource("9_energy")])
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=674526172]
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=2063771227]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -622,10 +622,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_w2wav")
 
-[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+[node name="ParticlesLayer" type="CanvasLayer" parent="." unique_id=1322262766]
 layer = 2
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ParticlesLayer" unique_id=493204213]
 material = SubResource("CanvasItemMaterial_gkj16")
 position = Vector2(959, 523)
 amount = 1000
@@ -639,7 +639,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_mvwwd")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ParticlesLayer" unique_id=632603143]
 material = SubResource("CanvasItemMaterial_85new")
 position = Vector2(959, 523)
 amount = 1000
@@ -651,7 +651,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_h1lk3")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="ParticlesLayer" unique_id=1076410404]
 material = SubResource("CanvasItemMaterial_gkj16")
 position = Vector2(1587, 523)
 amount = 1000
@@ -665,7 +665,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_mvwwd")
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="ParticlesLayer" unique_id=797787537]
 material = SubResource("CanvasItemMaterial_85new")
 position = Vector2(1587, 523)
 amount = 1000
@@ -677,7 +677,7 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_h1lk3")
 
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="ParticlesLayer" unique_id=465360826]
 material = SubResource("CanvasItemMaterial_gkj16")
 position = Vector2(272, 523)
 amount = 1000
@@ -691,7 +691,7 @@ trail_lifetime = 6.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_mvwwd")
 
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer"]
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="ParticlesLayer" unique_id=127042772]
 material = SubResource("CanvasItemMaterial_85new")
 position = Vector2(272, 523)
 amount = 1000
@@ -703,10 +703,10 @@ trail_lifetime = 3.0
 trail_sections = 32
 process_material = SubResource("ParticleProcessMaterial_h1lk3")
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1972744723]
 layer = 3
 
-[node name="Label" type="Label" parent="UILayer"]
+[node name="Label" type="Label" parent="UILayer" unique_id=2065333935]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -720,7 +720,7 @@ theme_override_font_sizes/font_size = 100
 text = "Treasure"
 horizontal_alignment = 1
 
-[node name="TreasureChest" type="TextureRect" parent="UILayer"]
+[node name="TreasureChest" type="TextureRect" parent="UILayer" unique_id=681987621]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -737,14 +737,12 @@ mouse_filter = 0
 texture = ExtResource("4_ufafs")
 stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/TreasureChest"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/TreasureChest" unique_id=1493099958]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_saykf")
-}
-autoplay = "highlight"
+libraries/ = SubResource("AnimationLibrary_saykf")
+autoplay = &"highlight"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="UILayer/TreasureChest"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=819617579]
 material = SubResource("CanvasItemMaterial_rkoa3")
 position = Vector2(241, 267)
 emitting = false
@@ -755,7 +753,7 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_tg8jj")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="UILayer/TreasureChest"]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=1247357796]
 material = SubResource("CanvasItemMaterial_unvyv")
 position = Vector2(241, 267)
 emitting = false
@@ -766,7 +764,7 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_odogb")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="UILayer/TreasureChest"]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=180393946]
 material = SubResource("CanvasItemMaterial_kt3tj")
 position = Vector2(241, 267)
 emitting = false
@@ -777,7 +775,7 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_mn6fe")
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="UILayer/TreasureChest"]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=2139562035]
 material = SubResource("CanvasItemMaterial_xln5j")
 position = Vector2(241, 267)
 emitting = false

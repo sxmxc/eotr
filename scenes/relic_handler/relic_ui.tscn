@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cryppjpfbefjn"]
+[gd_scene format=3 uid="uid://cryppjpfbefjn"]
 
 [ext_resource type="Script" uid="uid://c3gustk5j8pu3" path="res://scenes/relic_handler/relic_ui.gd" id="1_m2800"]
 [ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_v7f4x"]
@@ -96,7 +96,7 @@ _data = {
 &"hover": SubResource("Animation_u80kx")
 }
 
-[node name="RelicUI" type="Control"]
+[node name="RelicUI" type="Control" unique_id=683986904]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0
@@ -104,7 +104,7 @@ pivot_offset = Vector2(50, 50)
 theme = ExtResource("1_v7f4x")
 script = ExtResource("1_m2800")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=96811376]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 15
@@ -114,7 +114,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"CardPanelMain"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=190794861]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,11 +126,11 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="Panel/MarginContainer" unique_id=1957218690]
 layout_mode = 2
 theme_type_variation = &"CardPanelSecondary"
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="." unique_id=1640799963]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 15
@@ -143,10 +143,8 @@ texture = ExtResource("3_v7f4x")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_u80kx")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=783692293]
+libraries/ = SubResource("AnimationLibrary_u80kx")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

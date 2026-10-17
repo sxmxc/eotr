@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b26pgaeesc2u2"]
+[gd_scene format=3 uid="uid://b26pgaeesc2u2"]
 
 [ext_resource type="Script" uid="uid://chiqijepcu5b3" path="res://ui/fx/spark_fx.gd" id="1_56bra"]
 [ext_resource type="Texture2D" uid="uid://ckxhm3rq8lcnn" path="res://assets/spritesheets/spark_fx.png" id="2_0pqfg"]
@@ -127,12 +127,12 @@ sub_emitter_mode = 4
 sub_emitter_amount_at_start = 1
 sub_emitter_keep_velocity = true
 
-[node name="SparkFX" type="Node2D"]
+[node name="SparkFX" type="Node2D" unique_id=491794940]
 modulate = Color(1, 1, 1, 0.517647)
 z_index = 1
 script = ExtResource("1_56bra")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=760770495]
 material = SubResource("CanvasItemMaterial_32qx2")
 emitting = false
 amount = 100
@@ -146,7 +146,7 @@ visibility_rect = Rect2(-3489.71, -3763.78, 7024.88, 7309.21)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_blw0q")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=1073307792]
 visible = false
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_32qx2")
@@ -162,7 +162,7 @@ visibility_rect = Rect2(-3489.71, -3763.78, 7024.88, 7309.21)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_0pqfg")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="." unique_id=12412445]
 material = SubResource("CanvasItemMaterial_56bra")
 emitting = false
 amount = 500

@@ -29,6 +29,7 @@ var player_groups: PlayerGroupsAPI
 var channels: ChannelsAPI
 var socket_tickets: SocketTicketsAPI
 var player_presence: PlayerPresenceAPI
+var player_relationships: PlayerRelationshipsAPI
 
 var live_config: TaloLiveConfig
 
@@ -36,6 +37,7 @@ var crypto_manager: TaloCryptoManager
 var continuity_manager: TaloContinuityManager
 
 var socket: TaloSocket
+
 
 func _ready() -> void:
 	_load_config()
@@ -51,12 +53,15 @@ func _ready() -> void:
 	if settings.auto_start_session:
 		player_auth.start_session()
 
+
 func _init_crypto_manager() -> void:
 	crypto_manager = TaloCryptoManager.new()
+
 
 func _init_continuity() -> void:
 	continuity_manager = TaloContinuityManager.new()
 	add_child(continuity_manager)
+
 
 func _init_socket() -> void:
 	socket = TaloSocket.new()
@@ -65,17 +70,18 @@ func _init_socket() -> void:
 	if Talo.settings.auto_connect_socket:
 		socket.open_connection()
 
+
 func _notification(what: int):
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
-			_do_flush()
-			if Talo.settings.handle_tree_quit:
-				get_tree().quit()
+			_handle_quit()
 		NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED:
 			_do_flush()
 
+
 func _load_config() -> void:
 	settings = TaloSettings.new()
+
 
 func _load_apis() -> void:
 	players = preload("res://addons/talo/apis/players_api.gd").new("/v1/players")
@@ -86,11 +92,16 @@ func _load_apis() -> void:
 	saves = preload("res://addons/talo/apis/saves_api.gd").new("/v1/game-saves")
 	feedback = preload("res://addons/talo/apis/feedback_api.gd").new("/v1/game-feedback")
 	player_auth = preload("res://addons/talo/apis/player_auth_api.gd").new("/v1/players/auth")
-	health_check = preload("res://addons/talo/apis/health_check_api.gd").new("/v1/health-check")
+	health_check = preload("res://addons/talo/apis/health_check_api.gd").new("/public/health")
 	player_groups = preload("res://addons/talo/apis/player_groups_api.gd").new("/v1/player-groups")
 	channels = preload("res://addons/talo/apis/channels_api.gd").new("/v1/game-channels")
-	socket_tickets = preload("res://addons/talo/apis/socket_tickets_api.gd").new("/v1/socket-tickets")
-	player_presence = preload("res://addons/talo/apis/player_presence_api.gd").new("/v1/players/presence")
+	socket_tickets = preload("res://addons/talo/apis/socket_tickets_api.gd").new(
+		"/v1/socket-tickets"
+	)
+	player_presence = preload("res://addons/talo/apis/player_presence_api.gd").new(
+		"/v1/players/presence"
+	)
+	player_relationships = preload("res://addons/talo/apis/player_relationships_api.gd").new()
 
 	for api in [
 		players,
@@ -105,24 +116,50 @@ func _load_apis() -> void:
 		player_groups,
 		channels,
 		socket_tickets,
-		player_presence
+		player_presence,
+		player_relationships,
 	]:
 		add_child(api)
+
 
 func has_identity() -> bool:
 	return current_alias != null
 
+
 func identity_check(should_error = true) -> Error:
 	if not has_identity():
 		if should_error:
-			push_error("You need to identify a player using Talo.players.identify() before doing this")
+			push_error(
+				"You need to identify a player using Talo.players.identify() before doing this"
+			)
 		return ERR_UNAUTHORIZED
 
 	return OK
 
+
 func is_offline() -> bool:
 	return settings.offline_mode or not await health_check.ping()
 
+
 func _do_flush() -> void:
 	if identity_check(false) == OK:
-		events.flush()
+		await events.flush()
+
+
+func _handle_quit() -> void:
+	socket.close_connection()
+
+	if events.get_queue_size() > 0:
+		# this is unlikely because the focus-out notification will fire before the quit notification
+		if not events.is_flush_pending():
+			_do_flush()
+
+		await events.pending_events_flushed
+
+	# flush any pending debounced updates before we quit
+	if identity_check(false) == OK:
+		await Talo.players.flush_updates()
+		await Talo.saves.flush_updates()
+
+	if Talo.settings.handle_tree_quit:
+		get_tree().quit()

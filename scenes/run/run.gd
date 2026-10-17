@@ -56,24 +56,24 @@ func add_resources(amount: int) -> void:
 	var event_props := {
 		"command": "add_resources"
 	}
-	Talo.events.track("console_command_used", event_props)
-	Talo.stats.track("console_commands_used")
+	TelemetryManager.track_event("console_command_used", event_props)
+	TelemetryManager.track_stat("console_commands_used")
 	run_stats.resources += amount
 	
 func add_gold(amount: int) -> void:
 	var event_props := {
 		"command": "add_gold"
 	}
-	Talo.events.track("console_command_used", event_props)
-	Talo.stats.track("console_commands_used")
+	TelemetryManager.track_event("console_command_used", event_props)
+	TelemetryManager.track_stat("console_commands_used")
 	run_stats.gold += amount
 
 func _destroy_all_enemies() -> void:
 	var event_props := {
 		"command": "yeet_em_all"
 	}
-	Talo.events.track("console_command_used", event_props)
-	Talo.stats.track("console_commands_used")
+	TelemetryManager.track_event("console_command_used", event_props)
+	TelemetryManager.track_stat("console_commands_used")
 	get_tree().call_group("enemy", "queue_free")
 
 
@@ -82,8 +82,8 @@ func _start_run() -> void:
 	var event_props : Dictionary[String, String] = {
 		"player_class": player_stats.player_class_name,
 	}
-	Talo.events.track("run_started", event_props)
-	Talo.stats.track("runs_started")
+	TelemetryManager.track_event("run_started", event_props)
+	TelemetryManager.track_stat("runs_started")
 	run_stats = RunStats.new()
 	map.run_stats = run_stats
 	_setup_event_connections()
@@ -232,15 +232,15 @@ func _on_battle_won() -> void:
 	var props : Dictionary [String, String] = {
 		"floor" : "%s" % str(map.floors_climbed)
 	}
-	Talo.events.track("floor_completed", props)
-	Talo.stats.track("floors_completed")
+	TelemetryManager.track_event("floor_completed", props)
+	TelemetryManager.track_stat("floors_completed")
 	if map.floors_climbed == MapGenerator.FLOORS:
 		player_stats.is_running = false
 		var event_props := {
 			"player_class" : player_stats.player_class_name,
 			"run_completion_time" : run_time_ui.elapsed_time
 			}
-		Talo.events.track("run_completed", event_props)
+		TelemetryManager.track_event("run_completed", event_props)
 		
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
 		win_screen.player_stats = player_stats
@@ -249,8 +249,8 @@ func _on_battle_won() -> void:
 		var event_props := {
 			"player_class" : player_stats.player_class_name
 			}
-		Talo.events.track("battle_won", event_props)
-		Talo.stats.track("battles_won")
+		TelemetryManager.track_event("battle_won", event_props)
+		TelemetryManager.track_stat("battles_won")
 		_show_regular_rewards()
 
 
@@ -325,10 +325,10 @@ func _track_floor_started(map_node: MapNode) -> void:
 		return
 
 	var battle_stats := map_node.battle_stats
-	var event_props := {
+	var event_props :Dictionary[String,String] = {
 		"floor": "%s" % str(map.floors_climbed),
 		"map_node_type": Enums.MapNodeType.keys()[map_node.type],
-		"battle_tier": battle_stats.battle_tier,
-		"is_elite": battle_stats.is_elite,
+		"battle_tier":str(battle_stats.battle_tier),
+		"is_elite": str(battle_stats.is_elite),
 	}
-	Talo.events.track("floor_started", event_props)
+	TelemetryManager.track_event("floor_started", event_props)

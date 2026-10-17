@@ -5,9 +5,9 @@ var _hitstop_baseline: float = 1.0
 
 func _ready() -> void:
 	await get_tree().root.ready
-	print("Utils creating SignalPrinter and attaching to Eventbus")
-	var signal_printer = SignalPrinter.new()
-	add_child(signal_printer)
+	# print("Utils creating SignalPrinter and attaching to Eventbus")
+	# var signal_printer = SignalPrinter.new()
+	# add_child(signal_printer)
 	print("Utils ready")
 
 func get_node_global_center(node: Node) -> Vector2:

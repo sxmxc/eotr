@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://g2mmol0sikk"]
+[gd_scene format=3 uid="uid://g2mmol0sikk"]
 
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="1_fn1wp"]
 [ext_resource type="Script" uid="uid://d3u6mkx5ekuwa" path="res://scenes/game_world/tile_sprite.gd" id="2_kponn"]
@@ -120,12 +120,10 @@ _data = {
 &"swirl_out": SubResource("Animation_tn3j8")
 }
 
-[node name="TileSprite" type="Sprite2D"]
+[node name="TileSprite" type="Sprite2D" unique_id=378433653]
 z_index = 10
 texture = SubResource("AtlasTexture_kponn")
 script = ExtResource("2_kponn")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_kgb0h")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=125237923]
+libraries/ = SubResource("AnimationLibrary_kgb0h")

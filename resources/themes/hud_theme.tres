@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://xso5aetv5tyl"]
+[gd_resource type="Theme" format=3 uid="uid://xso5aetv5tyl"]
 
 [ext_resource type="StyleBox" uid="uid://evc7medpha5u" path="res://resources/themes/card_panel_base.tres" id="1_j7xis"]
 [ext_resource type="FontFile" uid="uid://1oy6eel7cxhb" path="res://assets/fonts/comic_book/Comic Book Bold.otf" id="2_nigdf"]

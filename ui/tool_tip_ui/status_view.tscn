@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b653npq2sy2pg"]
+[gd_scene format=3 uid="uid://b653npq2sy2pg"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_g0dr4"]
 [ext_resource type="Script" uid="uid://cqcly07e26gqj" path="res://ui/tool_tip_ui/status_view.gd" id="2_i7n1v"]
 
-[node name="StatusView" type="Control"]
+[node name="StatusView" type="Control" unique_id=1989669147]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_vertical = 2
 theme = ExtResource("1_g0dr4")
 script = ExtResource("2_i7n1v")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=2008389440]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.294118, 0.239216, 0.266667, 0.721569)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=945645741]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -36,7 +36,7 @@ offset_bottom = 438.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StatusTooltips" type="VBoxContainer" parent="ScrollContainer"]
+[node name="StatusTooltips" type="VBoxContainer" parent="ScrollContainer" unique_id=1324239887]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
@@ -44,7 +44,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=42225353]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

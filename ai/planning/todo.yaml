@@ -663,6 +663,34 @@ backlog:
       - "Inject required references (tilemap, cameras, fx layer, player/enemy handlers) from parent controllers."
       - "Add assertions or typed exports to surface missing dependencies in editor."
 
+  - id: BKL-050
+    title: "Consolidate card visuals/projectile sourcing into shared helpers"
+    priority: P2
+    status: in_review
+    owner: unassigned
+    blockers: []
+    context:
+      - "Cards copy projectile/visual configs per script, risking drift and double-spawned FX."
+      - "No shared helper to apply card-level VFX fields to CardEffectConfig in a consistent way."
+    next_steps:
+      - "Adopt CardEffectConfigHelper.apply_card_defaults across cards to remove local VFX wiring."
+      - "Refactor Riftwalker cards to use the helper and remove duplicated _sync_effect_configs boilerplate."
+      - "Document the visual surface rule (projectile vs effect, not both)."
+
+  - id: BKL-051
+    title: "Migrate bespoke projectile cards to CardResolver + CardFxRunner"
+    priority: P2
+    status: in_review
+    owner: unassigned
+    blockers: []
+    context:
+      - "Cards like sever_anchor.gd still hand-roll projectile instancing, timeouts, and camera shake outside the resolver."
+      - "Sever Anchor has been migrated; verify if any other cards still bypass the resolver."
+    next_steps:
+      - "Audit remaining cards for bespoke projectile handling; rewrite to build CardEffectConfig entries and call CardResolver.resolve."
+      - "Ensure pre-hit FX uses CardFxRunner and camera impact uses ImpactProfile/config values."
+      - "Delete bespoke projectile/timeouts after migration."
+
 in_progress: []
 in_review: []
 

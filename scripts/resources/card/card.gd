@@ -31,7 +31,9 @@ var last_energy_cost: int = 0
 
 func is_single_targeted() -> bool:
 	return (
-		target_type == Enums.TargetType.SINGLE_ENEMY or target_type == Enums.TargetType.SINGLE_TILE or target_type == Enums.TargetType.ADJACENT_ENEMY
+		target_type == Enums.TargetType.SINGLE_ENEMY
+		or target_type == Enums.TargetType.SINGLE_TILE
+		or target_type == Enums.TargetType.ADJACENT_ENEMY
 	)
 
 
@@ -67,6 +69,7 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 
 func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
 	Events.card_played.emit(self)
+	_sync_effect_configs()
 	var cost := get_energy_cost(player_stats)
 	last_energy_cost = cost
 	player_stats.energy -= cost
@@ -91,14 +94,18 @@ func get_modified_description(
 ) -> String:
 	return description
 
+
 func is_card_modified(_player_modifiers: ModifierHandler) -> bool:
 	return false
+
 
 func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass
 
+
 func get_energy_cost(_player_stats: PlayerStats) -> int:
 	return energy_cost
+
 
 func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
 	var tree := card_ui.get_tree() as SceneTree
@@ -115,19 +122,19 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 		Enums.TargetType.SINGLE_TILE:
 			return tilemap.base_layer.get_used_cells()
 		Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ALL_ENEMIES:
-			var tiles : Array[Vector2i] = []
-			for enemy : Enemy in enemies:
+			var tiles: Array[Vector2i] = []
+			for enemy: Enemy in enemies:
 				tiles.append(enemy.current_tile_position)
 			return tiles
 		Enums.TargetType.SELF:
 			var tile_pos = tilemap.player_position
 			return [tile_pos]
 		Enums.TargetType.EVERYONE:
-			var tiles : Array[Vector2i] = []
-			for enemy : Enemy in enemies:
-				tiles.append(enemy.current_tile_position)
-			tiles.append(tilemap.player_position)
-			return tiles
+			var tiles_all: Array[Vector2i] = []
+			for enemy: Enemy in enemies:
+				tiles_all.append(enemy.current_tile_position)
+			tiles_all.append(tilemap.player_position)
+			return tiles_all
 		Enums.TargetType.SURROUNDING_ENEMIES, Enums.TargetType.ADJACENT_ENEMY:
 			var player_tile = tilemap.player_position
 			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
@@ -139,3 +146,8 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			return aoe_targets
 		_:
 			return []
+
+
+func _sync_effect_configs() -> void:
+	# Override in subclasses when they dynamically build configs.
+	pass

@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dwof30f2fskot"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dwof30f2fskot"]
 
 [ext_resource type="Shader" uid="uid://bigl3iymqvspg" path="res://scripts/shaders/white_sprite_material.gdshader" id="1_fl1p6"]
 

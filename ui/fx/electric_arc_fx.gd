@@ -8,21 +8,25 @@ func strike(target: Node2D = null) -> bool:
 	var start := global_position
 	var end := start
 
-	var player : Player = get_tree().get_first_node_in_group("player") as Player
-	var fx_layer : CanvasLayer = get_tree().get_first_node_in_group("fx_layer")
+	var player: Player = get_tree().get_first_node_in_group("player") as Player
 	if player:
-		start = player.get_global_transform_with_canvas().origin
-		if fx_layer:
-			start += fx_layer.get_final_transform().origin
-
-	# Prefer an explicit projectile_start; otherwise fall back to the target position.
-	var projectile_start := get_tree().get_first_node_in_group("projectile_start")
-	if projectile_start:
-		end = projectile_start.get_global_mouse_position()
-	elif target and target is Node2D:
-		end = target.global_position
+		start = player.global_position
 	else:
-		return false
+		var start_anchor := get_tree().get_first_node_in_group("projectile_start")
+		if start_anchor is Node2D:
+			start = (start_anchor as Node2D).global_position
+		elif start_anchor is Control:
+			start = (start_anchor as Control).global_position
+
+	# Prefer the actual target; fall back to a projectile_start anchor.
+	if target and target is Node2D:
+		end = (target as Node2D).global_position
+	else:
+		var projectile_start := get_tree().get_first_node_in_group("projectile_start")
+		if projectile_start and projectile_start.has_method("get_global_mouse_position"):
+			end = projectile_start.get_global_mouse_position()
+		else:
+			return false
 
 	print("bolt striking: start %s end %s" % [start, end])
 	var cam = get_tree().get_first_node_in_group("map_camera")
@@ -38,7 +42,10 @@ func strike(target: Node2D = null) -> bool:
 	return true
 	
 func set_shader_value(value: float) -> void:
-	material.set_shader_parameter("Transparency", value)
+	if not material:
+		return
+	if material.has_method("set_shader_parameter"):
+		material.set_shader_parameter("Transparency", value)
 
 func _get_points(start: Vector2, end: Vector2) -> Array:
 	var arc_points := []

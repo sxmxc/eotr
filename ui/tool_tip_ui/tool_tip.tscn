@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://xug262m8e12y"]
+[gd_scene format=3 uid="uid://xug262m8e12y"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_t41pk"]
 [ext_resource type="Script" uid="uid://dgxsgu0de63x0" path="res://ui/tool_tip_ui/tool_tip.gd" id="2_cwwuq"]
 
-[node name="ToolTip" type="PanelContainer"]
+[node name="ToolTip" type="PanelContainer" unique_id=1184234652]
 modulate = Color(1, 1, 1, 0.423529)
 anchors_preset = 5
 anchor_left = 0.5
@@ -17,28 +17,28 @@ theme = ExtResource("1_t41pk")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_cwwuq")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1815661424]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer" unique_id=811766405]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer" unique_id=1370048398]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer" unique_id=1403215684]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/MarginContainer" unique_id=1079128385]
 layout_mode = 2
 
-[node name="TooltipTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="TooltipTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=537131101]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -50,7 +50,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 3
 
-[node name="KeywordTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="KeywordTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/MarginContainer/VBoxContainer" unique_id=161436434]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

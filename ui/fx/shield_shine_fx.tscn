@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://buel4oh7tn55r"]
+[gd_scene format=3 uid="uid://buel4oh7tn55r"]
 
 [ext_resource type="Script" uid="uid://t7i5ccytsuvj" path="res://ui/fx/shield_shine_fx.gd" id="1_pi1m4"]
 [ext_resource type="Material" uid="uid://cy0ef8jv2c0vk" path="res://resources/materials/highlighter_material.tres" id="2_u7cs5"]
@@ -102,11 +102,11 @@ _data = {
 &"shield_grow": SubResource("Animation_ewyoo")
 }
 
-[node name="ShieldShineFX" type="Node2D"]
+[node name="ShieldShineFX" type="Node2D" unique_id=81726773]
 scale = Vector2(0.05, 0.05)
 script = ExtResource("1_pi1m4")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=202890793]
 material = ExtResource("2_u7cs5")
 custom_minimum_size = Vector2(512, 512)
 offset_left = -256.0
@@ -115,12 +115,10 @@ offset_right = 256.0
 offset_bottom = 256.0
 color = Color(0.823529, 0.788235, 0.647059, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=29763400]
 self_modulate = Color(1, 1, 1, 0.683)
 z_index = 2
 texture = ExtResource("3_ns6y6")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_wiis8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=813836240]
+libraries/ = SubResource("AnimationLibrary_wiis8")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk3m00a8m3h4"]
+[gd_scene format=3 uid="uid://dk3m00a8m3h4"]
 
 [ext_resource type="Script" uid="uid://bycpdl3aolr2j" path="res://scenes/sandbox/dev_game_world_ui.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="2_pile_button"]
@@ -19,7 +19,7 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lsin"]
 size = Vector2(1924, 699)
 
-[node name="GameWorldUI" type="CanvasLayer" groups=["ui_layer"]]
+[node name="GameWorldUI" type="CanvasLayer" unique_id=1269372028 groups=["ui_layer"]]
 script = ExtResource("1_script")
 hand = NodePath("Hand")
 stats_ui = NodePath("Stats")
@@ -32,7 +32,7 @@ player = NodePath("../Player")
 enemy_stats_container = NodePath("EnemyStatsScroll/EnemyStatsContainer")
 enemy_stats_scroll = NodePath("EnemyStatsScroll")
 
-[node name="DevPanel" type="Control" parent="."]
+[node name="DevPanel" type="Control" parent="." unique_id=1502978721]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 25.0
@@ -41,13 +41,13 @@ offset_right = 25.0
 offset_bottom = 12.0
 script = ExtResource("6_devpanel_script")
 
-[node name="Panel" type="Panel" parent="DevPanel"]
+[node name="Panel" type="Panel" parent="DevPanel" unique_id=819548652]
 custom_minimum_size = Vector2(520, 220)
 layout_mode = 1
 offset_right = 520.0
 offset_bottom = 267.0
 
-[node name="MarginContainer" type="MarginContainer" parent="DevPanel/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="DevPanel/Panel" unique_id=1088785418]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,147 +59,143 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DevPanel/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DevPanel/Panel/MarginContainer" unique_id=848317999]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=512128151]
 layout_mode = 2
 text = "Dev Sandbox Controls"
 
-[node name="MapRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="MapRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=1839812061]
 custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 
-[node name="RegenMapButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/MapRow"]
+[node name="RegenMapButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/MapRow" unique_id=1799375135]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Regenerate Map"
 
-[node name="CameraRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="CameraRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=2055796932]
 layout_mode = 2
 
-[node name="CenterCameraButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow"]
+[node name="CenterCameraButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=2043719959]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Center Camera"
 
-[node name="ZoomInButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow"]
+[node name="ZoomInButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=35493260]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Zoom In"
 
-[node name="ZoomOutButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow"]
+[node name="ZoomOutButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=613215364]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Zoom Out"
 
-[node name="FreeCameraToggle" type="CheckButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow"]
+[node name="FreeCameraToggle" type="CheckButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=195596]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "Free Camera"
 
-[node name="EnemyRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="EnemyRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=804887800]
 layout_mode = 2
 
-[node name="EnemyTierFilter" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow"]
+[node name="EnemyTierFilter" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=420537928]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 
-[node name="EnemyDropdown" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow"]
+[node name="EnemyDropdown" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=19908075]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 fit_to_longest_item = false
 
-[node name="SpawnEnemyButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow"]
+[node name="SpawnEnemyButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=780474970]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Spawn Enemy"
 
-[node name="ClearEnemiesButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow"]
+[node name="ClearEnemiesButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=1836525671]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Clear Enemies"
 
-[node name="CardRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="CardRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=588751453]
 layout_mode = 2
 
-[node name="CardRarityFilter" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow"]
+[node name="CardRarityFilter" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1598849347]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 
-[node name="CardDropdown" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow"]
+[node name="CardDropdown" type="OptionButton" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=235195797]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 fit_to_longest_item = false
 
-[node name="AddHandButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow"]
+[node name="AddHandButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1863873357]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add to Hand"
 
-[node name="AddDrawButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow"]
+[node name="AddDrawButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=68182942]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add to Draw"
 
-[node name="AddDiscardButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow"]
+[node name="AddDiscardButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1321132793]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add to Discard"
 
-[node name="DrawRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="DrawRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=2000752968]
 layout_mode = 2
 
-[node name="DrawCardButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/DrawRow"]
+[node name="DrawCardButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/DrawRow" unique_id=1556235503]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Draw Top Card"
 
-[node name="UtilityRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer"]
+[node name="UtilityRow" type="HBoxContainer" parent="DevPanel/Panel/MarginContainer/VBoxContainer" unique_id=314727150]
 layout_mode = 2
 
-[node name="ClearFogButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow"]
+[node name="ClearFogButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=19832651]
 unique_name_in_owner = true
-groups = ["dev_clear_fog_button"]
 layout_mode = 2
 text = "Clear Fog"
 
-[node name="RefillEnergyButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow"]
+[node name="RefillEnergyButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=750987837]
 unique_name_in_owner = true
-groups = ["dev_refill_energy_button"]
 layout_mode = 2
 text = "Refill Energy"
 
-[node name="RefillHealthButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow"]
+[node name="RefillHealthButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=384748053]
 unique_name_in_owner = true
-groups = ["dev_refill_health_button"]
 layout_mode = 2
 text = "Refill Health"
 
-[node name="PassTurnButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow"]
+[node name="PassTurnButton" type="Button" parent="DevPanel/Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=1081359550]
 unique_name_in_owner = true
-groups = ["dev_pass_turn_button"]
 layout_mode = 2
 text = "Pass Turn"
 
-[node name="EnemyStatsScroll" type="ScrollContainer" parent="."]
+[node name="EnemyStatsScroll" type="ScrollContainer" parent="." unique_id=717978419]
 offset_left = 1472.0
 offset_top = 32.0
 offset_right = 1888.0
 offset_bottom = 512.0
 horizontal_scroll_mode = 0
 
-[node name="EnemyStatsContainer" type="GridContainer" parent="EnemyStatsScroll"]
+[node name="EnemyStatsContainer" type="GridContainer" parent="EnemyStatsScroll" unique_id=1687937566]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CardSpotlight" type="HBoxContainer" parent="."]
+[node name="CardSpotlight" type="HBoxContainer" parent="." unique_id=1766627346]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -212,7 +208,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Hand" type="Control" parent="."]
+[node name="Hand" type="Control" parent="." unique_id=1008837630]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -233,43 +229,43 @@ x_sep = -20
 y_max = -25
 card_spotlight = NodePath("../CardSpotlight")
 
-[node name="Stats" parent="." instance=ExtResource("3_stats")]
+[node name="Stats" parent="." unique_id=20585290 instance=ExtResource("3_stats")]
 offset_left = 1687.0
 offset_top = 787.0
 offset_right = 1831.0
 offset_bottom = 1005.0
 
-[node name="StatusHandler" parent="." instance=ExtResource("4_status")]
+[node name="StatusHandler" parent="." unique_id=1657246922 instance=ExtResource("4_status")]
 offset_left = 32.0
 offset_top = 160.0
 status_owner = NodePath("../Player")
 status_icon_size = 48
 
-[node name="DrawPileButton" parent="." instance=ExtResource("2_pile_button")]
+[node name="DrawPileButton" parent="." unique_id=312347470 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 32.0
 offset_top = 880.0
 offset_right = 160.0
 offset_bottom = 1008.0
 
-[node name="DiscardPileButton" parent="." instance=ExtResource("2_pile_button")]
+[node name="DiscardPileButton" parent="." unique_id=1487224827 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 200.0
 offset_top = 880.0
 offset_right = 328.0
 offset_bottom = 1008.0
 
-[node name="ExhaustPileButton" parent="." instance=ExtResource("2_pile_button")]
+[node name="ExhaustPileButton" parent="." unique_id=287794363 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 368.0
 offset_top = 880.0
 offset_right = 496.0
 offset_bottom = 1008.0
 
-[node name="CardDropArea" type="Area2D" parent="."]
+[node name="CardDropArea" type="Area2D" parent="." unique_id=1784851812]
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDropArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDropArea" unique_id=1325655913]
 position = Vector2(963, 339.5)
 shape = SubResource("RectangleShape2D_2lsin")
 debug_color = Color(0, 0.6, 0.701961, 0.0509804)

@@ -130,7 +130,7 @@ func _on_leave_button_pressed() -> void:
 			"player_gold": run_stats.gold,
 			"player_resources": run_stats.resources
 		}
-		Talo.events.track("shop_left_empty_handed", event_props)
+		TelemetryManager.track_event("shop_left_empty_handed", event_props)
 	Events.shop_exited.emit()
 
 
@@ -140,8 +140,8 @@ func _on_shop_card_bought(card: Card, gold_cost: int) -> void:
 		"card" : card.name,
 		"cost" : gold_cost
 	}
-	Talo.events.track("card_bought_in_shop", stat_props)
-	Talo.stats.track("cards_purchased")
+	TelemetryManager.track_event("card_bought_in_shop", stat_props)
+	TelemetryManager.track_stat("cards_purchased")
 	player_stats.deck.add_card(card)
 	run_stats.gold -= gold_cost
 	_update_items()
@@ -153,8 +153,8 @@ func _on_shop_relic_bought(relic: Relic, resource_cost: int) -> void:
 		"relic" : relic.relic_name,
 		"cost" : resource_cost
 	}
-	Talo.events.track("relic_bought_in_shop", stat_props)
-	Talo.stats.track("relics_purchased")
+	TelemetryManager.track_event("relic_bought_in_shop", stat_props)
+	TelemetryManager.track_stat("relics_purchased")
 	relic_handler.add_relic(relic)
 	run_stats.resources -= resource_cost
 
@@ -162,8 +162,8 @@ func _on_shop_relic_bought(relic: Relic, resource_cost: int) -> void:
 		var traderbadge_props := {
 			"cost": resource_cost
 		}
-		Talo.events.track("traderbadge_bought_in_shop", traderbadge_props)
-		Talo.stats.track("traderbadges_bought")
+		TelemetryManager.track_event("traderbadge_bought_in_shop", traderbadge_props)
+		TelemetryManager.track_stat("traderbadges_bought")
 		var discount_relic := relic as TraderBadgeRelic
 		discount_relic.add_shop_modifier(self)
 		_update_item_costs()

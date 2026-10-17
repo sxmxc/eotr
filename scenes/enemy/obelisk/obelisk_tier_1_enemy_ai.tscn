@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cy4wpgcdqgtpu"]
+[gd_scene format=3 uid="uid://cy4wpgcdqgtpu"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_e87vr"]
 [ext_resource type="Script" uid="uid://dj3rvh7nn4m2b" path="res://scenes/enemy/obelisk/obelisk_spawn_action.gd" id="2_yp42w"]
@@ -16,14 +16,12 @@
 
 [sub_resource type="Resource" id="Resource_r3d1m"]
 script = ExtResource("4_jutti")
-base_text = ""
 icon = ExtResource("3_tbahi")
 tooltip_text = "Plans to raise an enemy from the void."
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_yhg1e"]
 script = ExtResource("4_jutti")
-base_text = ""
 icon = ExtResource("6_i8si5")
 tooltip_text = "Plans to deliberate."
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
@@ -42,21 +40,21 @@ icon = ExtResource("12_jutti")
 tooltip_text = "Plans to block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="ObeliskT1EnemyAI" instance=ExtResource("1_e87vr")]
+[node name="ObeliskT1EnemyAI" unique_id=616124754 instance=ExtResource("1_e87vr")]
 
-[node name="ObeliskSpawnAction" type="Node" parent="." index="0"]
+[node name="ObeliskSpawnAction" type="Node" parent="." index="0" unique_id=1837976769]
 script = ExtResource("2_yp42w")
 intent = SubResource("Resource_r3d1m")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObeliskWaitAction" type="Node" parent="." index="1"]
+[node name="ObeliskWaitAction" type="Node" parent="." index="1" unique_id=2135861942]
 script = ExtResource("5_m7yiv")
 intent = SubResource("Resource_yhg1e")
 type = 1
 chance_weight = 2.0
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObeliskRangeAttackAction" type="Node" parent="." index="2"]
+[node name="ObeliskRangeAttackAction" type="Node" parent="." index="2" unique_id=945162385]
 script = ExtResource("7_klo23")
 intent = SubResource("Resource_raybm")
 type = 1
@@ -65,7 +63,7 @@ sound = ExtResource("9_kppik")
 visual_fx = ExtResource("10_o2307")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObeliskBlockAction" type="Node" parent="." index="3"]
+[node name="ObeliskBlockAction" type="Node" parent="." index="3" unique_id=1798554801]
 script = ExtResource("11_tbahi")
 intent = SubResource("Resource_m7yiv")
 type = 1

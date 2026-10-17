@@ -80,7 +80,7 @@ func take_damage(
 			sprite_2d.self_modulate = Color.WHITE
 			if stats.health <= 0:
 				Events.player_died.emit()
-				Talo.stats.track("player_deaths")
+				TelemetryManager.track_stat("player_deaths")
 				queue_free()
 	)
 

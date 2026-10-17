@@ -17,14 +17,14 @@ instance_dock/preview_resolution=Vector2i(64, 64)
 
 config/name="echoes_of_the_rift"
 config/version="0.0.6.1"
-run/main_scene="uid://d3ll2gasnw28g"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+run/main_scene="res://scenes/splash_screens/splash_screen.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/use_filter=false
 boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="daa125d"
+config/build="6d139bc"
 
 [autoload]
 
@@ -33,13 +33,13 @@ Events="*res://scripts/autoloads/events.gd"
 Utils="*res://scripts/autoloads/utils.gd"
 RNG="*res://scripts/autoloads/rng.gd"
 RegistryData="*res://scripts/autoloads/registry_data.gd"
-Talo="*res://addons/talo/talo_manager.gd"
-SoundManager="*res://addons/sound_manager/sound_manager.gd"
-PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
+Talo="*uid://bpmdn8oc34pg7"
+SoundManager="*uid://dpuhel5fjt0xl"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
-LimboConsole="*res://addons/limbo_console/limbo_console.gd"
+LimboConsole="*uid://8ksevjdks57p"
 PostFx="*res://scenes/post_fx/post_fx.tscn"
-UIAnimation="*res://addons/godot_ui_animations/UIAnimationHandler.tscn"
+UIAnimation="*uid://cawfyydj325or"
 
 [debug]
 
@@ -64,7 +64,7 @@ movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/signal_printer/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 

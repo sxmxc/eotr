@@ -3,11 +3,15 @@ extends Card
 var base_amount := 1
 
 
-func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
-	var energy_effect := EnergyEffect.new()
-	energy_effect.amount = base_amount
+func _init() -> void:
+	var energy_effect := CardEffectConfig.for_energy(base_amount)
 	energy_effect.sound_fx = sound_fx
-	energy_effect.execute(targets)
+	energy_effect.target = CardEffectConfig.Targeting.PLAYER
+	effect_configs = [energy_effect]
+
+
+func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
+	pass
 
 
 func get_default_description() -> String:

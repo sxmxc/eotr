@@ -1,14 +1,13 @@
-[gd_resource type="Resource" script_class="Card" load_steps=2 format=3 uid="uid://dlewpt4hfherl"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://dlewpt4hfherl"]
 
-[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_fyygw"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1_fyygw"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_llxh7"]
 
 [resource]
 script = ExtResource("1_fyygw")
 card_type = 2
-target_type = 0
 id = "void_slime"
 name = "Void Slime"
-card_rarity = 0
 description = "Not very useful.
 [b]Exhaust[/b]"
 energy_cost = 1

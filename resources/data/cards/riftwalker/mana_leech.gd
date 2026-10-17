@@ -6,19 +6,18 @@ const ENERGY_SOUND_FX = preload("res://assets/audio/spells/enchant.wav")
 
 var energy_gained := 2
 
+func _init() -> void:
+	var weakened := WEAKENED.duplicate()
+	var status_effect := CardEffectConfig.for_status(weakened)
+	status_effect.sound_fx = sound_fx
+	status_effect.visual_fx = visual_fx
+
+	var energy_effect := CardEffectConfig.for_energy(energy_gained)
+	energy_effect.sound_fx = ENERGY_SOUND_FX
+	energy_effect.target = CardEffectConfig.Targeting.PLAYER
+
+	effect_configs = [status_effect, energy_effect]
+
 
 func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
-	var status_effect = StatusEffect.new()
-	var energy_effect = EnergyEffect.new()
-	var weakened := WEAKENED.duplicate()
-	var curse_fx : VisualFX = visual_fx.instantiate()
-	targets[0].add_child(curse_fx)
-	status_effect.status = weakened
-	status_effect.sound_fx = sound_fx
-	status_effect.execute(targets)
-	curse_fx.execute()
-	energy_effect.amount = energy_gained
-	energy_effect.sound_fx = ENERGY_SOUND_FX
-	#energy_effect.visual_fx = ENERGY_VISUAL_EFFECT
-	var player_array = targets[0].get_tree().get_nodes_in_group("player")
-	energy_effect.execute(player_array)
+	pass

@@ -1,22 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr3yt337ubpq"]
+[gd_scene format=3 uid="uid://dr3yt337ubpq"]
 
 [ext_resource type="Script" uid="uid://b1fx6tpowmgy0" path="res://ui/run_ui/resources_ui.gd" id="1_3re35"]
 [ext_resource type="Texture2D" uid="uid://crf86bjyup27b" path="res://assets/icons/metal-bar.svg" id="1_gg252"]
 
-[node name="ResourcesUI" type="HBoxContainer"]
+[node name="ResourcesUI" type="HBoxContainer" unique_id=1317421700]
 offset_right = 40.0
 offset_bottom = 40.0
 size_flags_vertical = 4
 script = ExtResource("1_3re35")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="." unique_id=1924845478]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("1_gg252")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=248703857]
 layout_mode = 2
 size_flags_vertical = 1
 text = "999"

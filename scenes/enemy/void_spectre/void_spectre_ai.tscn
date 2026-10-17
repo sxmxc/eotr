@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b3nci3u4bowom"]
+[gd_scene format=3 uid="uid://b3nci3u4bowom"]
 
 [ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="1_uhmhd"]
 [ext_resource type="Script" uid="uid://csjjqxy63lvn6" path="res://scenes/enemy/void_spectre/void_spectre_buff_action.gd" id="2_5sqje"]
@@ -24,7 +24,6 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_553au"]
 script = ExtResource("6_tiaja")
-base_text = ""
 icon = ExtResource("3_c4cd3")
 tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
@@ -50,31 +49,31 @@ icon = ExtResource("8_tiaja")
 tooltip_text = "Plans to block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="VoidSpectreAI" type="Node"]
+[node name="VoidSpectreAI" type="Node" unique_id=200272942]
 script = ExtResource("1_uhmhd")
 
-[node name="VoidSpectreDefendAction" type="Node" parent="."]
+[node name="VoidSpectreDefendAction" type="Node" parent="." unique_id=1838561903]
 script = ExtResource("5_jy21w")
 intent = SubResource("Resource_l1740")
 sound = ExtResource("6_idcuj")
 visual_fx = ExtResource("14_l1740")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="VoidSpectreMoveAction" type="Node" parent="."]
+[node name="VoidSpectreMoveAction" type="Node" parent="." unique_id=1366368318]
 script = ExtResource("5_gio5u")
 intent = SubResource("Resource_553au")
 
-[node name="VoidSpectreBuffAction" type="Node" parent="."]
+[node name="VoidSpectreBuffAction" type="Node" parent="." unique_id=594606220]
 script = ExtResource("2_5sqje")
 intent = SubResource("Resource_jy21w")
 
-[node name="VoidSpectreAttackAction" type="Node" parent="."]
+[node name="VoidSpectreAttackAction" type="Node" parent="." unique_id=1922795189]
 script = ExtResource("3_37ror")
 intent = SubResource("Resource_m7578")
 type = 1
 chance_weight = 6.5
 
-[node name="VoidSpectreBlockAction" type="Node" parent="."]
+[node name="VoidSpectreBlockAction" type="Node" parent="." unique_id=1333950883]
 script = ExtResource("4_dqrld")
 intent = SubResource("Resource_c4cd3")
 type = 1

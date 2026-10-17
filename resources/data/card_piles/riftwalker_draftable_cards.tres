@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CardPile" load_steps=20 format=3 uid="uid://cqdwg2b3rmyhr"]
+[gd_resource type="Resource" script_class="CardPile" format=3 uid="uid://cqdwg2b3rmyhr"]
 
-[ext_resource type="Script" uid="uid://cre5wuy8yysso" path="res://scripts/resources/card/card.gd" id="1_card"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1_card"]
 [ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_pile"]
 [ext_resource type="Resource" uid="uid://ddkse6p44eytc" path="res://resources/data/cards/riftwalker/adrenaline_rush.tres" id="3_adrenaline"]
 [ext_resource type="Resource" uid="uid://dea7y4njajvql" path="res://resources/data/cards/riftwalker/focus.tres" id="4_focus"]

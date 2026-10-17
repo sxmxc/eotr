@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://wxhnk5epbwkh"]
+[gd_scene format=3 uid="uid://wxhnk5epbwkh"]
 
 [ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_hmu40"]
 [ext_resource type="Script" uid="uid://ua48e5l40efp" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="2_2uy4p"]
@@ -14,7 +14,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1xjr"]
 shader = ExtResource("3_b3y37")
-shader_parameter/maxLineWidth = 3.8930001849174998
+shader_parameter/maxLineWidth = 3.8930001849175
 shader_parameter/minLineWidth = 0.0
 shader_parameter/speed = 9.4730004499675
 shader_parameter/blockSize = 17.710000841225
@@ -36,7 +36,9 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="EnemyStatsUI" type="Panel"]
+[node name="EnemyStatsUI" type="Panel" unique_id=622248823]
+z_index = 50
+z_as_relative = false
 custom_minimum_size = Vector2(90, 70)
 offset_right = 121.0
 offset_bottom = 70.0
@@ -45,10 +47,8 @@ focus_mode = 2
 theme = ExtResource("1_hmu40")
 theme_type_variation = &"HudPanelBackground"
 script = ExtResource("2_2uy4p")
-z_index = 50
-z_as_relative = false
 
-[node name="FocusIndicator" type="TextureRect" parent="."]
+[node name="FocusIndicator" type="TextureRect" parent="." unique_id=1646833608]
 unique_name_in_owner = true
 visible = false
 show_behind_parent = true
@@ -62,7 +62,7 @@ grow_vertical = 2
 texture = ExtResource("4_2bony")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1321571684]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,11 +74,11 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=266315147]
 layout_mode = 2
 theme_type_variation = &"HudPanelMain"
 
-[node name="EnemyNameLabel" type="Label" parent="MarginContainer/Panel"]
+[node name="EnemyNameLabel" type="Label" parent="MarginContainer/Panel" unique_id=227418463]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 80.0
@@ -87,7 +87,7 @@ theme_override_font_sizes/font_size = 11
 text = "Enemy"
 horizontal_alignment = 1
 
-[node name="IntentUI" type="Control" parent="MarginContainer/Panel"]
+[node name="IntentUI" type="Control" parent="MarginContainer/Panel" unique_id=510508977]
 unique_name_in_owner = true
 anchors_preset = 0
 anchor_left = 0.364286
@@ -97,7 +97,7 @@ anchor_bottom = 0.512
 script = ExtResource("3_axkyb")
 metadata/_edit_use_anchors_ = true
 
-[node name="IntentIcon" type="TextureRect" parent="MarginContainer/Panel/IntentUI"]
+[node name="IntentIcon" type="TextureRect" parent="MarginContainer/Panel/IntentUI" unique_id=1859464356]
 custom_minimum_size = Vector2(22, 22)
 layout_mode = 0
 offset_left = -1.0
@@ -108,7 +108,7 @@ texture = ExtResource("3_63fb4")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="IntentLabel" type="Label" parent="MarginContainer/Panel/IntentUI"]
+[node name="IntentLabel" type="Label" parent="MarginContainer/Panel/IntentUI" unique_id=467768698]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 4.0
@@ -118,7 +118,7 @@ theme_override_fonts/font = ExtResource("4_axkyb")
 theme_override_font_sizes/font_size = 14
 text = "7"
 
-[node name="Health" type="Control" parent="MarginContainer/Panel"]
+[node name="Health" type="Control" parent="MarginContainer/Panel" unique_id=834272872]
 anchors_preset = 0
 anchor_left = 0.214286
 anchor_top = 0.488
@@ -126,7 +126,7 @@ anchor_right = 0.878571
 anchor_bottom = 0.656
 metadata/_edit_use_anchors_ = true
 
-[node name="HealthBar" type="ProgressBar" parent="MarginContainer/Panel/Health"]
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/Panel/Health" unique_id=1293897645]
 unique_name_in_owner = true
 layout_mode = 0
 offset_top = 4.0
@@ -141,7 +141,7 @@ step = 1.0
 value = 15.0
 show_percentage = false
 
-[node name="HealthLabel" type="Label" parent="MarginContainer/Panel/Health"]
+[node name="HealthLabel" type="Label" parent="MarginContainer/Panel/Health" unique_id=782097085]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 4.0
@@ -152,7 +152,7 @@ theme_override_fonts/font = ExtResource("4_axkyb")
 theme_override_font_sizes/font_size = 12
 text = "9999/9999"
 
-[node name="Shield" type="Control" parent="MarginContainer/Panel"]
+[node name="Shield" type="Control" parent="MarginContainer/Panel" unique_id=196111892]
 unique_name_in_owner = true
 anchors_preset = 0
 anchor_top = 0.488
@@ -160,7 +160,7 @@ anchor_right = 0.207143
 anchor_bottom = 0.72
 metadata/_edit_use_anchors_ = true
 
-[node name="ShieldIcon" type="TextureRect" parent="MarginContainer/Panel/Shield"]
+[node name="ShieldIcon" type="TextureRect" parent="MarginContainer/Panel/Shield" unique_id=1427409885]
 custom_minimum_size = Vector2(14, 14)
 layout_mode = 0
 offset_right = 14.0
@@ -169,7 +169,7 @@ texture = ExtResource("5_b3y37")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ShieldLabel" type="Label" parent="MarginContainer/Panel/Shield"]
+[node name="ShieldLabel" type="Label" parent="MarginContainer/Panel/Shield" unique_id=327468970]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 8.0
@@ -180,7 +180,7 @@ theme_override_fonts/font = ExtResource("4_axkyb")
 theme_override_font_sizes/font_size = 12
 text = "10"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel" unique_id=273741537]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.688
@@ -188,13 +188,13 @@ anchor_right = 1.0
 anchor_bottom = 0.96
 metadata/_edit_use_anchors_ = true
 
-[node name="StatusHandler" parent="MarginContainer/Panel/ScrollContainer" instance=ExtResource("6_2bony")]
+[node name="StatusHandler" parent="MarginContainer/Panel/ScrollContainer" unique_id=1591959778 instance=ExtResource("6_2bony")]
 unique_name_in_owner = true
 layout_mode = 2
 status_icon_size = 14
 quantity_label_settings = ExtResource("7_f1xjr")
 
-[node name="Bouncer" type="Node" parent="."]
+[node name="Bouncer" type="Node" parent="." unique_id=548097003]
 unique_name_in_owner = true
 script = ExtResource("8_2uy4p")
 AutoStart = false

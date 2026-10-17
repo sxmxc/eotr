@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://8ojfyictvua2"]
+[gd_scene format=3 uid="uid://8ojfyictvua2"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_mblkf"]
 [ext_resource type="Script" uid="uid://psj52cqsemc8" path="res://ui/world_ui/battle_over_panel.gd" id="2_dlsea"]
@@ -20,7 +20,7 @@ shader_parameter/noise_speed = 2.0
 font_size = 100
 font_color = Color(0.54902, 0.670588, 0.631373, 1)
 
-[node name="BattleOverPanel" type="Panel"]
+[node name="BattleOverPanel" type="Panel" unique_id=2045133804]
 process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +32,7 @@ theme = ExtResource("1_mblkf")
 theme_override_styles/panel = SubResource("StyleBoxFlat_5stc0")
 script = ExtResource("2_dlsea")
 
-[node name="VignetteRect" type="ColorRect" parent="."]
+[node name="VignetteRect" type="ColorRect" parent="." unique_id=786179925]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_w37v8")
 layout_mode = 1
@@ -44,7 +44,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.270588)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1447463407]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,7 +60,7 @@ grow_vertical = 2
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1308983227]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Victory!"
@@ -68,18 +68,18 @@ label_settings = SubResource("LabelSettings_dlsea")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Bouncer" type="Node" parent="VBoxContainer/Label"]
+[node name="Bouncer" type="Node" parent="VBoxContainer/Label" unique_id=720592644]
 script = ExtResource("3_middh")
 metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
-[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=1164776532]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Continue"
 
-[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="VBoxContainer" unique_id=1446661748]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2

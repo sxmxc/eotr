@@ -14,29 +14,17 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 	if base_damage <= 0:
 		return
 
-	var cam = targets[0].get_tree().get_first_node_in_group("map_camera")
-	var damage_effect := DamageEffect.new()
-	var modified_damage := modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
-	damage_effect.amount = modified_damage
-	damage_effect.sound_fx = sound_fx
+	var damage_config := CardEffectConfig.for_damage(base_damage)
+	damage_config.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
+	damage_config.projectile_fx = projectile_fx
+	damage_config.projectile_visual_fx = visual_fx
+	damage_config.attach_visual_to_effect = false
+	damage_config.sound_fx = sound_fx
+	damage_config.camera_shake_strength = 16.0
+	damage_config.camera_shake_duration = 0.15
 
-	if projectile_fx and visual_fx:
-		var projectile := projectile_fx.instantiate() as ProjectileFX
-		if visual_fx:
-			projectile.visual_fx = visual_fx.instantiate() as VisualFX
-		var parent: Node = targets[0].get_tree().get_first_node_in_group("fx_layer")
-		if not parent:
-			parent = targets[0].get_tree().current_scene
-		if parent:
-			parent.add_child(projectile)
-		projectile.complete.connect(func():
-			damage_effect.execute(targets)
-			Utils.shake(cam, 16, .15)
-		)
-		projectile.execute(targets[0])
-	else:
-		damage_effect.visual_fx = visual_fx
-		damage_effect.execute(targets)
+	var resolver := CardResolver.new()
+	await resolver.resolve(self, targets, null, modifiers, [damage_config])
 
 
 func get_default_description() -> String:

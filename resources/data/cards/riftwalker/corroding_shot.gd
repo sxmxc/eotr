@@ -6,21 +6,19 @@ var base_damage := 6
 var corrode_stacks := 2
 
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	if targets.is_empty():
-		return
-
-	var damage_effect := DamageEffect.new()
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
+func _init() -> void:
+	var damage_effect := CardEffectConfig.for_damage(base_damage)
+	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 	damage_effect.sound_fx = sound_fx
 	damage_effect.visual_fx = visual_fx
-	damage_effect.execute(targets)
 
-	var status_effect := StatusEffect.new()
 	var corroded := CORRODED_STATUS.duplicate()
 	corroded.stacks = corrode_stacks
-	status_effect.status = corroded
-	status_effect.execute(targets)
+	var status_effect := CardEffectConfig.for_status(corroded)
+	status_effect.sound_fx = sound_fx
+	status_effect.visual_fx = visual_fx
+
+	effect_configs = [damage_effect, status_effect]
 
 
 func get_default_description() -> String:

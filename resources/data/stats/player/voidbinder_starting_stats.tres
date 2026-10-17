@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=5 format=3 uid="uid://c6rqvudx3k64e"]
+[gd_resource type="Resource" script_class="PlayerStats" format=3 uid="uid://c6rqvudx3k64e"]
 
 [ext_resource type="Texture2D" uid="uid://cvm3n0of18n35" path="res://assets/icons/wizard-face.svg" id="1_n411q"]
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="2_x5y4v"]
@@ -14,6 +14,5 @@ starting_deck = ExtResource("3_a2uuv")
 cards_per_turn = 4
 max_energy = 3
 starting_relic = ExtResource("4_x5y4v")
-view_range = 1
 max_health = 10
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"
