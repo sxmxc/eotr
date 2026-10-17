@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkkgouxh43dvc"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="cleanup_ambient_particles"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [ext_resource type="Script" uid="uid://b1jqhouqnh5b5" path="res://scenes/rest/rest.gd" id="1_mfytg"]
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="2_wjpkg"]
@@ -136,7 +136,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("cleanup_ambient_particles")]
+[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1822260249]
 

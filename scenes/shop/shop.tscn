@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cs1i5d3k8wpeo"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="cleanup_ambient_particles"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [ext_resource type="Script" uid="uid://ce1trfycndk5j" path="res://scenes/shop/shop.gd" id="1_100s2"]
 [ext_resource type="Theme" uid="uid://b4lmppelcf5iu" path="res://resources/themes/run_top_bar.tres" id="1_ctpgp"]
@@ -111,7 +111,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7lxhl")
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("cleanup_ambient_particles")]
+[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 
 [node name="GPUParticles2D3" parent="ParticlesLayer" index="2"]
 position = Vector2(1598, 523)

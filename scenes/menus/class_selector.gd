@@ -3,7 +3,7 @@ extends Control
 const RIFTWALKER_STATS = preload("res://resources/data/stats/player/riftwalker_starting_stats.tres")
 const SYNTHFORGED_STATS = preload("res://resources/data/stats/player/synthforged_starting_stats.tres")
 const VOIDBINDER_STATS = preload("res://resources/data/stats/player/voidbinder_starting_stats.tres")
-const RUN_SCENE = preload("res://scenes/run/run.scn")
+const RUN_SCENE = preload("res://scenes/run/run.tscn")
 
 @export var run_bootstrap: RunBootstrap
 

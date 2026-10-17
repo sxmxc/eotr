@@ -3,6 +3,24 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "DATA-EDITOR-ENUM-001",
+      "status": "done",
+      "summary": "Fixed two DataEditor enum lookups that used the inherited node name instead of the loop key. Added runtime scene-startup coverage for all enum dropdowns and resource-list initialization. Zero failed smoke assertions and no script errors; runner still reports the existing intermittent shutdown resource leaks.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "GODOT-ARCH-002",
+      "status": "done",
+      "summary": "Removed duplicated emission image data and generated-cache texture references from the newly converted run.tscn pause menu, reusing existing assets. Reduced scene from 9,916,548 to 35,936 bytes with node/connection sections unchanged. Resource guard passed; verbose compatibility runner exited 0 with 490 loads and zero failed assertions; existing intermittent shutdown diagnostics remain.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "GODOT-ARCH-001",
+      "status": "done",
+      "summary": "First architecture cleanup: externalized identical emission image data, shared ambient particle scene, removed first-party text-resource cache dependencies, authored battle presentation as a scene, added resource/overlay checks, and documented prioritized remaining work in ai/docs/godot-architecture-audit.md. Full-project cleanup remains open.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "GODOT-472",
       "status": "done",
       "summary": "Reviewed Godot 4.7.2 and Talo 1.2.0 compatibility; migrated telemetry, repaired resource references and scene cleanup, updated CI/docs, and verified offline headless and D3D12 gameplay smoke tests. Remaining live-service/release validation and shutdown diagnostics are documented in ai/docs/godot-4.7.2-upgrade.md.",

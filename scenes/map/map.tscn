@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bj2o5bhx1vq8b"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="cleanup_ambient_particles"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [ext_resource type="Script" uid="uid://byyc2fbl2lt2d" path="res://scenes/map/map.gd" id="1_sxf4j"]
 [ext_resource type="Script" uid="uid://xnnvu4xhg15l" path="res://scenes/map/map_generator.gd" id="2_tqkkf"]
@@ -62,7 +62,7 @@ unique_name_in_owner = true
 offset = Vector2(960, 540)
 zoom = Vector2(2.5, 2.5)
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("cleanup_ambient_particles")]
+[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 layer = -1
 
 [node name="GPUParticles2D3" parent="ParticlesLayer" index="2"]

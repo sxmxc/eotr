@@ -1,21 +1,17 @@
 extends CanvasLayer
 class_name BattlePresentation
 
-const VIGNETTE_SHADER := preload("res://scripts/shaders/dark_noise_vignette.gdshader")
-
 @export var intro_text := "Engage"
 @export var win_text := "Victory"
 @export var lose_text := "Defeat"
-@export var layer_index := 9
-
-@onready var _vignette: ColorRect = _build_vignette()
-@onready var _label: Label = _build_label()
+@onready var _vignette: ColorRect = $BattleVignette
+@onready var _label: Label = $BattleVignette/BeatLabel
 
 var _tween: Tween
 
 
 func _ready() -> void:
-	layer = layer_index
+	_label.text = intro_text
 	hide()
 
 
@@ -83,38 +79,3 @@ func _reset_overlay(tint: Color) -> void:
 		mat.set_shader_parameter("effect_color", tint)
 		mat.set_shader_parameter("radius", 1.0)
 		mat.set_shader_parameter("speed", 1.5)
-
-
-func _build_vignette() -> ColorRect:
-	var rect := ColorRect.new()
-	rect.name = "BattleVignette"
-	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	rect.anchors_preset = Control.PRESET_FULL_RECT
-	rect.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	rect.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	rect.color = Color(0, 0, 0, 0)
-	if VIGNETTE_SHADER:
-		var mat := ShaderMaterial.new()
-		mat.shader = VIGNETTE_SHADER
-		mat.set_shader_parameter("radius", 1.0)
-		mat.set_shader_parameter("effect_color", Color(0.05, 0.05, 0.08, 0.65))
-		mat.set_shader_parameter("speed", 1.5)
-		rect.material = mat
-	add_child(rect)
-	return rect
-
-
-func _build_label() -> Label:
-	var label := Label.new()
-	label.name = "BeatLabel"
-	label.text = intro_text
-	label.modulate = Color(1, 1, 1, 0)
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	label.anchors_preset = Control.PRESET_FULL_RECT
-	label.add_theme_font_size_override("font_size", 56)
-	label.add_theme_color_override("font_color", Color(0.82, 0.79, 0.64, 0.92))
-	_vignette.add_child(label)
-	return label

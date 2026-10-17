@@ -1,0 +1,963 @@
+[gd_scene format=3 uid="uid://eot3ua7gj5ah"]
+
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_01.png" id="star_01"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_02.png" id="star_02"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_04.png" id="star_04"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_05.png" id="star_05"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_06.png" id="star_06"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_07.png" id="star_07"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_08.png" id="star_08"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_09.png" id="star_09"]
+[ext_resource type="Texture2D" path="res://resources/vfx/menu_emission_points.res" id="emission_points"]
+
+[ext_resource type="Script" uid="uid://l13r63ukihp2" path="res://scenes/run/run.gd" id="1_x5y4b"]
+[ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="2_4ets7"]
+[ext_resource type="AudioStream" uid="uid://de1rwh51sktk6" path="res://assets/audio/music/universal_dark.mp3" id="3_6w2u5"]
+[ext_resource type="AudioStream" uid="uid://ppxpthgygbnm" path="res://assets/audio/music/grim_dark.mp3" id="4_tbe7a"]
+[ext_resource type="AudioStream" uid="uid://bqa3nl0ajdjgh" path="res://assets/audio/music/gustavo_horror.mp3" id="5_a0b37"]
+[ext_resource type="PackedScene" uid="uid://bj2o5bhx1vq8b" path="res://scenes/map/map.tscn" id="6_2foro"]
+[ext_resource type="Theme" uid="uid://b4lmppelcf5iu" path="res://resources/themes/run_top_bar.tres" id="7_l4vn1"]
+[ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="8_ctna3"]
+[ext_resource type="PackedScene" uid="uid://b0lurds536bhp" path="res://ui/run_ui/gold_ui.tscn" id="9_axhcw"]
+[ext_resource type="PackedScene" uid="uid://dr3yt337ubpq" path="res://ui/run_ui/resources_ui.tscn" id="10_dfo0u"]
+[ext_resource type="PackedScene" uid="uid://ck2xa3ld451by" path="res://ui/run_ui/run_time_ui.tscn" id="11_n0yky"]
+[ext_resource type="PackedScene" uid="uid://bk80dhbki0i22" path="res://scenes/relic_handler/relic_handler.tscn" id="12_yey0w"]
+[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="13_ev4fb"]
+[ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="14_ik8qf"]
+[ext_resource type="PackedScene" uid="uid://coupj55agy31s" path="res://scenes/relic_handler/relic_tooltip.tscn" id="15_rxc36"]
+[ext_resource type="PackedScene" uid="uid://dlbek83rsj3cw" path="res://ui/run_ui/bounty_board_view.tscn" id="16_omd4m"]
+[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="17_82xe7"]
+[ext_resource type="Texture2D" uid="uid://c60jlxwiajlnj" path="res://assets/icons/rolling-energy.svg" id="18_yj3lc"]
+[ext_resource type="Texture2D" uid="uid://mptcvsif4s5t" path="res://assets/icons/rolling-energy-2.svg" id="19_4aki2"]
+[ext_resource type="Texture2D" uid="uid://dgyop01i0okhj" path="res://assets/icons/pay-money.svg" id="20_8fhq7"]
+[ext_resource type="Texture2D" uid="uid://bid8jyjlm8vfs" path="res://assets/icons/night-sleep.svg" id="21_x3nam"]
+[ext_resource type="Texture2D" uid="uid://bt72lliaq55rd" path="res://assets/icons/chest.svg" id="22_0rx4c"]
+[ext_resource type="Texture2D" uid="uid://cpkby7jkl4j6e" path="res://assets/icons/overlord-helm.svg" id="23_ixteu"]
+[ext_resource type="Texture2D" uid="uid://cdtkxwq6qq66l" path="res://assets/third_party/Keyboard & Mouse/Vector/mouse_scroll_vertical.svg" id="24_xrsi6"]
+[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="25_xrrkx"]
+[ext_resource type="Texture2D" uid="uid://dvfs14vxx22h2" path="res://assets/icons/wanted-reward.svg" id="26_s0vt7"]
+[ext_resource type="Texture2D" uid="uid://bj3pd7u46av1r" path="res://assets/icons/wanted-reward-pressed.svg" id="27_xqkow"]
+[ext_resource type="Script" uid="uid://fvkc0g4vuoag" path="res://ui/run_ui/bounty_board_button.gd" id="28_vksuo"]
+[ext_resource type="Script" uid="uid://cq4txlqo74dw0" path="res://scenes/run/pause_menu.gd" id="29_xjfy7"]
+[ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="30_owysf"]
+[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="31_7uco7"]
+[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="32_djwbl"]
+[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="33_nwf7k"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ymu0v"]
+shuffle = true
+stream_count = 3
+stream_0 = ExtResource("3_6w2u5")
+stream_1 = ExtResource("4_tbe7a")
+stream_2 = ExtResource("5_a0b37")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gqbdr"]
+font_size = 40
+font_color = Color(0.823529, 0.788235, 0.647059, 1)
+outline_size = 5
+outline_color = Color(0.294118, 0.239216, 0.266667, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6p45"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_kdgoc"]
+frames = 9
+speed_scale = 5.0
+frame_0/texture = ExtResource("star_01")
+frame_1/texture = ExtResource("star_02")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("star_04")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("star_04")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("star_05")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("star_06")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("star_07")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("star_08")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("star_09")
+frame_8/duration = 1.0
+
+[sub_resource type="Curve" id="Curve_y3spc"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_aosst"]
+curve = SubResource("Curve_y3spc")
+
+[sub_resource type="Curve" id="Curve_0pc8y"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ropx0"]
+curve = SubResource("Curve_0pc8y")
+
+[sub_resource type="Curve" id="Curve_u2bn2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_conhd"]
+curve = SubResource("Curve_u2bn2")
+
+[sub_resource type="Curve" id="Curve_psst2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l3v67"]
+curve = SubResource("Curve_psst2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ymu0v"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 4
+emission_point_texture = ExtResource("emission_points")
+emission_point_count = 164665
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 500.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 297.52
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 88.44
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_conhd")
+color = Color(0.294118, 0.447059, 0.431373, 1)
+anim_speed_max = 16.0
+anim_speed_curve = SubResource("CurveTexture_ropx0")
+anim_offset_max = 1.0
+anim_offset_curve = SubResource("CurveTexture_aosst")
+turbulence_enabled = true
+turbulence_influence_over_life = SubResource("CurveTexture_l3v67")
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 32
+sub_emitter_keep_velocity = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vqexm"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_wy2jw"]
+frames = 9
+speed_scale = 5.0
+frame_0/texture = ExtResource("star_01")
+frame_1/texture = ExtResource("star_02")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("star_04")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("star_04")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("star_05")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("star_06")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("star_07")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("star_08")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("star_09")
+frame_8/duration = 1.0
+
+[sub_resource type="Curve" id="Curve_0bq42"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_e6n4v"]
+curve = SubResource("Curve_0bq42")
+
+[sub_resource type="Curve" id="Curve_wgm62"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_x3nam"]
+curve = SubResource("Curve_wgm62")
+
+[sub_resource type="Curve" id="Curve_aoa3b"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qx1hq"]
+curve = SubResource("Curve_aoa3b")
+
+[sub_resource type="Curve" id="Curve_xgkqp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bokkf"]
+curve = SubResource("Curve_xgkqp")
+
+[sub_resource type="Curve" id="Curve_26or8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r2fsw"]
+curve = SubResource("Curve_26or8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4hft2"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 4
+emission_point_texture = ExtResource("emission_points")
+emission_point_count = 164665
+angle_min = 1.07288e-05
+angle_max = 360.0
+inherit_velocity_ratio = 0.194
+spread = 180.0
+flatness = 0.647
+initial_velocity_min = 276.51
+initial_velocity_max = 934.05
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 9.92
+linear_accel_max = 17.01
+radial_accel_min = -2.23517e-06
+radial_accel_max = 38.1
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_bokkf")
+color = Color(0.294118, 0.239216, 0.266667, 1)
+alpha_curve = SubResource("CurveTexture_e6n4v")
+anim_speed_max = 16.0
+anim_speed_curve = SubResource("CurveTexture_qx1hq")
+anim_offset_max = 1.0
+anim_offset_curve = SubResource("CurveTexture_x3nam")
+turbulence_enabled = true
+turbulence_noise_strength = 11.9
+turbulence_noise_speed_random = 3.34
+turbulence_influence_over_life = SubResource("CurveTexture_r2fsw")
+
+[sub_resource type="Environment" id="Environment_6w2u5"]
+background_mode = 3
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Run" type="Node" unique_id=1004175621]
+script = ExtResource("1_x5y4b")
+run_bootstrap = ExtResource("2_4ets7")
+music_playlist = SubResource("AudioStreamPlaylist_ymu0v")
+metadata/_edit_horizontal_guides_ = [127.0, -52.0]
+metadata/_edit_vertical_guides_ = [1429.0]
+
+[node name="Map" parent="." unique_id=2103687497 instance=ExtResource("6_2foro")]
+
+[node name="CurrentView" type="Node" parent="." unique_id=299936849]
+
+[node name="TopBar" type="CanvasLayer" parent="." unique_id=1601585805]
+layer = 4
+
+[node name="ColorRect" type="ColorRect" parent="TopBar" unique_id=51867573]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 112.0
+grow_horizontal = 2
+color = Color(0.294118, 0.239216, 0.266667, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar" unique_id=1353700119]
+custom_minimum_size = Vector2(0, 110)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 112.0
+grow_horizontal = 2
+theme = ExtResource("7_l4vn1")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 25
+
+[node name="BarItems" type="HBoxContainer" parent="TopBar/MarginContainer" unique_id=408860922]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HealthUI" parent="TopBar/MarginContainer/BarItems" unique_id=358501223 instance=ExtResource("8_ctna3")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(302, 0)
+layout_mode = 2
+show_max_hp = true
+
+[node name="GoldUI" parent="TopBar/MarginContainer/BarItems" unique_id=1118499638 instance=ExtResource("9_axhcw")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="ResourcesUI" parent="TopBar/MarginContainer/BarItems" unique_id=501486573 instance=ExtResource("10_dfo0u")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(206, 0)
+layout_mode = 2
+
+[node name="RunTimeUI" parent="TopBar/MarginContainer/BarItems" unique_id=104178830 instance=ExtResource("11_n0yky")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RelicHandlerContainer" type="CenterContainer" parent="TopBar/MarginContainer/BarItems" unique_id=2081046204]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RelicHandler" parent="TopBar/MarginContainer/BarItems/RelicHandlerContainer" unique_id=1479999069 instance=ExtResource("12_yey0w")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 105)
+layout_mode = 2
+
+[node name="DeckButton" parent="TopBar/MarginContainer/BarItems" unique_id=1712386859 node_paths=PackedStringArray("counter") instance=ExtResource("13_ev4fb")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+counter = NodePath("Count")
+
+[node name="Count" type="Label" parent="TopBar/MarginContainer/BarItems/DeckButton" unique_id=863338298]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 56.0
+offset_right = 35.0
+offset_bottom = 111.0
+text = "99"
+label_settings = SubResource("LabelSettings_gqbdr")
+horizontal_alignment = 1
+
+[node name="TopBarPopupView" type="CanvasLayer" parent="." unique_id=615476148]
+layer = 6
+
+[node name="DeckView" parent="TopBarPopupView" unique_id=1686383835 instance=ExtResource("14_ik8qf")]
+unique_name_in_owner = true
+visible = false
+
+[node name="RelicTooltip" parent="TopBarPopupView" unique_id=1320692901 instance=ExtResource("15_rxc36")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BountyBoardPopup" parent="TopBarPopupView" unique_id=1926839284 instance=ExtResource("16_omd4m")]
+unique_name_in_owner = true
+visible = false
+
+[node name="MapLegendUI" type="CanvasLayer" parent="." unique_id=59626172]
+layer = 2
+
+[node name="MapLegend" type="Control" parent="MapLegendUI" unique_id=771119671]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("17_82xe7")
+
+[node name="Panel" type="Panel" parent="MapLegendUI/MapLegend" unique_id=17359803]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -428.0
+offset_right = 320.0
+offset_bottom = -376.0
+grow_vertical = 2
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="MapLegendUI/MapLegend/Panel" unique_id=1315799063]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MapLegendUI/MapLegend/Panel/MarginContainer" unique_id=125281407]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MapLegendUI/MapLegend/Panel/MarginContainer/Panel" unique_id=345283348]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer" unique_id=1636392297]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "Legend"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MapLegendUI/MapLegend" unique_id=1777050983]
+custom_minimum_size = Vector2(296, 504)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -376.0
+offset_right = 320.0
+offset_bottom = 273.0
+grow_vertical = 2
+
+[node name="LegendContent" type="Control" parent="MapLegendUI/MapLegend/MarginContainer" unique_id=1609341400]
+unique_name_in_owner = true
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+custom_minimum_size = Vector2(320, 649)
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+metadata/_custom_type_script = "uid://dd1vikhuh37ul"
+
+[node name="Panel2" type="Panel" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent" unique_id=248778333]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2" unique_id=1551932557]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer" unique_id=1895757837]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel" unique_id=718704237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=24497066]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1469875195]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("18_yj3lc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=691681979]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "- Rift"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1250636018]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=718875884]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("19_4aki2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=496445266]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "- Elite Rift"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1023831166]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1533296682]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("20_8fhq7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=180207028]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "- Shop"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1786266073]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=1659825555]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("21_x3nam")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=219780469]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "- Rest"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1531795373]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=707544995]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("22_0rx4c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=415657400]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "- Treasure"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1201227888]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=286953981]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("23_ixteu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=1239814836]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
+text = "- Boss"
+
+[node name="TextureRect" type="TextureRect" parent="MapLegendUI" unique_id=715883777]
+modulate = Color(0.823529, 0.788235, 0.647059, 1)
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -195.0
+offset_right = 50.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("24_xrsi6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bouncer" type="Node" parent="MapLegendUI/TextureRect" unique_id=1238631880]
+script = ExtResource("25_xrrkx")
+metadata/_custom_type_script = "uid://c7wfd2um7frkt"
+
+[node name="BountyBoardButton" type="TextureButton" parent="MapLegendUI" unique_id=1047103175]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 51.0
+offset_top = -230.0
+offset_right = 237.0
+offset_bottom = -60.0
+grow_vertical = 0
+tooltip_text = "Bounty Board"
+texture_normal = ExtResource("26_s0vt7")
+texture_pressed = ExtResource("27_xqkow")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("28_vksuo")
+
+[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=419055203]
+process_mode = 3
+layer = 50
+visible = false
+script = ExtResource("29_xjfy7")
+
+[node name="PauseControl" type="Control" parent="PauseMenu" unique_id=1959598193]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("17_82xe7")
+
+[node name="BackgroundGradiant" type="TextureRect" parent="PauseMenu/PauseControl" unique_id=1155917250]
+modulate = Color(1, 1, 1, 0.811765)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("30_owysf")
+
+[node name="Control" type="Control" parent="PauseMenu/PauseControl" unique_id=1604872153]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PauseMenu/PauseControl/Control" unique_id=825256421]
+material = SubResource("CanvasItemMaterial_l6p45")
+position = Vector2(959, 523)
+amount = 1000
+sub_emitter = NodePath("../GPUParticles2D2")
+texture = SubResource("AnimatedTexture_kdgoc")
+lifetime = 100.0
+explosiveness = 0.05
+randomness = 1.0
+local_coords = true
+trail_lifetime = 6.0
+trail_sections = 32
+process_material = SubResource("ParticleProcessMaterial_ymu0v")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="PauseMenu/PauseControl/Control" unique_id=235405934]
+material = SubResource("CanvasItemMaterial_vqexm")
+position = Vector2(959, 523)
+amount = 1000
+texture = SubResource("AnimatedTexture_wy2jw")
+lifetime = 100.0
+explosiveness = 0.59
+randomness = 1.0
+trail_lifetime = 3.0
+trail_sections = 32
+process_material = SubResource("ParticleProcessMaterial_4hft2")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="PauseMenu/PauseControl/Control" unique_id=1183406935]
+material = SubResource("CanvasItemMaterial_l6p45")
+position = Vector2(1587, 523)
+amount = 1000
+sub_emitter = NodePath("../GPUParticles2D4")
+texture = SubResource("AnimatedTexture_kdgoc")
+lifetime = 100.0
+explosiveness = 0.05
+randomness = 1.0
+local_coords = true
+trail_lifetime = 6.0
+trail_sections = 32
+process_material = SubResource("ParticleProcessMaterial_ymu0v")
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="PauseMenu/PauseControl/Control" unique_id=2057045031]
+material = SubResource("CanvasItemMaterial_vqexm")
+position = Vector2(1587, 523)
+amount = 1000
+texture = SubResource("AnimatedTexture_wy2jw")
+lifetime = 100.0
+explosiveness = 0.59
+randomness = 1.0
+trail_lifetime = 3.0
+trail_sections = 32
+process_material = SubResource("ParticleProcessMaterial_4hft2")
+
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="PauseMenu/PauseControl/Control" unique_id=568139772]
+material = SubResource("CanvasItemMaterial_l6p45")
+position = Vector2(272, 523)
+amount = 1000
+sub_emitter = NodePath("../GPUParticles2D6")
+texture = SubResource("AnimatedTexture_kdgoc")
+lifetime = 100.0
+explosiveness = 0.05
+randomness = 1.0
+local_coords = true
+trail_lifetime = 6.0
+trail_sections = 32
+process_material = SubResource("ParticleProcessMaterial_ymu0v")
+
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="PauseMenu/PauseControl/Control" unique_id=222744273]
+material = SubResource("CanvasItemMaterial_vqexm")
+position = Vector2(272, 523)
+amount = 1000
+texture = SubResource("AnimatedTexture_wy2jw")
+lifetime = 100.0
+explosiveness = 0.59
+randomness = 1.0
+trail_lifetime = 3.0
+trail_sections = 32
+process_material = SubResource("ParticleProcessMaterial_4hft2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/PauseControl" unique_id=448638450]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.0
+offset_top = -92.5
+offset_right = 209.0
+offset_bottom = 92.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="PauseMenu/PauseControl/VBoxContainer" unique_id=1141707186]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/PauseControl/VBoxContainer" unique_id=1579175524]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="BackToGameButton" type="Button" parent="PauseMenu/PauseControl/VBoxContainer/HBoxContainer" unique_id=36171608]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="SaveAndQuitButton" type="Button" parent="PauseMenu/PauseControl/VBoxContainer/HBoxContainer" unique_id=1887224642]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Main Menu"
+
+[node name="TutorialUI" type="CanvasLayer" parent="." unique_id=1275530150]
+process_mode = 3
+layer = 2
+visible = false
+script = ExtResource("31_7uco7")
+
+[node name="RunTutorial" type="Control" parent="TutorialUI" unique_id=1729361230]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("32_djwbl")
+
+[node name="ColorRect" type="ColorRect" parent="TutorialUI/RunTutorial" unique_id=109742490]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.294, 0.239, 0.267, 0.625)
+
+[node name="LegendLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=618308228]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 890.0
+offset_right = 453.0
+offset_bottom = 987.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Map Legend"
+horizontal_alignment = 1
+
+[node name="TextureRect7" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=1843964522]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 693.0
+offset_right = 408.0
+offset_bottom = 790.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+stretch_mode = 5
+flip_h = true
+
+[node name="RelicLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=840979690]
+layout_mode = 0
+offset_left = 1368.0
+offset_top = 230.0
+offset_right = 1588.0
+offset_bottom = 327.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Relics"
+horizontal_alignment = 1
+
+[node name="DeckLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=55252247]
+layout_mode = 0
+offset_left = 1701.0
+offset_top = 232.0
+offset_right = 1921.0
+offset_bottom = 329.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Deck"
+horizontal_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=35506027]
+layout_mode = 0
+offset_left = 262.0
+offset_top = 241.0
+offset_right = 501.0
+offset_bottom = 338.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Gold"
+horizontal_alignment = 1
+
+[node name="ResourceLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=221329605]
+layout_mode = 0
+offset_left = 478.0
+offset_top = 186.0
+offset_right = 847.0
+offset_bottom = 283.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Resources"
+horizontal_alignment = 1
+
+[node name="RunTimeLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=1560650554]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 239.0
+offset_right = 1205.0
+offset_bottom = 336.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "Run Time"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="TutorialUI/RunTutorial" unique_id=1908742783]
+layout_mode = 0
+offset_left = -116.0
+offset_top = 308.0
+offset_right = 351.0
+offset_bottom = 405.0
+theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
+theme_override_font_sizes/font_size = 75
+text = "health"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=2108048791]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 4.0
+offset_right = 588.0
+offset_bottom = 68.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+stretch_mode = 5
+flip_h = true
+
+[node name="TextureRect2" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=272313052]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 128.0
+offset_right = 552.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=880609630]
+layout_mode = 0
+offset_left = 1053.0
+offset_top = 128.0
+offset_right = 1197.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect8" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=403839304]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 128.0
+offset_right = 779.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect5" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=306623880]
+layout_mode = 0
+offset_left = 1525.0
+offset_top = 128.0
+offset_right = 1669.0
+offset_bottom = 192.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="TextureRect6" type="TextureRect" parent="TutorialUI/RunTutorial" unique_id=473845916]
+layout_mode = 0
+offset_left = 1858.0
+offset_top = 124.0
+offset_right = 2002.0
+offset_bottom = 188.0
+rotation = 1.5708
+texture = ExtResource("33_nwf7k")
+expand_mode = 1
+flip_h = true
+
+[node name="Button" type="Button" parent="TutorialUI/RunTutorial" unique_id=367219980]
+layout_mode = 0
+offset_left = 1640.0
+offset_top = 904.0
+offset_right = 1798.0
+offset_bottom = 956.0
+text = "Got it"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TutorialUI/RunTutorial" unique_id=2043898848]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -188.0
+offset_right = 888.0
+offset_bottom = 287.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/RunTutorial/ScrollContainer" unique_id=277373548]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Welcome to the Run Map, your route through the Rift. Quick primer:
+
+[b]Objective[/b] - Climb to the boss pillar on floor 15 and dismantle it to advance.
+
+[b]Nodes[/b] - Monsters/Elites = battles, Treasure = free relic, Rest = heal 30% max HP, Shop = buy cards/relics, Boss = advance the run.
+
+[b]Health[/b] - Carries between battles; if it hits 0 the run ends. Rest nodes and some rewards restore health.
+
+[b]Currencies[/b] - Gold buys cards. Resources buy relics/services. Resource tiles in battle fuel relic costs.
+
+[b]Deck[/b] - Grow it via rewards and shops; trimming keeps draws consistent.
+
+[b]Map Legend[/b] - Hover the legend to read icons. Choose paths carefully; once you commit, upstream nodes lock."
+fit_content = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=975355932]
+environment = SubResource("Environment_6w2u5")
+
+[connection signal="mouse_entered" from="MapLegendUI/BountyBoardButton" to="MapLegendUI/BountyBoardButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MapLegendUI/BountyBoardButton" to="MapLegendUI/BountyBoardButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="TutorialUI/RunTutorial/Button" to="TutorialUI" method="_on_button_pressed"]

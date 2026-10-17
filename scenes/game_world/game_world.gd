@@ -1,8 +1,6 @@
 class_name GameWorld
 extends Node2D
 
-const BATTLE_PRESENTATION := preload("res://ui/world_ui/battle_presentation.gd")
-
 @export var battle_stats: BattleStats
 @export var player_stats: PlayerStats
 @export var run_stats: RunStats:
@@ -21,8 +19,8 @@ const BATTLE_PRESENTATION := preload("res://ui/world_ui/battle_presentation.gd")
 @onready var map_camera : Camera2D = $MapCamera
 @onready var world_camera: PhantomCamera2D = %WorldCamera
 @onready var tutorial_ui: TutorialUI = $TutorialUI
+@onready var battle_presentation: BattlePresentation = $BattlePresentation
 
-var battle_presentation: BattlePresentation
 var audio_stream_player : AudioStreamPlayer
 var current_round : int : 
 	set = set_current_round
@@ -31,7 +29,6 @@ var rounds_until_shrink : int :
 var battle_over_handled := false
 
 func _ready():
-	_ensure_battle_presentation()
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
 	battle_state.shrink_frequency = shrink_frequency
 
@@ -211,10 +208,3 @@ func _emit_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	if is_instance_valid(audio_stream_player):
 		audio_stream_player.stream_paused = true
 	Events.battle_over_screen_requested.emit(message, result)
-
-
-func _ensure_battle_presentation() -> void:
-	if battle_presentation and is_instance_valid(battle_presentation):
-		return
-	battle_presentation = BATTLE_PRESENTATION.new()
-	add_child(battle_presentation)

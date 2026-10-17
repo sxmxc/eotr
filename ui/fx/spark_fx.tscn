@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://b26pgaeesc2u2"]
 
-[ext_resource type="Texture2D" path="res://assets/spritesheets/spark_fx.png" id="cleanup_CompressedTexture2D_56bra"]
-
 [ext_resource type="Script" uid="uid://chiqijepcu5b3" path="res://ui/fx/spark_fx.gd" id="1_56bra"]
 [ext_resource type="Texture2D" uid="uid://ckxhm3rq8lcnn" path="res://assets/spritesheets/spark_fx.png" id="2_0pqfg"]
 
@@ -151,7 +149,7 @@ show_behind_parent = true
 material = SubResource("CanvasItemMaterial_32qx2")
 emitting = false
 amount = 100
-texture = ExtResource("cleanup_CompressedTexture2D_56bra")
+texture = ExtResource("2_0pqfg")
 lifetime = 2.0
 one_shot = true
 speed_scale = 2.0

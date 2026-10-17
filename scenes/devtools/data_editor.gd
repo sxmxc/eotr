@@ -228,7 +228,7 @@ func _populate_card_filters() -> void:
 	card_rarity_filter.clear()
 	card_rarity_filter.add_item("All Rarities", -1)
 	for rarity_name in Enums.CardRarity.keys():
-		card_rarity_filter.add_item(rarity_name.capitalize(), Enums.CardRarity[name])
+		card_rarity_filter.add_item(rarity_name.capitalize(), Enums.CardRarity[rarity_name])
 	card_rarity_filter.select(0)
 
 
@@ -873,7 +873,7 @@ func _populate_enum_options(button: OptionButton, enum_dict: Dictionary, include
 	if include_blank:
 		button.add_item("Use Card Value", -1)
 	for enum_name in enum_dict.keys():
-		button.add_item(enum_name.capitalize(), enum_dict[name])
+		button.add_item(enum_name.capitalize(), enum_dict[enum_name])
 
 
 func _select_option_value(button: OptionButton, value: int) -> void:

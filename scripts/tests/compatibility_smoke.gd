@@ -15,9 +15,12 @@ func _run() -> void:
 	if failures:
 		get_tree().quit(1)
 		return
+	RNG.instance.seed = 472001
 	for directory: String in ["res://scripts", "res://scenes", "res://resources", "res://ui"]:
 		_scan_resources(directory)
 	print("Loaded %d first-party resources" % resource_count)
+	_test_ambient_particles()
+	await _test_battle_presentation()
 	GameSettings.show_tutorial = false
 	GameSettings.telemetry_enabled = false
 	TelemetryManager.track_event("compatibility_test", {"amount": 3, "duration": 1.25})
@@ -28,6 +31,17 @@ func _run() -> void:
 	get_tree().root.add_child(menu)
 	await get_tree().process_frame
 	menu.queue_free()
+	await get_tree().process_frame
+	var data_editor: DataEditor = load("res://scenes/devtools/data_editor.tscn").instantiate()
+	get_tree().root.add_child(data_editor)
+	await get_tree().process_frame
+	_check(data_editor.card_type.item_count == Enums.CardType.size(), "Data editor populates card types")
+	_check(data_editor.card_target.item_count == Enums.TargetType.size(), "Data editor populates card targets")
+	_check(data_editor.card_rarity.item_count == Enums.CardRarity.size(), "Data editor populates card rarities")
+	_check(data_editor.registry_rarity.item_count == Enums.CardRarity.size() + 1, "Data editor populates registry rarities")
+	_check(data_editor.card_rarity_filter.item_count == Enums.CardRarity.size() + 1, "Data editor populates rarity filter")
+	_check(not data_editor.card_records.is_empty(), "Data editor reaches resource list initialization")
+	data_editor.queue_free()
 	await get_tree().process_frame
 	var sandbox: GameWorldSandbox = load("res://scenes/sandbox/gameworld_sandbox.tscn").instantiate()
 	var previous_offline := Talo.settings.offline_mode
@@ -40,7 +54,7 @@ func _run() -> void:
 	await get_tree().process_frame
 	_check(Talo.settings.offline_mode == previous_offline, "Sandbox restores offline mode")
 	_check(not TelemetryManager.suspended, "Sandbox restores telemetry")
-	var run_scene: Run = load("res://scenes/run/run.scn").instantiate()
+	var run_scene: Run = load("res://scenes/run/run.tscn").instantiate()
 	run_scene.run_bootstrap = RunBootstrap.new()
 	run_scene.run_bootstrap.type = RunBootstrap.Type.NEW_RUN
 	run_scene.run_bootstrap.selected_player_class = load("res://resources/data/stats/player/riftwalker_starting_stats.tres")
@@ -82,9 +96,56 @@ func _test_talo_event_contract() -> void:
 	identity_label.queue_free()
 
 
+func _test_ambient_particles() -> void:
+	var texture := load("res://resources/vfx/menu_emission_points.res") as ImageTexture
+	_check(texture != null, "Load binary emission texture")
+	var image := texture.get_image()
+	_check(image.get_size() == Vector2i(2048, 81) and image.get_format() == Image.FORMAT_RGF, "Preserve floating point emission coordinates")
+	var cases := {
+		"menus/main_menu": [1, 1587.0, 272.0],
+		"map/map": [-1, 1598.0, 170.0],
+		"rest/rest": [1, 1587.0, 272.0],
+		"shop/shop": [1, 1598.0, 170.0],
+		"treasure/treasure": [2, 1587.0, 272.0],
+		"battle_rewards/battle_rewards": [2, 1587.0, 272.0],
+		"win_screen/win_screen": [11, 1587.0, 272.0],
+	}
+	for path: String in cases:
+		var scene: Node = load("res://scenes/%s.tscn" % path).instantiate()
+		var particles: CanvasLayer = scene.get_node("ParticlesLayer")
+		_check(particles.layer == cases[path][0], "Preserve particle layer: %s" % path)
+		_check(particles.get_child_count() == 6, "Preserve six particle emitters: %s" % path)
+		_check(particles.get_node("GPUParticles2D3").position.x == cases[path][1], "Preserve right emitter position: %s" % path)
+		_check(particles.get_node("GPUParticles2D5").position.x == cases[path][2], "Preserve left emitter position: %s" % path)
+		for emitter: GPUParticles2D in particles.get_children():
+			_check(emitter.process_material.emission_point_texture == texture, "Share emission texture: %s" % path)
+		scene.free()
+
+
+func _test_battle_presentation() -> void:
+	var packed: PackedScene = load("res://ui/world_ui/battle_presentation.tscn")
+	var first: BattlePresentation = packed.instantiate()
+	var second: BattlePresentation = packed.instantiate()
+	add_child(first)
+	add_child(second)
+	var first_rect: ColorRect = first.get_node("BattleVignette")
+	var second_rect: ColorRect = second.get_node("BattleVignette")
+	_check(first_rect.material != second_rect.material, "Battle overlays own separate shader parameters")
+	first.play_intro()
+	_check(first.visible and first.get_node("BattleVignette/BeatLabel").text == first.intro_text, "Battle intro displays")
+	await get_tree().create_timer(0.5).timeout
+	_check(not first.visible, "Battle intro hides after animation")
+	first.play_outro(true)
+	_check(first.get_node("BattleVignette/BeatLabel").text == first.win_text, "Battle victory displays")
+	_check(second_rect.material.get_shader_parameter("effect_color") == Color(0.05, 0.05, 0.08, 0.65), "Victory tint does not affect another overlay")
+	first.queue_free()
+	second.queue_free()
+	await get_tree().process_frame
+
+
 func _scan_resources(directory: String) -> void:
 	for file_name: String in DirAccess.get_files_at(directory):
-		if file_name.get_extension() not in ["gd", "tscn", "scn", "tres", "gdshader"]:
+		if file_name.get_extension() not in ["gd", "tscn", "scn", "tres", "res", "gdshader"]:
 			continue
 		var path := directory.path_join(file_name)
 		_check(load(path) != null, "Load %s" % path)

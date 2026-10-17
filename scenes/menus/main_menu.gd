@@ -1,7 +1,7 @@
 extends Control
 
 const CLASS_SELECTOR_SCENE = preload("res://scenes/menus/class_selector.tscn")
-const RUN_SCENE = preload("res://scenes/run/run.scn")
+const RUN_SCENE = preload("res://scenes/run/run.tscn")
 const SETTINGS_MENU = preload("res://scenes/menus/settings_menu.tscn")
 const SANDBOX_SCENE = preload("res://scenes/sandbox/gameworld_sandbox.tscn")
 const DATA_EDITOR_SCENE = preload("res://scenes/devtools/data_editor.tscn")

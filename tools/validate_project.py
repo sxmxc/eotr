@@ -12,6 +12,8 @@ import shutil
 import subprocess
 import sys
 
+from check_scene_resources import check_resources
+
 
 def link_directory(source: Path, destination: Path) -> None:
     if destination.exists():
@@ -30,10 +32,15 @@ def link_directory(source: Path, destination: Path) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", default=shutil.which("godot"))
+    parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
     if not args.godot or Path(args.godot).suffix.lower() in (".cmd", ".bat"):
         parser.error("Pass --godot with the Godot 4.7.2 executable path")
     root = Path(__file__).resolve().parents[1]
+    issues = check_resources(root)
+    if issues:
+        print("\n".join(issues))
+        return 1
     validation = root / "build" / "compatibility-validation"
     cache = validation / ".godot"
     cache.mkdir(parents=True, exist_ok=True)
@@ -64,7 +71,7 @@ def main() -> int:
         args.godot, "--headless", "--path", str(validation),
         "res://scripts/tests/compatibility_smoke.tscn", "--quit-after", "20000",
         "--log-file", str(log_path),
-    ], env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
+    ] + (["--verbose"] if args.verbose else []), env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
     output = result.stdout + result.stderr
     print(output)
     # Godot can report a script failure and still return exit code zero.

@@ -155,3 +155,19 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Verification: loaded 487 first-party resources; numeric event/alias/opt-out checks; menu, sandbox, new run, save/load, and combat startup. Final isolated headless runner exited 0 with zero failed assertions and no script errors. Hidden D3D12/Forward+ smoke run also passed, with no shader compilation errors.
 - Remaining diagnostics/limits: headless dummy-renderer sampler diagnostics, sandbox Windows certificate-store access failure, a retained MapNode script at shutdown, and stale imported-background UID cache warnings. Live backend delivery, packaged exports, and complete campaign QA remain unverified. Details: `ai/docs/godot-4.7.2-upgrade.md`; repeatable runner: `tools/validate_project.py`.
 
+**2026-10-17 – Codex: scene/resource architecture cleanup**
+- Replaced fourteen identical embedded RGFloat emission images with one compressed binary texture; verified the saved image bytes exactly.
+- Shared the six-emitter ambient effect through one PackedScene across seven screens, preserving every serialized particle property and each layer/position override. Removed 114 first-party text-resource references to generated import caches.
+- Moved BattlePresentation's fixed controls/material into an editor-visible scene, instanced by game_world.tscn, with per-instance material state.
+- Added the scene resource guard to the validation runner and coverage for binary resources, all seven particle layouts, overlay animation completion, and material isolation.
+- Verification: baseline and updated offline Godot 4.7.2 smoke checks passed with zero failed assertions; existing headless shader/certificate/shutdown diagnostics remain. An intermediate run retained more resources; verbose and subsequent checks returned to baseline. No visual/export/campaign QA performed.
+- Remaining work and manual QA: ai/docs/godot-architecture-audit.md. Existing dirty working tree and addons preserved.
+**2026-10-17 – Codex: run.tscn large text-resource warning**
+- The run scene is now text rather than the previous binary run.scn. Its pause menu contained two identical embedded RGFloat images and sixteen cache texture dependencies.
+- Reused menu_emission_points.res and original star PNGs. Reduced run.tscn from 9,916,548 to 35,936 bytes. Compared emission arrays with the previously verified texture source and asserted every node/connection section stayed unchanged.
+- Verification: scene resource guard reports zero problems; all scene resource IDs resolve; compatibility runner loads 490 resources with zero failed assertions. Normal run returned failure on the existing intermittent 8-resource shutdown retention; verbose diagnostic run exited 0 with the existing single MapNode script retention. Existing headless shader/certificate diagnostics remain.
+- Manual QA: reload run.tscn from disk before saving an older editor copy; check opening/closing the pause menu visually.
+**2026-10-17 – Codex: DataEditor enum startup crash**
+- Fixed _populate_enum_options and _populate_card_filters using inherited Node.name as a dictionary key rather than enum_name/rarity_name. This caused lookups for the key DataEditor and aborted startup population.
+- Added DataEditor scene startup to the compatibility smoke test, checking all enum dropdown counts and that card resource initialization completes.
+- Verification: runtime smoke completed with zero failed assertions and no script errors; diff whitespace checks passed. The runner returned nonzero for the previously observed intermittent shutdown retention (8 resources), alongside existing headless shader/certificate diagnostics.

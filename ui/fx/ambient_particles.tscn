@@ -1,22 +1,14 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_01.png" id="cleanup_CompressedTexture2D_x1a1d"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_02.png" id="cleanup_CompressedTexture2D_j8u1v"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_04.png" id="cleanup_CompressedTexture2D_7w0af"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_05.png" id="cleanup_CompressedTexture2D_f53l2"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_06.png" id="cleanup_CompressedTexture2D_5rewm"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_07.png" id="cleanup_CompressedTexture2D_807so"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_08.png" id="cleanup_CompressedTexture2D_itdca"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_09.png" id="cleanup_CompressedTexture2D_e4y37"]
-[ext_resource type="Texture2D" path="res://resources/vfx/menu_emission_points.res" id="cleanup_emission_points"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_01.png" id="cleanup_CompressedTexture2D_8g1br"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_02.png" id="cleanup_CompressedTexture2D_f5l64"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_04.png" id="cleanup_CompressedTexture2D_kbwxs"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_05.png" id="cleanup_CompressedTexture2D_15n68"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_06.png" id="cleanup_CompressedTexture2D_orrwq"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_07.png" id="cleanup_CompressedTexture2D_pyddq"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_08.png" id="cleanup_CompressedTexture2D_5godb"]
-[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_09.png" id="cleanup_CompressedTexture2D_ov6fa"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_01.png" id="star_01"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_02.png" id="star_02"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_04.png" id="star_04"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_05.png" id="star_05"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_06.png" id="star_06"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_07.png" id="star_07"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_08.png" id="star_08"]
+[ext_resource type="Texture2D" path="res://assets/particles/kenney-particles/star_09.png" id="star_09"]
+[ext_resource type="Texture2D" path="res://resources/vfx/menu_emission_points.res" id="emission_points"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6bivr"]
 blend_mode = 1
@@ -28,22 +20,22 @@ particles_anim_loop = true
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_imvie"]
 frames = 9
 speed_scale = 5.0
-frame_0/texture = ExtResource("cleanup_CompressedTexture2D_x1a1d")
-frame_1/texture = ExtResource("cleanup_CompressedTexture2D_j8u1v")
+frame_0/texture = ExtResource("star_01")
+frame_1/texture = ExtResource("star_02")
 frame_1/duration = 1.0
-frame_2/texture = ExtResource("cleanup_CompressedTexture2D_7w0af")
+frame_2/texture = ExtResource("star_04")
 frame_2/duration = 1.0
-frame_3/texture = ExtResource("cleanup_CompressedTexture2D_7w0af")
+frame_3/texture = ExtResource("star_04")
 frame_3/duration = 1.0
-frame_4/texture = ExtResource("cleanup_CompressedTexture2D_f53l2")
+frame_4/texture = ExtResource("star_05")
 frame_4/duration = 1.0
-frame_5/texture = ExtResource("cleanup_CompressedTexture2D_5rewm")
+frame_5/texture = ExtResource("star_06")
 frame_5/duration = 1.0
-frame_6/texture = ExtResource("cleanup_CompressedTexture2D_807so")
+frame_6/texture = ExtResource("star_07")
 frame_6/duration = 1.0
-frame_7/texture = ExtResource("cleanup_CompressedTexture2D_itdca")
+frame_7/texture = ExtResource("star_08")
 frame_7/duration = 1.0
-frame_8/texture = ExtResource("cleanup_CompressedTexture2D_e4y37")
+frame_8/texture = ExtResource("star_09")
 frame_8/duration = 1.0
 
 [sub_resource type="Curve" id="Curve_ng0o5"]
@@ -80,7 +72,7 @@ lifetime_randomness = 1.0
 particle_flag_align_y = true
 particle_flag_disable_z = true
 emission_shape = 4
-emission_point_texture = ExtResource("cleanup_emission_points")
+emission_point_texture = ExtResource("emission_points")
 emission_point_count = 164665
 angle_min = 1.07288e-05
 angle_max = 360.0
@@ -115,22 +107,22 @@ particles_anim_loop = true
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_bh4e2"]
 frames = 9
 speed_scale = 5.0
-frame_0/texture = ExtResource("cleanup_CompressedTexture2D_8g1br")
-frame_1/texture = ExtResource("cleanup_CompressedTexture2D_f5l64")
+frame_0/texture = ExtResource("star_01")
+frame_1/texture = ExtResource("star_02")
 frame_1/duration = 1.0
-frame_2/texture = ExtResource("cleanup_CompressedTexture2D_kbwxs")
+frame_2/texture = ExtResource("star_04")
 frame_2/duration = 1.0
-frame_3/texture = ExtResource("cleanup_CompressedTexture2D_kbwxs")
+frame_3/texture = ExtResource("star_04")
 frame_3/duration = 1.0
-frame_4/texture = ExtResource("cleanup_CompressedTexture2D_15n68")
+frame_4/texture = ExtResource("star_05")
 frame_4/duration = 1.0
-frame_5/texture = ExtResource("cleanup_CompressedTexture2D_orrwq")
+frame_5/texture = ExtResource("star_06")
 frame_5/duration = 1.0
-frame_6/texture = ExtResource("cleanup_CompressedTexture2D_pyddq")
+frame_6/texture = ExtResource("star_07")
 frame_6/duration = 1.0
-frame_7/texture = ExtResource("cleanup_CompressedTexture2D_5godb")
+frame_7/texture = ExtResource("star_08")
 frame_7/duration = 1.0
-frame_8/texture = ExtResource("cleanup_CompressedTexture2D_ov6fa")
+frame_8/texture = ExtResource("star_09")
 frame_8/duration = 1.0
 
 [sub_resource type="Curve" id="Curve_3w8rc"]
@@ -174,7 +166,7 @@ lifetime_randomness = 1.0
 particle_flag_align_y = true
 particle_flag_disable_z = true
 emission_shape = 4
-emission_point_texture = ExtResource("cleanup_emission_points")
+emission_point_texture = ExtResource("emission_points")
 emission_point_count = 164665
 angle_min = 1.07288e-05
 angle_max = 360.0

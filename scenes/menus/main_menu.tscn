@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bofyn0epr8qy"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="cleanup_ambient_particles"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_ovrgc"]
 [ext_resource type="Script" uid="uid://cus2iy6lkqd8v" path="res://scenes/menus/main_menu.gd" id="2_2o76q"]
@@ -84,7 +84,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_xqga4")
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("cleanup_ambient_particles")]
+[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1121084982]
 layer = 2

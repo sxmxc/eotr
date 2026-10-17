@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2lbb3o8s61p3"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="cleanup_ambient_particles"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [ext_resource type="Script" uid="uid://ci0s82s7h0wph" path="res://scenes/treasure/treasure.gd" id="1_b65ik"]
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="2_8auyv"]
@@ -368,7 +368,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_w2wav")
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("cleanup_ambient_particles")]
+[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 layer = 2
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=1972744723]
