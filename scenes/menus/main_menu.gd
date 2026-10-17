@@ -16,6 +16,10 @@ func _ready() -> void:
 	get_tree().paused = false
 	TelemetryManager.generate_host_unique_ident()
 	continue_button.disabled = SaveGame.load_data() == null
+	if not continue_button.disabled:
+		continue_button.grab_focus()
+	else:
+		$UILayer/Control/Buttons/VBoxContainer/NewGameButton.grab_focus()
 	if !SoundManager.is_music_playing(CASTLE_LOOP):
 		SoundManager.play_music(CASTLE_LOOP,1)
 

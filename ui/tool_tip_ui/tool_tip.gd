@@ -1,7 +1,7 @@
 extends PanelContainer
 class_name Tooltip
 
-@export var fade_seconds := 0.2
+@export var fade_seconds := 0.12
 @onready var tooltip_text_label = %TooltipTextLabel
 @onready var keyword_text_label: RichTextLabel = %KeywordTextLabel
 
@@ -29,14 +29,9 @@ func hide_tooltip() -> void:
 	_visible = false
 	if tween:
 		tween.kill()
-		
-	get_tree().create_timer(fade_seconds,false).timeout.connect(hide_animation)
-	
-func hide_animation() -> void:
-	if !_visible:
-		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(self, "modulate", Color.TRANSPARENT, fade_seconds)
-		tween.tween_callback(hide)
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.08)
+	tween.tween_callback(hide)
 
 
 func _build_tooltip_text(data: TooltipData) -> String:

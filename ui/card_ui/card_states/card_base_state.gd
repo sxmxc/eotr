@@ -14,9 +14,12 @@ func enter() -> void:
 	card_ui.reparent_requested.emit(card_ui)
 	card_ui.state.text = "BASE"
 	card_ui.pivot_offset = Vector2.ZERO
+	card_ui.scale = Vector2.ONE
+	card_ui.set_inspected(false, true)
 	Events.tooltip_hide_requested.emit()
 
 func exit() -> void:
+	card_ui.set_inspected(false, true)
 	card_ui.visuals.set_hover_outline(false)
 
 func on_gui_input(event: InputEvent) -> void:
@@ -29,20 +32,20 @@ func on_gui_input(event: InputEvent) -> void:
 
 
 func on_mouse_entered() -> void:
+	if card_ui.disabled:
+		return
 	mouse_over_card = true
-	card_ui.z_index += 1
-	card_ui.scale = Vector2(1.1,1.1)
+	card_ui.z_index = 100
+	card_ui.set_inspected(true)
+	card_ui.request_description()
 	if not card_ui.playable or card_ui.disabled:
 		return
 	card_ui.visuals.set_hover_outline(true)
-	card_ui.request_description()
 
 
 func on_mouse_exited() -> void:
 	mouse_over_card = false
-	card_ui.z_index = 0
-	card_ui.scale = Vector2.ONE
-	if not card_ui.playable or card_ui.disabled:
-		return
+	card_ui.z_index = card_ui.get_index()
+	card_ui.set_inspected(false)
 	card_ui.visuals.set_hover_outline(false)
 	Events.tooltip_hide_requested.emit()

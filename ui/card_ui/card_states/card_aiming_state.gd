@@ -1,6 +1,6 @@
 extends CardState
 
-const MOUSE_Y_CANCEL_THRESHOLD := 1000
+const HAND_CANCEL_MARGIN := 60.0
 
 
 func enter() -> void:
@@ -17,9 +17,9 @@ func enter() -> void:
 	card_ui.scale = Vector2.ONE
 	card_ui.state.text = "AIMING"
 	card_ui.targets.clear()
-	var offset := Vector2(card_ui.parent.size.x / 2, -card_ui.size.y / 2)
-	offset.x -= card_ui.size.x / 2
-	card_ui.animate_to_position(card_ui.parent.global_position + offset, 0.2)
+	# The selected card stays in the bottom interaction zone. The field remains clear.
+	var origin := Vector2(card_ui.parent.global_position.x + card_ui.parent.size.x / 2.0 - card_ui.size.x / 2.0, card_ui.get_viewport_rect().size.y - card_ui.size.y - 28.0)
+	card_ui.animate_to_position(origin, 0.12)
 	card_ui.drop_point_detector.monitoring = false
 	Events.card_aim_started.emit(card_ui)
 
@@ -32,7 +32,7 @@ func exit() -> void:
 
 func on_input(event: InputEvent) -> void:
 	var mouse_motion := event is InputEventMouseMotion
-	var mouse_at_bottom := card_ui.get_global_mouse_position().y > MOUSE_Y_CANCEL_THRESHOLD
+	var mouse_at_bottom := card_ui.get_global_mouse_position().y > card_ui.get_viewport_rect().size.y - HAND_CANCEL_MARGIN
 
 	if (mouse_motion and mouse_at_bottom) or event.is_action_pressed("right_mouse"):
 		card_ui.targets.clear()

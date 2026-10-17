@@ -241,6 +241,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ttpkl")
+expand_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=884562537]
 libraries/ = SubResource("AnimationLibrary_23hq6")

@@ -97,15 +97,15 @@ _data = {
 }
 
 [node name="RelicUI" type="Control" unique_id=683986904]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 0
-pivot_offset = Vector2(50, 50)
+pivot_offset = Vector2(32, 32)
 theme = ExtResource("1_v7f4x")
 script = ExtResource("1_m2800")
 
 [node name="Panel" type="Panel" parent="." unique_id=96811376]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

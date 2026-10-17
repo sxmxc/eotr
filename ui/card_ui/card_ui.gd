@@ -7,8 +7,8 @@ const CARD_UI_SIZE := Vector2(180,240)
 signal reparent_requested(which_card_ui: CardUI)
 
 const CARD_BURNABLE = preload("res://resources/materials/card_burnable.tres")
-const COST_FONT_COLOR_WHITE = Color(0.824, 0.788, 0.647)
-const COST_FONT_COLOR_RED = Color(0.682, 0.365, 0.251)
+const COST_FONT_COLOR_WHITE = Color("ede6d6")
+const COST_FONT_COLOR_RED = Color("ef887a")
 const KEYWORD_TOOLTIP_HELPER = preload("res://ui/tool_tip_ui/keyword_tooltip_helper.gd")
 
 @export var player_modifiers: ModifierHandler
@@ -26,6 +26,7 @@ const KEYWORD_TOOLTIP_HELPER = preload("res://ui/tool_tip_ui/keyword_tooltip_hel
 @onready var targets: Array[Node] = []
 @onready var visuals: CardVisuals = %Visuals
 
+var hover_tween: Tween
 var original_index := 0
 var parent: Control
 var tween: Tween
@@ -51,6 +52,8 @@ func _input(event):
 
 
 func animate_to_position(pos: Vector2, duration: float):
+	if tween and tween.is_valid():
+		tween.kill()
 	tween = create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "global_position", pos, duration)
 
@@ -84,7 +87,11 @@ func request_description() -> void:
 	var enemy_modifiers := get_active_enemy_modifiers()
 	var modified_description := card.get_modified_description(player_modifiers, enemy_modifiers)
 	var keyword_tooltips := KEYWORD_TOOLTIP_HELPER.build_keyword_tooltips(modified_description)
-	var tooltip_data := TooltipData.new(modified_description, keyword_tooltips)
+	var overflow := visuals.card_text_label.get_content_height() > visuals.card_text_label.size.y
+	var tooltip_data := TooltipData.new(modified_description if overflow else "", keyword_tooltips)
+	if keyword_tooltips.is_empty() and not overflow:
+		Events.tooltip_hide_requested.emit()
+		return
 	Events.card_tooltip_requested.emit(tooltip_data)
 
 
@@ -97,9 +104,9 @@ func burn_card() -> void:
 	var world_ui := get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
 	var discard_pile_position := Vector2.ZERO
 	if world_ui:
-		var discard_button := world_ui.get_node_or_null("DiscardPileButton") as Node2D
-		if discard_button:
-			discard_pile_position = discard_button.global_position
+		var pile_button: Control = world_ui.exhaust_pile_button if card.exhaust else world_ui.discard_pile_button
+		if pile_button:
+			discard_pile_position = pile_button.get_global_rect().get_center()
 	if discard_pile_position == Vector2.ZERO:
 		discard_pile_position = global_position
 	var target_offset : Vector2 = Vector2(size.x /2, size.y / 2)
@@ -162,7 +169,7 @@ func _set_card(value: Card) -> void:
 func _set_playable(value: bool) -> void:
 	playable = value
 	if not playable:
-		visuals.card_cost_label.add_theme_color_override("font_color", Color.RED)
+		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_RED)
 	else:
 		visuals.card_cost_label.add_theme_color_override("font_color", COST_FONT_COLOR_WHITE)
 	_refresh_interaction_visuals()
@@ -227,3 +234,18 @@ func _refresh_interaction_visuals() -> void:
 		visuals.set_hover_outline(false)
 	elif _hovering and visuals.has_method("set_hover_outline"):
 		visuals.set_hover_outline(true)
+
+
+func set_inspected(inspected: bool, immediate: bool = false) -> void:
+	if hover_tween and hover_tween.is_valid():
+		hover_tween.kill()
+	visuals.pivot_offset = Vector2(size.x / 2.0, size.y)
+	var target_scale := Vector2(1.32, 1.32) if inspected else Vector2.ONE
+	var target_position := Vector2(0, -32) if inspected else Vector2.ZERO
+	if immediate:
+		visuals.scale = target_scale
+		visuals.position = target_position
+		return
+	hover_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	hover_tween.tween_property(visuals, "scale", target_scale, 0.12)
+	hover_tween.tween_property(visuals, "position", target_position, 0.12)

@@ -36,6 +36,8 @@ func _ready() -> void:
 		node.queue_free()
 	rewards.child_order_changed.connect(_on_reward_order_changed)
 	enemy_rewards.child_order_changed.connect(_on_enemy_reward_order_changed)
+	%RewardScroll.get_child(0).minimum_size_changed.connect(_resize_reward_list)
+	_resize_reward_list.call_deferred()
 	_on_reward_order_changed()
 	_on_enemy_reward_order_changed()
 
@@ -113,6 +115,7 @@ func _on_reward_order_changed() -> void:
 			empty_label.hide()
 	else:
 		reward_label.show()
+		empty_label.hide()
 		
 func _on_enemy_reward_order_changed() -> void:
 	if (
@@ -130,6 +133,7 @@ func _on_enemy_reward_order_changed() -> void:
 			empty_label.hide()
 	else:
 		enemy_reward_label.show()
+		empty_label.hide()
 
 func _on_gold_reward_taken(amount: int) -> void:
 	if not run_stats:
@@ -260,3 +264,8 @@ func _pick_card_reward(
 
 func _on_back_button_pressed() -> void:
 	Events.battle_reward_exited.emit()
+
+
+func _resize_reward_list() -> void:
+	var scroll := %RewardScroll as ScrollContainer
+	scroll.custom_minimum_size.y = minf(480.0, scroll.get_child(0).get_combined_minimum_size().y)

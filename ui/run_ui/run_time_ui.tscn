@@ -8,7 +8,7 @@ size_flags_horizontal = 2
 script = ExtResource("1_ufay1")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1678898646]
-custom_minimum_size = Vector2(75, 75)
+custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("1_8mou2")
 expand_mode = 1
@@ -16,5 +16,9 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="." unique_id=1846059398]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 28
 text = "00:00:00"
+
+[node name="UpdateTimer" type="Timer" parent="."]
+wait_time = 0.25
+ignore_time_scale = true

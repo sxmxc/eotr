@@ -44,6 +44,8 @@
 [ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="32_djwbl"]
 [ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="33_nwf7k"]
 
+[ext_resource type="Script" path="res://scenes/run/legend_content.gd" id="48_legend"]
+
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ymu0v"]
 shuffle = true
 stream_count = 3
@@ -52,9 +54,9 @@ stream_1 = ExtResource("4_tbe7a")
 stream_2 = ExtResource("5_a0b37")
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqbdr"]
-font_size = 40
+font_size = 20
 font_color = Color(0.823529, 0.788235, 0.647059, 1)
-outline_size = 5
+outline_size = 2
 outline_color = Color(0.294118, 0.239216, 0.266667, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6p45"]
@@ -263,15 +265,15 @@ layer = 4
 [node name="ColorRect" type="ColorRect" parent="TopBar" unique_id=51867573]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 112.0
+offset_bottom = 80.0
 grow_horizontal = 2
-color = Color(0.294118, 0.239216, 0.266667, 1)
+color = Color(0.045, 0.065, 0.10, 0.98)
 
 [node name="MarginContainer" type="MarginContainer" parent="TopBar" unique_id=1353700119]
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 80)
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 112.0
+offset_bottom = 80.0
 grow_horizontal = 2
 theme = ExtResource("7_l4vn1")
 theme_override_constants/margin_left = 10
@@ -283,18 +285,18 @@ theme_override_constants/separation = 10
 
 [node name="HealthUI" parent="TopBar/MarginContainer/BarItems" unique_id=358501223 instance=ExtResource("8_ctna3")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(302, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 show_max_hp = true
 
 [node name="GoldUI" parent="TopBar/MarginContainer/BarItems" unique_id=1118499638 instance=ExtResource("9_axhcw")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 
 [node name="ResourcesUI" parent="TopBar/MarginContainer/BarItems" unique_id=501486573 instance=ExtResource("10_dfo0u")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(206, 0)
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 
 [node name="RunTimeUI" parent="TopBar/MarginContainer/BarItems" unique_id=104178830 instance=ExtResource("11_n0yky")]
@@ -307,21 +309,21 @@ size_flags_horizontal = 3
 
 [node name="RelicHandler" parent="TopBar/MarginContainer/BarItems/RelicHandlerContainer" unique_id=1479999069 instance=ExtResource("12_yey0w")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 105)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 
 [node name="DeckButton" parent="TopBar/MarginContainer/BarItems" unique_id=1712386859 node_paths=PackedStringArray("counter") instance=ExtResource("13_ev4fb")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 counter = NodePath("Count")
 
 [node name="Count" type="Label" parent="TopBar/MarginContainer/BarItems/DeckButton" unique_id=863338298]
 layout_mode = 0
-offset_left = -11.0
-offset_top = 56.0
-offset_right = 35.0
-offset_bottom = 111.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 72.0
+offset_bottom = 68.0
 text = "99"
 label_settings = SubResource("LabelSettings_gqbdr")
 horizontal_alignment = 1
@@ -345,6 +347,7 @@ visible = false
 layer = 2
 
 [node name="MapLegend" type="Control" parent="MapLegendUI" unique_id=771119671]
+script = ExtResource("48_legend")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -357,13 +360,15 @@ theme = ExtResource("17_82xe7")
 [node name="Panel" type="Panel" parent="MapLegendUI/MapLegend" unique_id=17359803]
 layout_mode = 1
 anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -428.0
-offset_right = 320.0
-offset_bottom = -376.0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 368.0
+offset_right = 290.0
+offset_bottom = 420.0
 grow_vertical = 2
 theme_type_variation = &"HudPanelBackground"
+
+offset_left = 40.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MapLegendUI/MapLegend/Panel" unique_id=1315799063]
 layout_mode = 1
@@ -389,38 +394,37 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer" unique_id=1636392297]
+[node name="Label" type="Button" parent="MapLegendUI/MapLegend/Panel/MarginContainer/Panel/HBoxContainer" unique_id=1636392297]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "Legend"
+toggle_mode = true
+text = "Encounter legend  +"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+theme_override_font_sizes/font_size = 20
+
 [node name="MarginContainer" type="MarginContainer" parent="MapLegendUI/MapLegend" unique_id=1777050983]
-custom_minimum_size = Vector2(296, 504)
+custom_minimum_size = Vector2(250, 316)
 layout_mode = 1
 anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -376.0
-offset_right = 320.0
-offset_bottom = 273.0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 420.0
+offset_right = 290.0
+offset_bottom = 736.0
 grow_vertical = 2
+
+offset_left = 40.0
 
 [node name="LegendContent" type="Control" parent="MapLegendUI/MapLegend/MarginContainer" unique_id=1609341400]
 unique_name_in_owner = true
 process_mode = 3
-editor_description = "
-			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
-			
-Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
-custom_minimum_size = Vector2(320, 649)
+custom_minimum_size = Vector2(250, 316)
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-metadata/_custom_type_script = "uid://dd1vikhuh37ul"
 
 [node name="Panel2" type="Panel" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent" unique_id=248778333]
 layout_mode = 1
@@ -458,7 +462,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1469875195]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("18_yj3lc")
 expand_mode = 1
@@ -466,14 +470,15 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=691681979]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "- Rift"
+theme_override_colors/font_color = Color(0.93, 0.90, 0.84, 1)
+theme_override_font_sizes/font_size = 20
+text = "Rift"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1250636018]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=718875884]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("19_4aki2")
 expand_mode = 1
@@ -481,14 +486,15 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=496445266]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "- Elite Rift"
+theme_override_colors/font_color = Color(0.93, 0.90, 0.84, 1)
+theme_override_font_sizes/font_size = 20
+text = "Elite Rift"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1023831166]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1533296682]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("20_8fhq7")
 expand_mode = 1
@@ -496,14 +502,15 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=180207028]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "- Shop"
+theme_override_colors/font_color = Color(0.93, 0.90, 0.84, 1)
+theme_override_font_sizes/font_size = 20
+text = "Shop"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1786266073]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=1659825555]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("21_x3nam")
 expand_mode = 1
@@ -511,14 +518,15 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=219780469]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "- Rest"
+theme_override_colors/font_color = Color(0.93, 0.90, 0.84, 1)
+theme_override_font_sizes/font_size = 20
+text = "Rest"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1531795373]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=707544995]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("22_0rx4c")
 expand_mode = 1
@@ -526,14 +534,15 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=415657400]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "- Treasure"
+theme_override_colors/font_color = Color(0.93, 0.90, 0.84, 1)
+theme_override_font_sizes/font_size = 20
+text = "Treasure"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1201227888]
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=286953981]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("23_ixteu")
 expand_mode = 1
@@ -541,12 +550,13 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="MapLegendUI/MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=1239814836]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.301961, 0.270588, 0.223529, 1)
-text = "- Boss"
+theme_override_colors/font_color = Color(0.93, 0.90, 0.84, 1)
+theme_override_font_sizes/font_size = 20
+text = "Boss"
 
 [node name="TextureRect" type="TextureRect" parent="MapLegendUI" unique_id=715883777]
 modulate = Color(0.823529, 0.788235, 0.647059, 1)
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(64, 64)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -562,6 +572,8 @@ texture = ExtResource("24_xrsi6")
 expand_mode = 1
 stretch_mode = 5
 
+visible = false
+
 [node name="Bouncer" type="Node" parent="MapLegendUI/TextureRect" unique_id=1238631880]
 script = ExtResource("25_xrrkx")
 metadata/_custom_type_script = "uid://c7wfd2um7frkt"
@@ -572,10 +584,10 @@ custom_minimum_size = Vector2(48, 48)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 51.0
-offset_top = -230.0
-offset_right = 237.0
-offset_bottom = -60.0
+offset_left = 40.0
+offset_top = -112.0
+offset_right = 104.0
+offset_bottom = -48.0
 grow_vertical = 0
 tooltip_text = "Bounty Board"
 texture_normal = ExtResource("26_s0vt7")
@@ -952,7 +964,7 @@ text = "Welcome to the Run Map, your route through the Rift. Quick primer:
 
 [b]Deck[/b] - Grow it via rewards and shops; trimming keeps draws consistent.
 
-[b]Map Legend[/b] - Hover the legend to read icons. Choose paths carefully; once you commit, upstream nodes lock."
+[b]Map Legend[/b] - Open the encounter legend to read icons. Choose paths carefully; once you commit, upstream nodes lock."
 fit_content = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=975355932]

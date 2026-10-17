@@ -1,82 +1,24 @@
 [gd_scene format=3 uid="uid://bxte0jljomebr"]
-
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_l7vl4"]
-[ext_resource type="Script" uid="uid://dfr8wp2lddrge" path="res://ui/player_ui/round_info.gd" id="2_j3h41"]
-
-[node name="RoundInfoUI" type="Panel" unique_id=971221952]
-offset_right = 278.0
-offset_bottom = 119.0
-theme = ExtResource("1_l7vl4")
-theme_type_variation = &"HudPanelBackground"
-script = ExtResource("2_j3h41")
-
-[node name="MainMargin" type="MarginContainer" parent="." unique_id=1588300037]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Panel" type="Panel" parent="MainMargin" unique_id=57857064]
-layout_mode = 2
-theme_type_variation = &"HudPanelMain"
-
-[node name="BodyMargin" type="MarginContainer" parent="MainMargin/Panel" unique_id=1297776910]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin" unique_id=2088363317]
-layout_mode = 2
-size_flags_horizontal = 4
-alignment = 1
-
-[node name="Type" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=615094052]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type" unique_id=968810884]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
-text = "Turn"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TurnLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type" unique_id=337160667]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Script" path="res://ui/player_ui/round_info.gd" id="script"]
+[sub_resource type="StyleBoxEmpty" id="empty"]
+[node name="RoundInfoUI" type="Panel"]
+offset_right = 250.0
+offset_bottom = 76.0
+mouse_filter = 1
+theme = ExtResource("theme")
+theme_override_styles/panel = SubResource("empty")
+script = ExtResource("script")
+[node name="TurnLabel" type="Label" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Type2" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer" unique_id=2136945402]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type2" unique_id=321117663]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
-text = "Void"
-vertical_alignment = 1
-
-[node name="VoidLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type2" unique_id=135950848]
+offset_right = 250.0
+offset_bottom = 26.0
+theme_type_variation = &"Eyebrow"
+text = "ROUND 01"
+[node name="VoidLabel" type="Label" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-text = "0"
+offset_top = 34.0
+offset_right = 250.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 22
+text = "Collapse in 2 rounds"

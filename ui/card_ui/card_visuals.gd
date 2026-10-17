@@ -13,8 +13,8 @@ const HOVERED_MATERIAL := preload("res://resources/materials/card_hovered_materi
 @onready var rarity: TextureRect = %Rarity
 @onready var card_trail_fx: GPUParticles2D = %CardTrailFX
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var background_texture: TextureRect = %CardBackgroundTexture
-@onready var foreground_texture: TextureRect = %CardForegroundFrame
+@onready var background_texture: Panel = %CardBackgroundTexture
+@onready var foreground_texture: Control = %CardForegroundFrame
 @onready var outline_overlay: TextureRect = %OutlineOverlay
 @onready var card_art_texture: TextureRect = %CardArt
 
@@ -28,25 +28,11 @@ var _is_hovered := false
 var _is_modified := false
 
 
+var _face_style: StyleBoxFlat
+
 func _ready() -> void:
-	if outline_overlay and outline_overlay.material:
-		outline_material = outline_overlay.material.duplicate()
-		outline_overlay.material = outline_material
-
-	if card_art_texture:
-		fallback_art_texture = card_art_texture.texture
-	_base_background_material = background_texture.material
-	if _base_background_material and _base_background_material.resource_local_to_scene:
-		_base_background_material = _base_background_material.duplicate()
-	_hover_background_material = HOVERED_MATERIAL.duplicate()
-	_modified_background_material = MODIFIED_MATERIAL.duplicate()
-	if _hover_background_material is ShaderMaterial:
-		(_hover_background_material as ShaderMaterial).set_shader_parameter("rect_size", background_texture.size)
-	if _modified_background_material is ShaderMaterial:
-		(_modified_background_material as ShaderMaterial).set_shader_parameter("rect_size", background_texture.size)
-
-	if outline_overlay:
-		outline_overlay.visible = false
+	_face_style = background_texture.get_theme_stylebox("panel").duplicate()
+	background_texture.add_theme_stylebox_override("panel", _face_style)
 	_update_background_material()
 
 
@@ -56,7 +42,7 @@ func set_card(value: Card) -> void:
 	card = value
 	set_cost(card.energy_cost)
 	card_name_label.text = str(card.name)
-	card_type_label.text = Enums.CardType.keys()[card.card_type].capitalize()
+	card_type_label.text = Enums.CardType.keys()[card.card_type] + (" · EXHAUST" if card.exhaust else "")
 	card_text_label.text = str(card.description)
 	rarity.modulate = Card.RARITY_COLORS[card.card_rarity]
 	_apply_card_art()
@@ -89,20 +75,30 @@ func set_interactable(active: bool) -> void:
 
 
 func _apply_card_art() -> void:
-	if card and card.card_art:
-		card_art_texture.texture = card.card_art
-		card_art_texture.visible = true
+	var authored_art := card.card_art if card else null
+	if authored_art and not authored_art.resource_path.ends_with("default_card_image.jpg"):
+		card_art_texture.texture = authored_art
+		card_art_texture.modulate = Color.WHITE
 	else:
-		card_art_texture.texture = fallback_art_texture
-		card_art_texture.visible = fallback_art_texture != null
+		var path := "res://assets/icons/cross-flare.svg"
+		match card.card_type:
+			Enums.CardType.ATTACK:
+				path = "res://assets/icons/piercing-sword.svg"
+			Enums.CardType.DEFENSE:
+				path = "res://assets/icons/shield.png"
+			Enums.CardType.MOVEMENT:
+				path = "res://assets/icons/wingfoot.svg"
+			Enums.CardType.RESOURCE:
+				path = "res://assets/icons/metal-bar-fg-only.svg"
+		card_art_texture.texture = load(path)
+		card_art_texture.modulate = Color("81bcb7")
+	card_art_texture.show()
 
 
 func _update_background_material() -> void:
-	if not background_texture:
+	if not _face_style:
 		return
-	var mat: Material = _base_background_material
-	if _is_hovered and _hover_background_material:
-		mat = _hover_background_material
-	if _is_modified and _modified_background_material:
-		mat = _modified_background_material
-	background_texture.material = mat
+	_face_style.border_color = Color("66d9c7") if _is_hovered else Color("415462")
+	if _is_modified:
+		_face_style.border_color = Color("d9b76f")
+	_face_style.set_border_width_all(2 if _is_hovered else 1)

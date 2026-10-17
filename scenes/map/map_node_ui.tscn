@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bdqmkh35suft4" path="res://scenes/map/map_node_ui.gd" id="1_0vh7f"]
 [ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="1_ajjoh"]
 
+[ext_resource type="Theme" path="res://resources/themes/default_theme.tres" id="3_theme"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_0vh7f"]
 radius = 22.0227
 
@@ -46,7 +48,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.25, 1.25)]
+"values": [Vector2(1, 1), Vector2(1.06, 1.06)]
 }
 
 [sub_resource type="Animation" id="Animation_ayx5e"]
@@ -110,5 +112,15 @@ shape = SubResource("CircleShape2D_0vh7f")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1200716269]
 libraries/ = SubResource("AnimationLibrary_j1x36")
+
+[node name="RouteLabel" type="Label" parent="."]
+offset_left = -54.0
+offset_right = 54.0
+offset_top = 30.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme = ExtResource("3_theme")
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

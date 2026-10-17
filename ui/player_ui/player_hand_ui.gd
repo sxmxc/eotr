@@ -19,10 +19,12 @@ class_name PlayerHand
 @onready var card_ui_scene = preload("res://ui/card_ui/card_ui.tscn")
 
 var cards_played_this_turn := 0
+var layout_tween: Tween
 
 
 func _ready() -> void:
 	Events.card_played.connect(_on_card_played)
+	resized.connect(_update_cards)
 
 
 func add_card(card: Card) -> void:
@@ -94,30 +96,26 @@ func disable_hand() -> void:
 		card.disabled = true
 
 func _update_cards() -> void:
-	var card_count : int = get_child_count()
-	var all_cards_size := CardUI.CARD_UI_SIZE.x * card_count + x_sep * (card_count-1)
-	var final_x_sep : float = x_sep
-	
-	if all_cards_size > size.x:
-		final_x_sep = (size.x - CardUI.CARD_UI_SIZE.x * card_count) / (card_count - 1)
-		all_cards_size = size.x
-		
-	var offset := (size.x - all_cards_size) / 2
-	
-	for i in card_count:
-		var card := get_child(i)
-		var y_multiplier := hand_curve.sample(1.0 / (card_count-1) * i)
-		var rot_multiplier := rotation_curve.sample(1.0 / (card_count-1) * i)
-		
-		if card_count == 1:
-			y_multiplier = 0.0
-			rot_multiplier = 0.0
-			
-		var final_x : float = offset + CardUI.CARD_UI_SIZE.x * i + final_x_sep * i
-		var final_y : float = y_min + y_max * y_multiplier
-		
-		card.position = Vector2(final_x, final_y)
-		card.rotation_degrees = max_rotation_degrees * rot_multiplier
+	var count := get_child_count()
+	if count == 0:
+		return
+	if layout_tween and layout_tween.is_valid():
+		layout_tween.kill()
+	layout_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	var width := CardUI.CARD_UI_SIZE.x
+	var step := minf(width + x_sep, maxf(0.0, size.x - width) / maxf(1.0, count - 1.0))
+	var offset := (size.x - width - step * (count - 1)) / 2.0
+	for i in count:
+		var card := get_child(i) as CardUI
+		if not card:
+			continue
+		var sample := float(i) / float(count - 1) if count > 1 else 0.5
+		var y := hand_curve.sample(sample) if hand_curve and count > 1 else 0.0
+		var rotation_value := rotation_curve.sample(sample) if rotation_curve and count > 1 else 0.0
+		card.original_index = i
+		card.z_index = i
+		layout_tween.tween_property(card, "position", Vector2(offset + step * i, y_min + y_max * y), 0.18)
+		layout_tween.tween_property(card, "rotation_degrees", max_rotation_degrees * rotation_value, 0.18)
 
 func _set_player_stats(value: PlayerStats) -> void:
 	player_stats = value

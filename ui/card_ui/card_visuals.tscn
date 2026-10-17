@@ -122,180 +122,147 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_vqvlo"]
-font_color = Color(0.294118, 0.239216, 0.266667, 1)
+font_size = 18
+font_color = Color(0.92, 0.93, 0.88, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_lcjp3"]
 font_size = 12
 font_color = Color(0.294118, 0.239216, 0.266667, 1)
 
-[node name="Visuals" type="Control" unique_id=1541876400]
-custom_minimum_size = Vector2(187, 262)
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -93.5
-offset_top = -131.0
-offset_right = 93.5
-offset_bottom = 131.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(90, 120)
-size_flags_horizontal = 4
-size_flags_vertical = 4
+
+[sub_resource type="StyleBoxFlat" id="face"]
+resource_local_to_scene = true
+bg_color = Color(0.045, 0.065, 0.095, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26, 0.34, 0.40, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 8
+[sub_resource type="StyleBoxFlat" id="cost"]
+bg_color = Color(0.1, 0.27, 0.29, 1)
+border_width_bottom = 2
+border_color = Color(0.40, 0.78, 0.73, 1)
+corner_radius_top_left = 8
+corner_radius_bottom_right = 8
+
+[node name="Visuals" type="Control"]
+offset_right = 180.0
+offset_bottom = 240.0
+mouse_filter = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_script")
-metadata/_edit_horizontal_guides_ = [244.0]
-
-[node name="CardBackgroundTexture" type="TextureRect" parent="." unique_id=170568023]
+[node name="CardBackgroundTexture" type="Panel" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(187, 262)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -93.5
-offset_top = -131.0
-offset_right = 93.5
-offset_bottom = 131.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 180.0
+offset_bottom = 240.0
 mouse_filter = 2
-texture = ExtResource("3_0p8qx")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="CardArt" type="TextureRect" parent="." unique_id=1084253666]
+use_parent_material = true
+theme_override_styles/panel = SubResource("face")
+[node name="ArtWell" type="ColorRect" parent="."]
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 170.0
+offset_bottom = 112.0
+color = Color(0.018, 0.033, 0.055, 1)
+mouse_filter = 2
+[node name="CardArt" type="TextureRect" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.07754026
-anchor_top = 0.08778623
-anchor_right = 0.93315524
-anchor_bottom = 0.480916
+offset_left = 16.0
+offset_top = 44.0
+offset_right = 164.0
+offset_bottom = 110.0
 mouse_filter = 2
+use_parent_material = true
 texture = ExtResource("4_1bfbl")
 expand_mode = 1
-stretch_mode = 6
-metadata/_edit_use_anchors_ = true
-
-[node name="CardTextBackground" type="TextureRect" parent="." unique_id=1672243496]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.41984734
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("4_nxj80")
-expand_mode = 1
-stretch_mode = 4
-metadata/_edit_use_anchors_ = true
-
-[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground" unique_id=1679591947]
-layout_mode = 1
+stretch_mode = 5
+[node name="CardTextBackground" type="Control" parent="."]
+offset_left = 12.0
+offset_top = 140.0
+offset_right = 168.0
+offset_bottom = 227.0
+mouse_filter = 2
+[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 18
-
-[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer" unique_id=888640555]
+mouse_filter = 2
+[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer"]
 unique_name_in_owner = true
-use_parent_material = true
 layout_mode = 2
 mouse_filter = 2
-theme_override_colors/default_color = Color(0.301961, 0.270588, 0.223529, 1)
-theme_override_font_sizes/normal_font_size = 16
-theme_override_font_sizes/bold_font_size = 16
-theme_override_font_sizes/bold_italics_font_size = 16
-theme_override_font_sizes/italics_font_size = 16
-theme_override_font_sizes/mono_font_size = 16
-bbcode_enabled = true
-text = "Card Text"
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("8_autortl")
-watch_text_change = true
-max_font_size = 16
-step_sizes = Array[int]([8, 16])
-metadata/_custom_type_script = "uid://leehmvr1x5lu"
-
-[node name="CardForegroundFrame" type="TextureRect" parent="." unique_id=686301827]
-unique_name_in_owner = true
 use_parent_material = true
-layout_mode = 1
-offset_right = 187.0
-offset_bottom = 142.0
+theme_override_colors/default_color = Color(0.90, 0.92, 0.89, 1)
+theme_override_font_sizes/normal_font_size = 17
+theme_override_font_sizes/bold_font_size = 17
+bbcode_enabled = true
+scroll_active = false
+text = "Card effect"
+vertical_alignment = 1
+[node name="CardForegroundFrame" type="Control" parent="."]
+unique_name_in_owner = true
 mouse_filter = 2
-texture = ExtResource("6_kin56")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="OutlineOverlay" type="TextureRect" parent="." unique_id=516535861]
+[node name="OutlineOverlay" type="TextureRect" parent="."]
 unique_name_in_owner = true
 visible = false
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
+mouse_filter = 2
+[node name="Rarity" type="TextureRect" parent="."]
+unique_name_in_owner = true
+offset_left = 12.0
+offset_top = 124.0
+offset_right = 18.0
+offset_bottom = 130.0
+mouse_filter = 2
+texture = ExtResource("7_eqiyl")
+expand_mode = 1
+stretch_mode = 5
+[node name="CardTypeLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 25.0
+offset_top = 116.0
+offset_right = 170.0
+offset_bottom = 138.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.52, 0.66, 0.72, 1)
+theme_override_font_sizes/font_size = 12
+text = "ATTACK"
+[node name="CardCost" type="Panel" parent="."]
+offset_right = 34.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("cost")
+[node name="CardCostLabel" type="Label" parent="CardCost"]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
-stretch_mode = 4
-
-[node name="Rarity" type="TextureRect" parent="." unique_id=1910562756]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 0
-offset_left = 75.0
-offset_top = 115.0
-offset_right = 114.0
-offset_bottom = 152.0
-texture = ExtResource("7_eqiyl")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="CardCost" type="TextureRect" parent="." unique_id=904126701]
-layout_mode = 0
-offset_left = 140.0
-offset_top = -19.0
-offset_right = 206.0
-offset_bottom = 47.0
-texture = ExtResource("8_ld3x3")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="CardCostLabel" type="Label" parent="CardCost" unique_id=234002410]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.0
-offset_top = -25.0
-offset_right = 22.5
-offset_bottom = 17.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-theme_override_font_sizes/font_size = 32
-text = "0"
+theme_override_colors/font_color = Color(0.91, 0.98, 0.92, 1)
+theme_override_font_sizes/font_size = 24
+text = "1"
 horizontal_alignment = 1
-
+vertical_alignment = 1
+[node name="CardNameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 42.0
+offset_top = 7.0
+offset_right = 172.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.93, 0.88, 1)
+theme_override_font_sizes/font_size = 18
+text = "Card name"
+text_overrun_behavior = 3
+script = ExtResource("7_autolabel")
+watch_text_change = true
+max_font_size = 18
+step_sizes = Array[int]([14, 16, 18])
 [node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1357946861]
 unique_name_in_owner = true
 process_mode = 3
@@ -313,48 +280,3 @@ process_material = SubResource("ParticleProcessMaterial_nb1yb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=100911302]
 libraries/ = SubResource("AnimationLibrary_si0b1")
-
-[node name="CardNameLabel" type="Label" parent="." unique_id=1061145344]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -55.5
-offset_top = 3.0
-offset_right = 56.5
-offset_bottom = 37.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 6.15
-theme_override_font_sizes/font_size = 32
-text = "TITLE"
-label_settings = SubResource("LabelSettings_vqvlo")
-horizontal_alignment = 1
-uppercase = true
-script = ExtResource("7_autolabel")
-watch_text_change = true
-max_font_size = 32
-step_sizes = Array[int]([8, 16, 32])
-metadata/_custom_type_script = "uid://d11kfgsd6jgt"
-
-[node name="CardTypeLabel" type="Label" parent="." unique_id=543075485]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.5
-offset_top = -20.0
-offset_right = 81.5
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"HeaderSmall"
-text = "TYPE"
-label_settings = SubResource("LabelSettings_lcjp3")
-horizontal_alignment = 1

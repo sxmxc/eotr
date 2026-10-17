@@ -1,56 +1,53 @@
 [gd_scene format=3 uid="uid://dlbek83rsj3cw"]
-
-[ext_resource type="PackedScene" uid="uid://cykfdvitncsv8" path="res://scenes/map/map_bounty_board.tscn" id="1_ir7qu"]
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_t8iu8"]
-[ext_resource type="Script" uid="uid://bx61r017exiip" path="res://ui/run_ui/bounty_board_view.gd" id="2_5h62o"]
-
-[node name="BountyBoardView" type="Control" unique_id=551049120]
-layout_mode = 3
+[ext_resource type="PackedScene" path="res://scenes/map/map_bounty_board.tscn" id="board"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Script" path="res://ui/run_ui/bounty_board_view.gd" id="script"]
+[node name="BountyBoardView" type="Control"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_t8iu8")
-script = ExtResource("2_5h62o")
-
-[node name="Panel" type="Panel" parent="." unique_id=1576326215]
-layout_mode = 1
+theme = ExtResource("theme")
+script = ExtResource("script")
+[node name="Scrim" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"HudPanelBackground"
-
-[node name="BackButton" type="Button" parent="." unique_id=2097309932]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -152.0
-offset_top = 64.0
-offset_right = -48.0
-offset_bottom = 119.0
-grow_horizontal = 0
-text = "Back"
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1833011558]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+color = Color(0.008, 0.014, 0.025, 0.94)
 mouse_filter = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 150
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
-
-[node name="BountyBoard" parent="MarginContainer" unique_id=1677656518 instance=ExtResource("1_ir7qu")]
+[node name="Card" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_right = 480.0
+offset_top = -330.0
+offset_bottom = 330.0
+[node name="Eyebrow" type="Label" parent="Card"]
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 880.0
+offset_bottom = 64.0
+theme_type_variation = &"Eyebrow"
+text = "THE BOUNTY BOARD"
+[node name="Heading" type="Label" parent="Card"]
+offset_left = 40.0
+offset_top = 74.0
+offset_right = 880.0
+offset_bottom = 140.0
+theme_type_variation = &"Title"
+text = "Hunt across the Rift"
+[node name="BountyBoard" parent="Card" instance=ExtResource("board")]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 1
+offset_left = 40.0
+offset_top = 172.0
+offset_right = 920.0
+offset_bottom = 536.0
+[node name="BackButton" type="Button" parent="Card"]
+unique_name_in_owner = true
+offset_left = 720.0
+offset_top = 568.0
+offset_right = 920.0
+offset_bottom = 624.0
+text = "Close"

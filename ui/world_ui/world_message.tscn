@@ -5,7 +5,7 @@
 
 [node name="WorldMessage" type="PanelContainer" unique_id=247552165]
 modulate = Color(1, 1, 1, 0.45098)
-custom_minimum_size = Vector2(414, 122)
+custom_minimum_size = Vector2(260, 72)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -48,5 +48,7 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
+theme_override_font_sizes/normal_font_size = 20
+mouse_filter = 2
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -77,7 +77,7 @@ func _setup_vignette() -> void:
 		mat.set_shader_parameter("radius", 1.0)
 		mat.set_shader_parameter("softness", 0.32)
 		mat.set_shader_parameter("vignette_color", Color(0, 0, 0, 0.8))
-		mat.set_shader_parameter("noise_amount", 0.08)
+		mat.set_shader_parameter("noise_amount", 0.0)
 		mat.set_shader_parameter("noise_speed", 1.6)
 		vignette_rect.material = mat
 	vignette_rect.visible = true

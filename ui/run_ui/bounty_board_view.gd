@@ -17,8 +17,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if visible and event.is_action_pressed("ui_cancel"):
 		hide()
+		get_viewport().set_input_as_handled()
 
 
 func apply_bounties(contracts: Array[BountyContract], floors_climbed: int, next_refresh_floor: int) -> void:

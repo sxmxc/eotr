@@ -10,7 +10,7 @@ size_flags_vertical = 4
 script = ExtResource("1_8lwrt")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=766336521]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("1_o41h1")
 expand_mode = 1

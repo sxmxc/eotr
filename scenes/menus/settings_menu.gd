@@ -12,23 +12,25 @@ const SETTINGS_PATH = "user://user_settings.ini"
 @onready var tutorial_checkbox: CheckBox = %TutorialCheckbox
 
 var save_settings : ConfigFile
-var have_values_changed := false
+var have_values_changed := false:
+	set(value):
+		have_values_changed = value
+		if is_instance_valid(save_button):
+			save_button.disabled = not value
 
 func _ready() -> void:
 	load_initial_settings()
-
-func _process(_delta: float) -> void:
-	save_button.disabled = !have_values_changed
+	have_values_changed = false
 
 func load_initial_settings() -> void:
 	var settings : SettingsData = GameSettings.get_current_settings()
 		
-	master_volume_slider.value = settings.master_volume
-	sfx_volume_slider.value = settings.sfx_volume
+	master_volume_slider.set_value_no_signal(settings.master_volume)
+	sfx_volume_slider.set_value_no_signal(settings.sfx_volume)
 	resolution_button.select(settings.resolution)
-	fullscreen_button.button_pressed = settings.fullscreen
-	telemetry_check_box.button_pressed = settings.telemetry_enabled
-	tutorial_checkbox.button_pressed = settings.tutorial_enabled
+	fullscreen_button.set_pressed_no_signal(settings.fullscreen)
+	telemetry_check_box.set_pressed_no_signal(settings.telemetry_enabled)
+	tutorial_checkbox.set_pressed_no_signal(settings.tutorial_enabled)
 
 func _on_save_button_pressed() -> void:
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)

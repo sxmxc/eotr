@@ -28,6 +28,8 @@
 [ext_resource type="Resource" uid="uid://rgkxgojapvgc" path="res://resources/data/registries/encounter_registry_act1.tres" id="25_encounter_registry"]
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="27_npu87"]
 
+[ext_resource type="Script" path="res://ui/world_ui/board_overlay.gd" id="28_overlay"]
+
 [sub_resource type="Resource" id="BattleStatsResource"]
 script = ExtResource("13_battle_stats")
 weight = 1.0
@@ -103,6 +105,7 @@ tile_set = ExtResource("3_fog_tileset")
 tile_set = SubResource("TileSet_highlight")
 
 [node name="CardTargetHighlights" type="Node2D" parent="Tilemap" unique_id=86499316]
+script = ExtResource("28_overlay")
 z_index = 2
 
 [node name="CenterMarker" type="Marker2D" parent="Tilemap" unique_id=654286966]

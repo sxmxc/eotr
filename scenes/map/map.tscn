@@ -8,8 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="4_ph54e"]
 [ext_resource type="Resource" uid="uid://rgkxgojapvgc" path="res://resources/data/registries/encounter_registry_act1.tres" id="5_encounter_registry"]
 
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
+
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
-colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
+colors = PackedColorArray(0.015, 0.03, 0.05, 1, 0.02, 0.05, 0.075, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ph54e"]
 gradient = SubResource("Gradient_vn8vg")
@@ -35,7 +37,7 @@ mouse_filter = 2
 texture = ExtResource("4_ph54e")
 
 [node name="Gradient" type="TextureRect" parent="MapBackground" unique_id=362047290]
-modulate = Color(1, 1, 1, 0.647059)
+modulate = Color(1, 1, 1, 0.82)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -60,7 +62,34 @@ unique_name_in_owner = true
 [node name="Camera2D" type="Camera2D" parent="UILayer" unique_id=1868284293]
 unique_name_in_owner = true
 offset = Vector2(960, 540)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(1.65, 1.65)
+
+[node name="MapChrome" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Title" type="Label" parent="MapChrome"]
+offset_left = 40.0
+offset_top = 120.0
+offset_right = 310.0
+offset_bottom = 214.0
+theme = ExtResource("rift_theme")
+theme_type_variation = &"Title"
+theme_override_font_sizes/font_size = 34
+text = "Through
+the Rift"
+mouse_filter = 2
+
+[node name="Progress" type="Label" parent="MapChrome"]
+offset_left = 40.0
+offset_top = 240.0
+offset_right = 310.0
+offset_bottom = 332.0
+theme = ExtResource("rift_theme")
+theme_type_variation = &"Muted"
+text = "Choose your next encounter · Scroll to explore the route"
+mouse_filter = 2
+
+theme_override_font_sizes/font_size = 19
 
 [node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 layer = -1

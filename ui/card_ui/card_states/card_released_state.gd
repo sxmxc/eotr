@@ -28,4 +28,5 @@ func enter() -> void:
 func post_enter() -> void:
 	if played:
 		return
+	Events.world_message_requested.emit(WorldMessageData.new("No valid target. Aim at a highlighted target, or right click to cancel.", WorldMessageData.Priority.ROUTINE))
 	transition_requested.emit(self, CardState.State.BASE)

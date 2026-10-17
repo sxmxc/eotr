@@ -41,7 +41,7 @@ func _ready() -> void:
 	if not run_bootstrap:
 		return
 
-	pause_menu.save_and_quit.connect(func(): get_tree().change_scene_to_file(MAIN_MENU_PATH))
+	pause_menu.save_and_quit.connect(_on_save_and_quit)
 
 	match run_bootstrap.type:
 		RunBootstrap.Type.NEW_RUN:
@@ -100,7 +100,7 @@ func _start_run() -> void:
 		await tutorial_ui.completed
 
 
-func _save_run(was_on_map: bool):
+func _save_run(was_on_map: bool) -> bool:
 	
 	save_data.rng_seed = RNG.instance.seed
 	save_data.rng_state = RNG.instance.state
@@ -114,12 +114,14 @@ func _save_run(was_on_map: bool):
 	save_data.floors_climbed = map.floors_climbed
 	save_data.was_on_map = was_on_map
 	save_data.elapsed_run_time = run_time_ui.elapsed_time
-	save_data.save_data()
+	return save_data.save_data()
 
 
 func _load_run() -> void:
 	save_data = SaveGame.load_data()
-	assert(save_data, "Couldn't load last save")
+	if not save_data:
+		get_tree().change_scene_to_file.call_deferred(MAIN_MENU_PATH)
+		return
 
 	RNG.set_from_save_data(save_data.rng_seed, save_data.rng_state)
 	run_stats = save_data.run_stats
@@ -165,6 +167,7 @@ func _show_map() -> void:
 
 
 func _setup_event_connections() -> void:
+	Events.player_died.connect(run_time_ui.stop)
 	Events.battle_won.connect(_on_battle_won)
 	Events.battle_reward_exited.connect(_show_map)
 	Events.rest_exited.connect(_show_map)
@@ -235,6 +238,7 @@ func _on_battle_won() -> void:
 	TelemetryManager.track_event("floor_completed", props)
 	TelemetryManager.track_stat("floors_completed")
 	if map.floors_climbed == MapGenerator.FLOORS:
+		run_time_ui.stop()
 		player_stats.is_running = false
 		var event_props := {
 			"player_class" : player_stats.player_class_name,
@@ -332,3 +336,15 @@ func _track_floor_started(map_node: MapNode) -> void:
 		"is_elite": str(battle_stats.is_elite),
 	}
 	TelemetryManager.track_event("floor_started", event_props)
+
+
+func _on_save_and_quit() -> void:
+	# Encounters resume from the existing pre-encounter snapshot; do not serialize
+	# partially resolved combat into the map save. Update time in either case.
+	var checkpoint := SaveGame.load_data()
+	if not checkpoint:
+		Utils.show_save_error("The last checkpoint could not be read. Your run is still open; return to the map to save again.")
+		return
+	checkpoint.elapsed_run_time = run_time_ui.elapsed_time
+	if checkpoint.save_data():
+		get_tree().change_scene_to_file(MAIN_MENU_PATH)

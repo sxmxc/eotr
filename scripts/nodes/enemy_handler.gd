@@ -1,6 +1,7 @@
 extends Node2D
 class_name EnemyHandler
 
+const QUEUE_ENTRY = preload("res://ui/enemy_ui/enemy_queue_entry.tscn")
 const ENEMY_STATS_UI = preload("res://ui/enemy_ui/enemy_stats_ui.tscn")
 const ENEMY_STATS_UI_SCALE := Vector2(0.75, 0.75)
 const ENEMY_STATS_UI_OFFSET := Vector2(0, -42)
@@ -31,24 +32,31 @@ func _ready() -> void:
 func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	if not enemy:
 		return
-	world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
-	if world_ui and world_ui.enemy_stats_container:
-		var queue_button := _build_queue_button(enemy)
-		world_ui.enemy_stats_container.add_child(queue_button)
-		enemy.tree_exiting.connect(queue_button.queue_free)
-		enemy.set_queue_button(queue_button)
-		enemy.queue_button = queue_button
 	enemy.tilemap = tilemap
 	enemy.position = tilemap.base_layer.map_to_local(tile_pos)
 	enemy.current_tile_position = tile_pos
+	world_ui = get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
+	if world_ui and world_ui.enemy_stats_container:
+		var entry := QUEUE_ENTRY.instantiate()
+		world_ui.enemy_stats_container.add_child(entry)
+		entry.bind_enemy(enemy)
 	if not enemy.status_handler:
 		enemy.status_handler = enemy.get_node_or_null("StatusHandler") as StatusHandler
 	if not enemy.stats_ui:
-		# attach a floating intent/stats UI to the enemy itself so sandbox works without the queue
+		# Combat owns inspection in screen space; standalone enemy previews retain a fallback.
 		var floating_ui := ENEMY_STATS_UI.instantiate() as EnemyStatsUI
-		floating_ui.position = ENEMY_STATS_UI_OFFSET
-		floating_ui.scale = ENEMY_STATS_UI_SCALE
-		enemy.add_child(floating_ui)
+		if is_instance_valid(world_ui):
+			world_ui.add_child(floating_ui)
+			floating_ui.anchor_left = 1.0
+			floating_ui.anchor_right = 1.0
+			floating_ui.offset_left = -320.0
+			floating_ui.offset_right = -40.0
+			floating_ui.offset_top = 540.0
+			floating_ui.offset_bottom = 792.0
+		else:
+			enemy.add_child(floating_ui)
+			floating_ui.position = ENEMY_STATS_UI_OFFSET
+			floating_ui.scale = ENEMY_STATS_UI_SCALE
 		floating_ui.setup_enemy_ui(enemy)
 		enemy.stats_ui = floating_ui
 	if enemy.stats_ui and enemy.stats:
@@ -57,6 +65,9 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i) -> void:
 	add_child(enemy)
 	if enemy.status_handler:
 		enemy.status_handler.statuses_applied.connect(_on_enemy_statuses_applied.bind(enemy))
+	if enemy is Obelisk:
+		enemy.tree_exiting.connect(_obelisk_destroyed.bind(enemy))
+		enemy.enemy_handler = self
 	enemy.update_action()
 
 
@@ -65,7 +76,11 @@ func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = 
 		return
 
 	enemy_turn_count = 0
+	acting_enemies.clear()
+	quick_turn_enemies.clear()
 	for enemy: Enemy in get_children():
+		if enemy.tree_exiting.is_connected(_obelisk_destroyed.bind(enemy)):
+			enemy.tree_exiting.disconnect(_obelisk_destroyed.bind(enemy))
 		enemy.queue_free()
 
 	var all_new_enemies := battle_stats.enemies.instantiate()
@@ -73,36 +88,8 @@ func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = 
 	for new_enemy: Node2D in all_new_enemies.get_children():
 		if not (new_enemy is Enemy):
 			continue
-		var new_enemy_child := new_enemy.duplicate() as Enemy
-		new_enemy_child.tilemap = tilemap
-		var random_tile = tilemap.get_random_valid_tile(reserved_tiles)
-		new_enemy_child.position = tilemap.base_layer.map_to_local(random_tile)
-		new_enemy_child.current_tile_position = random_tile
-		if world_ui and world_ui.enemy_stats_container:
-			var queue_button := _build_queue_button(new_enemy_child)
-			world_ui.enemy_stats_container.add_child(queue_button)
-			new_enemy_child.tree_exiting.connect(queue_button.queue_free)
-			new_enemy_child.set_queue_button(queue_button)
-			new_enemy_child.queue_button = queue_button
-		if not new_enemy_child.status_handler:
-			new_enemy_child.status_handler = new_enemy_child.get_node_or_null("StatusHandler") as StatusHandler
-		if not new_enemy_child.stats_ui:
-			var floating_ui := ENEMY_STATS_UI.instantiate() as EnemyStatsUI
-			floating_ui.position = ENEMY_STATS_UI_OFFSET
-			floating_ui.scale = ENEMY_STATS_UI_SCALE
-			new_enemy_child.add_child(floating_ui)
-			floating_ui.setup_enemy_ui(new_enemy_child)
-			new_enemy_child.stats_ui = floating_ui
-		if new_enemy_child.stats_ui and new_enemy_child.stats:
-			new_enemy_child.stats_ui.update_stats(new_enemy_child.stats)
-		add_child(new_enemy_child)
-		if new_enemy_child.status_handler:
-			new_enemy_child.status_handler.statuses_applied.connect(
-				_on_enemy_statuses_applied.bind(new_enemy_child)
-			)
-		if new_enemy is Obelisk:
-			new_enemy_child.tree_exiting.connect(_obelisk_destroyed.bind(new_enemy_child))
-			new_enemy_child.enemy_handler = self
+		var instance := new_enemy.duplicate() as Enemy
+		add_enemy(instance, tilemap.get_random_valid_tile(reserved_tiles))
 
 	all_new_enemies.queue_free()
 
@@ -224,42 +211,6 @@ func _requires_spotlight(enemy: Enemy) -> bool:
 	if enemy.stats and enemy.stats.gold_value >= MIN_GOLD_FOR_SPOTLIGHT:
 		return true
 	return false
-
-
-func _build_queue_button(enemy: Enemy) -> Button:
-	var button := Button.new()
-	button.custom_minimum_size = Vector2(200, 44)
-	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	button.focus_mode = Control.FOCUS_NONE
-	button.text = _format_queue_label(enemy)
-	button.pressed.connect(func():
-		Events.enemy_selected.emit(enemy)
-	)
-	button.mouse_entered.connect(func():
-		if enemy:
-			enemy._on_queue_button_entered()
-	)
-	button.mouse_exited.connect(func():
-		if enemy:
-			enemy._on_queue_button_exited()
-	)
-	if enemy.stats:
-		if not enemy.stats.stats_changed.is_connected(func(): button.text = _format_queue_label(enemy)):
-			enemy.stats.stats_changed.connect(func(): button.text = _format_queue_label(enemy))
-	return button
-
-
-func _format_queue_label(enemy: Enemy) -> String:
-	var stats := enemy.stats
-	var enemy_name: String = enemy.name
-	if stats and stats.enemy_name:
-		enemy_name = stats.enemy_name
-	if not stats:
-		return enemy_name
-	var block_suffix: String = ""
-	if stats.block > 0:
-		block_suffix = " +" + str(stats.block)
-	return "%s %d/%d%s" % [enemy_name, stats.health, stats.max_health, block_suffix]
 
 
 func _configure_enemy_camera(enemy: Enemy, spotlight: bool) -> void:

@@ -104,6 +104,7 @@ func update_intent() -> void:
 		current_action.update_intent_text()
 		if stats_ui and stats_ui.intent_ui:
 			stats_ui.intent_ui.update_intent(current_action.intent)
+	Events.enemy_updated.emit(self)
 
 func do_turn() -> void:
 	#stats.block = 0
@@ -227,7 +228,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		if tilemap.is_tile_behind_fog(current_tile_position):
 			return
 		Events.enemy_selected.emit(self)
-		if queue_button:
+		if is_instance_valid(queue_button):
 			queue_button.grab_focus()
 			queue_button.modulate = Color.WHITE
 
@@ -248,7 +249,7 @@ func _on_area_2d_mouse_exited() -> void:
 		return
 	hovered = false
 	circle_indicator.hide()
-	if stats_ui:
+	if stats_ui and not stats_ui.inspection_pinned:
 		stats_ui.hide()
 		stats_ui.release_focus()
 	pass # Replace with function body.
@@ -273,7 +274,7 @@ func _on_queue_button_exited() -> void:
 	queue_hovered = false
 	if not hovered:
 		circle_indicator.hide()
-		if stats_ui:
+		if stats_ui and not stats_ui.inspection_pinned:
 			stats_ui.hide()
 
 func get_gold_value()-> int:

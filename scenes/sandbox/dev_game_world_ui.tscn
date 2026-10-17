@@ -19,7 +19,7 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lsin"]
 size = Vector2(1924, 699)
 
-[node name="GameWorldUI" type="CanvasLayer" unique_id=1269372028 groups=["ui_layer"]]
+[node name="GameWorldUI" type="CanvasLayer" unique_id=1269372028 node_paths=PackedStringArray("hand", "stats_ui", "status_handler", "draw_pile_button", "discard_pile_button", "exhaust_pile_button", "dev_panel", "player", "enemy_stats_container", "enemy_stats_scroll") groups=["ui_layer"]]
 script = ExtResource("1_script")
 hand = NodePath("Hand")
 stats_ui = NodePath("Stats")
@@ -241,26 +241,56 @@ offset_top = 160.0
 status_owner = NodePath("../Player")
 status_icon_size = 48
 
-[node name="DrawPileButton" parent="." unique_id=312347470 instance=ExtResource("2_pile_button")]
+[node name="DrawPileButton" parent="." unique_id=312347470 node_paths=PackedStringArray("counter") instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 32.0
 offset_top = 880.0
 offset_right = 160.0
 offset_bottom = 1008.0
+counter = NodePath("Counter")
 
-[node name="DiscardPileButton" parent="." unique_id=1487224827 instance=ExtResource("2_pile_button")]
+[node name="Counter" type="Label" parent="DrawPileButton"]
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 126.0
+offset_bottom = 128.0
+mouse_filter = 2
+text = "0"
+
+
+[node name="DiscardPileButton" parent="." unique_id=1487224827 node_paths=PackedStringArray("counter") instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 200.0
 offset_top = 880.0
 offset_right = 328.0
 offset_bottom = 1008.0
+counter = NodePath("Counter")
 
-[node name="ExhaustPileButton" parent="." unique_id=287794363 instance=ExtResource("2_pile_button")]
+[node name="Counter" type="Label" parent="DiscardPileButton"]
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 126.0
+offset_bottom = 128.0
+mouse_filter = 2
+text = "0"
+
+
+[node name="ExhaustPileButton" parent="." unique_id=287794363 node_paths=PackedStringArray("counter") instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 368.0
 offset_top = 880.0
 offset_right = 496.0
 offset_bottom = 1008.0
+counter = NodePath("Counter")
+
+[node name="Counter" type="Label" parent="ExhaustPileButton"]
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 126.0
+offset_bottom = 128.0
+mouse_filter = 2
+text = "0"
+
 
 [node name="CardDropArea" type="Area2D" parent="." unique_id=1784851812]
 collision_layer = 4

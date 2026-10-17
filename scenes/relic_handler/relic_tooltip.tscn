@@ -1,117 +1,70 @@
 [gd_scene format=3 uid="uid://coupj55agy31s"]
-
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_fqibc"]
-[ext_resource type="Script" uid="uid://bk8nwhbgicue0" path="res://scenes/relic_handler/relic_tooltip.gd" id="2_srgwn"]
-[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="3_srgwn"]
-[ext_resource type="Texture2D" uid="uid://tji3ah2twswn" path="res://assets/icons/cross-flare.svg" id="4_srgwn"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_fqibc"]
-font_size = 50
-
-[node name="RelicTooltip" type="Control" unique_id=1035219774]
-layout_mode = 3
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Script" path="res://scenes/relic_handler/relic_tooltip.gd" id="script"]
+[node name="RelicTooltip" type="Control"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_fqibc")
-script = ExtResource("2_srgwn")
-
-[node name="Background" type="ColorRect" parent="." unique_id=281239283]
-layout_mode = 1
+theme = ExtResource("theme")
+script = ExtResource("script")
+[node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
-color = Color(0.294118, 0.239216, 0.266667, 0.956863)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=661096817]
-layout_mode = 1
+color = Color(0.008, 0.014, 0.025, 0.91)
+[node name="Card" type="Panel" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
+anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -206.0
-offset_right = 254.0
-offset_bottom = 206.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="RelicName" type="Label" parent="VBoxContainer" unique_id=1482097760]
+offset_left = -410.0
+offset_right = 410.0
+offset_top = -240.0
+offset_bottom = 240.0
+mouse_filter = 0
+[node name="Caption" type="Label" parent="Card"]
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 700.0
+offset_bottom = 60.0
+theme_type_variation = &"Eyebrow"
+text = "RELIC / YOUR EXPEDITION"
+[node name="RelicIcon" type="TextureRect" parent="Card"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-text = "Relic Name"
-label_settings = SubResource("LabelSettings_fqibc")
-horizontal_alignment = 1
-
-[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=1817170839]
-custom_minimum_size = Vector2(500, 500)
-layout_mode = 2
-theme = ExtResource("3_srgwn")
-theme_type_variation = &"CardPanelMain"
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Panel" unique_id=1671417896]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="Panel" type="Panel" parent="VBoxContainer/Panel/MarginContainer" unique_id=1029609762]
-layout_mode = 2
-theme_type_variation = &"CardPanelSecondary"
-
-[node name="RelicIcon" type="TextureRect" parent="VBoxContainer/Panel/MarginContainer/Panel" unique_id=1157463149]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 500)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-texture = ExtResource("4_srgwn")
+offset_left = 48.0
+offset_top = 130.0
+offset_right = 216.0
+offset_bottom = 298.0
 expand_mode = 1
 stretch_mode = 5
-
-[node name="RelicDescription" type="RichTextLabel" parent="VBoxContainer" unique_id=1602376438]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 30
-bbcode_enabled = true
-text = "Relic Description
-Relic Description"
-fit_content = true
-horizontal_alignment = 1
-
-[node name="BackButton" type="Button" parent="." unique_id=1990892368]
+[node name="RelicName" type="Label" parent="Card"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -136.0
-offset_top = 24.0
-offset_right = -31.0
-offset_bottom = 76.0
-grow_horizontal = 0
-text = "Back"
-
+offset_left = 264.0
+offset_top = 124.0
+offset_right = 760.0
+offset_bottom = 186.0
+theme_type_variation = &"Title"
+theme_override_font_sizes/font_size = 36
+text = "Relic"
+[node name="RelicDescription" type="RichTextLabel" parent="Card"]
+unique_name_in_owner = true
+offset_left = 264.0
+offset_top = 204.0
+offset_right = 760.0
+offset_bottom = 348.0
+bbcode_enabled = true
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+theme_override_constants/line_separation = 6
+text = "Relic description"
+[node name="BackButton" type="Button" parent="Card"]
+unique_name_in_owner = true
+offset_left = 600.0
+offset_top = 384.0
+offset_right = 776.0
+offset_bottom = 440.0
+text = "Close"
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

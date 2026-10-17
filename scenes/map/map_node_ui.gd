@@ -19,6 +19,9 @@ const ICONS := {
 @onready var sprite_2d: Sprite2D = $Visuals/Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var is_current_position := false
+var inspecting := false
+
 var available := false:
 	set = set_available
 var map_node: MapNode:
@@ -31,6 +34,7 @@ func set_available(new_value: bool) -> void:
 		animation_player.play("highlight")
 	elif not map_node.selected:
 		animation_player.play("RESET")
+	update_route_state(is_current_position)
 
 
 func set_map_node(new_value: MapNode) -> void:
@@ -39,6 +43,7 @@ func set_map_node(new_value: MapNode) -> void:
 	line_2d.rotation_degrees = randi_range(0, 360)
 	sprite_2d.texture = ICONS[map_node.type][0]
 	sprite_2d.scale = ICONS[map_node.type][1]
+	update_route_state(false)
 
 
 func show_selected() -> void:
@@ -56,3 +61,35 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 #Called by animation player "select"
 func _on_map_node_selected() -> void:
 	selected.emit(map_node)
+
+
+func _ready() -> void:
+	mouse_entered.connect(_inspect.bind(true))
+	mouse_exited.connect(_inspect.bind(false))
+
+func _inspect(value: bool) -> void:
+	inspecting = value
+	update_route_state(is_current_position)
+
+func update_route_state(current: bool) -> void:
+	is_current_position = current
+	if not is_node_ready() or not map_node:
+		return
+	var state := ""
+	if current:
+		state = "Current"
+	elif map_node.selected:
+		state = "Cleared"
+	elif available:
+		state = "Available"
+	var kind: String = Enums.MapNodeType.keys()[map_node.type].capitalize()
+	if kind == "Monster":
+		kind = "Battle"
+	$RouteLabel.text = "%s\n%s" % [kind, state] if inspecting else (kind if available else state)
+	$RouteLabel.visible = inspecting or available or map_node.selected
+	z_index = 5 if inspecting else 0
+	line_2d.modulate = Color.WHITE if available or map_node.selected else Color(1, 1, 1, 0.20)
+	line_2d.default_color = Color("d9b76f") if map_node.selected else Color("66d9c7")
+	var accent := Color("d9b76f") if map_node.selected else Color("66d9c7")
+	$RouteLabel.modulate = accent if available or map_node.selected else Color("ede6d6")
+	sprite_2d.modulate = Color.WHITE if available or map_node.selected or inspecting else Color(0.6, 0.65, 0.72)

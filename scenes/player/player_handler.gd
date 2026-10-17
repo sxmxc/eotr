@@ -106,20 +106,25 @@ func discard_cards() -> void:
 		return
 	
 	var world_ui : CanvasLayer = get_tree().get_first_node_in_group("ui_layer")
-	var discard_button: Node2D = null
+	var discard_button: Control = null
 	if world_ui:
 		var candidate: Variant = world_ui.get("discard_pile_button")
-		if candidate is Node2D:
+		if candidate is Control:
 			discard_button = candidate
 	var discard_pile_position: Vector2 = Vector2.ZERO
 	if discard_button:
-		discard_pile_position = discard_button.global_position
+		discard_pile_position = discard_button.get_global_rect().get_center()
 	
+	if player_hand.layout_tween and player_hand.layout_tween.is_valid():
+		player_hand.layout_tween.kill()
 	for card_ui: CardUI in player_hand.get_cards():
+		if world_ui:
+			card_ui.reparent(world_ui)
 		var card_ui_offset = Vector2(card_ui.global_position.x, card_ui.global_position.y - 100)
 		card_ui.visuals.card_trail_fx.emitting = true
 		card_ui.z_index += 1
-		var tween := create_tween()
+		var tween := card_ui.create_tween()
+		card_ui.set_inspected(false, true)
 		card_ui.visuals.animation_player.play("swirl_out")
 		tween.tween_property(card_ui,"global_position", card_ui_offset,.08)
 		var target_position: Vector2 = discard_pile_position if discard_pile_position != Vector2.ZERO else card_ui_offset
@@ -141,12 +146,12 @@ func reshuffle_deck_from_discard() -> void:
 		player_stats.draw_pile.add_card(player_stats.discard.draw_card())
 		var hex_trail = HEX_TRAIL.instantiate()
 		var tween = create_tween()
-		if world_ui and world_ui.has_node("DiscardPileButton") and world_ui.has_node("DrawPileButton"):
-			var discard_pile_button := world_ui.get_node("DiscardPileButton") as Node2D
-			var draw_pile_button := world_ui.get_node("DrawPileButton") as Node2D
+		if world_ui and world_ui.discard_pile_button and world_ui.draw_pile_button:
+			var discard_pile_button: Control = world_ui.discard_pile_button
+			var draw_pile_button: Control = world_ui.draw_pile_button
 			discard_pile_button.add_child(hex_trail)
-			hex_trail.global_position = discard_pile_button.global_position
-			tween.tween_property(hex_trail,"global_position", Utils.get_node_global_center(draw_pile_button),0.45)
+			hex_trail.global_position = discard_pile_button.get_global_rect().get_center()
+			tween.tween_property(hex_trail, "global_position", draw_pile_button.get_global_rect().get_center(), 0.3)
 		tween.tween_callback(hex_trail.queue_free)		
 
 	player_stats.draw_pile.shuffle()
