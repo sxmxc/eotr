@@ -4,7 +4,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qf02p"]
 atlas = ExtResource("1_0nwk4")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 64, 64)
 
 [node name="HexTile" type="Area2D" unique_id=1247970657]
 collision_layer = 8

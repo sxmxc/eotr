@@ -144,8 +144,7 @@ func _update_tile_hover() -> void:
 	if not tilemap or not base_layer:
 		return
 	var global_mouse_pos = get_global_mouse_position()
-	var local_pos = base_layer.to_local(global_mouse_pos)
-	var tile_pos = base_layer.local_to_map(local_pos)
+	var tile_pos = tilemap.world_to_cell(global_mouse_pos)
 
 	if not tilemap.is_within_bounds(tile_pos) or tile_pos == last_hovered_tile:
 		return
@@ -157,8 +156,7 @@ func _update_tile_hover() -> void:
 		hex_indicator.hide()
 		return
 
-	var indicator_pos = base_layer.map_to_local(tile_pos)
-	hex_indicator.global_position = base_layer.to_global(indicator_pos)
+	hex_indicator.global_position = tilemap.cell_to_world(tile_pos)
 
 	var valid_cells := get_cached_targets(current_card)
 	var candidate := TilemapTarget.new(tile_pos, tilemap)

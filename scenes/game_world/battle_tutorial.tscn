@@ -16,23 +16,23 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0sev3"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypuix"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mffv"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdnyo"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qvqp"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 64, 64, 64)
 
 [node name="TutorialUI" type="CanvasLayer" unique_id=1263824074]
 process_mode = 3

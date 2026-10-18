@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://8yngjq0jkktj" path="res://resources/data/cards/riftwalker/arcane_explosion.gd" id="1_vpsgj"]
 [ext_resource type="AudioStream" uid="uid://bfrbaimdsqm2n" path="res://assets/audio/launches/rlaunch.wav" id="2_lf5nt"]
-[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="3_0a2cj"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="4_7z8i5"]
 [ext_resource type="Texture2D" uid="uid://dvfkf4em4bn28" path="res://assets/rift/cards/arcane_explosion.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/arcane_explosion_signature.tscn" id="signature"]
 
 [sub_resource type="Resource" id="Resource_e3v2h"]
 script = ExtResource("4_7z8i5")
 amount = 6
 sound_fx = ExtResource("2_lf5nt")
-visual_fx = ExtResource("3_0a2cj")
+visual_fx = ExtResource("signature")
 camera_shake_strength = 16.0
 camera_shake_duration = 0.15
 
@@ -24,5 +24,5 @@ energy_cost = 1
 effect_configs = Array[ExtResource("4_7z8i5")]([SubResource("Resource_e3v2h")])
 card_art = ExtResource("rift_art")
 sound_fx = ExtResource("2_lf5nt")
-visual_fx = ExtResource("3_0a2cj")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

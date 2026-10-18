@@ -4,6 +4,7 @@ extends Enemy
 const MOVING_ENEMY_SCENE = preload("res://scenes/enemy/moving_enemy.tscn")
 const SHATTER_EMBER_FX := preload("res://ui/fx/ember_burst_fx.tscn")
 const OBELISK_SPAWN_ACTION_SCRIPT := preload("res://scenes/enemy/obelisk/obelisk_spawn_action.gd")
+const SUMMON_WISP_FX := preload("res://ui/fx/summon_wisp_fx.tscn")
 
 @export var spawn_pool: Array[EnemyStats]
 @export var enemy_handler: EnemyHandler
@@ -17,6 +18,8 @@ var damage_taken_this_encounter := false
 
 func _ready() -> void:
 	super._ready()
+	sprite_2d.material.set_shader_parameter("rim_color", Color(0.88, 0.45, 1.0, 0.8))
+	$GroundPresence.material.set_shader_parameter("accent", Color(0.82, 0.38, 1.0))
 	if not damage_taken.is_connected(_on_damage_taken):
 		damage_taken.connect(_on_damage_taken)
 	call_deferred("_initialize_spawn_tiles")
@@ -40,6 +43,9 @@ func spawn_random_enemy() -> bool:
 	new_spawn.stats = RNG.array_pick_random(spawn_pool) as EnemyStats
 	new_spawn.name = new_spawn.stats.enemy_name
 	enemy_handler.add_enemy(new_spawn, spawn_tile, true)
+	var summon_fx := SUMMON_WISP_FX.instantiate() as VisualFX
+	new_spawn.add_child(summon_fx)
+	summon_fx.execute()
 	var world_message = WorldMessageData.new(
 		"Obelisk spawns a %s from the void" % new_spawn.stats.enemy_name,
 		WorldMessageData.Priority.IMPORTANT

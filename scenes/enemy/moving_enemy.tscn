@@ -1,14 +1,16 @@
 [gd_scene format=3 uid="uid://ypq2eyjf2e5m"]
 
 [ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_0shhr"]
-[ext_resource type="Texture2D"  path="res://assets/rift/entities/blob.webp" id="2_m8tji"]
-[ext_resource type="Texture2D" uid="uid://cqa07eh0qjja5" path="res://assets/particles/kenney-particles/magic_03.png" id="3_4omhe"]
+[ext_resource type="Texture2D" uid="uid://cbqx0ui4o1is1" path="res://assets/rift/entities/blob.webp" id="2_m8tji"]
+[ext_resource type="Texture2D" uid="uid://h8vr1ddjhrex" path="res://assets/rift/fx/target_ring.webp" id="3_4omhe"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_knvft"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_m8tji"]
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="11_m8tji"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_tmm2i"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_fri0r"]
-
-[ext_resource type="Texture2D" path="res://assets/rift/entities/shadow.webp" id="rift_shadow"]
+[ext_resource type="Material" path="res://resources/materials/unit_outline.tres" id="outline"]
+[ext_resource type="PackedScene" path="res://ui/world_ui/unit_presence.tscn" id="presence"]
+[ext_resource type="Texture2D" uid="uid://d2g7wltxj7u2k" path="res://assets/rift/entities/shadow.webp" id="rift_shadow"]
 
 [sub_resource type="Animation" id="Animation_kghx0"]
 length = 0.001
@@ -34,7 +36,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3, 3)]
+"values": [Vector2(0.68359375, 0.68359375)]
 }
 
 [sub_resource type="Animation" id="Animation_tmnun"]
@@ -63,7 +65,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(3, 3), Vector2(3.5, 3.5), Vector2(3, 3)]
+"values": [Vector2(0.68359375, 0.68359375), Vector2(0.71777344, 0.71777344), Vector2(0.68359375, 0.68359375)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_onf1d"]
@@ -72,8 +74,9 @@ _data = {
 &"rotate": SubResource("Animation_tmnun")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
-radius = 13.0
+[sub_resource type="CapsuleShape2D" id="CircleShape2D_xxaiy"]
+radius = 20.0
+height = 66.0
 
 [sub_resource type="Resource" id="Resource_bydut"]
 script = ExtResource("13_fri0r")
@@ -102,7 +105,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.0625, 0.0625)]
+"values": [Vector2(0.16, 0.16)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -114,7 +117,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.0625, 0.0625)]
+"values": [Vector2(0.16, 0.16)]
 }
 
 [sub_resource type="Animation" id="Animation_4omhe"]
@@ -130,7 +133,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -0.5), Vector2(0, -1), Vector2(0, -0.5)]
+"values": [Vector2(0, -2), Vector2(0, -4), Vector2(0, -2)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -142,7 +145,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0.0625, 0.0625), Vector2(0.06375, 0.06375), Vector2(0.0625, 0.0625)]
+"values": [Vector2(0.16, 0.16), Vector2(0.1632, 0.1632), Vector2(0.16, 0.16)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -154,7 +157,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0.0625, 0.0625), Vector2(0.06375, 0.06375), Vector2(0.0625, 0.0625)]
+"values": [Vector2(0.16, 0.16), Vector2(0.1632, 0.1632), Vector2(0.16, 0.16)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4851w"]
@@ -163,6 +166,11 @@ _data = {
 &"fly_idle": SubResource("Animation_4omhe")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xaxy3"]
+resource_local_to_scene = true
+shader = ExtResource("11_m8tji")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
 [node name="MovingEnemy" type="Node2D" unique_id=1455577167 groups=["enemy"]]
 script = ExtResource("1_0shhr")
 
@@ -170,22 +178,23 @@ script = ExtResource("1_0shhr")
 self_modulate = Color(0, 0, 0, 0.627451)
 show_behind_parent = true
 y_sort_enabled = true
-scale = Vector2(0.0625, 0.0625)
+scale = Vector2(0.16, 0.16)
 texture = ExtResource("rift_shadow")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1491918895]
-texture_filter = 2
-z_index = 1
+z_index = 4
 y_sort_enabled = true
-scale = Vector2(0.0625, 0.0625)
+texture_filter = 2
+material = ExtResource("outline")
+scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_m8tji")
 
 [node name="CircleIndicator" type="Sprite2D" parent="Sprite2D" unique_id=1471582750]
 unique_name_in_owner = true
 visible = false
-self_modulate = Color(0.524982, 3, 2.99105, 0.471)
-z_index = 5
-scale = Vector2(2.4, 2.4)
+self_modulate = Color(1, 1, 1, 0.85)
+z_index = -1
+scale = Vector2(0.68359375, 0.68359375)
 texture = ExtResource("3_4omhe")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator" unique_id=186042511]
@@ -197,6 +206,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2065849705]
+position = Vector2(0, -31)
 shape = SubResource("CircleShape2D_xxaiy")
 
 [node name="ModifierHandler" parent="." unique_id=1266165191 instance=ExtResource("9_knvft")]
@@ -219,6 +229,15 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1123504307]
 libraries/ = SubResource("AnimationLibrary_4851w")
+
+[node name="GroundPresence" parent="." unique_id=1800979518 instance=ExtResource("presence")]
+material = SubResource("ShaderMaterial_xaxy3")
+
+[node name="SpellOrigin" type="Marker2D" parent="." unique_id=359503352]
+position = Vector2(10, -40)
+
+[node name="ImpactAnchor" type="Marker2D" parent="." unique_id=2107920890]
+position = Vector2(0, -40)
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

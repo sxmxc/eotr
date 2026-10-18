@@ -21,6 +21,8 @@ func execute(_target: Node, _source: Node = null) -> void:
 
 func resolve_start(source: Node = null) -> Vector2:
 	if source is Node2D:
+		if source.has_node("SpellOrigin"):
+			return source.get_node("SpellOrigin").global_position
 		return (source as Node2D).global_position
 	var anchor := _get_projectile_anchor()
 	if anchor is Node2D:
@@ -35,6 +37,8 @@ func resolve_start(source: Node = null) -> Vector2:
 
 func resolve_end(target: Node, fallback_start: Vector2) -> Vector2:
 	if target is Node2D:
+		if target.has_node("ImpactAnchor"):
+			return target.get_node("ImpactAnchor").global_position
 		return (target as Node2D).global_position
 	var anchor := _get_projectile_anchor()
 	if anchor and anchor.has_method("get_global_mouse_position"):
@@ -50,6 +54,8 @@ func play_visual_on_target(target: Node) -> void:
 	if not visual_fx or not target:
 		return
 	target.add_child(visual_fx)
+	if target.has_node("ImpactAnchor"):
+		visual_fx.position = target.get_node("ImpactAnchor").position
 	if visual_fx.has_method("execute"):
 		visual_fx.execute()
 

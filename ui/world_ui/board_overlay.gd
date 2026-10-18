@@ -2,6 +2,8 @@ extends Node2D
 # Presentation only. Board state, generation and targeting validity stay on ProcGenTilemap.
 const TARGET_HIGHLIGHT := preload("res://ui/world_ui/target_highlight.tscn")
 const COLLAPSE_OUTLINE := preload("res://ui/world_ui/collapse_outline.tscn")
+const RIFT_GATE := preload("res://ui/world_ui/rift_gate.tscn")
+var gates: Dictionary[Vector2i, Sprite2D] = {}
 var collapse_outlines: Array[Line2D] = []
 
 
@@ -34,6 +36,33 @@ func _refresh() -> void:
 	last_target_highlight_cells.clear()
 	show_target_highlights(cells)
 	_refresh_collapse_outlines()
+	_refresh_gates()
+
+func _refresh_gates() -> void:
+	for cell: Vector2i in gates.keys():
+		if not board.tile_map_data.has(cell):
+			gates[cell].queue_free()
+			gates.erase(cell)
+	for cell: Vector2i in board.tile_map_data:
+		if board.tile_map_data[cell].type != Enums.TileType.RIFT_GATE:
+			continue
+		if not gates.has(cell):
+			var gate: Sprite2D = RIFT_GATE.instantiate()
+			add_child(gate)
+			gate.position = board.base_layer.map_to_local(cell)
+			gates[cell] = gate
+		gates[cell].visible = not board.is_tile_behind_fog(cell)
+
+func play_gate_burst(cell: Vector2i) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
+	var burst: Sprite2D = RIFT_GATE.instantiate()
+	add_child(burst)
+	burst.position = board.base_layer.map_to_local(cell)
+	var tween := create_tween()
+	tween.tween_method(func(value: float): burst.material.set_shader_parameter("burst", value), 1.0, 0.0, 0.45)
+	tween.parallel().tween_property(burst, "modulate:a", 0.0, 0.45)
+	tween.tween_callback(burst.queue_free)
 
 func _refresh_collapse_outlines() -> void:
 	for outline in collapse_outlines:

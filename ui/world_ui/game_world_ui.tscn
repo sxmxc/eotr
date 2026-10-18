@@ -66,6 +66,17 @@ theme_type_variation = &"ActionHint"
 text = "YOUR TURN - Inspect a card, then drag to play"
 autowrap_mode = 2
 
+[node name="CameraHint" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 560.0
+offset_right = 300.0
+offset_bottom = 644.0
+mouse_filter = 2
+theme = ExtResource("rift_theme")
+theme_type_variation = &"BodySmall"
+text = "Wheel to zoom\nMiddle mouse to pan\nHome: reset  /  F: overview"
+autowrap_mode = 2
+
 [node name="DebugUI" type="Control" parent="." unique_id=1634729797]
 layout_mode = 3
 anchors_preset = 15

@@ -229,13 +229,18 @@ func _resolve_gather(config: CardEffectConfig, context: ResolveContext) -> void:
 		return
 
 	var effect := GatherEffect.new()
-	effect.amount = config.get_effect_amount(context.player_modifiers)
-	effect.tile_target_position = tile_target.tile_position
+	var board := tile_target.tilemap
+	effect.amount = board.get_resource_count(tile_target.tile_position)
+	if effect.amount <= 0:
+		return
+	effect.tile_target_position = board.to_local(board.cell_to_world(tile_target.tile_position))
 	effect.sound_fx = _select_sound(config, context.card)
 	effect.visual_fx = (
 		_select_visual(config, context.card) if config.attach_visual_to_effect else null
 	)
 	await _maybe_play_pre_fx(config, context, targets)
+	# Commit the finite deposit once, before cosmetic feedback can yield.
+	board.set_resource_count(tile_target.tile_position, 0)
 	effect.execute(targets)
 
 
@@ -247,6 +252,7 @@ func _resolve_energy(config: CardEffectConfig, context: ResolveContext) -> void:
 	var effect := EnergyEffect.new()
 	effect.amount = config.get_effect_amount(context.player_modifiers)
 	effect.sound_fx = _select_sound(config, context.card)
+	effect.visual_fx = _select_visual(config, context.card)
 	await _maybe_play_pre_fx(config, context, targets)
 	effect.execute(targets)
 

@@ -2,26 +2,30 @@ extends Control
 class_name CardVisuals
 
 @export var card: Card : set = set_card
+@export_group("Face states")
+@export var hovered_face: StringName = &"CardFaceHovered"
+@export var modified_face: StringName = &"CardFaceModified"
+@export var modified_hovered_face: StringName = &"CardFaceModifiedHovered"
 
 @onready var card_cost_label: Label = %CardCostLabel
 @onready var card_name_label: AutoSizeLabel = %CardNameLabel
 @onready var card_type_label: Label = %CardTypeLabel
 @onready var card_text_label: RichTextLabel = %CardTextLabel
-@onready var rarity: TextureRect = %Rarity
+@onready var rarity: Control = %Rarity
 @onready var card_trail_fx: GPUParticles2D = %CardTrailFX
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var background_texture: Panel = %CardBackgroundTexture
-@onready var foreground_texture: Control = %CardForegroundFrame
-@onready var outline_overlay: TextureRect = %OutlineOverlay
 @onready var card_art_texture: TextureRect = %CardArt
 
 var player_modifiers: ModifierHandler
 var _is_hovered := false
 var _is_modified := false
+var _authored_face: StringName
 
 
 func _ready() -> void:
-	_update_background_material()
+	_authored_face = background_texture.theme_type_variation
+	_update_face_style()
 
 
 func set_card(value: Card) -> void:
@@ -42,22 +46,18 @@ func set_cost(cost: int) -> void:
 
 func set_hover_outline(enabled: bool) -> void:
 	_is_hovered = enabled
-	if outline_overlay:
-		outline_overlay.visible = enabled and outline_overlay.material != null
-	_update_background_material()
+	_update_face_style()
 
 
 func set_boosted_effect(enabled: bool) -> void:
 	_is_modified = enabled
-	_update_background_material()
+	_update_face_style()
 
 
 func set_interactable(active: bool) -> void:
 	var tint := get_theme_color("active" if active else "inactive", "CardVisuals")
 	if background_texture:
 		background_texture.modulate = tint
-	if foreground_texture:
-		foreground_texture.modulate = Color(tint, foreground_texture.modulate.a)
 	if card_art_texture:
 		card_art_texture.modulate = Color(tint, card_art_texture.modulate.a)
 
@@ -76,10 +76,10 @@ func _apply_card_art() -> void:
 	card_art_texture.show()
 
 
-func _update_background_material() -> void:
+func _update_face_style() -> void:
 	if not background_texture:
 		return
 	if _is_modified:
-		background_texture.theme_type_variation = &"CardFaceModifiedHovered" if _is_hovered else &"CardFaceModified"
+		background_texture.theme_type_variation = modified_hovered_face if _is_hovered else modified_face
 	else:
-		background_texture.theme_type_variation = &"CardFaceHovered" if _is_hovered else &"CardFace"
+		background_texture.theme_type_variation = hovered_face if _is_hovered else _authored_face

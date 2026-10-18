@@ -2,15 +2,9 @@
 
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_script"]
-[ext_resource type="Texture2D" uid="uid://clb2uaudrydbm" path="res://assets/card/card_background.png" id="3_0p8qx"]
 [ext_resource type="Texture2D"  path="res://assets/rift/cards/arcane_bolt.webp" id="4_1bfbl"]
-[ext_resource type="Texture2D" uid="uid://bcic1hvuu2eis" path="res://assets/card/card_description_background.png" id="4_nxj80"]
-[ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="6_flare"]
-[ext_resource type="Texture2D" uid="uid://dapg2sx650j4" path="res://assets/card/card_foreground_frame.png" id="6_kin56"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="6_flare"]
 [ext_resource type="Script" uid="uid://d11kfgsd6jgt" path="res://addons/AutoSizeText/ui/AutoSizeLabel.gd" id="7_autolabel"]
-[ext_resource type="Texture2D" uid="uid://bd1d8psrr1hdj" path="res://assets/card/card_rarity.png" id="7_eqiyl"]
-[ext_resource type="Script" uid="uid://leehmvr1x5lu" path="res://addons/AutoSizeText/ui/AutoSizeRichTextLabel.gd" id="8_autortl"]
-[ext_resource type="Texture2D" uid="uid://cm62v7tixluoj" path="res://assets/card/card_cost_background.png" id="8_ld3x3"]
 
 [sub_resource type="Curve" id="Curve_si0b1"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -20,8 +14,8 @@ point_count = 2
 curve = SubResource("Curve_si0b1")
 
 [sub_resource type="Curve" id="Curve_0qon5"]
-_limits = [0.0, 0.1, 0.0, 1.0]
-_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 0.025, 0.0, 1.0]
+_data = [Vector2(0, 0.025), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_m4ny6"]
@@ -121,35 +115,6 @@ _data = {
 &"swirl_out": SubResource("Animation_ky3w4")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_vqvlo"]
-font_size = 18
-font_color = Color(0.92, 0.93, 0.88, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_lcjp3"]
-font_size = 12
-font_color = Color(0.294118, 0.239216, 0.266667, 1)
-
-
-[sub_resource type="StyleBoxFlat" id="face"]
-resource_local_to_scene = true
-bg_color = Color(0.045, 0.065, 0.095, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.26, 0.34, 0.40, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_left = 8
-corner_radius_bottom_right = 8
-shadow_color = Color(0, 0, 0, 0.65)
-shadow_size = 8
-[sub_resource type="StyleBoxFlat" id="cost"]
-bg_color = Color(0.1, 0.27, 0.29, 1)
-border_width_bottom = 2
-border_color = Color(0.40, 0.78, 0.73, 1)
-corner_radius_top_left = 8
-corner_radius_bottom_right = 8
 
 [node name="Visuals" type="Control"]
 custom_minimum_size = Vector2(180, 280)
@@ -205,23 +170,14 @@ bbcode_enabled = true
 scroll_active = false
 text = "Card effect"
 vertical_alignment = 1
-[node name="CardForegroundFrame" type="Control" parent="."]
-unique_name_in_owner = true
-mouse_filter = 2
-[node name="OutlineOverlay" type="TextureRect" parent="."]
-unique_name_in_owner = true
-visible = false
-mouse_filter = 2
-[node name="Rarity" type="TextureRect" parent="."]
+[node name="Rarity" type="Panel" parent="."]
+theme_type_variation = &"CardRarityMark"
 unique_name_in_owner = true
 offset_left = 12.0
 offset_top = 158.0
 offset_right = 18.0
 offset_bottom = 164.0
 mouse_filter = 2
-texture = ExtResource("7_eqiyl")
-expand_mode = 1
-stretch_mode = 5
 [node name="CardTypeLabel" type="Label" parent="."]
 theme_type_variation = &"CardType"
 unique_name_in_owner = true
@@ -266,12 +222,12 @@ process_mode = 3
 show_behind_parent = true
 position = Vector2(94, 134)
 emitting = false
-amount = 5000
+amount = 128
 texture = ExtResource("6_flare")
-lifetime = 2.0
+lifetime = 0.35
 preprocess = 1.0
 speed_scale = 2.0
-visibility_rect = Rect2(-799.526, -631.978, 1401.51, 1263.98)
+visibility_rect = Rect2(-120, -170, 240, 340)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_nb1yb")
 

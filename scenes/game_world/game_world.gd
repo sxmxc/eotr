@@ -17,7 +17,7 @@ extends Node2D
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
 @onready var battle_state: BattleStateController = $BattleState
 @onready var map_camera : Camera2D = $MapCamera
-@onready var world_camera: PhantomCamera2D = %WorldCamera
+@onready var world_camera = %WorldCamera
 @onready var tutorial_ui: TutorialUI = $TutorialUI
 @onready var battle_presentation: BattlePresentation = $BattlePresentation
 
@@ -111,6 +111,11 @@ func start_world() -> void:
 		battle_presentation.play_intro()
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
+	world_camera.frame_battle(true)
+	if is_instance_valid(battle_presentation):
+		battle_presentation.finished.connect(world_camera.frame_battle.bind(false), CONNECT_ONE_SHOT)
+	else:
+		world_camera.frame_battle()
 	
 	var message = WorldMessageData.new(
 		"The World has awakened!",
@@ -157,21 +162,17 @@ func set_rounds_until_shrink(value: int) -> void:
 	Events.rounds_until_shrink_updated.emit(rounds_until_shrink)
 
 func shrink_game_board(amount: int = 1) -> void:
-	world_camera.follow_target = tilemap.center_marker
-	world_camera.priority = 50
-	world_camera.set_zoom(Vector2(2.5,2.5))
 	Events.world_message_requested.emit(
 		WorldMessageData.new(
 			"The void consumes",
 			WorldMessageData.Priority.CRITICAL
 		)
 	)
-	if DisplayServer.get_name() != "headless":
-		await world_camera.tween_completed
 	await tilemap.shrink_map(amount)
 
-	world_camera.priority = 0
-	world_camera.set_zoom(Vector2.ONE)
+	# Reframe once per completed collapse, never per disappearing tile or during aim.
+	if not world_camera.manual:
+		world_camera.frame_battle(world_camera.overview)
 	rounds_until_shrink = shrink_frequency
 
 func _on_enemy_died(enemy: Enemy) -> void:

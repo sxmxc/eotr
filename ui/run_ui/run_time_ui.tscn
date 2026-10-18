@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck2xa3ld451by"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/mechanism.svg" id="1_8mou2"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/time.svg" id="1_8mou2"]
 [ext_resource type="Script" uid="uid://1cq7o50otbcr" path="res://ui/run_ui/run_time_ui.gd" id="1_ufay1"]
 
 [node name="RunTimeUI" type="HBoxContainer" unique_id=721921390]
@@ -8,7 +8,7 @@ size_flags_horizontal = 2
 script = ExtResource("1_ufay1")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1678898646]
-custom_minimum_size = Vector2(36, 36)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("1_8mou2")
 expand_mode = 1

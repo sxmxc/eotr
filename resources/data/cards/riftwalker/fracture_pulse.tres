@@ -5,14 +5,11 @@
 [ext_resource type="AudioStream" uid="uid://y8shlp65x13s" path="res://assets/audio/spells/blessing3.wav" id="1_xqcfa"]
 [ext_resource type="PackedScene" uid="uid://clemke10r3mhf" path="res://ui/fx/flash_fx.tscn" id="2_p6rxa"]
 [ext_resource type="AudioStream" uid="uid://bonkarcwaqe1g" path="res://assets/audio/spells/explode1.wav" id="4_32n7f"]
-[ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="5_g4gsr"]
-
-
-[ext_resource type="Texture2D" path="res://assets/rift/cards/fracture_pulse.webp" id="rift_art"]
+[ext_resource type="Texture2D" uid="uid://u7rpj3o4k2p7" path="res://assets/rift/cards/fracture_pulse.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/fracture_pulse_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_5imcf")
-card_art = ExtResource("rift_art")
 energy_sound_fx = ExtResource("1_xqcfa")
 energy_visual_fx = ExtResource("2_p6rxa")
 card_type = 2
@@ -21,6 +18,7 @@ id = "fracture_pulse"
 name = "Fracture Pulse"
 card_rarity = 2
 description = "Deal [b]%s[/b] damage to all enemies. Gain 1 energy."
+card_art = ExtResource("rift_art")
 sound_fx = ExtResource("4_32n7f")
-visual_fx = ExtResource("5_g4gsr")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -8,7 +8,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_stkcn"]
 atlas = ExtResource("hex_atlas")
-region = Rect2(96, 32, 32, 32)
+region = Rect2(192, 64, 64, 64)
 
 [node name="MovementTargetSelector" type="Node2D" unique_id=2037679228]
 script = ExtResource("1_6f7n0")

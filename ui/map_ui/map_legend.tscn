@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://ui/map_ui/map_legend.gd" id="legend_script"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/energy.svg" id="18_yj3lc"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/attack.svg" id="18_yj3lc"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/energy.svg" id="19_4aki2"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/elite.svg" id="19_4aki2"]
 
 [ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="20_8fhq7"]
 
@@ -12,7 +12,8 @@
 
 [ext_resource type="Texture2D"  path="res://assets/rift/ui/chest.svg" id="22_0rx4c"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/elite.svg" id="23_ixteu"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/skull.svg" id="23_ixteu"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/event.svg" id="event"]
 
 [ext_resource type="Texture2D" uid="uid://cdtkxwq6qq66l" path="res://assets/third_party/Keyboard & Mouse/Vector/mouse_scroll_vertical.svg" id="24_xrsi6"]
 
@@ -122,6 +123,7 @@ layout_mode = 2
 theme_type_variation = &"HudPanelMain"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel" unique_id=718704237]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,6 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=24497066]
+metadata/map_node_type = &"MONSTER"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1469875195]
@@ -142,9 +145,10 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=691681979]
 layout_mode = 2
 theme_type_variation = &"LegendText"
-text = "Rift"
+text = "Battle"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1250636018]
+metadata/map_node_type = &"ELITE"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=718875884]
@@ -157,9 +161,10 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=496445266]
 layout_mode = 2
 theme_type_variation = &"LegendText"
-text = "Elite Rift"
+text = "Elite battle"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1023831166]
+metadata/map_node_type = &"SHOP"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1533296682]
@@ -175,6 +180,7 @@ theme_type_variation = &"LegendText"
 text = "Shop"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1786266073]
+metadata/map_node_type = &"REST"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=1659825555]
@@ -190,6 +196,7 @@ theme_type_variation = &"LegendText"
 text = "Rest"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1531795373]
+metadata/map_node_type = &"TREASURE"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=707544995]
@@ -205,6 +212,7 @@ theme_type_variation = &"LegendText"
 text = "Treasure"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1201227888]
+metadata/map_node_type = &"BOSS"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=286953981]
@@ -218,6 +226,22 @@ stretch_mode = 5
 layout_mode = 2
 theme_type_variation = &"LegendText"
 text = "Boss"
+
+[node name="EventRow" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+metadata/map_node_type = &"EVENT"
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/EventRow"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("event")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/EventRow"]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Event"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=715883777]
 visible = false
@@ -243,6 +267,7 @@ script = ExtResource("25_xrrkx")
 metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
 [node name="BountyBoardButton" type="TextureButton" parent="." unique_id=1047103175]
+theme = ExtResource("32_djwbl")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 anchors_preset = 2

@@ -1,5 +1,10 @@
 # Combat, content and art overhaul
 
+Historical record: the card collage and terrain production described below was
+superseded by [visual-production.md](visual-production.md). Cards now use original
+complete illustrations. The obsolete card compositor was removed; existing
+menu/variant packaging is retained in `tools/build_rift_presentation.py`.
+
 Persistent delivery checklist (2026-10-18). Unchecked items are not complete.
 
 - [x] Inspect repository, progression, combat, enemy actions, card UI and asset references.

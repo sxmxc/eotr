@@ -2,16 +2,18 @@
 
 [ext_resource type="Script" uid="uid://cbrpici73jf4p" path="res://resources/data/cards/riftwalker/nano_shield.gd" id="1_3masv"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_vmlvs"]
-
-
-[ext_resource type="Texture2D" path="res://assets/rift/cards/nano_shield.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="energy_signature"]
+[ext_resource type="Texture2D" uid="uid://dyl821o8yxmem" path="res://assets/rift/cards/nano_shield.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/nano_shield_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_3masv")
-card_art = ExtResource("rift_art")
+energy_visual_fx = ExtResource("energy_signature")
 card_type = 1
 id = "nano_shield"
 name = "Nano Shield"
 card_rarity = 1
 description = "Block [b]%s[/b] damage and regain 3 energy."
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

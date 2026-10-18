@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kponn"]
 atlas = ExtResource("1_fn1wp")
-region = Rect2(32, 32, 32, 32)
+region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="Animation" id="Animation_1id2b"]
 length = 0.001

@@ -2,138 +2,304 @@
   "shaders": [
     {
       "shader": "scripts/shaders/all_in_one_blotchy_aura.gdshader",
-      "consumers": [
-        "resources\\materials\\blotchy_border.tres"
-      ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "consumers": [],
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/all_in_one_outline.gdshader",
       "consumers": [],
-      "state": "dormant authoring variant",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/basic_outline.gdshader",
-      "consumers": [
-        "resources\\materials\\card_hovered_material.tres"
-      ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "consumers": [],
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/battle_over_vignette.gdshader",
       "consumers": [
-        "resources\\materials\\battle_over_vignette.tres"
+        "resources/materials/battle_over_vignette.tres"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Reviewed and retained existing specialized behavior."
     },
     {
       "shader": "scripts/shaders/blotchy_aura.gdshader",
-      "consumers": [
-        "resources\\materials\\card_modified_material.tres"
-      ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "consumers": [],
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/card_burnable.gdshader",
       "consumers": [
-        "resources\\materials\\card_burnable.tres"
+        "resources/materials/card_burnable.tres"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Reviewed and retained existing specialized behavior."
     },
     {
       "shader": "scripts/shaders/dark_noise_vignette.gdshader",
       "consumers": [
-        "ui\\world_ui\\battle_presentation.tscn"
+        "ui/world_ui/battle_presentation.tscn"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Zero speed freezes animation; avoids division by zero and equal smoothstep endpoints."
     },
     {
       "shader": "scripts/shaders/electrical_arc_v2.gdshader",
       "consumers": [
-        "resources\\materials\\electric_arc_v2.tres"
+        "resources/materials/electric_arc_v2.tres"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Replaced scrolling stock noise with broad ink/core bands on textured native Line2D UVs; independent fade/material per strike, explicit source and local coordinates. Float tween endpoints fix stepwise invisible/visible fade; root draws above terrain."
     },
     {
       "shader": "scripts/shaders/electrical_arc_v3.tres",
       "consumers": [],
-      "state": "dormant authoring variant",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/fog_of_war.gdshader",
       "consumers": [
-        "resources\\tilesets\\fog_of_war.tres"
+        "resources/tilesets/fog_of_war.tres"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Reviewed and retained existing specialized behavior."
     },
     {
       "shader": "scripts/shaders/gradient_blotchy_aura.gdshader",
       "consumers": [],
-      "state": "dormant authoring variant",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/gradient_outline.gdshader",
       "consumers": [],
-      "state": "dormant authoring variant",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/highlighter.gdshader",
-      "consumers": [
-        "resources\\materials\\highlighter_material.tres"
-      ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "consumers": [],
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/scrolling_texture_blotchy_aura.gdshader",
       "consumers": [],
-      "state": "dormant authoring variant",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/scrolling_texture_outline.gdshader",
       "consumers": [],
-      "state": "dormant authoring variant",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "removed after zero-reference check",
+      "review": "Superseded; runtime path and UID references checked before removal."
     },
     {
       "shader": "scripts/shaders/tile_target_highlight.gdshader",
       "consumers": [
-        "ui\\world_ui\\target_highlight.tscn"
+        "ui/world_ui/target_highlight.tscn"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Matched actual hex slope; uses declared alpha controls and vertex modulation without tinting from terrain texture."
     },
     {
       "shader": "scripts/shaders/vignette.gdshader",
       "consumers": [
-        "scenes\\post_fx\\post_fx.tscn"
+        "scenes/post_fx/post_fx.tscn"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Preserves modulation and clamps radius/alpha."
     },
     {
       "shader": "scripts/shaders/white_sprite_material.gdshader",
       "consumers": [
-        "resources\\materials\\white_sprite_material.tres"
+        "resources/materials/white_sprite_material.tres"
       ],
-      "state": "referenced",
-      "review": "source reviewed; native compatibility import pending"
+      "state": "retained",
+      "review": "Preserves CanvasItem alpha and tint during hit flashes."
     }
   ],
   "particles": [
+    {
+      "file": "ui/card_ui/card_visuals.tscn",
+      "counts": [
+        "128"
+      ],
+      "lifetimes": [
+        "0.35"
+      ]
+    },
+    {
+      "file": "ui/fx/ambient_particles.tscn",
+      "counts": [
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "lifetimes": [
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0"
+      ]
+    },
+    {
+      "file": "ui/fx/ember_burst_fx.tscn",
+      "counts": [
+        "10"
+      ],
+      "lifetimes": [
+        "0.4"
+      ]
+    },
+    {
+      "file": "ui/fx/explosion_fx.tscn",
+      "counts": [
+        "8"
+      ],
+      "lifetimes": [
+        "0.35"
+      ]
+    },
+    {
+      "file": "ui/fx/slash_fx.tscn",
+      "counts": [
+        "1"
+      ],
+      "lifetimes": [
+        "0.22"
+      ]
+    },
+    {
+      "file": "ui/fx/spark_fx.tscn",
+      "counts": [
+        "12"
+      ],
+      "lifetimes": [
+        "0.25"
+      ]
+    },
+    {
+      "file": "ui/fx/summon_wisp_fx.tscn",
+      "counts": [
+        "8"
+      ],
+      "lifetimes": [
+        "0.4"
+      ]
+    },
+    {
+      "file": "ui/player_ui/hex_trail.tscn",
+      "counts": [
+        "100"
+      ],
+      "lifetimes": [
+        "6.0"
+      ]
+    },
+    {
+      "file": "scenes/map/map.tscn",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes/player/player.tscn",
+      "counts": [
+        "24"
+      ],
+      "lifetimes": [
+        "0.5"
+      ]
+    },
+    {
+      "file": "scenes/rest/rest.tscn",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes/run/pause_menu.tscn",
+      "counts": [
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "lifetimes": [
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0"
+      ]
+    },
+    {
+      "file": "scenes/sandbox/control_sandbox.tscn",
+      "counts": [
+        "4"
+      ],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes/shop/shop.tscn",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes/treasure/treasure.tscn",
+      "counts": [
+        "12",
+        "12",
+        "12",
+        "12"
+      ],
+      "lifetimes": [
+        "1.2",
+        "1.2",
+        "1.2",
+        "1.2"
+      ]
+    }
+  ],
+  "animation_tree_consumers": [],
+  "validation": "Native UI and illustrated-family/overlap/projectile/ward replay checks pass; headless combat and 3 offline encounters plus 1 rendered battle complete. See icon-fx-followup.md.",
+  "particle_changes": {
+    "spark_primary": {
+      "before": 500,
+      "after": 12,
+      "secondary_nodes_removed": 2,
+      "native_and_headless_lifetime_fallback": true
+    },
+    "card_trail": {
+      "before": 5000,
+      "after": 128,
+      "lifetime_seconds": 0.35
+    },
+    "summon_wisp": {
+      "particles": 8,
+      "lifetime_seconds": 0.4
+    },
+    "stress": {
+      "simultaneous_impacts": 16,
+      "impact_particles": 192,
+      "summon_particles": 8,
+      "cleanup": "all transient roots released"
+    }
+  },
+  "initial_particle_inventory": [
     {
       "file": "scripts\\tests\\compatibility_smoke.gd",
       "counts": [],
@@ -309,5 +475,126 @@
       ]
     }
   ],
-  "animation_tree_consumers": []
+  "followup_date": "2026-10-18",
+  "illustrated_fx": {
+    "reference_assets": [
+      "assets/rift/cards/arcane_bolt.webp",
+      "assets/rift/source/riftwalker.webp"
+    ],
+    "sources": "ai/docs/illustrated-fx-sources.json",
+    "sheets": 8,
+    "frames": 64,
+    "particle_frame_extracts": 4,
+    "families": {
+      "arcane_projectile": [
+        "arcane_projectile.webp"
+      ],
+      "void_projectile": [
+        "void_projectile.webp"
+      ],
+      "energy_wisp": [
+        "energy_wisp.webp"
+      ],
+      "ember_flame": [
+        "ember_flame.webp"
+      ],
+      "corruption_mist": [
+        "corruption_mist.webp"
+      ],
+      "impact_dust": [
+        "impact_dust.webp"
+      ],
+      "ward_shell": [
+        "ward_shell.webp"
+      ],
+      "claw_slash": [
+        "claw_slash.webp"
+      ]
+    },
+    "review": [
+      "All ui/fx scenes inspected. Existing scene paths retained; animated sprites and GPU particles remain native Godot nodes.",
+      "Player restoration uses gold extracted illustration, 24 particles; card trails use small gold motes with original fade.",
+      "Treasure confetti replaced with gold illustrated motes: 4 x 12, 1.2 second lifetime.",
+      "Enemy death has flash and dust only; Obelisk adds its existing brief shatter. Summoning uses plum motes after authoritative placement.",
+      "Phase echo retains actual unit silhouette in muted cyan, short fade; tile collapse retains authored AnimationPlayer sequence and tile texture.",
+      "Damage/block text retains shared outlined FeedbackText. Gathering uses crystal icon and gold shared text, removing neon green/comic font.",
+      "Target/telegraph shader retains actual hex geometry and bounded alpha; white hit flash retains node modulation.",
+      "Fog, card burn, battle intro/outro vignette and selection outlines retained for their specialized function. No new global postprocessing.",
+      "Ambient stars in map/menu/pause retained as small subdued teal/plum shapes; they remain secondary to illustrated environments.",
+      "All HUD/map/status/action icons inspected as one ivory outline family. Resource cube replaced by terrain crystal cluster; health/clock normalized.",
+      "Replaced old HDR stock enemy-selection glyph with a reference-guided hand-illustrated cyan energy marker; rejected geometric SVG removed across all three enemy scene templates."
+    ],
+    "removed_files": [
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_coin_8x8.png",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_coin_8x8.png.import",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_cup_8x8.png",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_cup_8x8.png.import",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_hexagon_8x8.png",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_hexagon_8x8.png.import",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_shine_8x8.png",
+      "assets/third_party/Spritesheet Pack/confetti/jettelly_shine_8x8.png.import",
+      "assets/third_party/Spritesheet Pack/smoke/jettelly_smoke_8x8_02.png",
+      "assets/third_party/Spritesheet Pack/smoke/jettelly_smoke_8x8_02.png.import",
+      "assets/third_party/spell_animations/arrows_green.png",
+      "assets/third_party/spell_animations/arrows_green.png.import",
+      "assets/third_party/spell_animations/cauterize.png",
+      "assets/third_party/spell_animations/cauterize.png.import",
+      "assets/third_party/spell_animations/fireball.png",
+      "assets/third_party/spell_animations/fireball.png.import",
+      "assets/third_party/spell_animations/fireball_blue.png",
+      "assets/third_party/spell_animations/fireball_blue.png.import",
+      "assets/third_party/spell_animations/flash01.png",
+      "assets/third_party/spell_animations/flash01.png.import",
+      "assets/third_party/spell_animations/skull_smoke_green.png",
+      "assets/third_party/spell_animations/skull_smoke_green.png.import",
+      "assets/third_party/spell_animations/sphere_blue.png",
+      "assets/third_party/spell_animations/sphere_blue.png.import",
+      "resources/materials/blotchy_border.tres",
+      "resources/materials/card_hovered_material.tres",
+      "resources/materials/card_modified_material.tres",
+      "resources/materials/highlighter_material.tres",
+      "resources/vfx/arcane_spark.tres",
+      "resources/vfx/ember_mote.tres",
+      "resources/vfx/energy_mote.tres",
+      "resources/vfx/void_mote.tres",
+      "scripts/shaders/all_in_one_blotchy_aura.gdshader",
+      "scripts/shaders/all_in_one_blotchy_aura.gdshader.uid",
+      "scripts/shaders/basic_outline.gdshader",
+      "scripts/shaders/basic_outline.gdshader.uid",
+      "scripts/shaders/blotchy_aura.gdshader",
+      "scripts/shaders/blotchy_aura.gdshader.uid",
+      "scripts/shaders/highlighter.gdshader",
+      "scripts/shaders/highlighter.gdshader.uid",
+      "ui/fx/arrow_projectile_fx.gd",
+      "ui/fx/arrow_projectile_fx.gd.uid",
+      "ui/fx/arrow_projectile_fx.tscn",
+      "ui/fx/arrow_up_fx.gd",
+      "ui/fx/arrow_up_fx.gd.uid",
+      "ui/fx/burn_fx.gd",
+      "ui/fx/burn_fx.gd.uid",
+      "ui/fx/claw_slash_fx.gd",
+      "ui/fx/claw_slash_fx.gd.uid",
+      "ui/fx/curse_fx.gd",
+      "ui/fx/curse_fx.gd.uid",
+      "ui/fx/ember_burst_fx.gd",
+      "ui/fx/ember_burst_fx.gd.uid",
+      "ui/fx/explosion_fx.gd",
+      "ui/fx/explosion_fx.gd.uid",
+      "ui/fx/flash_fx.gd",
+      "ui/fx/flash_fx.gd.uid",
+      "ui/fx/projectile_fx.tscn",
+      "ui/fx/shield_shine_fx.gd",
+      "ui/fx/shield_shine_fx.gd.uid",
+      "ui/fx/slash_fx.gd",
+      "ui/fx/slash_fx.gd.uid",
+      "ui/fx/smoke_fx.gd",
+      "ui/fx/smoke_fx.gd.uid",
+      "ui/fx/visual_fx.tscn",
+      "assets/particles/kenney-particles/magic_03.png",
+      "assets/particles/kenney-particles/magic_03.png.import"
+    ],
+    "standalone_markers": [
+      "assets/rift/fx/target_ring.webp"
+    ]
+  }
 }

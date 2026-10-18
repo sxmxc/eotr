@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bvu7r4ul8bc2r"]
-
-[ext_resource type="Script" uid="uid://q4gn5tds0qv2" path="res://ui/fx/projectile_fx.gd" id="1_e48xc"]
-
-[node name="ProjectileFX" type="Node2D" unique_id=791156152]
-script = ExtResource("1_e48xc")

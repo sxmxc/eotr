@@ -161,7 +161,7 @@ func _start_next_enemy_turn(expected_generation: int = -1) -> void:
 
 	if DisplayServer.get_name() == "headless":
 		await get_tree().process_frame
-	elif spotlight:
+	elif spotlight and current_enemy.phantom_camera_2d.is_active():
 		await current_enemy.phantom_camera_2d.tween_completed
 	else:
 		await get_tree().create_timer(QUICK_RESOLVE_DELAY).timeout

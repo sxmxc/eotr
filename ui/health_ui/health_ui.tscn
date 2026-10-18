@@ -9,7 +9,7 @@ alignment = 1
 script = ExtResource("1_seohp")
 
 [node name="HealthIcon" type="TextureRect" parent="." unique_id=658487368]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 40)
 expand_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3

@@ -40,7 +40,7 @@ var fog_layer: TileMapLayer
 var highlight_layer : TileMapLayer
 @onready var target_highlight_layer: Node2D = $CardTargetHighlights
 var player_position: Vector2i
-var obelisk_position: Vector2i
+var obelisk_position: Vector2
 var fog_state = {}  # Stores which tiles are cleared
 var tile_map_data: Dictionary[Vector2i, HexTileData] = {}  # Stores generated tile types
 var tile_dict: Dictionary[Enums.TileType, Vector2i] = {
@@ -58,6 +58,12 @@ var obelisk: Enemy
 
 var is_resource_count_visible : bool = false : set = set_is_resource_count_visible
 var start_tile_effects_pending := false
+
+func cell_to_world(cell: Vector2i) -> Vector2:
+	return base_layer.to_global(base_layer.map_to_local(cell))
+
+func world_to_cell(world_position: Vector2) -> Vector2i:
+	return base_layer.local_to_map(base_layer.to_local(world_position))
 
 func _ready():
 	has_generated = false
@@ -116,6 +122,8 @@ func generate_tilemap(battle_stats: EncounterDefinition):
 				resources = RNG.instance.randi_range(0, 3)
 			var tile_data = HexTileData.new(tile_position, tile_type, resources)
 			tile_map_data[tile_position] = tile_data
+			if tile_type == Enums.TileType.RESOURCE and resources == 0:
+				base_layer.set_cell(tile_position, 0, RESOURCE_USED_ID)
 	map_generated.emit()
 	has_generated = true
 	center_marker.global_position = get_center_tile_global_position()
@@ -176,7 +184,10 @@ func clear_fog_around(center: Vector2i, radius: int):
 				var tile_sprite = TILE_SPRITE.instantiate()
 				tile_sprite.position = base_layer.map_to_local(cell)
 				fog_layer.add_child(tile_sprite)
-				tile_sprite.grow_out()
+				tile_sprite.material = fog_tile_data.material
+				var fade := tile_sprite.create_tween()
+				fade.tween_property(tile_sprite, "modulate:a", 0.0, 0.24)
+				fade.tween_callback(tile_sprite.queue_free)
 				fog_layer.erase_cell(cell)
 				fog_state[cell] = false
 			else:
@@ -205,12 +216,13 @@ func set_resource_count(tile_pos: Vector2i, amount: int) -> void:
 	var tile_data: HexTileData = tile_map_data.get(tile_pos, null)
 	if !tile_data:
 		return
-	tile_data.resource_count = amount
+	tile_data.resource_count = maxi(amount, 0)
 	if is_resource_count_visible:
 		draw_resource_count()
-	if tile_data.resource_count == 0:
-		base_layer.set_cell(tile_pos,0,RESOURCE_USED_ID)
+	if tile_data.type == Enums.TileType.RESOURCE:
+		base_layer.set_cell(tile_pos, 0, RESOURCE_USED_ID if tile_data.resource_count == 0 else tile_dict[Enums.TileType.RESOURCE])
 	Events.tile_updated.emit(tile_data)
+	presentation_changed.emit()
 
 
 func get_resource_count(tile_pos: Vector2i) -> int:
@@ -287,6 +299,8 @@ func has_start_tile_effects_pending() -> bool:
 
 func teleport_player(tile_pos) -> void:
 	if is_within_bounds(tile_pos):
+		target_highlight_layer.play_gate_burst(player_position)
+		target_highlight_layer.play_gate_burst(tile_pos)
 		clear_fog_around(tile_pos, fog_clear_radius)
 		player_position = tile_pos
 		var tile_data : HexTileData = tile_map_data.get(tile_pos, null)
@@ -303,17 +317,17 @@ func place_obelisk(obelisk_to_place: Obelisk) -> void:
 	
 func is_tile_free(tile_pos: Vector2i) -> bool:
 	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
-		var enemy_tile = base_layer.local_to_map(enemy.global_position)
+		var enemy_tile = world_to_cell(enemy.global_position)
 		if enemy_tile == tile_pos:
 			return false
 
 	if is_instance_valid(obelisk):
-		var obelisk_tile = base_layer.local_to_map(obelisk.global_position)
+		var obelisk_tile = world_to_cell(obelisk.global_position)
 		if obelisk_tile == tile_pos:
 			return false
 
 	if player != null:
-		var player_tile = base_layer.local_to_map(player.global_position)
+		var player_tile = world_to_cell(player.global_position)
 		if player_tile == tile_pos:
 			return false
 
@@ -449,7 +463,7 @@ func get_center_tile_position() -> Vector2:
 	return base_layer.map_to_local(center_tile)
 
 func get_center_tile_global_position() -> Vector2:
-	return to_global(get_center_tile_position())
+	return cell_to_world(get_center_tile_coord())
 	
 func get_starting_tile(
 	preferred_type: Enums.TileType = Enums.TileType.RESOURCE,

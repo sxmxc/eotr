@@ -73,13 +73,13 @@ def main():
     parser.add_argument("--max-actions", type=int, default=500)
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--encounter", default="res://resources/data/battles/tier_1_channelers_bulwark.tres")
-    parser.add_argument("--output", default="qa/autowalker")
+    parser.add_argument("--output", default=".qa-tmp/autowalker")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    project = root / "qa/autowalker-project"
+    project = root / ".qa-tmp/autowalker-project"
     cache = project / ".godot"
     cache.mkdir(parents=True, exist_ok=True)
-    (root / "qa/.gdignore").touch()
+    (root / ".qa-tmp/.gdignore").touch()
     for directory in ("addons", "assets", "resources", "scenes", "scripts", "ui", "telemetry"):
         link_directory(root / directory, project / directory)
     link_directory(root / ".godot/imported", cache / "imported")
@@ -94,14 +94,14 @@ def main():
         config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
         config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
     (project / "project.godot").write_text(config, encoding="utf-8")
-    userdata = root / "qa/autowalker-userdata"
+    userdata = root / ".qa-tmp/autowalker-userdata"
     userdata.mkdir(exist_ok=True)
     env = os.environ.copy()
     for name in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
         env[name] = str(userdata)
     output = (root / args.output).resolve()
-    if root / 'qa' not in output.parents and output != root / 'qa':
-        parser.error('--output must be inside the repository qa/ directory for bounded retention')
+    if root / '.qa-tmp' not in output.parents and output != root / '.qa-tmp':
+        parser.error('--output must be inside the repository .qa-tmp/ directory for bounded retention')
     output.mkdir(parents=True, exist_ok=True)
     stop_file = output / f".stop-{uuid.uuid4().hex}"
     storage_stop_at = None
@@ -109,7 +109,7 @@ def main():
     def maintenance(active=True):
         nonlocal storage_stop_at
         # Never truncate a file while Godot's writer still owns its seek offset.
-        maintain_qa(root / 'qa', output, args.replay, trim_log=not active)
+        maintain_qa(root / '.qa-tmp', output, args.replay, trim_log=not active)
         log = output / 'godot.log'
         if active and log.exists() and log.stat().st_size > MAX_LOG_BYTES:
             if storage_stop_at is None:

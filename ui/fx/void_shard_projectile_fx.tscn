@@ -1,0 +1,6 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://ui/fx/fireball_small_projectile_fx.tscn" id="base"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/void_projectile_frames.tres" id="frames"]
+[node name="VoidShardProjectileFX" instance=ExtResource("base")]
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = ExtResource("frames")

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c16u2xa1behyv" path="res://ui/fx/resource_gather_fx.gd" id="1_bme1k"]
 [ext_resource type="Texture2D"  path="res://assets/rift/ui/resource.svg" id="2_bpocl"]
-[ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="3_38lqy"]
 
 [sub_resource type="Animation" id="Animation_cxr0g"]
 length = 0.001

@@ -6,12 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="3_lvxji"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="4_75vfm"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="4_p47bc"]
-[ext_resource type="Texture2D" uid="uid://dksvpi5cien2y" path="res://assets/particles/kenney-particles/star_08.png" id="7_0owmy"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="8_qc6v1"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_5gtgg"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dovo2"]
-radius = 13.0
+[ext_resource type="Material" path="res://resources/materials/unit_outline.tres" id="outline"]
+[ext_resource type="PackedScene" path="res://ui/world_ui/unit_presence.tscn" id="presence"]
+
+[sub_resource type="CapsuleShape2D" id="CircleShape2D_dovo2"]
+radius = 20.0
+height = 70.0
 
 [sub_resource type="Curve" id="Curve_qek5x"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -30,13 +34,13 @@ curve = SubResource("Curve_h17s1")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fm80t"]
 particle_flag_disable_z = true
 spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.06
-scale_max = 0.06
+scale_min = 0.12
+scale_max = 0.12
 scale_curve = SubResource("CurveTexture_je7p5")
-color = Color(0.524982, 3, 2.99105, 0.471)
+color = Color(1, 1, 1, 0.5)
 alpha_curve = SubResource("CurveTexture_5gtgg")
 
 [sub_resource type="Resource" id="Resource_h17s1"]
@@ -47,14 +51,17 @@ script = ExtResource("1_dovo2")
 movement_sound = ExtResource("2_p47bc")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1338636701]
+z_index = 4
+material = ExtResource("outline")
 texture_filter = 2
 y_sort_enabled = true
-scale = Vector2(0.0625, 0.0625)
+scale = Vector2(0.175, 0.175)
 texture = ExtResource("2_dovo2")
 
-[node name="TokenShineEffect" parent="Sprite2D" unique_id=1973273648 instance=ExtResource("4_75vfm")]
+[node name="TokenShineEffect" parent="." unique_id=1973273648 instance=ExtResource("4_75vfm")]
 unique_name_in_owner = true
 visible = false
+persistent = true
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1519123578]
 show_behind_parent = true
@@ -62,6 +69,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1346817613]
+position = Vector2(0, -33)
 shape = SubResource("CircleShape2D_dovo2")
 
 [node name="ModifierHandler" parent="." unique_id=624157648 instance=ExtResource("3_lvxji")]
@@ -81,7 +89,7 @@ type = 5
 unique_name_in_owner = true
 show_behind_parent = true
 emitting = false
-amount = 250
+amount = 24
 texture = ExtResource("7_0owmy")
 lifetime = 0.5
 explosiveness = 1.0
@@ -99,3 +107,11 @@ auto_zoom = true
 auto_zoom_max = 2.5
 auto_zoom_margin = Vector4(40, 40, 40, 125)
 draw_limits = true
+
+[node name="GroundPresence" parent="." instance=ExtResource("presence")]
+
+[node name="SpellOrigin" type="Marker2D" parent="."]
+position = Vector2(10, -43)
+
+[node name="ImpactAnchor" type="Marker2D" parent="."]
+position = Vector2(0, -43)

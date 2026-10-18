@@ -15,6 +15,41 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 	RNG.instance.seed = 472001
+	if OS.get_cmdline_user_args().has("--map-only"):
+		GameSettings.show_tutorial = false
+		var run_scene: Run = load("res://scenes/run/run.tscn").instantiate()
+		run_scene.run_bootstrap = RunBootstrap.new()
+		run_scene.run_bootstrap.type = RunBootstrap.Type.NEW_RUN
+		run_scene.run_bootstrap.selected_player_class = load("res://resources/data/stats/player/riftwalker_starting_stats.tres")
+		get_tree().root.add_child(run_scene)
+		await get_tree().create_timer(1.0).timeout
+		await _test_route_and_icon_feedback(run_scene)
+		for route: Line2D in run_scene.map.lines.get_children():
+			var origin: MapNode = route.get_meta("from_node")
+			var destination: MapNode = route.get_meta("to_node")
+			var face := PackedVector2Array([Vector2(-16, -26), Vector2(-31, 0), Vector2(-16, 26), Vector2(16, 26), Vector2(31, 0), Vector2(16, -26)])
+			_check(not Geometry2D.is_point_in_polygon(route.points[0] - origin.position, face), "Route stops outside source node")
+			_check(not Geometry2D.is_point_in_polygon(route.points[1] - destination.position, face), "Route stops outside destination node")
+		for entry: MapNodeUI in run_scene.map.map_nodes.get_children():
+			_check(entry.get_node("Visuals/Face").color.a == 1.0, "Node face conceals underlying connections")
+		var current: MapNode
+		for entry: MapNodeUI in run_scene.map.map_nodes.get_children():
+			if entry.available and current == null:
+				current = entry.map_node
+			entry.available = false
+		current.selected = true
+		run_scene.map.last_map_node = current
+		run_scene.map.floors_climbed = 1
+		run_scene.map.unlock_next_map_node()
+		run_scene.map.center_camera_on_current_floor()
+		await get_tree().create_timer(1.1).timeout
+		await _capture("map")
+		run_scene.queue_free()
+		await get_tree().process_frame
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--event-room-only"):
 		await _test_event_choices()
 		print("Compatibility smoke test: %d failures" % failures)
@@ -63,6 +98,8 @@ func _run() -> void:
 	menu.queue_free()
 	await get_tree().process_frame
 	await _test_ui_composition()
+	if OS.get_cmdline_user_args().has("--capture-ui"):
+		await _capture_production_deck()
 	if OS.get_cmdline_user_args().has("--capture-ui"):
 		for screen: String in ["class_selector", "settings_menu"]:
 			var supporting: Control = load("res://scenes/menus/%s.tscn" % screen).instantiate()
@@ -118,12 +155,17 @@ func _run() -> void:
 	run_scene.tutorial_ui._on_button_pressed()
 	_test_save_overwrite(run_scene)
 	await _test_event_choices()
+	await _test_route_and_icon_feedback(run_scene)
 	await _capture("map")
 	if OS.get_cmdline_user_args().has("--capture-ui"):
 		var legend := run_scene.map_legend.get_node("MapLegend")
 		legend.toggle.button_pressed = true
 		await _capture("legend")
 		legend.toggle.button_pressed = false
+		var bounty: ThemedIconButton = run_scene.map_legend.get_node("BountyBoardButton")
+		bounty._on_mouse_entered()
+		await _capture("icon-hover")
+		bounty._on_mouse_exited()
 		run_scene.hud.relic_tooltip.show_tooltip(run_scene.player_stats.starting_relic)
 		await _capture("relic")
 		run_scene.hud.relic_tooltip.hide()
@@ -283,6 +325,62 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		_check(run_scene.run_stats.resources == 100 - cost and run_scene.relic_handler.has_relic(relic_id), "Relic purchase charges once and grants its relic")
 
 
+func _test_route_and_icon_feedback(run_scene: Run) -> void:
+	var content := run_scene.map_legend.find_child("LegendContent", true, false)
+	var rows: VBoxContainer = content.get_node("%VBoxContainer")
+	_check(rows.get_child_count() == 7, "Legend includes all seven encounter types")
+	for row: Node in rows.get_children():
+		var kind: StringName = row.get_meta("map_node_type")
+		var icon: TextureRect = row.get_child(0)
+		_check(icon.texture == rows.get_theme_icon(kind, &"MapNode"), "Legend matches map icon for " + kind)
+	var bounty: ThemedIconButton = run_scene.map_legend.get_node("BountyBoardButton")
+	var original_size := bounty.size
+	for i in 20:
+		bounty._on_mouse_entered()
+		_check(bounty.self_modulate == bounty.get_theme_color(&"hover", &"IconButton"), "Hover uses shared theme color")
+		bounty._on_mouse_exited()
+	_check(bounty.material == null and bounty.size == original_size, "Repeated hover preserves icon bounds without aura shader")
+	var node := preload("res://scenes/map/map_node_ui.tscn").instantiate() as MapNodeUI
+	add_child(node)
+	node.map_node = MapNode.new()
+	node.map_node.type = Enums.MapNodeType.MONSTER
+	node.available = true
+	node.clicked.connect(func(_data: MapNode): node.available = false)
+	_check(node.select_route(), "Available route can be entered")
+	_check(node.get_node("RouteLabel").text == "Entering", "Entry never flashes a premature cleared label")
+	_check(not node.select_route(), "Entering route rejects duplicate selection")
+	node.queue_free()
+	await get_tree().process_frame
+
+
+func _capture_production_deck() -> void:
+	var cards: Array[Card] = []
+	for folder: String in ["common", "riftwalker"]:
+		var directory := "res://resources/data/cards/" + folder
+		var files := DirAccess.get_files_at(directory)
+		files.sort()
+		for file: String in files:
+			if file.ends_with(".tres"):
+				cards.append(load(directory.path_join(file)) as Card)
+	var fixture := Control.new()
+	fixture.size = Vector2(1920, 1080)
+	add_child(fixture)
+	for first in range(0, cards.size(), 10):
+		var pile := CardPile.new()
+		for card: Card in cards.slice(first, mini(first + 10, cards.size())):
+			pile.add_card(card)
+		var view := load("res://ui/card_pile/card_pile_view.tscn").instantiate() as CardPileView
+		view.card_pile = pile
+		fixture.add_child(view)
+		view.show_current_view("Deck")
+		await _settle_ui()
+		await _capture("illustrated-deck-%d" % (first / 10 + 1))
+		view.queue_free()
+		await get_tree().process_frame
+	fixture.queue_free()
+	await get_tree().process_frame
+
+
 func _test_ui_composition() -> void:
 	var fixture := Control.new()
 	fixture.size = Vector2(1920, 1080)
@@ -335,6 +433,12 @@ func _test_ui_composition() -> void:
 	_check(face.get_theme_stylebox("panel") != shared_style, "Card state selects another theme style")
 	var other := selection.card_container.get_child(1) as CardMenuUI
 	_check(other.visuals.background_texture.get_theme_stylebox("panel") == shared_style, "Changing one card does not mutate shared styles")
+	var authored := load("res://ui/card_ui/card_visuals.tscn").instantiate() as CardVisuals
+	authored.get_node("CardBackgroundTexture").theme_type_variation = &"CardFaceModified"
+	fixture.add_child(authored)
+	authored.set_hover_outline(true)
+	authored.set_hover_outline(false)
+	_check(authored.background_texture.theme_type_variation == &"CardFaceModified", "Returning from hover preserves the face style authored in the scene")
 	fixture.queue_free()
 	await get_tree().process_frame
 

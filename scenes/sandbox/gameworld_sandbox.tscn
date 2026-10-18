@@ -67,14 +67,14 @@ script = ExtResource("15_run_stats")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_highlight"]
 texture = ExtResource("16_highlight_atlas")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(64, 64)
 3:1/0 = 0
 3:1/0/modulate = Color(0.0913577, 1, 0, 0.523)
 
 [sub_resource type="TileSet" id="TileSet_highlight"]
 tile_shape = 3
 tile_layout = 5
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_highlight")
 
 [sub_resource type="Gradient" id="Gradient_xw31r"]

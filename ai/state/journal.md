@@ -2,6 +2,38 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-18 - Codex: battlefield presentation follow-up and harvesting fix**
+- Preserved existing tile artwork. Added persistent per-unit ink/rim outlines, grounded faction/objective markers, taller proportional character scales and body picking. Corrected fly-idle animation keys that shrank units to half size; fog-hidden enemies remain concealed despite taller art.
+- Kept Phantom Camera authoritative; tactical framing uses revealed bounds at 1.9-2.15 zoom. Continuous dark world-space fog retains hex alpha, and reveal feedback fades the fog rather than growing stone sprites. Moved camera hints clear of notification toasts.
+- Enlarged spell strokes/particles/projectiles, improved contrast/timing, and authored launch/impact anchors. Hit flashes retain outlines. Rift gates animate while visible and burst on real departure/arrival without changing teleport resolution.
+- Fixed Echo Harvest's zero config payout, failure to consume deposits, and hex-as-pixel FX coordinates. Deposit count, depleted atlas state and HUD now update together; repeated harvest cannot duplicate resources. Initially empty deposits render depleted. Ruin reward mechanics remain unchanged.
+- Full headless combat regression: zero failures. Focused native fog/HUD, harvest/depletion/repeat protection, teleport, visibility, picking, grid and camera checks: zero failures. Reviewed fixed-name battle/harvest/Arcane Bolt captures. Art/resource validation passed; one seven-turn AutoWalker encounter had zero invalid actions, failures, softlocks or timeouts. Removed task QA output, retained prior user QA data. See ai/docs/battlefield-presentation.md.
+
+
+**2026-10-18 - Codex: 64px battlefield, terrain and Phantom Camera framing**
+- Migrated board/fog/atlas, navigation/collision, picking and overlays to 64px pointy hexes. Doubled original characters and shadows proportionally, preserving smaller Spectre proportions; replaced eight-cell terrain atlas without changing addresses or combat mechanics.
+- Existing Phantom Camera supplies HUD-safe tactical/overview/inspection framing. Detached competing production Camera2D script; guarded inactive spotlight waits. Wheel/MMB inspect, Home resets and F fits; targeting locks framing and collapse reframes once per batch. Updated shader normalization, FX footprints and projectile speeds.
+- Art/resource checks, five launcher tests, focused native checks and one seven-turn headless AutoWalker encounter pass. Full combat pass found only a new float-precision assertion; corrected tolerance passed focused reruns. Fixed discovered camera and edge-framing defects using fixed output filenames. See ai/docs/battlefield-presentation.md for validation limits, existing cube-distance discrepancy and QA cleanup recommendations.
+- Generated outputs now default to ignored .qa-tmp. This task's temporary projects, saves, logs and screenshots were removed after inspection. Existing qa data remains intact.
+
+
+**2026-10-18 - Codex: finish theme-consistent icons, shaders and illustrated FX**
+- Replaced mismatched stock spell art with eight reference-guided transparent sheets (64 frames), four particle extracts and a hand-illustrated selection marker. Exact built-in image-generation prompts/sources are in ai/docs/illustrated-fx-sources.json. Approved Arcane Bolt and original Riftwalker are the explicit references; future asset requirements are recorded in icon-fx-followup.md.
+- Rejected and removed the geometric target_ring.svg after user feedback. New target_ring.webp uses inked tapered cyan strokes and a clear center. Corrected legacy selection animation scale keys from 3/3.5 to 1/1.05; native capture and regression bound ensure the marker stays around one hex.
+- Replaced duplicate/expanded hover aura with theme-bound tint; corrected all seven legend mappings using the same MapNode theme icons. Resource HUD icon matches crystal terrain; normalized health/clock sizing. Route selection reads Entering before battle instead of flashing Cleared.
+- Replaced scrolling arc shader with ink/core bands and corrected integer tween endpoints, UV texture, layering and fade checks. Guarded interrupted projectile charge, fixed Obelisk world-coordinate movement and removed its projectile camera takeover. Reusable native sprite lifecycle hides persistent wards and frees transients.
+- Reviewed first-party FX, particles, hit/death, movement, collapse, summoning, gathering, treasure, ambient and UI shader uses. Reduced death stacking, bounded impact/restoration/reward particles and replaced green/comic gather feedback with shared gold outlined text. Specialized fog/targeting/flash/burn/vignette shaders retained with explicit decisions.
+- Removed 67 superseded legacy files/sidecars after path/UID scans, plus rejected marker preview; no addon edits. Native UI and combat, headless combat, art/reference/resource checks and diff whitespace checks pass. Three offline encounters and one rendered 12-turn victory completed without harness failures, invalid player actions, softlocks or timeouts; existing AI fallback counters and Windows certificate diagnostic documented. Full campaign/export/hardware performance remains untested. See ai/docs/icon-fx-followup.md and visual-effects-inventory.json.
+
+
+**2026-10-18 - Codex: original card art, terrain and combat presentation**
+- Replaced all 29 card illustrations using the approved stylized Arcane Bolt and original character designs as explicit image references. Native five-card battle gate and all 29 production deck cards inspected; mechanics, concepts, prompts, sources and hashes recorded.
+- Replaced symbol terrain with coherent physical surfaces while preserving exact atlas geometry, navigation, targeting and authoritative state. Preserved character art and footprints.
+- Audited 18 shaders, removed six unused variants, fixed arc coordinates/uniforms/materials/lifetimes and alpha/tint/shine defects. Added bounded movement traces and summon wisps; fixed ineffective teleport parent fade. Reduced impact/card-trail GPU allocations and verified overlapping effect cleanup.
+- Removed obsolete card/terrain compositors, arena background and old assets/card frame sources. The existing shared CardVisuals scene/theme remains authoritative and now honors editor-authored normal face styling.
+- Native/headless compatibility and actual combat checks pass; three offline AutoWalker seeds plus one native Watch encounter completed without simulation failures, invalid card actions, softlocks or timeouts. Collapse, summons, deaths and Obelisk destruction exercised. Existing AI fallbacks/platform diagnostics documented. Hardware FPS, full campaign and export QA not claimed. See ai/docs/visual-production.md.
+
+
 **2026-10-17 – Codex: trustworthy QA metrics, bounded storage and Grafana access**
 - Assigned unique simulation IDs before scene startup and preserved them through
   run_started. Fresh JSONL per session and reset health counters prevent accumulated

@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_c8ln4"]
 [ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="2_iju21"]
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
-[ext_resource type="Texture2D" uid="uid://cbx47wp1tythp" path="res://assets/splash/godot-moose-px-splash.png" id="3_ttpkl"]
+[ext_resource type="Texture2D" uid="uid://bvc1wka1kiw3j" path="res://assets/splash/banner1-2560x1440.png" id="4_iju21"]
 
 [sub_resource type="Gradient" id="Gradient_iju21"]
 colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
@@ -234,7 +234,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_ttpkl")
+texture = ExtResource("4_iju21")
 expand_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=884562537]

@@ -9,7 +9,7 @@ size = Vector2(4, 4)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ws524"]
 atlas = ExtResource("5_gwqsc")
-region = Rect2(96, 32, 32, 32)
+region = Rect2(192, 64, 64, 64)
 
 [node name="CardTargetSelector" type="Node2D" unique_id=843188531]
 script = ExtResource("1_s6vcj")

@@ -19,27 +19,20 @@ uniform vec2 noise_dir_2										= vec2(1.0,-1.0);
 uniform vec3 smoke_color : 				source_color 			= vec3(0.8);
 uniform float density : 				hint_range(0.0, 1.0) 	= 1.0;
 
+varying vec2 world_pos;
+varying vec4 fog_modulation;
+void vertex() {
+	world_pos = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).xy;
+	fog_modulation = COLOR;
+}
 void fragment() {
-	// Use the base tile alpha as a hex mask so fog respects the tile silhouette.
-	float tile_mask = texture(TEXTURE, UV).a;
-
-	vec2 offset = ( (camera_position * camera_position_speed) + (camera_offset * camera_offset_speed) );
-	
-	vec2 time_offset_1 = TIME * noise_dir_1 * noise_speed_1 * 0.1;
-	vec2 time_offset_2 = TIME * noise_dir_2 * noise_speed_2 * 0.1;
-	
-	// Create distorted UV and sample final noise
-	vec2 distorted_uv_1 = UV + time_offset_1 + vec2(offset.x,offset.y * 1.75) * 0.1;
-	vec2 distorted_uv_2 = UV + time_offset_2 + vec2(offset.x,offset.y * 1.75) * 0.1;
-    
-	vec4 final_noise_1 = texture(noise_texture_1, distorted_uv_1);
-	vec4 final_noise_2 = texture(noise_texture_2, distorted_uv_2);
-    float mixed_noise = mix(final_noise_1, final_noise_2, noise_blend).r;
-	
-	// Keep color lively via noise, but alpha stays solid so tiles below remain hidden.
-	vec3 fog_tint = smoke_color * mix(0.6, 1.0, mixed_noise);
-	float smoke_alpha = clamp(density * tile_mask, 0.0, 1.0);
-    
-	// Output color
-	COLOR = vec4(fog_tint, smoke_alpha);
+	// Sample continuous world coordinates, never atlas UVs that repeat per hex.
+	vec2 p = world_pos / 850.0;
+	float a = texture(noise_texture_1, p + TIME * vec2(0.012, -0.008)).r;
+	float b = texture(noise_texture_2, p * 1.8 + TIME * vec2(-0.009, 0.011)).r;
+	float cloud = smoothstep(0.22, 0.82, a * 0.7 + b * 0.3);
+	vec3 mist = mix(vec3(0.003, 0.006, 0.012), vec3(0.012, 0.022, 0.038), cloud);
+	// Use alpha only: floor pigments and outlines never appear in the fog.
+	float mask = smoothstep(0.01, 0.3, texture(TEXTURE, UV).a);
+	COLOR = vec4(mist, density * mask * fog_modulation.a);
 }

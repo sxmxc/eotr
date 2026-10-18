@@ -91,7 +91,6 @@ func unlock_next_map_node() -> void:
 
 func show_map() -> void:
 	$MapChrome.show()
-	$ParticlesLayer.show()
 	show()
 	ui_layer.show()
 	camera_2d.enabled = true
@@ -140,8 +139,10 @@ func _connect_lines(map_node: MapNode) -> void:
 		var new_map_line := MAP_NODE_LINE_SCENE.instantiate() as Line2D
 		new_map_line.set_meta("from_node", map_node)
 		new_map_line.set_meta("to_node", next)
-		new_map_line.add_point(map_node.position)
-		new_map_line.add_point(next.position)
+		var direction := map_node.position.direction_to(next.position)
+		var trim := minf(MapNodeUI.CONNECTION_CLEARANCE, map_node.position.distance_to(next.position) * 0.49)
+		new_map_line.add_point(map_node.position + direction * trim)
+		new_map_line.add_point(next.position - direction * trim)
 		lines.add_child(new_map_line)
 
 

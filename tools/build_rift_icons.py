@@ -1,7 +1,6 @@
 """Rebuild the small custom UI family. SVG source paths are shipped directly."""
 from pathlib import Path
 import re
-from PIL import Image, ImageDraw, ImageEnhance
 
 OUT=Path(__file__).resolve().parents[1]/'assets/rift/ui'
 SHAPES={
@@ -28,7 +27,7 @@ SHAPES={
  'mechanism':'M26 12H38L40 20 48 23 52 32 47 41 40 44 37 52H26L23 44 15 41 12 32 16 23 24 20ZM32 24C43 24 43 40 32 40C21 40 21 24 32 24Z',
  'poison':'M26 12H38M28 12V25L19 40Q15 51 26 51H39Q50 51 45 40L36 25V12M23 37H41M30 44H34',
  'search':'M28 13C47 13 47 41 28 41C9 41 9 13 28 13ZM38 38 51 51',
- 'resource':'M13 25 34 16 51 25V41L30 50 13 41ZM13 25 30 34 51 25M30 34V50',
+ 'resource':'M25 43 23 23 32 10 41 23 39 43 32 51ZM23 23 32 29 41 23M32 29V51M24 34 15 27 9 36 14 48 25 51M15 27 18 40 14 48M40 32 49 25 55 36 50 48 39 51M49 25 46 39 50 48',
  'ruin':'M13 48H51M19 46V22L27 18V46M37 46V17L45 22V46M15 19 32 11 49 19',
  'key':'M23 13C37 13 37 33 23 33C9 33 9 13 23 13ZM30 30 49 49M40 40 45 35M45 45 50 40',
  'ring':'M32 21C55 21 55 51 32 51C9 51 9 21 32 21ZM23 19 32 10 41 19 32 27Z',
@@ -73,47 +72,8 @@ def main():
         # The warm neutral stroke takes the existing theme's hover/disabled tint.
         source=f'<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="{shape}" fill="none" stroke="#e5d7b7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>\n'
         (OUT/(key+'.svg')).write_text(source,encoding='utf-8')
-    build_terrain()
 
 
-def build_terrain():
-    art=OUT.parent
-    source=Image.open(art/'source/arena.webp').convert('RGBA')
-    atlas=Image.new('RGBA',(128,64))
-    for index in range(8):
-        # Real illustrated slate texture, masked to the engine's pointy 32px hex.
-        tile=source.crop((80+index*20,270,208+index*20,398)).resize((32,32),Image.Resampling.LANCZOS)
-        tile=ImageEnhance.Color(tile).enhance(.4)
-        tile=ImageEnhance.Brightness(tile).enhance(.65 if index!=7 else 1.1)
-        tint=Image.new('RGBA',(32,32),('#733e6b' if index==1 else '#234756')+( '90' if index==1 else '30'))
-        tile=Image.alpha_composite(tile,tint)
-        mask=Image.new('L',(32,32));md=ImageDraw.Draw(mask)
-        points=[(16,0),(31,8),(31,23),(16,31),(0,23),(0,8)]
-        md.polygon(points,fill=255);tile.putalpha(mask)
-        d=ImageDraw.Draw(tile)
-        d.line(points+[points[0]],fill='#788387',width=1)
-        if index==0:
-            d.polygon([(12,21),(10,15),(15,9),(21,12),(23,18),(18,23)],fill='#947b5c',outline='#d9bb85')
-            d.line((13,18,15,12,20,13),fill='#e5d7b7')
-        elif index==1:d.line((18,4,13,12,19,19,14,28),fill='#bd8ba9',width=2)
-        elif index==2:
-            d.ellipse((10,6,22,26),outline='#b58aa9',width=2)
-            d.arc((12,9,20,23),90,270,fill='#e2c4d6')
-        elif index==3:
-            d.ellipse((7,12,25,23),fill='#213847',outline='#85c5c3')
-            d.arc((10,12,22,20),5,180,fill='#bce5df',width=2)
-        elif index==4:
-            d.rectangle((8,11,12,23),fill='#a89e89');d.line((8,11,12,11),fill='#e5d7b7')
-            d.rectangle((19,8,23,23),fill='#a89e89');d.line((19,8,23,8),fill='#e5d7b7')
-            d.line((7,24,25,24),fill='#6c685e',width=2)
-        elif index==5:
-            shade=Image.new('RGBA',(32,32),'#142030d0');shade.putalpha(mask.point(lambda a:a*210//255));tile=Image.alpha_composite(tile,shade)
-        elif index==6:d.arc((10,15,22,24),0,170,fill='#4c5d65')
-        elif index==7:
-            d=ImageDraw.Draw(tile);d.line(points+[points[0]],fill='#9fe4d6',width=2)
-        atlas.alpha_composite(tile,((index%4)*32,(index//4)*32))
-    (art/'terrain').mkdir(exist_ok=True)
-    atlas.save(art/'terrain/hex_atlas.png',optimize=True)
 
 
 if __name__=='__main__':main()

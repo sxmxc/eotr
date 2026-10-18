@@ -30,7 +30,7 @@ var relics: RelicHandler
 var simulation_seed := 1
 var encounter := "res://resources/data/battles/tier_1_channelers_bulwark.tres"
 var policy_name := "greedy"
-var output := "res://qa/autowalker"
+var output := "res://.qa-tmp/autowalker"
 var max_turns := 50
 var max_actions := 500
 var timeout_seconds := 120.0

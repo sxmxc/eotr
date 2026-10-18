@@ -3,14 +3,11 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_epc7p"]
 [ext_resource type="Script" uid="uid://tj64vk8r7j25" path="res://resources/data/cards/riftwalker/mana_leech.gd" id="1_jlex2"]
 [ext_resource type="AudioStream" uid="uid://b1vge246lfhtt" path="res://assets/audio/spells/disenchant2.wav" id="2_0xxly"]
-[ext_resource type="PackedScene" uid="uid://cln3yj26mtsp" path="res://ui/fx/curse_fx.tscn" id="3_ufvob"]
-
-
-[ext_resource type="Texture2D" path="res://assets/rift/cards/mana_leech.webp" id="rift_art"]
+[ext_resource type="Texture2D" uid="uid://drfju3bmem86u" path="res://assets/rift/cards/mana_leech.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/mana_leech_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_jlex2")
-card_art = ExtResource("rift_art")
 card_type = 2
 target_type = 1
 id = "mana_leech"
@@ -18,6 +15,7 @@ name = "Mana Leech"
 card_rarity = 2
 description = "Target is [b]weakened[/b] for [b]3[/b] turns. 
 Gain [b]2[/b] energy temporarily."
+card_art = ExtResource("rift_art")
 sound_fx = ExtResource("2_0xxly")
-visual_fx = ExtResource("3_ufvob")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

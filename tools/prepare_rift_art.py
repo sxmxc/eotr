@@ -1,6 +1,6 @@
 """Validate alpha and package selected original art into bounded game textures.
 
-Only final WebP assets live in the project. The image generator's source files
+Only final bounded WebP/PNG assets live in the project. The image generator's source files
 stay in its own output location. This tool refuses opaque unit backgrounds.
 """
 from pathlib import Path
@@ -49,12 +49,33 @@ def prepare(source, key, category):
         if abs(image.width / image.height - 592 / 396) > 0.06:
             raise ValueError('Card source must be composed for the 3:2 art viewport')
         image = image.convert('RGB').resize((592,396),Image.Resampling.LANCZOS)
+    elif category == 'fx' and key == 'target_ring':
+        if image.width != image.height:
+            raise ValueError('Target marker must use a square canvas')
+        if image.getchannel('A').getextrema()[0] != 0:
+            raise ValueError('Target marker needs real transparent alpha')
+        image = image.resize((512,512),Image.Resampling.LANCZOS)
+    elif category == 'fx':
+        if abs(image.width / image.height - 2) > 0.01:
+            raise ValueError('FX sheets require four by two equal square cells')
+        if image.getchannel('A').getextrema()[0] != 0:
+            raise ValueError('FX sheet needs real transparent alpha')
+        image = image.resize((1024,512),Image.Resampling.LANCZOS)
+        # GPUParticles2D samples a full texture RID; ship explicit single-cell
+        # textures instead of relying on AtlasTexture region support there.
+        particle_frames = {'arcane_projectile': ('arcane_spark',5), 'energy_wisp': ('energy_mote',3), 'ember_flame': ('ember_mote',3), 'void_projectile': ('void_mote',7)}
+        if key in particle_frames:
+            name, frame = particle_frames[key]
+            x, y = frame % 4 * 256, frame // 4 * 256
+            particle_path = ROOT/'assets/rift/fx'/(name+'.webp')
+            particle_path.parent.mkdir(parents=True,exist_ok=True)
+            image.crop((x,y,x+256,y+256)).save(particle_path,'WEBP',quality=92,method=6)
     elif category == 'terrain':
         if image.width != image.height * 2:
             raise ValueError('Terrain sheet must preserve the four by two square-cell layout')
-        # Retain the existing exact pixel silhouette and atlas addressing contract.
+        # Retain the current logical hex silhouette and atlas addressing contract.
         mask = Image.open(ROOT/'assets/rift/terrain/hex_atlas.png').getchannel('A')
-        image = image.resize((128,64),Image.Resampling.LANCZOS)
+        image = image.resize(mask.size,Image.Resampling.LANCZOS)
         image.putalpha(mask)
     else:
         image.thumbnail((1920,1080) if key=='menu' else (768,512),Image.Resampling.LANCZOS)
@@ -67,6 +88,6 @@ def prepare(source, key, category):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source');parser.add_argument('key');parser.add_argument('category',choices=['entities','source','cards','terrain'])
+    parser.add_argument('source');parser.add_argument('key');parser.add_argument('category',choices=['entities','source','cards','terrain','fx'])
     args=parser.parse_args()
     print(prepare(args.source,args.key,args.category))
