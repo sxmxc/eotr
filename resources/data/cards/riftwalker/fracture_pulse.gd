@@ -19,7 +19,7 @@ func _init() -> void:
 
 	effect_configs = [damage_effect, energy_effect]
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
+func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass
 
 
