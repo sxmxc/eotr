@@ -11,4 +11,4 @@ datasources:
       username: grafana_reader
       defaultDatabase: telemetry
     secureJsonData:
-      password: ${CLICKHOUSE_READ_PASSWORD}
+      password: $CLICKHOUSE_READ_PASSWORD

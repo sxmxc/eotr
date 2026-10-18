@@ -1,0 +1,39 @@
+<clickhouse>
+    <profiles>
+        <telemetry_reader>
+            <readonly>1</readonly>
+            <max_execution_time>30</max_execution_time>
+            <max_memory_usage>1000000000</max_memory_usage>
+            <constraints>
+                <max_execution_time>
+                    <min>1</min>
+                    <max>60</max>
+                    <changeable_in_readonly />
+                </max_execution_time>
+            </constraints>
+        </telemetry_reader>
+    </profiles>
+    <users>
+        <telemetry_ingest>
+            <password from_env="TELEMETRY_INGEST_PASSWORD" />
+            <networks><ip>::/0</ip></networks>
+            <profile>default</profile>
+            <quota>default</quota>
+            <grants>
+                <query>GRANT INSERT ON telemetry.events</query>
+                <query>GRANT INSERT ON telemetry.ingest_health</query>
+            </grants>
+        </telemetry_ingest>
+        <grafana_reader>
+            <password from_env="TELEMETRY_READ_PASSWORD" />
+            <networks><ip>::/0</ip></networks>
+            <profile>telemetry_reader</profile>
+            <quota>default</quota>
+            <grants>
+                <query>GRANT SELECT ON telemetry.events</query>
+                <query>GRANT SELECT ON telemetry.events_deduplicated</query>
+                <query>GRANT SELECT ON telemetry.ingest_health</query>
+            </grants>
+        </grafana_reader>
+    </users>
+</clickhouse>

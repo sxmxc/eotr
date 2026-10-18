@@ -6,9 +6,13 @@ services:
       CLICKHOUSE_USER: bootstrap
       CLICKHOUSE_PASSWORD: ${CLICKHOUSE_ADMIN_PASSWORD:?Set a strong bootstrap password}
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: "1"
+      TELEMETRY_INGEST_PASSWORD: ${CLICKHOUSE_PASSWORD:?Set a strong server password}
+      TELEMETRY_READ_PASSWORD: ${CLICKHOUSE_READ_PASSWORD:?Set a strong readonly password}
     volumes:
       - clickhouse_data:/var/lib/clickhouse
       - ./clickhouse/migrations:/docker-entrypoint-initdb.d:ro
+      - ./clickhouse/users.d/telemetry.xml:/etc/clickhouse-server/users.d/telemetry.xml:ro
+      - ./clickhouse/config.d/telemetry.xml:/etc/clickhouse-server/config.d/telemetry.xml:ro
     networks: [analytics]
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:8123/ping"]
@@ -41,7 +45,7 @@ services:
       GF_PLUGINS_PREINSTALL: grafana-clickhouse-datasource
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_AUTH_ANONYMOUS_ENABLED: "false"
-      CLICKHOUSE_READ_PASSWORD: ${CLICKHOUSE_READ_PASSWORD:?Create the readonly account before using dashboards}
+      CLICKHOUSE_READ_PASSWORD: ${CLICKHOUSE_READ_PASSWORD:?Set a strong readonly password}
     ports: ["3000:3000"]
     volumes:
       - grafana_data:/var/lib/grafana

@@ -14,7 +14,6 @@ const CASTLE_LOOP = preload("res://assets/audio/music/castle_loop.wav")
 
 func _ready() -> void:
 	get_tree().paused = false
-	TelemetryManager.generate_host_unique_ident()
 	continue_button.disabled = SaveGame.load_data() == null
 	if not continue_button.disabled:
 		continue_button.grab_focus()

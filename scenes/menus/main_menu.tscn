@@ -10,7 +10,6 @@
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="5_ng0o5"]
 [ext_resource type="FontFile" uid="uid://caddq45sym1nl" path="res://assets/fonts/cinzel/Cinzel-Bold.otf" id="6_50h1w"]
 [ext_resource type="Script" uid="uid://cxwnehr2avcec" path="res://addons/uiJuicer/Fader.gd" id="7_50h1w"]
-[ext_resource type="Script" uid="uid://ewo5es7kglbm" path="res://scenes/menus/player_identity.gd" id="9_50h1w"]
 
 [sub_resource type="Gradient" id="Gradient_50h1w"]
 colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
@@ -213,15 +212,6 @@ offset_bottom = -72.0
 grow_vertical = 0
 text = "vX.X.X.X-build"
 script = ExtResource("4_6bivr")
-
-[node name="PlayerIdentity" type="Label" parent="UILayer/Control" unique_id=1098404744]
-layout_mode = 0
-offset_left = 31.0
-offset_top = 1011.0
-offset_right = 267.0
-offset_bottom = 1053.0
-text = "Player Identity"
-script = ExtResource("9_50h1w")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=991796566]
 environment = SubResource("Environment_bre17")

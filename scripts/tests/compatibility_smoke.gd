@@ -9,9 +9,8 @@ func _ready() -> void:
 
 
 func _run() -> void:
-	print("Talo test configuration: %s, offline=%s, socket=%s" % [TaloSettings.settings_path, Talo.settings.offline_mode, Talo.settings.auto_connect_socket])
 	_check(Engine.get_version_info().string.begins_with("4.7.2"), "Godot 4.7.2 is required")
-	_check(Talo.settings.offline_mode and not Talo.settings.auto_connect_socket, "Run with the offline Talo test configuration")
+	_check(TelemetryManager.client.config.transport == "null", "Validation must use backend-free Null telemetry")
 	if failures:
 		get_tree().quit(1)
 		return
@@ -45,8 +44,9 @@ func _run() -> void:
 	GameSettings.telemetry_enabled = false
 	TelemetryManager.track_event("compatibility_test", {"amount": 3, "duration": 1.25})
 	TelemetryManager.track_stat("compatibility_test")
-	_check(Talo.events.get_queue_size() == 0, "Unidentified/disabled telemetry must be skipped")
-	_test_talo_event_contract()
+	GameSettings.telemetry_changed.emit(false)
+	_check(TelemetryManager.client.queue.is_empty(), "Disabled telemetry clears pending events")
+	_test_telemetry_event_contract()
 	var menu: Control = load("res://scenes/menus/main_menu.tscn").instantiate()
 	get_tree().root.add_child(menu)
 	await get_tree().process_frame
@@ -76,7 +76,7 @@ func _run() -> void:
 	data_editor.queue_free()
 	await get_tree().process_frame
 	var sandbox: GameWorldSandbox = load("res://scenes/sandbox/gameworld_sandbox.tscn").instantiate()
-	var previous_offline := Talo.settings.offline_mode
+	var previous_suspended := TelemetryManager.suspended
 	get_tree().root.add_child(sandbox)
 	await get_tree().create_timer(2.0).timeout
 	_check(sandbox.player_stats != null, "Sandbox initializes player stats")
@@ -86,8 +86,7 @@ func _run() -> void:
 	await _test_hand_cycle(sandbox)
 	sandbox.queue_free()
 	await get_tree().process_frame
-	_check(Talo.settings.offline_mode == previous_offline, "Sandbox restores offline mode")
-	_check(not TelemetryManager.suspended, "Sandbox restores telemetry")
+	_check(TelemetryManager.suspended == previous_suspended, "Sandbox restores telemetry")
 	var run_scene: Run = load("res://scenes/run/run.tscn").instantiate()
 	run_scene.run_bootstrap = RunBootstrap.new()
 	run_scene.run_bootstrap.type = RunBootstrap.Type.NEW_RUN
@@ -446,28 +445,21 @@ func _test_overhaul_lifetimes(sandbox: GameWorldSandbox) -> void:
 	template.free()
 
 
-func _test_talo_event_contract() -> void:
-	var alias := TaloPlayerAlias.new({
-		"id": 1, "service": "test", "identifier": "offline_test", "displayName": "Test",
-		"lastSeenAt": "", "createdAt": "", "updatedAt": "",
-		"player": {"id": "offline_test", "props": [], "groups": []},
-	})
-	Talo.current_alias = alias
+func _test_telemetry_event_contract() -> void:
 	GameSettings.telemetry_enabled = true
-	TelemetryManager.client.set_consent(true)
+	GameSettings.telemetry_changed.emit(true)
 	TelemetryManager.client.register_schema("compatibility_test", {"version": 1, "additionalProperties": true})
 	TelemetryManager.track_event("compatibility_test", {"amount": 3, "duration": 1.25})
-	_check(Talo.events.get_queue_size() == 0 and TelemetryManager.client.queue.size() > 0, "Telemetry bypasses Talo and reaches the new addon")
-	var identity_label: Label = load("res://scenes/menus/player_identity.gd").new()
-	add_child(identity_label)
-	_check(identity_label.text == "offline_test", "Identity label shows an existing alias")
-	Talo.players.identified.emit(alias)
-	_check(identity_label.text == "offline_test", "Identity signal accepts a TaloPlayerAlias")
+	_check(TelemetryManager.client.queue.size() == 1, "Telemetry reaches the standalone addon without an identity")
+	if not TelemetryManager.client.queue.is_empty():
+		var event: Dictionary = TelemetryManager.client.queue.back()
+		_check(event.properties.amount == 3 and event.properties.duration == 1.25, "Telemetry preserves numeric properties")
+		_check(event.session_id.length() == 32, "Telemetry uses a random session identifier")
 	GameSettings.telemetry_enabled = false
 	GameSettings.telemetry_changed.emit(false)
-	_check(not Talo.has_identity() and Talo.events.get_queue_size() == 0, "Opt-out clears identity and pending events")
-	_check(identity_label.text.is_empty(), "Opt-out clears the identity label")
-	identity_label.queue_free()
+	_check(TelemetryManager.client.queue.is_empty() and not TelemetryManager.client.consent, "Opt-out clears pending events and revokes consent")
+	TelemetryManager.track_event("compatibility_test", {"amount": 4})
+	_check(TelemetryManager.client.queue.is_empty(), "Opt-out prevents subsequent recording")
 
 
 func _test_ambient_particles() -> void:

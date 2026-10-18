@@ -39,20 +39,8 @@ func track_event(event_name: String, props: Dictionary = {}) -> void:
 func track_stat(stat_name: String, change: float = 1.0) -> void:
 	track_event("stat_changed", {"stat": stat_name, "change": change})
 
-# Compatibility entry points. Telemetry needs neither a Talo identity nor host ID.
-func generate_random_ident() -> void:
-	pass
-
-func generate_host_unique_ident() -> void:
-	pass
-
 func _on_telemetry_changed(enabled: bool) -> void:
 	client.set_consent(enabled)
-	if not enabled:
-		Talo.events.clear_queue()
-		Talo.player_auth.session_manager.clear_session(false)
-		Talo.players.identity_cleared.emit()
-		Talo.socket.close_connection()
 
 func configure_qa(path: String) -> void:
 	var settings := Config.new()
