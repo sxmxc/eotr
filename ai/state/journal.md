@@ -2,6 +2,16 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: tolerate non-JSON telemetry HTTP responses**
+- Removed unconditional JSON.parse_string from HTTP classification. Failed requests
+  and non-200 statuses now produce transport/status diagnostics without parsing
+  the response body. HTTP 200 acknowledgements use JSON.parse with explicit error
+  handling, preserving bounded retries for malformed or incomplete acknowledgements.
+- Standalone addon regressions cover empty/text/HTML responses, null/array/wrong
+  counts, 503 retries, permanent 404s and connection failures. Telemetry tests pass
+  with no JSON parser errors; the existing Windows certificate-store diagnostic
+  remains. Endpoint configuration was preserved; no backend service was launched.
+
 **2026-10-17 – Codex: Grafana timeout constraint mismatch**
 - The deployed datasource authenticated but its server handshake failed with
   ClickHouse code 452 because max_execution_time exceeded the reader's 60-second

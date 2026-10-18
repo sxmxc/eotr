@@ -24,9 +24,16 @@ func encode(batch: Array) -> String:
 	return JSON.stringify({"events": batch})
 
 func classify(result: int, code: int, body: PackedByteArray, expected: int) -> Dictionary:
-	var ack: Variant = JSON.parse_string(body.get_string_from_utf8())
-	var accepted: bool = result == HTTPRequest.RESULT_SUCCESS and code == 200 and ack is Dictionary and ack.get("accepted", -1) == expected
-	return {"ok": accepted, "retryable": result != HTTPRequest.RESULT_SUCCESS or code == 0 or code == 429 or code >= 500 or (code >= 200 and code < 300 and not accepted), "error": "" if accepted else str(code)}
+	if result != HTTPRequest.RESULT_SUCCESS:
+		return {"ok": false, "retryable": true, "error": "HTTP transport failure (result %d, status %d)" % [result, code]}
+	if code != 200:
+		return {"ok": false, "retryable": code == 0 or code == 429 or code >= 500 or (code >= 200 and code < 300), "error": "HTTP status %d" % code}
+	var parser := JSON.new()
+	if parser.parse(body.get_string_from_utf8()) != OK:
+		return {"ok": false, "retryable": true, "error": "Invalid JSON acknowledgement (HTTP 200)"}
+	var ack: Variant = parser.data
+	var accepted: bool = ack is Dictionary and ack.get("accepted", -1) == expected
+	return {"ok": accepted, "retryable": not accepted, "error": "" if accepted else "Invalid batch acknowledgement (HTTP 200)"}
 
 func purge() -> void:
 	if is_instance_valid(request_node):

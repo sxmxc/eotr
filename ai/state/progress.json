@@ -3,6 +3,12 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "TELEMETRY-HTTP-RESPONSE-001",
+      "status": "done",
+      "summary": "Handle non-JSON HTTP responses without engine parser errors, report transport/status/acknowledgement failures and preserve retry classification. Standalone tests pass for malformed responses, error statuses, invalid acknowledgements and connection failures. No backend services started.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "GRAFANA-TIMEOUT-CONSTRAINT-001",
       "status": "done",
       "summary": "Provisioned explicit 30-second Grafana query and connection max_execution_time settings within the ClickHouse reader's 60-second ceiling. Static validation compares settings with server constraints. No services launched; deployed verification requires pulling backend changes and restarting Grafana.",
