@@ -79,7 +79,7 @@ After importing the project in Godot 4.7.2, run:
 python tools/validate_project.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe
 ```
 
-Use your own executable path. The runner uses a separate project configuration and save directory under `build/`, with offline Talo settings and no access key. It checks first-party resource loading, Talo event/identity compatibility, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
+Use your own executable path. The runner uses a separate project configuration and save directory under `build/`, with Null telemetry delivery and no backend access. It checks first-party resource loading, telemetry consent and event recording, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
 
 ## 📂 Repository Structure
 

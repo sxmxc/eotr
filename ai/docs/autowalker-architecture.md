@@ -9,7 +9,8 @@ controller. There is no duplicate combat engine and no coordinate-based input.
 ## Commands (PowerShell, from repository root)
 
 Replace the executable path for your installation. The launcher isolates saves and
-uses offline Talo settings. It never starts an analytics backend.
+uses Null telemetry during startup, then local JSONL for simulations. It never
+starts or contacts an analytics backend.
 
 ```powershell
 python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch

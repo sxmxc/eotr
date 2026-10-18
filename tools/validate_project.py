@@ -1,4 +1,4 @@
-"""Run the migration smoke scene with isolated saves and offline Talo settings.
+"""Run the migration smoke scene with isolated saves and Null telemetry delivery.
 
 Usage: python tools/validate_project.py --godot /path/to/godot[.exe]
 Requires an editor import of the real project first. Does not modify project.godot.
@@ -62,8 +62,8 @@ def main() -> int:
     config = (root / "project.godot").read_text(encoding="utf-8")
     config = re.sub(r'^config/name=.*$', 'config/name="eotr_compatibility_validation"', config, flags=re.M)
     config = re.sub(r'^config/(use_custom_user_dir|custom_user_dir)=.*\n?', '', config, flags=re.M)
-    config = re.sub(r'^settings/settings_path=.*\n?', '', config, flags=re.M)
-    config += '\n[talo]\n\nsettings/settings_path="res://scripts/tests/talo_offline.cfg"\n'
+    config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
+    config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
     (validation / "project.godot").write_text(config, encoding="utf-8")
     env = os.environ.copy()
     user_data = root / "build" / "compatibility-userdata"

@@ -2,6 +2,25 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: final Talo removal and Grafana account provisioning**
+- Removed leftover Talo calls from telemetry consent, main menu and sandbox,
+  deleted identity UI/script and offline settings, and cleaned export references.
+  The addon/autoload/plugin were already absent. Tests and AutoWalker now start
+  with isolated Null telemetry, preserving the user's HTTP production resource.
+- Fixed backend account setup: Compose now loads persistent-volume-independent
+  ClickHouse users with environment passwords, explicit INSERT/SELECT grants and
+  read-only query limits. Allowed the Grafana client to set bounded query timeouts.
+  Changed datasource password expansion to preserve `$` characters and documented
+  the existing-host repair without deleting data volumes.
+- Validation: 531 resources loaded and compatibility smoke assertions passed;
+  standalone telemetry tests and seven mocked ingestion tests passed. A headless
+  AutoWalker encounter won in six turns with zero failures, invalid actions,
+  softlocks or timeouts. Backend
+  account/grant/password/configuration static checks passed. Existing Windows
+  certificate, headless shader and shutdown-resource diagnostics remain. No
+  backend services or containers started; live authentication must be checked
+  by the operator after updating the Docker host.
+
 **2026-10-17 – Codex: telemetry minimum-batch byte boundary**
 - Count JSON separators only between events so an accepted event exactly at
   max_event_bytes fits a batch clamped to max_event_bytes + 32, avoiding empty

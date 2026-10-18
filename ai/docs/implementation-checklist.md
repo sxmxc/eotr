@@ -66,7 +66,8 @@ ai/docs/telemetry-migration.md, ai/docs/telemetry-architecture.md.
 
 - [x] Existing event/stat/identity gates audited in combat-improvement.md.
 - [x] TelemetryManager delegates delivery to addon; no Talo telemetry dependency.
-- [x] Unrelated Talo identity functionality preserved.
+- [x] Follow-up request: remove remaining Talo identity UI, compatibility methods,
+  consent cleanup, sandbox settings, export references and test dependencies.
 - [x] Authoritative lifecycle events and numeric JSON properties.
 - [x] Portable shared schemas cover game, simulation, lifecycle and diagnostics.
 - [x] Production/development/QA profiles, backend-free default, consent validated.
@@ -82,6 +83,10 @@ grafana/{dashboards,provisioning}/**, compose.yaml, .env.example, README.md.
 - [x] ClickHouse versioned migration, retention, deduplicated reporting view.
 - [x] Five provisioned dashboards with game/environment/build/time/source filters.
 - [x] Dockerfile, Compose, persistent volumes, health checks, secret templates.
+- [x] Follow-up: provision ingestion/reader accounts on every ClickHouse startup
+  from `.env`, bound reader permissions and timeout settings, and preserve `$` passwords
+  in Grafana provisioning. Static validation covers account/password/grant wiring;
+  live verification remains for the operator's deployment.
 - [x] Isolated mocked ingestion tests, JSON/config/static SQL validation.
 - [x] Deployment/backup/upgrade/rollback/HTTPS/later integration procedures.
 - [x] Confirm no services started or deployed.

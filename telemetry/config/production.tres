@@ -7,4 +7,4 @@ script = ExtResource("1")
 enabled = true
 game_id = "echoes_of_the_rift"
 transport = "http"
-endpoint = "http://docker01.voidmoose.local:8080"
+endpoint = "http://docker01.voidmoose.local:8080/v1/events"

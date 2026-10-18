@@ -3,6 +3,12 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "TELEMETRY-TALO-REMOVAL-GRAFANA-001",
+      "status": "done",
+      "summary": "Removed remaining Talo runtime/UI/export/test integration; validation uses isolated Null telemetry. Provisioned ClickHouse ingestion and Grafana accounts with environment passwords, explicit grants, bounded reader timeout changes and safe Grafana password substitution. Gameplay smoke, standalone addon, mocked ingestion and backend static checks pass; live backend authentication remains operator validation. No backend services started.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "TELEMETRY-BATCH-BOUNDARY-001",
       "status": "done",
       "summary": "Fixed maximum-size events stalling minimum-size telemetry batches by counting commas only between events. Standalone regression reproduces the old empty-batch stall and verifies exact byte limits, FIFO acknowledgement progress and complete queue drainage after the fix.",
