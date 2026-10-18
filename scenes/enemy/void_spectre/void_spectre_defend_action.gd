@@ -9,7 +9,7 @@ func is_performable() -> bool:
 	if enemy == null:
 		return false
 	var obelisk : Obelisk = get_tree().get_first_node_in_group("obelisk")
-	if obelisk.stats.health < obelisk.stats.max_health:
+	if is_instance_valid(obelisk) and not obelisk.is_dying and obelisk.stats.health > 0 and obelisk.stats.health < obelisk.stats.max_health:
 		return true
 	return false
 	
@@ -25,11 +25,14 @@ func perform_action() -> void:
 	armored_status_effect.visual_fx = visual_fx
 	
 	var obelisk : Obelisk = get_tree().get_first_node_in_group("obelisk")
+	if not is_instance_valid(obelisk) or obelisk.is_dying:
+		Events.enemy_action_completed.emit(enemy)
+		return
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
 	var start := enemy.global_position
 	var end := start + start.direction_to(obelisk.global_position) * 2
 
-	tween.tween_property(enemy, "global_position", end, 0.4)
+	tween.tween_property(enemy, "global_position", end, Utils.presentation_duration(0.4))
 	tween.tween_callback(armored_status_effect.execute.bind([obelisk] as Array[Node]))
 	tween.tween_callback(
 		func():
@@ -38,8 +41,8 @@ func perform_action() -> void:
 			if heal_amount > 0:
 				obelisk.stats.heal(heal_amount)
 	)
-	tween.tween_interval(0.25)
-	tween.tween_property(enemy, "global_position", start, 0.4)
+	tween.tween_interval(Utils.presentation_duration(0.25))
+	tween.tween_property(enemy, "global_position", start, Utils.presentation_duration(0.4))
 
 	tween.finished.connect(
 		func(): Events.enemy_action_completed.emit(enemy)

@@ -1,80 +1,71 @@
 extends Node
 
+const Client = preload("res://addons/godot_telemetry/core/client.gd")
+const Config = preload("res://addons/godot_telemetry/resources/telemetry_config.gd")
 var suspended := false
-var _identifying := false
-var _web_identifier := ""
 var _quitting := false
-
+var client: Node
+var session_start_ms := 0
 
 func _ready() -> void:
+	session_start_ms = Time.get_ticks_msec()
+	client = Client.new()
+	add_child(client)
+	var config_path: String = ProjectSettings.get_setting("telemetry/config_path", "res://telemetry/config/production.tres")
+	var settings: Resource = load(config_path) if ResourceLoader.exists(config_path) else Config.new()
+	client.configure(settings)
+	client.set_context({"build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
+	var definitions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://telemetry/schemas/events.json"))
+	for event_name in definitions.events:
+		client.register_schema(event_name, definitions.events[event_name])
 	GameSettings.telemetry_changed.connect(_on_telemetry_changed)
 	_on_telemetry_changed(GameSettings.telemetry_enabled)
-
+	Events.enemy_decision_rejected.connect(func(enemy: Enemy, reason: String): track_event("enemy_waited", {"enemy": enemy.stats.enemy_name, "reason": reason}))
+	track_event("session_started")
 
 func track_event(event_name: String, props: Dictionary = {}) -> void:
-	if not _can_track():
-		return
-	# Talo 1.x requires string keys and values, including numeric gameplay data.
-	var string_props: Dictionary[String, String] = {}
-	for key: Variant in props:
-		string_props[str(key)] = str(props[key])
-	Talo.events.track(event_name, string_props)
-
+	if not suspended:
+		if event_name == "run_started":
+			client.set_context({"run_id": client.new_id()})
+		client.record(event_name, props)
 
 func track_stat(stat_name: String, change: float = 1.0) -> void:
-	if _can_track():
-		Talo.stats.track(stat_name, change)
+	track_event("stat_changed", {"stat": stat_name, "change": change})
 
-
-func _can_track() -> bool:
-	return GameSettings.telemetry_enabled and not suspended and Talo.has_identity()
-
-
+# Compatibility entry points. Telemetry needs neither a Talo identity nor host ID.
 func generate_random_ident() -> void:
-	if _web_identifier.is_empty():
-		var cached_alias := TaloPlayerAlias.get_offline_alias()
-		_web_identifier = cached_alias.identifier if cached_alias else Talo.players.generate_identifier()
-	await _identify("random_username", _web_identifier)
-
+	pass
 
 func generate_host_unique_ident() -> void:
-	if not GameSettings.telemetry_enabled or suspended or Talo.has_identity() or _identifying:
-		return
-	if OS.has_feature("web"):
-		await generate_random_ident()
-		return
-	var identifier := OS.get_unique_id()
-	if identifier.is_empty():
-		await generate_random_ident()
-	else:
-		await _identify("host", identifier)
-
-
-func _identify(service: String, identifier: String) -> void:
-	if not GameSettings.telemetry_enabled or suspended or Talo.has_identity() or _identifying:
-		return
-	_identifying = true
-	await Talo.players.identify(service, identifier)
-	_identifying = false
-	# Settings may have changed while the request was in flight.
-	if not GameSettings.telemetry_enabled:
-		_on_telemetry_changed(false)
-
+	pass
 
 func _on_telemetry_changed(enabled: bool) -> void:
+	client.set_consent(enabled)
 	if not enabled:
 		Talo.events.clear_queue()
-		# Avoid resetting the socket (and opening a new connection) during opt-out.
 		Talo.player_auth.session_manager.clear_session(false)
 		Talo.players.identity_cleared.emit()
 		Talo.socket.close_connection()
 
+func configure_qa(path: String) -> void:
+	var settings := Config.new()
+	settings.enabled = true
+	settings.consent_required = false
+	settings.game_id = "echoes_of_the_rift"
+	settings.environment = "qa"
+	settings.profile = "qa"
+	settings.transport = "jsonl"
+	settings.output_path = path
+	client.configure(settings)
+	client.set_context({"source_type": "bot", "build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
 
 func request_quit() -> void:
 	if _quitting:
 		return
 	_quitting = true
-	# Let Talo flush pending events just as it does for the window close button.
-	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
-	
-	
+	track_event("session_ended", {"duration_ms": Time.get_ticks_msec() - session_start_ms})
+	client.shutdown()
+	var deadline := Time.get_ticks_msec() + 1500
+	while client.busy and Time.get_ticks_msec() < deadline:
+		await get_tree().process_frame
+	get_tree().quit()

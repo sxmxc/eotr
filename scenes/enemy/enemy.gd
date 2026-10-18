@@ -34,6 +34,7 @@ var hovered: bool = false
 var queue_button: Button = null
 var queue_hovered: bool = false
 var is_dying := false
+var pending_damage := 0
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
@@ -48,7 +49,7 @@ func _ready():
 	
 	
 func _physics_process(_delta):
-	current_tile_position = tilemap.base_layer.local_to_map(position)
+	pass # Tile position is authoritative; feedback must not move a unit logically.
 	
 
 func set_stats(value: EnemyStats) -> void:
@@ -105,10 +106,21 @@ func update_intent() -> void:
 	Events.enemy_updated.emit(self)
 
 func do_turn() -> void:
+	var evaluation_start := Time.get_ticks_usec()
 	#stats.block = 0
+	if is_dying or stats.health <= 0:
+		Events.enemy_action_completed.emit(self)
+		return
+	if not current_action or not current_action.is_eligible():
+		if current_action:
+			Events.enemy_decision_rejected.emit(self, "intent_became_invalid")
+		current_action = enemy_action_picker.get_action()
 	if not current_action:
+		TelemetryManager.track_event("enemy_waited", {"enemy": stats.enemy_name, "reason": "no_legal_action"})
+		Events.enemy_action_completed.emit(self)
 		return
 		
+	TelemetryManager.track_event("enemy_action", {"enemy": stats.enemy_name, "action": str(current_action.name), "turn": turn_ticker, "evaluation_us": Time.get_ticks_usec() - evaluation_start})
 	current_action.perform_action()
 	turn_ticker += 1
 	
@@ -117,6 +129,7 @@ func take_damage(
 ) -> void:
 	if stats.health <= 0:
 		return
+	pending_damage += 1
 
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	print("[Enemy] %s incoming dmg=%s mod=%s direct=%s -> modified=%s (health=%s, block=%s)" % [name, damage, which_modifier, direct, modified_damage, stats.health, stats.block])
@@ -138,17 +151,18 @@ func take_damage(
 	if direct:
 		tween.tween_callback(Utils.shake.bind(self, profile.shake_strength, profile.shake_duration))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
-		tween.tween_interval(0.17)
+		tween.tween_interval(Utils.presentation_duration(0.17))
 	else:
 		tween.tween_callback(Utils.shake.bind(self, profile.shake_strength, profile.shake_duration))
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
-		tween.tween_interval(0.17)
+		tween.tween_interval(Utils.presentation_duration(0.17))
 	
 	tween.finished.connect( 
 		func(): 
+			pending_damage -= 1
 			sprite_2d.material = null
 			sprite_2d.self_modulate = Color.WHITE
-			if stats.health <= 0:
+			if stats.health <= 0 and not is_dying and pending_damage == 0:
 				Events.enemy_died.emit(self)
 				do_death()
 				)
@@ -161,6 +175,8 @@ func _begin_death_sequence() -> bool:
 	return true
 
 func _play_death_feedback() -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	if circle_indicator:
 		circle_indicator.hide()
 	if stats_ui:
@@ -199,8 +215,11 @@ func _play_death_feedback() -> void:
 		SoundManager.play_sound_random_pitch(death_sound)
 
 func _fade_out_and_queue_free(duration: float = DEATH_FADE_DURATION) -> void:
+	if DisplayServer.get_name() == "headless":
+		queue_free.call_deferred()
+		return
 	var tween = create_tween()
-	tween.tween_property(sprite_2d, "scale", sprite_2d.scale * DEATH_SCALE_PUNCH, 0.1)\
+	tween.tween_property(sprite_2d, "scale", sprite_2d.scale * DEATH_SCALE_PUNCH, Utils.presentation_duration(0.1))\
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self, "modulate", Color.TRANSPARENT, duration)
 	tween.tween_callback(queue_free)
@@ -208,11 +227,12 @@ func _fade_out_and_queue_free(duration: float = DEATH_FADE_DURATION) -> void:
 func do_death() -> void:
 	if not _begin_death_sequence():
 		return
-	if Talo.current_player:
-		TelemetryManager.track_stat("enemies_killed")
+	TelemetryManager.track_stat("enemies_killed")
 	_fade_out_and_queue_free()
 
 func get_player_tile_position() -> Vector2i:
+	if tilemap:
+		return tilemap.player_position
 	var player = get_tree().get_first_node_in_group("player")
 	if player and tilemap and tilemap.base_layer:
 		var player_tile = tilemap.base_layer.local_to_map(tilemap.base_layer.to_local(player.global_position))

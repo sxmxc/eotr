@@ -70,6 +70,8 @@ func _has_required_nodes() -> bool:
 
 
 func _on_player_turn_ended() -> void:
+	if player_handler.resolving_action or not player_handler.hand_ready:
+		return
 	if not _validate_transition(Phase.PLAYER_TURN, "player turn end"):
 		return
 	_set_phase(Phase.PLAYER_CLEANUP)
@@ -91,11 +93,15 @@ func _on_enemy_turn_ended() -> void:
 
 func _advance_round() -> void:
 	_set_phase(Phase.TRANSITION)
+	game_world.check_victory()
+	if not battle_active:
+		return
 	var should_shrink := shrink_frequency > 0 and game_world.current_round % shrink_frequency == 0
 	if should_shrink:
 		_set_phase(Phase.SHRINKING)
 		await game_world.shrink_game_board(1)
 		_set_phase(Phase.TRANSITION)
+		game_world.check_victory()
 
 	if not battle_active:
 		return

@@ -34,20 +34,21 @@ func perform_action():
 
 		# If we found any available tiles at this radius, pick one and break
 		if not available_tiles.is_empty():
-			found_tile = RNG.array_pick_random(available_tiles)
+			var path := bat._find_path(bat.current_tile_position, available_tiles[0])
+			found_tile = bat._get_step_tile_from_path(path, 2)
 			break
 
 	# If no tiles were found even after searching max radius, give up
 	if found_tile == Vector2i(-1, -1):
-		get_tree().create_timer(.6).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+		get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
 		return
 
 	# Move to the selected tile
 	var world_message = WorldMessageData.new("%s flys closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	if not bat.set_movement_target(found_tile):
-		get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+		get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
 		return
 	await bat.movement_finished
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+	get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(bat))

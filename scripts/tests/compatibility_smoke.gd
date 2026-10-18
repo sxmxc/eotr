@@ -454,8 +454,10 @@ func _test_talo_event_contract() -> void:
 	})
 	Talo.current_alias = alias
 	GameSettings.telemetry_enabled = true
+	TelemetryManager.client.set_consent(true)
+	TelemetryManager.client.register_schema("compatibility_test", {"version": 1, "additionalProperties": true})
 	TelemetryManager.track_event("compatibility_test", {"amount": 3, "duration": 1.25})
-	_check(Talo.events.get_queue_size() == 1, "Numeric event properties pass Talo's typed API")
+	_check(Talo.events.get_queue_size() == 0 and TelemetryManager.client.queue.size() > 0, "Telemetry bypasses Talo and reaches the new addon")
 	var identity_label: Label = load("res://scenes/menus/player_identity.gd").new()
 	add_child(identity_label)
 	_check(identity_label.text == "offline_test", "Identity label shows an existing alias")

@@ -159,8 +159,15 @@ func clear_fog_around(center: Vector2i, radius: int):
 		# Move to the next level
 		current_cells = next_level_cells
 
-	#Clear fog for all collected cells with a fade effect
+	# Commit visibility before presentation delays, so animation speed cannot alter
+	# targeting or the state observed at the next action boundary.
+	var newly_revealed: Array[Vector2i] = []
 	for cell in all_cells_to_clear:
+		if not fog_state.has(cell):
+			fog_state[cell] = false
+			newly_revealed.append(cell)
+	presentation_changed.emit()
+	for cell in newly_revealed:
 		if not fog_state.get(cell, false):
 			# Create a tween for fading out the fog tile
 			var fog_tile_data = fog_layer.get_cell_tile_data(cell)
@@ -175,7 +182,7 @@ func clear_fog_around(center: Vector2i, radius: int):
 				# If visuals already cleared (e.g., sandbox clear fog), ensure logical fog is marked cleared
 				fog_state[cell] = false
 			presentation_changed.emit()
-			await get_tree().create_timer(.03).timeout
+			await get_tree().create_timer(Utils.presentation_duration(.03)).timeout
 
 
 
@@ -242,11 +249,9 @@ func apply_tile_effects() -> void:
 				player.is_mana_buffed = true
 			Enums.TileType.RIFT_GATE:
 				var rift_gates : Array[Vector2i] = get_tiles_of_type(Enums.TileType.RIFT_GATE)
-				if rift_gates.size() > 1:
+				rift_gates = rift_gates.filter(func(cell): return cell != player_position and is_tile_valid(cell))
+				if not rift_gates.is_empty():
 					var destination_gate = RNG.array_pick_random(rift_gates)
-					if destination_gate == player_position:
-						while destination_gate == player_position:
-							destination_gate = RNG.array_pick_random(rift_gates)
 					teleport_player(destination_gate)
 			Enums.TileType.ANCIENT_RUIN:
 				_trigger_ancient_ruin_effect()
@@ -301,7 +306,7 @@ func is_tile_free(tile_pos: Vector2i) -> bool:
 		if enemy_tile == tile_pos:
 			return false
 
-	if obelisk != null:
+	if is_instance_valid(obelisk):
 		var obelisk_tile = base_layer.local_to_map(obelisk.global_position)
 		if obelisk_tile == tile_pos:
 			return false
@@ -570,6 +575,7 @@ func clear_target_highlights() -> void:
 	target_highlight_layer.clear_target_highlights()
 
 func shrink_map(amount) -> void:
+	TelemetryManager.track_event("battlefield_collapsed", {"rings": amount, "tiles_before": base_layer.get_used_cells().size()})
 	for x in range(amount):
 		var to_destroy: Array[Vector2i] = get_battlemap_edge_clockwise()
 		for cell in to_destroy:
@@ -594,7 +600,7 @@ func shrink_map(amount) -> void:
 			fog_layer.erase_cell(cell)
 			tile_map_data.erase(cell)
 			presentation_changed.emit()
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(Utils.presentation_duration(0.1)).timeout
 	if is_resource_count_visible:
 		draw_resource_count()
 	

@@ -17,7 +17,7 @@ func enter() -> void:
 			if target is Enemy:
 				if not valid_cells.has((target as Enemy).current_tile_position):
 					card_ui.targets.clear()
-		if not card_ui.targets.is_empty():
+		if not card_ui.targets.is_empty() and card_ui.can_execute(card_ui.targets):
 			Events.tooltip_hide_requested.emit()
 			card_ui.visuals.set_hover_outline(false)
 			played = true

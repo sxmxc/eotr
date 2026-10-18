@@ -68,21 +68,25 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 
 
 func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
-	Events.card_played.emit(self)
 	_sync_effect_configs()
 	var cost := get_energy_cost(player_stats)
 	last_energy_cost = cost
 	player_stats.energy -= cost
+	Events.card_played.emit(self)
 
 	var resolved_targets := targets
 	if not is_single_targeted():
 		resolved_targets = _get_targets(targets)
+	await resolve_effects(resolved_targets, player_stats, modifiers)
+
+
+func resolve_effects(resolved_targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
 
 	if not effect_configs.is_empty():
 		var resolver := CardResolver.new()
 		await resolver.resolve(self, resolved_targets, player_stats, modifiers, effect_configs)
 	else:
-		apply_effects(resolved_targets, modifiers)
+		await apply_effects(resolved_targets, modifiers)
 
 
 func get_default_description() -> String:

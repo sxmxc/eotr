@@ -4,7 +4,7 @@ extends Card
 @export var obelisk_bonus := 5
 
 
-func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
+func resolve_effects(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
 	await _resolve_with_targets(targets, player_stats, modifiers)
 
 

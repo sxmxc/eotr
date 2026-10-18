@@ -13,6 +13,7 @@ const INVALID_TILE: Vector2i = Vector2i(-1, -1)
 
 var is_moving := false
 var move_tween: Tween
+var previous_tile := INVALID_TILE
 
 
 func _ready():
@@ -50,14 +51,17 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 
 	var world_target: Vector2 = tilemap.base_layer.map_to_local(movement_target)
 	is_moving = true
+	if DisplayServer.get_name() == "headless":
+		_notify_move_finished.call_deferred(movement_target)
+		return true
 
 	if move_tween:
 		move_tween.kill()
 	move_tween = create_tween()
 	move_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	move_tween.tween_property(self, "scale", Vector2(1.08, 1.08), move_duration * 0.5)
-	move_tween.tween_property(self, "position", world_target + Vector2(0, 1), move_duration)
-	move_tween.tween_property(self, "scale", Vector2.ONE, move_duration * 0.25)
+	move_tween.tween_property(self, "scale", Vector2(1.08, 1.08), Utils.presentation_duration(move_duration * 0.5))
+	move_tween.tween_property(self, "position", world_target + Vector2(0, 1), Utils.presentation_duration(move_duration))
+	move_tween.tween_property(self, "scale", Vector2.ONE, Utils.presentation_duration(move_duration * 0.25))
 	move_tween.tween_callback(
 		func():
 			_notify_move_finished(movement_target)
@@ -68,35 +72,62 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 
 func calculate_next_tile_move(tiles_moved_per_turn: int) -> Vector2i:
 	if not tilemap or not tilemap.base_layer:
-		print("No tilemap or base_layer. No valid moves")
-		return INVALID_TILE  # Return an invalid tile position
-
-	current_tile_position = tilemap.base_layer.local_to_map(tilemap.base_layer.to_local(position))
-
-	var steps_to_take: int = max(1, tiles_moved_per_turn)
-	var player_tile_pos: Vector2i = get_player_tile_position()
-	if player_tile_pos == INVALID_TILE or not tilemap.is_within_bounds(player_tile_pos):
 		return INVALID_TILE
-	var surrounding_cells: Array[Vector2i] = tilemap.base_layer.get_surrounding_cells(player_tile_pos)
+	# One reverse BFS to free attack positions, then a bounded movement flood.
+	# Occupied ally tiles are barriers; sequential turns naturally share space.
+	var distance: Dictionary = {}
+	var frontier: Array[Vector2i] = []
+	for cell in tilemap.base_layer.get_surrounding_cells(get_player_tile_position()):
+		if cell == current_tile_position or _can_move_to_tile(cell):
+			distance[cell] = 0
+			frontier.append(cell)
+	var index := 0
+	while index < frontier.size():
+		var cell := frontier[index]
+		index += 1
+		for neighbor in _get_neighbors(cell):
+			if not distance.has(neighbor) and (neighbor == current_tile_position or _can_move_to_tile(neighbor)):
+				distance[neighbor] = int(distance[cell]) + 1
+				frontier.append(neighbor)
+	var danger: Array[Vector2i] = []
+	var world := tilemap.get_parent() as GameWorld
+	if world and world.shrink_frequency > 0 and world.current_round % world.shrink_frequency == 0:
+		danger = tilemap.get_battlemap_edge_clockwise()
+	frontier = [current_tile_position]
+	var steps := {current_tile_position: 0}
+	index = 0
+	var best := current_tile_position
+	var best_score := _movement_score(best, distance, danger)
+	while index < frontier.size():
+		var cell := frontier[index]
+		index += 1
+		if int(steps[cell]) >= maxi(1, tiles_moved_per_turn):
+			continue
+		for neighbor in _get_neighbors(cell):
+			if steps.has(neighbor) or not _can_move_to_tile(neighbor):
+				continue
+			steps[neighbor] = int(steps[cell]) + 1
+			frontier.append(neighbor)
+			var score := _movement_score(neighbor, distance, danger) + float(steps[neighbor]) * 0.05
+			if score < best_score:
+				best = neighbor
+				best_score = score
+	return INVALID_TILE if best == current_tile_position else best
 
-	# Filter to only free/valid tiles
-	var free_tiles: Array[Vector2i] = surrounding_cells.filter(func(tile): return _can_move_to_tile(tile))
-
-	if free_tiles.is_empty():
-		print("No free tiles to move to. No valid moves")
-		return INVALID_TILE  # No valid tiles, return early
-
-	free_tiles.shuffle()
-	for target_tile in free_tiles:
-		var path: Array[Vector2i] = _find_path(current_tile_position, target_tile)
-		var next_tile: Vector2i = _get_step_tile_from_path(path, steps_to_take)
-		if next_tile != INVALID_TILE:
-			return next_tile
-
-	return INVALID_TILE
+func _movement_score(cell: Vector2i, distances: Dictionary, danger: Array[Vector2i]) -> float:
+	var score := float(distances.get(cell, 1000))
+	if cell in danger:
+		score += 30.0
+	if tilemap.is_tile_corrupt(cell):
+		score += 10.0
+	if cell == previous_tile:
+		score += 1.5
+	return score
 
 
 func get_player_tile_position() -> Vector2i:
+	if tilemap:
+		return tilemap.player_position
 	var player = get_tree().get_first_node_in_group("player")
 	if player and tilemap and tilemap.base_layer:
 		var player_tile = tilemap.base_layer.local_to_map(
@@ -113,7 +144,7 @@ func perform_turn_based_move(tiles_per_turn: int = 1):
 
 	# Set movement target and move
 	if not set_movement_target(next_tile):
-		_notify_move_finished(current_tile_position)
+		_notify_move_finished.call_deferred(current_tile_position)
 
 func can_move_to_tile(tile: Vector2i) -> bool:
 	return _can_move_to_tile(tile)
@@ -138,6 +169,8 @@ func _can_move_to_tile(tile: Vector2i) -> bool:
 func _notify_move_finished(target_tile: Vector2i):
 	is_moving = false
 	if tilemap and tilemap.base_layer and target_tile != INVALID_TILE:
+		if target_tile != current_tile_position:
+			previous_tile = current_tile_position
 		current_tile_position = target_tile
 		position = tilemap.base_layer.map_to_local(current_tile_position)
 		position.y += 1
@@ -172,7 +205,7 @@ func _find_path(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 	if not tilemap or not tilemap.base_layer:
 		return []
 	if start == goal:
-		return [start, goal]
+		return [start]
 
 	var frontier: Array[Vector2i] = [start]
 	var came_from: Dictionary = {}

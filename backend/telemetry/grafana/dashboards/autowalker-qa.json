@@ -1,0 +1,157 @@
+{
+  "uid": "autowalker-qa",
+  "title": "AutoWalker QA",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": false,
+  "tags": [
+    "telemetry",
+    "bot"
+  ],
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "game_id",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT game_id FROM telemetry.events_deduplicated ORDER BY game_id",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "echoes_of_the_rift",
+          "value": "echoes_of_the_rift"
+        }
+      },
+      {
+        "name": "environment",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT environment FROM telemetry.events_deduplicated ORDER BY environment",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "qa",
+          "value": "qa"
+        }
+      },
+      {
+        "name": "build_version",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT build_version FROM telemetry.events_deduplicated ORDER BY build_version",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "0.0.6.1",
+          "value": "0.0.6.1"
+        }
+      },
+      {
+        "name": "source_type",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT source_type FROM telemetry.events_deduplicated ORDER BY source_type",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "bot",
+          "value": "bot"
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Outcomes by policy and build",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT build_version, JSONExtractString(properties,'policy') AS policy, JSONExtractString(properties,'outcome') AS outcome, count() AS simulations, avg(JSONExtractInt(properties,'turns')) AS turns, avg(JSONExtractInt(properties,'duration_ms')) AS duration_ms FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name='simulation_completed') GROUP BY build_version, policy, outcome LIMIT 1000"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Failure seeds",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT run_id, JSONExtractInt(properties,'seed') AS seed, JSONExtractString(properties,'outcome') AS outcome FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name='simulation_completed' AND JSONExtractString(properties,'outcome') NOT IN ('win','loss','aborted','replay_complete')) GROUP BY run_id, seed, outcome LIMIT 1000"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Bot card usage",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 18,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT JSONExtractString(properties,'card_name') AS card, count() AS plays FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name='card_played') GROUP BY card LIMIT 1000"
+        }
+      ]
+    }
+  ]
+}

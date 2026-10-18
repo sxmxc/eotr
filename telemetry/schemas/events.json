@@ -1,0 +1,447 @@
+{
+  "format_version": 1,
+  "events": {
+    "class_chosen": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "treasure_room_exited": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "shop_left_empty_handed": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "card_bought_in_shop": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "relic_bought_in_shop": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "traderbadge_bought_in_shop": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "console_command_used": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": true
+    },
+    "run_started": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "floor_completed": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "run_completed": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "battle_won": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "floor_started": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "gold_prize_taken": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "resource_prize_taken": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "card_prize_taken": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "relic_prize_taken": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": false
+    },
+    "player_turn_started": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": true
+    },
+    "enemy_turn_started": {
+      "version": 1,
+      "additionalProperties": true,
+      "properties": {},
+      "diagnostic": true
+    },
+    "card_played": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "card_name": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "card_cost": {
+          "type": "integer"
+        },
+        "card_rarity": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "card_type": {
+          "type": "string",
+          "maxLength": 256
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "card_name",
+        "card_cost",
+        "card_rarity",
+        "card_type"
+      ]
+    },
+    "enemy_waited": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "enemy": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 256
+        }
+      },
+      "diagnostic": true,
+      "required": [
+        "enemy",
+        "reason"
+      ]
+    },
+    "session_started": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {},
+      "diagnostic": false,
+      "required": []
+    },
+    "session_ended": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "duration_ms": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "duration_ms"
+      ]
+    },
+    "encounter_started": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "encounter": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "composition": {
+          "type": "array"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "encounter",
+        "width",
+        "height"
+      ]
+    },
+    "encounter_completed": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "encounter": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "win",
+            "loss"
+          ]
+        },
+        "turns": {
+          "type": "integer"
+        },
+        "damage_taken": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "encounter",
+        "outcome",
+        "turns",
+        "damage_taken"
+      ]
+    },
+    "enemy_spawned": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "enemy": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "obelisk": {
+          "type": "boolean"
+        },
+        "summoned": {
+          "type": "boolean"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "enemy",
+        "obelisk",
+        "summoned"
+      ]
+    },
+    "enemy_died": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "enemy": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "turn": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "enemy",
+        "turn"
+      ]
+    },
+    "enemy_action": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "enemy": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "action": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "turn": {
+          "type": "integer"
+        },
+        "evaluation_us": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": true,
+      "required": [
+        "enemy",
+        "action",
+        "turn",
+        "evaluation_us"
+      ]
+    },
+    "obelisk_destroyed": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "turn": {
+          "type": "integer"
+        },
+        "remaining": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "turn",
+        "remaining"
+      ]
+    },
+    "battlefield_collapsed": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "rings": {
+          "type": "integer"
+        },
+        "tiles_before": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "rings",
+        "tiles_before"
+      ]
+    },
+    "simulation_started": {
+      "version": 1,
+      "required": [
+        "seed",
+        "policy",
+        "encounter"
+      ],
+      "properties": {
+        "seed": {
+          "type": "integer"
+        },
+        "policy": {
+          "type": "string"
+        },
+        "encounter": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "simulation_completed": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "policy": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "turns": {
+          "type": "integer"
+        },
+        "duration_ms": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "outcome",
+        "seed",
+        "policy",
+        "turns",
+        "duration_ms"
+      ]
+    },
+    "simulation_action": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "index": {
+          "type": "integer"
+        },
+        "action": {
+          "type": "object"
+        },
+        "turn": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": true,
+      "required": [
+        "index",
+        "action",
+        "turn"
+      ]
+    },
+    "simulation_failed": {
+      "version": 1,
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "index": {
+          "type": "integer"
+        }
+      },
+      "diagnostic": false,
+      "required": [
+        "reason",
+        "seed",
+        "index"
+      ]
+    },
+    "stat_changed": {
+      "version": 1,
+      "required": [
+        "stat",
+        "change"
+      ],
+      "properties": {
+        "stat": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "change": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

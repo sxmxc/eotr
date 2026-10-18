@@ -12,6 +12,8 @@ func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
 	if tilemap_target == null or not tilemap_target.tilemap:
 		return false
 	var tilemap : ProcGenTilemap = tilemap_target.tilemap
+	if not tilemap.is_tile_valid(tilemap_target.tile_position):
+		return false
 	var player_tile: Vector2i = tilemap.player_position
 	# Start with the center cell
 	var current_cells = {player_tile: true}

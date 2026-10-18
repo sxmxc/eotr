@@ -22,7 +22,7 @@ func perform_action() -> void:
 	enemy.perform_turn_based_move(tiles_per_turn)
 	await enemy.movement_finished
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(.3).timeout.connect(
+	get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(
 		func(): 
 			Events.enemy_action_completed.emit(enemy)
 	)

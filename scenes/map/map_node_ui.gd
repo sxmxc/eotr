@@ -46,9 +46,16 @@ func show_selected() -> void:
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if not available or not event.is_action_pressed("left_mouse"):
 		return
+	select_route()
+
+
+func select_route() -> bool:
+	if not available or map_node.selected:
+		return false
 	map_node.selected = true
 	clicked.emit(map_node)
 	animation_player.play("select")
+	return true
 
 
 #Called by animation player "select"

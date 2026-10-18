@@ -27,6 +27,8 @@ var current_round : int :
 var rounds_until_shrink : int :
 	set = set_rounds_until_shrink
 var battle_over_handled := false
+var victory_committed := false
+var initial_health := 0
 
 func _ready():
 	game_world_ui.bind_world(player, tilemap, map_camera)
@@ -51,10 +53,13 @@ func _ready():
 
 func start_world() -> void:
 	battle_over_handled = false
+	victory_committed = false
 	battle_state.end_battle()
 	battle_state.shrink_frequency = shrink_frequency
 	get_tree().paused = false
 	Events.enemy_died.connect(_on_enemy_died)
+	initial_health = player_stats.health
+	TelemetryManager.track_event("encounter_started", {"encounter": battle_stats.get_encounter_id(), "width": battle_stats.battle_field_width, "height": battle_stats.battle_field_height})
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
 	audio_stream_player.stream_paused = false
 
@@ -76,13 +81,19 @@ func start_world() -> void:
 		)
 		if tilemap.is_tile_valid(player_starting_position):
 			reserved_start_tiles.append(player_starting_position)
+	else:
+		player_starting_position = tilemap.get_starting_tile()
+		reserved_start_tiles.append(player_starting_position)
+	# Keep the first card decision from starting inside an unavoidable melee pile.
+	for adjacent in tilemap.base_layer.get_surrounding_cells(player_starting_position):
+		reserved_start_tiles.append(adjacent)
 
 	enemy_handler.setup_enemies(battle_stats, reserved_start_tiles)
 	enemy_handler.reset_enemy_actions.call_deferred()
 	battle_stats.enemy_gold_reward = 0
 	battle_stats.enemy_resource_reward = 0
 
-	if not force_start_tile or not tilemap.is_tile_valid(player_starting_position):
+	if not tilemap.is_tile_valid(player_starting_position):
 		player_starting_position = tilemap.get_starting_tile()
 	if not tilemap.is_tile_valid(player_starting_position):
 		player_starting_position = tilemap.get_random_valid_tile()
@@ -148,7 +159,8 @@ func shrink_game_board(amount: int = 1) -> void:
 			WorldMessageData.Priority.CRITICAL
 		)
 	)
-	await world_camera.tween_completed
+	if DisplayServer.get_name() != "headless":
+		await world_camera.tween_completed
 	await tilemap.shrink_map(amount)
 
 	world_camera.priority = 0
@@ -159,22 +171,44 @@ func _on_enemy_died(enemy: Enemy) -> void:
 	BountySystem.apply_bounty_for_enemy(run_stats, enemy.stats.enemy_name, battle_stats)
 
 func _on_enemies_child_order_changed() -> void:
-	if battle_over_handled:
+	check_victory.call_deferred()
+
+
+func check_victory() -> void:
+	if battle_over_handled or victory_committed or not battle_state.battle_active:
 		return
-	if enemy_handler.get_child_count() == 0 and is_instance_valid(relics):
-		relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
+	if player.stats.health <= 0 or player_handler.resolving_action:
+		return
+	if battle_state.phase in [BattleStateController.Phase.ENEMY_TURN, BattleStateController.Phase.SHRINKING]:
+		return
+	for node in enemy_handler.get_children():
+		if node is Enemy and not node.is_dying and node.stats.health > 0:
+			return
+	_commit_victory()
+
+
+func _commit_victory() -> void:
+	if victory_committed or battle_over_handled:
+		return
+	victory_committed = true
+	battle_state.end_battle()
+	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 
 func _on_obelisk_destroyed() -> void:
 	if battle_over_handled:
 		return
+	TelemetryManager.track_event("obelisk_destroyed", {"turn": current_round, "remaining": enemy_handler.get_active_mobile_enemy_count()})
 	var msg := WorldMessageData.new(
 		"Obelisk shattered! The rift calms.",
 		WorldMessageData.Priority.CRITICAL
 	)
 	Events.world_message_requested.emit(msg)
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_rollover)
-	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
+	if battle_stats.victory_objective == BattleStats.VictoryObjective.DESTROY_OBELISK:
+		_commit_victory()
+	else:
+		check_victory.call_deferred()
 
 
 func _on_player_died() -> void:
@@ -197,6 +231,9 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	if battle_over_handled:
 		return
 	battle_over_handled = true
+	TelemetryManager.track_event("encounter_completed", {"encounter": battle_stats.get_encounter_id(),
+		"outcome": "win" if result == BattleOverPanel.Type.WIN else "loss", "turns": current_round,
+		"damage_taken": initial_health - player_stats.health})
 	battle_state.end_battle()
 	if is_instance_valid(battle_presentation):
 		call_deferred("_play_battle_outro", message, result)

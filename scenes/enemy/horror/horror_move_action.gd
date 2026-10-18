@@ -28,7 +28,7 @@ func perform_action() -> void:
 	var player_tile = enemy.tilemap.base_layer.local_to_map(target.position)
 	var surrounding_tiles = enemy.tilemap.base_layer.get_surrounding_cells(enemy_tile)
 	if surrounding_tiles.has(player_tile):
-		get_tree().create_timer(.6).timeout.connect(
+		get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(
 		func(): 
 			Events.enemy_action_completed.emit(enemy)
 	)
@@ -39,7 +39,7 @@ func perform_action() -> void:
 	await enemy.movement_finished
 	print("Horror now at %s" % enemy.current_tile_position)
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(.6).timeout.connect(
+	get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(
 		func(): 
 			Events.enemy_action_completed.emit(enemy)
 	)

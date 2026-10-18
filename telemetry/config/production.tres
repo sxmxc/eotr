@@ -1,0 +1,10 @@
+[gd_resource type="Resource" format=3 uid="uid://duaqoq4n0iiv5"]
+
+[ext_resource type="Script" uid="uid://bu52alkpkpg1x" path="res://addons/godot_telemetry/resources/telemetry_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+enabled = true
+game_id = "echoes_of_the_rift"
+environment = "production"
+transport = "jsonl"

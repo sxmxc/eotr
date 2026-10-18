@@ -33,6 +33,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", default=shutil.which("godot"))
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--combat-automation", action="store_true")
     parser.add_argument("--capture-ui", action="store_true", help="Run the native renderer offscreen and save UI captures")
     parser.add_argument("--ui-transactions-only", action="store_true", help="Run only reward and shop interaction checks")
     args = parser.parse_args()
@@ -47,7 +48,7 @@ def main() -> int:
     cache = validation / ".godot"
     cache.mkdir(parents=True, exist_ok=True)
     (root / "build" / ".gdignore").touch()
-    for directory in ("addons", "assets", "resources", "scenes", "scripts", "ui"):
+    for directory in ("addons", "assets", "resources", "scenes", "scripts", "ui", "telemetry"):
         link_directory(root / directory, validation / directory)
     link_directory(root / ".godot" / "imported", cache / "imported")
     for filename in ("uid_cache.bin", "global_script_class_cache.cfg"):
@@ -73,13 +74,13 @@ def main() -> int:
     user_args = (["--capture-ui"] if args.capture_ui else []) + (["--ui-transactions-only"] if args.ui_transactions_only else [])
     result = subprocess.run([
         args.godot, *display_args, "--path", str(validation),
-        "res://scripts/tests/compatibility_smoke.tscn", "--quit-after", "20000",
+        "res://scripts/tests/combat_automation_test.tscn" if args.combat_automation else "res://scripts/tests/compatibility_smoke.tscn", "--quit-after", "20000",
         "--log-file", str(log_path),
     ] + (["--verbose"] if args.verbose else []) + (["--", *user_args] if user_args else []), env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
     output = result.stdout + result.stderr
     print(output)
     # Godot can report a script failure and still return exit code zero.
-    success = "Compatibility smoke test: 0 failures" in output
+    success = ("Combat automation tests: 0 failures" if args.combat_automation else "Compatibility smoke test: 0 failures") in output
     allowed_errors = (
         'Condition "!actions.custom_samplers.has(function->arguments[j].tex_builtin)" is true.',
         "Failed to read the root certificate store.",

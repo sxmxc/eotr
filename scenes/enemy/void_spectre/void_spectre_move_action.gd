@@ -38,16 +38,16 @@ func perform_action():
 
 	# If no tiles were found even after searching max radius, give up
 	if found_tile == Vector2i(-1, -1):
-		get_tree().create_timer(.6).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+		get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 		return
 
 	# Move to the selected tile
 	var world_message = WorldMessageData.new("%s flys closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	if not void_spectre.set_movement_target(found_tile):
-		get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+		get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 		return
 	await void_spectre.movement_finished
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+	get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 	

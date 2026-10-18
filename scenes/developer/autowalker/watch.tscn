@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://scenes/developer/autowalker/watch.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/autowalker/runners/runner.gd" id="2"]
+[node name="AutoWalker" type="Node"]
+script = ExtResource("1")
+[node name="Runner" type="Node" parent="."]
+script = ExtResource("2")
+[node name="Overlay" type="CanvasLayer" parent="."]
+layer = 100
+[node name="Panel" type="PanelContainer" parent="Overlay"]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 560.0
+offset_bottom = 700.0
+[node name="Controls" type="VBoxContainer" parent="Overlay/Panel"]
+layout_mode = 2
+[node name="Start" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Start"
+[node name="Stop" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Stop"
+[node name="Play" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Play"
+[node name="Pause" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Pause at next action boundary"
+[node name="StepAction" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Step one action"
+[node name="StepTurn" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Step one turn"
+[node name="Restart" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Restart simulation"
+[node name="LoadReplay" type="Button" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "Load replay path below"
+[node name="Seed" type="LineEdit" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "1"
+[node name="Encounter" type="LineEdit" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "res://resources/data/battles/tier_1_channelers_bulwark.tres"
+[node name="ReplayPath" type="LineEdit" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+text = "res://build/autowalker/simulation-1.json"
+[node name="Policy" type="OptionButton" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "greedy"
+popup/item_1/text = "random"
+popup/item_1/id = 1
+popup/item_2/text = "stress"
+popup/item_2/id = 2
+[node name="Speed" type="OptionButton" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+selected = 1
+item_count = 4
+popup/item_0/text = "0.5x"
+popup/item_1/text = "1x"
+popup/item_1/id = 1
+popup/item_2/text = "2x"
+popup/item_2/id = 2
+popup/item_3/text = "4x"
+popup/item_3/id = 3
+[node name="Mode" type="OptionButton" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "encounter"
+popup/item_1/text = "run"
+popup/item_1/id = 1
+[node name="Inspector" type="RichTextLabel" parent="Overlay/Panel/Controls"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 180)
+autowrap_mode = 2
+text = "AutoWalker decision inspector"

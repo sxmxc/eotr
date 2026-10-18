@@ -30,7 +30,7 @@ func activate_relics_by_type(type: Enums.RelicType) -> void:
 		var relic = relic_ui.relic as Relic
 
 		tween.tween_callback(relic_ui.relic.activate_relic.bind(relic_ui))
-		tween.tween_interval(RELIC_APPLY_INTERVAL)
+		tween.tween_interval(Utils.presentation_duration(RELIC_APPLY_INTERVAL))
 
 	tween.finished.connect(func(): relics_activated.emit(type))
 

@@ -2,6 +2,10 @@ extends Node
 
 var _hitstop_scales: Array[float] = []
 var _hitstop_baseline: float = 1.0
+var presentation_speed := 1.0
+
+func presentation_duration(seconds: float) -> float:
+	return 0.001 if DisplayServer.get_name() == "headless" else seconds / maxf(presentation_speed, 0.1)
 
 func show_save_error(message: String) -> void:
 	push_warning(message)
@@ -30,6 +34,8 @@ func get_control_global_center(control: Control) -> Vector2:
 	return rect.position + rect.size * 0.5	
 	
 func apply_hitstop(target_scale: float, duration: float) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	if duration <= 0.0:
 		return
 
@@ -73,7 +79,7 @@ func shake(thing: Node2D, strength: float, duration: float = 0.2) -> void:
 	var effect := visual.create_tween()
 	visual.set_meta("rift_shake_tween", effect)
 	for i in range(8):
-		var offset := Vector2(RNG.instance.randf_range(-1.0, 1.0), RNG.instance.randf_range(-1.0, 1.0))
+		var offset := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
 		effect.tween_property(visual, "position", origin + offset * strength * (1.0 - i / 8.0), duration / 9.0)
 	effect.tween_property(visual, "position", origin, duration / 9.0)
 

@@ -1,5 +1,8 @@
 extends EnemyAction
 
+func _init() -> void:
+	target_range = 1
+
 @export var damage := 4
 
 
@@ -21,11 +24,11 @@ func perform_action() -> void:
 	
 	intent.current_text = intent.base_text
 	
-	tween.tween_property(enemy, "global_position", end, 0.4)
+	tween.tween_property(enemy, "global_position", end, Utils.presentation_duration(0.4))
 	tween.tween_callback(damage_effect.execute.bind(target_array))
 	
-	tween.tween_interval(0.25)
-	tween.tween_property(enemy,"global_position", start, 0.4)
+	tween.tween_interval(Utils.presentation_duration(0.25))
+	tween.tween_property(enemy,"global_position", start, Utils.presentation_duration(0.4))
 	
 	tween.finished.connect(
 		func():

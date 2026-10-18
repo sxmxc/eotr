@@ -339,6 +339,8 @@ func _apply_camera_impact(
 
 
 func _maybe_play_pre_fx(config: CardEffectConfig, context: ResolveContext, targets: Array[Node]) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	if not _fx_runner:
 		return
 	if not config or not config.projectile_fx:

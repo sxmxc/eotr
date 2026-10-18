@@ -21,6 +21,8 @@ var player_turn_count := 0
 var free_movement_refund_available := false
 var obelisk_first_hit_awarded := false
 var obelisk: Obelisk
+var resolving_action := false
+var hand_ready := false
 
 
 func _ready() -> void:
@@ -50,6 +52,7 @@ func start_battle(stats: PlayerStats) -> void:
 
 
 func start_turn() -> void:
+	hand_ready = false
 	card_types_played = []
 	if !is_instance_valid(player):
 		return
@@ -66,19 +69,14 @@ func start_turn() -> void:
 	if _is_riftwalker() and player_turn_count % 3 == 0:
 		_grant_energy_bonus(1, ADAPTIVE_SURGE_LABEL)
 
-	if Talo.current_player:
-		var event_props := {
-			"turn_number": player_turn_count,
-			"player_class": player_stats.player_class_name,
-			"energy": player_stats.energy,
-			"health": player_stats.health,
-		}
-		if Talo.current_player:
-			TelemetryManager.track_event("player_turn_started", event_props)
+	TelemetryManager.track_event("player_turn_started", {
+		"turn_number": player_turn_count, "player_class": player_stats.player_class_name,
+		"energy": player_stats.energy, "health": player_stats.health})
 	relics.activate_relics_by_type(Enums.RelicType.START_OF_TURN)
 
 
 func end_turn() -> void:
+	hand_ready = false
 	player_hand.disable_hand()
 	relics.activate_relics_by_type(Enums.RelicType.END_OF_TURN)
 	Events.enemy_info_hide_requested.emit()
@@ -86,6 +84,8 @@ func end_turn() -> void:
 
 
 func draw_card() -> void:
+	if player.stats.health <= 0:
+		return
 	reshuffle_deck_from_discard()
 	if player_stats.draw_pile.is_empty():
 		return
@@ -94,15 +94,19 @@ func draw_card() -> void:
 
 
 func draw_cards(amount: int) -> void:
+	hand_ready = false
 	if amount <= 0:
+		hand_ready = true
 		Events.player_hand_drawn.emit()
 		return
 	var tween := create_tween()
 	for i in range(amount):
 		tween.tween_callback(draw_card)
-		tween.tween_interval(HAND_DRAW_INTERVAL)
+		tween.tween_interval(Utils.presentation_duration(HAND_DRAW_INTERVAL))
 
-	tween.finished.connect(func(): Events.player_hand_drawn.emit())
+	tween.finished.connect(func():
+		hand_ready = true
+		Events.player_hand_drawn.emit())
 
 
 func discard_cards() -> void:
@@ -139,7 +143,7 @@ func discard_cards() -> void:
 		tween.tween_property(card_ui,"global_position", card_ui_offset,.08)
 		var target_position: Vector2 = discard_pile_position if discard_pile_position != Vector2.ZERO else card_ui_offset
 		tween.tween_property(card_ui,"global_position", target_position,.1)
-		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, .12)
+		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, Utils.presentation_duration(.12))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))
 	Events.player_hand_discarded.emit()
 
@@ -159,7 +163,7 @@ func reshuffle_deck_from_discard() -> void:
 			var draw_pile_button: Control = world_ui.draw_pile_button
 			discard_pile_button.add_child(hex_trail)
 			hex_trail.global_position = discard_pile_button.get_global_rect().get_center()
-			tween.tween_property(hex_trail, "global_position", draw_pile_button.get_global_rect().get_center(), 0.3)
+			tween.tween_property(hex_trail, "global_position", draw_pile_button.get_global_rect().get_center(), Utils.presentation_duration(0.3))
 		tween.tween_callback(hex_trail.queue_free)		
 
 	player_stats.draw_pile.shuffle()

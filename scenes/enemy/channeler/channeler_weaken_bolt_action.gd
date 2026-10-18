@@ -1,5 +1,8 @@
 extends EnemyAction
 
+func _init() -> void:
+	target_range = 4
+
 const WEAKENED_STATUS := preload("res://resources/data/statuses/weakened.tres")
 
 @export var damage := 5
@@ -20,7 +23,7 @@ func perform_action() -> void:
 	var world_message := WorldMessageData.new("%s channels a weakening bolt" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 
-	if projectile_scene:
+	if projectile_scene and DisplayServer.get_name() != "headless":
 		var projectile := projectile_scene.instantiate() as ProjectileFX
 		if projectile_visual_fx:
 			projectile.visual_fx = projectile_visual_fx.instantiate() as VisualFX

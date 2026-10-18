@@ -25,7 +25,7 @@ func apply_statuses_by_type(type: Enums.StatusType) -> void:
 	var tween := create_tween()
 	for status: Status in status_queue:
 		tween.tween_callback(status.apply_status.bind(status_owner))
-		tween.tween_interval(STATUS_APPLY_INTERVAL)
+		tween.tween_interval(Utils.presentation_duration(STATUS_APPLY_INTERVAL))
 
 	tween.finished.connect(func(): statuses_applied.emit(type))
 
