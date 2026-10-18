@@ -47,6 +47,8 @@ func run() -> void:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
 	await _test_enemy_turn_cancellation(world)
+	await _test_instability_costs(world, relics)
+	await _test_feedback_circuit(world, relics)
 	var actions: Array[Dictionary] = api.legal_actions()
 	check(not actions.is_empty() and actions.back().kind == "end_turn", "Enumerates real legal actions")
 	var stale: Dictionary = {}
@@ -179,6 +181,100 @@ func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	check(world.player_handler.hand_ready, "Normal enemy completion draws the next hand")
 	enemy.current_action = previous_action
 	action.queue_free()
+
+func _test_feedback_circuit(world: GameWorld, relics: RelicHandler) -> void:
+	var circuit := preload("res://resources/data/relics/feedback_circuit.tres").duplicate()
+	var map_connections := Events.map_exited.get_connections().size()
+	var card_connections := Events.card_played.get_connections().size()
+	var hand_connections := Events.player_hand_drawn.get_connections().size()
+	var turn_connections := Events.player_turn_started.get_connections().size()
+	var discard_before := world.player_stats.discard.cards.duplicate()
+	var blocks: Dictionary = {}
+	for enemy: Enemy in world.enemy_handler.get_children():
+		blocks[enemy] = enemy.stats.block
+		enemy.stats.block = 100
+	relics.add_relic(circuit)
+	var skill := Card.new()
+	skill.card_type = Enums.CardType.SKILL
+	Events.card_played.emit(skill.duplicate())
+	Events.card_played.emit(skill.duplicate())
+	check(circuit.skills_this_turn == 2, "Feedback Circuit counts two skills")
+	var draw := DrawEffect.new()
+	draw.amount = 1
+	draw.execute([world.player])
+	while not world.player_handler.hand_ready:
+		await get_tree().process_frame
+	check(circuit.skills_this_turn == 2, "Extra card draws preserve this turn's Feedback Circuit progress")
+	Events.card_played.emit(skill.duplicate())
+	await get_tree().create_timer(0.2).timeout
+	for enemy: Enemy in blocks:
+		check(enemy.stats.block == 95, "Third skill after drawing triggers exactly five Feedback Circuit damage")
+	check(circuit.skills_this_turn == 0, "Feedback Circuit resets after its proc")
+	Events.card_played.emit(skill.duplicate())
+	world.player_handler.start_turn()
+	check(circuit.skills_this_turn == 0, "Feedback Circuit resets at turn start before the hand finishes drawing")
+	while not world.player_handler.hand_ready:
+		await get_tree().process_frame
+	Events.card_played.emit(skill.duplicate())
+	Events.card_played.emit(skill.duplicate())
+	var ui := relics.relics.get_child(relics.relics.get_child_count() - 1) as RelicUI
+	ui.free()
+	check(Events.map_exited.get_connections().size() == map_connections, "Removing Feedback Circuit releases its map subscription")
+	check(Events.card_played.get_connections().size() == card_connections, "Removing Feedback Circuit releases its card subscription")
+	check(Events.player_hand_drawn.get_connections().size() == hand_connections, "Removing Feedback Circuit releases its draw subscription")
+	check(Events.player_turn_started.get_connections().size() == turn_connections, "Removing Feedback Circuit releases its turn subscription")
+	check(circuit.relic_ui == null, "Removed Feedback Circuit releases its UI reference")
+	relics.add_relic(circuit)
+	Events.card_played.emit(skill.duplicate())
+	check(circuit.skills_this_turn == 1, "Reacquired Feedback Circuit starts fresh with one subscription")
+	ui = relics.relics.get_child(relics.relics.get_child_count() - 1) as RelicUI
+	ui.free()
+	world.player_stats.discard.cards.assign(discard_before)
+	for enemy: Enemy in blocks:
+		enemy.stats.block = blocks[enemy]
+
+func _test_instability_costs(world: GameWorld, relics: RelicHandler) -> void:
+	var emulator := preload("res://resources/data/relics/instability_emulator.tres").duplicate()
+	var energy := world.player_stats.energy
+	var rng_state := RNG.instance.state
+	var costs: Dictionary = {}
+	for ui: CardUI in world.player_handler.player_hand.get_cards():
+		costs[ui] = ui.card.energy_cost
+	relics.add_relic(emulator)
+	world.player_stats.energy = 0
+	var saw_free_card := false
+	var saw_paid_card := false
+	for previous_cost: int in [10, 0]:
+		for ui: CardUI in costs:
+			ui.card.energy_cost = previous_cost
+			ui._on_char_stats_changed()
+		Events.player_hand_drawn.emit()
+		if previous_cost == 0 and DisplayServer.get_name() != "headless" and OS.get_cmdline_user_args().has("--capture-ui"):
+			await get_tree().create_timer(0.25).timeout
+			await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png("res://relic-costs.png")
+		for ui: CardUI in costs:
+			saw_free_card = saw_free_card or ui.card.energy_cost == 0
+			saw_paid_card = saw_paid_card or ui.card.energy_cost > 0
+			check(ui.playable == world.player_stats.can_play_card(ui.card), "Instability Emulator refreshes affordability after changing a card's cost")
+			if ui.card.energy_cost == 0:
+				ui._on_mouse_entered()
+				var press := InputEventMouseButton.new()
+				press.button_index = MOUSE_BUTTON_LEFT
+				press.pressed = true
+				ui._on_gui_input(press)
+				check(ui.card_state_machine.current_state.state == CardState.State.CLICKED, "Randomized free card can be selected with the mouse")
+				var release := InputEventMouseButton.new()
+				release.button_index = MOUSE_BUTTON_LEFT
+				ui._input(release)
+				ui._on_mouse_exited()
+	check(saw_free_card and saw_paid_card, "Cost randomization exercised both free and unaffordable cards")
+	var ui := relics.relics.get_child(relics.relics.get_child_count() - 1) as RelicUI
+	ui.free()
+	for card_ui: CardUI in costs:
+		card_ui.card.energy_cost = costs[card_ui]
+	world.player_stats.energy = energy
+	RNG.instance.state = rng_state
 
 func _test_projectile_ownership() -> void:
 	var projectile := ProjectileFX.new()

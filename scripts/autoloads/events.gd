@@ -17,6 +17,7 @@ signal card_cost_selection_completed(selected_cards: Array[Card], request: CardC
 signal card_cost_selection_cancelled(request: CardCostSelectionRequest)
 
 # Player-related events
+signal player_turn_started
 signal player_hand_drawn
 signal player_hand_discarded
 signal player_turn_ended

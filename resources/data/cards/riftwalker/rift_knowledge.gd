@@ -10,5 +10,5 @@ func _init() -> void:
 	status_effect.target = CardEffectConfig.Targeting.PLAYER
 	effect_configs = [status_effect]
 
-func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
+func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass

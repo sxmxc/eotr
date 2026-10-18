@@ -79,6 +79,7 @@ func start_turn() -> void:
 	if !is_instance_valid(player):
 		return
 	player_turn_count += 1
+	Events.player_turn_started.emit()
 	print("Starting player turn %d" % player_turn_count)
 	free_movement_refund_available = true
 	obelisk_first_hit_awarded = false
