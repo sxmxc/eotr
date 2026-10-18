@@ -2,12 +2,28 @@ extends Node
 
 var _hitstop_scales: Array[float] = []
 var _hitstop_baseline: float = 1.0
+var presentation_speed := 1.0
+
+func presentation_duration(seconds: float) -> float:
+	return 0.001 if DisplayServer.get_name() == "headless" else seconds / maxf(presentation_speed, 0.1)
+
+func show_save_error(message: String) -> void:
+	push_warning(message)
+	var existing := get_node_or_null("SaveError") as AcceptDialog
+	if existing:
+		existing.dialog_text = message
+		existing.popup_centered()
+		return
+	var dialog: AcceptDialog = preload("res://ui/save_error.tscn").instantiate()
+	dialog.dialog_text = message
+	add_child(dialog)
+	dialog.popup_centered()
 
 func _ready() -> void:
 	await get_tree().root.ready
-	print("Utils creating SignalPrinter and attaching to Eventbus")
-	var signal_printer = SignalPrinter.new()
-	add_child(signal_printer)
+	# print("Utils creating SignalPrinter and attaching to Eventbus")
+	# var signal_printer = SignalPrinter.new()
+	# add_child(signal_printer)
 	print("Utils ready")
 
 func get_node_global_center(node: Node) -> Vector2:
@@ -18,6 +34,8 @@ func get_control_global_center(control: Control) -> Vector2:
 	return rect.position + rect.size * 0.5	
 	
 func apply_hitstop(target_scale: float, duration: float) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	if duration <= 0.0:
 		return
 
@@ -45,34 +63,25 @@ func apply_hitstop(target_scale: float, duration: float) -> void:
 	timer.start()
 	
 func shake(thing: Node2D, strength: float, duration: float = 0.2) -> void:
-	if not thing:
+	if not is_instance_valid(thing) or duration <= 0.0:
 		return
-
-	var orig_pos := thing.global_position
-	var shake_count := 10
-	var tween := create_tween()
-
-	for i in shake_count:
-		var shake_offset := Vector2(
-			RNG.instance.randf_range(-1.0, 1.0), RNG.instance.randf_range(-1.0, 1.0)
-		)
-		var target := orig_pos + strength * shake_offset
-		if i % 2 == 0:
-			target = orig_pos
-		tween.tween_property(thing, "position", target, duration / float(shake_count))
-		strength *= 0.75
-	
-	#bug fix for when player dies	
-	var lambda = func():
-			if is_instance_valid(thing):
-				thing.global_position = orig_pos
-	
-	thing.tree_exiting.connect(
-		func():
-			tween.finished.disconnect(lambda)
-	)
-
-	tween.finished.connect(lambda)
+	# Shake the visual child of combat units, leaving authoritative tile positions
+	# untouched. Local offsets also work beneath rotated/scaled parents.
+	var visual := thing.get_node_or_null("Sprite2D") as Node2D
+	if not visual:
+		visual = thing
+	var old_tween: Tween = visual.get_meta("rift_shake_tween") if visual.has_meta("rift_shake_tween") else null
+	if old_tween and old_tween.is_valid():
+		old_tween.kill()
+		visual.position = visual.get_meta("rift_shake_origin", visual.position)
+	var origin := visual.position
+	visual.set_meta("rift_shake_origin", origin)
+	var effect := visual.create_tween()
+	visual.set_meta("rift_shake_tween", effect)
+	for i in range(8):
+		var offset := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0))
+		effect.tween_property(visual, "position", origin + offset * strength * (1.0 - i / 8.0), duration / 9.0)
+	effect.tween_property(visual, "position", origin, duration / 9.0)
 
 
 func _set_time_scale_to_active_min() -> void:

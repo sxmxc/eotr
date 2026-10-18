@@ -6,13 +6,11 @@ signal selection_cancelled(request: CardCostSelectionRequest)
 
 const CARD_MENU_UI_SCENE: PackedScene = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
 
-@export var max_columns: int = 6
-
 @onready var title_label: Label = %TitleLabel
 @onready var body_label: RichTextLabel = %BodyLabel
 @onready var hover_label: RichTextLabel = %HoverLabel
 @onready var selection_label: Label = %SelectionLabel
-@onready var card_container: GridContainer = %CardContainer
+@onready var card_container: HFlowContainer = %CardContainer
 @onready var confirm_button: Button = %ConfirmButton
 @onready var cancel_button: Button = %CancelButton
 @onready var card_popup: CardPopup = %CardPopup
@@ -111,8 +109,6 @@ func _reset_cards() -> void:
 
 
 func _populate_cards(cards: Array[Card]) -> void:
-	var clamped_columns: int = clampi(max_columns, 1, max(1, cards.size()))
-	card_container.columns = clamped_columns
 	for card: Card in cards:
 		var card_ui := CARD_MENU_UI_SCENE.instantiate() as CardMenuUI
 		card_container.add_child(card_ui)

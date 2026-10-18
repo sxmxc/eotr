@@ -15,33 +15,25 @@ const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
 
 @onready var map: Map = $Map
 @onready var current_view: Node = $CurrentView
-@onready var health_ui: HealthUI = %HealthUI
-@onready var gold_ui: GoldUI = %GoldUI
-@onready var resources_ui: ResourceUI = %ResourcesUI
-@onready var deck_button: CardPileButton = %DeckButton
-@onready var deck_view: CardPileView = %DeckView
-@onready var relic_handler: RelicHandler = %RelicHandler
-@onready var relic_tooltip: RelicTooltip = %RelicTooltip
+@onready var hud = $TopBar
+@onready var relic_handler: RelicHandler = hud.relic_handler
 @onready var pause_menu: PauseMenu = $PauseMenu
-@onready var map_legend: CanvasLayer = $MapLegendUI
-@onready var run_time_ui: RunTimerUI = %RunTimeUI
+@onready var map_legend = $MapLegendUI
+@onready var run_time_ui: RunTimerUI = hud.run_time_ui
 @onready var tutorial_ui: TutorialUI = $TutorialUI
-@onready var bounty_board_button: TextureButton = %BountyBoardButton
-@onready var bounty_board_popup: Control = %BountyBoardPopup
 
 
 var run_stats: RunStats
 var player_stats: PlayerStats
 var save_data: SaveGame
 var audio_stream_player: AudioStreamPlayer
-var bounty_board_view: BountyBoardView
 
 
 func _ready() -> void:
 	if not run_bootstrap:
 		return
 
-	pause_menu.save_and_quit.connect(func(): get_tree().change_scene_to_file(MAIN_MENU_PATH))
+	pause_menu.save_and_quit.connect(_on_save_and_quit)
 
 	match run_bootstrap.type:
 		RunBootstrap.Type.NEW_RUN:
@@ -56,24 +48,24 @@ func add_resources(amount: int) -> void:
 	var event_props := {
 		"command": "add_resources"
 	}
-	Talo.events.track("console_command_used", event_props)
-	Talo.stats.track("console_commands_used")
+	TelemetryManager.track_event("console_command_used", event_props)
+	TelemetryManager.track_stat("console_commands_used")
 	run_stats.resources += amount
 	
 func add_gold(amount: int) -> void:
 	var event_props := {
 		"command": "add_gold"
 	}
-	Talo.events.track("console_command_used", event_props)
-	Talo.stats.track("console_commands_used")
+	TelemetryManager.track_event("console_command_used", event_props)
+	TelemetryManager.track_stat("console_commands_used")
 	run_stats.gold += amount
 
 func _destroy_all_enemies() -> void:
 	var event_props := {
 		"command": "yeet_em_all"
 	}
-	Talo.events.track("console_command_used", event_props)
-	Talo.stats.track("console_commands_used")
+	TelemetryManager.track_event("console_command_used", event_props)
+	TelemetryManager.track_stat("console_commands_used")
 	get_tree().call_group("enemy", "queue_free")
 
 
@@ -82,8 +74,8 @@ func _start_run() -> void:
 	var event_props : Dictionary[String, String] = {
 		"player_class": player_stats.player_class_name,
 	}
-	Talo.events.track("run_started", event_props)
-	Talo.stats.track("runs_started")
+	TelemetryManager.track_event("run_started", event_props)
+	TelemetryManager.track_stat("runs_started")
 	run_stats = RunStats.new()
 	map.run_stats = run_stats
 	_setup_event_connections()
@@ -100,7 +92,7 @@ func _start_run() -> void:
 		await tutorial_ui.completed
 
 
-func _save_run(was_on_map: bool):
+func _save_run(was_on_map: bool) -> bool:
 	
 	save_data.rng_seed = RNG.instance.seed
 	save_data.rng_state = RNG.instance.state
@@ -114,12 +106,14 @@ func _save_run(was_on_map: bool):
 	save_data.floors_climbed = map.floors_climbed
 	save_data.was_on_map = was_on_map
 	save_data.elapsed_run_time = run_time_ui.elapsed_time
-	save_data.save_data()
+	return save_data.save_data()
 
 
 func _load_run() -> void:
 	save_data = SaveGame.load_data()
-	assert(save_data, "Couldn't load last save")
+	if not save_data:
+		get_tree().change_scene_to_file.call_deferred(MAIN_MENU_PATH)
+		return
 
 	RNG.set_from_save_data(save_data.rng_seed, save_data.rng_state)
 	run_stats = save_data.run_stats
@@ -144,7 +138,9 @@ func _load_run() -> void:
 
 func _change_view(scene: PackedScene) -> Node:
 	if current_view.get_child_count() > 0:
-		current_view.get_child(0).queue_free()
+		var old_view := current_view.get_child(0)
+		current_view.remove_child(old_view)
+		old_view.queue_free()
 
 	get_tree().paused = false
 	var new_view := scene.instantiate()
@@ -156,7 +152,9 @@ func _change_view(scene: PackedScene) -> Node:
 
 func _show_map() -> void:
 	if current_view.get_child_count() > 0:
-		current_view.get_child(0).queue_free()
+		var old_view := current_view.get_child(0)
+		current_view.remove_child(old_view)
+		old_view.queue_free()
 	SoundManager.play_music_queue(music_playlist,1)
 	map.show_map()
 	map.unlock_next_map_node()
@@ -165,6 +163,7 @@ func _show_map() -> void:
 
 
 func _setup_event_connections() -> void:
+	Events.player_died.connect(run_time_ui.stop)
 	Events.battle_won.connect(_on_battle_won)
 	Events.battle_reward_exited.connect(_show_map)
 	Events.rest_exited.connect(_show_map)
@@ -181,38 +180,17 @@ func _setup_event_connections() -> void:
 		LimboConsole.register_command(add_gold, "add_gold", "Add gold")
 
 func _setup_top_bar() -> void:
-	player_stats.stats_changed.connect(health_ui.update_stats.bind(player_stats))
-	health_ui.update_stats(player_stats)
-	gold_ui.run_stats = run_stats
-	resources_ui.run_stats = run_stats
+	hud.bind_run(player_stats, run_stats)
 	relic_handler.add_relic(player_stats.starting_relic)
-	Events.relic_tooltip_requested.connect(relic_tooltip.show_tooltip)
-	deck_button.card_pile = player_stats.deck
-	deck_view.card_pile = player_stats.deck
-	deck_button.pressed.connect(deck_view.show_current_view.bind("Deck"))
 	
 
 func _connect_bounty_board() -> void:
-	if bounty_board_popup:
-		bounty_board_view = bounty_board_popup as BountyBoardView
-		bounty_board_button.pressed.connect(_on_bounty_board_button_pressed)
-		bounty_board_popup.hide()
-	var bounty_callable := Callable(self, "_on_bounties_updated")
-	if map and not map.bounties_updated.is_connected(bounty_callable):
-		map.bounties_updated.connect(bounty_callable)
+	map_legend.bounty_board_requested.connect(_on_bounty_board_button_pressed)
+	map.bounties_updated.connect(hud.update_bounties)
 
 
 func _on_bounty_board_button_pressed() -> void:
-	if not bounty_board_popup:
-		return
-	if bounty_board_view and run_stats:
-		bounty_board_view.apply_bounties(run_stats.bounty_contracts, map.floors_climbed, run_stats.next_bounty_refresh_floor)
-	bounty_board_popup.show()
-
-
-func _on_bounties_updated(contracts: Array[BountyContract], floors_climbed: int, next_refresh_floor: int) -> void:
-	if bounty_board_view:
-		bounty_board_view.apply_bounties(contracts, floors_climbed, next_refresh_floor)
+	hud.show_bounties(run_stats.bounty_contracts, map.floors_climbed, run_stats.next_bounty_refresh_floor)
 
 
 func _show_regular_rewards() -> void:
@@ -232,15 +210,16 @@ func _on_battle_won() -> void:
 	var props : Dictionary [String, String] = {
 		"floor" : "%s" % str(map.floors_climbed)
 	}
-	Talo.events.track("floor_completed", props)
-	Talo.stats.track("floors_completed")
+	TelemetryManager.track_event("floor_completed", props)
+	TelemetryManager.track_stat("floors_completed")
 	if map.floors_climbed == MapGenerator.FLOORS:
+		run_time_ui.stop()
 		player_stats.is_running = false
 		var event_props := {
 			"player_class" : player_stats.player_class_name,
 			"run_completion_time" : run_time_ui.elapsed_time
 			}
-		Talo.events.track("run_completed", event_props)
+		TelemetryManager.track_event("run_completed", event_props)
 		
 		var win_screen := _change_view(WIN_SCREEN_SCENE) as WinScreen
 		win_screen.player_stats = player_stats
@@ -249,8 +228,8 @@ func _on_battle_won() -> void:
 		var event_props := {
 			"player_class" : player_stats.player_class_name
 			}
-		Talo.events.track("battle_won", event_props)
-		Talo.stats.track("battles_won")
+		TelemetryManager.track_event("battle_won", event_props)
+		TelemetryManager.track_stat("battles_won")
 		_show_regular_rewards()
 
 
@@ -305,6 +284,7 @@ func _on_map_exited(map_node: MapNode) -> void:
 	_save_run(false)
 	match map_node.type:
 		Enums.MapNodeType.MONSTER, Enums.MapNodeType.ELITE:
+			_track_floor_started(map_node)
 			_on_game_world_entered(map_node)
 		Enums.MapNodeType.TREASURE:
 			_on_treasure_room_entered()
@@ -315,4 +295,31 @@ func _on_map_exited(map_node: MapNode) -> void:
 		Enums.MapNodeType.EVENT:
 			_on_event_entered()
 		Enums.MapNodeType.BOSS:
+			_track_floor_started(map_node)
 			_on_game_world_entered(map_node)
+
+
+func _track_floor_started(map_node: MapNode) -> void:
+	if not map_node or not map_node.battle_stats:
+		return
+
+	var battle_stats := map_node.battle_stats
+	var event_props :Dictionary[String,String] = {
+		"floor": "%s" % str(map.floors_climbed),
+		"map_node_type": Enums.MapNodeType.keys()[map_node.type],
+		"battle_tier":str(battle_stats.battle_tier),
+		"is_elite": str(battle_stats.is_elite),
+	}
+	TelemetryManager.track_event("floor_started", event_props)
+
+
+func _on_save_and_quit() -> void:
+	# Encounters resume from the existing pre-encounter snapshot; do not serialize
+	# partially resolved combat into the map save. Update time in either case.
+	var checkpoint := SaveGame.load_data()
+	if not checkpoint:
+		Utils.show_save_error("The last checkpoint could not be read. Your run is still open; return to the map to save again.")
+		return
+	checkpoint.elapsed_run_time = run_time_ui.elapsed_time
+	if checkpoint.save_data():
+		get_tree().change_scene_to_file(MAIN_MENU_PATH)

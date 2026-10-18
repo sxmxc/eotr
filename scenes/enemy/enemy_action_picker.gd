@@ -25,7 +25,7 @@ func get_first_conditional_action() -> EnemyAction:
 		if not action or action.type != EnemyAction.Type.CONDITIONAL:
 			continue
 
-		if action.is_performable():
+		if action.is_eligible():
 			return action
 	return null
 
@@ -40,6 +40,8 @@ func get_chance_based_action() -> EnemyAction:
 			continue
 
 		var action_weight := action.get_weight(decision_context)
+		if not action.is_eligible():
+			continue
 		if action_weight <= 0.0:
 			continue
 
@@ -50,7 +52,7 @@ func get_chance_based_action() -> EnemyAction:
 		})
 
 	if weighted_actions.is_empty():
-		return _get_first_chance_based_action()
+		return null
 
 	var roll := RNG.instance.randf_range(0.0, cumulative_weight)
 	for action_entry in weighted_actions:
@@ -80,6 +82,8 @@ func set_target(value: Node2D) -> void:
 
 
 func _build_decision_context() -> Dictionary:
+	if !is_instance_valid(enemy) or not is_instance_valid(target):
+		return {}
 	var context := {}
 	var player := target as Player
 	var player_stats := player.stats if player else null

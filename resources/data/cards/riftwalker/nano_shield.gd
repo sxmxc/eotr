@@ -7,17 +7,18 @@ var base_block := 6
 var energy_gain := 3
 
 
-func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
-	var block_effect := BlockEffect.new()
-	var energy_effect := EnergyEffect.new()
-	energy_effect.amount = energy_gain
-	energy_effect.sound_fx = energy_sound_fx
-	#energy_effect.visual_fx = energy_visual_fx
-	block_effect.amount = base_block
+func _init() -> void:
+	var block_effect := CardEffectConfig.for_block(base_block)
 	block_effect.sound_fx = sound_fx
 	block_effect.visual_fx = visual_fx
-	block_effect.execute(targets)
-	energy_effect.execute(targets)
+	block_effect.target = CardEffectConfig.Targeting.PLAYER
+
+	var energy_effect := CardEffectConfig.for_energy(energy_gain)
+	energy_effect.sound_fx = energy_sound_fx
+	energy_effect.visual_fx = energy_visual_fx
+	energy_effect.target = CardEffectConfig.Targeting.PLAYER
+
+	effect_configs = [block_effect, energy_effect]
 
 
 func get_default_description() -> String:

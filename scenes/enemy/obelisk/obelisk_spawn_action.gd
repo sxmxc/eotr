@@ -22,7 +22,7 @@ func is_performable() -> bool:
 	if handler and handler.get_active_mobile_enemy_count() >= live_enemy_cap:
 		return false
 
-	if enemy.turn_ticker % spawn_turn_freq != 0:
+	if spawn_turn_freq <= 0 or (enemy.turn_ticker + 1) % spawn_turn_freq != 0:
 		return false
 
 	return has_spawn_tile

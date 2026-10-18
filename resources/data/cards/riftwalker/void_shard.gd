@@ -2,20 +2,8 @@ extends Card
 
 var base_damage := 6
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	var damage_effect := DamageEffect.new()
-	var cam = targets[0].get_tree().get_first_node_in_group("map_camera")
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
-	damage_effect.sound_fx = sound_fx
-	damage_effect.visual_fx = visual_fx
-	var projectile := projectile_fx.instantiate() as ProjectileFX
-	projectile.visual_fx = visual_fx.instantiate() as VisualFX
-	targets[0].get_tree().get_first_node_in_group("fx_layer").add_child(projectile)
-	projectile.complete.connect(func(): 
-		damage_effect.execute(targets)
-		Utils.shake(cam, 16, .15)
-		)
-	projectile.execute(targets[0])
+func _init() -> void:
+	_sync_effect_configs()
 
 
 func get_default_description() -> String:
@@ -43,3 +31,18 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 	if modified_dmg != base_damage:
 		return true
 	return false
+
+
+func _sync_effect_configs() -> void:
+	if effect_configs.is_empty():
+		var damage_effect := CardEffectConfig.for_damage(base_damage)
+		# Show visuals on the projectile only to avoid double-spawning FX.
+		damage_effect.attach_visual_to_effect = false
+		damage_effect.projectile_fx = projectile_fx
+		damage_effect.projectile_visual_fx = visual_fx
+		damage_effect.camera_shake_strength = 16.0
+		damage_effect.camera_shake_duration = 0.15
+		damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
+		effect_configs = [damage_effect]
+	else:
+		effect_configs[0].amount = base_damage

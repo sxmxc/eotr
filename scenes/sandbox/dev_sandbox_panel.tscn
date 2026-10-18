@@ -1,0 +1,155 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://qevmdyyes1eq" path="res://scenes/sandbox/dev_sandbox_panel.gd" id="6_devpanel_script"]
+
+[node name="DevPanel" type="Control" unique_id=1502978721]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 12.0
+offset_right = 25.0
+offset_bottom = 12.0
+script = ExtResource("6_devpanel_script")
+
+[node name="Panel" type="Panel" parent="." unique_id=819548652]
+custom_minimum_size = Vector2(520, 220)
+layout_mode = 1
+offset_right = 669.0
+offset_bottom = 310.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1088785418]
+theme_type_variation = &"InsetContent"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=848317999]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=512128151]
+layout_mode = 2
+text = "Dev Sandbox Controls"
+
+[node name="MapRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1839812061]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+
+[node name="RegenMapButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MapRow" unique_id=1799375135]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Regenerate Map"
+
+[node name="CameraRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=2055796932]
+layout_mode = 2
+
+[node name="CenterCameraButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=2043719959]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Center Camera"
+
+[node name="ZoomInButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=35493260]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zoom In"
+
+[node name="ZoomOutButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=613215364]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zoom Out"
+
+[node name="FreeCameraToggle" type="CheckButton" parent="Panel/MarginContainer/VBoxContainer/CameraRow" unique_id=195596]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Free Camera"
+button_pressed = false
+
+[node name="EnemyRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=804887800]
+layout_mode = 2
+
+[node name="EnemyTierFilter" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=420537928]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(115, 0)
+size_flags_horizontal = 0
+fit_to_longest_item = false
+
+[node name="EnemyDropdown" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=19908075]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+fit_to_longest_item = false
+
+[node name="SpawnEnemyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=780474970]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spawn Enemy"
+
+[node name="ClearEnemiesButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=1836525671]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear Enemies"
+
+[node name="CardRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=588751453]
+layout_mode = 2
+
+[node name="CardRarityFilter" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1598849347]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(115, 0)
+size_flags_horizontal = 0
+fit_to_longest_item = false
+
+[node name="CardDropdown" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/CardRow" unique_id=235195797]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+fit_to_longest_item = false
+
+[node name="AddHandButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1863873357]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add to Hand"
+
+[node name="AddDrawButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CardRow" unique_id=68182942]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add to Draw"
+
+[node name="AddDiscardButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1321132793]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add to Discard"
+
+[node name="DrawRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=2000752968]
+layout_mode = 2
+
+[node name="DrawCardButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/DrawRow" unique_id=1556235503]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Draw Top Card"
+
+[node name="UtilityRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=314727150]
+layout_mode = 2
+
+[node name="ClearFogButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=19832651]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear Fog"
+
+[node name="RefillEnergyButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=750987837]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refill Energy"
+
+[node name="RefillHealthButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=384748053]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refill Health"
+
+[node name="PassTurnButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/UtilityRow" unique_id=1081359550]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pass Turn"

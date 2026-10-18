@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://dk3m00a8m3h4"]
+
+[ext_resource type="Script" uid="uid://bycpdl3aolr2j" path="res://scenes/sandbox/dev_game_world_ui.gd" id="1_script"]
+
+[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="2_pile_button"]
+
+[ext_resource type="PackedScene" path="res://ui/player_ui/stats_ui_sandbox.tscn" id="3_stats"]
+
+[ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="5_hand_script"]
+
+[ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
+
+[ext_resource type="PackedScene" path="res://scenes/sandbox/dev_sandbox_panel.tscn" id="dev_panel_scene"]
+
+[sub_resource type="Curve" id="Curve_hand"]
+_data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.75), -2.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_rot"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lsin"]
+size = Vector2(1924, 699)
+
+[node name="GameWorldUI" type="CanvasLayer" unique_id=1269372028 node_paths=PackedStringArray("hand", "stats_ui", "draw_pile_button", "discard_pile_button", "exhaust_pile_button", "dev_panel") groups=["ui_layer"]]
+script = ExtResource("1_script")
+hand = NodePath("Hand")
+stats_ui = NodePath("Stats")
+draw_pile_button = NodePath("DrawPileButton")
+discard_pile_button = NodePath("DiscardPileButton")
+exhaust_pile_button = NodePath("ExhaustPileButton")
+dev_panel = NodePath("DevPanel")
+
+[node name="DevPanel" parent="." instance=ExtResource("dev_panel_scene")]
+
+[node name="EnemyRail" parent="." instance=ExtResource("enemy_rail")]
+
+[node name="CardSpotlight" type="HBoxContainer" parent="." unique_id=1766627346]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hand" type="Control" parent="." unique_id=1008837630 node_paths=PackedStringArray("card_spotlight")]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -260.0
+offset_right = 480.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("5_hand_script")
+hand_curve = SubResource("Curve_hand")
+rotation_curve = SubResource("Curve_rot")
+x_sep = -20
+y_max = -25
+card_spotlight = NodePath("../CardSpotlight")
+
+[node name="Stats" parent="." unique_id=20585290 instance=ExtResource("3_stats")]
+offset_left = 1687.0
+offset_top = 787.0
+offset_right = 1831.0
+offset_bottom = 1005.0
+
+[node name="DrawPileButton" parent="." unique_id=312347470 instance=ExtResource("2_pile_button")]
+unique_name_in_owner = true
+offset_left = 32.0
+offset_top = 880.0
+offset_right = 160.0
+offset_bottom = 1008.0
+
+
+[node name="DiscardPileButton" parent="." unique_id=1487224827 instance=ExtResource("2_pile_button")]
+unique_name_in_owner = true
+offset_left = 200.0
+offset_top = 880.0
+offset_right = 328.0
+offset_bottom = 1008.0
+
+
+[node name="ExhaustPileButton" parent="." unique_id=287794363 instance=ExtResource("2_pile_button")]
+unique_name_in_owner = true
+offset_left = 368.0
+offset_top = 880.0
+offset_right = 496.0
+offset_bottom = 1008.0
+
+
+[node name="CardDropArea" type="Area2D" parent="." unique_id=1784851812]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardDropArea" unique_id=1325655913]
+position = Vector2(963, 339.5)
+shape = SubResource("RectangleShape2D_2lsin")
+debug_color = Color(0, 0.6, 0.701961, 0.0509804)

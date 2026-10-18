@@ -9,6 +9,8 @@ func _ready() -> void:
 	_clear_children()
 	
 func show_message(data: WorldMessageData) -> void:
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
 	_trim_queue_for(data)
 	var message : WorldMessage = WORLD_MESSAGE.instantiate()
 	Events.world_message_hide_requested.connect(message.hide_message)

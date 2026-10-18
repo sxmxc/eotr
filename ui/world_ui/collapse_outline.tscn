@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[node name="CollapseOutline" type="Line2D"]
+points = PackedVector2Array(0, -15, 15, -8, 15, 8, 0, 15, -15, 8, -15, -8, 0, -15)
+width = 1.5
+default_color = Color(0.937, 0.533, 0.478, 1)
+antialiased = true

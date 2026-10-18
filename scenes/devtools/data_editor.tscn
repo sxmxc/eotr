@@ -1,0 +1,834 @@
+[gd_scene format=3 uid="uid://d33qs53kyq4cb"]
+
+[ext_resource type="Script" uid="uid://byawxd5slw6yu" path="res://scenes/devtools/data_editor.gd" id="1_qdcrr"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2_theme"]
+[ext_resource type="PackedScene" uid="uid://dwiv2oit73vcs" path="res://ui/card_ui/card_ui.tscn" id="3_cardui"]
+
+[node name="DataEditor" type="Control" unique_id=1562475502]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_qdcrr")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1849802155]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0588235, 0.0666667, 0.0901961, 1)
+
+[node name="MainMargin" type="MarginContainer" parent="." unique_id=337625753]
+theme_type_variation = &"EditorMainInset"
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="MainMargin" unique_id=1487939137]
+theme_type_variation = &"CompactStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="HBoxContainer" parent="MainMargin/VBox" unique_id=2047691732]
+theme_type_variation = &"InlineRow"
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MainMargin/VBox/Header" unique_id=1521825629]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"
+
+[node name="Title" type="Label" parent="MainMargin/VBox/Header" unique_id=2075444340]
+theme_type_variation = &"SectionHeading"
+layout_mode = 2
+text = "Card, Registry, and Deck Editor"
+
+[node name="DirtyLabel" type="Label" parent="MainMargin/VBox/Header" unique_id=640005894]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Saved"
+
+[node name="HeaderSpacer" type="Control" parent="MainMargin/VBox/Header" unique_id=599518047]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatusLabel" type="Label" parent="MainMargin/VBox/Header" unique_id=239731253]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ready"
+
+[node name="ReloadButton" type="Button" parent="MainMargin/VBox/Header" unique_id=55586148]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload Lists"
+
+[node name="Tabs" type="TabContainer" parent="MainMargin/VBox" unique_id=982867094]
+theme_type_variation = &"EditorTabs"
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Cards" type="Control" parent="MainMargin/VBox/Tabs" unique_id=1615206066]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="CardsHSplit" type="HSplitContainer" parent="MainMargin/VBox/Tabs/Cards" unique_id=539144544]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(350)
+split_offset = 350
+
+[node name="CardListPanel" type="Panel" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit" unique_id=785092839]
+layout_mode = 2
+
+[node name="CardListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel" unique_id=608343688]
+theme_type_variation = &"InsetSmall"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin" unique_id=461664966]
+theme_type_variation = &"SmallStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardSearch" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox" unique_id=1170538291]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Search cards..."
+
+[node name="CardRarityFilter" type="OptionButton" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox" unique_id=660533098]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardList" type="ItemList" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox" unique_id=282358111]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+auto_height = true
+
+[node name="CardListButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox" unique_id=1509803051]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardNewButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox/CardListButtons" unique_id=1694793548]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Card"
+
+[node name="CardRefreshButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardListPanel/CardListMargin/CardListVBox/CardListButtons" unique_id=152163773]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh"
+
+[node name="CardDetailPanel" type="Panel" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit" unique_id=1721727105]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel" unique_id=315472969]
+theme_type_variation = &"EditorDetailInset"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin" unique_id=202968208]
+theme_type_variation = &"ContentStack"
+layout_mode = 2
+
+[node name="CardPreview" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer" unique_id=1473241984 instance=ExtResource("3_cardui")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CardDetailScroll" type="ScrollContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer" unique_id=1300087650]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="CardDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll" unique_id=1399136237]
+theme_type_variation = &"CompactStack"
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=1897095077]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardPathLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardPathRow" unique_id=423254909]
+layout_mode = 2
+text = "Path"
+
+[node name="CardPath" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardPathRow" unique_id=1839032286]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="CardSaveAsButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardPathRow" unique_id=713691575]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save As"
+
+[node name="CardGrid" type="GridContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=80359714]
+layout_mode = 2
+columns = 2
+
+[node name="CardIdLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1455390341]
+layout_mode = 2
+text = "ID"
+
+[node name="CardId" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1559752786]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardNameLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1771191552]
+layout_mode = 2
+text = "Name"
+
+[node name="CardName" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=636316483]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardTypeLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=376890064]
+layout_mode = 2
+text = "Type"
+
+[node name="CardType" type="OptionButton" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=2103483887]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardTargetLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=283222962]
+layout_mode = 2
+text = "Target"
+
+[node name="CardTarget" type="OptionButton" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1719565355]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardRarityLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=567970753]
+layout_mode = 2
+text = "Rarity"
+
+[node name="CardRarity" type="OptionButton" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=222404165]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardEnergyLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=510824174]
+layout_mode = 2
+text = "Energy Cost"
+
+[node name="CardEnergy" type="SpinBox" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=370684488]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 10.0
+rounded = true
+
+[node name="CardExhaustLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1937002750]
+layout_mode = 2
+text = "Exhaust"
+
+[node name="CardExhaust" type="CheckButton" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=678321286]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardTagsLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1960497129]
+layout_mode = 2
+text = "Tags"
+
+[node name="CardTags" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=854576725]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "comma separated"
+
+[node name="CardDescriptionLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1605346303]
+layout_mode = 2
+text = "Description"
+
+[node name="CardDescription" type="TextEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardGrid" unique_id=1166694714]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardArtRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=1327922024]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardArtLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardArtRow" unique_id=1505621155]
+layout_mode = 2
+text = "Art"
+
+[node name="CardArtPath" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardArtRow" unique_id=977136413]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BrowseCardArt" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardArtRow" unique_id=903478445]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pick"
+
+[node name="CardSoundRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=210376808]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardSoundLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardSoundRow" unique_id=1948888361]
+layout_mode = 2
+text = "Sound FX"
+
+[node name="CardSoundPath" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardSoundRow" unique_id=1818956339]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BrowseCardSound" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardSoundRow" unique_id=1247884754]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pick"
+
+[node name="CardVisualRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=585177063]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardVisualLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardVisualRow" unique_id=74984031]
+layout_mode = 2
+text = "Visual FX"
+
+[node name="CardVisualPath" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardVisualRow" unique_id=1984273376]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BrowseCardVisual" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardVisualRow" unique_id=1125178385]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pick"
+
+[node name="CardProjectileRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=447499006]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardProjectileLabel" type="Label" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardProjectileRow" unique_id=604775210]
+layout_mode = 2
+text = "Projectile FX"
+
+[node name="CardProjectilePath" type="LineEdit" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardProjectileRow" unique_id=844610275]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BrowseCardProjectile" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardProjectileRow" unique_id=1005128269]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pick"
+
+[node name="CardButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox" unique_id=1685343664]
+theme_type_variation = &"InlineRow"
+layout_mode = 2
+
+[node name="CardSaveButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardButtons" unique_id=589528041]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save"
+
+[node name="CardRevertButton" type="Button" parent="MainMargin/VBox/Tabs/Cards/CardsHSplit/CardDetailPanel/CardDetailMargin/VBoxContainer/CardDetailScroll/CardDetailVBox/CardButtons" unique_id=1114991124]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reload Card"
+
+[node name="CardRegistries" type="Control" parent="MainMargin/VBox/Tabs" unique_id=925564038]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="CardRegistriesHSplit" type="HSplitContainer" parent="MainMargin/VBox/Tabs/CardRegistries" unique_id=978829836]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(280)
+split_offset = 280
+
+[node name="CardRegistryListPanel" type="Panel" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit" unique_id=1100838407]
+layout_mode = 2
+
+[node name="CardRegistryListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel" unique_id=334523281]
+theme_type_variation = &"InsetSmall"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardRegistryListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel/CardRegistryListMargin" unique_id=1192116155]
+theme_type_variation = &"SmallStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardRegistryList" type="ItemList" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel/CardRegistryListMargin/CardRegistryListVBox" unique_id=1442531825]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardRegistryRefreshButton" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryListPanel/CardRegistryListMargin/CardRegistryListVBox" unique_id=2014839967]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh"
+
+[node name="CardRegistryDetailPanel" type="Panel" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit" unique_id=163254962]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardRegistryDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel" unique_id=376943342]
+theme_type_variation = &"InsetMedium"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardRegistryDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin" unique_id=277733736]
+theme_type_variation = &"CompactStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardRegistryPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=1026170659]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardRegistryPathLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryPathRow" unique_id=588973169]
+layout_mode = 2
+text = "Path"
+
+[node name="CardRegistryPath" type="LineEdit" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryPathRow" unique_id=1613306606]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="CardRegistryEntryList" type="ItemList" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=834935873]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardRegistryEntryButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=1237944555]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="CardRegistryAddEntry" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryEntryButtons" unique_id=640243277]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add"
+
+[node name="CardRegistryRemoveEntry" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryEntryButtons" unique_id=1510460388]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove"
+
+[node name="CardRegistryApplyEntry" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryEntryButtons" unique_id=1033789633]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply"
+
+[node name="RegistryCardRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=519832265]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="RegistryCardLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/RegistryCardRow" unique_id=892937135]
+layout_mode = 2
+text = "Card"
+
+[node name="RegistryCardPath" type="LineEdit" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/RegistryCardRow" unique_id=763424058]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RegistryPickCard" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/RegistryCardRow" unique_id=132399201]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pick"
+
+[node name="CardRegistryGrid" type="GridContainer" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=1057055636]
+layout_mode = 2
+columns = 2
+
+[node name="RegistryClassIdLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=2011143952]
+layout_mode = 2
+text = "Class ID"
+
+[node name="RegistryClassId" type="LineEdit" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=1580589335]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RegistryWeightLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=244431539]
+layout_mode = 2
+text = "Weight"
+
+[node name="RegistryWeight" type="SpinBox" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=47901254]
+unique_name_in_owner = true
+layout_mode = 2
+step = 0.1
+
+[node name="RegistryRarityLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=91528968]
+layout_mode = 2
+text = "Rarity Override"
+
+[node name="RegistryRarity" type="OptionButton" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=2103607067]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RegistryTagsLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=658044273]
+layout_mode = 2
+text = "Tags"
+
+[node name="RegistryTags" type="LineEdit" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=635001343]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "comma separated"
+
+[node name="RegistryUnlockedLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=1705374609]
+layout_mode = 2
+text = "Unlocked"
+
+[node name="RegistryUnlocked" type="CheckButton" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=1737844725]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RegistryAllowDraftLabel" type="Label" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=145588938]
+layout_mode = 2
+text = "Allow Draft"
+
+[node name="RegistryAllowDraft" type="CheckButton" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox/CardRegistryGrid" unique_id=887436188]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CardRegistrySave" type="Button" parent="MainMargin/VBox/Tabs/CardRegistries/CardRegistriesHSplit/CardRegistryDetailPanel/CardRegistryDetailMargin/CardRegistryDetailVBox" unique_id=2047952946]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save Registry"
+
+[node name="EncounterRegistries" type="Control" parent="MainMargin/VBox/Tabs" unique_id=1251140981]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="EncounterRegistriesHSplit" type="HSplitContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries" unique_id=1879570130]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(280)
+split_offset = 280
+
+[node name="EncounterRegistryListPanel" type="Panel" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit" unique_id=843812001]
+layout_mode = 2
+
+[node name="EncounterRegistryListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel" unique_id=373549461]
+theme_type_variation = &"InsetSmall"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EncounterRegistryListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel/EncounterRegistryListMargin" unique_id=208812365]
+theme_type_variation = &"SmallStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EncounterRegistryList" type="ItemList" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel/EncounterRegistryListMargin/EncounterRegistryListVBox" unique_id=1014775846]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EncounterRegistryRefreshButton" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryListPanel/EncounterRegistryListMargin/EncounterRegistryListVBox" unique_id=525557873]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh"
+
+[node name="EncounterRegistryDetailPanel" type="Panel" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit" unique_id=603092697]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EncounterRegistryDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel" unique_id=1958556068]
+theme_type_variation = &"InsetMedium"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EncounterRegistryDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin" unique_id=746296908]
+theme_type_variation = &"CompactStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EncounterRegistryPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=274470228]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="EncounterRegistryPathLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryPathRow" unique_id=41131777]
+layout_mode = 2
+text = "Path"
+
+[node name="EncounterRegistryPath" type="LineEdit" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryPathRow" unique_id=227735568]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="EncounterRegistryEntryList" type="ItemList" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=1841627403]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EncounterRegistryEntryButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=398675217]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="EncounterRegistryAddEntry" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryEntryButtons" unique_id=2043553043]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add"
+
+[node name="EncounterRegistryRemoveEntry" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryEntryButtons" unique_id=1437229418]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove"
+
+[node name="EncounterRegistryApplyEntry" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryEntryButtons" unique_id=1568808417]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Apply"
+
+[node name="EncounterStatsRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=1016493545]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="EncounterStatsLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterStatsRow" unique_id=2118384456]
+layout_mode = 2
+text = "Stats"
+
+[node name="EncounterStatsPath" type="LineEdit" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterStatsRow" unique_id=1311921281]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EncounterPickStats" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterStatsRow" unique_id=27784808]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pick"
+
+[node name="EncounterRegistryGrid" type="GridContainer" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=1548279621]
+layout_mode = 2
+columns = 2
+
+[node name="EncounterTierLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1875976353]
+layout_mode = 2
+text = "Tier"
+
+[node name="EncounterTier" type="SpinBox" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=612812204]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 10.0
+rounded = true
+
+[node name="EncounterWeightLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1437123321]
+layout_mode = 2
+text = "Weight"
+
+[node name="EncounterWeight" type="SpinBox" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1531860768]
+unique_name_in_owner = true
+layout_mode = 2
+step = 0.1
+
+[node name="EncounterTagsLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1650504133]
+layout_mode = 2
+text = "Tags"
+
+[node name="EncounterTags" type="LineEdit" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=107716809]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "comma separated"
+
+[node name="EncounterEliteLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1025906757]
+layout_mode = 2
+text = "Elite"
+
+[node name="EncounterElite" type="CheckButton" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=928735977]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EncounterBossLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1802872805]
+layout_mode = 2
+text = "Boss"
+
+[node name="EncounterBoss" type="CheckButton" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=276246775]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EncounterUnlockedLabel" type="Label" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=1471393077]
+layout_mode = 2
+text = "Unlocked"
+
+[node name="EncounterUnlocked" type="CheckButton" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox/EncounterRegistryGrid" unique_id=625034611]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="EncounterRegistrySave" type="Button" parent="MainMargin/VBox/Tabs/EncounterRegistries/EncounterRegistriesHSplit/EncounterRegistryDetailPanel/EncounterRegistryDetailMargin/EncounterRegistryDetailVBox" unique_id=1826122879]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save Registry"
+
+[node name="Decks" type="Control" parent="MainMargin/VBox/Tabs" unique_id=1123710956]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="DecksHSplit" type="HSplitContainer" parent="MainMargin/VBox/Tabs/Decks" unique_id=919216516]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(280)
+split_offset = 280
+
+[node name="DeckListPanel" type="Panel" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit" unique_id=1142360124]
+layout_mode = 2
+
+[node name="DeckListMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel" unique_id=945539886]
+theme_type_variation = &"InsetSmall"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeckListVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel/DeckListMargin" unique_id=394893890]
+theme_type_variation = &"SmallStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DeckList" type="ItemList" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel/DeckListMargin/DeckListVBox" unique_id=1205387591]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DeckRefreshButton" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckListPanel/DeckListMargin/DeckListVBox" unique_id=1807574164]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh"
+
+[node name="DeckDetailPanel" type="Panel" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit" unique_id=1350267230]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeckDetailMargin" type="MarginContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel" unique_id=833618923]
+theme_type_variation = &"InsetMedium"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeckDetailVBox" type="VBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin" unique_id=1961877400]
+theme_type_variation = &"CompactStack"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DeckPathRow" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox" unique_id=1905329855]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="DeckPathLabel" type="Label" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckPathRow" unique_id=853206880]
+layout_mode = 2
+text = "Path"
+
+[node name="DeckPath" type="LineEdit" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckPathRow" unique_id=517162762]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="DeckCards" type="ItemList" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox" unique_id=1949623073]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DeckButtons" type="HBoxContainer" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox" unique_id=1732812247]
+theme_type_variation = &"TightRow"
+layout_mode = 2
+
+[node name="DeckAddCard" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckButtons" unique_id=2094742712]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Card"
+
+[node name="DeckRemoveCard" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckButtons" unique_id=1742791103]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove"
+
+[node name="DeckMoveUp" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckButtons" unique_id=1387243854]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Move Up"
+
+[node name="DeckMoveDown" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox/DeckButtons" unique_id=1935871405]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Move Down"
+
+[node name="DeckSave" type="Button" parent="MainMargin/VBox/Tabs/Decks/DecksHSplit/DeckDetailPanel/DeckDetailMargin/DeckDetailVBox" unique_id=62371089]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save Deck"
+
+[node name="ResourcePicker" type="FileDialog" parent="." unique_id=1835634438]
+unique_name_in_owner = true
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.tres", "*.tscn")
+
+[node name="SaveDialog" type="FileDialog" parent="." unique_id=400432483]
+unique_name_in_owner = true
+title = "Save Resource"
+access = 2

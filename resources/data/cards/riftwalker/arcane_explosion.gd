@@ -3,19 +3,8 @@ extends Card
 var base_damage := 6
 
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	if targets.is_empty():
-		return
-	var damage_effect := DamageEffect.new()
-	var cam = targets[0].get_tree().get_first_node_in_group("map_camera")
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
-	damage_effect.sound_fx = sound_fx
-	damage_effect.execute(targets)
-	Utils.shake(cam, 16, .15)
-	for enemy: Enemy in targets:
-		var explosion : VisualFX = visual_fx.instantiate() as VisualFX
-		enemy.add_child(explosion)
-		explosion.execute()
+func _init() -> void:
+	_sync_effect_configs()
 
 
 func get_default_description() -> String:
@@ -32,7 +21,7 @@ func get_modified_description(
 	if enemy_modifiers:
 		modified_dmg = enemy_modifiers.get_modified_value(
 			modified_dmg, Enums.ModifierType.DMG_TAKEN
-		)
+	)
 
 	return description % modified_dmg
 	
@@ -43,3 +32,17 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 	if modified_dmg != base_damage:
 		return true
 	return false
+
+
+func _sync_effect_configs() -> void:
+	if effect_configs.is_empty():
+		var damage_effect := CardEffectConfig.for_damage(base_damage)
+		damage_effect.visual_fx = visual_fx
+		damage_effect.sound_fx = sound_fx
+		damage_effect.camera_shake_strength = 16.0
+		damage_effect.camera_shake_duration = 0.15
+		damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
+		effect_configs = [damage_effect]
+	else:
+		# Keep runtime damage in sync if modified externally.
+		effect_configs[0].amount = base_damage

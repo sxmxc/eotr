@@ -1,54 +1,51 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://plkam64wo554"]
+[gd_resource type="Theme" format=3 uid="uid://plkam64wo554"]
 
 [ext_resource type="StyleBox" uid="uid://bwug28qd00xeg" path="res://resources/themes/hud_panel_background.tres" id="2_etnbh"]
-[ext_resource type="FontFile" uid="uid://1oy6eel7cxhb" path="res://assets/fonts/comic_book/Comic Book Bold.otf" id="2_ttywx"]
-[ext_resource type="FontFile" uid="uid://cr74lne0rgqw7" path="res://assets/fonts/comic_book/Comic Book Bold Italic.otf" id="3_t6fef"]
 [ext_resource type="StyleBox" uid="uid://bg04es6qgwvqt" path="res://resources/themes/hud_panel_forground.tres" id="3_ttywx"]
-[ext_resource type="FontFile" uid="uid://c757277hct3rl" path="res://assets/fonts/comic_book/Comic Book Italic.otf" id="4_tjpgc"]
-[ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="5_0x5bx"]
+[ext_resource type="SystemFont" path="res://resources/themes/body_font.tres" id="5_0x5bx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlbhd"]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color(0.517647, 0.470588, 0.458824, 0.670588)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.19, 0.27, 0.34, 1)
 shadow_size = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hrule"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxEmpty_hrule"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crme1"]
 content_margin_left = 15.0
 content_margin_right = 15.0
-bg_color = Color(0.301961, 0.270588, 0.223529, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
+bg_color = Color(0.1, 0.18, 0.22, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.19, 0.27, 0.34, 1)
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7xis"]
 content_margin_left = 15.0
 content_margin_right = 15.0
-bg_color = Color(0.517647, 0.470588, 0.458824, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
+bg_color = Color(0.075, 0.105, 0.15, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.19, 0.27, 0.34, 1)
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrule"]
-bg_color = Color(0.301961, 0.270588, 0.223529, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.701961, 0.647059, 0.333333, 1)
+bg_color = Color(0.1, 0.18, 0.22, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.85, 0.78, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -58,11 +55,11 @@ shadow_offset = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttywx"]
 bg_color = Color(0.178125, 0.15, 0.1625, 1)
-border_width_left = 15
-border_width_top = 15
-border_width_right = 15
-border_width_bottom = 15
-border_color = Color(0.294118, 0.239216, 0.266667, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.19, 0.27, 0.34, 1)
 expand_margin_left = 10.0
 expand_margin_top = 10.0
 expand_margin_right = 10.0
@@ -70,11 +67,11 @@ expand_margin_bottom = 10.0
 
 [resource]
 default_font = ExtResource("5_0x5bx")
-default_font_size = 32
-Button/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-Button/colors/font_disabled_color = Color(0.294118, 0.239216, 0.266667, 1)
-Button/colors/font_hover_color = Color(0.701961, 0.647059, 0.333333, 1)
-Button/colors/font_pressed_color = Color(0.701961, 0.647059, 0.333333, 1)
+default_font_size = 28
+Button/colors/font_color = Color(0.93, 0.9, 0.84, 1)
+Button/colors/font_disabled_color = Color(0.19, 0.27, 0.34, 1)
+Button/colors/font_hover_color = Color(0.4, 0.85, 0.78, 1)
+Button/colors/font_pressed_color = Color(0.4, 0.85, 0.78, 1)
 Button/fonts/font = ExtResource("5_0x5bx")
 Button/styles/disabled = SubResource("StyleBoxFlat_qlbhd")
 Button/styles/focus = SubResource("StyleBoxEmpty_hrule")
@@ -85,26 +82,26 @@ HudPanelBackground/base_type = &"Panel"
 HudPanelBackground/styles/panel = ExtResource("2_etnbh")
 HudPanelMain/base_type = &"Panel"
 HudPanelMain/styles/panel = ExtResource("3_ttywx")
-Label/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
-Label/colors/font_outline_color = Color(0.294118, 0.239216, 0.266667, 1)
-Label/constants/outline_size = 5
+Label/colors/font_color = Color(0.93, 0.9, 0.84, 1)
+Label/colors/font_outline_color = Color(0.19, 0.27, 0.34, 1)
+Label/constants/outline_size = 0
 MainMenuButton/base_type = &"Button"
-MainMenuButton/colors/font_hover_pressed_color = Color(0.701961, 0.647059, 0.333333, 1)
-MainMenuButton/colors/font_pressed_color = Color(0.701961, 0.647059, 0.333333, 1)
+MainMenuButton/colors/font_hover_pressed_color = Color(0.4, 0.85, 0.78, 1)
+MainMenuButton/colors/font_pressed_color = Color(0.4, 0.85, 0.78, 1)
 MainMenuButton/styles/disabled = SubResource("StyleBoxFlat_qlbhd")
 MainMenuButton/styles/focus = SubResource("StyleBoxEmpty_hrule")
 MainMenuButton/styles/hover = SubResource("StyleBoxFlat_crme1")
 MainMenuButton/styles/normal = SubResource("StyleBoxFlat_j7xis")
 MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_hrule")
 MediumLabel/base_type = &"Label"
-MediumLabel/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
+MediumLabel/colors/font_color = Color(0.93, 0.9, 0.84, 1)
 MediumLabel/font_sizes/font_size = 50
-RichTextLabel/colors/default_color = Color(0.823529, 0.788235, 0.647059, 1)
-RichTextLabel/fonts/bold_font = ExtResource("2_ttywx")
-RichTextLabel/fonts/bold_italics_font = ExtResource("3_t6fef")
-RichTextLabel/fonts/italics_font = ExtResource("4_tjpgc")
+RichTextLabel/colors/default_color = Color(0.93, 0.9, 0.84, 1)
+RichTextLabel/fonts/bold_font = ExtResource("5_0x5bx")
+RichTextLabel/fonts/bold_italics_font = ExtResource("5_0x5bx")
+RichTextLabel/fonts/italics_font = ExtResource("5_0x5bx")
 RichTextLabel/fonts/normal_font = ExtResource("5_0x5bx")
 TitleLabel/base_type = &"Label"
-TitleLabel/colors/font_color = Color(0.823529, 0.788235, 0.647059, 1)
+TitleLabel/colors/font_color = Color(0.93, 0.9, 0.84, 1)
 TitleLabel/font_sizes/font_size = 100
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_ttywx")

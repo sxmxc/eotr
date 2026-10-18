@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0rgvbdigmehm"]
+[gd_scene format=3 uid="uid://b0rgvbdigmehm"]
 
 [ext_resource type="Script" uid="uid://bv7fcwcwqwvfl" path="res://ui/fx/slash_fx.gd" id="1_hpcry"]
 [ext_resource type="Texture2D" uid="uid://gkb453hgljhf" path="res://assets/particles/kenney-particles/slash_03.png" id="2_42puu"]
@@ -27,10 +27,10 @@ scale_curve = SubResource("CurveTexture_qm1v0")
 color = Color(1, 0, 0.00394058, 1)
 alpha_curve = SubResource("CurveTexture_4mfh8")
 
-[node name="SlashFX" type="Node2D"]
+[node name="SlashFX" type="Node2D" unique_id=668745252]
 script = ExtResource("1_hpcry")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=463907720]
 emitting = false
 amount = 1
 texture = ExtResource("2_42puu")

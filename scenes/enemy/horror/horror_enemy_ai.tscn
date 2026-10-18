@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://0dlopp347r2m"]
+[gd_scene format=3 uid="uid://0dlopp347r2m"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_kpu2c"]
 [ext_resource type="Script" uid="uid://b1mgpmtnrdpwa" path="res://scenes/enemy/horror/horror_attack_action.gd" id="2_7o5m4"]
@@ -16,7 +16,6 @@
 
 [sub_resource type="Resource" id="Resource_ha0vk"]
 script = ExtResource("4_gf54p")
-base_text = ""
 icon = ExtResource("3_2ieny")
 tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
@@ -35,14 +34,14 @@ icon = ExtResource("7_gf54p")
 tooltip_text = "Plans to block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="HorrorEnemyAI" instance=ExtResource("1_kpu2c")]
+[node name="HorrorEnemyAI" unique_id=138182404 instance=ExtResource("1_kpu2c")]
 
-[node name="HorrorMoveAction" type="Node" parent="." index="0"]
+[node name="HorrorMoveAction" type="Node" parent="." index="0" unique_id=1202781804]
 script = ExtResource("4_adsyb")
 intent = SubResource("Resource_ha0vk")
 sound = ExtResource("6_wpt1e")
 
-[node name="HorrorAttackAction" type="Node" parent="." index="1"]
+[node name="HorrorAttackAction" type="Node" parent="." index="1" unique_id=1908061250]
 script = ExtResource("2_7o5m4")
 intent = SubResource("Resource_07lum")
 type = 1
@@ -50,7 +49,7 @@ chance_weight = 3.0
 sound = ExtResource("8_wo1ee")
 visual_fx = ExtResource("9_wo1ee")
 
-[node name="HorrorBlockAction" type="Node" parent="." index="2"]
+[node name="HorrorBlockAction" type="Node" parent="." index="2" unique_id=1472230813]
 script = ExtResource("3_ftlei")
 intent = SubResource("Resource_wo1ee")
 type = 1

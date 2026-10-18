@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://d3x2ax43x8lji"]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://d3x2ax43x8lji"]
 
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_sgo6m"]
 [ext_resource type="PackedScene" uid="uid://dbbu8r744tq8k" path="res://scenes/enemy/blob/blob_enemy_ai.tscn" id="1_tp0wp"]

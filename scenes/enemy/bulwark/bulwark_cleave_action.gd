@@ -32,7 +32,7 @@ func perform_action() -> void:
 
 	intent.current_text = intent.base_text
 
-	tween.tween_property(enemy, "global_position", end, 0.35)
+	tween.tween_property(enemy, "global_position", end, Utils.presentation_duration(0.35))
 	tween.tween_callback(
 		func():
 			damage_effect.execute(target_array)
@@ -43,8 +43,8 @@ func perform_action() -> void:
 				block_effect.visual_fx = visual_fx
 				block_effect.execute([enemy])
 	)
-	tween.tween_interval(0.25)
-	tween.tween_property(enemy, "global_position", start, 0.35)
+	tween.tween_interval(Utils.presentation_duration(0.25))
+	tween.tween_property(enemy, "global_position", start, Utils.presentation_duration(0.35))
 
 	tween.finished.connect(func(): Events.enemy_action_completed.emit(enemy))
 

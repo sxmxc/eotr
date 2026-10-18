@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=5 format=3 uid="uid://b6ij5882o3liy"]
+[gd_resource type="Resource" script_class="PlayerStats" format=3 uid="uid://b6ij5882o3liy"]
 
 [ext_resource type="Texture2D" uid="uid://b5fwi1h2q28bo" path="res://assets/icons/robot-helmet.svg" id="1_006r2"]
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="1_im602"]
@@ -14,6 +14,5 @@ starting_deck = ExtResource("3_nfhtv")
 cards_per_turn = 4
 max_energy = 3
 starting_relic = ExtResource("4_l10xa")
-view_range = 1
 max_health = 10
 metadata/_custom_type_script = "uid://bxcq8uqksynw8"

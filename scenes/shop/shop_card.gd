@@ -22,10 +22,10 @@ func update(run_stats: RunStats) -> void:
 	price_label.text = str(gold_cost)
 
 	if run_stats.gold >= gold_cost:
-		price_label.remove_theme_color_override("font_color")
+		price_label.theme_type_variation = &"PriceLabel"
 		buy_button.disabled = false
 	else:
-		price_label.add_theme_color_override("font_color", Colors.theme_critical)
+		price_label.theme_type_variation = &"PriceUnavailable"
 		buy_button.disabled = true
 
 
@@ -46,7 +46,6 @@ func set_card(new_card: Card) -> void:
 
 
 func _on_buy_button_pressed() -> void:
+	buy_button.disabled = true
 	Events.shop_card_bought.emit(card, gold_cost)
-	card_container.queue_free()
-	price.queue_free()
-	buy_button.queue_free()
+	queue_free()

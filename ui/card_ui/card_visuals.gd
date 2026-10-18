@@ -3,9 +3,6 @@ class_name CardVisuals
 
 @export var card: Card : set = set_card
 
-const MODIFIED_MATERIAL := preload("res://resources/materials/card_modified_material.tres")
-const HOVERED_MATERIAL := preload("res://resources/materials/card_hovered_material.tres")
-
 @onready var card_cost_label: Label = %CardCostLabel
 @onready var card_name_label: AutoSizeLabel = %CardNameLabel
 @onready var card_type_label: Label = %CardTypeLabel
@@ -13,40 +10,17 @@ const HOVERED_MATERIAL := preload("res://resources/materials/card_hovered_materi
 @onready var rarity: TextureRect = %Rarity
 @onready var card_trail_fx: GPUParticles2D = %CardTrailFX
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var background_texture: TextureRect = %CardBackgroundTexture
-@onready var foreground_texture: TextureRect = %CardForegroundFrame
+@onready var background_texture: Panel = %CardBackgroundTexture
+@onready var foreground_texture: Control = %CardForegroundFrame
 @onready var outline_overlay: TextureRect = %OutlineOverlay
 @onready var card_art_texture: TextureRect = %CardArt
 
 var player_modifiers: ModifierHandler
-var outline_material: ShaderMaterial
-var fallback_art_texture: Texture2D
-var _base_background_material: Material
-var _hover_background_material: Material
-var _modified_background_material: Material
 var _is_hovered := false
 var _is_modified := false
 
 
 func _ready() -> void:
-	if outline_overlay and outline_overlay.material:
-		outline_material = outline_overlay.material.duplicate()
-		outline_overlay.material = outline_material
-
-	if card_art_texture:
-		fallback_art_texture = card_art_texture.texture
-	_base_background_material = background_texture.material
-	if _base_background_material and _base_background_material.resource_local_to_scene:
-		_base_background_material = _base_background_material.duplicate()
-	_hover_background_material = HOVERED_MATERIAL.duplicate()
-	_modified_background_material = MODIFIED_MATERIAL.duplicate()
-	if _hover_background_material is ShaderMaterial:
-		(_hover_background_material as ShaderMaterial).set_shader_parameter("rect_size", background_texture.size)
-	if _modified_background_material is ShaderMaterial:
-		(_modified_background_material as ShaderMaterial).set_shader_parameter("rect_size", background_texture.size)
-
-	if outline_overlay:
-		outline_overlay.visible = false
 	_update_background_material()
 
 
@@ -56,9 +30,9 @@ func set_card(value: Card) -> void:
 	card = value
 	set_cost(card.energy_cost)
 	card_name_label.text = str(card.name)
-	card_type_label.text = Enums.CardType.keys()[card.card_type].capitalize()
-	card_text_label.text = str(card.description)
-	rarity.modulate = Card.RARITY_COLORS[card.card_rarity]
+	card_type_label.text = Enums.CardType.keys()[card.card_type] + (" · EXHAUST" if card.exhaust else "")
+	card_text_label.text = card.get_default_description()
+	rarity.modulate = get_theme_color(Enums.CardRarity.keys()[card.card_rarity], &"CardRarity")
 	_apply_card_art()
 
 
@@ -79,30 +53,33 @@ func set_boosted_effect(enabled: bool) -> void:
 
 
 func set_interactable(active: bool) -> void:
-	var tint := 1.0 if active else 0.65
+	var tint := get_theme_color("active" if active else "inactive", "CardVisuals")
 	if background_texture:
-		background_texture.modulate = Color(tint, tint, tint, 1.0)
+		background_texture.modulate = tint
 	if foreground_texture:
-		foreground_texture.modulate = Color(tint, tint, tint, foreground_texture.modulate.a)
+		foreground_texture.modulate = Color(tint, foreground_texture.modulate.a)
 	if card_art_texture:
-		card_art_texture.modulate = Color(tint, tint, tint, card_art_texture.modulate.a)
+		card_art_texture.modulate = Color(tint, card_art_texture.modulate.a)
 
 
 func _apply_card_art() -> void:
-	if card and card.card_art:
-		card_art_texture.texture = card.card_art
-		card_art_texture.visible = true
+	var authored_art := card.card_art if card else null
+	if authored_art and not authored_art.resource_path.ends_with("default_card_image.jpg"):
+		card_art_texture.texture = authored_art
+		card_art_texture.modulate = Color.WHITE
 	else:
-		card_art_texture.texture = fallback_art_texture
-		card_art_texture.visible = fallback_art_texture != null
+		var icon_key: StringName = Enums.CardType.keys()[card.card_type]
+		if not has_theme_icon(icon_key, &"CardVisuals"):
+			icon_key = &"fallback"
+		card_art_texture.texture = get_theme_icon(icon_key, &"CardVisuals")
+		card_art_texture.modulate = get_theme_color("fallback_art", "CardVisuals")
+	card_art_texture.show()
 
 
 func _update_background_material() -> void:
 	if not background_texture:
 		return
-	var mat: Material = _base_background_material
-	if _is_hovered and _hover_background_material:
-		mat = _hover_background_material
-	if _is_modified and _modified_background_material:
-		mat = _modified_background_material
-	background_texture.material = mat
+	if _is_modified:
+		background_texture.theme_type_variation = &"CardFaceModifiedHovered" if _is_hovered else &"CardFaceModified"
+	else:
+		background_texture.theme_type_variation = &"CardFaceHovered" if _is_hovered else &"CardFace"

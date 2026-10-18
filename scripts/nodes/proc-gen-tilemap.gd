@@ -2,13 +2,8 @@ extends Node2D
 class_name ProcGenTilemap
 
 const HIGHLIGHT_CELL_ID = Vector2i(3,1)
-const TILE_RESOURCE_COUNT_LABEL = preload("res://resources/tile_resource_count_label.tres")
+const TILE_RESOURCE_COUNT = preload("res://ui/world_ui/resource_count.tscn")
 const TILE_SPRITE = preload("res://scenes/game_world/tile_sprite.tscn")
-const TARGET_HIGHLIGHT_SHADER := preload("res://scripts/shaders/tile_target_highlight.gdshader")
-const TARGET_HIGHLIGHT_ATLAS := preload("res://assets/spritesheets/32x32-hex-tiles.png")
-# Match the main tile sprite mask (hex) so highlights keep the correct silhouette.
-const TARGET_HIGHLIGHT_REGION := Rect2i(32, 32, 32, 32)
-
 const RESOURCE_USED_ID = Vector2i(2,1)
 
 enum MapShape {
@@ -19,6 +14,7 @@ enum MapShape {
 
 signal player_position_updated(Vector2)
 signal player_teleported(Vector2)
+signal presentation_changed
 signal map_generated
 
 @export_group("Map Settings")
@@ -60,12 +56,6 @@ var tile_weights = {}
 var player: Player
 var obelisk: Enemy
 
-var target_highlight_texture: Texture2D
-var target_highlight_material: ShaderMaterial
-var target_highlight_pool: Array[Sprite2D] = []
-var active_target_highlights: Array[Sprite2D] = []
-var last_target_highlight_cells: Array[Vector2i] = []
-
 var is_resource_count_visible : bool = false : set = set_is_resource_count_visible
 var start_tile_effects_pending := false
 
@@ -93,7 +83,6 @@ func _ready():
 		"MANA_WELL": mana_weight,
 		"RIFT_GATE": warp_weight
 	}
-	_build_target_highlight_assets()
 	clear_target_highlights()
 
 
@@ -132,7 +121,13 @@ func generate_tilemap(battle_stats: BattleStats):
 
 
 func hide_fog() -> void:
+	# Sandbox/dev helper: clear fog visuals and mark all tiles as revealed
+	var used_cells := base_layer.get_used_cells()
+	for cell in used_cells:
+		fog_layer.erase_cell(cell)
+		fog_state[cell] = false
 	fog_layer.hide()
+	presentation_changed.emit()
 
 
 func show_fog() -> void:
@@ -164,8 +159,15 @@ func clear_fog_around(center: Vector2i, radius: int):
 		# Move to the next level
 		current_cells = next_level_cells
 
-	#Clear fog for all collected cells with a fade effect
+	# Commit visibility before presentation delays, so animation speed cannot alter
+	# targeting or the state observed at the next action boundary.
+	var newly_revealed: Array[Vector2i] = []
 	for cell in all_cells_to_clear:
+		if not fog_state.has(cell):
+			fog_state[cell] = false
+			newly_revealed.append(cell)
+	presentation_changed.emit()
+	for cell in newly_revealed:
 		if not fog_state.get(cell, false):
 			# Create a tween for fading out the fog tile
 			var fog_tile_data = fog_layer.get_cell_tile_data(cell)
@@ -176,8 +178,11 @@ func clear_fog_around(center: Vector2i, radius: int):
 				tile_sprite.grow_out()
 				fog_layer.erase_cell(cell)
 				fog_state[cell] = false
-
-			await get_tree().create_timer(.03).timeout
+			else:
+				# If visuals already cleared (e.g., sandbox clear fog), ensure logical fog is marked cleared
+				fog_state[cell] = false
+			presentation_changed.emit()
+			await get_tree().create_timer(Utils.presentation_duration(.03)).timeout
 
 
 
@@ -244,11 +249,9 @@ func apply_tile_effects() -> void:
 				player.is_mana_buffed = true
 			Enums.TileType.RIFT_GATE:
 				var rift_gates : Array[Vector2i] = get_tiles_of_type(Enums.TileType.RIFT_GATE)
-				if rift_gates.size() > 1:
+				rift_gates = rift_gates.filter(func(cell): return cell != player_position and is_tile_valid(cell))
+				if not rift_gates.is_empty():
 					var destination_gate = RNG.array_pick_random(rift_gates)
-					if destination_gate == player_position:
-						while destination_gate == player_position:
-							destination_gate = RNG.array_pick_random(rift_gates)
 					teleport_player(destination_gate)
 			Enums.TileType.ANCIENT_RUIN:
 				_trigger_ancient_ruin_effect()
@@ -303,7 +306,7 @@ func is_tile_free(tile_pos: Vector2i) -> bool:
 		if enemy_tile == tile_pos:
 			return false
 
-	if obelisk != null:
+	if is_instance_valid(obelisk):
 		var obelisk_tile = base_layer.local_to_map(obelisk.global_position)
 		if obelisk_tile == tile_pos:
 			return false
@@ -539,8 +542,7 @@ func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
 func draw_resource_count() -> void:
 	erase_resource_count()
 	for cell in base_layer.get_used_cells_by_id(0,tile_dict[Enums.TileType.RESOURCE]):
-		var label = Label.new()
-		label.label_settings = TILE_RESOURCE_COUNT_LABEL.duplicate()
+		var label: Label = TILE_RESOURCE_COUNT.instantiate()
 		var resource_count = get_resource_count(cell)
 		label.text = str(resource_count)
 		base_layer.add_child(label)
@@ -567,73 +569,13 @@ func clear_highlight_cell(cell: Vector2i) -> void:
 	highlight_layer.erase_cell(cell)
 
 func show_target_highlights(cells: Array[Vector2i]) -> void:
-	if not target_highlight_layer or not base_layer:
-		return
-	if not target_highlight_material or not target_highlight_texture:
-		_build_target_highlight_assets()
-	if cells.is_empty():
-		clear_target_highlights()
-		return
-	if last_target_highlight_cells == cells:
-		return
-	_clear_target_highlight_nodes()
-	last_target_highlight_cells = cells.duplicate()
-	target_highlight_layer.visible = true
-	for cell in cells:
-		if not is_tile_valid(cell):
-			continue
-		var sprite := _get_target_highlight_sprite()
-		sprite.position = base_layer.map_to_local(cell)
-		sprite.visible = true
-		active_target_highlights.append(sprite)
+	target_highlight_layer.show_target_highlights(cells)
 
 func clear_target_highlights() -> void:
-	if not target_highlight_layer:
-		return
-	_clear_target_highlight_nodes()
-	last_target_highlight_cells.clear()
-	target_highlight_layer.visible = false
+	target_highlight_layer.clear_target_highlights()
 
-func _clear_target_highlight_nodes() -> void:
-	for sprite in active_target_highlights:
-		sprite.visible = false
-		target_highlight_pool.append(sprite)
-	active_target_highlights.clear()
-
-func _get_target_highlight_sprite() -> Sprite2D:
-	if not target_highlight_material or not target_highlight_texture:
-		_build_target_highlight_assets()
-	if target_highlight_pool.is_empty():
-		var hl_sprite := Sprite2D.new()
-		hl_sprite.texture = target_highlight_texture
-		hl_sprite.material = target_highlight_material
-		hl_sprite.centered = true
-		hl_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		hl_sprite.z_index = 2
-		target_highlight_layer.add_child(hl_sprite)
-		return hl_sprite
-	var sprite: Sprite2D = target_highlight_pool.pop_back()
-	sprite.texture = target_highlight_texture
-	sprite.material = target_highlight_material
-	sprite.z_index = 2
-	return sprite
-
-func _build_target_highlight_assets() -> void:
-	var atlas_texture := AtlasTexture.new()
-	atlas_texture.atlas = TARGET_HIGHLIGHT_ATLAS
-	atlas_texture.region = TARGET_HIGHLIGHT_REGION
-	target_highlight_texture = atlas_texture
-
-	target_highlight_material = ShaderMaterial.new()
-	target_highlight_material.shader = TARGET_HIGHLIGHT_SHADER
-	target_highlight_material.set_shader_parameter("PulseSpeed", 1.35)
-	target_highlight_material.set_shader_parameter("MinAlpha", 0.1)
-	target_highlight_material.set_shader_parameter("MaxAlpha", 0.95)
-	target_highlight_material.set_shader_parameter("OutlineWidth", 0.065)
-	# Lost Century-friendly teal that stands off resource yellows.
-	target_highlight_material.set_shader_parameter("HighlightColor", Color(0.29, 0.75, 0.67, 1.0))
-	
 func shrink_map(amount) -> void:
+	TelemetryManager.track_event("battlefield_collapsed", {"rings": amount, "tiles_before": base_layer.get_used_cells().size()})
 	for x in range(amount):
 		var to_destroy: Array[Vector2i] = get_battlemap_edge_clockwise()
 		for cell in to_destroy:
@@ -657,7 +599,8 @@ func shrink_map(amount) -> void:
 			base_layer.erase_cell(cell)
 			fog_layer.erase_cell(cell)
 			tile_map_data.erase(cell)
-			await get_tree().create_timer(0.1).timeout
+			presentation_changed.emit()
+			await get_tree().create_timer(Utils.presentation_duration(0.1)).timeout
 	if is_resource_count_visible:
 		draw_resource_count()
 	

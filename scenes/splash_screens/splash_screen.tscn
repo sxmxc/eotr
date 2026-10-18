@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3ll2gasnw28g"]
+[gd_scene format=3 uid="uid://d3ll2gasnw28g"]
 
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="1_c8ln4"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_c8ln4"]
 [ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="2_iju21"]
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
 [ext_resource type="Texture2D" uid="uid://cbx47wp1tythp" path="res://assets/splash/godot-moose-px-splash.png" id="3_ttpkl"]
@@ -40,7 +40,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/TelemetryDisclaimer:self_modulate")
+tracks/2/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/TelemetryDisclaimer:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -52,7 +52,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer:modulate")
+tracks/3/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -94,7 +94,7 @@ resource_name = "fade_telemetry_out"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/TelemetryDisclaimer:self_modulate")
+tracks/0/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/TelemetryDisclaimer:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -106,7 +106,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer:modulate")
+tracks/1/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -123,7 +123,7 @@ _data = {
 &"fade_telemetry_out": SubResource("Animation_c8ln4")
 }
 
-[node name="SplashScreen" type="Control"]
+[node name="SplashScreen" type="Control" unique_id=1543879228]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -133,7 +133,7 @@ grow_vertical = 2
 theme = ExtResource("1_c8ln4")
 script = ExtResource("2_ttpkl")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=94476354]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,7 +142,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_iju21")
 
-[node name="Gradient" type="TextureRect" parent="."]
+[node name="Gradient" type="TextureRect" parent="." unique_id=245728513]
 modulate = Color(1, 1, 1, 0.647059)
 layout_mode = 1
 anchors_preset = 15
@@ -152,7 +152,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_ttpkl")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="DisclaimerPanel" type="Panel" parent="." unique_id=211373180]
+unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.654902)
 layout_mode = 1
 anchors_preset = 15
@@ -166,37 +167,31 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"HudPanelBackground"
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="DisclaimerPanel" unique_id=795895231]
+theme_type_variation = &"InsetCompact"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="DisclaimerPanel/MarginContainer" unique_id=829194725]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="DisclaimerPanel/MarginContainer/Panel" unique_id=584865014]
+theme_type_variation = &"InsetContent"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer" unique_id=194474909]
 layout_mode = 2
 
-[node name="TelemetryDisclaimer" type="RichTextLabel" parent="Panel/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="TelemetryDisclaimer" type="RichTextLabel" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=574276471]
 layout_mode = 2
 bbcode_enabled = true
 text = "To help improve Echoes of the Rift, anonymous gameplay statistics are collected such as:
@@ -213,25 +208,26 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=556189520]
+theme_type_variation = &"RewardRow"
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 50
 alignment = 1
 
-[node name="AcceptButton" type="Button" parent="Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AcceptButton" type="Button" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1076426131]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 text = "That's ok"
 
-[node name="DeclineButton" type="Button" parent="Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DeclineButton" type="Button" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=138312722]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 text = "Fuck no"
 
-[node name="Splash" type="TextureRect" parent="."]
+[node name="Splash" type="TextureRect" parent="." unique_id=447831308]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -239,11 +235,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ttpkl")
+expand_mode = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_23hq6")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=884562537]
+libraries/ = SubResource("AnimationLibrary_23hq6")
 
-[connection signal="pressed" from="Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeclineButton" to="." method="_on_decline_button_pressed"]
+[connection signal="pressed" from="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeclineButton" to="." method="_on_decline_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cl7r7mqya2lh7"]
+[gd_scene format=3 uid="uid://cl7r7mqya2lh7"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_xtxkd"]
 [ext_resource type="Script" uid="uid://dwqrdrvgj7qg3" path="res://scenes/enemy/obelisk/obelisk_wait_action.gd" id="2_lgv3n"]
@@ -13,14 +13,12 @@
 
 [sub_resource type="Resource" id="Resource_r3d1m"]
 script = ExtResource("4_pgihr")
-base_text = ""
 icon = ExtResource("3_ts005")
 tooltip_text = "Plans to raise an enemy from the void."
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_yhg1e"]
 script = ExtResource("4_pgihr")
-base_text = ""
 icon = ExtResource("6_pgihr")
 tooltip_text = "Plans to deliberate."
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
@@ -32,21 +30,21 @@ icon = ExtResource("8_h1ron")
 tooltip_text = "Plans to attack for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="ObeliskEnemyAI" instance=ExtResource("1_xtxkd")]
+[node name="ObeliskEnemyAI" unique_id=312531997 instance=ExtResource("1_xtxkd")]
 
-[node name="ObeliskSpawnAction" type="Node" parent="." index="0"]
+[node name="ObeliskSpawnAction" type="Node" parent="." index="0" unique_id=1394960360]
 script = ExtResource("3_05bnd")
 intent = SubResource("Resource_r3d1m")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObeliskWaitAction" type="Node" parent="." index="1"]
+[node name="ObeliskWaitAction" type="Node" parent="." index="1" unique_id=1393054756]
 script = ExtResource("2_lgv3n")
 intent = SubResource("Resource_yhg1e")
 type = 1
 chance_weight = 5.0
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="ObeliskRangeAttackAction" type="Node" parent="." index="2"]
+[node name="ObeliskRangeAttackAction" type="Node" parent="." index="2" unique_id=2050639972]
 script = ExtResource("7_r3d1m")
 intent = SubResource("Resource_raybm")
 type = 1

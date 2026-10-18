@@ -1,8 +1,6 @@
 class_name GameWorld
 extends Node2D
 
-const BATTLE_PRESENTATION := preload("res://ui/world_ui/battle_presentation.gd")
-
 @export var battle_stats: BattleStats
 @export var player_stats: PlayerStats
 @export var run_stats: RunStats:
@@ -12,33 +10,40 @@ const BATTLE_PRESENTATION := preload("res://ui/world_ui/battle_presentation.gd")
 @export var shrink_frequency : int = 3
 
 @onready var tilemap: ProcGenTilemap = $Tilemap
-@onready var debug_ui = $GameWorldUI/DebugUI
 @onready var player: Player = $Player
 @onready var game_world_ui = $GameWorldUI
+@onready var debug_ui = game_world_ui.debug_ui
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
+@onready var battle_state: BattleStateController = $BattleState
 @onready var map_camera : Camera2D = $MapCamera
 @onready var world_camera: PhantomCamera2D = %WorldCamera
 @onready var tutorial_ui: TutorialUI = $TutorialUI
+@onready var battle_presentation: BattlePresentation = $BattlePresentation
 
-var battle_presentation: BattlePresentation
 var audio_stream_player : AudioStreamPlayer
 var current_round : int : 
 	set = set_current_round
 var rounds_until_shrink : int :
 	set = set_rounds_until_shrink
 var battle_over_handled := false
+var victory_committed := false
+var initial_health := 0
 
 func _ready():
-	_ensure_battle_presentation()
+	game_world_ui.bind_world(player, tilemap, map_camera)
+	player_handler.player_hand = game_world_ui.hand
+	player.stats_ui = game_world_ui.stats_ui
+	enemy_handler.enemy_rail = game_world_ui.enemy_rail
+	player.status_handler = game_world_ui.status_handler
+	game_world_ui.status_handler.status_owner = player
+	game_world_ui.tutorial_ui = tutorial_ui
 	enemy_handler.child_order_changed.connect(_on_enemies_child_order_changed)
-	Events.enemy_turn_ended.connect(_on_enemy_turn_ended)
+	battle_state.shrink_frequency = shrink_frequency
 
 	tilemap.player_position_updated.connect(player._on_position_updated)
 	tilemap.player_teleported.connect(player._on_player_teleported)
 
-	Events.player_turn_ended.connect(player_handler.end_turn)
-	Events.player_hand_discarded.connect(enemy_handler.start_turn)
 	Events.player_died.connect(_on_player_died)
 	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
 	
@@ -48,8 +53,13 @@ func _ready():
 
 func start_world() -> void:
 	battle_over_handled = false
+	victory_committed = false
+	battle_state.end_battle()
+	battle_state.shrink_frequency = shrink_frequency
 	get_tree().paused = false
 	Events.enemy_died.connect(_on_enemy_died)
+	initial_health = player_stats.health
+	TelemetryManager.track_event("encounter_started", {"encounter": battle_stats.get_encounter_id(), "width": battle_stats.battle_field_width, "height": battle_stats.battle_field_height})
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
 	audio_stream_player.stream_paused = false
 
@@ -71,15 +81,19 @@ func start_world() -> void:
 		)
 		if tilemap.is_tile_valid(player_starting_position):
 			reserved_start_tiles.append(player_starting_position)
+	else:
+		player_starting_position = tilemap.get_starting_tile()
+		reserved_start_tiles.append(player_starting_position)
+	# Keep the first card decision from starting inside an unavoidable melee pile.
+	for adjacent in tilemap.base_layer.get_surrounding_cells(player_starting_position):
+		reserved_start_tiles.append(adjacent)
 
 	enemy_handler.setup_enemies(battle_stats, reserved_start_tiles)
 	enemy_handler.reset_enemy_actions.call_deferred()
-	current_round = 1
-	rounds_until_shrink = shrink_frequency - 1
 	battle_stats.enemy_gold_reward = 0
 	battle_stats.enemy_resource_reward = 0
 
-	if not force_start_tile or not tilemap.is_tile_valid(player_starting_position):
+	if not tilemap.is_tile_valid(player_starting_position):
 		player_starting_position = tilemap.get_starting_tile()
 	if not tilemap.is_tile_valid(player_starting_position):
 		player_starting_position = tilemap.get_random_valid_tile()
@@ -87,7 +101,7 @@ func start_world() -> void:
 	tilemap.move_player(player_starting_position, false)
 	tilemap.queue_start_tile_effects()
 	if is_instance_valid(battle_presentation):
-		battle_presentation.play_intro(audio_stream_player)
+		battle_presentation.play_intro()
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
 	
@@ -145,41 +159,56 @@ func shrink_game_board(amount: int = 1) -> void:
 			WorldMessageData.Priority.CRITICAL
 		)
 	)
-	await world_camera.tween_completed
+	if DisplayServer.get_name() != "headless":
+		await world_camera.tween_completed
 	await tilemap.shrink_map(amount)
 
 	world_camera.priority = 0
 	world_camera.set_zoom(Vector2.ONE)
 	rounds_until_shrink = shrink_frequency
 
-func _on_enemy_turn_ended() -> void:
-	if current_round % shrink_frequency == 0:
-		await shrink_game_board(1)
-	current_round += 1
-	rounds_until_shrink -= 1
-	player_handler.start_turn()
-	enemy_handler.reset_enemy_actions()
-
 func _on_enemy_died(enemy: Enemy) -> void:
 	BountySystem.apply_bounty_for_enemy(run_stats, enemy.stats.enemy_name, battle_stats)
 
 func _on_enemies_child_order_changed() -> void:
-	if battle_over_handled:
+	check_victory.call_deferred()
+
+
+func check_victory() -> void:
+	if battle_over_handled or victory_committed or not battle_state.battle_active:
 		return
-	if enemy_handler.get_child_count() == 0 and is_instance_valid(relics):
-		relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
+	if player.stats.health <= 0 or player_handler.resolving_action:
+		return
+	if battle_state.phase in [BattleStateController.Phase.ENEMY_TURN, BattleStateController.Phase.SHRINKING]:
+		return
+	for node in enemy_handler.get_children():
+		if node is Enemy and not node.is_dying and node.stats.health > 0:
+			return
+	_commit_victory()
+
+
+func _commit_victory() -> void:
+	if victory_committed or battle_over_handled:
+		return
+	victory_committed = true
+	battle_state.end_battle()
+	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
 
 
 func _on_obelisk_destroyed() -> void:
 	if battle_over_handled:
 		return
+	TelemetryManager.track_event("obelisk_destroyed", {"turn": current_round, "remaining": enemy_handler.get_active_mobile_enemy_count()})
 	var msg := WorldMessageData.new(
 		"Obelisk shattered! The rift calms.",
 		WorldMessageData.Priority.CRITICAL
 	)
 	Events.world_message_requested.emit(msg)
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_rollover)
-	relics.activate_relics_by_type(Enums.RelicType.END_OF_COMBAT)
+	if battle_stats.victory_objective == BattleStats.VictoryObjective.DESTROY_OBELISK:
+		_commit_victory()
+	else:
+		check_victory.call_deferred()
 
 
 func _on_player_died() -> void:
@@ -189,6 +218,7 @@ func _on_player_died() -> void:
 func _on_relics_activated(type: Enums.RelicType) -> void:
 	match type:
 		Enums.RelicType.START_OF_COMBAT:
+			battle_state.start_battle()
 			player_handler.start_battle(player_stats)
 			game_world_ui.initialize_card_pile_ui()
 			audio_stream_player.stream_paused = false
@@ -201,6 +231,10 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	if battle_over_handled:
 		return
 	battle_over_handled = true
+	TelemetryManager.track_event("encounter_completed", {"encounter": battle_stats.get_encounter_id(),
+		"outcome": "win" if result == BattleOverPanel.Type.WIN else "loss", "turns": current_round,
+		"damage_taken": initial_health - player_stats.health})
+	battle_state.end_battle()
 	if is_instance_valid(battle_presentation):
 		call_deferred("_play_battle_outro", message, result)
 		return
@@ -208,20 +242,17 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 
 
 func _play_battle_outro(message: String, result: BattleOverPanel.Type) -> void:
+	if not is_inside_tree():
+		return
 	if is_instance_valid(battle_presentation):
-		battle_presentation.play_outro(result == BattleOverPanel.Type.WIN, audio_stream_player)
-		await get_tree().create_timer(0.55).timeout
+		battle_presentation.play_outro(result == BattleOverPanel.Type.WIN)
+		await battle_presentation.finished
 	_emit_battle_over(message, result)
 
 
 func _emit_battle_over(message: String, result: BattleOverPanel.Type) -> void:
+	if not is_inside_tree():
+		return
 	if is_instance_valid(audio_stream_player):
 		audio_stream_player.stream_paused = true
 	Events.battle_over_screen_requested.emit(message, result)
-
-
-func _ensure_battle_presentation() -> void:
-	if battle_presentation and is_instance_valid(battle_presentation):
-		return
-	battle_presentation = BATTLE_PRESENTATION.new()
-	add_child(battle_presentation)

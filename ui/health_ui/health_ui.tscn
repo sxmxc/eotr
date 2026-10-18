@@ -1,20 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://crny6hpdmf0v7"]
+[gd_scene format=3 uid="uid://crny6hpdmf0v7"]
 
 [ext_resource type="Script" uid="uid://crk2h8g21sarg" path="res://ui/health_ui/health_ui.gd" id="1_seohp"]
 [ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="2_wbl7p"]
 
-[node name="HealthUI" type="HBoxContainer"]
-theme_override_constants/separation = 0
+[node name="HealthUI" type="HBoxContainer" unique_id=1187274256]
+theme_type_variation = &"FlushRow"
 alignment = 1
 script = ExtResource("1_seohp")
 
-[node name="HealthIcon" type="TextureRect" parent="."]
+[node name="HealthIcon" type="TextureRect" parent="." unique_id=658487368]
+custom_minimum_size = Vector2(32, 32)
+expand_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_wbl7p")
 stretch_mode = 5
 
-[node name="HealthLabel" type="Label" parent="."]
+[node name="HealthLabel" type="Label" parent="." unique_id=27762435]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -23,7 +25,7 @@ text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MaxHealthLabel" type="Label" parent="."]
+[node name="MaxHealthLabel" type="Label" parent="." unique_id=1659567441]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

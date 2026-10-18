@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://db3ay7wd72so0"]
+[gd_scene format=3 uid="uid://db3ay7wd72so0"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_gpb23"]
 [ext_resource type="Script" uid="uid://c0a3c8an4t523" path="res://scenes/enemy/wasp/wasp_enemy_move_action.gd" id="2_2blif"]
@@ -12,7 +12,6 @@
 
 [sub_resource type="Resource" id="Resource_t3vsi"]
 script = ExtResource("4_7ug8v")
-base_text = ""
 icon = ExtResource("3_t3vsi")
 tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
@@ -24,14 +23,14 @@ icon = ExtResource("7_1usdb")
 tooltip_text = "Plans to attack for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="WaspEnemyAI" instance=ExtResource("1_gpb23")]
+[node name="WaspEnemyAI" unique_id=2124169834 instance=ExtResource("1_gpb23")]
 
-[node name="WaspEnemyMoveAction" type="Node" parent="." index="0"]
+[node name="WaspEnemyMoveAction" type="Node" parent="." index="0" unique_id=763342789]
 script = ExtResource("2_2blif")
 intent = SubResource("Resource_t3vsi")
 metadata/_custom_type_script = "uid://bt3vxds6v3dbt"
 
-[node name="WaspEnemyAttackAction" type="Node" parent="." index="1"]
+[node name="WaspEnemyAttackAction" type="Node" parent="." index="1" unique_id=675854781]
 script = ExtResource("3_xe6n3")
 curse_fx_scene = ExtResource("6_t3vsi")
 intent = SubResource("Resource_usjcb")

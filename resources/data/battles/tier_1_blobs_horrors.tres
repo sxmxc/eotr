@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://ctac13ctpal1i"]
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://ctac13ctpal1i"]
 
 [ext_resource type="PackedScene" uid="uid://vbvdmk1acur2" path="res://resources/data/battles/tier_1_blobs_horrors.tscn" id="1_ku3xg"]
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_t02sf"]

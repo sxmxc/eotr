@@ -1,82 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxte0jljomebr"]
-
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_l7vl4"]
-[ext_resource type="Script" uid="uid://dfr8wp2lddrge" path="res://ui/player_ui/round_info.gd" id="2_j3h41"]
-
+[gd_scene format=3 uid="uid://bxte0jljomebr"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Script" path="res://ui/player_ui/round_info.gd" id="script"]
 [node name="RoundInfoUI" type="Panel"]
-offset_right = 278.0
-offset_bottom = 119.0
-theme = ExtResource("1_l7vl4")
-theme_type_variation = &"HudPanelBackground"
-script = ExtResource("2_j3h41")
-
-[node name="MainMargin" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Panel" type="Panel" parent="MainMargin"]
-layout_mode = 2
-theme_type_variation = &"HudPanelMain"
-
-[node name="BodyMargin" type="MarginContainer" parent="MainMargin/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Panel/BodyMargin"]
-layout_mode = 2
-size_flags_horizontal = 4
-alignment = 1
-
-[node name="Type" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
-text = "Turn"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TurnLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
+theme_type_variation = &"EmptyPanel"
+offset_right = 250.0
+offset_bottom = 76.0
+mouse_filter = 1
+theme = ExtResource("theme")
+script = ExtResource("script")
+[node name="TurnLabel" type="Label" parent="."]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Type2" type="HBoxContainer" parent="MainMargin/Panel/BodyMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type2"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
-text = "Void"
-vertical_alignment = 1
-
-[node name="VoidLabel" type="Label" parent="MainMargin/Panel/BodyMargin/VBoxContainer/Type2"]
+offset_right = 250.0
+offset_bottom = 26.0
+theme_type_variation = &"Eyebrow"
+text = "ROUND 01"
+[node name="VoidLabel" type="Label" parent="."]
+theme_type_variation = &"SectionHeading"
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-text = "0"
+offset_top = 34.0
+offset_right = 250.0
+offset_bottom = 66.0
+text = "Collapse in 2 rounds"

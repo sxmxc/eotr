@@ -5,11 +5,9 @@ signal statuses_applied(type: Enums.StatusType)
 signal status_added
 
 const STATUS_APPLY_INTERVAL := 0.25
-const STATUS_UI = preload("res://ui/status_ui/status_ui.tscn")
 
 @export var status_owner: Node2D
-@export var status_icon_size := 64
-@export var quantity_label_settings: LabelSettings
+@export var status_ui_scene: PackedScene = preload("res://ui/status_ui/status_ui.tscn")
 
 
 func apply_statuses_by_type(type: Enums.StatusType) -> void:
@@ -27,7 +25,7 @@ func apply_statuses_by_type(type: Enums.StatusType) -> void:
 	var tween := create_tween()
 	for status: Status in status_queue:
 		tween.tween_callback(status.apply_status.bind(status_owner))
-		tween.tween_interval(STATUS_APPLY_INTERVAL)
+		tween.tween_interval(Utils.presentation_duration(STATUS_APPLY_INTERVAL))
 
 	tween.finished.connect(func(): statuses_applied.emit(type))
 
@@ -36,12 +34,8 @@ func add_status(status: Status) -> void:
 	var stackable := status.stack_type != Enums.StatusStackType.NONE
 
 	if not _has_status(status.id):
-		var new_status_ui := STATUS_UI.instantiate() as StatusUI
+		var new_status_ui := status_ui_scene.instantiate() as StatusUI
 		add_child(new_status_ui)
-		new_status_ui.icon.custom_minimum_size = Vector2i(status_icon_size, status_icon_size)
-		new_status_ui.icon.size = Vector2i(status_icon_size, status_icon_size)
-		new_status_ui.stacks.label_settings = quantity_label_settings
-		new_status_ui.duration.label_settings = quantity_label_settings
 		new_status_ui.status = status
 		new_status_ui.status.status_applied.connect(_on_status_applied)
 		new_status_ui.status.initialize_status(status_owner)

@@ -9,7 +9,9 @@ func _ready() -> void:
 	
 	
 func _on_round_updated(new_round: int) -> void:
-	turn_label.text = str(new_round)
+	turn_label.text = "ROUND %02d" % new_round
 	
 func _on_rounds_until_shrink_updated(val: int) -> void:
-	void_label.text = str(val)
+	void_label.text = "Collapse in %d round%s" % [val, "" if val == 1 else "s"]
+	void_label.theme_type_variation = &"CollapseDanger" if val <= 1 else &"CollapseLabel"
+	tooltip_text = "Outer hexes collapse in %d round(s). Units on collapsing tiles take lethal direct damage. Move inward before the countdown ends." % val

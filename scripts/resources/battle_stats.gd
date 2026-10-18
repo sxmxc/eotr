@@ -1,6 +1,9 @@
 extends Resource
 class_name BattleStats
 
+enum VictoryObjective { ELIMINATE_HOSTILES, DESTROY_OBELISK }
+@export var victory_objective: VictoryObjective = VictoryObjective.ELIMINATE_HOSTILES
+
 @export_range(0,2) var battle_tier: int
 @export_range(0.0, 10.0) var weight: float
 @export var is_elite : bool = false
@@ -17,6 +20,9 @@ class_name BattleStats
 @export var enemy_resource_reward: int : set = _set_enemy_resource_reward
 
 var accumlated_weight: float = 0.0
+
+func get_encounter_id() -> String:
+	return enemies.resource_path.get_file().get_basename() if enemies else "unknown"
 
 func roll_gold_reward() -> int:
 	return RNG.instance.randi_range(gold_reward_min, gold_reward_max)

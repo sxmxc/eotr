@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+
+[node name="DebugCoordinate" type="Label"]
+theme_type_variation = &"DebugCoordinate"
+z_index = 5
+mouse_filter = 2

@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+
+[node name="ResourceCount" type="Label"]
+theme_type_variation = &"ResourceCount"
+mouse_filter = 2

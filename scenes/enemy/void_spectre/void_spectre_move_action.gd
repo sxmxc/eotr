@@ -28,15 +28,7 @@ func perform_action():
 
 		# Collect free tiles in current radius
 		for tile in surrounding_tiles:
-			if not void_spectre.tilemap.is_tile_free(tile):
-				continue
-
-			var world_pos = void_spectre.tilemap.base_layer.map_to_local(tile)
-			void_spectre.navigation_agent_2d.target_position = world_pos
-			await  get_tree().process_frame
-
-			# Important: Check if tile is reachable using the navmesh!
-			if void_spectre.navigation_agent_2d.is_target_reachable():
+			if void_spectre.can_move_to_tile(tile) and void_spectre.can_reach_tile(tile):
 				available_tiles.append(tile)
 
 		# If we found any available tiles at this radius, pick one and break
@@ -46,15 +38,16 @@ func perform_action():
 
 	# If no tiles were found even after searching max radius, give up
 	if found_tile == Vector2i(-1, -1):
-		get_tree().create_timer(.6).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+		get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 		return
 
 	# Move to the selected tile
 	var world_message = WorldMessageData.new("%s flys closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
-	void_spectre.set_movement_target(found_tile)
-	void_spectre.is_moving = true
-	await void_spectre.navigation_agent_2d.navigation_finished
+	if not void_spectre.set_movement_target(found_tile):
+		get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+		return
+	await void_spectre.movement_finished
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(.3).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
+	get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(void_spectre))
 	

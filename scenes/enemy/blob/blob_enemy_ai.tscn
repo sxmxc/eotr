@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dbbu8r744tq8k"]
+[gd_scene format=3 uid="uid://dbbu8r744tq8k"]
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_vtdrg"]
 [ext_resource type="Script" uid="uid://e6a8g8rheb7s" path="res://scenes/enemy/blob/blob_attack_action.gd" id="2_dpw0f"]
@@ -32,7 +32,6 @@ metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
 [sub_resource type="Resource" id="Resource_aw0ot"]
 script = ExtResource("4_k6yc7")
-base_text = ""
 icon = ExtResource("11_8ge8r")
 tooltip_text = "Plans to move"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
@@ -44,16 +43,16 @@ icon = ExtResource("14_8ge8r")
 tooltip_text = "Plans to mega block for %s"
 metadata/_custom_type_script = "uid://c1qdjf5kl04cb"
 
-[node name="BlobEnemyAI" instance=ExtResource("1_vtdrg")]
+[node name="BlobEnemyAI" unique_id=61176253 instance=ExtResource("1_vtdrg")]
 
-[node name="AttackAction" type="Node" parent="." index="0"]
+[node name="AttackAction" type="Node" parent="." index="0" unique_id=100380613]
 script = ExtResource("2_dpw0f")
 intent = SubResource("Resource_w3yub")
 type = 1
 chance_weight = 1.0
 sound = ExtResource("3_15k23")
 
-[node name="BlockAction" type="Node" parent="." index="1"]
+[node name="BlockAction" type="Node" parent="." index="1" unique_id=380008418]
 script = ExtResource("3_0djfa")
 visual_fx_scene = ExtResource("5_tekdp")
 intent = SubResource("Resource_8ge8r")
@@ -61,12 +60,12 @@ type = 1
 chance_weight = 1.0
 sound = ExtResource("5_035o0")
 
-[node name="MoveAction" type="Node" parent="." index="2"]
+[node name="MoveAction" type="Node" parent="." index="2" unique_id=138057464]
 script = ExtResource("4_6cwji")
 intent = SubResource("Resource_aw0ot")
 sound = ExtResource("6_15k23")
 
-[node name="MegaBlockAction" type="Node" parent="." index="3"]
+[node name="MegaBlockAction" type="Node" parent="." index="3" unique_id=727757409]
 script = ExtResource("5_15k23")
 visual_fx_scene = ExtResource("5_tekdp")
 intent = SubResource("Resource_wudmm")

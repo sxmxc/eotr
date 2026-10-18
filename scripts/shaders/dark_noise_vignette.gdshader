@@ -29,6 +29,7 @@ float snoise(vec3 uv, float res)
 
 void fragment()
 {
+    vec4 modulation = COLOR;
     // Usar UV para escalar el efecto al ColorRect
     vec2 p = (UV - 0.5) * radius; // Normalizar a [-1, 1]
 
@@ -46,5 +47,5 @@ void fragment()
     // Ajustar transparencia: fuego transparente, bordes opacos
     float alpha = 1.0 - smoothstep(effect_color.a, 1.0, color);
 
-    COLOR = vec4(color - (1.0 - effect_color.r), color - (1.0 - effect_color.g), color - (1.0 - effect_color.b), alpha);
+    COLOR = vec4(color - (1.0 - effect_color.r), color - (1.0 - effect_color.g), color - (1.0 - effect_color.b), alpha) * modulation;
 }

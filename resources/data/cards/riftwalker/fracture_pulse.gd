@@ -6,19 +6,21 @@ var energy_gain := 4
 @export var energy_sound_fx : AudioStream
 @export var energy_visual_fx : PackedScene
 
-
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	var damage_effect := DamageEffect.new()
-	var energy_effect := EnergyEffect.new()
-	var player_array := targets[0].get_tree().get_nodes_in_group("player")
-	energy_effect.amount = energy_gain
-	energy_effect.sound_fx = energy_sound_fx
-	energy_effect.visual_fx = energy_visual_fx
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
+func _init() -> void:
+	var damage_effect := CardEffectConfig.for_damage(base_damage)
+	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 	damage_effect.sound_fx = sound_fx
 	damage_effect.visual_fx = visual_fx
-	damage_effect.execute(targets)
-	energy_effect.execute(player_array)
+
+	var energy_effect := CardEffectConfig.for_energy(energy_gain)
+	energy_effect.sound_fx = energy_sound_fx
+	energy_effect.visual_fx = energy_visual_fx
+	energy_effect.target = CardEffectConfig.Targeting.PLAYER
+
+	effect_configs = [damage_effect, energy_effect]
+
+func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
+	pass
 
 
 

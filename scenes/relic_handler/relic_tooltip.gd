@@ -15,6 +15,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and visible:
 		hide()
+		get_viewport().set_input_as_handled()
 
 
 func _on_gui_input(event: InputEvent) -> void:

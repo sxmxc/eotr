@@ -17,14 +17,28 @@ const SAVE_PATH := "user://savegame.res"
 @export var elapsed_run_time: float
 
 
-func save_data() -> void:
-	var err := ResourceSaver.save(self, SAVE_PATH)
-	assert(err == OK, "Couldn't save the game!")
+func save_data() -> bool:
+	# Same-directory replacement avoids exposing a partially serialized save.
+	# Keep the old file if writing or replacement fails. No remove-before-rename.
+	const TEMP_PATH := "user://savegame.pending.res"
+	var err := ResourceSaver.save(self, TEMP_PATH)
+	if err == OK:
+		err = DirAccess.rename_absolute(TEMP_PATH, SAVE_PATH)
+	if err != OK:
+		Utils.show_save_error("Progress could not be saved (%s). Your previous save is retained. Check free disk space and folder permissions, then try again before leaving the game." % error_string(err))
+		return false
+	return true
 
 
 static func load_data() -> SaveGame:
 	if FileAccess.file_exists(SAVE_PATH):
-		return ResourceLoader.load(SAVE_PATH) as SaveGame
+		# Reload the save and all embedded subresources. External authored assets
+		# (including scripts) retain their normal cache; deep duplication below
+		# isolates any external mutable resources in older saves.
+		var data := ResourceLoader.load(SAVE_PATH, "", ResourceLoader.CACHE_MODE_IGNORE) as SaveGame
+		if not data:
+			Utils.show_save_error("Your saved run could not be read. The save has been kept so it can be recovered.")
+		return data.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame if data else null
 
 	return null
 

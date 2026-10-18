@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0m8umaoobnpp"]
+[gd_scene format=3 uid="uid://d0m8umaoobnpp"]
 
 [ext_resource type="Script" uid="uid://d11kfgsd6jgt" path="res://addons/AutoSizeText/ui/AutoSizeLabel.gd" id="1_flqcm"]
 
-[node name="AutoSizeSample" type="Node2D"]
+[node name="AutoSizeSample" type="Node2D" unique_id=307819993]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=970269565]
 
-[node name="info" type="Label" parent="CanvasLayer"]
+[node name="info" type="Label" parent="CanvasLayer" unique_id=19396891]
 custom_minimum_size = Vector2(0, 1)
 anchors_preset = 10
 anchor_right = 1.0
@@ -20,7 +20,7 @@ text_overrun_behavior = 3
 script = ExtResource("1_flqcm")
 metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
-[node name="AutoSizeLabelWordSmart" type="Label" parent="CanvasLayer"]
+[node name="AutoSizeLabelWordSmart" type="Label" parent="CanvasLayer" unique_id=1426829107]
 custom_minimum_size = Vector2(0, 1)
 offset_left = 56.0
 offset_top = 64.0
@@ -36,7 +36,7 @@ text_overrun_behavior = 3
 script = ExtResource("1_flqcm")
 metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
-[node name="AutoSizeLabelArbitrary" type="Label" parent="CanvasLayer"]
+[node name="AutoSizeLabelArbitrary" type="Label" parent="CanvasLayer" unique_id=671889796]
 custom_minimum_size = Vector2(0, 1)
 offset_left = 504.0
 offset_top = 64.0
@@ -52,7 +52,7 @@ text_overrun_behavior = 3
 script = ExtResource("1_flqcm")
 metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
-[node name="AutoSizeLabelWord" type="Label" parent="CanvasLayer"]
+[node name="AutoSizeLabelWord" type="Label" parent="CanvasLayer" unique_id=60091031]
 custom_minimum_size = Vector2(0, 1)
 offset_left = 56.0
 offset_top = 256.0
@@ -68,7 +68,7 @@ text_overrun_behavior = 3
 script = ExtResource("1_flqcm")
 metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
-[node name="AutoSizeLabelWordSmart3" type="Label" parent="CanvasLayer"]
+[node name="AutoSizeLabelWordSmart3" type="Label" parent="CanvasLayer" unique_id=970877092]
 custom_minimum_size = Vector2(0, 1)
 offset_left = 504.0
 offset_top = 256.0
@@ -84,13 +84,13 @@ text_overrun_behavior = 3
 script = ExtResource("1_flqcm")
 metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 
-[node name="AutoSizeLabelStepSize" type="Label" parent="CanvasLayer"]
+[node name="AutoSizeLabelStepSize" type="Label" parent="CanvasLayer" unique_id=1940392678]
 custom_minimum_size = Vector2(0, 1)
 offset_left = 56.0
 offset_top = 448.0
 offset_right = 504.0
 offset_bottom = 640.0
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 20
 text = "STEP SIZE
 Play alone, with friends in private rooms or join a faction and play online with the whole world in this epic MMORPG.
 https://spielmannspiel.com/light-switch-simulator"

@@ -1,24 +1,20 @@
 shader_type canvas_item;
-render_mode unshaded, blend_premul_alpha;
-
-// Lost Century-friendly accent that won't blend with resource yellows.
-uniform vec4 HighlightColor : source_color = vec4(0.52, 0.33, 0.54, 1.0);
-uniform float PulseSpeed : hint_range(0.1, 5.0) = 1.35;
-uniform float MinAlpha : hint_range(0.0, 1.0) = 0.02;
-uniform float MaxAlpha : hint_range(0.0, 1.0) = 0.8;
-uniform float EdgeFeather : hint_range(0.0, 0.2) = 0.06;
-
+render_mode unshaded;
+uniform vec4 HighlightColor : source_color = vec4(0.4, 0.85, 0.78, 1.0);
+uniform float PulseSpeed = 1.35;
+uniform float MinAlpha = 0.1;
+uniform float MaxAlpha = 0.3;
+uniform float OutlineWidth = 0.045;
+varying vec2 tile_uv;
+void vertex() {
+	// Atlas UVs address the sheet; the hex distance needs the local 32px quad.
+	tile_uv = VERTEX / 32.0 + vec2(0.5);
+}
 void fragment() {
-	// Use the sprite's texture alpha (hex mask).
-	float mask = texture(TEXTURE, UV).a;
-
-	// Feathered edge based on alpha.
-	float fw = fwidth(mask);
-	float edge_mask = smoothstep(0.0, EdgeFeather + fw, mask) * (1.0 - smoothstep(1.0 - (EdgeFeather + fw), 1.0, mask));
-
-	float pulse = sin(TIME * PulseSpeed) * 0.5 + 0.5; // 0..1
-	float base_alpha = mix(MinAlpha, MaxAlpha, pulse) * mask;
-	float alpha = max(base_alpha, edge_mask * (MaxAlpha * 0.65));
-
-	COLOR = vec4(HighlightColor.rgb, 1.0) * alpha;
+	vec2 p = abs(tile_uv - vec2(0.5));
+	float distance = max(p.x, p.x * 0.5 + p.y * 0.8660254) - 0.43;
+	float inside = 1.0 - smoothstep(0.0, 0.012, distance);
+	float border = inside * smoothstep(-OutlineWidth, -OutlineWidth + 0.012, distance);
+	float pulse = 0.85 + 0.15 * sin(TIME * PulseSpeed);
+	COLOR = vec4(HighlightColor.rgb, (0.09 * inside + 0.72 * border) * pulse);
 }

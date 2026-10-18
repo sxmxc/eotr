@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BattleStats" load_steps=3 format=3 uid="uid://dah8jltex8gtv"]
+[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://dah8jltex8gtv"]
 
 [ext_resource type="PackedScene" uid="uid://dnvc2120uisji" path="res://resources/data/battles/tier_1_elite_horrors.tscn" id="1_0en70"]
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="2_j87ip"]
@@ -15,6 +15,4 @@ resource_reward_max = 10
 enemies = ExtResource("1_0en70")
 battle_field_width = 10
 battle_field_height = 10
-enemy_gold_reward = 0
-enemy_resource_reward = 0
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

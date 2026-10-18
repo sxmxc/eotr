@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://ui/status_ui/status_ui.tscn" id="base"]
+
+[node name="StatusUI" instance=ExtResource("base")]
+custom_minimum_size = Vector2(48, 48)
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="Duration" parent="." index="1"]
+theme_type_variation = &"CompactStatusCount"
+
+[node name="Stacks" parent="." index="2"]
+theme_type_variation = &"CompactStatusCount"

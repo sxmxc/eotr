@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcvtyeor5sl01"]
+[gd_scene format=3 uid="uid://bcvtyeor5sl01"]
 
 [ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="1_lvlth"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_fyolx"]
@@ -8,16 +8,16 @@
 [ext_resource type="Resource" uid="uid://fddqe3ier2dp" path="res://scenes/enemy/bat/bat_enemy.tres" id="4_gqxsb"]
 [ext_resource type="Resource" uid="uid://exmbgiu7r2dv" path="res://scenes/enemy/wasp/wasp_enemy.tres" id="6_ncn2g"]
 
-[node name="Tier0Horrors" type="Node2D"]
+[node name="Tier0Horrors" type="Node2D" unique_id=865774537]
 
-[node name="Obilisk" parent="." instance=ExtResource("3_mmh16")]
+[node name="Obilisk" parent="." unique_id=1171929032 instance=ExtResource("3_mmh16")]
 spawn_pool = Array[ExtResource("2_fyolx")]([ExtResource("3_rt2qn"), ExtResource("2_mmh16"), ExtResource("4_gqxsb"), ExtResource("6_ncn2g")])
 
-[node name="Horror1" parent="." instance=ExtResource("1_lvlth")]
+[node name="Horror1" parent="." unique_id=1379023738 instance=ExtResource("1_lvlth")]
 stats = ExtResource("2_mmh16")
 
-[node name="Horror2" parent="." instance=ExtResource("1_lvlth")]
+[node name="Horror2" parent="." unique_id=83702164 instance=ExtResource("1_lvlth")]
 stats = ExtResource("2_mmh16")
 
-[node name="Wasp1" parent="." instance=ExtResource("1_lvlth")]
+[node name="Wasp1" parent="." unique_id=488254457 instance=ExtResource("1_lvlth")]
 stats = ExtResource("6_ncn2g")

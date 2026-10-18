@@ -11,7 +11,6 @@ func is_performable() -> bool:
 	if not enemy or already_used:
 		return false
 	var is_low := enemy.stats.health <= hp_threshold
-	already_used = is_low
 
 	return is_low
 
@@ -19,6 +18,7 @@ func is_performable() -> bool:
 func perform_action() -> void:
 	if not enemy or not target:
 		return
+	already_used = true
 	
 	var block_effect := BlockEffect.new()
 	block_effect.amount = block
@@ -27,7 +27,7 @@ func perform_action() -> void:
 	block_effect.execute([enemy])
 	var world_message = WorldMessageData.new("%s hardens its body!" % enemy.name)
 	Events.world_message_requested.emit(world_message)
-	get_tree().create_timer(0.6, false).timeout.connect(
+	get_tree().create_timer(Utils.presentation_duration(0.6), false).timeout.connect(
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)

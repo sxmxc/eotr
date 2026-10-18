@@ -90,6 +90,8 @@ func unlock_next_map_node() -> void:
 
 
 func show_map() -> void:
+	$MapChrome.show()
+	$ParticlesLayer.show()
 	show()
 	ui_layer.show()
 	camera_2d.enabled = true
@@ -98,6 +100,8 @@ func show_map() -> void:
 
 
 func hide_map() -> void:
+	$MapChrome.hide()
+	$ParticlesLayer.hide()
 	hide()
 	ui_layer.hide()
 	camera_2d.enabled = false
@@ -134,6 +138,8 @@ func _connect_lines(map_node: MapNode) -> void:
 
 	for next: MapNode in map_node.next_nodes:
 		var new_map_line := MAP_NODE_LINE_SCENE.instantiate() as Line2D
+		new_map_line.set_meta("from_node", map_node)
+		new_map_line.set_meta("to_node", next)
 		new_map_line.add_point(map_node.position)
 		new_map_line.add_point(next.position)
 		lines.add_child(new_map_line)
@@ -164,6 +170,15 @@ func _ensure_bounty_board() -> void:
 
 
 func _update_bounty_board() -> void:
+	$MapChrome/Progress.text = "Floor %d / %d\nChoose your next encounter\nScroll to explore" % [mini(floors_climbed + 1, MapGenerator.FLOORS), MapGenerator.FLOORS]
+	for entry: MapNodeUI in map_nodes.get_children():
+		entry.update_route_state(entry.map_node == last_map_node)
+	for route: Line2D in lines.get_children():
+		var start: MapNode = route.get_meta("from_node")
+		var destination: MapNode = route.get_meta("to_node")
+		route.default_color = Color("d9b76f") if start.selected and destination.selected else Color(0.25, 0.33, 0.4, 0.65)
+		if start == last_map_node:
+			route.default_color = Color("66d9c7")
 	if not bounty_board or not is_instance_valid(bounty_board):
 		return
 	if not run_stats:
@@ -179,4 +194,6 @@ func _update_bounty_board() -> void:
 		battle_pool = map_generator.battle_stats_pool
 	BountySystem.ensure_contracts(run_stats, floors_climbed, available_nodes, battle_pool)
 	bounty_board.update_bounties(run_stats.bounty_contracts, floors_climbed, run_stats.next_bounty_refresh_floor)
+	if get_parent() is Run:
+		bounty_board.hide()
 	bounties_updated.emit(run_stats.bounty_contracts, floors_climbed, run_stats.next_bounty_refresh_floor)

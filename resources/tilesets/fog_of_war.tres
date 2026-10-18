@@ -1,12 +1,42 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cfsbh25ygujlm"]
+[gd_resource type="TileSet" format=3 uid="uid://cfsbh25ygujlm"]
 
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="1_hb2aw"]
+[ext_resource type="Shader" uid="uid://ceduxyygjw202" path="res://scripts/shaders/fog_of_war.gdshader" id="1_ys71l"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ys71l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cd8ib"]
+noise = SubResource("FastNoiseLite_ys71l")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_es7fg"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4s1bm"]
+noise = SubResource("FastNoiseLite_es7fg")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hb2aw"]
+shader = ExtResource("1_ys71l")
+shader_parameter/camera_position = Vector2(0, 0)
+shader_parameter/camera_offset = Vector2(0, 0)
+shader_parameter/camera_position_speed = 0.025
+shader_parameter/camera_offset_speed = 0.025
+shader_parameter/noise_texture_1 = SubResource("NoiseTexture2D_cd8ib")
+shader_parameter/noise_texture_2 = SubResource("NoiseTexture2D_4s1bm")
+shader_parameter/noise_blend = 1.0
+shader_parameter/noise_speed_1 = 0.2000000095
+shader_parameter/noise_speed_2 = 0.2000000095
+shader_parameter/noise_dir_1 = Vector2(1, 1)
+shader_parameter/noise_dir_2 = Vector2(1, -1)
+shader_parameter/smoke_color = Color(0.517647, 0.470588, 0.458824, 1)
+shader_parameter/density = 1.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ys71l"]
 texture = ExtResource("1_hb2aw")
 texture_region_size = Vector2i(32, 32)
 use_texture_padding = false
 1:1/0 = 0
+1:1/0/material = SubResource("ShaderMaterial_hb2aw")
 1:1/0/custom_data_0 = &"Fog"
 
 [resource]

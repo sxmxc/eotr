@@ -1,0 +1,157 @@
+{
+  "uid": "enemy-ai",
+  "title": "Enemy AI",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": false,
+  "tags": [
+    "telemetry",
+    "bot"
+  ],
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "game_id",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT game_id FROM telemetry.events_deduplicated ORDER BY game_id",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "echoes_of_the_rift",
+          "value": "echoes_of_the_rift"
+        }
+      },
+      {
+        "name": "environment",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT environment FROM telemetry.events_deduplicated ORDER BY environment",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "qa",
+          "value": "qa"
+        }
+      },
+      {
+        "name": "build_version",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT build_version FROM telemetry.events_deduplicated ORDER BY build_version",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "0.0.6.1",
+          "value": "0.0.6.1"
+        }
+      },
+      {
+        "name": "source_type",
+        "type": "query",
+        "datasource": {
+          "type": "grafana-clickhouse-datasource",
+          "uid": "telemetry-clickhouse"
+        },
+        "query": "SELECT DISTINCT source_type FROM telemetry.events_deduplicated ORDER BY source_type",
+        "refresh": 1,
+        "multi": false,
+        "includeAll": false,
+        "current": {
+          "text": "bot",
+          "value": "bot"
+        }
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Enemy actions and fallbacks",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT JSONExtractString(properties,'enemy') AS enemy, event_name, count() AS actions FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name IN ('enemy_action','enemy_waited')) GROUP BY enemy, event_name LIMIT 1000"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Simulation stalls and invalid actions",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 9,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT JSONExtractString(properties,'outcome') AS outcome, count() AS failures FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name='simulation_completed' AND JSONExtractString(properties,'outcome') IN ('softlock','invalid_action','timeout')) GROUP BY outcome LIMIT 1000"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "AI duration",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 18,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT avg(JSONExtractFloat(properties,'evaluation_us')) AS mean_us, quantile(0.95)(JSONExtractFloat(properties,'evaluation_us')) AS p95_us FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name='enemy_action') LIMIT 1000"
+        }
+      ]
+    }
+  ]
+}

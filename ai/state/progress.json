@@ -1,7 +1,49 @@
 {
   "schema_version": 1,
-  "updated": "2025-11-30T00:05:00.0000000-06:00",
+  "updated": "2026-10-17",
   "tasks": [
+    {
+      "id": "UI-COMPOSITION-001",
+      "status": "done",
+      "summary": "Migrated first-party UI to the shared Rift theme and named variations, authored fixed visuals as native scenes, repaired reward/shop layout and activation, and split run/battle HUDs, tutorials, pause, legend and sandbox panel into owned components. Removed private child injection and UI group discovery. Native scene save/reload ownership and interaction checks pass; see ai/docs/continuous-improvement.md for validation and shutdown limits.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "BATTLE-TRANSITIONS-001",
+      "status": "done",
+      "summary": "Fixed shaders ignoring CanvasItem fade alpha, inverted outcome vignette, fullscreen scaling, frozen intros over paused tutorials, arbitrary victory timing and overlapping view lifetimes. Removed competing music-volume swells. Rendered zero/half/full alpha samples and transition completion checks pass; native texture shutdown diagnostics remain.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "HAND-CYCLE-001",
+      "status": "done",
+      "summary": "Fixed null-card draws from exhausted decks and animation-dependent discard state. Added runtime regression checks for phase ordering, interrupted/completed discard animations, immediate reshuffle, overdraw, zero-card draws, and standalone cleanup. See ai/docs/continuous-improvement.md for validation and limits.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "DATA-EDITOR-ENUM-001",
+      "status": "done",
+      "summary": "Fixed two DataEditor enum lookups that used the inherited node name instead of the loop key. Added runtime scene-startup coverage for all enum dropdowns and resource-list initialization. Zero failed smoke assertions and no script errors; runner still reports the existing intermittent shutdown resource leaks.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "GODOT-ARCH-002",
+      "status": "done",
+      "summary": "Removed duplicated emission image data and generated-cache texture references from the newly converted run.tscn pause menu, reusing existing assets. Reduced scene from 9,916,548 to 35,936 bytes with node/connection sections unchanged. Resource guard passed; verbose compatibility runner exited 0 with 490 loads and zero failed assertions; existing intermittent shutdown diagnostics remain.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "GODOT-ARCH-001",
+      "status": "done",
+      "summary": "First architecture cleanup: externalized identical emission image data, shared ambient particle scene, removed first-party text-resource cache dependencies, authored battle presentation as a scene, added resource/overlay checks, and documented prioritized remaining work in ai/docs/godot-architecture-audit.md. Full-project cleanup remains open.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "GODOT-472",
+      "status": "done",
+      "summary": "Reviewed Godot 4.7.2 and Talo 1.2.0 compatibility; migrated telemetry, repaired resource references and scene cleanup, updated CI/docs, and verified offline headless and D3D12 gameplay smoke tests. Remaining live-service/release validation and shutdown diagnostics are documented in ai/docs/godot-4.7.2-upgrade.md.",
+      "updated": "2026-10-17"
+    },
     {
       "id": "BKL-014",
       "status": "done",
@@ -103,6 +145,30 @@
       "status": "done",
       "summary": "Added a map bounty board overlay that lists gold/resource rewards for currently reachable battles.",
       "updated": "2025-11-30T00:05:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-005",
+      "status": "in_progress",
+      "summary": "Started corrosion content expansion: added Corroded status plus Corroding Shot and Corrosion Wave cards to the Riftwalker draft pool.",
+      "updated": "2025-12-07T00:00:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-041",
+      "status": "done",
+      "summary": "Added a BattleState controller to own turn/shrink phases and route player/end/enemy loops through validated transitions.",
+      "updated": "2025-12-15T00:00:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-042",
+      "status": "in_review",
+      "summary": "Introduced CardResolver + declarative effect configs and migrated sample damage/block/move/gather cards off get_tree coupling.",
+      "updated": "2025-12-15T00:00:00.0000000-06:00"
+    },
+    {
+      "id": "BKL-043",
+      "status": "in_review",
+      "summary": "Centralized card/movement targeting with a shared TargetSelector that caches valid cells and reuses validators for drag/aim flows.",
+      "updated": "2025-12-15T14:28:23.6852440-06:00"
     }
   ]
 }

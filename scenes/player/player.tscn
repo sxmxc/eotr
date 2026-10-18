@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ct8j6u4avyd2y"]
+[gd_scene format=3 uid="uid://ct8j6u4avyd2y"]
 
 [ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://bu16ixkif16g1" path="res://assets/icons/cowled.svg" id="2_dovo2"]
@@ -42,41 +42,41 @@ alpha_curve = SubResource("CurveTexture_5gtgg")
 [sub_resource type="Resource" id="Resource_h17s1"]
 script = ExtResource("9_5gtgg")
 
-[node name="Player" type="Node2D" groups=["player"]]
+[node name="Player" type="Node2D" unique_id=1963814291 groups=["player"]]
 script = ExtResource("1_dovo2")
 movement_sound = ExtResource("2_p47bc")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1338636701]
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_dovo2")
 
-[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("4_75vfm")]
+[node name="TokenShineEffect" parent="Sprite2D" unique_id=1973273648 instance=ExtResource("4_75vfm")]
 unique_name_in_owner = true
 visible = false
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1519123578]
 show_behind_parent = true
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1346817613]
 shape = SubResource("CircleShape2D_dovo2")
 
-[node name="ModifierHandler" parent="." instance=ExtResource("3_lvxji")]
+[node name="ModifierHandler" parent="." unique_id=624157648 instance=ExtResource("3_lvxji")]
 
-[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+[node name="DamageDealtModifier" parent="ModifierHandler" unique_id=782960471 instance=ExtResource("4_p47bc")]
 
-[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+[node name="DamageTakenModifier" parent="ModifierHandler" unique_id=1480489318 instance=ExtResource("4_p47bc")]
 type = 1
 
-[node name="CardCostModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+[node name="CardCostModifier" parent="ModifierHandler" unique_id=541464941 instance=ExtResource("4_p47bc")]
 type = 2
 
-[node name="MovementModifier" parent="ModifierHandler" instance=ExtResource("4_p47bc")]
+[node name="MovementModifier" parent="ModifierHandler" unique_id=1074712515 instance=ExtResource("4_p47bc")]
 type = 5
 
-[node name="ManaWellEffect" type="GPUParticles2D" parent="."]
+[node name="ManaWellEffect" type="GPUParticles2D" parent="." unique_id=1020885088]
 unique_name_in_owner = true
 show_behind_parent = true
 emitting = false
@@ -86,7 +86,7 @@ lifetime = 0.5
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_fm80t")
 
-[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_targets")]
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1651493285 node_paths=PackedStringArray("follow_targets")]
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("8_qc6v1")
@@ -95,5 +95,6 @@ follow_mode = 3
 follow_targets = [NodePath("..")]
 tween_resource = SubResource("Resource_h17s1")
 auto_zoom = true
-auto_zoom_max = 3.0
+auto_zoom_max = 2.5
+auto_zoom_margin = Vector4(40, 40, 40, 125)
 draw_limits = true

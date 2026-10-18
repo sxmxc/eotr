@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bti2nexuunus2"]
+[gd_scene format=3 uid="uid://bti2nexuunus2"]
 
 [ext_resource type="Script" uid="uid://dab3xatiqgpbv" path="res://scenes/enemy/void_spectre/void_spectre_enemy.gd" id="1_hic4f"]
 [ext_resource type="Texture2D" uid="uid://c7wwsvbjgqf4a" path="res://assets/icons/spectre.svg" id="2_t7gmi"]
@@ -15,9 +15,6 @@ radius = 18.0278
 
 [sub_resource type="Resource" id="Resource_ex3n4"]
 script = ExtResource("14_w8bnk")
-duration = 1.0
-transition = 0
-ease = 2
 
 [sub_resource type="Animation" id="Animation_twcqd"]
 length = 0.001
@@ -104,48 +101,42 @@ _data = {
 &"fly_idle": SubResource("Animation_4omhe")
 }
 
-[node name="VoidSpectreEnemy" type="Node2D" groups=["enemy"]]
+[node name="VoidSpectreEnemy" type="Node2D" unique_id=1368376352 groups=["enemy"]]
 script = ExtResource("1_hic4f")
 flying = true
 stats = ExtResource("2_yqir2")
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1539726103]
 self_modulate = Color(0, 0, 0, 0.627451)
 show_behind_parent = true
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_pg2hs")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824242920]
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_t7gmi")
 
-[node name="TokenShineEffect" parent="Sprite2D" instance=ExtResource("4_3ryel")]
+[node name="TokenShineEffect" parent="Sprite2D" unique_id=411994563 instance=ExtResource("4_3ryel")]
 unique_name_in_owner = true
 visible = false
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=559341234]
 show_behind_parent = true
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=861663518]
 shape = SubResource("CircleShape2D_xxaiy")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-physics_interpolation_mode = 1
-path_desired_distance = 8.0
-target_desired_distance = 16.0
-path_postprocessing = 1
+[node name="ModifierHandler" parent="." unique_id=1376474706 instance=ExtResource("9_vyw7r")]
 
-[node name="ModifierHandler" parent="." instance=ExtResource("9_vyw7r")]
+[node name="DamageDealtModifier" parent="ModifierHandler" unique_id=160906225 instance=ExtResource("10_7j6fb")]
 
-[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("10_7j6fb")]
-
-[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_7j6fb")]
+[node name="DamageTakenModifier" parent="ModifierHandler" unique_id=1009101682 instance=ExtResource("10_7j6fb")]
 type = 1
 
-[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1989634953 node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("13_r7loo")
@@ -156,7 +147,5 @@ tween_resource = SubResource("Resource_ex3n4")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4851w")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1887857036]
+libraries/ = SubResource("AnimationLibrary_4851w")

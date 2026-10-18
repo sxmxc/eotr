@@ -3,6 +3,8 @@ extends Control
 const CLASS_SELECTOR_SCENE = preload("res://scenes/menus/class_selector.tscn")
 const RUN_SCENE = preload("res://scenes/run/run.tscn")
 const SETTINGS_MENU = preload("res://scenes/menus/settings_menu.tscn")
+const SANDBOX_SCENE = preload("res://scenes/sandbox/gameworld_sandbox.tscn")
+const DATA_EDITOR_SCENE = preload("res://scenes/devtools/data_editor.tscn")
 const CASTLE_LOOP = preload("res://assets/audio/music/castle_loop.wav")
 
 @export var run_bootstrap: RunBootstrap
@@ -14,6 +16,10 @@ func _ready() -> void:
 	get_tree().paused = false
 	TelemetryManager.generate_host_unique_ident()
 	continue_button.disabled = SaveGame.load_data() == null
+	if not continue_button.disabled:
+		continue_button.grab_focus()
+	else:
+		$UILayer/Control/Buttons/VBoxContainer/NewGameButton.grab_focus()
 	if !SoundManager.is_music_playing(CASTLE_LOOP):
 		SoundManager.play_music(CASTLE_LOOP,1)
 
@@ -29,9 +35,19 @@ func _on_new_game_button_pressed() -> void:
 	get_tree().change_scene_to_packed(CLASS_SELECTOR_SCENE)
 
 
+func _on_sandbox_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	get_tree().change_scene_to_packed(SANDBOX_SCENE)
+
+
+func _on_data_editor_button_pressed() -> void:
+	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	get_tree().change_scene_to_packed(DATA_EDITOR_SCENE)
+
+
 func _on_exit_button_pressed() -> void:
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
-	get_tree().quit()
+	TelemetryManager.request_quit()
 	pass  # Replace with function body.
 
 

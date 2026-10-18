@@ -1,5 +1,7 @@
 extends EnemyAction
 
+@export_range(1, 6) var tiles_per_turn := 1
+
 func is_performable() -> bool:
 	if target == null:
 		return false
@@ -17,8 +19,8 @@ func perform_action() -> void:
 	var world_message = WorldMessageData.new("%s moves closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	print("%s moves once" % enemy.name)
-	enemy.perform_turn_based_move(1)
-	await enemy.navigation_agent_2d.navigation_finished
+	enemy.perform_turn_based_move(tiles_per_turn)
+	await enemy.movement_finished
 	print("Horror now at %s" % enemy.current_tile_position)
 	SoundManager.play_sound_random_pitch(sound)
 	await get_tree().process_frame
@@ -26,18 +28,18 @@ func perform_action() -> void:
 	var player_tile = enemy.tilemap.base_layer.local_to_map(target.position)
 	var surrounding_tiles = enemy.tilemap.base_layer.get_surrounding_cells(enemy_tile)
 	if surrounding_tiles.has(player_tile):
-		get_tree().create_timer(.6).timeout.connect(
+		get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(
 		func(): 
 			Events.enemy_action_completed.emit(enemy)
 	)
 		return
 		 
 	print("%s moves again" % enemy.name)
-	enemy.perform_turn_based_move(1)
-	await enemy.navigation_agent_2d.navigation_finished
+	enemy.perform_turn_based_move(tiles_per_turn)
+	await enemy.movement_finished
 	print("Horror now at %s" % enemy.current_tile_position)
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(.6).timeout.connect(
+	get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(
 		func(): 
 			Events.enemy_action_completed.emit(enemy)
 	)

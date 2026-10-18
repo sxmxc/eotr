@@ -23,18 +23,12 @@ func update_bounties(
 		return
 
 	var lines: Array[String] = []
-	var slot: int = 1
 	for contract: BountyContract in contracts:
-		var reward_parts: Array[String] = []
-		reward_parts.append("+%d gold" % contract.gold)
+		var reward := "%d gold" % contract.gold
 		if contract.resources > 0:
-			reward_parts.append("+%d resources" % contract.resources)
-		var details: String = ", ".join(reward_parts)
-		if contract.is_high_value:
-			details += " [b](High Value)[/b]"
-		lines.append("[b]%d.[/b] %s — %s" % [slot, contract.enemy_name, details])
-		slot += 1
-
-	_title.text = "Active Bounties — refresh in %d floor(s)" % floors_until_refresh
-	_body.text = "\n".join(lines)
+			reward += "   ·   %d resources" % contract.resources
+		var badge := "  [color=#d9b76f]HIGH VALUE[/color]" if contract.is_high_value else ""
+		lines.append("[b]%s[/b]%s\n[color=#86bdb7]%s[/color]" % [contract.enemy_name, badge, reward])
+	_title.text = "ACTIVE CONTRACTS   /   Refresh in %d floor(s)" % floors_until_refresh
+	_body.text = "\n\n".join(lines)
 	show()

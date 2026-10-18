@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://pq5oohcsqn2c"]
+
+[ext_resource type="Script" uid="uid://ndrkdcuixl56" path="res://scripts/tests/compatibility_smoke.gd" id="1"]
+
+[node name="CompatibilitySmoke" type="Node" unique_id=1430277405]
+script = ExtResource("1")

@@ -1,5 +1,9 @@
 class_name EnemyStatsUI
-extends Panel
+extends PanelContainer
+
+var bound_enemy: Enemy
+var inspection_pinned := false
+var _aiming := false
 
 @export var enemy_stats : EnemyStats
 
@@ -9,24 +13,31 @@ extends Panel
 @onready var shield_label: Label = %ShieldLabel
 @onready var shield_container: Control = %Shield
 @onready var status_handler: StatusHandler = %StatusHandler
-@onready var intent_ui: IntentUI = %IntentUI
 @onready var bouncer: Bouncer = %Bouncer
-@onready var focus_attention_fx: GPUParticles2D = %FocusAttentionFX
+@onready var focus_indicator: TextureRect = %FocusIndicator
+@onready var plan_label: Label = %Plan
 
 
 func _ready():
 	Events.enemy_selected.connect(_on_enemy_selected)
+	Events.card_drag_started.connect(_suspend)
+	Events.card_aim_started.connect(_suspend)
+	Events.card_drag_ended.connect(_resume_inspection)
+	Events.card_aim_ended.connect(_resume_inspection)
+	visibility_changed.connect(_visibility_changed)
+	Events.enemy_info_hide_requested.connect(close_inspection)
 	Events.enemy_updated.connect(_on_enemy_updated)
 	for child in status_handler.get_children():
 		child.queue_free()
-	intent_ui.hide()
-	focus_attention_fx.emitting = false
-	focus_attention_fx.hide()
+	focus_indicator.hide()
+	hide()
 
 func setup_enemy_ui(enemy: Enemy) -> void:
 	if not self.is_node_ready():
 		await ready
-	enemy_name_label.text = enemy.name
+	bound_enemy = enemy
+	enemy_stats = enemy.stats
+	enemy_name_label.text = enemy.stats.enemy_name if enemy.stats.enemy_name else str(enemy.name)
 	enemy.stats_ui = self
 	enemy.status_handler = status_handler
 	status_handler.status_owner = enemy
@@ -37,29 +48,50 @@ func setup_enemy_ui(enemy: Enemy) -> void:
 func update_stats(stats: EnemyStats) -> void:
 	if not self.is_node_ready():
 		await ready
-	shield_label.text = str(stats.block)
-	health_label.text = str(stats.health)
+	shield_label.text = "Block %d" % stats.block
+	health_label.text = "%d / %d HP" % [stats.health, stats.max_health]
 	health_bar.value = stats.health
 	
 	shield_container.visible = !stats.block <= 0
 	
 func _on_enemy_selected(enemy: Enemy) -> void:
-	enemy.stats_ui.grab_focus()
-	pass
+	if not enemy_stats or _aiming:
+		return
+	inspection_pinned = enemy == bound_enemy
+	if inspection_pinned:
+		_on_enemy_updated(bound_enemy)
+		show()
+		grab_focus()
+	else:
+		hide()
 
 
-func _on_enemy_updated(_enemy: Enemy) -> void:
-	pass
+func _on_enemy_updated(enemy: Enemy) -> void:
+	if enemy != bound_enemy:
+		return
+	if enemy.current_action and enemy.current_action.intent:
+		var plan := enemy.current_action.intent
+		var description := plan.tooltip_text
+		if description.contains("%s"):
+			description = description % plan.current_text
+		plan_label.text = description.trim_prefix("Plans to ").capitalize()
+	else:
+		plan_label.text = "Considering…"
 
 
-func _on_focus_entered() -> void:
-	bouncer.Start()
-	focus_attention_fx.emitting = true
-	focus_attention_fx.show()
+func close_inspection() -> void:
+	inspection_pinned = false
+	hide()
+	release_focus()
 
 
-func _on_focus_exited() -> void:
-	bouncer.stop()
-	focus_attention_fx.emitting = false
-	focus_attention_fx.hide()
-	
+func _suspend(_card: CardUI) -> void:
+	_aiming = true
+	close_inspection()
+
+func _resume_inspection(_card: CardUI) -> void:
+	_aiming = false
+
+func _visibility_changed() -> void:
+	if visible and _aiming:
+		hide()

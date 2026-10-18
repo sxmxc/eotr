@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://scripts/shaders/battle_over_vignette.gdshader" id="shader"]
+
+[resource]
+shader = ExtResource("shader")
+shader_parameter/radius = 1.0
+shader_parameter/softness = 0.32
+shader_parameter/vignette_color = Color(0, 0, 0, 0.8)
+shader_parameter/noise_amount = 0.0
+shader_parameter/noise_speed = 1.6

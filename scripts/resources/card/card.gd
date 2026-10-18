@@ -16,7 +16,11 @@ static var RARITY_COLORS := {
 @export_multiline var description: String
 @export var energy_cost: int
 @export var exhaust: bool = false
+@export var tags: Array[String] = []
 var last_energy_cost: int = 0
+
+@export_group("Card Effects")
+@export var effect_configs: Array[CardEffectConfig] = []
 
 @export_group("Card Sound and Visuals")
 @export var card_art: Texture2D
@@ -27,7 +31,9 @@ var last_energy_cost: int = 0
 
 func is_single_targeted() -> bool:
 	return (
-		target_type == Enums.TargetType.SINGLE_ENEMY or target_type == Enums.TargetType.SINGLE_TILE or target_type == Enums.TargetType.ADJACENT_ENEMY
+		target_type == Enums.TargetType.SINGLE_ENEMY
+		or target_type == Enums.TargetType.SINGLE_TILE
+		or target_type == Enums.TargetType.ADJACENT_ENEMY
 	)
 
 
@@ -62,15 +68,25 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 
 
 func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
-	Events.card_played.emit(self)
+	_sync_effect_configs()
 	var cost := get_energy_cost(player_stats)
 	last_energy_cost = cost
 	player_stats.energy -= cost
+	Events.card_played.emit(self)
 
-	if is_single_targeted():
-		apply_effects(targets, modifiers)
+	var resolved_targets := targets
+	if not is_single_targeted():
+		resolved_targets = _get_targets(targets)
+	await resolve_effects(resolved_targets, player_stats, modifiers)
+
+
+func resolve_effects(resolved_targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
+
+	if not effect_configs.is_empty():
+		var resolver := CardResolver.new()
+		await resolver.resolve(self, resolved_targets, player_stats, modifiers, effect_configs)
 	else:
-		apply_effects(_get_targets(targets), modifiers)
+		await apply_effects(resolved_targets, modifiers)
 
 
 func get_default_description() -> String:
@@ -82,44 +98,60 @@ func get_modified_description(
 ) -> String:
 	return description
 
+
 func is_card_modified(_player_modifiers: ModifierHandler) -> bool:
 	return false
+
 
 func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass
 
+
 func get_energy_cost(_player_stats: PlayerStats) -> int:
 	return energy_cost
 
+
 func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
 	var tree := card_ui.get_tree() as SceneTree
-	var tilemap : ProcGenTilemap = tree.get_first_node_in_group("enemy").tilemap
+	var tilemap := tree.get_first_node_in_group("map_layer") as ProcGenTilemap
+	if not tilemap:
+		return []
+	var enemies: Array[Enemy] = []
+	for node in tree.get_nodes_in_group("enemy"):
+		var enemy := node as Enemy
+		if enemy:
+			enemies.append(enemy)
 	
 	match target_type:
 		Enums.TargetType.SINGLE_TILE:
-			return tilemap.base_layer.get_used_cells_by_id(0, Vector2i.ZERO)
+			return tilemap.base_layer.get_used_cells()
 		Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ALL_ENEMIES:
-			var tiles : Array[Vector2i] = []
-			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
+			var tiles: Array[Vector2i] = []
+			for enemy: Enemy in enemies:
 				tiles.append(enemy.current_tile_position)
 			return tiles
 		Enums.TargetType.SELF:
 			var tile_pos = tilemap.player_position
 			return [tile_pos]
 		Enums.TargetType.EVERYONE:
-			var tiles : Array[Vector2i] = []
-			for enemy : Enemy in tree.get_nodes_in_group("enemy"):
-				tiles.append(enemy.current_tile_position)
-			tiles.append(tilemap.player_position)
-			return tiles
+			var tiles_all: Array[Vector2i] = []
+			for enemy: Enemy in enemies:
+				tiles_all.append(enemy.current_tile_position)
+			tiles_all.append(tilemap.player_position)
+			return tiles_all
 		Enums.TargetType.SURROUNDING_ENEMIES, Enums.TargetType.ADJACENT_ENEMY:
 			var player_tile = tilemap.player_position
 			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
 			var aoe_targets: Array[Vector2i] = []
-			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
+			for enemy: Enemy in enemies:
 				var enemy_tile_position = enemy.current_tile_position
 				if surrounding_tiles.has(enemy_tile_position):
 					aoe_targets.append(enemy_tile_position)
 			return aoe_targets
 		_:
 			return []
+
+
+func _sync_effect_configs() -> void:
+	# Override in subclasses when they dynamically build configs.
+	pass

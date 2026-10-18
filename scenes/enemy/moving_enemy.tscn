@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ypq2eyjf2e5m"]
+[gd_scene format=3 uid="uid://ypq2eyjf2e5m"]
 
 [ext_resource type="Script" uid="uid://bk0muoeixdm7i" path="res://scenes/enemy/moving_enemy.gd" id="1_0shhr"]
 [ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_m8tji"]
@@ -161,23 +161,23 @@ _data = {
 &"fly_idle": SubResource("Animation_4omhe")
 }
 
-[node name="MovingEnemy" type="Node2D" groups=["enemy"]]
+[node name="MovingEnemy" type="Node2D" unique_id=1455577167 groups=["enemy"]]
 script = ExtResource("1_0shhr")
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=85986847]
 self_modulate = Color(0, 0, 0, 0.627451)
 show_behind_parent = true
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_m8tji")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1491918895]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_m8tji")
 
-[node name="CircleIndicator" type="Sprite2D" parent="Sprite2D"]
+[node name="CircleIndicator" type="Sprite2D" parent="Sprite2D" unique_id=1471582750]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(0.524982, 3, 2.99105, 0.471)
@@ -185,33 +185,25 @@ z_index = 5
 scale = Vector2(3, 3)
 texture = ExtResource("3_4omhe")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator"]
-libraries = {
-&"": SubResource("AnimationLibrary_onf1d")
-}
-autoplay = "rotate"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator" unique_id=186042511]
+libraries/ = SubResource("AnimationLibrary_onf1d")
+autoplay = &"rotate"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1986610667]
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2065849705]
 shape = SubResource("CircleShape2D_xxaiy")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-physics_interpolation_mode = 1
-path_desired_distance = 8.0
-target_desired_distance = 16.0
-path_postprocessing = 1
+[node name="ModifierHandler" parent="." unique_id=1266165191 instance=ExtResource("9_knvft")]
 
-[node name="ModifierHandler" parent="." instance=ExtResource("9_knvft")]
+[node name="DamageDealtModifier" parent="ModifierHandler" unique_id=2117674649 instance=ExtResource("10_m8tji")]
 
-[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("10_m8tji")]
-
-[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("10_m8tji")]
+[node name="DamageTakenModifier" parent="ModifierHandler" unique_id=660024262 instance=ExtResource("10_m8tji")]
 type = 1
 
-[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1303691739 node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("12_tmm2i")
@@ -222,10 +214,8 @@ tween_resource = SubResource("Resource_bydut")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4851w")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1123504307]
+libraries/ = SubResource("AnimationLibrary_4851w")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

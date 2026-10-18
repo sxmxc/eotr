@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://clemke10r3mhf"]
+[gd_scene format=3 uid="uid://clemke10r3mhf"]
 
 [ext_resource type="PackedScene" uid="uid://coohc0sckkjwx" path="res://ui/fx/visual_fx.tscn" id="1_aivii"]
 [ext_resource type="Script" uid="uid://bmfhe6kn1k8g3" path="res://ui/fx/flash_fx.gd" id="2_b8s1i"]
@@ -77,17 +77,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lq2ub")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 30.0
 }]
 
-[node name="FlashFX" instance=ExtResource("1_aivii")]
+[node name="FlashFX" unique_id=697014644 instance=ExtResource("1_aivii")]
 z_index = 2
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_b8s1i")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1611058879]
 sprite_frames = SubResource("SpriteFrames_lshss")
 frame = 9
 frame_progress = 1.0

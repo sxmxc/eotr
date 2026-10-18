@@ -6,7 +6,7 @@ const CARD_MENU_UI_SCENE = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
 @export var card_pile: CardPile
 
 @onready var title: Label = %Title
-@onready var card_container: GridContainer = %CardContainer
+@onready var card_container: HFlowContainer = %CardContainer
 @onready var card_popup: CardPopup = %CardPopup
 @onready var back_button: Button = %BackButton
 
@@ -46,7 +46,7 @@ func _update_view(randomized: bool) -> void:
 
 	var all_cards := card_pile.cards.duplicate()
 	if randomized:
-		RNG.array_shuffle(all_cards)
+		all_cards.shuffle() # Inspection must not consume the gameplay RNG stream.
 
 	for card: Card in all_cards:
 		var new_card := CARD_MENU_UI_SCENE.instantiate() as CardMenuUI

@@ -7,8 +7,11 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 1. **Review Existing Card**: Locate script under `resources/data/cards/<class>/<card_id>.gd`.
 2. **Check Pile Registration**: Ensure new cards are referenced in `draftable_cards` or `starting_deck` resources if needed.
 3. **Implement Changes**:
-   - Derive from `Card`, override `apply_effects()` and any description helpers.
-   - Use `ModifierHandler` hooks (`DMG_DEALT`, `DMG_TAKEN`, etc.) for scaling.
+   - Prefer the resolver path: add `effect_configs` (e.g., `CardEffectConfig.for_damage(base_amount)`) in `_init`/`_ready`/`_sync` and let `CardResolver` drive `play()` when configs are present. Set visuals/camera shake on the config instead of manual tweens.
+   - Use `CardEffectConfigHelper.apply_card_defaults(card, config, attach_visual_to_effect)` to source SFX/projectiles/visuals consistently.
+   - Use one visual surface per hit: either attach visuals to the projectile (`projectile_visual_fx` + `attach_visual_to_effect = false`) or to the effect (`visual_fx` + `attach_visual_to_effect = true`), not both.
+   - Projectiles now run before any effect type that sets `projectile_fx`; prefer them for damage-centric effects and be deliberate when adding them to utility effects.
+   - Use `ModifierHandler` hooks (`DMG_DEALT`, `DMG_TAKEN`, etc.) for scaling; `CardEffectConfig.get_preview_amount` handles DMG_TAKEN for tooltips.
 4. **Wire Assets**: Update `.tres` resource for the card (art, rarity, cost). Confirm `project.godot` import metadata if new textures.
 5. **Test**:
    - Console: `add_card` (if available) or adjust deck to include card.

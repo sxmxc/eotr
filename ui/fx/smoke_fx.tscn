@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://0jq70ruwt2li"]
+[gd_scene format=3 uid="uid://0jq70ruwt2li"]
 
 [ext_resource type="Script" uid="uid://bqy24x6corvi4" path="res://ui/fx/smoke_fx.gd" id="1_bx1du"]
 [ext_resource type="Texture2D" uid="uid://doohg2mpslui" path="res://assets/third_party/Spritesheet Pack/smoke/jettelly_smoke_8x8_02.png" id="2_vk8p6"]
@@ -454,15 +454,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6la4w")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 60.0
 }]
 
-[node name="SmokeFX" type="Node2D"]
+[node name="SmokeFX" type="Node2D" unique_id=987979884]
 script = ExtResource("1_bx1du")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=474175325]
 self_modulate = Color(0.592188, 0.592188, 0.592188, 1)
 z_index = 4
 scale = Vector2(0.25, 0.25)

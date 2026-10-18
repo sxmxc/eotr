@@ -1,59 +1,68 @@
-[gd_scene load_steps=73 format=3 uid="uid://b2qxixht7uo34"]
+[gd_scene format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
+
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
+
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="1_tqoos"]
+
 [ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="3_0jtfi"]
+
 [ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="3_bumdp"]
+
 [ext_resource type="AudioStream" uid="uid://bpxn2u0dlesmt" path="res://assets/audio/music/castle_loop.wav" id="3_qc6v1"]
+
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_bumdp"]
+
 [ext_resource type="AudioStream" uid="uid://dxu3xx8l822w" path="res://assets/audio/music/davina_horror.wav" id="4_lorak"]
-[ext_resource type="Script" uid="uid://c5kyjbsoeaeq1" path="res://ui/debug_ui.gd" id="5_cmh4g"]
+
 [ext_resource type="PackedScene" uid="uid://ct8j6u4avyd2y" path="res://scenes/player/player.tscn" id="5_dlaip"]
+
 [ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="6_ph1f2"]
+
 [ext_resource type="Resource" uid="uid://cjimv3kddhqjg" path="res://resources/data/stats/player/riftwalker_starting_stats.tres" id="6_u4x5r"]
-[ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="7_pdbwf"]
+
 [ext_resource type="Script" uid="uid://de80q2cigowdw" path="res://scripts/effects/tile/ruin_tile_effect.gd" id="12_3lu4o"]
+
 [ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="12_lsh46"]
-[ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="12_odt01"]
+
 [ext_resource type="Resource" uid="uid://sp28xxw35dgt" path="res://resources/data/tile_effects/block_tile_effect.tres" id="13_wc6i6"]
+
 [ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="13_wek56"]
-[ext_resource type="Script" uid="uid://bj3gfx8l4ra88" path="res://ui/world_ui/game_world_ui.gd" id="13_y5rsn"]
+
 [ext_resource type="Resource" uid="uid://yp6oi15t4x0" path="res://resources/data/tile_effects/damage_tile_effect.tres" id="14_u6b8t"]
+
 [ext_resource type="Resource" uid="uid://dooia6pfkqp46" path="res://resources/data/tile_effects/draw_card_tile_effect.tres" id="15_g77xe"]
+
 [ext_resource type="Resource" uid="uid://cncwxv041kjkn" path="res://resources/data/tile_effects/empty_tile_effect.tres" id="16_p5igc"]
+
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="16_qc6v1"]
+
 [ext_resource type="Resource" uid="uid://j7vb2jjk48vl" path="res://resources/data/tile_effects/energy_tile_effect.tres" id="17_3u2ga"]
+
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="17_lorak"]
+
 [ext_resource type="Resource" uid="uid://cw30y55ftjw7y" path="res://resources/data/tile_effects/resource_tile_effect.tres" id="18_dc582"]
+
 [ext_resource type="Resource" uid="uid://dygkjk4gjxd2o" path="res://resources/data/tile_effects/status_tile_effect.tres" id="19_dpyoc"]
-[ext_resource type="PackedScene" uid="uid://dg8i01hcrxwwd" path="res://ui/player_ui/tile_info.tscn" id="19_mf52o"]
-[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="20_g06lf"]
-[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="20_g7x0y"]
-[ext_resource type="Texture2D" uid="uid://bw2e6kofldiiq" path="res://assets/icons/card-burn.svg" id="21_0br8l"]
-[ext_resource type="Texture2D" uid="uid://dte2m4qyg4mfe" path="res://assets/icons/card-draw.svg" id="21_7fs1y"]
-[ext_resource type="Theme" uid="uid://plkam64wo554" path="res://resources/themes/default_theme.tres" id="23_ht6dc"]
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="24_mkc5e"]
-[ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
-[ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
-[ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
-[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="25_oia7h"]
-[ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
-[ext_resource type="Script" uid="uid://dmno7vawfhle0" path="res://ui/player_ui/bounty_ui.gd" id="29_qnbvx"]
-[ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
-[ext_resource type="PackedScene" uid="uid://bxte0jljomebr" path="res://ui/player_ui/round_info.tscn" id="31_jwlkc"]
-[ext_resource type="PackedScene" uid="uid://cugan5jsmxbwp" path="res://ui/card_pile_button/exhaust_pile_button.tscn" id="32_udifo"]
-[ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
+
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
-[ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="39_ht6dc"]
+
 [ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
-[ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="39_udifo"]
+
 [ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
-[ext_resource type="PackedScene" uid="uid://b3x0n5j034cie" path="res://ui/card_ui/card_visuals.tscn" id="40_oia7h"]
-[ext_resource type="Script" uid="uid://c0x5eghfj567i" path="res://scenes/game_world/battle_tutorial.gd" id="40_qnbvx"]
-[ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
+
 [ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
-[ext_resource type="PackedScene" uid="uid://ccjhbbs2j2mdk" path="res://ui/card_selection/card_cost_selection.tscn" id="43_ccsel"]
+
+[ext_resource type="Script" uid="uid://ccfhmn0cjs704" path="res://scenes/game_world/battle_state_controller.gd" id="44_btlsf"]
+
+[ext_resource type="Script" uid="uid://dp7odwuufuohn" path="res://ui/world_ui/board_overlay.gd" id="46_overlay"]
+
+[ext_resource type="PackedScene" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
+
+[ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
+
+[ext_resource type="PackedScene" path="res://ui/world_ui/game_world_ui.tscn" id="battle_hud"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -67,7 +76,7 @@ script = ExtResource("17_lorak")
 [sub_resource type="Gradient" id="Gradient_lorak"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.366197, 1)
-colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
+colors = PackedColorArray(0.025, 0.038, 0.065, 1, 0.035, 0.095, 0.11, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ht6dc"]
 gradient = SubResource("Gradient_lorak")
@@ -89,31 +98,13 @@ tile_layout = 5
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_udifo")
 
-[sub_resource type="Curve" id="Curve_udifo"]
-_data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.75), -2.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_qnbvx"]
-_limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, -1), 0.0, 6.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 6.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="LabelSettings" id="LabelSettings_0br8l"]
-font_size = 40
-font_color = Color(0.823529, 0.788235, 0.647059, 1)
-outline_size = 5
-outline_color = Color(0.294118, 0.239216, 0.266667, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhwwd"]
-size = Vector2(1924, 699)
-
-[sub_resource type="Gradient" id="Gradient_xw31r"]
+[sub_resource type="Gradient" id="Gradient_wc6i6"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0.605536, 1)
 colors = PackedColorArray(0, 0, 0, 0, 2, 0, 0.026, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3kc8b"]
-gradient = SubResource("Gradient_xw31r")
+gradient = SubResource("Gradient_wc6i6")
 width = 1920
 height = 1080
 use_hdr = true
@@ -121,497 +112,123 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udifo"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0sev3"]
-atlas = ExtResource("42_0am1i")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ypuix"]
-atlas = ExtResource("42_0am1i")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mffv"]
-atlas = ExtResource("42_0am1i")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hdnyo"]
-atlas = ExtResource("42_0am1i")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1qvqp"]
-atlas = ExtResource("42_0am1i")
-region = Rect2(0, 32, 32, 32)
-
-[node name="GameWorld" type="Node2D"]
+[node name="GameWorld" type="Node2D" unique_id=1389499557]
 script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
 audio_playlist = SubResource("AudioStreamPlaylist_ht6dc")
-metadata/_edit_vertical_guides_ = [1876.0, 1367.0]
-metadata/_edit_horizontal_guides_ = [112.0, 961.0]
 
-[node name="WorldCamera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+[node name="WorldCamera" type="Node2D" parent="." unique_id=1631417894 node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
+position = Vector2(0, 35)
 script = ExtResource("16_qc6v1")
 follow_mode = 2
 follow_target = NodePath("../Tilemap/BaseLayer")
-zoom = Vector2(3, 3)
+zoom = Vector2(2.5, 2.5)
 tween_resource = SubResource("Resource_bumdp")
+follow_offset = Vector2(0, 35)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="ParallaxBackgroundNode" type="Node2D" parent="."]
+[node name="ParallaxBackgroundNode" type="Node2D" parent="." unique_id=1130594946]
 
-[node name="ParallaxBackground" type="Parallax2D" parent="ParallaxBackgroundNode"]
+[node name="ParallaxBackground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1807066080]
 physics_interpolation_mode = 1
 scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(1280, 1280)
 repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(10, -20)
 
-[node name="ColorRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxBackground"]
+[node name="ColorRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxBackground" unique_id=663436897]
 custom_minimum_size = Vector2(2560, 2560)
 offset_right = 2560.0
 offset_bottom = 2560.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_ht6dc")
 
-[node name="ParallaxMidground" type="Parallax2D" parent="ParallaxBackgroundNode"]
+[node name="ParallaxMidground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1907417246]
 physics_interpolation_mode = 1
 scroll_scale = Vector2(0.25, 0.25)
 repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(-5, 5)
 
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxMidground"]
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxMidground" unique_id=1139902666]
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("39_lorak")
 
-[node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode"]
+[node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1050922327]
 physics_interpolation_mode = 1
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(5, -5)
 
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxForeground"]
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxForeground" unique_id=712939182]
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("40_ht6dc")
 
-[node name="MapCamera" type="Camera2D" parent="." groups=["map_camera"]]
+[node name="MapCamera" type="Camera2D" parent="." unique_id=373719138 groups=["map_camera"]]
+top_level = true
 editor_draw_limits = true
 script = ExtResource("3_bumdp")
 
-[node name="PhantomCameraHost" type="Node" parent="MapCamera"]
+[node name="PhantomCameraHost" type="Node" parent="MapCamera" unique_id=941711093]
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("4_bumdp")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="Tilemap" type="Node2D" parent="." groups=["map_layer"]]
+[node name="Tilemap" type="Node2D" parent="." unique_id=1204817531 groups=["map_layer"]]
 script = ExtResource("1_3wu0g")
 map_height = 20
 mana_weight = 1
 warp_weight = 1
 ruin_tile_effects = Array[ExtResource("12_3lu4o")]([ExtResource("13_wc6i6"), ExtResource("14_u6b8t"), ExtResource("15_g77xe"), ExtResource("16_p5igc"), ExtResource("17_3u2ga"), ExtResource("18_dc582"), ExtResource("19_dpyoc")])
 
-[node name="BaseLayer" type="TileMapLayer" parent="Tilemap"]
+[node name="BaseLayer" type="TileMapLayer" parent="Tilemap" unique_id=1805553683]
+modulate = Color(0.78, 0.85, 0.88, 1)
 tile_set = ExtResource("1_tqoos")
 
-[node name="FogLayer" type="TileMapLayer" parent="Tilemap"]
+[node name="FogLayer" type="TileMapLayer" parent="Tilemap" unique_id=148479914]
+modulate = Color(0.24, 0.32, 0.42, 1)
 z_index = 3
 tile_set = ExtResource("3_0jtfi")
 
-[node name="HightlightLayer" type="TileMapLayer" parent="Tilemap"]
+[node name="HightlightLayer" type="TileMapLayer" parent="Tilemap" unique_id=466562403]
 tile_set = SubResource("TileSet_qnbvx")
 
-[node name="CardTargetHighlights" type="Node2D" parent="Tilemap"]
+[node name="CardTargetHighlights" type="Node2D" parent="Tilemap" unique_id=1105399626]
 z_index = 2
+script = ExtResource("46_overlay")
 
-[node name="CenterMarker" type="Marker2D" parent="Tilemap"]
+[node name="CenterMarker" type="Marker2D" parent="Tilemap" unique_id=744458310]
 
-[node name="EnemyHandler" type="Node2D" parent="."]
+[node name="EnemyHandler" type="Node2D" parent="." unique_id=1880603161]
 script = ExtResource("12_lsh46")
 
-[node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("player", "player_hand") groups=["player_handler"]]
+[node name="BattleState" type="Node" parent="." unique_id=1068612990 node_paths=PackedStringArray("game_world", "player_handler", "enemy_handler")]
+script = ExtResource("44_btlsf")
+game_world = NodePath("..")
+player_handler = NodePath("../PlayerHandler")
+enemy_handler = NodePath("../EnemyHandler")
+
+[node name="PlayerHandler" type="Node" parent="." unique_id=1145363824 node_paths=PackedStringArray("player") groups=["player_handler"]]
 script = ExtResource("13_wek56")
 player = NodePath("../Player")
-player_hand = NodePath("../GameWorldUI/PlayerUI/Hand")
 
-[node name="Player" parent="." node_paths=PackedStringArray("stats_ui", "status_handler") instance=ExtResource("5_dlaip")]
-stats_ui = NodePath("../GameWorldUI/PlayerUI/Stats")
-status_handler = NodePath("../GameWorldUI/PlayerUI/StatusHandler")
+[node name="Player" parent="." unique_id=247938198 instance=ExtResource("5_dlaip")]
 
-[node name="CardTargetSelector" parent="." instance=ExtResource("6_ph1f2")]
+[node name="CardTargetSelector" parent="." unique_id=1152466135 instance=ExtResource("6_ph1f2")]
 
-[node name="GameWorldUI" type="CanvasLayer" parent="." groups=["ui_layer"]]
-layer = 4
-script = ExtResource("13_y5rsn")
+[node name="GameWorldUI" parent="." instance=ExtResource("battle_hud")]
 
-[node name="DebugUI" type="Control" parent="GameWorldUI" node_paths=PackedStringArray("base_layer", "map_camera")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("5_cmh4g")
-base_layer = NodePath("../../Tilemap/BaseLayer")
-map_camera = NodePath("../../MapCamera")
-
-[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/DebugUI"]
-visible = false
-layout_mode = 0
-offset_left = 1600.0
-offset_top = 448.0
-offset_right = 1640.0
-offset_bottom = 488.0
-
-[node name="DebugContainer" type="VBoxContainer" parent="GameWorldUI/DebugUI/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="EnemyUI" type="Control" parent="GameWorldUI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = ExtResource("23_ht6dc")
-
-[node name="EnemyStats" type="Control" parent="GameWorldUI/EnemyUI"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -553.0
-offset_top = 95.0
-offset_right = -49.0
-offset_bottom = 258.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="EnemyStatsScroll" type="ScrollContainer" parent="GameWorldUI/EnemyUI/EnemyStats"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -133.0
-grow_horizontal = 2
-grow_vertical = 2
-follow_focus = true
-
-[node name="MarginContainer" type="MarginContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 10
-
-[node name="EnemyStatsContainer" type="GridContainer" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-theme_override_constants/h_separation = 5
-theme_override_constants/v_separation = 5
-columns = 3
-
-[node name="EnemyIntentPanel" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="EnemyIntentPanel2" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="EnemyIntentPanel3" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="EnemyIntentPanel4" parent="GameWorldUI/EnemyUI/EnemyStats/EnemyStatsScroll/MarginContainer/EnemyStatsContainer" instance=ExtResource("25_oia7h")]
-layout_mode = 2
-
-[node name="PlayerUI" type="Control" parent="GameWorldUI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="CardSpotlight" type="HBoxContainer" parent="GameWorldUI/PlayerUI"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-
-[node name="Hand" type="Control" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("player", "card_spotlight")]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -270.0
-offset_right = 488.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("7_pdbwf")
-player = NodePath("../../../Player")
-hand_curve = SubResource("Curve_udifo")
-rotation_curve = SubResource("Curve_qnbvx")
-x_sep = -20
-y_max = -25
-card_spotlight = NodePath("../CardSpotlight")
-
-[node name="Stats" parent="GameWorldUI/PlayerUI" instance=ExtResource("12_odt01")]
-layout_mode = 0
-offset_left = 1696.0
-offset_top = 808.0
-offset_right = 1876.0
-offset_bottom = 1056.0
-
-[node name="StatusHandler" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("status_owner") instance=ExtResource("20_g7x0y")]
-layout_mode = 0
-offset_left = 1552.0
-offset_top = 808.0
-offset_right = 1592.0
-offset_bottom = 848.0
-status_owner = NodePath("../../../Player")
-status_icon_size = 70
-
-[node name="TileInfo" parent="GameWorldUI/PlayerUI" instance=ExtResource("19_mf52o")]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 112.0
-offset_right = 322.0
-offset_bottom = 360.0
-
-[node name="RoundInfoUI" parent="GameWorldUI/PlayerUI" instance=ExtResource("31_jwlkc")]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 360.0
-offset_right = 322.0
-offset_bottom = 465.0
-
-[node name="BountyUI" type="Panel" parent="GameWorldUI/PlayerUI"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 465.0
-offset_right = 322.0
-offset_bottom = 611.0
-theme = ExtResource("24_mkc5e")
-theme_type_variation = &"HudPanelBackground"
-script = ExtResource("29_qnbvx")
-
-[node name="MainMargin" type="MarginContainer" parent="GameWorldUI/PlayerUI/BountyUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Panel" type="Panel" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin"]
-layout_mode = 2
-theme_type_variation = &"HudPanelMain"
-
-[node name="BodyMargin" type="MarginContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin"]
-layout_mode = 2
-alignment = 1
-
-[node name="TitleLabel" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Bounties"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Type" type="HBoxContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
-text = "Gold"
-vertical_alignment = 1
-
-[node name="BountyGoldLabel" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-text = "0"
-horizontal_alignment = 1
-
-[node name="Type2" type="HBoxContainer" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Label" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type2"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.5
-text = "Resources"
-vertical_alignment = 1
-
-[node name="BountyResLabel" type="Label" parent="GameWorldUI/PlayerUI/BountyUI/MainMargin/Panel/BodyMargin/VBoxContainer/Type2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-text = "0"
-
-[node name="EndTurnButton" type="Button" parent="GameWorldUI/PlayerUI"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.7125
-anchor_top = 0.748148
-anchor_right = 0.800521
-anchor_bottom = 0.799074
-offset_right = 1.0
-theme = ExtResource("24_mkc5e")
-disabled = true
-text = "End Turn"
-metadata/_edit_use_anchors_ = true
-
-[node name="DrawPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = -184.0
-offset_right = 192.0
-offset_bottom = -56.0
-grow_vertical = 0
-texture_normal = ExtResource("21_7fs1y")
-counter = NodePath("Counter")
-
-[node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/DrawPileButton"]
-layout_mode = 0
-offset_left = 80.0
-offset_top = 80.0
-offset_right = 126.0
-offset_bottom = 135.0
-text = "99"
-label_settings = SubResource("LabelSettings_0br8l")
-horizontal_alignment = 1
-
-[node name="DiscardPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("20_g06lf")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1392.0
-offset_top = 896.0
-offset_right = 1520.0
-offset_bottom = 1024.0
-texture_normal = ExtResource("21_0br8l")
-counter = NodePath("Counter")
-
-[node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/DiscardPileButton"]
-layout_mode = 0
-offset_top = 80.0
-offset_right = 46.0
-offset_bottom = 135.0
-text = "99"
-label_settings = SubResource("LabelSettings_0br8l")
-horizontal_alignment = 1
-
-[node name="ExhaustPileButton" parent="GameWorldUI/PlayerUI" node_paths=PackedStringArray("counter") instance=ExtResource("32_udifo")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1339.0
-offset_top = 876.0
-offset_right = 1403.0
-offset_bottom = 940.0
-counter = NodePath("Counter")
-
-[node name="Counter" type="Label" parent="GameWorldUI/PlayerUI/ExhaustPileButton"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -7.0
-offset_top = -30.0
-offset_right = 37.0
-offset_bottom = 12.0
-grow_vertical = 0
-text = "99"
-
-[node name="CardDropArea" type="Area2D" parent="GameWorldUI"]
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameWorldUI/CardDropArea"]
-position = Vector2(963, 339.5)
-shape = SubResource("RectangleShape2D_bhwwd")
-debug_color = Color(0, 0.6, 0.701961, 0.0509804)
-
-[node name="ToolTip" parent="GameWorldUI" instance=ExtResource("25_5nmku")]
-offset_left = -768.0
-offset_top = 896.0
-offset_right = -384.0
-offset_bottom = 1018.0
-theme = ExtResource("23_ht6dc")
-
-[node name="WorldMessageContainer" parent="GameWorldUI" instance=ExtResource("30_xw31r")]
-offset_top = 115.0
-offset_right = -43.0
-offset_bottom = -394.0
-mouse_filter = 2
-theme = ExtResource("23_ht6dc")
-
-[node name="WorldMessage" parent="GameWorldUI/WorldMessageContainer" instance=ExtResource("25_g06lf")]
-layout_mode = 2
-
-[node name="CardCostSelection" parent="GameWorldUI" instance=ExtResource("43_ccsel")]
-
-[node name="CanvasModulate" type="CanvasModulate" parent="GameWorldUI"]
-color = Color(0.814844, 0.814844, 0.814844, 1)
-
-[node name="Effects" type="CanvasLayer" parent="." groups=["fx_layer"]]
+[node name="Effects" type="CanvasLayer" parent="." unique_id=131599209 groups=["fx_layer"]]
 layer = 4
 
-[node name="RedFlash" type="TextureRect" parent="Effects"]
+[node name="RedFlash" type="TextureRect" parent="Effects" unique_id=1869614289]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -622,11 +239,11 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_3kc8b")
 script = ExtResource("33_hgfka")
 
-[node name="Timer" type="Timer" parent="Effects/RedFlash"]
+[node name="Timer" type="Timer" parent="Effects/RedFlash" unique_id=2135644533]
 wait_time = 0.1
 one_shot = true
 
-[node name="ProjectileStart" type="Control" parent="Effects" groups=["projectile_start"]]
+[node name="ProjectileStart" type="Control" parent="Effects" unique_id=1201470629 groups=["projectile_start"]]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 5
@@ -636,599 +253,6 @@ offset_top = 784.0
 offset_bottom = 784.0
 grow_horizontal = 2
 
-[node name="BattleOverLayer" type="CanvasLayer" parent="."]
-layer = 5
+[node name="TutorialUI" parent="." instance=ExtResource("battle_tutorial")]
 
-[node name="BattleOverPanel" parent="BattleOverLayer" instance=ExtResource("24_vophv")]
-visible = false
-mouse_filter = 2
-
-[node name="CardPileViews" type="CanvasLayer" parent="."]
-layer = 6
-
-[node name="DrawPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
-unique_name_in_owner = true
-visible = false
-mouse_filter = 2
-
-[node name="DiscardPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
-unique_name_in_owner = true
-visible = false
-mouse_filter = 2
-
-[node name="ExhaustPileView" parent="CardPileViews" instance=ExtResource("29_lsh46")]
-unique_name_in_owner = true
-visible = false
-
-[node name="StatusViewLayer" type="CanvasLayer" parent="."]
-layer = 6
-
-[node name="StatusView" parent="StatusViewLayer" instance=ExtResource("33_csgag")]
-visible = false
-mouse_filter = 2
-
-[node name="TutorialUI" type="CanvasLayer" parent="."]
-process_mode = 3
-layer = 4
-visible = false
-script = ExtResource("39_udifo")
-
-[node name="BattleTutorial" type="Control" parent="TutorialUI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("23_ht6dc")
-script = ExtResource("40_qnbvx")
-
-[node name="ColorRect" type="ColorRect" parent="TutorialUI/BattleTutorial"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.294, 0.239, 0.267, 0.625)
-
-[node name="TabContainer" type="TabContainer" parent="TutorialUI/BattleTutorial"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_udifo")
-current_tab = 0
-tabs_visible = false
-
-[node name="UI" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="TileLabel" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 382.0
-offset_top = 402.0
-offset_right = 838.0
-offset_bottom = 599.0
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Current Tile
-Info"
-horizontal_alignment = 1
-
-[node name="TileLabel2" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -228.0
-offset_top = 111.0
-offset_right = 228.0
-offset_bottom = 308.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "UI"
-horizontal_alignment = 1
-
-[node name="TextureRect7" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 277.0
-offset_top = 250.0
-offset_right = 484.0
-offset_bottom = 347.0
-rotation = 0.722988
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect8" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 66.0
-offset_top = 833.0
-offset_right = 187.0
-offset_bottom = 930.0
-rotation = -1.5708
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect9" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 1569.0
-offset_top = 556.0
-offset_right = 1690.0
-offset_bottom = 653.0
-rotation = -1.5708
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect10" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 792.0
-offset_top = 760.0
-offset_right = 913.0
-offset_bottom = 857.0
-rotation = -1.5708
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect11" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 1365.0
-offset_top = 1032.0
-offset_right = 1556.0
-offset_bottom = 1129.0
-rotation = -2.88281
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 1318.0
-offset_top = 941.0
-offset_right = 1509.0
-offset_bottom = 1038.0
-rotation = -2.88281
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="DeckLabel" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 22.0
-offset_top = 603.0
-offset_right = 386.0
-offset_bottom = 700.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Draw Pile"
-horizontal_alignment = 1
-
-[node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 759.0
-offset_top = 837.0
-offset_right = 1203.0
-offset_bottom = 934.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Discard Pile"
-horizontal_alignment = 1
-
-[node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 759.0
-offset_top = 754.0
-offset_right = 1207.0
-offset_bottom = 851.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Exhaust Pile"
-horizontal_alignment = 1
-
-[node name="DeckLabel2" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 674.0
-offset_top = 545.0
-offset_right = 1038.0
-offset_bottom = 642.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Hand"
-horizontal_alignment = 1
-
-[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/UI"]
-layout_mode = 0
-offset_left = 1387.0
-offset_top = 351.0
-offset_right = 1871.0
-offset_bottom = 448.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Enemy Intent"
-horizontal_alignment = 1
-
-[node name="TileTypes" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -662.0
-offset_top = -286.0
-offset_right = 662.0
-offset_bottom = 370.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = SubResource("AtlasTexture_0sev3")
-
-[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-text = "- Resource Nodes: Hold 0-3 resources; harvest with cards or effects to pay relic costs."
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = SubResource("AtlasTexture_ypuix")
-
-[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "- Corrupted Zones: Twisted by the Rift's energy; impassable for you and enemies."
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = SubResource("AtlasTexture_7mffv")
-
-[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "- Mana Wells: Gain +1 energy when you step onto it and while you remain on the well."
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = SubResource("AtlasTexture_hdnyo")
-
-[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "- Rift Gates: Step through to blink to another random gate if one exists."
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-texture = SubResource("AtlasTexture_1qvqp")
-
-[node name="Label" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-text = "- Ancient Ruins: Trigger a random effect (block, energy, draw, attunement, resource find, damage, or nothing)."
-
-[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/TileTypes"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -242.0
-offset_top = 114.0
-offset_right = 242.0
-offset_bottom = 211.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Tile Types"
-horizontal_alignment = 1
-
-[node name="Cards" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[node name="Visuals" parent="TutorialUI/BattleTutorial/TabContainer/Cards" instance=ExtResource("40_oia7h")]
-layout_mode = 1
-offset_left = 834.0
-offset_top = 671.0
-offset_right = 1014.0
-offset_bottom = 911.0
-card = ExtResource("41_jwlkc")
-
-[node name="TextureRect12" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 1023.0
-offset_top = 834.0
-offset_right = 1230.0
-offset_bottom = 931.0
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect15" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 972.0
-offset_top = 740.0
-offset_right = 1179.0
-offset_bottom = 837.0
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect13" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 610.0
-offset_top = 830.0
-offset_right = 817.0
-offset_bottom = 927.0
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-
-[node name="TextureRect14" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 692.0
-offset_top = 657.0
-offset_right = 899.0
-offset_bottom = 754.0
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-
-[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 1178.0
-offset_top = 836.0
-offset_right = 1662.0
-offset_bottom = 933.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Card Cost"
-horizontal_alignment = 1
-
-[node name="DeckLabel6" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 1155.0
-offset_top = 745.0
-offset_right = 1639.0
-offset_bottom = 842.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Card Effect"
-horizontal_alignment = 1
-
-[node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 270.0
-offset_top = 653.0
-offset_right = 754.0
-offset_bottom = 750.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Card Type"
-horizontal_alignment = 1
-
-[node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 0
-offset_left = 159.0
-offset_top = 818.0
-offset_right = 643.0
-offset_bottom = 915.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Card Rarity"
-horizontal_alignment = 1
-
-[node name="DeckLabel7" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -242.0
-offset_top = 101.0
-offset_right = 242.0
-offset_bottom = 198.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Cards"
-horizontal_alignment = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/BattleTutorial/TabContainer/Cards"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -645.0
-offset_top = -317.0
-offset_right = 646.0
-offset_bottom = 72.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "Combat runs on your deck. Costs sit at the top-left; type and rarity sit along the footer.
-
-[b]Attack[/b]: Deal damage with your current modifiers.
-[b]Defense[/b]: Gain block that clears at the start of your next turn.
-[b]Skill[/b]: Utility plays that buff, debuff, or set up future turns.
-[b]Movement[/b]: Reposition on the grid; some refund or chain with tile bonuses.
-[b]Power/Mutation[/b]: Persistent effects that stay active for the encounter.
-[b]Summon/Resource[/b]: Deploy allies or harvest tiles for resources.
-
-Energy resets each turn—sequence plays around enemy intents and positioning."
-fit_content = true
-
-[node name="HowToBattle" type="Control" parent="TutorialUI/BattleTutorial/TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 3
-
-[node name="TextureRect9" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 1551.0
-offset_top = 744.0
-offset_right = 1785.0
-offset_bottom = 841.0
-rotation = -1.5708
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="TextureRect11" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 1103.0
-offset_top = 775.0
-offset_right = 1337.0
-offset_bottom = 872.0
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-
-[node name="TextureRect10" type="TextureRect" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 1582.0
-offset_top = 935.0
-offset_right = 2035.0
-offset_bottom = 1032.0
-rotation = -2.50777
-texture = ExtResource("39_ht6dc")
-expand_mode = 1
-flip_h = true
-
-[node name="DeckLabel3" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 1384.0
-offset_top = 429.0
-offset_right = 1868.0
-offset_bottom = 526.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Enemy Status"
-horizontal_alignment = 1
-
-[node name="DeckLabel6" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -242.0
-offset_top = 111.0
-offset_right = 242.0
-offset_bottom = 208.0
-grow_horizontal = 2
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Battling"
-horizontal_alignment = 1
-
-[node name="DeckLabel4" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 1064.0
-offset_top = 522.0
-offset_right = 1548.0
-offset_bottom = 619.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "Player Status"
-horizontal_alignment = 1
-
-[node name="DeckLabel5" type="Label" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 696.0
-offset_top = 773.0
-offset_right = 1195.0
-offset_bottom = 870.0
-theme_override_colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
-theme_override_font_sizes/font_size = 75
-text = "End turn"
-horizontal_alignment = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/BattleTutorial/TabContainer/HowToBattle"]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 320.0
-offset_right = 1026.0
-offset_bottom = 656.0
-bbcode_enabled = true
-text = "Objective: Destroy the Obelisk; when it falls the battle ends even if minions remain.
-
-Turn Start: Draw your hand; energy resets; block clears. Riftwalker perk: first movement card each turn refunds its cost, and the first Obelisk hit each turn grants +1 energy.
-
-Turn Flow: Play cards in any order; right-click cancels aiming. End turn to let enemies act.
-
-Board Pressure: Obelisks spawn reinforcements on a timer, and every 3 enemy rounds the outer ring is consumed—anything on those tiles dies.
-
-Tips: Mana Wells grant +1 energy on entry; resource tiles feed relic costs; corrupted tiles are off-limits."
-fit_content = true
-
-[node name="Control" type="Control" parent="TutorialUI/BattleTutorial"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -160.0
-offset_top = -105.0
-offset_right = 160.0
-offset_bottom = -52.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-
-[node name="NextButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 206.0
-offset_right = 308.0
-offset_bottom = 52.0
-text = "Next"
-
-[node name="PrevButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 161.0
-offset_bottom = 52.0
-text = "Previous"
-
-[node name="ContinueButton" type="Button" parent="TutorialUI/BattleTutorial/Control"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 0
-offset_left = 207.0
-offset_right = 339.0
-offset_bottom = 52.0
-text = "Got it"
-
-[connection signal="pressed" from="TutorialUI/BattleTutorial/Control/NextButton" to="TutorialUI/BattleTutorial" method="_on_next_button_pressed"]
-[connection signal="pressed" from="TutorialUI/BattleTutorial/Control/PrevButton" to="TutorialUI/BattleTutorial" method="_on_prev_button_pressed"]
-[connection signal="pressed" from="TutorialUI/BattleTutorial/Control/ContinueButton" to="TutorialUI" method="_on_button_pressed"]
+[node name="BattlePresentation" parent="." unique_id=274044338 instance=ExtResource("presentation_scene")]

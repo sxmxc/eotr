@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://74tot6at6obv"]
+[gd_resource type="Theme" format=3 uid="uid://74tot6at6obv"]
 
 [ext_resource type="StyleBox" uid="uid://b3k5sjqx0nv3y" path="res://resources/themes/card_panel_hover.tres" id="1_aesg8"]
 

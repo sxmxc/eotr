@@ -31,7 +31,10 @@ var current_action: EnemyAction : set = set_current_action
 var current_tile_position : Vector2i
 var turn_ticker : int = 0
 var hovered: bool = false
+var queue_button: Button = null
+var queue_hovered: bool = false
 var is_dying := false
+var pending_damage := 0
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
@@ -46,7 +49,7 @@ func _ready():
 	
 	
 func _physics_process(_delta):
-	current_tile_position = tilemap.base_layer.local_to_map(position)
+	pass # Tile position is authoritative; feedback must not move a unit logically.
 	
 
 func set_stats(value: EnemyStats) -> void:
@@ -87,22 +90,37 @@ func update_enemy() -> void:
 	
 	sprite_2d.texture = stats.board_icon
 	setup_ai()
-	update_stats()
+	if stats_ui:
+		update_stats()
+		stats_ui.hide()
 		
 func update_stats():
+	if not stats_ui or not stats:
+		return
 	stats_ui.update_stats(stats)
 	Events.enemy_updated.emit(self)
 
 func update_intent() -> void:
 	if current_action:
 		current_action.update_intent_text()
-		stats_ui.intent_ui.update_intent(current_action.intent)
+	Events.enemy_updated.emit(self)
 
 func do_turn() -> void:
+	var evaluation_start := Time.get_ticks_usec()
 	#stats.block = 0
+	if is_dying or stats.health <= 0:
+		Events.enemy_action_completed.emit(self)
+		return
+	if not current_action or not current_action.is_eligible():
+		if current_action:
+			Events.enemy_decision_rejected.emit(self, "intent_became_invalid")
+		current_action = enemy_action_picker.get_action()
 	if not current_action:
+		TelemetryManager.track_event("enemy_waited", {"enemy": stats.enemy_name, "reason": "no_legal_action"})
+		Events.enemy_action_completed.emit(self)
 		return
 		
+	TelemetryManager.track_event("enemy_action", {"enemy": stats.enemy_name, "action": str(current_action.name), "turn": turn_ticker, "evaluation_us": Time.get_ticks_usec() - evaluation_start})
 	current_action.perform_action()
 	turn_ticker += 1
 	
@@ -111,8 +129,10 @@ func take_damage(
 ) -> void:
 	if stats.health <= 0:
 		return
+	pending_damage += 1
 
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
+	print("[Enemy] %s incoming dmg=%s mod=%s direct=%s -> modified=%s (health=%s, block=%s)" % [name, damage, which_modifier, direct, modified_damage, stats.health, stats.block])
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
 	sprite_2d.material = WHITE_SPRITE_MATERIAL
 	sprite_2d.self_modulate = profile.tint_color
@@ -131,17 +151,18 @@ func take_damage(
 	if direct:
 		tween.tween_callback(Utils.shake.bind(self, profile.shake_strength, profile.shake_duration))
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
-		tween.tween_interval(0.17)
+		tween.tween_interval(Utils.presentation_duration(0.17))
 	else:
 		tween.tween_callback(Utils.shake.bind(self, profile.shake_strength, profile.shake_duration))
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
-		tween.tween_interval(0.17)
+		tween.tween_interval(Utils.presentation_duration(0.17))
 	
 	tween.finished.connect( 
 		func(): 
+			pending_damage -= 1
 			sprite_2d.material = null
 			sprite_2d.self_modulate = Color.WHITE
-			if stats.health <= 0:
+			if stats.health <= 0 and not is_dying and pending_damage == 0:
 				Events.enemy_died.emit(self)
 				do_death()
 				)
@@ -154,6 +175,8 @@ func _begin_death_sequence() -> bool:
 	return true
 
 func _play_death_feedback() -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	if circle_indicator:
 		circle_indicator.hide()
 	if stats_ui:
@@ -192,8 +215,11 @@ func _play_death_feedback() -> void:
 		SoundManager.play_sound_random_pitch(death_sound)
 
 func _fade_out_and_queue_free(duration: float = DEATH_FADE_DURATION) -> void:
+	if DisplayServer.get_name() == "headless":
+		queue_free.call_deferred()
+		return
 	var tween = create_tween()
-	tween.tween_property(sprite_2d, "scale", sprite_2d.scale * DEATH_SCALE_PUNCH, 0.1)\
+	tween.tween_property(sprite_2d, "scale", sprite_2d.scale * DEATH_SCALE_PUNCH, Utils.presentation_duration(0.1))\
 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property(self, "modulate", Color.TRANSPARENT, duration)
 	tween.tween_callback(queue_free)
@@ -201,10 +227,12 @@ func _fade_out_and_queue_free(duration: float = DEATH_FADE_DURATION) -> void:
 func do_death() -> void:
 	if not _begin_death_sequence():
 		return
-	Talo.stats.track("enemies_killed")
+	TelemetryManager.track_stat("enemies_killed")
 	_fade_out_and_queue_free()
 
 func get_player_tile_position() -> Vector2i:
+	if tilemap:
+		return tilemap.player_position
 	var player = get_tree().get_first_node_in_group("player")
 	if player and tilemap and tilemap.base_layer:
 		var player_tile = tilemap.base_layer.local_to_map(tilemap.base_layer.to_local(player.global_position))
@@ -218,6 +246,9 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		if tilemap.is_tile_behind_fog(current_tile_position):
 			return
 		Events.enemy_selected.emit(self)
+		if is_instance_valid(queue_button):
+			queue_button.grab_focus()
+			queue_button.modulate = Color.WHITE
 
 
 func _on_area_2d_mouse_entered() -> void:
@@ -225,7 +256,9 @@ func _on_area_2d_mouse_entered() -> void:
 		return
 	hovered = true
 	circle_indicator.show()
-	stats_ui.grab_focus()
+	if stats_ui:
+		stats_ui.show()
+		stats_ui.grab_focus()
 	pass # Replace with function body.
 
 
@@ -234,8 +267,33 @@ func _on_area_2d_mouse_exited() -> void:
 		return
 	hovered = false
 	circle_indicator.hide()
-	stats_ui.release_focus()
+	if stats_ui and not stats_ui.inspection_pinned:
+		stats_ui.hide()
+		stats_ui.release_focus()
 	pass # Replace with function body.
+
+
+func set_queue_button(button: Button) -> void:
+	queue_button = button
+	if not queue_button:
+		return
+	queue_button.mouse_entered.connect(_on_queue_button_entered)
+	queue_button.mouse_exited.connect(_on_queue_button_exited)
+
+
+func _on_queue_button_entered() -> void:
+	queue_hovered = true
+	circle_indicator.show()
+	if stats_ui:
+		stats_ui.show()
+
+
+func _on_queue_button_exited() -> void:
+	queue_hovered = false
+	if not hovered:
+		circle_indicator.hide()
+		if stats_ui and not stats_ui.inspection_pinned:
+			stats_ui.hide()
 
 func get_gold_value()-> int:
 	return stats.gold_value

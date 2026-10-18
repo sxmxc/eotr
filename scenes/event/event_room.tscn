@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqvmg8kciy6th"]
+[gd_scene format=3 uid="uid://bqvmg8kciy6th"]
 
 [ext_resource type="Script" uid="uid://btl3x4ojg4jq7" path="res://scenes/event/event_room.gd" id="1_kgld7"]
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="2_jwbhv"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2_jwbhv"]
 
-[node name="EventRoom" type="Control"]
+[node name="EventRoom" type="Control" unique_id=2104578590]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ grow_vertical = 2
 theme = ExtResource("2_jwbhv")
 script = ExtResource("1_kgld7")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=854919544]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -29,23 +29,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"HudPanelMain"
 
-[node name="Margin" type="MarginContainer" parent="Panel"]
+[node name="Margin" type="MarginContainer" parent="Panel" unique_id=2041925735]
+theme_type_variation = &"PopupInset"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 18
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 18
 
-[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=1234395260]
+theme_type_variation = &"ListStack"
 layout_mode = 2
-theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="Panel/Margin/VBox"]
+[node name="TitleLabel" type="Label" parent="Panel/Margin/VBox" unique_id=97496247]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -53,7 +50,7 @@ text = "Event"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BodyLabel" type="RichTextLabel" parent="Panel/Margin/VBox"]
+[node name="BodyLabel" type="RichTextLabel" parent="Panel/Margin/VBox" unique_id=1296413478]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -63,24 +60,24 @@ text = "..."
 fit_content = true
 scroll_active = false
 
-[node name="Buttons" type="VBoxContainer" parent="Panel/Margin/VBox"]
+[node name="Buttons" type="VBoxContainer" parent="Panel/Margin/VBox" unique_id=1888564877]
+theme_type_variation = &"SmallStack"
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
 
-[node name="OptionAButton" type="Button" parent="Panel/Margin/VBox/Buttons"]
+[node name="OptionAButton" type="Button" parent="Panel/Margin/VBox/Buttons" unique_id=27562120]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Option A"
 
-[node name="OptionBButton" type="Button" parent="Panel/Margin/VBox/Buttons"]
+[node name="OptionBButton" type="Button" parent="Panel/Margin/VBox/Buttons" unique_id=1714763970]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Option B"
 
-[node name="LeaveButton" type="Button" parent="Panel/Margin/VBox"]
+[node name="LeaveButton" type="Button" parent="Panel/Margin/VBox" unique_id=1936424644]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" format=3 uid="uid://cwaveng3xr2y"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_0pu7c"]
+[ext_resource type="Script" uid="uid://cwavedaxna0rw" path="res://resources/data/cards/riftwalker/corrosion_wave.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_sound"]
+[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="3_fx"]
+
+[resource]
+script = ExtResource("1_script")
+target_type = 3
+id = "corrosion_wave"
+name = "Corrosion Wave"
+card_rarity = 2
+description = "Deal [b]%s[/b] damage to [b]all enemies[/b] and apply [b]%s[/b] Corroded."
+energy_cost = 2
+exhaust = true
+sound_fx = ExtResource("2_sound")
+visual_fx = ExtResource("3_fx")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

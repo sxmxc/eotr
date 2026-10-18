@@ -4,6 +4,48 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 ---
 
+**2025-12-15 – Codex**
+- Summary: Centralized targeting into a single TargetSelector with cached valid cells and reusable validators; card drag/aim states now pull highlights from the cache and the movement selector inherits the shared logic (electric arc enabled). Updated planning to mark BKL-043 in review.
+- Files: `scenes/game_world/card_target_selector/card_target_selector.gd`, `scenes/game_world/movement_target_selector/movement_target_selector.gd`, `ui/card_ui/card_states/card_aiming_state.gd`, `ui/card_ui/card_states/card_dragging_state.gd`, `ai/planning/todo.yaml`
+- Verification: Not run (Godot/headless checks not executed here).
+- Follow-ups: In-engine pass to ensure enemy/tile targeting respects fog/adjacency rules, arcs/indicators update smoothly, and cached targets refresh correctly after movement or enemy deaths.
+
+**2025-12-15 – Codex**
+- Summary: Migrated more Riftwalker cards to the CardResolver pipeline: Arcane Explosion and Void Shard now use data-driven damage configs; Overload Shot, Void Surge, and Deminishing Returns build resolver configs at play time for dynamic damage. Added a resolver-first note to the card workflow doc.
+- Files: `resources/data/cards/riftwalker/arcane_explosion.gd`, `.tres`, `resources/data/cards/riftwalker/void_shard.gd`, `.tres`, `resources/data/cards/riftwalker/overload_shot.gd`, `resources/data/cards/riftwalker/void_surge.gd`, `resources/data/cards/riftwalker/deminishing_returns.gd`, `ai/docs/workflows.md`
+- Verification: Manual sandbox check advised for new resolver cards; no automated tests run.
+- Follow-ups: Migrate remaining cards once resolver supports energy/status/multi-hit, and consider adding resolver effect types for energy/status.
+
+**2025-12-15 – Codex**
+- Summary: Expanded CardResolver to support ENERGY, DRAW, STATUS, and MULTI_DAMAGE effects (with multi-hit + intervals) and migrated a wide set of Riftwalker cards to resolver configs: Adrenaline Rush, Arcane Flame, Chrono Jab, Corroding Shot, Corrosion Wave, Focus, Mana Leech, Mana Surge, Nano Shield, Fracture Pulse, Jab. Resolver now handles status/energy/draw/multi-hit in data-driven configs.
+- Files: `scripts/resources/card/card_effect_config.gd`, `scripts/systems/card_resolver.gd`, `resources/data/cards/riftwalker/adrenaline_rush.gd`, `arcane_flame.gd`, `chrono_jab.gd`, `corroding_shot.gd`, `corrosion_wave.gd`, `focus.gd`, `mana_leech.gd`, `mana_surge.gd`, `nano_shield.gd`, `fracture_pulse.gd`, `jab.gd`
+- Verification: Not run; sandbox smoke test recommended for migrated cards.
+- Follow-ups: Consider migrating remaining complex/status-heavy cards once comfortable; extend resolver with any additional effect types if needed.
+
+**2025-12-15 – Codex**
+- Summary: Fixed movement card validation by ensuring tile targets enter the scene tree before checks and removing get_tree reliance in Phase Step/Quantum Rift; preserved aimed targets on release to keep damage cards (e.g., Arcane Bolt) from losing their selected enemy.
+- Files: `scenes/game_world/card_target_selector/card_target_selector.gd`, `resources/data/cards/riftwalker/phase_step.gd`, `resources/data/cards/riftwalker/quantum_rift.gd`
+- Verification: Not run (Godot/headless checks not executed here).
+- Follow-ups: Re-test movement cards and Arcane Bolt in-engine to confirm targeting sticks, damage applies, and tile validation no longer errors when hovering.
+
+**2025-12-15 – Codex**
+- Summary: Added a CardResolver + CardEffectConfig pipeline for data-driven effects and migrated sample damage/block/move/gather cards (Arcane Bolt, Eldritch Barrier, Phase Step, Echo Harvest) to the resolver; base Card now uses resolver-driven effects when configs are present.
+- Files: `scripts/systems/card_resolver.gd`, `scripts/resources/card/card_effect_config.gd`, `scripts/resources/card/card.gd`, `resources/data/cards/riftwalker/arcane_bolt.gd`, `resources/data/cards/riftwalker/eldritch_barrier.gd`, `resources/data/cards/riftwalker/phase_step.gd`, `resources/data/cards/riftwalker/echo_harvest.gd`
+- Verification: Not run (Godot/headless client not available here).
+- Follow-ups: Expand resolver coverage to the remaining card set/effect types and validate FX/camera context injection in-engine.
+
+**2025-12-15 – Codex**
+- Summary: Added a BattleStateController to own turn/shrink phases, rewired GameWorld to route player end -> enemy loop -> shrink via the controller, and hooked the scene to the new node; updated planning/progress for BKL-041.
+- Files: `scenes/game_world/battle_state_controller.gd`, `scenes/game_world/game_world.gd`, `scenes/game_world/game_world.tscn`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot/headless checks unavailable here).
+- Follow-ups: Play through a few battles to confirm end-turn -> discard -> enemy loop -> shrink sequencing stays in sync and that battle-over handling stops further phase transitions.
+
+**2025-12-07 – Codex**
+- Summary: Added a Corroded end-of-turn debuff (true damage + block shred) and two Riftwalker cards—Corroding Shot (single-target) and Corrosion Wave (AoE, exhaust)—then seeded them into the draftable pool to broaden combat builds.
+- Files: `resources/data/statuses/corroded.gd`, `resources/data/statuses/corroded.tres`, `resources/data/cards/riftwalker/corroding_shot.gd`, `resources/data/cards/riftwalker/corroding_shot.tres`, `resources/data/cards/riftwalker/corrosion_wave.gd`, `resources/data/cards/riftwalker/corrosion_wave.tres`, `resources/data/card_piles/riftwalker_draftable_cards.tres`, `ai/planning/todo.yaml`, `ai/state/progress.json`
+- Verification: Not run (Godot/headless client not available here).
+- Follow-ups: Playtest the corroded package to tune damage/block shred and energy costs; confirm card reward tables surface the new cards at intended rarities.
+
 **2025-11-30 – Codex**
 - Summary: Added battle intro/outro presentation (vignette + audio swell) and tightened discard/draw pacing. New BattlePresentation overlay hooks into GameWorld start/end, and hand cleanup/draw intervals now finish faster with shorter reshuffle trails.
 - Files: `ui/world_ui/battle_presentation.gd`, `scenes/game_world/game_world.gd`, `scenes/player/player_handler.gd`
@@ -105,3 +147,40 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Files: `scenes/game_world/game_world.gd`, `ui/world_ui/battle_over_panel.gd`, `ai/planning/todo.yaml`, `ai/state/progress.json`
 - Verification: Not run (Godot headless/audio checks not executed here).
 - Follow-ups: Verify in-game that the victory/defeat audio plays immediately on the battle over screen and stops cleanly when moving to rewards/map; keep an ear out for any remaining overlap with battle playlists.
+**2026-10-17 – Codex: Godot 4.7.2 / Talo 1.2.0 compatibility**
+- Preserved the existing dirty working tree and addon upgrades. Consulted Godot 4.7 documentation via Context7 and Talo's 1.x identification/events documentation.
+- Migrated identity callbacks to TaloPlayerAlias; centralized event string conversion and identity/preference guards; prevented overlapping identification; applied telemetry opt-out cleanup; routed menu quit through Talo's flush notification.
+- Added safe defaults for partial settings, restored sandbox offline state, removed the menu/data-editor preload cycle, repaired 18 external-resource UIDs, corrected the renderer feature tag, and updated CI to 4.7.2.
+- Fixed Obelisk scene teardown triggering victory and detached world-message timer calls. Added fallback returns to four gradient shaders.
+- Verification: loaded 487 first-party resources; numeric event/alias/opt-out checks; menu, sandbox, new run, save/load, and combat startup. Final isolated headless runner exited 0 with zero failed assertions and no script errors. Hidden D3D12/Forward+ smoke run also passed, with no shader compilation errors.
+- Remaining diagnostics/limits: headless dummy-renderer sampler diagnostics, sandbox Windows certificate-store access failure, a retained MapNode script at shutdown, and stale imported-background UID cache warnings. Live backend delivery, packaged exports, and complete campaign QA remain unverified. Details: `ai/docs/godot-4.7.2-upgrade.md`; repeatable runner: `tools/validate_project.py`.
+
+**2026-10-17 – Codex: scene/resource architecture cleanup**
+- Replaced fourteen identical embedded RGFloat emission images with one compressed binary texture; verified the saved image bytes exactly.
+- Shared the six-emitter ambient effect through one PackedScene across seven screens, preserving every serialized particle property and each layer/position override. Removed 114 first-party text-resource references to generated import caches.
+- Moved BattlePresentation's fixed controls/material into an editor-visible scene, instanced by game_world.tscn, with per-instance material state.
+- Added the scene resource guard to the validation runner and coverage for binary resources, all seven particle layouts, overlay animation completion, and material isolation.
+- Verification: baseline and updated offline Godot 4.7.2 smoke checks passed with zero failed assertions; existing headless shader/certificate/shutdown diagnostics remain. An intermediate run retained more resources; verbose and subsequent checks returned to baseline. No visual/export/campaign QA performed.
+- Remaining work and manual QA: ai/docs/godot-architecture-audit.md. Existing dirty working tree and addons preserved.
+**2026-10-17 – Codex: run.tscn large text-resource warning**
+- The run scene is now text rather than the previous binary run.scn. Its pause menu contained two identical embedded RGFloat images and sixteen cache texture dependencies.
+- Reused menu_emission_points.res and original star PNGs. Reduced run.tscn from 9,916,548 to 35,936 bytes. Compared emission arrays with the previously verified texture source and asserted every node/connection section stayed unchanged.
+- Verification: scene resource guard reports zero problems; all scene resource IDs resolve; compatibility runner loads 490 resources with zero failed assertions. Normal run returned failure on the existing intermittent 8-resource shutdown retention; verbose diagnostic run exited 0 with the existing single MapNode script retention. Existing headless shader/certificate diagnostics remain.
+- Manual QA: reload run.tscn from disk before saving an older editor copy; check opening/closing the pause menu visually.
+**2026-10-17 – Codex: reliable hand cleanup and exhausted decks**
+- Reproduced animation-dependent discard loss, null-card draw errors, and a zero-card empty-tween error. Committed discard state before phase notification, detached standalone controls, guarded empty draws, and completed zero-card draw phases directly.
+- Added focused hand-cycle cases to the existing isolated compatibility scene. Godot 4.7.2 runner passed with 494 resources and zero failed assertions; existing shader/certificate/shutdown diagnostics remain. No rendered visual QA or campaign playthrough. Existing run.tscn edits preserved.
+- Continuity and follow-ups: `ai/docs/continuous-improvement.md`; next investigate card resolution versus end-turn timing and empty enemy turns, establishing actual failures first.
+
+**2026-10-17 – Codex: DataEditor enum startup crash**
+- Fixed _populate_enum_options and _populate_card_filters using inherited Node.name as a dictionary key rather than enum_name/rarity_name. This caused lookups for the key DataEditor and aborted startup population.
+- Added DataEditor scene startup to the compatibility smoke test, checking all enum dropdown counts and that card resource initialization completes.
+- Verification: runtime smoke completed with zero failed assertions and no script errors; diff whitespace checks passed. The runner returned nonzero for the previously observed intermittent shutdown retention (8 resources), alongside existing headless shader/certificate diagnostics.
+
+**2026-10-17 – Codex: shared theme, owned UI scenes, reward/shop and transitions**
+- Migrated first-party scene styling to Rift theme variations and authored fixed UI/board visuals as scenes/resources. Containers now measure CardVisuals' actual minimum size; card selection owns its root hit/focus area. Rebuilt reward, inspection, pile and cost-selection dialogs; repeated purchases release whole shop items.
+- Extracted run HUD, map legend, pause menu, run tutorial, battle HUD, battle tutorial and consolidated sandbox panel. StatsUI owns StatusHandler, CardPopup owns confirmation, and pile buttons own counters with a compact inherited presentation. Removed generated status attachments, private hierarchy injection, sandbox editable-child overrides and repeated global UI searches. Composition roots bind dependencies; EnemyHandler receives a typed enemy rail.
+- Corrected both fullscreen shaders to respect CanvasItem modulation, the outcome vignette edge, whole-screen scaling and intro effects freezing over paused tutorials. Victory awaits completion, outgoing views detach immediately, and transient presentation no longer changes global music volume.
+- Verification: isolated Godot 4.7.2 headless runner exited 0 with zero failed assertions. Native D3D12 checks also reported zero failed assertions, including actual shader pixels at zero/half/full opacity and scene pack/save/reload ownership. Reviewed reward confirmation, shop, enemy inspection, selection/pile and victory captures. Existing hand-cycle, editor startup, sandbox, save overwrite, clock and shake checks remain in the suite. Resource guard and diff whitespace checks pass.
+- Limits: native runner still exits nonzero on texture/resource shutdown diagnostics; headless shader/certificate and known shutdown retention diagnostics remain. No full campaign, release export or performance benchmark. Godot repeatedly resaved an old in-memory run.tscn during work; restored the extracted composition and told the user to reload from disk before saving.
+- Authoring and continuity: ai/docs/ui-authoring.md, ai/docs/continuous-improvement.md and updated ai/docs/godot-architecture-audit.md. Particle profiling and further board simulation separation remain explicit opportunities.

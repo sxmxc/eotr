@@ -1,6 +1,7 @@
 extends EnemyAction
 
 @export_range(0, 8) var block_gain := 3
+@export_range(1, 6) var tiles_per_turn := 1
 
 
 func is_performable() -> bool:
@@ -18,8 +19,8 @@ func perform_action() -> void:
 
 	var world_message := WorldMessageData.new("%s braces forward" % enemy.name)
 	Events.world_message_requested.emit(world_message)
-	enemy.perform_turn_based_move(1)
-	await enemy.navigation_agent_2d.navigation_finished
+	enemy.perform_turn_based_move(tiles_per_turn)
+	await enemy.movement_finished
 
 	if block_gain > 0:
 		var block_effect := BlockEffect.new()

@@ -2,59 +2,60 @@ class_name RunTimerUI
 extends HBoxContainer
 
 @onready var label: Label = $Label
+@onready var update_timer: Timer = $UpdateTimer
 
-@onready var update_timer: Timer = Timer.new()
-
-var elapsed_time: float = 0.0
-var is_running: bool = false
+# Monotonic active-run time: unscaled, paused with the run, never offline time.
+var _accumulated := 0.0
+var _started_usec := 0
+var elapsed_time: float:
+	get:
+		if is_running and is_inside_tree() and not get_tree().paused:
+			return _accumulated + (Time.get_ticks_usec() - _started_usec) / 1000000.0
+		return _accumulated
+	set(value):
+		_accumulated = maxf(value, 0.0)
+		_started_usec = Time.get_ticks_usec()
+var is_running := false
 
 func _ready() -> void:
-	label.text = "00:00:00"
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	update_timer.timeout.connect(_update_label)
+	_update_label()
 
-	# Setup update timer (every 0.1s)
-	update_timer.wait_time = 0.1
-	update_timer.one_shot = false
-	update_timer.timeout.connect(_on_update_timer_timeout)
-	add_child(update_timer)
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PAUSED and is_running:
+		_accumulated += (Time.get_ticks_usec() - _started_usec) / 1000000.0
+	elif what == NOTIFICATION_UNPAUSED:
+		_started_usec = Time.get_ticks_usec()
 
 func start() -> void:
-	elapsed_time = 0.0
-	is_running = true
-	update_timer.start()
+	resume_from(0.0)
 
 func stop() -> void:
+	elapsed_time = elapsed_time
 	is_running = false
 	update_timer.stop()
+	_update_label()
 
 func resume() -> void:
+	_started_usec = Time.get_ticks_usec()
 	is_running = true
 	update_timer.start()
 
 func resume_from(time: float) -> void:
 	elapsed_time = time
-	is_running = true
-	update_timer.start()
+	resume()
+	_update_label()
 
 func reset() -> void:
+	stop()
 	elapsed_time = 0.0
-	is_running = false
-	update_timer.stop()
 	_update_label()
 
 func get_pretty_time() -> String:
-	var total_seconds := int(elapsed_time)
-	@warning_ignore("integer_division")
-	var hours := int(total_seconds / 3600)
-	@warning_ignore("integer_division")
-	var minutes := int((total_seconds % 3600) / 60)
-	var seconds := int(total_seconds % 60)
-	return "%02d:%02d:%02d" % [hours, minutes, seconds]
-
-func _on_update_timer_timeout() -> void:
-	if is_running:
-		elapsed_time += update_timer.wait_time
-		_update_label()
+	var seconds := int(elapsed_time)
+	return "%02d:%02d:%02d" % [seconds / 3600, (seconds % 3600) / 60, seconds % 60]
 
 func _update_label() -> void:
-	label.text = get_pretty_time()
+	var text := get_pretty_time()
+	if label.text != text:
+		label.text = text

@@ -17,12 +17,15 @@ class_name PlayerHand
 
 
 @onready var card_ui_scene = preload("res://ui/card_ui/card_ui.tscn")
+const SPOTLIGHT_SLOT = preload("res://ui/player_ui/card_spotlight_slot.tscn")
 
 var cards_played_this_turn := 0
+var layout_tween: Tween
 
 
 func _ready() -> void:
 	Events.card_played.connect(_on_card_played)
+	resized.connect(_update_cards)
 
 
 func add_card(card: Card) -> void:
@@ -38,20 +41,17 @@ func add_card(card: Card) -> void:
 	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
 	new_card_ui.values_modified = new_card_ui.is_values_modified()
 	new_card_ui.playable = player_stats.can_play_card(new_card_ui.card)
-	new_card_ui.size = CardUI.CARD_UI_SIZE
 	_update_cards()
 	
 func add_card_spotlight(card: Card) -> void:
+	if not card_spotlight:
+		add_card(card)
+		return
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
-	var spotlight_slot := Control.new()
-
-	spotlight_slot.custom_minimum_size = CardUI.CARD_UI_SIZE
-	spotlight_slot.size = CardUI.CARD_UI_SIZE
-	spotlight_slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var spotlight_slot: Control = SPOTLIGHT_SLOT.instantiate()
 	card_spotlight.add_child(spotlight_slot)
 
 	spotlight_slot.add_child(new_card_ui)
-	new_card_ui.position = Vector2.ZERO
 	new_card_ui.card = card
 	new_card_ui.parent = spotlight_slot
 	new_card_ui.player_stats = player_stats
@@ -59,7 +59,6 @@ func add_card_spotlight(card: Card) -> void:
 	new_card_ui.visuals.card_text_label.text = new_card_ui.get_description()
 	new_card_ui.values_modified = new_card_ui.is_values_modified()
 	new_card_ui.playable = player_stats.can_play_card(new_card_ui.card)
-	new_card_ui.size = CardUI.CARD_UI_SIZE
 	await get_tree().create_timer(1).timeout
 	var tween = create_tween()
 	var target_position := new_card_ui.position - Vector2(0, new_card_ui.size.y)
@@ -91,44 +90,35 @@ func disable_hand() -> void:
 		card.disabled = true
 
 func _update_cards() -> void:
-	var card_count : int = get_child_count()
-	var all_cards_size := CardUI.CARD_UI_SIZE.x * card_count + x_sep * (card_count-1)
-	var final_x_sep : float = x_sep
-	
-	if all_cards_size > size.x:
-		final_x_sep = (size.x - CardUI.CARD_UI_SIZE.x * card_count) / (card_count - 1)
-		all_cards_size = size.x
-		
-	var offset := (size.x - all_cards_size) / 2
-	
-	for i in card_count:
-		var card := get_child(i)
-		var y_multiplier := hand_curve.sample(1.0 / (card_count-1) * i)
-		var rot_multiplier := rotation_curve.sample(1.0 / (card_count-1) * i)
-		
-		if card_count == 1:
-			y_multiplier = 0.0
-			rot_multiplier = 0.0
-			
-		var final_x : float = offset + CardUI.CARD_UI_SIZE.x * i + final_x_sep * i
-		var final_y : float = y_min + y_max * y_multiplier
-		
-		card.position = Vector2(final_x, final_y)
-		card.rotation_degrees = max_rotation_degrees * rot_multiplier
+	var count := get_child_count()
+	if count == 0:
+		return
+	if layout_tween and layout_tween.is_valid():
+		layout_tween.kill()
+	layout_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	var width := (get_child(0) as Control).get_combined_minimum_size().x
+	var step := minf(width + x_sep, maxf(0.0, size.x - width) / maxf(1.0, count - 1.0))
+	var offset := (size.x - width - step * (count - 1)) / 2.0
+	for i in count:
+		var card := get_child(i) as CardUI
+		if not card:
+			continue
+		var sample := float(i) / float(count - 1) if count > 1 else 0.5
+		var y := hand_curve.sample(sample) if hand_curve and count > 1 else 0.0
+		var rotation_value := rotation_curve.sample(sample) if rotation_curve and count > 1 else 0.0
+		card.original_index = i
+		card.z_index = i
+		layout_tween.tween_property(card, "position", Vector2(offset + step * i, y_min + y_max * y), 0.18)
+		layout_tween.tween_property(card, "rotation_degrees", max_rotation_degrees * rotation_value, 0.18)
 
 func _set_player_stats(value: PlayerStats) -> void:
 	player_stats = value
 
 
 func _on_card_played(card: Card) -> void:
-	var event_props:= {
-		"card_name" : card.name,
-		"card_cost" : card.last_energy_cost,
-		"card_rarity" : Enums.CardRarity.keys()[card.card_rarity],
-		"card_type": Enums.CardType.keys()[card.card_type]
-	}
-	Talo.events.track("card_played", event_props)
-	Talo.stats.track("cards_played")
+	TelemetryManager.track_event("card_played", {"card_name": card.name, "card_cost": card.last_energy_cost,
+		"card_rarity": Enums.CardRarity.keys()[card.card_rarity], "card_type": Enums.CardType.keys()[card.card_type]})
+	TelemetryManager.track_stat("cards_played")
 	cards_played_this_turn += 1
 	_update_cards()
 

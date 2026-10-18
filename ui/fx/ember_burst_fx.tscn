@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdk2lp5oyn05n"]
+[gd_scene format=3 uid="uid://cdk2lp5oyn05n"]
 
 [ext_resource type="Script" uid="uid://d3d3e0jeoqsyc" path="res://ui/fx/ember_burst_fx.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="1_texture"]
@@ -46,10 +46,10 @@ color = Color(0.47451, 0.266667, 0.290196, 1)
 color_ramp = SubResource("GradientTexture1D_7gj4w")
 turbulence_enabled = true
 
-[node name="EmberBurstFX" type="Node2D"]
+[node name="EmberBurstFX" type="Node2D" unique_id=545145626]
 script = ExtResource("1_script")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=51714551]
 material = SubResource("CanvasItemMaterial_vm053")
 emitting = false
 amount = 36

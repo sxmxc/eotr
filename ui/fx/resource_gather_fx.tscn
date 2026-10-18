@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs4jvbi4j7p43"]
+[gd_scene format=3 uid="uid://bs4jvbi4j7p43"]
 
 [ext_resource type="Script" uid="uid://c16u2xa1behyv" path="res://ui/fx/resource_gather_fx.gd" id="1_bme1k"]
 [ext_resource type="Texture2D" uid="uid://crf86bjyup27b" path="res://assets/icons/metal-bar.svg" id="2_bpocl"]
 [ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="3_38lqy"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_cxr0g"]
-font = ExtResource("3_38lqy")
-font_color = Color(0.193917, 0.924219, 0.0044128, 1)
 
 [sub_resource type="Animation" id="Animation_cxr0g"]
 length = 0.001
@@ -140,31 +136,29 @@ _data = {
 &"grow_out": SubResource("Animation_38lqy")
 }
 
-[node name="ResourceGatherFX" type="Node2D"]
+[node name="ResourceGatherFX" type="Node2D" unique_id=134974669]
 z_index = 5
 script = ExtResource("1_bme1k")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2142215774]
 modulate = Color(0.795313, 0.795313, 0.795313, 1)
 self_modulate = Color(0.623438, 0.623438, 0.623438, 1)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_bpocl")
 
-[node name="QuantityLabel" type="Label" parent="."]
+[node name="QuantityLabel" type="Label" parent="." unique_id=1792822583]
+theme_type_variation = &"GatherGain"
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -4.5
-offset_right = 6.0
-offset_bottom = 17.5
+offset_left = 2.0
+offset_right = 8.0
+offset_bottom = 22.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "1"
-label_settings = SubResource("LabelSettings_cxr0g")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_mr1ud")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=769483638]
+libraries/ = SubResource("AnimationLibrary_mr1ud")

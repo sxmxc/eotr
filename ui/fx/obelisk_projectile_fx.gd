@@ -9,16 +9,22 @@ var is_initialized: bool = false
 
 
 func execute(target, source = null) -> void:
-	target.add_child(visual_fx)
-	start = source.global_position
-	end = target.global_position
+	_attach_visual(target)
+	start = resolve_start(source)
+	end = resolve_end(target, start)
 		
 	
-	position = start
-	print("blast striking: start %s end %s" % [start, end])
+	global_position = start
+	print("[ObeliskProjectileFX] spawned at %s -> %s (source=%s target=%s parent=%s)" % [
+		start,
+		end,
+		source,
+		target,
+		get_parent()
+	])
 	phantom_camera_2d.priority = 100
 	# Start animation sequence
-	animated_sprite_2d.animation_finished.connect(_on_start_animation_finished)
+	animated_sprite_2d.animation_finished.connect(_on_start_animation_finished, CONNECT_ONE_SHOT)
 	animated_sprite_2d.play("start")
 	is_initialized = true
 	
@@ -37,15 +43,12 @@ func _physics_process(delta: float) -> void:
 	
 	if move_distance >= distance_to_target:
 		# We've reached the target
-		position = end
+		global_position = end
 		_on_projectile_reached_target()
 	else:
-		position += direction * move_distance
+		global_position += direction * move_distance
 
 func _on_start_animation_finished():
-	# Disconnect the previous signal
-	animated_sprite_2d.animation_finished.disconnect(_on_start_animation_finished)
-	
 	# Connect the end animation signal and play loop animation
 	animated_sprite_2d.play("loop")
 
@@ -56,13 +59,18 @@ func _on_projectile_reached_target():
 	has_reached_target = true
 	
 	# Stop movement and play end animation
-	animated_sprite_2d.animation_finished.connect(_on_end_animation_finished)
+	animated_sprite_2d.animation_finished.connect(_on_end_animation_finished, CONNECT_ONE_SHOT)
 	animated_sprite_2d.play("end")
-	visual_fx.execute()
+	if visual_fx and visual_fx.has_method("execute"):
+		visual_fx.execute()
 	phantom_camera_2d.priority = 0
-	complete.emit()
+	mark_complete()
 
 func _on_end_animation_finished():
-	# Clean up
-	animated_sprite_2d.animation_finished.disconnect(_on_end_animation_finished)
 	queue_free()
+
+
+func _attach_visual(target: Node) -> void:
+	if not visual_fx or not target:
+		return
+	target.add_child(visual_fx)

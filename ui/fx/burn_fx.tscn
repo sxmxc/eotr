@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dl3cgeeoktnii"]
+[gd_scene format=3 uid="uid://dl3cgeeoktnii"]
 
 [ext_resource type="PackedScene" uid="uid://coohc0sckkjwx" path="res://ui/fx/visual_fx.tscn" id="1_gvru8"]
 [ext_resource type="Script" uid="uid://c5i62m2jl2ue2" path="res://ui/fx/burn_fx.gd" id="2_0f3vx"]
@@ -259,15 +259,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pp58n")
 }],
-"loop": false,
+"loop": 0,
 "name": &"default",
 "speed": 30.0
 }]
 
-[node name="BurnFX" instance=ExtResource("1_gvru8")]
+[node name="BurnFX" unique_id=1289074114 instance=ExtResource("1_gvru8")]
 z_index = 2
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_0f3vx")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1419002090]
 sprite_frames = SubResource("SpriteFrames_nyq22")

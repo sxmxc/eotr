@@ -7,6 +7,7 @@ signal go_to_game
 @onready var new_password: TextEdit = %NewPassword
 @onready var validation_label: Label = %ValidationLabel
 
+
 func _on_submit_pressed() -> void:
 	validation_label.text = ""
 
@@ -19,16 +20,17 @@ func _on_submit_pressed() -> void:
 		return
 
 	var res := await Talo.player_auth.change_password(current_password.text, new_password.text)
-	if res != OK:
-		match Talo.player_auth.last_error.get_code():
-			TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
+	if res.success:
+		password_change_success.emit()
+	else:
+		match res.error.code:
+			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
 				validation_label.text = "Current password is incorrect"
-			TaloAuthError.ErrorCode.NEW_PASSWORD_MATCHES_CURRENT_PASSWORD:
+			TaloPlayerAuthError.ErrorCode.NEW_PASSWORD_MATCHES_CURRENT_PASSWORD:
 				validation_label.text = "New password must be different from the current password"
 			_:
-				validation_label.text = Talo.player_auth.last_error.get_string()
-	else:
-		password_change_success.emit()
+				validation_label.text = res.error.message
+
 
 func _on_cancel_pressed() -> void:
 	go_to_game.emit()

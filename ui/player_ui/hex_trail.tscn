@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2406auev81mt"]
+[gd_scene format=3 uid="uid://2406auev81mt"]
 
 [ext_resource type="Script" uid="uid://ldqh82naif6o" path="res://ui/player_ui/hex_trail.gd" id="1_qeteu"]
 [ext_resource type="Texture2D" uid="uid://5sh2s8oh6kg0" path="res://assets/particles/kenney-particles/Rotated/trace_04_rotated.png" id="2_qeteu"]
@@ -31,10 +31,10 @@ alpha_curve = SubResource("CurveTexture_qp38b")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
-[node name="HexTrail" type="Node2D"]
+[node name="HexTrail" type="Node2D" unique_id=1543448358]
 script = ExtResource("1_qeteu")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1943041744]
 amount = 100
 texture = ExtResource("2_qeteu")
 lifetime = 6.0

@@ -8,6 +8,8 @@ func activate_relic(owner: RelicUI) -> void:
 	tilemap.is_resource_count_visible = true
 	
 func deactivate_relic(_owner: RelicUI) -> void:
+	if !is_instance_valid(tilemap):
+		return
 	tilemap.is_resource_count_visible = false
 
 func get_description() -> String:

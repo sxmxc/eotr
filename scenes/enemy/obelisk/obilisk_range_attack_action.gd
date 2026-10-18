@@ -1,5 +1,8 @@
 extends EnemyAction
 
+func _init() -> void:
+	target_range = 4
+
 const OBELISK_PROJECTILE_FX = preload("res://ui/fx/obelisk_projectile_fx.tscn")
 
 var base_damage := 6
@@ -18,13 +21,16 @@ func perform_action() -> void:
 	
 	intent.current_text = intent.base_text
 	
-	add_child(projectile)
-	projectile.execute(target, enemy)
-	await projectile.complete
+	if DisplayServer.get_name() == "headless":
+		projectile.free()
+	else:
+		add_child(projectile)
+		projectile.execute(target, enemy)
+		await projectile.complete
 	Utils.shake(cam, 16, .15)
 	damage_effect.execute(target_array)
 	
-	get_tree().create_timer(.5).timeout.connect(
+	get_tree().create_timer(Utils.presentation_duration(.5)).timeout.connect(
 		func():
 			Events.enemy_action_completed.emit(enemy)
 	)

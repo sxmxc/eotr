@@ -1,17 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://f4f2ntaf3yl6"]
+[gd_scene format=3 uid="uid://f4f2ntaf3yl6"]
 
 [ext_resource type="Script" uid="uid://bv5welj1oeje4" path="res://ui/tool_tip_ui/status_tooltip.gd" id="1_6wbko"]
 [ext_resource type="Texture2D" uid="uid://b6davomdrg6nv" path="res://assets/icons/broken-skull.svg" id="1_80vkg"]
 
-[node name="StatusTooltip" type="HBoxContainer"]
+[node name="StatusTooltip" type="HBoxContainer" unique_id=1222848113]
+theme_type_variation = &"FlushRow"
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 256.0
 grow_horizontal = 2
-theme_override_constants/separation = 0
 script = ExtResource("1_6wbko")
 
-[node name="Icon" type="TextureRect" parent="."]
+[node name="Icon" type="TextureRect" parent="." unique_id=1296705464]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -19,7 +19,7 @@ texture = ExtResource("1_80vkg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="RichTextLabel" parent="."]
+[node name="Label" type="RichTextLabel" parent="." unique_id=980933566]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 3

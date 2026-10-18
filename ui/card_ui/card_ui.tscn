@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwiv2oit73vcs"]
+[gd_scene format=3 uid="uid://dwiv2oit73vcs"]
 
-[ext_resource type="Theme" uid="uid://cyuh7amffcqvg" path="res://resources/themes/card_base_theme.tres" id="1_l3rh4"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_l3rh4"]
 [ext_resource type="Script" uid="uid://bbmmcym0ollws" path="res://ui/card_ui/card_ui.gd" id="2_dmw7j"]
 [ext_resource type="AudioStream" uid="uid://0grla4p64a7o" path="res://assets/audio/battle_sound_effects/foom_0.wav" id="3_0oooe"]
 [ext_resource type="Script" uid="uid://balj0jrb1odb2" path="res://ui/card_ui/card_states/card_state_machine.gd" id="3_36rxq"]
@@ -14,7 +14,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0o"]
 size = Vector2(179, 240)
 
-[node name="CardUI" type="Control"]
+[node name="CardUI" type="Control" unique_id=1935654578]
 process_mode = 3
 custom_minimum_size = Vector2(180, 240)
 layout_mode = 3
@@ -27,44 +27,48 @@ size_flags_vertical = 4
 theme = ExtResource("1_l3rh4")
 script = ExtResource("2_dmw7j")
 discard_sound = ExtResource("3_0oooe")
+inspected_scale = Vector2(1.32, 1.32)
+inspected_offset = Vector2(0, -32)
 
-[node name="Visuals" parent="." instance=ExtResource("4_l3rh4")]
+[node name="Visuals" parent="." unique_id=981619667 instance=ExtResource("4_l3rh4")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="CardStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="CardStateMachine" type="Node" parent="." unique_id=1519919744 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_36rxq")
 initial_state = NodePath("CardBaseState")
 
-[node name="CardBaseState" type="Node" parent="CardStateMachine"]
+[node name="CardBaseState" type="Node" parent="CardStateMachine" unique_id=314458951]
 script = ExtResource("4_swrim")
 
-[node name="CardClickedState" type="Node" parent="CardStateMachine"]
+[node name="CardClickedState" type="Node" parent="CardStateMachine" unique_id=1499440496]
 script = ExtResource("5_c6fjk")
 state = 1
 
-[node name="CardDraggingState" type="Node" parent="CardStateMachine"]
+[node name="CardDraggingState" type="Node" parent="CardStateMachine" unique_id=196948286]
 script = ExtResource("6_0oooe")
 state = 2
 
-[node name="CardReleasedState" type="Node" parent="CardStateMachine"]
+[node name="CardReleasedState" type="Node" parent="CardStateMachine" unique_id=1325766683]
 script = ExtResource("7_l3rh4")
 state = 4
 
-[node name="CardAimingState" type="Node" parent="CardStateMachine"]
+[node name="CardAimingState" type="Node" parent="CardStateMachine" unique_id=2100511670]
 script = ExtResource("8_c6fjk")
 state = 3
 
-[node name="DebugState" type="Label" parent="."]
+[node name="DebugState" type="Label" parent="." unique_id=1305200065]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -82,13 +86,13 @@ text = "debug state"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DropPointDetector" type="Area2D" parent="."]
+[node name="DropPointDetector" type="Area2D" parent="." unique_id=251189061]
 show_behind_parent = true
 collision_layer = 2
 collision_mask = 4
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DropPointDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DropPointDetector" unique_id=1913879434]
 position = Vector2(89.5, 120)
 shape = SubResource("RectangleShape2D_7dm0o")
 

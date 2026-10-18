@@ -1,15 +1,26 @@
 extends Card
 
-var base_damage := 0
-
 func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	var damage_effect := DamageEffect.new()
+	if targets.is_empty():
+		return
+	var tree := targets[0].get_tree()
+	if not tree:
+		return
+	var player: Player = tree.get_first_node_in_group("player")
+	if not player or not player.stats:
+		return
+
+	var missing_health := absi(player.stats.max_health - player.stats.health)
+	if missing_health <= 0:
+		return
+
+	var damage_effect := CardEffectConfig.for_damage(missing_health)
+	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 	damage_effect.sound_fx = sound_fx
-	var player : Player = targets[0].get_tree().get_first_node_in_group("player")
-	var life_dif = absi(player.stats.max_health - player.stats.health)
-	base_damage += life_dif
-	damage_effect.amount = modifiers.get_modified_value(base_damage, Enums.ModifierType.DMG_DEALT)
-	damage_effect.execute(targets)
+	damage_effect.visual_fx = visual_fx
+
+	var resolver := CardResolver.new()
+	await resolver.resolve(self, targets, player.stats, modifiers, [damage_effect])
 
 
 func get_default_description() -> String:
@@ -22,8 +33,10 @@ func get_modified_description(
 	return description
 	
 func is_card_modified(player_modifiers: ModifierHandler) -> bool:
+	if not player_modifiers or not player_modifiers.get_tree():
+		return false
 	var player : Player = player_modifiers.get_tree().get_first_node_in_group("player")
+	if not player or not player.stats:
+		return false
 	var life_dif = absi(player.stats.max_health - player.stats.health)
-	if life_dif != 0:
-		return true
-	return false
+	return life_dif != 0

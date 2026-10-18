@@ -59,7 +59,7 @@ backlog:
   - id: BKL-005
     title: "Expand combat content breadth to sustain long-term runs"
     priority: P2
-    status: ready
+    status: complete
     owner: Codex
     blockers: []
     context:
@@ -73,6 +73,7 @@ backlog:
       - "Integrate the documented boss ladder (Rift-Warden Bulwark -> Triune Convergence -> Core Nexus) into encounter scheduling and reward pacing."
       - "Build a reusable in-battle card selection/sacrifice popup component for events, rituals, and rewards."
       - "Expand the status-effect roster (buffs/debuffs/terrain effects) to support new cards and enemies."
+      - "Playtest and tune the new Corroded debuff package (Corroding Shot, Corrosion Wave) to ensure the block shred + true damage cadence feels fair."
 
   - id: BKL-006
     title: "Track polish and systems work from Obsidian TODO sync"
@@ -528,6 +529,167 @@ backlog:
       - "Design teleporting enemy types with unique abilities and behaviors."
       - "Implement teleportation mechanics that allow enemies to reposition on the battlefield."
       - "Create visual and sound effects for teleportation."
+  - id: BKL-040
+    title: "Streamline encounter/card data architecture for sandbox + reward systems"
+    priority: P1
+    status: complete
+    owner: Codex
+    blockers: []
+    context:
+      - "BattleStatsPool tiers and CardPile draft lists are disconnected, so encounters/rewards/sandbox rely on separate resource scans."
+      - "Dev sandbox dropdowns scan folders and can expose invalid enemy scenes without tier/biome filters."
+      - "Random battle selection and prize card rolls lack shared metadata for weights, unlocks, or tagging to control content surfaces."
+      - "Encounter/Card registry scaffolding now exists with optional hooks in map generation and battle rewards."
+    next_steps:
+      - "Validate registry-backed selection in map gen, rewards, shops, and sandbox filters using the new assets and tags."
+      - "Expand registries to additional classes/biomes and add tooling to toggle unlock flags per run/save."
+
+  - id: BKL-041
+    title: "Centralize battle phases with an authoritative turn/shrink state machine"
+    priority: P0
+    status: complete
+    owner: Codex
+    blockers: []
+    context:
+      - "Turn flow is split across game_world.gd, player_handler.gd, and enemy_handler.gd via global signals; shrink pacing is coupled to enemy turns."
+      - "Need a single BattleState controller to gate PlayerStart/PlayerEnd/EnemyLoop/BoardShrink and prevent desync."
+    next_steps:
+      - "Design a BattleState/BattlePhase node that owns turn counters, shrink scheduling, and end-of-turn discard/lockouts."
+      - "Route existing Events (player_turn_ended, player_hand_discarded, enemy_turn_ended) through the controller and emit validated phase transitions."
+      - "Add minimal regression checks to ensure board shrink locks input and resumes cleanly."
+
+  - id: BKL-042
+    title: "Make card effects data-driven with a CardResolver and shared effect library"
+    priority: P0
+    status: in_review
+    owner: Codex
+    blockers: []
+    context:
+      - "Card scripts directly query scene tree (map_camera, fx_layer) and hardcode logic, slowing new card creation."
+      - "Reusable effects already exist under scripts/effects/node and scripts/effects/tile but aren’t orchestrated by a resolver."
+    next_steps:
+      - "QA the resolver-driven damage/block/move/gather cards and confirm camera/FX references stay injected via context."
+      - "Migrate remaining card scripts to effect configs and expand resolver coverage for other effect types."
+      - "Document the declarative effect patterns for designers and watch for lingering get_tree() calls in card scripts."
+
+  - id: BKL-043
+    title: "Unify targeting/aiming selectors and cache valid targets"
+    priority: P1
+    status: in_review
+    owner: Codex
+    blockers: []
+    context:
+      - "card_target_selector.gd and movement_target_selector.gd duplicate arc drawing, hover, and validity checks."
+      - "CardStateMachine recomputes valid targets per input event and re-queries the tree."
+    next_steps:
+      - "Build a single TargetSelector with pluggable validators (self/enemy/tile/radius/adjacent/LOS/fog)."
+      - "Cache valid target sets per frame/phase and share between UI highlighting and play validation."
+      - "Audit card target types (TargetType enums) to ensure parity with selector behaviors."
+
+  - id: BKL-044
+    title: "Normalize status lifecycle and modifier cleanup"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Strength/Weakened modify modifiers but rely on UI node removal for cleanup; risk of lingering modifier values."
+      - "StatusHandler decrements durations but doesn’t enforce modifier removal centrally."
+    next_steps:
+      - "Add a lifecycle hook in StatusHandler to remove modifier values when duration/stacks hit zero."
+      - "Audit status scripts under resources/data/statuses for consistent add/remove logic."
+      - "Write a lightweight test or sandbox repro to confirm modifiers clear after expiration."
+
+  - id: BKL-045
+    title: "Add board occupancy cache and improve enemy pathfinding"
+    priority: P1
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "ProcGenTilemap.is_tile_free scans groups each call; MovingEnemy pathing rebuilds paths without caching."
+      - "Scaling enemy counts/map size will spike per-frame queries."
+    next_steps:
+      - "Maintain an occupancy map updated on spawn/move/death for player/enemies/obelisk."
+      - "Refactor MovingEnemy._find_path to use cached occupancy and an A* helper shared across enemies."
+      - "Add simple perf guardrails in shrink_map to handle occupancy updates before tile removal."
+
+  - id: BKL-046
+    title: "Expose shared hex range/LOS helpers for cards and AI"
+    priority: P3
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Hex distance and ring queries exist in proc-gen-tilemap.gd but are reimplemented per action/selector."
+    next_steps:
+      - "Add utility functions for hex distance, range rings, and LOS checks and route card/AI targeting through them."
+      - "Document expected coordinate systems (offset vs cube) for contributors."
+
+  - id: BKL-047
+    title: "Consolidate enemy intent/stats UI (queue vs floating panels)"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "EnemyHandler attaches both queue buttons and per-enemy EnemyStatsUI clones; keeping both in sync is fragile."
+    next_steps:
+      - "Pick an authoritative enemy stats/intent surface and mirror data to the other view via binding, or retire one."
+      - "Ensure fog/selection rules still hide intents for unseen enemies."
+
+  - id: BKL-048
+    title: "Add a single CardInteractionController to own drag/aim/play"
+    priority: P2
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "CardStateMachine + EventBus + target selectors spread interaction logic across multiple nodes."
+    next_steps:
+      - "Centralize card drag/aim/release handling and emit a validated play request to the battle controller."
+      - "Ensure selector highlights and tooltips derive from the same interaction context."
+
+  - id: BKL-049
+    title: "Reduce get_tree() coupling in card/effect/selector scripts"
+    priority: P3
+    status: ready
+    owner: unassigned
+    blockers: []
+    context:
+      - "Cards and selectors repeatedly call get_first_node_in_group for map_camera, fx_layer, tilemap."
+      - "Makes testing and scene reuse harder; contributes to per-frame GC churn."
+    next_steps:
+      - "Inject required references (tilemap, cameras, fx layer, player/enemy handlers) from parent controllers."
+      - "Add assertions or typed exports to surface missing dependencies in editor."
+
+  - id: BKL-050
+    title: "Consolidate card visuals/projectile sourcing into shared helpers"
+    priority: P2
+    status: in_review
+    owner: unassigned
+    blockers: []
+    context:
+      - "Cards copy projectile/visual configs per script, risking drift and double-spawned FX."
+      - "No shared helper to apply card-level VFX fields to CardEffectConfig in a consistent way."
+    next_steps:
+      - "Adopt CardEffectConfigHelper.apply_card_defaults across cards to remove local VFX wiring."
+      - "Refactor Riftwalker cards to use the helper and remove duplicated _sync_effect_configs boilerplate."
+      - "Document the visual surface rule (projectile vs effect, not both)."
+
+  - id: BKL-051
+    title: "Migrate bespoke projectile cards to CardResolver + CardFxRunner"
+    priority: P2
+    status: in_review
+    owner: unassigned
+    blockers: []
+    context:
+      - "Cards like sever_anchor.gd still hand-roll projectile instancing, timeouts, and camera shake outside the resolver."
+      - "Sever Anchor has been migrated; verify if any other cards still bypass the resolver."
+    next_steps:
+      - "Audit remaining cards for bespoke projectile handling; rewrite to build CardEffectConfig entries and call CardResolver.resolve."
+      - "Ensure pre-hit FX uses CardFxRunner and camera impact uses ImpactProfile/config values."
+      - "Delete bespoke projectile/timeouts after migration."
 
 in_progress: []
 in_review: []

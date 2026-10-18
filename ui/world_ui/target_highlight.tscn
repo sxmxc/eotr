@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/spritesheets/32x32-hex-tiles.png" id="atlas"]
+[ext_resource type="Shader" path="res://scripts/shaders/tile_target_highlight.gdshader" id="shader"]
+
+[sub_resource type="AtlasTexture" id="hex"]
+atlas = ExtResource("atlas")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="ShaderMaterial" id="highlight"]
+shader = ExtResource("shader")
+shader_parameter/PulseSpeed = 1.35
+shader_parameter/MinAlpha = 0.1
+shader_parameter/MaxAlpha = 0.95
+shader_parameter/OutlineWidth = 0.065
+shader_parameter/HighlightColor = Color(0.29, 0.75, 0.67, 1)
+
+[node name="TargetHighlight" type="Sprite2D"]
+texture_filter = 1
+z_index = 2
+texture = SubResource("hex")
+material = SubResource("highlight")

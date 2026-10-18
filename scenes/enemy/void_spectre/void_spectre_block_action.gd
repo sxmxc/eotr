@@ -13,7 +13,7 @@ func perform_action() -> void:
 	block_effect.visual_fx = visual_fx
 	block_effect.execute([enemy])
 
-	get_tree().create_timer(0.3, false).timeout.connect(
+	get_tree().create_timer(Utils.presentation_duration(0.3), false).timeout.connect(
 		func(): Events.enemy_action_completed.emit(enemy)
 	)
 

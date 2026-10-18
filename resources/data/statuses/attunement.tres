@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AttunementStatus" load_steps=3 format=3 uid="uid://bvuovjasy27mp"]
+[gd_resource type="Resource" script_class="AttunementStatus" format=3 uid="uid://bvuovjasy27mp"]
 
 [ext_resource type="Texture2D" uid="uid://dt18461vfmcbo" path="res://assets/icons/triple-yin.svg" id="1_ccboq"]
 [ext_resource type="Script" uid="uid://ocoxu4wrph77" path="res://resources/data/statuses/attunement.gd" id="2_ccboq"]
@@ -8,8 +8,6 @@ script = ExtResource("2_ccboq")
 id = "attunement"
 type = 2
 stack_type = 1
-can_expire = false
-duration = 0
 stacks = 1
 icon = ExtResource("1_ccboq")
 tooltip = "Arcane spells do [b]%s[/b] more damage"

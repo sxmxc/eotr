@@ -13,6 +13,7 @@ float hash(vec2 p) {
 }
 
 void fragment() {
+	vec4 modulation = COLOR;
 	vec2 uv = SCREEN_UV;
 
 	// Compensate for aspect so the vignette remains circular.
@@ -20,7 +21,7 @@ void fragment() {
 	centered.x *= SCREEN_PIXEL_SIZE.y / SCREEN_PIXEL_SIZE.x;
 	float dist = length(centered);
 
-	float edge = smoothstep(radius, radius - softness, dist);
+	float edge = smoothstep(radius - softness, radius, dist);
 
 	float t = TIME * noise_speed;
 	float n = hash(floor(uv * vec2(640.0, 360.0) + t));
@@ -28,6 +29,6 @@ void fragment() {
 
 	float noisy_edge = clamp(edge * (1.0 + n * noise_amount), 0.0, 1.0);
 
-	COLOR = vignette_color;
+	COLOR = vignette_color * modulation;
 	COLOR.a *= noisy_edge;
 }

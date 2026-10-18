@@ -3,21 +3,18 @@ extends Card
 @export var movement_distance := 1
 
 
-func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
-	var move_effect := MoveEffect.new()
-	var tilemap_target = targets[0] as TilemapTarget
-	move_effect.tilemap_target = tilemap_target
-	move_effect.sound_fx = sound_fx
-	var player_array = targets[0].get_tree().get_nodes_in_group("player")
-	move_effect.execute(player_array)
+func _init() -> void:
+	effect_configs = [CardEffectConfig.for_move()]
 
 
 func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
 	var tilemap_target = targets[0] as TilemapTarget
-	if tilemap_target == null:
+	if tilemap_target == null or not tilemap_target.tilemap:
 		return false
-	var player: Player = targets[0].get_tree().get_first_node_in_group("player")
-	var player_tile: Vector2i = tilemap_target.tilemap.base_layer.local_to_map(player.position)
+	var tilemap : ProcGenTilemap = tilemap_target.tilemap
+	if not tilemap.is_tile_valid(tilemap_target.tile_position):
+		return false
+	var player_tile: Vector2i = tilemap.player_position
 	# Start with the center cell
 	var current_cells = {player_tile: true}
 	var all_cells_in_range = {player_tile: true}
@@ -28,10 +25,10 @@ func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
 
 		# Get all neighbors of the current level cells
 		for cell in current_cells:
-			var neighbors = tilemap_target.tilemap.base_layer.get_surrounding_cells(cell)
+			var neighbors = tilemap.base_layer.get_surrounding_cells(cell)
 			for neighbor in neighbors:
 				if (
-					tilemap_target.tilemap.is_within_bounds(neighbor)
+					tilemap.is_within_bounds(neighbor)
 					and not all_cells_in_range.has(neighbor)
 				):
 					next_level_cells[neighbor] = true
@@ -40,9 +37,7 @@ func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
 		# Move to the next level
 		current_cells = next_level_cells
 
-	var target_tile_data: HexTileData = tilemap_target.tilemap.tile_map_data[
-		tilemap_target.tile_position
-	]
+	var target_tile_data: HexTileData = tilemap.tile_map_data[tilemap_target.tile_position]
 	var target_tile_type: Enums.TileType = target_tile_data.type
 
 	if (

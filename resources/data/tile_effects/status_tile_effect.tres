@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dygkjk4gjxd2o"]
+[gd_resource type="Resource" format=3 uid="uid://dygkjk4gjxd2o"]
 
 [ext_resource type="Script" uid="uid://brs1h61bkx1is" path="res://resources/data/tile_effects/status_tile_effect.gd" id="1_2awwf"]
+[ext_resource type="Resource" uid="uid://bvuovjasy27mp" path="res://resources/data/statuses/attunement.tres" id="1_04sjh"]
 
 [resource]
 script = ExtResource("1_2awwf")

@@ -1,0 +1,265 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/map_ui/map_legend.gd" id="legend_script"]
+
+[ext_resource type="Texture2D" uid="uid://c60jlxwiajlnj" path="res://assets/icons/rolling-energy.svg" id="18_yj3lc"]
+
+[ext_resource type="Texture2D" uid="uid://mptcvsif4s5t" path="res://assets/icons/rolling-energy-2.svg" id="19_4aki2"]
+
+[ext_resource type="Texture2D" uid="uid://dgyop01i0okhj" path="res://assets/icons/pay-money.svg" id="20_8fhq7"]
+
+[ext_resource type="Texture2D" uid="uid://bid8jyjlm8vfs" path="res://assets/icons/night-sleep.svg" id="21_x3nam"]
+
+[ext_resource type="Texture2D" uid="uid://bt72lliaq55rd" path="res://assets/icons/chest.svg" id="22_0rx4c"]
+
+[ext_resource type="Texture2D" uid="uid://cpkby7jkl4j6e" path="res://assets/icons/overlord-helm.svg" id="23_ixteu"]
+
+[ext_resource type="Texture2D" uid="uid://cdtkxwq6qq66l" path="res://assets/third_party/Keyboard & Mouse/Vector/mouse_scroll_vertical.svg" id="24_xrsi6"]
+
+[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="25_xrrkx"]
+
+[ext_resource type="Texture2D" uid="uid://dvfs14vxx22h2" path="res://assets/icons/wanted-reward.svg" id="26_s0vt7"]
+
+[ext_resource type="Texture2D" uid="uid://bj3pd7u46av1r" path="res://assets/icons/wanted-reward-pressed.svg" id="27_xqkow"]
+
+[ext_resource type="Script" uid="uid://fvkc0g4vuoag" path="res://ui/run_ui/bounty_board_button.gd" id="28_vksuo"]
+
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="32_djwbl"]
+
+[ext_resource type="Script" uid="uid://l10y2c4gvq5t" path="res://scenes/run/legend_content.gd" id="48_legend"]
+
+[node name="MapLegendUI" type="CanvasLayer" unique_id=59626172]
+script = ExtResource("legend_script")
+layer = 2
+
+[node name="MapLegend" type="Control" parent="." unique_id=771119671]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("32_djwbl")
+script = ExtResource("48_legend")
+
+[node name="Panel" type="Panel" parent="MapLegend" unique_id=17359803]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 368.0
+offset_right = 290.0
+offset_bottom = 420.0
+grow_vertical = 2
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="MapLegend/Panel" unique_id=1315799063]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LegendInset"
+
+[node name="Panel" type="Panel" parent="MapLegend/Panel/MarginContainer" unique_id=125281407]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MapLegend/Panel/MarginContainer/Panel" unique_id=345283348]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Label" type="Button" parent="MapLegend/Panel/MarginContainer/Panel/HBoxContainer" unique_id=1636392297]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LegendToggle"
+toggle_mode = true
+text = "Encounter legend  +"
+
+[node name="MarginContainer" type="MarginContainer" parent="MapLegend" unique_id=1777050983]
+custom_minimum_size = Vector2(250, 316)
+layout_mode = 1
+offset_left = 40.0
+offset_top = 420.0
+offset_right = 290.0
+offset_bottom = 736.0
+grow_vertical = 2
+
+[node name="LegendContent" type="Control" parent="MapLegend/MarginContainer" unique_id=1609341400]
+unique_name_in_owner = true
+process_mode = 3
+custom_minimum_size = Vector2(250, 316)
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Panel2" type="Panel" parent="MapLegend/MarginContainer/LegendContent" unique_id=248778333]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HudPanelBackground"
+
+[node name="MarginContainer" type="MarginContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2" unique_id=1551932557]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"LegendInset"
+
+[node name="Panel" type="Panel" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer" unique_id=1895757837]
+layout_mode = 2
+theme_type_variation = &"HudPanelMain"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel" unique_id=718704237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=24497066]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1469875195]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("18_yj3lc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=691681979]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Rift"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1250636018]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=718875884]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("19_4aki2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=496445266]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Elite Rift"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1023831166]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1533296682]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("20_8fhq7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=180207028]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Shop"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1786266073]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=1659825555]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("21_x3nam")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=219780469]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Rest"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1531795373]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=707544995]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("22_0rx4c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=415657400]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Treasure"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer" unique_id=1201227888]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=286953981]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("23_ixteu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=1239814836]
+layout_mode = 2
+theme_type_variation = &"LegendText"
+text = "Boss"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=715883777]
+visible = false
+modulate = Color(0.823529, 0.788235, 0.647059, 1)
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -195.0
+offset_right = 50.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("24_xrsi6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bouncer" type="Node" parent="TextureRect" unique_id=1238631880]
+script = ExtResource("25_xrrkx")
+metadata/_custom_type_script = "uid://c7wfd2um7frkt"
+
+[node name="BountyBoardButton" type="TextureButton" parent="." unique_id=1047103175]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -112.0
+offset_right = 104.0
+offset_bottom = -48.0
+grow_vertical = 0
+tooltip_text = "Bounty Board"
+texture_normal = ExtResource("26_s0vt7")
+texture_pressed = ExtResource("27_xqkow")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("28_vksuo")
+
+[connection signal="mouse_entered" from="BountyBoardButton" to="BountyBoardButton" method="_on_mouse_entered"]
+
+[connection signal="mouse_exited" from="BountyBoardButton" to="BountyBoardButton" method="_on_mouse_exited"]

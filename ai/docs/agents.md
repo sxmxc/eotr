@@ -1,12 +1,12 @@
 # Echoes of the Rift — Agent Onboarding
 
-Welcome! This guide equips agents contributing to **Echoes of the Rift** with the context, tools, and expectations needed to deliver high‑quality GDScript updates for the Godot 4.5 codebase.
+Welcome! This guide equips agents contributing to **Echoes of the Rift** with the context, tools, and expectations needed to deliver high‑quality GDScript updates for the Godot 4.7.2 codebase.
 
 ## 1. Get Your Bearings
 
 - **Genre & Loop**: Tactical deckbuilding roguelite. Players traverse a 15-floor rift map, engage in grid combat, manage resources, and collect relics.
 - **Core Scenes**:
-  - `scenes/run/run.tscn` – overworld loop that swaps views (map, battle, shop, etc.).
+  - `scenes/run/run.scn` – overworld loop that swaps views (map, battle, shop, etc.).
   - `scenes/game_world/game_world.tscn` – battle scene with `ProcGenTilemap`, `PlayerHandler`, `EnemyHandler`.
   - `scenes/map/map.tscn` – node-based floor selection using `MapGenerator`.
 - **Important Resources**:
@@ -16,12 +16,14 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
 
 ## 2. Always Sync Context
 
-- **Non-negotiable**: Before editing or reviewing GDScript, always use `context7` mcp to ensure the latest language and API nuances. GDScript evolves quickly; this keeps completions aligned with the current standard library and Godot 4.5 syntax.
+- **Non-negotiable**: Before editing or reviewing GDScript, always use `context7` mcp to ensure the latest language and API nuances. GDScript evolves quickly; this keeps completions aligned with the current standard library and Godot 4.7.2 syntax.
 - If the harness output flags updates (e.g., keyword changes, API deprecations) incorporate them immediately or call them out in the plan.
 
 ## 3. Coding Expectations
 
-- **Godot 4.5**: Prefer typed GDScript (`var foo: int`) and modern signal syntax. Keep compatibility with engine features defined in `project.godot` (e.g., `Feature Tag: 4.5`).
+- **UI authoring**: Follow `ai/docs/ui-authoring.md`. Fixed visuals belong in scenes; shared styling belongs in `resources/themes/rift_ui.tres` and named variations. Scripts bind data and behavior. Do not rebuild fixed UI or styleboxes in GDScript or introduce local theme overrides.
+
+- **Godot 4.7.2**: Prefer typed GDScript (`var foo: int`) and modern signal syntax. Keep compatibility with engine features defined in `project.godot` (e.g., `Feature Tag: 4.7`).
 - **Signals & Events**:
   - Prefer `Events` autoload for cross-system communication.
   - Use `await`/`create_tween()` patterns already present rather than introducing new libs.

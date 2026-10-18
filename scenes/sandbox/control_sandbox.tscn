@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://bq88gcnwe4rar"]
+[gd_scene format=3 uid="uid://bq88gcnwe4rar"]
 
-[ext_resource type="Theme" uid="uid://xso5aetv5tyl" path="res://resources/themes/hud_theme.tres" id="1_fc3my"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_fc3my"]
 [ext_resource type="PackedScene" uid="uid://dwiv2oit73vcs" path="res://ui/card_ui/card_ui.tscn" id="2_fc3my"]
 [ext_resource type="Texture2D" uid="uid://dmtmnwy38fivy" path="res://assets/particles/kenney-particles/magic_05.png" id="3_6vsj7"]
 [ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="4_ycgp5"]
@@ -51,7 +51,7 @@ scale_curve = SubResource("CurveTexture_xe37s")
 color = Color(0, 1, 0.464163, 1)
 alpha_curve = SubResource("CurveTexture_ycgp5")
 
-[node name="ControlSandbox" type="Control"]
+[node name="ControlSandbox" type="Control" unique_id=364546078]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,7 +60,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fc3my")
 
-[node name="CardAttentionFX" type="GPUParticles2D" parent="."]
+[node name="CardAttentionFX" type="GPUParticles2D" parent="." unique_id=1263690202]
 visible = false
 amount = 4
 texture = SubResource("GradientTexture2D_ycgp5")
@@ -68,7 +68,7 @@ local_coords = true
 draw_order = 2
 process_material = SubResource("ParticleProcessMaterial_m4ny6")
 
-[node name="CardUI" parent="." instance=ExtResource("2_fc3my")]
+[node name="CardUI" parent="." unique_id=262594566 instance=ExtResource("2_fc3my")]
 visible = false
 layout_mode = 1
 offset_left = -90.0
@@ -76,7 +76,16 @@ offset_top = -121.0
 offset_right = -1830.0
 offset_bottom = -961.0
 
-[node name="CardTrailFX" type="GPUParticles2D" parent="."]
+[node name="Visuals" parent="CardUI" index="0"]
+anchor_left = 0.0
+anchor_top = 0.0
+offset_left = 0.0
+offset_top = 0.0
+
+[node name="CardTextLabel" parent="CardUI/Visuals/CardTextBackground/MarginContainer" index="0"]
+theme_type_variation = &"SandboxMicroRules"
+
+[node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1831339361]
 visible = false
 emitting = false
 texture = ExtResource("3_6vsj7")
@@ -86,7 +95,7 @@ visibility_rect = Rect2(-541.091, -541.211, 1082.96, 1082.46)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_v2a4i")
 
-[node name="SmokeFX" parent="." instance=ExtResource("4_ycgp5")]
+[node name="SmokeFX" parent="." unique_id=1172753883 instance=ExtResource("4_ycgp5")]
 
 [editable path="CardUI"]
 [editable path="CardUI/Visuals"]

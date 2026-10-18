@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbi7jiche7t5l"]
+[gd_scene format=3 uid="uid://cbi7jiche7t5l"]
 
 [ext_resource type="Script" uid="uid://bcnnyihcec1gv" path="res://addons/AutoSizeText/ui/AutoSizeTextEdit.gd" id="1_43qmb"]
 
-[node name="AutoSizeSampleTextEdit" type="Control"]
+[node name="AutoSizeSampleTextEdit" type="Control" unique_id=1698300661]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TittleOnly" type="Label" parent="."]
+[node name="TittleOnly" type="Label" parent="." unique_id=1085612306]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -25,7 +25,7 @@ offset_bottom = 23.0
 grow_horizontal = 2
 text = "SAMPLE OF [TextEdit]"
 
-[node name="TittleXRange" type="Label" parent="."]
+[node name="TittleXRange" type="Label" parent="." unique_id=2076240019]
 layout_mode = 0
 offset_left = 751.0
 offset_top = 23.0
@@ -34,7 +34,7 @@ offset_bottom = 46.0
 text = "RANGE SAMPLE"
 horizontal_alignment = 1
 
-[node name="Sample_Main_Text" type="TextEdit" parent="."]
+[node name="Sample_Main_Text" type="TextEdit" parent="." unique_id=476322119]
 layout_mode = 0
 offset_top = 49.0
 offset_right = 576.0
@@ -46,7 +46,7 @@ Play alone, with friends in private rooms or join a faction and play online with
 https://spielmannspiel.com/light-switch-simulator"
 auto_split_text = true
 
-[node name="Sample_Sample_Big_Text" type="TextEdit" parent="."]
+[node name="Sample_Sample_Big_Text" type="TextEdit" parent="." unique_id=1029740696]
 layout_mode = 0
 offset_top = 184.0
 offset_right = 576.0
@@ -63,7 +63,7 @@ libero a, lobortis cursus velit. Suspendisse potenti. Phasellus tempus blandit d
 "
 min_size = 1
 
-[node name="Sample_Place_Holder" type="TextEdit" parent="."]
+[node name="Sample_Place_Holder" type="TextEdit" parent="." unique_id=1720051392]
 layout_mode = 0
 offset_top = 386.0
 offset_right = 576.0
@@ -79,7 +79,7 @@ libero a, lobortis cursus velit. Suspendisse potenti. Phasellus tempus blandit d
 script = ExtResource("1_43qmb")
 min_size = 1
 
-[node name="Sample_Range_WH_Test" type="TextEdit" parent="."]
+[node name="Sample_Range_WH_Test" type="TextEdit" parent="." unique_id=2116621401]
 layout_mode = 0
 offset_left = 751.0
 offset_top = 49.0
@@ -98,7 +98,7 @@ A"
 min_size = 1
 max_size = 90
 
-[node name="Sample_1MoreSample?_WhyNot?" type="TextEdit" parent="."]
+[node name="Sample_1MoreSample?_WhyNot?" type="TextEdit" parent="." unique_id=1061286104]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -0.0260417

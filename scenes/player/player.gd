@@ -17,6 +17,7 @@ const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
 @onready var mana_well_effect: GPUParticles2D = %ManaWellEffect
 
 var is_mana_buffed : bool = false : set = set_is_mana_buffed
+var pending_effects := 0
 
 func set_player_stats(value: PlayerStats) -> void:
 	if not is_node_ready():
@@ -48,6 +49,7 @@ func take_damage(
 ) -> void:
 	if stats.health <= 0:
 		return
+	pending_effects += 1
 		
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
@@ -73,35 +75,40 @@ func take_damage(
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
 	else:
 		tween.tween_callback(stats.take_damage.bind(modified_damage))
-	tween.tween_interval(0.17)
+	tween.tween_interval(Utils.presentation_duration(0.17))
 	tween.finished.connect(
 		func():
+			pending_effects -= 1
 			sprite_2d.material = null
 			sprite_2d.self_modulate = Color.WHITE
 			if stats.health <= 0:
 				Events.player_died.emit()
-				Talo.stats.track("player_deaths")
+				TelemetryManager.track_stat("player_deaths")
 				queue_free()
 	)
 
 func _on_position_updated(pos: Vector2) -> void:
+	pending_effects += 1
 	var og_scale = scale
 	var tween = create_tween()
 	tween.tween_property(self, "scale", scale * 1.5,.1)
-	tween.parallel().tween_property(self, "position", pos, .2)
+	tween.parallel().tween_property(self, "position", pos, Utils.presentation_duration(.2))
 	tween.tween_property(self, "scale", og_scale,.1)
 	tween.tween_callback(
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)
 			Events.player_moved.emit()
+			pending_effects -= 1
 			)
 
 func _on_player_teleported(pos: Vector2) -> void:
+	pending_effects += 1
 	var tween = create_tween()
-	tween.tween_property(self, "self_modulate", Color.TRANSPARENT, .1)
-	tween.tween_property(self, "position", pos, .2)
+	tween.tween_property(self, "self_modulate", Color.TRANSPARENT, Utils.presentation_duration(.1))
+	tween.tween_property(self, "position", pos, Utils.presentation_duration(.2))
 	tween.tween_property(self, "self_modulate", Color.WHITE ,.1)
 	tween.tween_callback(
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)
+			pending_effects -= 1
 			)

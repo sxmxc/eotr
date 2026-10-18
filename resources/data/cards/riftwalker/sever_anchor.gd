@@ -4,27 +4,12 @@ extends Card
 @export var obelisk_bonus := 5
 
 
+func resolve_effects(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
+	await _resolve_with_targets(targets, player_stats, modifiers)
+
+
 func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
-	if targets.is_empty():
-		return
-
-	var target := targets[0]
-	var total_damage := _calculate_damage(target)
-	var damage_effect := DamageEffect.new()
-	var cam := target.get_tree().get_first_node_in_group("map_camera")
-	damage_effect.amount = modifiers.get_modified_value(total_damage, Enums.ModifierType.DMG_DEALT)
-	damage_effect.sound_fx = sound_fx
-
-	var projectile := projectile_fx.instantiate() as ProjectileFX
-	if visual_fx:
-		projectile.visual_fx = visual_fx.instantiate() as VisualFX
-	target.get_tree().get_first_node_in_group("fx_layer").add_child(projectile)
-	projectile.complete.connect(func():
-		damage_effect.execute(targets)
-		Utils.shake(cam, 18, 0.18)
-		_emit_obelisk_message(target)
-	)
-	projectile.execute(target)
+	await _resolve_with_targets(targets, null, modifiers)
 
 
 func get_default_description() -> String:
@@ -51,6 +36,37 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 		base_damage, Enums.ModifierType.DMG_DEALT
 	)
 	return not is_equal_approx(modified_base, base_damage)
+
+
+func _sync_effect_configs() -> void:
+	var damage_config: CardEffectConfig = CardEffectConfig.for_damage(base_damage)
+	damage_config.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
+	damage_config.camera_shake_strength = 18.0
+	damage_config.camera_shake_duration = 0.18
+	damage_config.attach_visual_to_effect = false
+	CardEffectConfigHelper.apply_card_defaults(self, damage_config, false)
+
+	effect_configs = [damage_config]
+
+
+func _resolve_with_targets(
+	targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler
+) -> void:
+	if targets.is_empty():
+		return
+
+	_sync_effect_configs()
+	var target := targets[0]
+	var total_damage := _calculate_damage(target)
+
+	if effect_configs.is_empty():
+		return
+	var damage_config := effect_configs[0] as CardEffectConfig
+	damage_config.amount = total_damage
+
+	var resolver := CardResolver.new()
+	await resolver.resolve(self, targets, player_stats, modifiers, effect_configs)
+	_emit_obelisk_message(target)
 
 
 func _calculate_damage(target: Node) -> int:

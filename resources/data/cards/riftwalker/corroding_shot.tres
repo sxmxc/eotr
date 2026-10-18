@@ -1,0 +1,18 @@
+[gd_resource type="Resource" format=3 uid="uid://ct7m3k507tp5j"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_jqout"]
+[ext_resource type="Script" uid="uid://csh0tnnaa06gl" path="res://resources/data/cards/riftwalker/corroding_shot.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://b1vge246lfhtt" path="res://assets/audio/spells/disenchant2.wav" id="2_sound"]
+[ext_resource type="PackedScene" uid="uid://cln3yj26mtsp" path="res://ui/fx/curse_fx.tscn" id="3_fx"]
+
+[resource]
+script = ExtResource("1_script")
+target_type = 1
+id = "corroding_shot"
+name = "Corroding Shot"
+card_rarity = 1
+description = "Deal [b]%s[/b] damage to a [b]single[/b] enemy and apply [b]%s[/b] Corroded (true damage + block shred each end of turn)."
+energy_cost = 2
+sound_fx = ExtResource("2_sound")
+visual_fx = ExtResource("3_fx")
+metadata/_custom_type_script = "uid://cre5wuy8yysso"

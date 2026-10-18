@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceyramfufub1e"]
+[gd_scene format=3 uid="uid://ceyramfufub1e"]
 
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_dnal8"]
 [ext_resource type="Script" uid="uid://btrsx10lrt8yd" path="res://scenes/game_world/card_target_selector/card_target_selector.gd" id="1_s6vcj"]
@@ -11,27 +11,27 @@ size = Vector2(4, 4)
 atlas = ExtResource("5_gwqsc")
 region = Rect2(96, 32, 32, 32)
 
-[node name="CardTargetSelector" type="Node2D"]
+[node name="CardTargetSelector" type="Node2D" unique_id=843188531]
 script = ExtResource("1_s6vcj")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=524763249]
 collision_layer = 2
 collision_mask = 8
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=582307958]
 shape = SubResource("RectangleShape2D_66gff")
 
-[node name="HexIndicator" type="Sprite2D" parent="."]
+[node name="HexIndicator" type="Sprite2D" parent="." unique_id=1878936360]
 self_modulate = Color(1, 1, 1, 0.493)
 z_index = 2
 texture = SubResource("AtlasTexture_ws524")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1654681459]
 layer = 2
 
-[node name="CardArc" parent="CanvasLayer" instance=ExtResource("1_dnal8")]
+[node name="CardArc" parent="CanvasLayer" unique_id=495524552 instance=ExtResource("1_dnal8")]
 default_color = Color(0.823529, 0.788235, 0.647059, 1)
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

@@ -14,5 +14,5 @@ func _process(_delta: float) -> void:
 func do_death() -> void:
 	if not _begin_death_sequence():
 		return
-	Talo.stats.track("bosses_defeated")
+	TelemetryManager.track_stat("bosses_defeated")
 	_fade_out_and_queue_free(0.5)

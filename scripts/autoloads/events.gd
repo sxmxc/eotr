@@ -1,5 +1,8 @@
 extends Node
 
+signal enemy_spawned(enemy: Enemy, summoned: bool)
+signal enemy_decision_rejected(enemy: Enemy, reason: String)
+
 @warning_ignore_start("unused_signal")
 # Card-related events
 signal card_drag_started(card_ui: CardUI)

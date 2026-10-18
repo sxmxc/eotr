@@ -20,6 +20,10 @@ func _on_tile_updated(tile_info: HexTileData) -> void:
 func update_info(tile_info: HexTileData) -> void:
 	if not self.is_node_ready():
 		await ready
+	if not tile_info:
+		return
 	type_label.text = str(Enums.TileType.keys()[tile_info.type]).capitalize()
 	loc_label.text = str(tile_info.tile_id)
-	resource_label.text = str(tile_info.resource_count)
+	resource_label.text = "%d resource%s" % [tile_info.resource_count, "" if tile_info.resource_count == 1 else "s"]
+	resource_label.visible = tile_info.type == Enums.TileType.RESOURCE
+	tooltip_text = "Hex %s" % str(tile_info.tile_id)

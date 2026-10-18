@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://clybmd6dqmpt8"]
+[gd_scene format=3 uid="uid://clybmd6dqmpt8"]
 
 [ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obelisk/obelisk_enemy.gd" id="1_pyj3l"]
 [ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="2_2g2p5"]
@@ -81,18 +81,18 @@ radius = 13.0
 [sub_resource type="Resource" id="Resource_fjfnb"]
 script = ExtResource("13_ysoax")
 
-[node name="Obelisk" type="Node2D" groups=["enemy", "obelisk"]]
+[node name="Obelisk" type="Node2D" unique_id=1722438557 groups=["enemy", "obelisk"]]
 script = ExtResource("1_pyj3l")
 spawn_pool = Array[ExtResource("2_23345")]([ExtResource("3_ygcrw"), ExtResource("4_pyj3l"), ExtResource("5_ygcrw")])
 stats = ExtResource("2_2g2p5")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1201023035]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_180ib")
 
-[node name="CircleIndicator" type="Sprite2D" parent="Sprite2D"]
+[node name="CircleIndicator" type="Sprite2D" parent="Sprite2D" unique_id=1150754839]
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(0.524982, 3, 2.99105, 0.471)
@@ -100,27 +100,25 @@ z_index = 5
 scale = Vector2(3, 3)
 texture = ExtResource("8_41nl8")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator"]
-libraries = {
-&"": SubResource("AnimationLibrary_onf1d")
-}
-autoplay = "rotate"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator" unique_id=1025710734]
+libraries/ = SubResource("AnimationLibrary_onf1d")
+autoplay = &"rotate"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1444220397]
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1296323073]
 shape = SubResource("CircleShape2D_xxaiy")
 
-[node name="ModifierHandler" parent="." instance=ExtResource("10_gpe5u")]
+[node name="ModifierHandler" parent="." unique_id=2054426507 instance=ExtResource("10_gpe5u")]
 
-[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("11_82g5s")]
+[node name="DamageDealtModifier" parent="ModifierHandler" unique_id=1742254225 instance=ExtResource("11_82g5s")]
 
-[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("11_82g5s")]
+[node name="DamageTakenModifier" parent="ModifierHandler" unique_id=1959058803 instance=ExtResource("11_82g5s")]
 type = 1
 
-[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1816204854 node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("12_xeohu")

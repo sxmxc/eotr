@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemyStats" load_steps=5 format=3 uid="uid://bhto68irinlan"]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://bhto68irinlan"]
 
 [ext_resource type="PackedScene" uid="uid://cl7r7mqya2lh7" path="res://scenes/enemy/obelisk/obelisk_enemy_ai.tscn" id="1_fkblh"]
 [ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_xou0d"]
@@ -11,7 +11,6 @@ enemy_name = "Obelisk"
 board_icon = ExtResource("2_xou0d")
 ai = ExtResource("1_fkblh")
 call_sound = ExtResource("3_xou0d")
-flying = false
 gold_value = 10
 resource_value_max = 10
 max_health = 20

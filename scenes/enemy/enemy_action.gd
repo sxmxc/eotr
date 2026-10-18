@@ -8,11 +8,25 @@ enum Type {CONDITIONAL, CHANCE_BASED}
 @export_range(0.0, 10.0) var chance_weight := 0.0
 @export var sound: AudioStream
 @export var visual_fx: PackedScene
+@export_range(0, 12) var target_range := 0
 
 @onready var accumulated_weight := 0.0
 
 var enemy: Enemy
 var target: Node2D
+
+# Conditional actions retain their own predicates. Chance attacks share live range
+# validation so a stale intent cannot strike from the other side of the board.
+func is_eligible() -> bool:
+	if not is_instance_valid(enemy) or enemy.is_dying or enemy.stats.health <= 0:
+		return false
+	if type == Type.CONDITIONAL:
+		return is_performable()
+	if not is_instance_valid(target):
+		return false
+	if target_range > 0:
+		return enemy.tilemap.get_surrounding_tiles_in_radius(enemy.current_tile_position, target_range).has(enemy.get_player_tile_position())
+	return true
 
 func is_performable() -> bool:
 	return false

@@ -27,6 +27,8 @@ func spawn_enemy(_enemy: Enemy) -> void:
 
 
 func spawn_random_enemy() -> bool:
+	if is_dying or stats.health <= 0 or spawn_pool.is_empty():
+		return false
 	if not _ensure_spawn_tiles():
 		return false
 
@@ -37,7 +39,7 @@ func spawn_random_enemy() -> bool:
 	var new_spawn = MOVING_ENEMY_SCENE.instantiate()
 	new_spawn.stats = RNG.array_pick_random(spawn_pool) as EnemyStats
 	new_spawn.name = new_spawn.stats.enemy_name
-	enemy_handler.add_enemy(new_spawn, spawn_tile)
+	enemy_handler.add_enemy(new_spawn, spawn_tile, true)
 	var world_message = WorldMessageData.new(
 		"Obelisk spawns a %s from the void" % new_spawn.stats.enemy_name,
 		WorldMessageData.Priority.IMPORTANT
@@ -49,7 +51,7 @@ func spawn_random_enemy() -> bool:
 func do_death() -> void:
 	if not _begin_death_sequence():
 		return
-	Talo.stats.track("obelisks_destroyed")
+	TelemetryManager.track_stat("obelisks_destroyed")
 	if SHATTER_EMBER_FX:
 		var shatter_fx := SHATTER_EMBER_FX.instantiate() as VisualFX
 		shatter_fx.scale = Vector2(1.2, 1.2)
@@ -80,7 +82,7 @@ func has_taken_damage() -> bool:
 
 
 func has_viable_spawn_tile() -> bool:
-	return _ensure_spawn_tiles()
+	return not is_dying and stats.health > 0 and not spawn_pool.is_empty() and _ensure_spawn_tiles()
 
 
 func peek_next_spawn_tile():

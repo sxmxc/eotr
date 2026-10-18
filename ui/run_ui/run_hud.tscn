@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/run_ui/run_hud.gd" id="hud_script"]
+
+[ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="8_ctna3"]
+
+[ext_resource type="PackedScene" uid="uid://b0lurds536bhp" path="res://ui/run_ui/gold_ui.tscn" id="9_axhcw"]
+
+[ext_resource type="PackedScene" uid="uid://dr3yt337ubpq" path="res://ui/run_ui/resources_ui.tscn" id="10_dfo0u"]
+
+[ext_resource type="PackedScene" uid="uid://ck2xa3ld451by" path="res://ui/run_ui/run_time_ui.tscn" id="11_n0yky"]
+
+[ext_resource type="PackedScene" uid="uid://bk80dhbki0i22" path="res://scenes/relic_handler/relic_handler.tscn" id="12_yey0w"]
+
+[ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="13_ev4fb"]
+
+[ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="14_ik8qf"]
+
+[ext_resource type="PackedScene" uid="uid://coupj55agy31s" path="res://scenes/relic_handler/relic_tooltip.tscn" id="15_rxc36"]
+
+[ext_resource type="PackedScene" uid="uid://dlbek83rsj3cw" path="res://ui/run_ui/bounty_board_view.tscn" id="16_omd4m"]
+
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="32_djwbl"]
+
+[node name="RunHUD" type="CanvasLayer" unique_id=1601585805]
+script = ExtResource("hud_script")
+layer = 4
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=51867573]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+color = Color(0.045, 0.065, 0.1, 0.98)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1353700119]
+custom_minimum_size = Vector2(0, 80)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme = ExtResource("32_djwbl")
+theme_type_variation = &"RunBarInset"
+
+[node name="BarItems" type="HBoxContainer" parent="MarginContainer" unique_id=408860922]
+layout_mode = 2
+theme_type_variation = &"CompactRow"
+
+[node name="HealthUI" parent="MarginContainer/BarItems" unique_id=358501223 instance=ExtResource("8_ctna3")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+show_max_hp = true
+
+[node name="GoldUI" parent="MarginContainer/BarItems" unique_id=1118499638 instance=ExtResource("9_axhcw")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="ResourcesUI" parent="MarginContainer/BarItems" unique_id=501486573 instance=ExtResource("10_dfo0u")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="RunTimeUI" parent="MarginContainer/BarItems" unique_id=104178830 instance=ExtResource("11_n0yky")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RelicHandlerContainer" type="CenterContainer" parent="MarginContainer/BarItems" unique_id=2081046204]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RelicHandler" parent="MarginContainer/BarItems/RelicHandlerContainer" unique_id=1479999069 instance=ExtResource("12_yey0w")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="DeckButton" parent="MarginContainer/BarItems" unique_id=1712386859 instance=ExtResource("13_ev4fb")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+
+[node name="TopBarPopupView" type="CanvasLayer" parent="." unique_id=615476148]
+layer = 6
+
+[node name="DeckView" parent="TopBarPopupView" unique_id=1686383835 instance=ExtResource("14_ik8qf")]
+unique_name_in_owner = true
+visible = false
+
+[node name="RelicTooltip" parent="TopBarPopupView" unique_id=1320692901 instance=ExtResource("15_rxc36")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+
+[node name="BountyBoardPopup" parent="TopBarPopupView" unique_id=1926839284 instance=ExtResource("16_omd4m")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
