@@ -8,12 +8,16 @@ controller. There is no duplicate combat engine and no coordinate-based input.
 
 ## Commands (PowerShell, from repository root)
 
-Replace the executable path for your installation. The launcher isolates saves and
-uses Null telemetry during startup, then local JSONL for simulations. It never
-starts or contacts an analytics backend.
+Replace the executable path for your installation. The launcher isolates saves.
+AutoWalker retains local JSONL telemetry and also uploads to the configured enabled
+HTTP backend, using the project's `telemetry/config_path` (or production.tres).
+Upload honors the configured consent requirement and the telemetry setting.
+Use `--telemetry-local` for offline QA without contacting a backend; automated
+validation always uses an isolated Null configuration. No launcher starts services.
 
 ```powershell
 python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch
+python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch --telemetry-local
 python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --policy greedy --seed 1 --count 3 --encounter res://resources/data/battles/tier_0_blobs.tres --output build/qa-baseline
 python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch --replay build/qa-baseline/simulation-1.json
 python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --mode run --policy greedy --max-actions 1000 --timeout 300 --output build/qa-run
@@ -91,7 +95,27 @@ and writes bounded `events.jsonl`. Report/replay files are distinct QA artifacts
 not a temporary telemetry implementation. Reusing an output directory/seed overwrites
 its simulation artifact, so use separate directories for build comparisons.
 
+When the configured transport is enabled HTTP, a second addon client sends bot
+events to the existing endpoint with `environment=qa`, `profile=qa` and
+`source_type=bot`. Both clients share session/run context and keep independent
+bounded delivery queues; a backend outage does not block local JSONL or simulation
+reports. Each destination generates its own event IDs; HTTP retries preserve their
+IDs. The Watch inspector and summary.json expose upload counts, pending events,
+retries, consent and last_error. In Grafana select QA / bot and the current build.
+
+Completed headless batches and closing Watch wait up to 15 seconds for queued
+telemetry, respecting retry backoff. A warning and summary health expose pending
+uploads at the deadline; delivery is best effort, not a durable upload spool.
+The local JSONL remains available when the backend is unreachable. The startup
+message explicitly reports backend-plus-local or local-only routing. No HTTP client
+is created when configured telemetry is disabled, non-HTTP, or --telemetry-local.
+
 ## Validation evidence — 2026-10-17
+
+Backend-free upload routing regression:
+`python tools/validate_project.py --godot <executable> --autowalker-telemetry`.
+It substitutes a fake asynchronous transport before any network processing and
+checks batching, retries, consent, queue pressure, local independence and bot context.
 
 - Independent addon test project: zero failed assertions; no game autoloads included.
 - Combat test: zero failures for legal enumeration, stale cost rejection, paid custom

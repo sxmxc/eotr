@@ -2,6 +2,17 @@ extends Node
 
 var failures := 0
 
+class FakeUpload:
+	extends Node
+	var batches: Array = []
+	var result := {"ok": true}
+	func deliver(batch: Array) -> Dictionary:
+		batches.append(batch.duplicate(true))
+		await get_tree().create_timer(0.01).timeout
+		return result.duplicate()
+	func purge() -> void:
+		pass
+
 func _ready() -> void:
 	call_deferred("run")
 
@@ -17,6 +28,13 @@ func until(predicate: Callable, seconds: float = 10.0) -> bool:
 	return predicate.call()
 
 func run() -> void:
+	await test_qa_upload()
+	if OS.get_cmdline_user_args().has("--telemetry-only"):
+		TelemetryManager.suspended = true
+		await get_tree().process_frame
+		print("AutoWalker telemetry tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
 	var watch: Node = load("res://scenes/developer/autowalker/watch.tscn").instantiate()
 	var runner = watch.get_node("Runner")
 	runner.automatic_start = false
@@ -49,3 +67,66 @@ func run() -> void:
 	TelemetryManager.suspended = true
 	print("AutoWalker controls tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func test_qa_upload() -> void:
+	var config := preload("res://addons/godot_telemetry/resources/telemetry_config.gd").new()
+	config.enabled = true
+	config.transport = "http"
+	config.endpoint = "http://invalid.test/v1/events"
+	config.game_id = "echoes_of_the_rift"
+	config.environment = "production"
+	config.batch_size = 2
+	config.retry_base_seconds = 0.01
+	var old_consent := GameSettings.telemetry_enabled
+	GameSettings.telemetry_enabled = true
+	var path := "res://build/qa-upload-test.jsonl"
+	TelemetryManager.configure_qa(path, config)
+	var upload: Node = TelemetryManager.qa_upload
+	upload.set_process(false)
+	check(upload.config.endpoint == config.endpoint and config.environment == "production", "QA preserves configured endpoint without mutating the original resource")
+	check(upload.config.environment == "qa" and upload.config.profile == "qa", "QA enables bot diagnostics in the QA environment")
+	upload.transport.queue_free()
+	var fake := FakeUpload.new()
+	upload.add_child(fake)
+	upload.transport = fake
+	TelemetryManager.set_context({"run_id": "upload-test"})
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 1})
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 2})
+	check(await TelemetryManager.flush_pending(1.0), "Shutdown drain delivers every queued batch asynchronously")
+	check(fake.batches.size() == 2 and upload.diagnostics.delivered == 3, "HTTP upload acknowledges more than one batch")
+	var event: Dictionary = fake.batches[0][1]
+	check(event.source_type == "bot" and event.environment == "qa" and event.run_id == "upload-test", "Backend events carry bot source, QA environment and current run")
+	check(event.session_id == TelemetryManager.client.session_id, "Local and uploaded events share session context")
+	fake.result = {"ok": false, "retryable": true, "error": "offline"}
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 3})
+	TelemetryManager.flush()
+	await until(func(): return not upload.busy)
+	check(upload.queue.size() == 1 and upload.retries == 1, "Backend outage retains pending events for retry")
+	check(TelemetryManager.client.queue.is_empty() and FileAccess.file_exists(path), "Local JSONL completes independently of failed uploads")
+	var retry_id: String = upload.queue[0].event_id
+	fake.result = {"ok": true}
+	upload.retry_at = 0.0
+	check(await TelemetryManager.flush_pending(1.0), "Backend recovery drains pending telemetry")
+	check(fake.batches.back()[0].event_id == retry_id, "Upload retry preserves its event ID")
+	var file := FileAccess.open(path, FileAccess.READ)
+	var local_count := 0
+	while file and not file.eof_reached():
+		if not file.get_line().is_empty():
+			local_count += 1
+	check(local_count == 4, "Backend retry does not duplicate local QA events")
+	if file:
+		file.close()
+	upload.config.queue_capacity = 1
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 4})
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 5})
+	TelemetryManager.client.flush()
+	check(upload.queue.size() == 1 and upload.diagnostics.dropped == 1, "Upload queue remains bounded during backpressure")
+	check(TelemetryManager.client.queue.is_empty(), "Remote queue pressure does not block the independent local client")
+	GameSettings.telemetry_changed.emit(false)
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 4})
+	check(upload.queue.is_empty(), "Remote upload honors consent withdrawal")
+	config.enabled = false
+	TelemetryManager.configure_qa(path, config)
+	check(not is_instance_valid(TelemetryManager.qa_upload), "Disabled backend keeps QA telemetry local")
+	GameSettings.telemetry_enabled = old_consent
+	GameSettings.telemetry_changed.emit(old_consent)

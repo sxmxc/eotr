@@ -22,9 +22,11 @@ refunds. Sever Anchor now overrides effect resolution rather than the cost/event
 The compatibility test checks recording without identity, numeric properties,
 random session identifiers, queue clearing and blocked recording after opt-out.
 
-Validation launchers isolate saves and override production configuration with
+The compatibility validation launcher isolates saves and overrides production configuration with
 scripts/tests/telemetry_null.tres, so even a local HTTP-enabled production resource
-cannot contact the backend during tests. AutoWalker then switches to local JSONL.
+cannot contact the backend during tests. AutoWalker retains local JSONL and uses
+the configured enabled HTTP backend for bot uploads; --telemetry-local disables
+network delivery, including in its isolated Python launcher.
 Public ingestion, HTTP TLS delivery,
 ClickHouse SQL execution and rendered Grafana queries require later infrastructure
 deployment and have not been claimed as verified.

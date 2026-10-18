@@ -56,6 +56,8 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
 AutoWalker plays the real combat/run scenes visibly or headlessly, with random,
 greedy and stress policies, pause/step controls, replay checkpoints and local reports.
 See [AutoWalker commands and validation](ai/docs/autowalker-architecture.md).
+AutoWalker keeps local QA files and uploads bot telemetry when the configured HTTP
+transport is enabled. Use `--telemetry-local` to run without backend access.
 
 The reusable [Godot telemetry addon](addons/godot_telemetry/README.md) supports portable
 schemas, HTTP/JSONL/Null delivery and consent-aware bounded buffering. Game configuration

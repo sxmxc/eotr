@@ -39,6 +39,9 @@ tools/run_autowalker.py, ai/docs/autowalker-architecture.md.
 - [x] Watch replay detects divergence and supports pause/step/inspection.
 - [x] Supported progression/reward/run automation, limitations explicitly documented.
 - [x] Local reports distinguish bot outcomes; regression comparison supported.
+- [x] Honor configured HTTP backend for QA/bot uploads alongside independent local
+  JSONL; expose upload health, preserve consent, provide explicit local-only mode,
+  and drain multiple asynchronous batches before headless exit/Watch close.
 - [x] Watch/headless/replay/batch validation evidence recorded.
 
 ## 3. Standalone telemetry addon — complete

@@ -23,6 +23,7 @@ var obelisk_first_hit_awarded := false
 var obelisk: Obelisk
 var resolving_action := false
 var hand_ready := false
+var _draw_tween: Tween
 
 
 func _ready() -> void:
@@ -30,7 +31,28 @@ func _ready() -> void:
 		LimboConsole.register_command(draw_card, "draw_card", "Draw card from deck")
 	Events.card_played.connect(_on_card_played)
 	Events.obelisk_destroyed.connect(_on_obelisk_destroyed)
+	if is_instance_valid(player):
+		player.tree_exiting.connect(_cancel_draw)
 	#Events.player_moved.connect(_on_player_moved)
+
+
+func _exit_tree() -> void:
+	_cancel_draw()
+
+
+func _cancel_draw() -> void:
+	if _draw_tween and _draw_tween.is_valid():
+		_draw_tween.kill()
+	_draw_tween = null
+	hand_ready = false
+
+
+func _can_draw() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() \
+		and is_instance_valid(player) and not player.is_queued_for_deletion() \
+		and player.is_inside_tree() and player.stats != null and player.stats.health > 0 \
+		and player_stats != null and is_instance_valid(player_hand) \
+		and not player_hand.is_queued_for_deletion() and player_hand.is_inside_tree()
 
 
 func start_battle(stats: PlayerStats) -> void:
@@ -84,7 +106,8 @@ func end_turn() -> void:
 
 
 func draw_card() -> void:
-	if player.stats.health <= 0:
+	if not _can_draw():
+		_cancel_draw()
 		return
 	reshuffle_deck_from_discard()
 	if player_stats.draw_pile.is_empty():
@@ -94,17 +117,22 @@ func draw_card() -> void:
 
 
 func draw_cards(amount: int) -> void:
-	hand_ready = false
+	_cancel_draw()
+	if not _can_draw():
+		return
 	if amount <= 0:
 		hand_ready = true
 		Events.player_hand_drawn.emit()
 		return
-	var tween := create_tween()
+	_draw_tween = create_tween()
 	for i in range(amount):
-		tween.tween_callback(draw_card)
-		tween.tween_interval(Utils.presentation_duration(HAND_DRAW_INTERVAL))
+		_draw_tween.tween_callback(draw_card)
+		_draw_tween.tween_interval(Utils.presentation_duration(HAND_DRAW_INTERVAL))
 
-	tween.finished.connect(func():
+	_draw_tween.finished.connect(func():
+		_draw_tween = null
+		if not _can_draw():
+			return
 		hand_ready = true
 		Events.player_hand_drawn.emit())
 

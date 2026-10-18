@@ -2,6 +2,40 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: AutoWalker backend uploads alongside local QA**
+- AutoWalker now honors the configured enabled HTTP endpoint with an independent
+  addon client, QA profile/environment, bot source and shared local session/run
+  context. The local JSONL/report/replay path remains available during backend
+  failure or remote queue pressure. Remote consent and disabled settings are honored.
+- The Python launcher preserves configured telemetry by default and offers
+  --telemetry-local for offline runs. Validation retains its isolated Null config.
+  Completed batches and Watch close use a bounded 15-second multi-batch drain;
+  unresolved uploads are exposed through warning/health rather than claimed sent.
+  Watch inspector and summary.json include delivered/pending/retry/error metrics.
+- Regression uses a fake asynchronous upload transport without opening a service
+  or contacting the user's endpoint. Telemetry-only runner exits 0 with zero failed
+  assertions. Full controls assertions also pass; that run still reports existing
+  shutdown-resource diagnostics and exits 1. Headless local-only seed 1 wins in six
+  turns with zero failures/invalid actions and 105 local events delivered, none
+  pending. Existing certificate/shader/resource diagnostics remain. No backend
+  services started or live HTTP delivery claimed. User project/export/scene edits
+  were preserved.
+
+**2026-10-17 – Codex: cancel card draws when the player is removed**
+- Draw callbacks were bound to PlayerHandler and could outlive its player node.
+  Guarded draws against missing/dead/queued/detached players and hand controls,
+  retained and cancelled the draw tween on player/handler exit and replacement,
+  and prevented cancelled draw completion from advancing the player phase.
+- Added a regression that advances a draw tween deterministically, queues player
+  deletion mid-sequence, then attempts direct and zero-card draws after freeing.
+  Timing-based setup initially raced headless presentation; custom stepping makes
+  the fixture independent of frame duration. User project/export/Watch-scene
+  edits were preserved. AutoWalker telemetry routing was not changed by this fix.
+- Validation: isolated compatibility runner exited 0, loaded 531 resources and
+  reported zero failed assertions, including deletion during draw. Existing
+  certificate-store, headless shader and retained MapNode shutdown diagnostics
+  remain; no backend services were launched.
+
 **2026-10-17 – Codex: avoid Grafana HTTP server-hello timeout override**
 - The user still observed code 452 at the HTTP server handshake after the prior
   timeout change. Driver source confirms context deadlines can overwrite custom

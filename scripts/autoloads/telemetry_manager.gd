@@ -5,6 +5,8 @@ const Config = preload("res://addons/godot_telemetry/resources/telemetry_config.
 var suspended := false
 var _quitting := false
 var client: Node
+var qa_upload: Node
+var _configured_settings: Resource
 var session_start_ms := 0
 
 func _ready() -> void:
@@ -15,6 +17,7 @@ func _ready() -> void:
 	if config_path.is_empty():
 		config_path = "res://telemetry/config/production.tres"
 	var settings: Resource = load(config_path) if ResourceLoader.exists(config_path) else Config.new()
+	_configured_settings = settings.duplicate(true)
 	client.configure(settings)
 	client.set_context({"build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
 	var definitions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://telemetry/schemas/events.json"))
@@ -33,34 +36,83 @@ func _ready() -> void:
 func track_event(event_name: String, props: Dictionary = {}) -> void:
 	if not suspended:
 		if event_name == "run_started":
-			client.set_context({"run_id": client.new_id()})
+			set_context({"run_id": client.new_id()})
 		client.record(event_name, props)
+		if is_instance_valid(qa_upload):
+			qa_upload.record(event_name, props)
+
+func set_context(values: Dictionary) -> void:
+	client.set_context(values)
+	if is_instance_valid(qa_upload):
+		qa_upload.set_context(values)
 
 func track_stat(stat_name: String, change: float = 1.0) -> void:
 	track_event("stat_changed", {"stat": stat_name, "change": change})
 
 func _on_telemetry_changed(enabled: bool) -> void:
 	client.set_consent(enabled)
+	if is_instance_valid(qa_upload):
+		qa_upload.set_consent(enabled)
 
-func configure_qa(path: String) -> void:
-	var settings := Config.new()
+func configure_qa(path: String, upload_settings: Resource = null) -> void:
+	if is_instance_valid(qa_upload):
+		qa_upload.set_consent(false)
+		qa_upload.queue_free()
+	qa_upload = null
+	var configured: Resource = upload_settings if upload_settings != null else _configured_settings
+	var settings: Resource = configured.duplicate(true)
 	settings.enabled = true
 	settings.consent_required = false
-	settings.game_id = "echoes_of_the_rift"
+	if settings.game_id.is_empty():
+		settings.game_id = "echoes_of_the_rift"
 	settings.environment = "qa"
 	settings.profile = "qa"
 	settings.transport = "jsonl"
 	settings.output_path = path
 	client.configure(settings)
-	client.set_context({"source_type": "bot", "build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
+	if configured.enabled and configured.transport == "http" and not OS.get_cmdline_user_args().has("--telemetry-local"):
+		var remote: Resource = configured.duplicate(true)
+		remote.environment = "qa"
+		remote.profile = "qa"
+		qa_upload = Client.new()
+		add_child(qa_upload)
+		qa_upload.configure(remote)
+		qa_upload.schemas = client.schemas.duplicate(true)
+		qa_upload.session_id = client.session_id
+		qa_upload.set_consent(GameSettings.telemetry_enabled)
+	set_context({"source_type": "bot", "run_id": "", "build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
+	print("AutoWalker telemetry: local JSONL + configured backend" if is_instance_valid(qa_upload) else "AutoWalker telemetry: local JSONL only")
+	track_event("session_started")
+
+func flush() -> void:
+	client.flush()
+	if is_instance_valid(qa_upload):
+		qa_upload.flush()
+
+func health() -> Dictionary:
+	var upload := {"enabled": false}
+	if is_instance_valid(qa_upload):
+		upload = qa_upload.health()
+		upload.merge({"enabled": qa_upload.config.enabled, "consent": qa_upload.consent})
+	return {"local": client.health(), "upload": upload}
+
+func flush_pending(timeout_seconds: float = 15.0) -> bool:
+	var deadline := Time.get_ticks_msec() + int(timeout_seconds * 1000)
+	while Time.get_ticks_msec() < deadline:
+		flush()
+		var pending: bool = client.busy or not client.queue.is_empty()
+		if is_instance_valid(qa_upload):
+			pending = pending or qa_upload.busy or not qa_upload.queue.is_empty()
+		if not pending:
+			return true
+		await get_tree().process_frame
+	push_warning("Telemetry flush deadline reached; local QA files remain available. " + JSON.stringify(health()))
+	return false
 
 func request_quit() -> void:
 	if _quitting:
 		return
 	_quitting = true
 	track_event("session_ended", {"duration_ms": Time.get_ticks_msec() - session_start_ms})
-	client.shutdown()
-	var deadline := Time.get_ticks_msec() + 1500
-	while client.busy and Time.get_ticks_msec() < deadline:
-		await get_tree().process_frame
+	await flush_pending()
 	get_tree().quit()

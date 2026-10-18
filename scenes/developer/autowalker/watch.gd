@@ -7,6 +7,7 @@ func _ready() -> void:
 	if not OS.is_debug_build():
 		queue_free()
 		return
+	get_tree().auto_accept_quit = false
 	panel.get_node("Seed").text = str(runner.simulation_seed)
 	panel.get_node("Encounter").text = runner.encounter
 	panel.get_node("ReplayPath").text = runner.output.path_join("simulation-%d.json" % runner.simulation_seed)
@@ -30,6 +31,12 @@ func _ready() -> void:
 	if DisplayServer.get_name() == "headless":
 		$Overlay.hide()
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		runner.paused = true
+		runner.stopped = true
+		TelemetryManager.request_quit()
+
 func _start() -> void:
 	while runner.busy:
 		await get_tree().process_frame
@@ -44,5 +51,6 @@ func _process(_delta: float) -> void:
 	if not is_instance_valid(runner.world) and not is_instance_valid(runner.run_node):
 		return
 	panel.get_node("Inspector").text = "Seed %d | %s | %s | turn %d\n%s\n%s" % [runner.simulation_seed, runner.policy_name, "paused" if runner.paused else "playing", runner.turn_number(), JSON.stringify(runner.interface.observe()), JSON.stringify(runner.decision)]
+	panel.get_node("Inspector").text += "\nTelemetry: " + JSON.stringify(TelemetryManager.health())
 	if not runner.replay.is_empty():
 		panel.get_node("Inspector").text += "\nReplay source: %s — %s" % [runner.replay.get("outcome", "unknown"), runner.replay.get("reason", "")]

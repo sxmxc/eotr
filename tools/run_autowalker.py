@@ -1,4 +1,4 @@
-"""Run actual Godot AutoWalker with isolated saves and local-only telemetry."""
+"""Run actual Godot AutoWalker with isolated saves, local reports and configured telemetry."""
 import argparse
 import json
 import os
@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", required=True)
     parser.add_argument("--watch", action="store_true")
+    parser.add_argument("--telemetry-local", action="store_true", help="Keep QA telemetry local without contacting the configured backend")
     parser.add_argument("--verify-watch", action="store_true", help="Run rendered playback, save a capture and exit after the simulation")
     parser.add_argument("--mode", choices=["encounter", "run"], default="encounter")
     parser.add_argument("--replay")
@@ -42,8 +43,9 @@ def main():
     config = (root / "project.godot").read_text(encoding="utf-8")
     config = re.sub(r'^config/name=.*$', 'config/name="eotr_autowalker"', config, flags=re.M)
     config = re.sub(r'^config/(use_custom_user_dir|custom_user_dir)=.*\n?', '', config, flags=re.M)
-    config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
-    config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
+    if args.telemetry_local:
+        config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
+        config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
     (project / "project.godot").write_text(config, encoding="utf-8")
     userdata = root / "build/autowalker-userdata"
     userdata.mkdir(exist_ok=True)
@@ -57,6 +59,8 @@ def main():
     for key in ("mode", "seed", "policy", "count", "max_turns", "max_actions", "timeout", "encounter"):
         command.append(f"--{key.replace('_', '-')}={getattr(args, key)}")
     command.append(f"--output={output.as_posix()}")
+    if args.telemetry_local:
+        command.append("--telemetry-local")
     if args.replay:
         command.append(f"--replay={Path(args.replay).resolve().as_posix()}")
     if args.verify_watch:

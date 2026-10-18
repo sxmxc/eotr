@@ -372,6 +372,23 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	for card_ui in discarded_ui:
 		_check(not is_instance_valid(card_ui), "Completed discard animations release their controls")
 	_check(stats.discard.cards.size() == cards.size(), "Animation completion does not duplicate discarded cards")
+	# A draw tween belongs to the handler, which can outlive the player.
+	drawn.signals = 0
+	Events.player_hand_drawn.connect(on_drawn)
+	handler.draw_cards(3)
+	var pending_draw := handler._draw_tween
+	pending_draw.custom_step(0.001)
+	var count_before := hand.get_child_count()
+	sandbox.player.queue_free()
+	_check(not handler._can_draw(), "Queued player deletion prevents further draws")
+	await get_tree().process_frame
+	handler.draw_card()
+	handler.draw_cards(0)
+	await get_tree().create_timer(0.5).timeout
+	_check(not pending_draw.is_valid(), "Player removal cancels the pending draw tween")
+	_check(drawn.signals == 0 and not handler.hand_ready, "Cancelled draws never complete the player phase")
+	_check(hand.get_child_count() == count_before, "Freed player draws leave the hand unchanged")
+	Events.player_hand_drawn.disconnect(on_drawn)
 
 
 func _test_save_overwrite(run_scene: Run) -> void:

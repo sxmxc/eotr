@@ -3,6 +3,18 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "AUTOWALKER-BACKEND-UPLOAD-001",
+      "status": "done",
+      "summary": "AutoWalker honors configured HTTP telemetry alongside independent local JSONL, with QA/bot context, consent, bounded shutdown drain and upload health. Added explicit offline launcher flag. Fake asynchronous transport tests pass without backend access; local encounter wins without failures. Existing controls shutdown-resource diagnostics remain; live backend delivery requires host verification.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "PLAYER-DRAW-LIFETIME-001",
+      "status": "done",
+      "summary": "Guarded draw callbacks and cancelled retained draw tweens when player/handler exits, with a deterministic mid-draw deletion regression. Compatibility runner exited 0 with 531 resources loaded and zero failed assertions; existing platform/shader/shutdown diagnostics remain. User's project/export/Watch-scene changes preserved.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "GRAFANA-NATIVE-HANDSHAKE-001",
       "status": "done",
       "summary": "Switched Grafana to internal ClickHouse native/9000 with provisioning version 2 to avoid HTTP server-hello failures. Static checks cover protocol, port and five-second driver deadline headroom. Read-only limits retained; no services launched. Live host verification remains required.",

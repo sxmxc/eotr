@@ -176,7 +176,7 @@ func start() -> void:
 		"encounter": "run" if run_mode else encounter, "build_version": ProjectSettings.get_setting("application/config/version"),
 		"engine": Engine.get_version_info().string, "source_type": "bot", "mode": "run" if run_mode else "encounter",
 		"initial_health": run_node.player_stats.health if run_mode else world.player_stats.health}
-	TelemetryManager.client.set_context({"run_id": "autowalker-%d" % simulation_seed})
+	TelemetryManager.set_context({"run_id": "autowalker-%d" % simulation_seed})
 	TelemetryManager.track_event("simulation_started", {"seed": simulation_seed, "policy": policy_name, "encounter": "run" if run_mode else encounter})
 
 func _process(delta: float) -> void:
@@ -309,7 +309,7 @@ func finish(outcome: String, reason: String = "") -> void:
 	if file:
 		file.store_string(JSON.stringify(report, "\t"))
 	TelemetryManager.track_event("simulation_completed", {"outcome": outcome, "seed": simulation_seed, "policy": policy_name, "turns": turn_number(), "duration_ms": report.duration_ms})
-	TelemetryManager.client.flush()
+	TelemetryManager.flush()
 	var compact := report.duplicate(true)
 	compact.erase("trace")
 	compact.erase("final_state")
@@ -319,6 +319,8 @@ func finish(outcome: String, reason: String = "") -> void:
 		simulation_seed += 1
 		start.call_deferred()
 	elif headless or verify_watch:
+		TelemetryManager.track_event("session_ended", {"duration_ms": Time.get_ticks_msec() - TelemetryManager.session_start_ms})
+		await TelemetryManager.flush_pending()
 		write_summary()
 		if quit_when_finished:
 			get_tree().quit()
@@ -348,6 +350,7 @@ func write_summary() -> void:
 				if result.outcome == "timeout": summary.timeouts += 1
 				if result.outcome == "softlock": summary.softlocks += 1
 	summary["win_rate"] = float(summary.wins) / maxf(results.size(), 1)
+	summary["telemetry"] = TelemetryManager.health()
 	var file := FileAccess.open(output.path_join("summary.json"), FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(summary, "\t"))
