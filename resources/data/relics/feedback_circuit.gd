@@ -9,15 +9,16 @@ var skills_this_turn: int
 
 func initialize_relic(owner: RelicUI) -> void:
 	relic_ui = owner
-	Events.player_hand_drawn.connect(_reset)
-	Events.map_exited.connect(_reset.unbind(1))
+	_reset()
+	Events.player_turn_started.connect(_reset)
 	Events.card_played.connect(_on_card_played)
 
 
 func deactivate_relic(_owner: RelicUI) -> void:
-	Events.player_hand_drawn.disconnect(_reset)
-	Events.map_exited.disconnect(_reset)
+	Events.player_turn_started.disconnect(_reset)
 	Events.card_played.disconnect(_on_card_played)
+	relic_ui = null
+	_reset()
 
 
 func _reset() -> void:

@@ -1,5 +1,13 @@
 # Continuous improvement
 
+## 2026-10-18 — Reliable relic interactions with the hand
+
+- Feedback Circuit now resets at the actual player-turn start, rather than whenever a draw completes. Drawing extra cards preserves accumulated skills, so the third skill still deals the authored five damage to every enemy. Acquisition/removal clears its transient counter and UI reference; obsolete map/draw subscriptions are removed.
+- CardUI now refreshes affordability when its card is reassigned. Instability Emulator's randomized costs immediately update selection and cost styling, fixing free cards remaining unselectable and newly unaffordable cards retaining a playable appearance. Costs, damage and trigger thresholds are unchanged.
+- Regression checks reproduced eight Feedback Circuit assertions and thirteen cost/selection assertions failing before their respective fixes. Final Godot 4.7.2 combat automation passed headlessly and with native D3D12 rendering (zero failures, exit 0), including extra DrawEffect draws, actual turn resets, relic removal/reacquisition, cost changes in both directions and mouse selection. Inspected `qa/compatibility-validation/relic-costs.png`: free cards appear active and paid cards unavailable at zero energy. Compatibility smoke passed (531 first-party resources, zero failures, exit 0); resource guard and whitespace checks passed.
+- Limits: no full campaign or packaged-export QA. Existing Windows certificate-store and headless shader diagnostics remain. The suspected old map-callback leak did not reproduce; teardown checks passed before the change too.
+- Next candidates: long campaign/save-resume sequences; action/status effects surviving battle shutdown; verify Instability Emulator with card selection/sacrifice flows and large hands.
+
 ## 2026-10-18 — Cancel stale enemy turn continuations
 
 - Battle shutdown now cancels the active enemy and releases its camera/focus. Starting another enemy turn invalidates prior work; sandbox board resets use the same cancellation path.

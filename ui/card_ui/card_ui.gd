@@ -222,6 +222,8 @@ func _set_card(value: Card) -> void:
 	visuals.player_modifiers = player_modifiers
 	visuals.card = value
 	_update_cost_label()
+	if player_stats:
+		self.playable = player_stats.can_play_card(card)
 	
 
 
