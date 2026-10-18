@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cugan5jsmxbwp"]
 
 [ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="base"]
-[ext_resource type="Texture2D" path="res://assets/icons/portal.svg" id="icon"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/portal.svg" id="icon"]
 [ext_resource type="Script" path="res://ui/card_pile_button/exhaust_pile_button.gd" id="script"]
 
 [node name="ExhaustPileButton" instance=ExtResource("base")]

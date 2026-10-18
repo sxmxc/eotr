@@ -59,7 +59,7 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 		move_tween.kill()
 	move_tween = create_tween()
 	move_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	move_tween.tween_property(self, "scale", Vector2(1.08, 1.08), Utils.presentation_duration(move_duration * 0.5))
+	move_tween.tween_property(self, "scale", Vector2(1.04, 1.04), Utils.presentation_duration(move_duration * 0.5))
 	move_tween.tween_property(self, "position", world_target + Vector2(0, 1), Utils.presentation_duration(move_duration))
 	move_tween.tween_property(self, "scale", Vector2.ONE, Utils.presentation_duration(move_duration * 0.25))
 	move_tween.tween_callback(
@@ -77,7 +77,12 @@ func calculate_next_tile_move(tiles_moved_per_turn: int) -> Vector2i:
 	# Occupied ally tiles are barriers; sequential turns naturally share space.
 	var distance: Dictionary = {}
 	var frontier: Array[Vector2i] = []
-	for cell in tilemap.base_layer.get_surrounding_cells(get_player_tile_position()):
+	var engagement_range := stats.tactics.preferred_range if stats.tactics else 1
+	var engagement_cells := tilemap.get_surrounding_tiles_in_radius(get_player_tile_position(), engagement_range)
+	if engagement_range > 1:
+		var inner := tilemap.get_surrounding_tiles_in_radius(get_player_tile_position(), engagement_range - 1)
+		engagement_cells = engagement_cells.filter(func(cell: Vector2i) -> bool: return not inner.has(cell))
+	for cell in engagement_cells:
 		if cell == current_tile_position or _can_move_to_tile(cell):
 			distance[cell] = 0
 			frontier.append(cell)

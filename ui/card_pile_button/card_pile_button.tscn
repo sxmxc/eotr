@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c7uwlaelexcv8"]
 
-[ext_resource type="Texture2D" uid="uid://cxsalc54bt6bo" path="res://assets/icons/card-joker.svg" id="1_l5e4f"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/card.svg" id="1_l5e4f"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_quuui"]
 [ext_resource type="Script" uid="uid://clk1nnuywyovo" path="res://ui/card_pile_button/card_pile_button.gd" id="2_wfufr"]
 

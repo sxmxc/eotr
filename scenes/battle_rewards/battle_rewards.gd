@@ -2,11 +2,11 @@ class_name BattleRewards
 extends Control
 
 const REWARD_BUTTON := preload("res://scenes/battle_rewards/reward_button.tscn")
-const GOLD_ICON := preload("res://assets/icons/two-coins.svg")
+const GOLD_ICON := preload("res://assets/rift/ui/coin.svg")
 const GOLD_TEXT := "%s gold"
-const RESOURCE_ICON := preload("res://assets/icons/metal-bar-fg-only.svg")
+const RESOURCE_ICON := preload("res://assets/rift/ui/corrosion.svg")
 const RESOURCE_TEXT := "%s resources"
-const CARD_ICON = preload("res://assets/icons/card-random.svg")
+const CARD_ICON = preload("res://assets/rift/ui/shuffle.svg")
 const CARD_TEXT = "New Card"
 const CARD_REWARD_SCENE = preload("res://scenes/battle_rewards/card_rewards.tscn")
 

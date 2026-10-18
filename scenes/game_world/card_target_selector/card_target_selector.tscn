@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_dnal8"]
 [ext_resource type="Script" uid="uid://btrsx10lrt8yd" path="res://scenes/game_world/card_target_selector/card_target_selector.gd" id="1_s6vcj"]
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="5_gwqsc"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="5_gwqsc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66gff"]
 size = Vector2(4, 4)

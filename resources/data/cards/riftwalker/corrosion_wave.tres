@@ -5,8 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_sound"]
 [ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="3_fx"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/corrosion_wave.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_script")
+card_art = ExtResource("rift_art")
 target_type = 3
 id = "corrosion_wave"
 name = "Corrosion Wave"

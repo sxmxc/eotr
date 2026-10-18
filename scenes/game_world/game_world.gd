@@ -1,7 +1,7 @@
 class_name GameWorld
 extends Node2D
 
-@export var battle_stats: BattleStats
+@export var battle_stats: EncounterDefinition
 @export var player_stats: PlayerStats
 @export var run_stats: RunStats:
 	set = set_run_stats
@@ -54,6 +54,9 @@ func _ready():
 
 
 func start_world() -> void:
+	# Definitions stay immutable; reward counters belong to this combat instance.
+	battle_stats = battle_stats.duplicate()
+	shrink_frequency = battle_stats.collapse_frequency
 	battle_over_handled = false
 	victory_committed = false
 	battle_state.end_battle()
@@ -209,7 +212,7 @@ func _on_obelisk_destroyed() -> void:
 	)
 	Events.world_message_requested.emit(msg)
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_rollover)
-	if battle_stats.victory_objective == BattleStats.VictoryObjective.DESTROY_OBELISK:
+	if battle_stats.victory_objective == EncounterDefinition.VictoryObjective.DESTROY_OBELISK:
 		_commit_victory()
 	else:
 		check_victory.call_deferred()

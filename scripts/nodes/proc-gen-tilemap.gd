@@ -91,7 +91,7 @@ func weighted_random_tile() -> Enums.TileType:
 	return Enums.TileType[tile_weights.keys()[RNG.instance.rand_weighted(probabilities)]]
 
 
-func generate_tilemap(battle_stats: BattleStats):
+func generate_tilemap(battle_stats: EncounterDefinition):
 	base_layer.clear()
 	fog_layer.clear()
 	clear_target_highlights()
@@ -99,8 +99,9 @@ func generate_tilemap(battle_stats: BattleStats):
 	fog_state.clear()
 	map_height = battle_stats.battle_field_height
 	map_width = battle_stats.battle_field_width
+	tile_weights["CORRUPTED"] = battle_stats.corruption_weight
 	var rando_shape : MapShape = MapShape[RNG.array_pick_random(MapShape.keys())]
-	map_shape = rando_shape
+	map_shape = rando_shape if battle_stats.arena_shape < 0 else battle_stats.arena_shape as MapShape
 
 	for x in range(map_width):
 		for y in range(map_height):

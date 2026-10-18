@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://assets/spritesheets/32x32-hex-tiles.png" id="atlas"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="atlas"]
 [ext_resource type="Shader" path="res://scripts/shaders/tile_target_highlight.gdshader" id="shader"]
 
 [sub_resource type="AtlasTexture" id="hex"]

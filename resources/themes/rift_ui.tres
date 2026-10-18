@@ -1,20 +1,19 @@
 [gd_resource type="Theme" format=3 uid="uid://cqnyge8wpni86"]
 
-[ext_resource type="SystemFont" path="res://resources/themes/body_font.tres" id="body"]
-[ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="card_attack"]
-[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="card_defense"]
-[ext_resource type="Texture2D" uid="uid://tji3ah2twswn" path="res://assets/icons/cross-flare.svg" id="card_fallback"]
-[ext_resource type="Texture2D" uid="uid://dqxe3em37diy8" path="res://assets/icons/wingfoot.svg" id="card_movement"]
-[ext_resource type="Texture2D" uid="uid://ci1pw3ahgqx7h" path="res://assets/icons/metal-bar-fg-only.svg" id="card_resource"]
+[ext_resource type="SystemFont" uid="uid://bh2lp6h1inb5r" path="res://resources/themes/body_font.tres" id="body"]
+[ext_resource type="Texture2D" uid="uid://cuv07k3baqws3" path="res://assets/rift/ui/block.svg" id="card_defense"]
+[ext_resource type="Texture2D" uid="uid://koblu5ee3bwv" path="res://assets/rift/ui/fire.svg" id="card_fallback"]
+[ext_resource type="Texture2D" uid="uid://3np3bqrgf08w" path="res://assets/rift/ui/move.svg" id="card_movement"]
+[ext_resource type="Texture2D" uid="uid://bqksb6naiq20g" path="res://assets/rift/ui/corrosion.svg" id="card_resource"]
 [ext_resource type="FontFile" uid="uid://caddq45sym1nl" path="res://assets/fonts/cinzel/Cinzel-Bold.otf" id="font_BrandConnector"]
 [ext_resource type="FontFile" uid="uid://18m7x4rvlbln" path="res://assets/fonts/comic_book/Comic Book.otf" id="font_GatherGain"]
-[ext_resource type="Texture2D" uid="uid://cpkby7jkl4j6e" path="res://assets/icons/overlord-helm.svg" id="map_boss"]
-[ext_resource type="Texture2D" uid="uid://mptcvsif4s5t" path="res://assets/icons/rolling-energy-2.svg" id="map_elite"]
-[ext_resource type="Texture2D" uid="uid://boax0euix7oad" path="res://assets/icons/perspective-dice-six-faces-random.svg" id="map_event"]
-[ext_resource type="Texture2D" uid="uid://c60jlxwiajlnj" path="res://assets/icons/rolling-energy.svg" id="map_monster"]
-[ext_resource type="Texture2D" uid="uid://bid8jyjlm8vfs" path="res://assets/icons/night-sleep.svg" id="map_rest"]
-[ext_resource type="Texture2D" uid="uid://dgyop01i0okhj" path="res://assets/icons/pay-money.svg" id="map_shop"]
-[ext_resource type="Texture2D" uid="uid://bt72lliaq55rd" path="res://assets/icons/chest.svg" id="map_treasure"]
+[ext_resource type="Texture2D" uid="uid://bvdjvaf53iafp" path="res://assets/rift/ui/skull.svg" id="map_boss"]
+[ext_resource type="Texture2D" uid="uid://c4d0svmp0vdql" path="res://assets/rift/ui/elite.svg" id="map_elite"]
+[ext_resource type="Texture2D" uid="uid://dfmoeh6e78diw" path="res://assets/rift/ui/event.svg" id="map_event"]
+[ext_resource type="Texture2D" uid="uid://bh3h4bie63a18" path="res://assets/rift/ui/attack.svg" id="map_monster"]
+[ext_resource type="Texture2D" uid="uid://ebcf10akfm5v" path="res://assets/rift/ui/camp.svg" id="map_rest"]
+[ext_resource type="Texture2D" uid="uid://cihh4qs65srfy" path="res://assets/rift/ui/coin.svg" id="map_shop"]
+[ext_resource type="Texture2D" uid="uid://fkj8do4w4vo" path="res://assets/rift/ui/chest.svg" id="map_treasure"]
 [ext_resource type="FontFile" uid="uid://drcf0itkwcbj7" path="res://assets/fonts/m3x6.ttf" id="pixel_font"]
 [ext_resource type="FontFile" uid="uid://du2tbnlkfhnm" path="res://assets/fonts/cinzel/Cinzel-Regular.otf" id="title"]
 
@@ -277,7 +276,7 @@ CardType/font_sizes/font_size = 12
 CardVisuals/colors/active = Color(1, 1, 1, 1)
 CardVisuals/colors/fallback_art = Color(0.506, 0.737, 0.718, 1)
 CardVisuals/colors/inactive = Color(0.65, 0.65, 0.65, 1)
-CardVisuals/icons/ATTACK = ExtResource("card_attack")
+CardVisuals/icons/ATTACK = ExtResource("map_monster")
 CardVisuals/icons/DEFENSE = ExtResource("card_defense")
 CardVisuals/icons/MOVEMENT = ExtResource("card_movement")
 CardVisuals/icons/RESOURCE = ExtResource("card_resource")

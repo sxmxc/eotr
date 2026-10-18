@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" path="res://ui/health_ui/health_ui.tscn" id="health"]
 [ext_resource type="PackedScene" path="res://ui/fx/arrow_up_fx.tscn" id="fx"]
 [ext_resource type="PackedScene" path="res://ui/fx/text_fx.tscn" id="text"]
-[ext_resource type="Texture2D" path="res://assets/icons/electric.png" id="energy"]
-[ext_resource type="Texture2D" path="res://assets/icons/shield.png" id="block"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/energy.svg" id="energy"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/block.svg" id="block"]
 [ext_resource type="PackedScene" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
 [ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_combat.tscn" id="status_widget"]
 

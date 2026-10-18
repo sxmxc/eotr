@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://7ix4tr6lkfc" path="res://resources/data/cards/riftwalker/void_fracture.gd" id="1_jt8p2"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_kj80i"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/void_fracture.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_jt8p2")
+card_art = ExtResource("rift_art")
 card_type = 2
 id = "void_fracture"
 name = "Void Fracture"

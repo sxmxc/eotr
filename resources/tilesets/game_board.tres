@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://3lp7w512a61i"]
 
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="1_jbcjv"]
+[ext_resource type="Texture2D" uid="uid://dvo2nfctmljxl" path="res://assets/rift/terrain/hex_atlas.png" id="1_jbcjv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jbcjv"]
 vertices = PackedVector2Array(16, -8, 16, 8, 0, 16, -16, 8, -16, -8, 0, -16)

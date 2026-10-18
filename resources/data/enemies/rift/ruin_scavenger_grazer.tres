@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://pl3msknw6fic"]
+
+[ext_resource type="PackedScene" path="res://scenes/enemy/rift_tactics_ai.tscn" id="ai"]
+[ext_resource type="Texture2D" uid="uid://bylfrruvl5pm3" path="res://assets/rift/entities/ruin_scavenger_grazer.webp" id="art"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+[ext_resource type="Script" uid="uid://dyvd2kssxdkb8" path="res://scripts/resources/enemy_tactics.gd" id="tactics"]
+
+[sub_resource type="Resource" id="profile"]
+script = ExtResource("tactics")
+role = 6
+preferred_range = 2
+cadence = 1
+
+[resource]
+script = ExtResource("stats")
+enemy_name = "Grazer Scavenger"
+board_icon = ExtResource("art")
+ai = ExtResource("ai")
+gold_value = 4
+resource_value_max = 3
+tactics = SubResource("profile")
+max_health = 10

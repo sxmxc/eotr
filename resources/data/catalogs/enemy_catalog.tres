@@ -11,6 +11,26 @@
 [ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="9_obelisk_stats"]
 [ext_resource type="Resource" uid="uid://bxamo508a0hwr" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="10_void_spectre_stats"]
 [ext_resource type="Resource" uid="uid://exmbgiu7r2dv" path="res://scenes/enemy/wasp/wasp_enemy.tres" id="11_wasp_stats"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound.tres" id="rift0"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_needle.tres" id="rift1"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper.tres" id="rift2"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/echo_mender.tres" id="rift3"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/hollow_siphon.tres" id="rift4"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/glass_reaver.tres" id="rift5"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ruin_scavenger.tres" id="rift6"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_hexer.tres" id="rift7"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound_pouncer.tres" id="rift8"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_needle_close.tres" id="rift9"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper_anchor.tres" id="rift10"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/echo_mender_triage.tres" id="rift11"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/hollow_siphon_stalker.tres" id="rift12"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/glass_reaver_patient.tres" id="rift13"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ruin_scavenger_grazer.tres" id="rift14"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_hexer_corrosive.tres" id="rift15"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/bat_darter.tres" id="rift16"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/blob_warding.tres" id="rift17"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/horror_reaper.tres" id="rift18"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/channeler_medic.tres" id="rift19"]
 
 [resource]
 script = ExtResource("1_catalog")
@@ -54,4 +74,104 @@ entries = Array[Dictionary]([{
 "scene": ExtResource("2_moving_enemy"),
 "stats": ExtResource("11_wasp_stats"),
 "tags": ["tier0", "flying"]
+}, {
+"label": "Shard Hound",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift0"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Rift Needle",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift1"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Ward Keeper",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift2"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Echo Mender",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift3"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Hollow Siphon",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift4"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Glass Reaver",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift5"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Ruin Scavenger",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift6"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Rift Hexer",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift7"),
+"tags": ["rift", "variant", "base"]
+}, {
+"label": "Pouncer Hound",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift8"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Scatter Needle",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift9"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Anchor Keeper",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift10"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Triage Mender",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift11"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Stalker Siphon",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift12"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Patient Reaver",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift13"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Grazer Scavenger",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift14"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Corrosive Hexer",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift15"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Darter Bat",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift16"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Warding Blob",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift17"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Reaper Horror",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift18"),
+"tags": ["rift", "variant"]
+}, {
+"label": "Mending Channeler",
+"scene": ExtResource("2_moving_enemy"),
+"stats": ExtResource("rift19"),
+"tags": ["rift", "variant"]
 }])

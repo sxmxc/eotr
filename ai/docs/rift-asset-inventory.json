@@ -1,0 +1,1584 @@
+{
+  "assets": [
+    {
+      "old": "res://assets/icons/alien-bug.svg",
+      "new": "res://assets/rift/entities/horror.webp",
+      "usage": [
+        "scenes/enemy/horror/elite_horrors.tres",
+        "scenes/enemy/horror/horror_enemy.tres",
+        "resources/data/enemies/rift/glass_reaver.tres",
+        "resources/data/enemies/rift/glass_reaver_patient.tres",
+        "resources/data/enemies/rift/horror_reaper.tres",
+        "resources/data/enemies/rift/shard_hound.tres",
+        "resources/data/enemies/rift/shard_hound_pouncer.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/horror/horror_enemy.tres"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/armor-upgrade.svg",
+      "new": "res://assets/rift/ui/block.svg",
+      "usage": [
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "resources/data/statuses/armored.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/armored.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "ui/fx/shield_shine_fx.tscn",
+        "ui/player_ui/enemy_info.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/astrolabe.svg",
+      "new": "res://assets/rift/ui/time.svg",
+      "usage": [
+        "resources/data/relics/energy_condenser.tres",
+        "resources/data/relics/temporal_conduit.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/energy_condenser.tres",
+        "resources/data/relics/temporal_conduit.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/bat.svg",
+      "new": "res://assets/rift/entities/bat.webp",
+      "usage": [
+        "scenes/enemy/bat/bat_enemy.tres",
+        "resources/data/enemies/rift/bat_darter.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/bat/bat_enemy.tres"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/broken-skull.svg",
+      "new": "res://assets/rift/ui/skull.svg",
+      "usage": [
+        "resources/data/statuses/weakened.tres",
+        "ui/status_ui/status_ui.tscn",
+        "ui/tool_tip_ui/status_tooltip.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/weakened.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "ui/status_ui/status_ui.tscn",
+        "ui/tool_tip_ui/status_tooltip.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/bubbles.svg",
+      "new": "res://assets/rift/ui/portal.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "scenes/map/map_node_ui.tscn",
+        "ui/card_pile_button/exhaust_pile_button.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/buy-card.svg",
+      "new": "res://assets/rift/ui/card.svg",
+      "usage": [
+        "scenes/shop/shop.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/shop/shop.tscn",
+        "ui/card_pile_button/card_pile_button.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/card-burn.svg",
+      "new": "res://assets/rift/ui/burn.svg",
+      "usage": [
+        "ui/world_ui/game_world_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "ui/world_ui/game_world_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/card-draw.svg",
+      "new": "res://assets/rift/ui/draw.svg",
+      "usage": [
+        "ui/world_ui/game_world_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "ui/world_ui/game_world_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/card-joker.svg",
+      "new": "res://assets/rift/ui/card.svg",
+      "usage": [
+        "ui/card_pile_button/card_pile_button.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/shop/shop.tscn",
+        "ui/card_pile_button/card_pile_button.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/card-random.svg",
+      "new": "res://assets/rift/ui/shuffle.svg",
+      "usage": [
+        "scenes/battle_rewards/battle_rewards.gd"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/battle_rewards/battle_rewards.gd"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/cash.svg",
+      "new": "res://assets/rift/ui/coin.svg",
+      "usage": [
+        "ui/run_ui/gold_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/trader_badge.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_card.tscn",
+        "ui/map_ui/map_legend.tscn",
+        "ui/run_ui/gold_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/chest (1).svg",
+      "new": "res://assets/rift/ui/chest.svg",
+      "usage": [
+        "scenes/treasure/treasure.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/treasure/treasure.tscn",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/chest.svg",
+      "new": "res://assets/rift/ui/chest.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/treasure/treasure.tscn",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/circuitry.svg",
+      "new": "res://assets/rift/ui/circuit.svg",
+      "usage": [
+        "resources/data/relics/feedback_circuit.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/feedback_circuit.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/clay-brick.png",
+      "new": "res://assets/rift/ui/resource.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "ui/fx/resource_gather_fx.tscn",
+        "ui/run_ui/resources_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/clockwork.svg",
+      "new": "res://assets/rift/ui/mechanism.svg",
+      "usage": [
+        "ui/run_ui/run_time_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/instability_emulator.tres",
+        "ui/run_ui/run_time_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/cowled (1).svg",
+      "new": "res://assets/rift/entities/voidbinder.webp",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/data/stats/player/voidbinder_starting_stats.tres"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/cowled.png",
+      "new": "res://assets/rift/entities/riftwalker.webp",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/data/stats/player/riftwalker_starting_stats.tres",
+        "resources/materials/highlighter_material.tres",
+        "scenes/menus/class_selector.tscn",
+        "scenes/player/player.tscn",
+        "scenes/win_screen/win_screen.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/cowled.svg",
+      "new": "res://assets/rift/entities/riftwalker.webp",
+      "usage": [
+        "scenes/menus/class_selector.tscn",
+        "scenes/player/player.tscn",
+        "scenes/win_screen/win_screen.tscn",
+        "resources/data/stats/player/riftwalker_starting_stats.tres",
+        "resources/materials/highlighter_material.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/stats/player/riftwalker_starting_stats.tres",
+        "resources/materials/highlighter_material.tres",
+        "scenes/menus/class_selector.tscn",
+        "scenes/player/player.tscn",
+        "scenes/win_screen/win_screen.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/cpu.svg",
+      "new": "res://assets/rift/ui/mechanism.svg",
+      "usage": [
+        "resources/data/relics/instability_emulator.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/instability_emulator.tres",
+        "ui/run_ui/run_time_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/cross-flare.svg",
+      "new": "res://assets/rift/ui/fire.svg",
+      "usage": [
+        "scenes/relic_handler/relic_ui.tscn",
+        "resources/data/relics/phase_key.tres",
+        "resources/themes/rift_ui.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/phase_key.tres",
+        "resources/data/statuses/burned.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/relic_handler/relic_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/crown-coin.svg",
+      "new": "res://assets/rift/ui/coin.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/data/relics/trader_badge.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_card.tscn",
+        "ui/map_ui/map_legend.tscn",
+        "ui/run_ui/gold_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/crystal-shrine.svg",
+      "new": "res://assets/rift/ui/ruin.svg",
+      "usage": [
+        "scenes/enemy/obelisk/obelisk_enemy.tres",
+        "scenes/enemy/obelisk/obelisk_enemy.tscn",
+        "scenes/enemy/obelisk/obelisk_t1_enemy.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/prospector_helmet.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true,
+      "additional_replacements": [
+        "res://assets/rift/entities/obelisk.webp"
+      ]
+    },
+    {
+      "old": "res://assets/icons/cut-diamond.svg",
+      "new": "res://assets/rift/ui/crystal.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/data/relics/riftglass_prism.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/electric.png",
+      "new": "res://assets/rift/ui/energy.svg",
+      "usage": [
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/unstable_core.tres",
+        "ui/map_ui/map_legend.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/flame.svg",
+      "new": "res://assets/rift/ui/fire.svg",
+      "usage": [
+        "resources/data/statuses/burned.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/phase_key.tres",
+        "resources/data/statuses/burned.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/relic_handler/relic_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/gluttony.svg",
+      "new": "res://assets/rift/entities/blob.webp",
+      "usage": [
+        "scenes/enemy/enemy.tscn",
+        "scenes/enemy/moving_enemy.tscn",
+        "scenes/enemy/blob/blob_enemy.tres",
+        "scenes/enemy/void_spectre/void_spectre_enemy.tscn",
+        "resources/data/enemies/rift/blob_warding.tres",
+        "resources/data/enemies/rift/ruin_scavenger.tres",
+        "resources/data/enemies/rift/ruin_scavenger_grazer.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/blob/blob_enemy.tres",
+        "scenes/enemy/enemy.tscn",
+        "scenes/enemy/moving_enemy.tscn",
+        "scenes/enemy/void_spectre/void_spectre_enemy.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/heart.png",
+      "new": "res://assets/rift/ui/health.svg",
+      "usage": [
+        "ui/health_ui/health_ui.tscn",
+        "ui/player_ui/enemy_info.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "ui/health_ui/health_ui.tscn",
+        "ui/player_ui/enemy_info.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/intent-shield.svg",
+      "new": "res://assets/rift/ui/block.svg",
+      "usage": [
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "ui/fx/shield_shine_fx.tscn",
+        "scenes/enemy/rift_tactics_action.gd"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/armored.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "ui/fx/shield_shine_fx.tscn",
+        "ui/player_ui/enemy_info.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/magnifying-glass.png",
+      "new": null,
+      "usage": [],
+      "status": "unused old source removed; no replacement needed",
+      "current_usage": [],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/meditation.svg",
+      "new": "res://assets/rift/ui/camp.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/metal-bar-fg-only.svg",
+      "new": "res://assets/rift/ui/corrosion.svg",
+      "usage": [
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_relic.tscn",
+        "resources/data/statuses/corroded.tres",
+        "resources/themes/rift_ui.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/corroded.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_relic.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/metal-bar.svg",
+      "new": "res://assets/rift/ui/resource.svg",
+      "usage": [
+        "ui/fx/resource_gather_fx.tscn",
+        "ui/run_ui/resources_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "ui/fx/resource_gather_fx.tscn",
+        "ui/run_ui/resources_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/millenium-key.svg",
+      "new": null,
+      "usage": [],
+      "status": "unused old source removed; no replacement needed",
+      "current_usage": [],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/mining-helmet.svg",
+      "new": "res://assets/rift/ui/ruin.svg",
+      "usage": [
+        "resources/data/relics/prospector_helmet.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/prospector_helmet.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/mountain-road.png",
+      "new": null,
+      "usage": [],
+      "status": "unused old source removed; no replacement needed",
+      "current_usage": [],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/muscle-up.svg",
+      "new": "res://assets/rift/ui/strength.svg",
+      "usage": [
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "resources/data/statuses/strength.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/strength.tres",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/next-button (1).svg",
+      "new": "res://assets/rift/ui/next.svg",
+      "usage": [
+        "scenes/relic_handler/relic_handler.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/relic_handler/relic_handler.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/next-button.svg",
+      "new": "res://assets/rift/ui/next.svg",
+      "usage": [
+        "scenes/relic_handler/relic_handler.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/relic_handler/relic_handler.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/night-sleep.svg",
+      "new": "res://assets/rift/ui/camp.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/open-chest.svg",
+      "new": "res://assets/rift/ui/chest.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/treasure/treasure.tscn",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/open-treasure-chest.svg",
+      "new": "res://assets/rift/ui/chest.svg",
+      "usage": [
+        "scenes/treasure/treasure.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/treasure/treasure.tscn",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/overlord-helm.svg",
+      "new": "res://assets/rift/ui/elite.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/path-distance.svg",
+      "new": "res://assets/rift/ui/move.svg",
+      "usage": [
+        "scenes/enemy/enemy.gd",
+        "scenes/enemy/bat/bat_enemy_ai.tscn",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "scenes/enemy/wasp/wasp_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/bat/bat_enemy_ai.tscn",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/enemy.gd",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "scenes/enemy/wasp/wasp_enemy_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/pay-money.svg",
+      "new": "res://assets/rift/ui/coin.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/trader_badge.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_card.tscn",
+        "ui/map_ui/map_legend.tscn",
+        "ui/run_ui/gold_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/perspective-dice-six-faces-random.svg",
+      "new": "res://assets/rift/ui/shuffle.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/battle_rewards/battle_rewards.gd"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/piercing-sword.svg",
+      "new": "res://assets/rift/ui/attack.svg",
+      "usage": [
+        "scenes/enemy/bat/bat_enemy_ai.tscn",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "scenes/enemy/wasp/wasp_enemy_ai.tscn",
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/rift_tactics_action.gd"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/bat/bat_enemy_ai.tscn",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "scenes/enemy/wasp/wasp_enemy_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/poison-bottle.svg",
+      "new": "res://assets/rift/ui/poison.svg",
+      "usage": [
+        "resources/data/statuses/poisoned.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/poisoned.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/portal.svg",
+      "new": "res://assets/rift/ui/portal.svg",
+      "usage": [
+        "scenes/map/map_node_ui.tscn",
+        "ui/card_pile_button/exhaust_pile_button.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/map/map_node_ui.tscn",
+        "ui/card_pile_button/exhaust_pile_button.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/position-marker.png",
+      "new": null,
+      "usage": [],
+      "status": "unused old source removed; no replacement needed",
+      "current_usage": [],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/previous-button.svg",
+      "new": null,
+      "usage": [],
+      "status": "unused old source removed; no replacement needed",
+      "current_usage": [],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/prism.svg",
+      "new": "res://assets/rift/ui/crystal.svg",
+      "usage": [
+        "resources/data/relics/riftglass_prism.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/riftglass_prism.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/raise-skeleton.svg",
+      "new": "res://assets/rift/ui/skull.svg",
+      "usage": [
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/weakened.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "ui/status_ui/status_ui.tscn",
+        "ui/tool_tip_ui/status_tooltip.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/ring.svg",
+      "new": null,
+      "usage": [],
+      "status": "unused old source removed; no replacement needed",
+      "current_usage": [],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/robot-golem.svg",
+      "new": "res://assets/rift/entities/bulwark.webp",
+      "usage": [
+        "scenes/enemy/bulwark/bulwark_enemy.tres",
+        "resources/data/enemies/rift/ward_keeper.tres",
+        "resources/data/enemies/rift/ward_keeper_anchor.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/bulwark/bulwark_enemy.tres"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/robot-helmet (1).svg",
+      "new": "res://assets/rift/entities/synthforged.webp",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/data/stats/player/synthforged_starting_stats.tres",
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/robot-helmet.svg",
+      "new": "res://assets/rift/entities/synthforged.webp",
+      "usage": [
+        "scenes/menus/class_selector.tscn",
+        "resources/data/stats/player/synthforged_starting_stats.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/stats/player/synthforged_starting_stats.tres",
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/rolling-energy-2.svg",
+      "new": "res://assets/rift/ui/energy.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/unstable_core.tres",
+        "ui/map_ui/map_legend.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/rolling-energy.svg",
+      "new": "res://assets/rift/ui/energy.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/unstable_core.tres",
+        "ui/map_ui/map_legend.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/rupee.svg",
+      "new": "res://assets/rift/ui/crystal.svg",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "resources/data/relics/riftglass_prism.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/shield-reflect.svg",
+      "new": "res://assets/rift/ui/reflect.svg",
+      "usage": [
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/shield.png",
+      "new": "res://assets/rift/ui/block.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres",
+        "ui/player_ui/enemy_info.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/armored.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "ui/fx/shield_shine_fx.tscn",
+        "ui/player_ui/enemy_info.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/shiny-purse.svg",
+      "new": "res://assets/rift/ui/coin.svg",
+      "usage": [
+        "resources/data/relics/trader_badge.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/trader_badge.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_card.tscn",
+        "ui/map_ui/map_legend.tscn",
+        "ui/run_ui/gold_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/soul.svg",
+      "new": "res://assets/rift/ui/eye.svg",
+      "usage": [
+        "scenes/enemy/channeler/channeler_enemy.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/attuned.tres",
+        "scenes/enemy/channeler/channeler_enemy.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/spectre.svg",
+      "new": "res://assets/rift/entities/spectre.webp",
+      "usage": [
+        "scenes/enemy/void_spectre/void_spectre.tres",
+        "scenes/enemy/void_spectre/void_spectre_enemy.tscn",
+        "resources/data/enemies/rift/hollow_siphon.tres",
+        "resources/data/enemies/rift/hollow_siphon_stalker.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/void_spectre/void_spectre.tres",
+        "scenes/enemy/void_spectre/void_spectre_enemy.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/striking-arrows.svg",
+      "new": "res://assets/rift/ui/attack.svg",
+      "usage": [
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/bat/bat_enemy_ai.tscn",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "scenes/enemy/wasp/wasp_enemy_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/third-eye.svg",
+      "new": "res://assets/rift/ui/eye.svg",
+      "usage": [
+        "resources/data/statuses/attuned.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/attuned.tres",
+        "scenes/enemy/channeler/channeler_enemy.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/triple-yin.svg",
+      "new": "res://assets/rift/ui/focus.svg",
+      "usage": [
+        "resources/data/statuses/attunement.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/attunement.tres"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/two-coins.svg",
+      "new": "res://assets/rift/ui/coin.svg",
+      "usage": [
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_card.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/trader_badge.tres",
+        "resources/themes/rift_ui.tres",
+        "scenes/battle_rewards/battle_rewards.gd",
+        "scenes/shop/shop_card.tscn",
+        "ui/map_ui/map_legend.tscn",
+        "ui/run_ui/gold_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/uncertainty.svg",
+      "new": "res://assets/rift/ui/event.svg",
+      "usage": [
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/obelisk/obelisk_enemy_ai.tscn",
+        "scenes/enemy/obelisk/obelisk_tier_1_enemy_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/unstable-orb.svg",
+      "new": "res://assets/rift/ui/energy.svg",
+      "usage": [
+        "resources/data/relics/unstable_core.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/relics/unstable_core.tres",
+        "ui/map_ui/map_legend.tscn",
+        "ui/player_ui/stats_ui.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/upgrade.svg",
+      "new": "res://assets/rift/ui/upgrade.svg",
+      "usage": [
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "resources/data/statuses/buffed.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/statuses/buffed.tres",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/wanted-reward-pressed.svg",
+      "new": "res://assets/rift/ui/bounty.svg",
+      "usage": [
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/wanted-reward.svg",
+      "new": "res://assets/rift/ui/bounty.svg",
+      "usage": [
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "ui/map_ui/map_legend.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/wasp-sting.svg",
+      "new": "res://assets/rift/entities/wasp.webp",
+      "usage": [
+        "scenes/enemy/wasp/wasp_enemy.tres",
+        "resources/data/enemies/rift/rift_needle.tres",
+        "resources/data/enemies/rift/rift_needle_close.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/enemy/wasp/wasp_enemy.tres"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/wingfoot.svg",
+      "new": "res://assets/rift/ui/move.svg",
+      "usage": [
+        "resources/themes/rift_ui.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/themes/rift_ui.tres",
+        "scenes/enemy/bat/bat_enemy_ai.tscn",
+        "scenes/enemy/blob/blob_enemy_ai.tscn",
+        "scenes/enemy/bulwark/bulwark_enemy_ai.tscn",
+        "scenes/enemy/channeler/channeler_enemy_ai.tscn",
+        "scenes/enemy/enemy.gd",
+        "scenes/enemy/horror/elite_horror_enemy_ai.tscn",
+        "scenes/enemy/horror/horror_enemy_ai.tscn",
+        "scenes/enemy/rift_tactics_action.gd",
+        "scenes/enemy/void_spectre/void_spectre_ai.tscn",
+        "scenes/enemy/wasp/wasp_enemy_ai.tscn"
+      ],
+      "purpose": "UI icon",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/icons/wizard-face (1).svg",
+      "new": "res://assets/rift/entities/channeler.webp",
+      "usage": [],
+      "status": "unused old source removed",
+      "current_usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": false
+    },
+    {
+      "old": "res://assets/icons/wizard-face.svg",
+      "new": "res://assets/rift/entities/channeler.webp",
+      "usage": [
+        "scenes/menus/class_selector.tscn",
+        "resources/data/stats/player/voidbinder_starting_stats.tres",
+        "resources/data/enemies/rift/channeler_medic.tres",
+        "resources/data/enemies/rift/echo_mender.tres",
+        "resources/data/enemies/rift/echo_mender_triage.tres",
+        "resources/data/enemies/rift/rift_hexer.tres",
+        "resources/data/enemies/rift/rift_hexer_corrosive.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "battlefield/class entity",
+      "required_replacement": true,
+      "additional_replacements": [
+        "res://assets/rift/entities/voidbinder.webp"
+      ]
+    },
+    {
+      "old": "res://assets/card/art/arcane_bolt.png",
+      "new": "res://assets/rift/cards/arcane_bolt.webp",
+      "usage": [
+        "resources/data/cards/riftwalker/arcane_bolt.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/cards/riftwalker/arcane_bolt.tres",
+        "ui/card_ui/card_visuals.tscn"
+      ],
+      "purpose": "card illustration",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/card/art/default_card_image.jpg",
+      "new": "res://assets/rift/cards/arcane_bolt.webp",
+      "usage": [
+        "ui/card_ui/card_visuals.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/cards/riftwalker/arcane_bolt.tres",
+        "ui/card_ui/card_visuals.tscn"
+      ],
+      "purpose": "card illustration",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/card/art/eldritch_barrier.png",
+      "new": "res://assets/rift/cards/eldritch_barrier.webp",
+      "usage": [
+        "resources/data/cards/riftwalker/eldritch_barrier.tres"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/data/cards/riftwalker/eldritch_barrier.tres"
+      ],
+      "purpose": "card illustration",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/spritesheets/32x32-hex-tiles.png",
+      "new": "res://assets/rift/terrain/hex_atlas.png",
+      "usage": [
+        "scenes/game_world/battle_tutorial.tscn",
+        "scenes/game_world/game_world.tscn",
+        "scenes/game_world/tile_sprite.tscn",
+        "scenes/game_world/card_target_selector/card_target_selector.tscn",
+        "scenes/game_world/movement_target_selector/movement_target_selector.tscn",
+        "scenes/sandbox/gameworld_sandbox.tscn",
+        "scenes/tiles/resource_tile.tscn",
+        "resources/tilesets/fog_of_war.tres",
+        "resources/tilesets/game_board.tres",
+        "ui/world_ui/target_highlight.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "resources/tilesets/fog_of_war.tres",
+        "resources/tilesets/game_board.tres",
+        "scenes/game_world/battle_tutorial.tscn",
+        "scenes/game_world/card_target_selector/card_target_selector.tscn",
+        "scenes/game_world/game_world.tscn",
+        "scenes/game_world/movement_target_selector/movement_target_selector.tscn",
+        "scenes/game_world/tile_sprite.tscn",
+        "scenes/sandbox/gameworld_sandbox.tscn",
+        "scenes/tiles/resource_tile.tscn",
+        "ui/world_ui/target_highlight.tscn"
+      ],
+      "purpose": "terrain atlas",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/images/riftwalker_bg.png",
+      "new": "res://assets/rift/menus/riftwalker.webp",
+      "usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "menu/class background",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/images/synthforged_bg.png",
+      "new": "res://assets/rift/menus/synthforged.webp",
+      "usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "menu/class background",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/images/voidbinder_bg.png",
+      "new": "res://assets/rift/menus/voidbinder.webp",
+      "usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/menus/class_selector.tscn"
+      ],
+      "purpose": "menu/class background",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/images/static_title_no_text.png",
+      "new": "res://assets/rift/menus/main_menu.webp",
+      "usage": [
+        "scenes/map/map.tscn",
+        "scenes/menus/main_menu.tscn",
+        "scenes/menus/settings_menu.tscn",
+        "scenes/splash_screens/splash_screen.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/map/map.tscn",
+        "scenes/menus/main_menu.tscn",
+        "scenes/menus/settings_menu.tscn",
+        "scenes/splash_screens/splash_screen.tscn",
+        "scenes/win_screen/win_screen.tscn"
+      ],
+      "purpose": "menu/class background",
+      "required_replacement": true
+    },
+    {
+      "old": "res://assets/images/static_title_page.png",
+      "new": "res://assets/rift/menus/main_menu.webp",
+      "usage": [
+        "scenes/win_screen/win_screen.tscn"
+      ],
+      "status": "replaced, imported, validated; old source removed",
+      "current_usage": [
+        "scenes/map/map.tscn",
+        "scenes/menus/main_menu.tscn",
+        "scenes/menus/settings_menu.tscn",
+        "scenes/splash_screens/splash_screen.tscn",
+        "scenes/win_screen/win_screen.tscn"
+      ],
+      "purpose": "menu/class background",
+      "required_replacement": true
+    }
+  ],
+  "cards": [
+    {
+      "card": "resources/data/cards/common/void_residue.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/void_residue.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/common/void_slime.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/void_slime.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/adrenaline_rush.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/adrenaline_rush.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/arcane_blast.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/arcane_blast.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/arcane_bolt.tres",
+      "old": "res://assets/card/art/arcane_bolt.png",
+      "new": "res://assets/rift/cards/arcane_bolt.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/arcane_explosion.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/arcane_explosion.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/arcane_flame.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/arcane_flame.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/chrono_jab.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/chrono_jab.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/corroding_shot.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/corroding_shot.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/corrosion_wave.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/corrosion_wave.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/deminishing_returns.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/deminishing_returns.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/echo.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/echo.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/echo_harvest.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/echo_harvest.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/eldritch_barrier.tres",
+      "old": "res://assets/card/art/eldritch_barrier.png",
+      "new": "res://assets/rift/cards/eldritch_barrier.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/focus.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/focus.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/fracture_pulse.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/fracture_pulse.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/jab.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/jab.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/mana_leech.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/mana_leech.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/mana_surge.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/mana_surge.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/nano_shield.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/nano_shield.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/overload_shot.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/overload_shot.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/phase_slash.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/phase_slash.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/phase_step.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/phase_step.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/quantum_rift.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/quantum_rift.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/rift_knowledge.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/rift_knowledge.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/sever_anchor.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/sever_anchor.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/void_fracture.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/void_fracture.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/void_shard.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/void_shard.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/riftwalker/void_surge.tres",
+      "old": "default/inherited",
+      "new": "res://assets/rift/cards/void_surge.webp",
+      "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    }
+  ],
+  "exceptions": [
+    "Original Voidmoose branding retained; application scaffold Godot icon replaced with Rift mark.",
+    "Third-party keyboard/mouse glyphs retained for functional input labels, with original licenses.",
+    "Existing third-party particles, audio, fonts and addons retained for their legitimate uses."
+  ],
+  "counts": {
+    "cards": 29,
+    "battlefield_and_class_sprites": 32,
+    "shadow": 1,
+    "ui_icons": 32,
+    "terrain_atlases": 1,
+    "menu_class_backgrounds": 4,
+    "retained_compositor_inputs": 5,
+    "final_assets": 104,
+    "superseded_sources_removed": 88
+  }
+}

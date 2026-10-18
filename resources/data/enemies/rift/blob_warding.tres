@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://i0h63c78mh3a"]
+
+[ext_resource type="PackedScene" path="res://scenes/enemy/rift_tactics_ai.tscn" id="ai"]
+[ext_resource type="Texture2D" uid="uid://bmxu6nbhyl3cl" path="res://assets/rift/entities/blob_warding.webp" id="art"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+[ext_resource type="Script" uid="uid://dyvd2kssxdkb8" path="res://scripts/resources/enemy_tactics.gd" id="tactics"]
+
+[sub_resource type="Resource" id="profile"]
+script = ExtResource("tactics")
+role = 2
+damage = 2
+
+[resource]
+script = ExtResource("stats")
+enemy_name = "Warding Blob"
+board_icon = ExtResource("art")
+ai = ExtResource("ai")
+gold_value = 4
+resource_value_max = 3
+tactics = SubResource("profile")
+max_health = 12

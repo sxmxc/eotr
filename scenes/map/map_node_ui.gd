@@ -35,7 +35,9 @@ func set_map_node(new_value: MapNode) -> void:
 	var kind: StringName = Enums.MapNodeType.keys()[map_node.type]
 	sprite_2d.texture = presentation_theme.get_icon(kind, &"MapNode") if presentation_theme.has_icon(kind, &"MapNode") else null
 	var scale_key := &"boss_icon_scale_percent" if map_node.type == Enums.MapNodeType.BOSS else &"icon_scale_percent"
-	sprite_2d.scale = Vector2.ONE * presentation_theme.get_constant(scale_key, &"MapNode") / 100.0
+	# Normalize mixed UI/entity source sizes to the theme's logical 512px canvas.
+	var source_width := sprite_2d.texture.get_width() if sprite_2d.texture else 512
+	sprite_2d.scale = Vector2.ONE * presentation_theme.get_constant(scale_key, &"MapNode") / 100.0 * 512.0 / source_width
 	update_route_state(false)
 
 

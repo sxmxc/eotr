@@ -7,8 +7,12 @@
 [ext_resource type="AudioStream" uid="uid://bonkarcwaqe1g" path="res://assets/audio/spells/explode1.wav" id="4_32n7f"]
 [ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="5_g4gsr"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/fracture_pulse.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_5imcf")
+card_art = ExtResource("rift_art")
 energy_sound_fx = ExtResource("1_xqcfa")
 energy_visual_fx = ExtResource("2_p6rxa")
 card_type = 2

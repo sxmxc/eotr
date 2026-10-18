@@ -12,9 +12,9 @@
 
 [ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="20_g06lf"]
 
-[ext_resource type="Texture2D" uid="uid://bw2e6kofldiiq" path="res://assets/icons/card-burn.svg" id="21_0br8l"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/burn.svg" id="21_0br8l"]
 
-[ext_resource type="Texture2D" uid="uid://dte2m4qyg4mfe" path="res://assets/icons/card-draw.svg" id="21_7fs1y"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/draw.svg" id="21_7fs1y"]
 
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
 
@@ -133,7 +133,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -620.0
-offset_top = -258.0
+offset_top = -298.0
 offset_right = 620.0
 grow_horizontal = 2
 grow_vertical = 0

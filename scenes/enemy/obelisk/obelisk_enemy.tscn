@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfxsj6tkyr3rq" path="res://scenes/enemy/obelisk/obelisk_enemy.gd" id="1_pyj3l"]
 [ext_resource type="Resource" uid="uid://bhto68irinlan" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="2_2g2p5"]
-[ext_resource type="Texture2D" uid="uid://dl83pg2w8fvdy" path="res://assets/icons/crystal-shrine.svg" id="2_180ib"]
+[ext_resource type="Texture2D"  path="res://assets/rift/entities/obelisk.webp" id="2_180ib"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_23345"]
 [ext_resource type="Resource" uid="uid://d3x2ax43x8lji" path="res://scenes/enemy/blob/blob_enemy.tres" id="3_ygcrw"]
 [ext_resource type="Resource" uid="uid://bxbiu0j3jgbic" path="res://scenes/enemy/horror/horror_enemy.tres" id="4_pyj3l"]
@@ -87,9 +87,10 @@ spawn_pool = Array[ExtResource("2_23345")]([ExtResource("3_ygcrw"), ExtResource(
 stats = ExtResource("2_2g2p5")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1201023035]
+texture_filter = 2
 z_index = 1
 y_sort_enabled = true
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.0625, 0.0625)
 texture = ExtResource("2_180ib")
 
 [node name="CircleIndicator" type="Sprite2D" parent="Sprite2D" unique_id=1150754839]
@@ -97,7 +98,7 @@ unique_name_in_owner = true
 visible = false
 self_modulate = Color(0.524982, 3, 2.99105, 0.471)
 z_index = 5
-scale = Vector2(3, 3)
+scale = Vector2(2.4, 2.4)
 texture = ExtResource("8_41nl8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator" unique_id=1025710734]

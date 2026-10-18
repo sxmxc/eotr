@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BuffedStatus" format=3 uid="uid://ckxcjeogxkher"]
 
-[ext_resource type="Texture2D" uid="uid://cpm3pemtlri1d" path="res://assets/icons/upgrade.svg" id="1_1p7vg"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/upgrade.svg" id="1_1p7vg"]
 [ext_resource type="Script" uid="uid://cmwg4kspvn0xp" path="res://resources/data/statuses/buffed.gd" id="2_oits2"]
 
 [resource]

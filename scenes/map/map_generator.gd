@@ -13,7 +13,6 @@ const REST_NODE_WEIGHT := 4.0
 const EVENT_NODE_WEIGHT := 3.5
 
 @export var left_gutter_offset: int = 50  # <-- You can tweak this value
-@export var battle_stats_pool: BattleStatsPool
 @export var encounter_registry: EncounterRegistry
 @export var encounter_tags: Array[String] = []
 
@@ -25,6 +24,7 @@ var random_map_node_type_weights = {
 }
 var random_node_type_total_weight := 0
 var map_data: Array[Array]
+var recent_encounter_ids: Array[String] = []
 
 
 func generate_map() -> Array[Array]:
@@ -36,9 +36,7 @@ func generate_map() -> Array[Array]:
 		for i in FLOORS - 1:
 			current_j = _setup_connection(i, current_j)
 
-	battle_stats_pool.setup()
-	if encounter_registry and encounter_registry.entries.is_empty():
-		encounter_registry.build_from_pool(battle_stats_pool)
+	recent_encounter_ids.clear()
 
 	_setup_boss_room()
 	_setup_random_node_weights()
@@ -137,7 +135,6 @@ func _setup_boss_room() -> void:
 
 	boss_room.type = Enums.MapNodeType.BOSS
 	var boss_tags := encounter_tags.duplicate()
-	boss_tags.append("boss")
 	boss_room.battle_stats = _pick_battle_for_tier(2, true, true, boss_tags)
 
 
@@ -256,12 +253,16 @@ func _pick_battle_for_tier(
 	allow_elites: bool = true,
 	allow_bosses: bool = false,
 	required_tags: Array[String] = []
-) -> BattleStats:
-	if encounter_registry:
-		var from_registry := encounter_registry.get_random_battle(
-			tier, required_tags, allow_elites, allow_bosses, RNG.instance
-		)
-		if from_registry:
-			return from_registry
-
-	return battle_stats_pool.get_random_battle_for_tier(tier)
+) -> EncounterDefinition:
+	var categories: Array[int] = []
+	categories.append(EncounterDefinition.Category.BOSS if allow_bosses else EncounterDefinition.Category.NORMAL)
+	if allow_elites and not allow_bosses:
+		categories.append(EncounterDefinition.Category.ELITE)
+	var selected := encounter_registry.select(tier, categories, required_tags, recent_encounter_ids, "", RNG.instance)
+	if selected:
+		recent_encounter_ids.append(selected.encounter_id)
+		if recent_encounter_ids.size() > 2:
+			recent_encounter_ids.pop_front()
+	else:
+		push_error("No eligible authored encounter for tier %d" % tier)
+	return selected

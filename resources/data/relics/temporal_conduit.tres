@@ -1,6 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://cfauwsp41tgk7"]
 
-[ext_resource type="Texture2D" uid="uid://klp2dl2m8y1h" path="res://assets/icons/astrolabe.svg" id="1_un6ud"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/time.svg" id="1_un6ud"]
 [ext_resource type="Script" uid="uid://b3u50fy6hqk04" path="res://resources/data/relics/temporal_conduit.gd" id="2_6tvx7"]
 
 [resource]

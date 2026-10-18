@@ -69,6 +69,13 @@ func _run() -> void:
 			get_tree().root.add_child(supporting)
 			await get_tree().create_timer(0.4).timeout
 			await _capture(screen)
+			if screen == "class_selector":
+				supporting._on_synthforge_button_pressed()
+				await get_tree().create_timer(0.3).timeout
+				await _capture("class-synthforged")
+				supporting._on_voidbinder_button_pressed()
+				await get_tree().create_timer(0.3).timeout
+				await _capture("class-voidbinder")
 			supporting.queue_free()
 			await get_tree().process_frame
 	var data_editor: DataEditor = load("res://scenes/devtools/data_editor.tscn").instantiate()
@@ -505,7 +512,7 @@ func _test_overhaul_lifetimes(sandbox: GameWorldSandbox) -> void:
 	Utils.shake(target, 5.0)
 	parent.queue_free()
 	var handler := sandbox.enemy_handler
-	var battle: BattleStats = load("res://resources/data/battles/tier_1_channelers_bulwark.tres")
+	var battle: EncounterDefinition = load("res://resources/data/battles/tier_1_channelers_bulwark.tres")
 	handler.setup_enemies(battle)
 	await get_tree().create_timer(0.05).timeout
 	var enemy := handler.get_child(0) as Enemy
@@ -753,7 +760,7 @@ func _capture_aim_and_inspection(world: GameWorld) -> void:
 			motion.global_position = screen_point
 			get_viewport().push_input(motion, true)
 		await get_tree().create_timer(0.25).timeout
-		_check(card.global_position.y >= get_viewport().get_visible_rect().size.y - 300.0, "Aiming card stays in hand zone")
+		_check(card.global_position.y >= get_viewport().get_visible_rect().size.y - card.size.y - card.aim_bottom_inset - 1.0, "Aiming card stays in hand zone")
 		var selector := get_tree().get_first_node_in_group("target_selector") as TargetSelector
 		_check(selector.targeting and selector.card_arc.get_point_count() > 1, "Aiming draws the targeting arc")
 		_check(not world.tilemap.get_node("CardTargetHighlights").active_target_highlights.is_empty(), "Aiming displays legal target outlines")

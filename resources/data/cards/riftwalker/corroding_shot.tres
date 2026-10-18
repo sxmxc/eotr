@@ -5,8 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://b1vge246lfhtt" path="res://assets/audio/spells/disenchant2.wav" id="2_sound"]
 [ext_resource type="PackedScene" uid="uid://cln3yj26mtsp" path="res://ui/fx/curse_fx.tscn" id="3_fx"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/corroding_shot.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_script")
+card_art = ExtResource("rift_art")
 target_type = 1
 id = "corroding_shot"
 name = "Corroding Shot"

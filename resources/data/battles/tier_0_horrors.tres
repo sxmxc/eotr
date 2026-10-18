@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://cy8o186l0hd35"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://cy8o186l0hd35"]
 
-[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_i06qp"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="1_i06qp"]
 [ext_resource type="PackedScene" uid="uid://bcvtyeor5sl01" path="res://resources/data/battles/tier_0_horrors.tscn" id="1_t3t6c"]
 
 [resource]
@@ -13,4 +13,6 @@ resource_reward_max = 5
 enemies = ExtResource("1_t3t6c")
 battle_field_width = 10
 battle_field_height = 10
+encounter_id = "tier_0_horrors"
+encounter_name = "Tier 0 Horrors"
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

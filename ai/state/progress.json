@@ -3,6 +3,12 @@
   "updated": "2026-10-18",
   "tasks": [
     {
+      "id": "RIFT-COMBAT-CONTENT-ART-001",
+      "status": "done",
+      "summary": "Consolidated EncounterDefinition/EncounterRegistry, removed pool selector; preserved seven encounters and tier two. Added eight bases, twelve behavioral variants and twenty authored encounters. Integrated fixed illustrated masters across 29 cards, 32 unit/class sprites, 32 icons, terrain, main menu and all three class screens. Removed 88 old sources and 438 obsolete cache files; rejected art passes removed. Asset, combat and native compatibility checks pass; 27 headless encounters, one rendered elite and run startup/progression exercised without runtime failures. Full campaign, human balance and export QA remain limits. See ai/docs/rift-overhaul.md.",
+      "updated": "2026-10-18"
+    },
+    {
       "id": "EVENT-CHOICE-AFFORDABILITY-001",
       "status": "done",
       "summary": "Fixed unsuccessful caravan trades consuming both event choices and repeat callbacks granting extra rewards. Existing costs are checked and charged once; currency signals refresh disabled buttons with requirement text, and completion focuses Leave. Regression baseline reproduced eleven failures; targeted offline headless/native and compatibility checks pass. Native event states inspected; no campaign/export QA. See ai/docs/continuous-improvement.md.",

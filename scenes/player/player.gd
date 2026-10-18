@@ -91,7 +91,7 @@ func _on_position_updated(pos: Vector2) -> void:
 	pending_effects += 1
 	var og_scale = scale
 	var tween = create_tween()
-	tween.tween_property(self, "scale", scale * 1.5,.1)
+	tween.tween_property(self, "scale", scale * 1.04,.1)
 	tween.parallel().tween_property(self, "position", pos, Utils.presentation_duration(.2))
 	tween.tween_property(self, "scale", og_scale,.1)
 	tween.tween_callback(

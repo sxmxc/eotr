@@ -23,7 +23,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 1. **Enemy Scene**: Scenes live in `scenes/enemy/<enemy_name>/`. Behaviour extends `Enemy` or `MovingEnemy`.
 2. **Actions & Intents**: Update `EnemyAction` resources or `update_intent()` overrides. Ensure telegraphed intent matches actual effect.
 3. **Stats**: Adjust `resources/stats/enemy_stats_*.tres` or script exported values.
-4. **Spawner**: Hook enemy group into relevant `BattleStats` resource (under `resources/data/battles/...`).
+4. **Encounter**: Reference the authored enemy composition in a typed `EncounterDefinition` under `resources/data/battles/`, then add the definition to `EncounterRegistry.encounters`. Tier, category, weight and tags belong on the definition; the registry owns selection.
 5. **Testing**:
    - Start a run, use `yeet_em_all` or `add_resources` as needed.
    - Verify `EnemyHandler` turn order and status application.
@@ -32,7 +32,7 @@ Use these playbooks to accelerate common contributions. Always capture outcomes 
 ## 3. Tweak Map Generation or Progression
 
 1. **Entry Point**: `scenes/map/map_generator.gd`.
-2. **Parameters**: Evaluate constants (`FLOORS`, `MAP_WIDTH`, weights) and exported fields (`BattleStatsPool`).
+2. **Parameters**: Evaluate constants (`FLOORS`, `MAP_WIDTH`, weights) and the exported `EncounterRegistry`. Preserve tier 0 early rooms, tier 1 later normal/elite rooms and the tier 2 final pool.
 3. **Connections**: Ensure `_setup_connection()` still prevents path overlaps. Update tests for treasure/rest floors if logic changes.
 4. **Validate**:
    - Run the map scene in isolation.

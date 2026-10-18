@@ -1,6 +1,6 @@
-[gd_resource type="ShaderMaterial" format=3]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c7cx3i62j4f51"]
 
-[ext_resource type="Shader" path="res://scripts/shaders/battle_over_vignette.gdshader" id="shader"]
+[ext_resource type="Shader" uid="uid://djqoacoai4plx" path="res://scripts/shaders/battle_over_vignette.gdshader" id="shader"]
 
 [resource]
 shader = ExtResource("shader")

@@ -16,7 +16,7 @@ same portable event schemas. No backend service or container may be started.
 ## 1. Combat and enemy AI — complete
 
 Files: scenes/game_world/{game_world,battle_state_controller}.gd,
-scripts/nodes/enemy_handler.gd, scenes/enemy/**, scripts/resources/battle_stats.gd,
+scripts/nodes/enemy_handler.gd, scenes/enemy/**, scripts/resources/encounter_definition.gd,
 ui/card_ui/card_ui.gd, scripts/nodes/proc-gen-tilemap.gd.
 
 - [x] Enemy-elimination default victory; explicit special objective retained.

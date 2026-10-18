@@ -11,7 +11,7 @@ static func ensure_contracts(
 	run_stats: RunStats,
 	floors_climbed: int,
 	candidate_nodes: Array[MapNode],
-	battle_stats_pool: BattleStatsPool
+	encounter_registry: EncounterRegistry
 ) -> void:
 	if not run_stats:
 		return
@@ -20,20 +20,20 @@ static func ensure_contracts(
 	if not refresh_due:
 		return
 
-	var candidate_battles: Array[BattleStats] = []
+	var candidate_battles: Array[EncounterDefinition] = []
 	for node: MapNode in candidate_nodes:
 		if node and node.battle_stats:
 			candidate_battles.append(node.battle_stats)
 
-	if candidate_battles.is_empty() and battle_stats_pool:
-		candidate_battles = battle_stats_pool.pool.duplicate()
+	if candidate_battles.is_empty() and encounter_registry:
+		candidate_battles = encounter_registry.encounters.duplicate()
 
 	var enemy_data: Array[Dictionary] = _collect_enemy_data(candidate_battles)
 	run_stats.bounty_contracts = _roll_contracts(enemy_data)
 	run_stats.next_bounty_refresh_floor = floors_climbed + REFRESH_INTERVAL_FLOORS
 
 
-static func apply_bounty_for_enemy(run_stats: RunStats, enemy_name: String, battle_stats: BattleStats) -> void:
+static func apply_bounty_for_enemy(run_stats: RunStats, enemy_name: String, battle_stats: EncounterDefinition) -> void:
 	if not run_stats or not battle_stats:
 		return
 	for contract: BountyContract in run_stats.bounty_contracts:
@@ -43,9 +43,9 @@ static func apply_bounty_for_enemy(run_stats: RunStats, enemy_name: String, batt
 		battle_stats.enemy_resource_reward += contract.resources
 
 
-static func _collect_enemy_data(battles: Array[BattleStats]) -> Array[Dictionary]:
+static func _collect_enemy_data(battles: Array[EncounterDefinition]) -> Array[Dictionary]:
 	var data: Array[Dictionary] = []
-	for bs: BattleStats in battles:
+	for bs: EncounterDefinition in battles:
 		if not bs or not bs.enemies:
 			continue
 		var instance: Node = bs.enemies.instantiate()

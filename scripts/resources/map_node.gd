@@ -11,7 +11,7 @@ class_name MapNode
 @export var selected:= false
 
 #only used by monster/boss types
-@export var battle_stats: BattleStats
+@export var battle_stats: EncounterDefinition
 
 func _to_string() -> String:
 	return "%s (%s)" % [column, Enums.MapNodeType.keys()[type][0]]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cibke4ls75caw"]
 
-[ext_resource type="Texture2D" path="res://assets/spritesheets/32x32-hex-tiles.png" id="hex_atlas"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="hex_atlas"]
 
 [ext_resource type="Script" uid="uid://pavih4tqan8i" path="res://scenes/game_world/movement_target_selector/movement_target_selector.gd" id="1_6f7n0"]
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_ehu6f"]

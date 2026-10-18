@@ -1,7 +1,7 @@
 [gd_resource type="Resource" format=3 uid="uid://beokydv3urxdh"]
 
 [ext_resource type="Script" uid="uid://csjbepkatf8xa" path="res://resources/data/relics/energy_condenser.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://klp2dl2m8y1h" path="res://assets/icons/astrolabe.svg" id="2_icon"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/time.svg" id="2_icon"]
 
 [resource]
 script = ExtResource("1_script")

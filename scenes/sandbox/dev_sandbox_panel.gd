@@ -6,7 +6,7 @@ class_name DevSandboxPanel
 @export var player_handler: PlayerHandler
 @export var player_hand: PlayerHand
 @export var player: Player
-@export var battle_stats: BattleStats
+@export var battle_stats: EncounterDefinition
 @export var map_camera: MapCamera
 @export var phantom_host: Node
 @export var card_registry: CardRegistry

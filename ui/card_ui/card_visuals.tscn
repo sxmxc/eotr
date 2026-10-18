@@ -3,7 +3,7 @@
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_script"]
 [ext_resource type="Texture2D" uid="uid://clb2uaudrydbm" path="res://assets/card/card_background.png" id="3_0p8qx"]
-[ext_resource type="Texture2D" uid="uid://bd67k5uobulf8" path="res://assets/card/art/default_card_image.jpg" id="4_1bfbl"]
+[ext_resource type="Texture2D"  path="res://assets/rift/cards/arcane_bolt.webp" id="4_1bfbl"]
 [ext_resource type="Texture2D" uid="uid://bcic1hvuu2eis" path="res://assets/card/card_description_background.png" id="4_nxj80"]
 [ext_resource type="Texture2D" uid="uid://bfrgppn4h3ip" path="res://assets/particles/kenney-particles/flare_01.png" id="6_flare"]
 [ext_resource type="Texture2D" uid="uid://dapg2sx650j4" path="res://assets/card/card_foreground_frame.png" id="6_kin56"]
@@ -152,10 +152,10 @@ corner_radius_top_left = 8
 corner_radius_bottom_right = 8
 
 [node name="Visuals" type="Control"]
-custom_minimum_size = Vector2(180, 240)
-pivot_offset = Vector2(90, 240)
+custom_minimum_size = Vector2(180, 280)
+pivot_offset = Vector2(90, 280)
 offset_right = 180.0
-offset_bottom = 240.0
+offset_bottom = 280.0
 mouse_filter = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_script")
@@ -163,14 +163,14 @@ script = ExtResource("2_script")
 theme_type_variation = &"CardFace"
 unique_name_in_owner = true
 offset_right = 180.0
-offset_bottom = 240.0
+offset_bottom = 280.0
 mouse_filter = 2
 use_parent_material = true
 [node name="ArtWell" type="ColorRect" parent="."]
 offset_left = 10.0
 offset_top = 42.0
 offset_right = 170.0
-offset_bottom = 112.0
+offset_bottom = 146.0
 color = Color(0.018, 0.033, 0.055, 1)
 mouse_filter = 2
 [node name="CardArt" type="TextureRect" parent="."]
@@ -178,7 +178,7 @@ unique_name_in_owner = true
 offset_left = 16.0
 offset_top = 44.0
 offset_right = 164.0
-offset_bottom = 110.0
+offset_bottom = 143.0
 mouse_filter = 2
 use_parent_material = true
 texture = ExtResource("4_1bfbl")
@@ -186,9 +186,9 @@ expand_mode = 1
 stretch_mode = 5
 [node name="CardTextBackground" type="Control" parent="."]
 offset_left = 12.0
-offset_top = 140.0
+offset_top = 174.0
 offset_right = 168.0
-offset_bottom = 227.0
+offset_bottom = 267.0
 mouse_filter = 2
 [node name="MarginContainer" type="MarginContainer" parent="CardTextBackground"]
 anchors_preset = 15
@@ -215,9 +215,9 @@ mouse_filter = 2
 [node name="Rarity" type="TextureRect" parent="."]
 unique_name_in_owner = true
 offset_left = 12.0
-offset_top = 124.0
+offset_top = 158.0
 offset_right = 18.0
-offset_bottom = 130.0
+offset_bottom = 164.0
 mouse_filter = 2
 texture = ExtResource("7_eqiyl")
 expand_mode = 1
@@ -226,9 +226,9 @@ stretch_mode = 5
 theme_type_variation = &"CardType"
 unique_name_in_owner = true
 offset_left = 25.0
-offset_top = 116.0
+offset_top = 150.0
 offset_right = 170.0
-offset_bottom = 138.0
+offset_bottom = 172.0
 mouse_filter = 2
 text = "ATTACK"
 [node name="CardCost" type="Panel" parent="."]

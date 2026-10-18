@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://emxchgta4ikh" path="res://resources/data/cards/riftwalker/deminishing_returns.gd" id="1_demret"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_r7nw6"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/deminishing_returns.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_demret")
+card_art = ExtResource("rift_art")
 target_type = 11
 id = "deminishing_returns"
 name = "Deminishing Returns"

@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_u67q0"]
 [ext_resource type="Script" uid="uid://dgyveejnbv6dc" path="res://resources/data/cards/riftwalker/void_surge.gd" id="1_um3tt"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/void_surge.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_um3tt")
+card_art = ExtResource("rift_art")
 target_type = 1
 id = "void_surge"
 name = "Void Surge"

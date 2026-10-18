@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3ll2gasnw28g"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_c8ln4"]
-[ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="2_iju21"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_c8ln4"]
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="2_iju21"]
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
 [ext_resource type="Texture2D" uid="uid://cbx47wp1tythp" path="res://assets/splash/godot-moose-px-splash.png" id="3_ttpkl"]
 
@@ -168,25 +168,25 @@ grow_vertical = 2
 theme_type_variation = &"HudPanelBackground"
 
 [node name="MarginContainer" type="MarginContainer" parent="DisclaimerPanel" unique_id=795895231]
-theme_type_variation = &"InsetCompact"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"InsetCompact"
 
 [node name="Panel" type="Panel" parent="DisclaimerPanel/MarginContainer" unique_id=829194725]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="DisclaimerPanel/MarginContainer/Panel" unique_id=584865014]
-theme_type_variation = &"InsetContent"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"InsetContent"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer" unique_id=194474909]
 layout_mode = 2
@@ -209,9 +209,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=556189520]
-theme_type_variation = &"RewardRow"
 layout_mode = 2
 size_flags_vertical = 3
+theme_type_variation = &"RewardRow"
 alignment = 1
 
 [node name="AcceptButton" type="Button" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1076426131]

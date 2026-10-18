@@ -115,7 +115,7 @@ var current_card_registry_index: int = -1
 var encounter_registry_records: Array[Dictionary] = []
 var current_encounter_registry: EncounterRegistry
 var current_encounter_registry_path: String = ""
-var current_encounter_entries: Array[Dictionary] = []
+var current_encounter_entries: Array[EncounterDefinition] = []
 var current_encounter_index: int = -1
 
 var deck_records: Array[Dictionary] = []
@@ -547,7 +547,7 @@ func _on_encounter_registry_selected(idx: int) -> void:
 	current_encounter_registry_path = path
 	current_encounter_registry = res as EncounterRegistry
 	encounter_registry_path.text = path
-	current_encounter_entries = current_encounter_registry.entries.duplicate(true)
+	current_encounter_entries = current_encounter_registry.encounters.duplicate(true)
 	current_encounter_index = -1
 	_rebuild_encounter_entries()
 	_clear_dirty()
@@ -557,10 +557,9 @@ func _on_encounter_registry_selected(idx: int) -> void:
 func _rebuild_encounter_entries() -> void:
 	encounter_registry_entry_list.clear()
 	for i in current_encounter_entries.size():
-		var entry: Dictionary = current_encounter_entries[i]
-		var stats: Resource = entry.get("stats", null)
-		var label: String = stats.resource_path.get_file().get_basename() if stats else "Battle"
-		var tier: int = entry.get("tier", -1)
+		var entry := current_encounter_entries[i]
+		var label: String = entry.encounter_name
+		var tier: int = entry.battle_tier
 		encounter_registry_entry_list.add_item("%s (tier %s)" % [label, tier])
 		encounter_registry_entry_list.set_item_metadata(i, i)
 	if encounter_registry_entry_list.item_count > 0:
@@ -572,33 +571,36 @@ func _on_encounter_entry_selected(idx: int) -> void:
 	if idx < 0 or idx >= current_encounter_entries.size():
 		return
 	current_encounter_index = idx
-	var entry: Dictionary = current_encounter_entries[idx]
+	var entry := current_encounter_entries[idx]
 	block_dirty = true
 	encounter_stats_path.text = ""
-	if entry.has("stats") and entry.get("stats") is Resource:
-		encounter_stats_path.text = (entry.get("stats") as Resource).resource_path
-	encounter_tier.value = entry.get("tier", 0)
-	encounter_weight.value = float(entry.get("weight", 1.0))
-	encounter_tags.text = ",".join(entry.get("tags", []))
-	encounter_elite.button_pressed = entry.get("is_elite", false)
-	encounter_boss.button_pressed = entry.get("is_boss", false)
-	encounter_unlocked.button_pressed = entry.get("unlocked", true)
+	encounter_stats_path.text = entry.resource_path
+	encounter_tier.value = entry.battle_tier
+	encounter_weight.value = entry.weight
+	encounter_tags.text = ",".join(entry.tags)
+	encounter_elite.button_pressed = entry.is_elite
+	encounter_boss.button_pressed = entry.category == EncounterDefinition.Category.BOSS
+	encounter_unlocked.button_pressed = entry.unlocked
 	block_dirty = false
 
 
 func _apply_encounter_entry_form() -> void:
 	if current_encounter_index < 0 or current_encounter_index >= current_encounter_entries.size():
 		return
-	var entry: Dictionary = current_encounter_entries[current_encounter_index]
-	var stats_res: BattleStats = _load_if_type(encounter_stats_path.text, "BattleStats") as BattleStats
+	var entry := current_encounter_entries[current_encounter_index]
+	var stats_res: EncounterDefinition = _load_if_type(encounter_stats_path.text, "EncounterDefinition") as EncounterDefinition
 	if stats_res:
-		entry["stats"] = stats_res
-	entry["tier"] = int(encounter_tier.value)
-	entry["weight"] = float(encounter_weight.value)
-	entry["tags"] = _parse_tags(encounter_tags.text)
-	entry["is_elite"] = encounter_elite.button_pressed
-	entry["is_boss"] = encounter_boss.button_pressed
-	entry["unlocked"] = encounter_unlocked.button_pressed
+		entry = stats_res
+	entry.battle_tier = int(encounter_tier.value)
+	entry.weight = float(encounter_weight.value)
+	entry.tags = _parse_tags(encounter_tags.text)
+	if encounter_boss.button_pressed:
+		entry.category = EncounterDefinition.Category.BOSS
+	elif encounter_elite.button_pressed:
+		entry.category = EncounterDefinition.Category.ELITE
+	elif entry.category != EncounterDefinition.Category.SPECIAL:
+		entry.category = EncounterDefinition.Category.NORMAL
+	entry.unlocked = encounter_unlocked.button_pressed
 	current_encounter_entries[current_encounter_index] = entry
 	_rebuild_encounter_entries()
 	encounter_registry_entry_list.select(current_encounter_index)
@@ -607,15 +609,8 @@ func _apply_encounter_entry_form() -> void:
 
 
 func _add_encounter_entry() -> void:
-	var entry: Dictionary = {
-		"stats": null,
-		"tier": 0,
-		"weight": 1.0,
-		"tags": [],
-		"is_elite": false,
-		"is_boss": false,
-		"unlocked": true
-	}
+	var entry := EncounterDefinition.new()
+	entry.encounter_name = "Choose an authored encounter resource"
 	current_encounter_entries.append(entry)
 	_rebuild_encounter_entries()
 	encounter_registry_entry_list.select(current_encounter_entries.size() - 1)
@@ -637,7 +632,23 @@ func _save_encounter_registry() -> void:
 		_set_status("No encounter registry loaded.", true)
 		return
 	_apply_encounter_entry_form()
-	current_encounter_registry.entries = current_encounter_entries.duplicate(true)
+	# Registry membership references standalone authored definitions. Metadata lives
+	# on those resources and must be saved there, rather than embedded as a copy.
+	var encounter_ids: Array[String] = []
+	for definition in current_encounter_entries:
+		if definition.resource_path.is_empty() or definition.encounter_id.is_empty() or not definition.enemies:
+			_set_status("Choose a saved encounter with a stable ID and composition before saving.", true)
+			return
+		if encounter_ids.has(definition.encounter_id):
+			_set_status("Encounter IDs must be unique.", true)
+			return
+		encounter_ids.append(definition.encounter_id)
+	for definition in current_encounter_entries:
+		var definition_error := ResourceSaver.save(definition, definition.resource_path)
+		if definition_error != OK:
+			_set_status("Could not save encounter (%s)." % definition_error, true)
+			return
+	current_encounter_registry.encounters = current_encounter_entries.duplicate(true)
 	var err: Error = ResourceSaver.save(current_encounter_registry, current_encounter_registry_path)
 	if err != OK:
 		_set_status("Could not save encounter registry (%s)." % err, true)

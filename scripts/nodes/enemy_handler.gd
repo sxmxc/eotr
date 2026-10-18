@@ -68,7 +68,7 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i, summoned: bool = false) -> void
 	enemy.update_action()
 
 
-func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = []) -> void:
+func setup_enemies(battle_stats: EncounterDefinition, reserved_tiles: Array[Vector2i] = []) -> void:
 	if not battle_stats:
 		return
 
@@ -85,16 +85,23 @@ func setup_enemies(battle_stats: BattleStats, reserved_tiles: Array[Vector2i] = 
 	var all_new_enemies := battle_stats.enemies.instantiate()
 	var reserved: Array[Vector2i] = reserved_tiles.duplicate()
 	reserved.append(tilemap.get_center_tile_coord())
+	if not reserved_tiles.is_empty():
+		for cell in tilemap.get_surrounding_tiles_in_radius(reserved_tiles[0], battle_stats.minimum_player_distance - 1):
+			if not reserved.has(cell):
+				reserved.append(cell)
 
 	for new_enemy: Node2D in all_new_enemies.get_children():
 		if not (new_enemy is Enemy):
 			continue
-		var instance := new_enemy.duplicate() as Enemy
+		# Transfer authored instances instead of duplicating an instantiated scene.
+		all_new_enemies.remove_child(new_enemy)
+		new_enemy.owner = null
+		var instance := new_enemy as Enemy
 		var spawn := tilemap.get_center_tile_coord() if instance is Obelisk else tilemap.get_random_valid_tile(reserved)
 		add_enemy(instance, spawn)
 		reserved.append(spawn)
 
-	all_new_enemies.queue_free()
+	all_new_enemies.free()
 
 
 func reset_enemy_actions(_args = null) -> void:

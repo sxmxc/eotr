@@ -6,7 +6,7 @@
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_ctpgp"]
 [ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="2_7lxhl"]
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="3_131kw"]
-[ext_resource type="Texture2D" uid="uid://d3h7spclh26r0" path="res://assets/icons/buy-card.svg" id="3_jp048"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/card.svg" id="3_jp048"]
 [ext_resource type="Resource" uid="uid://cbqo7jsdxagi4" path="res://resources/data/relics/riftglass_prism.tres" id="4_xoc10"]
 [ext_resource type="Resource" uid="uid://cfauwsp41tgk7" path="res://resources/data/relics/temporal_conduit.tres" id="5_k5co3"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="5_ptf86"]

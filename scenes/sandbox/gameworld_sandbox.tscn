@@ -28,11 +28,11 @@
 
 [ext_resource type="Script" uid="uid://c7scdih6eyh6c" path="res://scenes/sandbox/gameworld_sandbox.gd" id="12_sandbox_script"]
 
-[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="13_battle_stats"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="13_battle_stats"]
 
 [ext_resource type="Script" uid="uid://dil4vy2ujmryb" path="res://scripts/resources/run_stats.gd" id="15_run_stats"]
 
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="16_highlight_atlas"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="16_highlight_atlas"]
 
 [ext_resource type="Resource" uid="uid://sp28xxw35dgt" path="res://resources/data/tile_effects/block_tile_effect.tres" id="17_block_effect"]
 
@@ -56,7 +56,7 @@
 
 [ext_resource type="Script" path="res://ui/world_ui/board_overlay.gd" id="28_overlay"]
 
-[sub_resource type="Resource" id="BattleStatsResource"]
+[sub_resource type="Resource" id="EncounterDefinitionResource"]
 script = ExtResource("13_battle_stats")
 weight = 1.0
 battle_field_width = 11
@@ -93,7 +93,7 @@ fill_to = Vector2(1, 1)
 
 [node name="GameWorldSandbox" type="Node2D" unique_id=317889488]
 script = ExtResource("12_sandbox_script")
-battle_stats = SubResource("BattleStatsResource")
+battle_stats = SubResource("EncounterDefinitionResource")
 run_stats = SubResource("RunStatsResource")
 card_registry = ExtResource("24_card_registry")
 encounter_registry = ExtResource("25_encounter_registry")

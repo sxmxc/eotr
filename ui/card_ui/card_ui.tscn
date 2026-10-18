@@ -12,16 +12,16 @@
 [ext_resource type="Script" uid="uid://ca3j0pidu663v" path="res://ui/card_ui/card_states/card_aiming_state.gd" id="8_c6fjk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7dm0o"]
-size = Vector2(179, 240)
+size = Vector2(179, 280)
 
 [node name="CardUI" type="Control" unique_id=1935654578]
 process_mode = 3
-custom_minimum_size = Vector2(180, 240)
+custom_minimum_size = Vector2(180, 280)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 180.0
-offset_bottom = 240.0
-pivot_offset = Vector2(90, 240)
+offset_bottom = 280.0
+pivot_offset = Vector2(90, 280)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_l3rh4")
@@ -93,7 +93,7 @@ collision_mask = 4
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DropPointDetector" unique_id=1913879434]
-position = Vector2(89.5, 120)
+position = Vector2(89.5, 140)
 shape = SubResource("RectangleShape2D_7dm0o")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

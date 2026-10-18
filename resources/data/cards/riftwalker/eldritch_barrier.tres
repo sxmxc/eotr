@@ -1,19 +1,22 @@
 [gd_resource type="Resource" format=3 uid="uid://1g187kuqiaba"]
 
-[ext_resource type="Texture2D" uid="uid://b3rpu4ptgclop" path="res://assets/card/art/eldritch_barrier.png" id="1_4ywjp"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="1_ky1jf"]
 [ext_resource type="AudioStream" uid="uid://y8shlp65x13s" path="res://assets/audio/spells/blessing3.wav" id="2_a4iw4"]
 [ext_resource type="Script" uid="uid://dheg1q18j76ek" path="res://resources/data/cards/riftwalker/eldritch_barrier.gd" id="2_ky1jf"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_nxt1u"]
 
+
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/eldritch_barrier.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("2_ky1jf")
+card_art = ExtResource("rift_art")
 card_type = 1
 id = "eldritch_barrier"
 name = "Eldricth Barrier"
 description = "Block [b]%s[/b] damage for [b]1[/b] turn(s)"
 energy_cost = 1
-card_art = ExtResource("1_4ywjp")
 sound_fx = ExtResource("2_a4iw4")
 visual_fx = ExtResource("1_ky1jf")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://5jb217mo7kta"]
 
 [ext_resource type="Script" uid="uid://bdqmkh35suft4" path="res://scenes/map/map_node_ui.gd" id="1_0vh7f"]
-[ext_resource type="Texture2D" uid="uid://bbw0t504l4mi0" path="res://assets/icons/portal.svg" id="1_ajjoh"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/portal.svg" id="1_ajjoh"]
 
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="3_theme"]
 

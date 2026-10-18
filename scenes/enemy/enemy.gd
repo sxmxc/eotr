@@ -71,7 +71,7 @@ func setup_ai() -> void:
 		escape.intent = Intent.new()
 		escape.intent.tooltip_text = "Plans to leave the collapsing edge"
 		escape.intent.base_text = "Reposition"
-		escape.intent.icon = preload("res://assets/icons/path-distance.svg")
+		escape.intent.icon = preload("res://assets/rift/ui/move.svg")
 		new_action_picker.add_child(escape)
 		new_action_picker.move_child(escape, 0)
 	add_child(new_action_picker)

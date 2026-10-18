@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crny6hpdmf0v7"]
 
 [ext_resource type="Script" uid="uid://crk2h8g21sarg" path="res://ui/health_ui/health_ui.gd" id="1_seohp"]
-[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="2_wbl7p"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/health.svg" id="2_wbl7p"]
 
 [node name="HealthUI" type="HBoxContainer" unique_id=1187274256]
 theme_type_variation = &"FlushRow"

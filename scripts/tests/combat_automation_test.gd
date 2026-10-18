@@ -28,6 +28,7 @@ func check(value: bool, message: String) -> void:
 		printerr("FAIL: " + message)
 
 func run() -> void:
+	_test_authored_encounters()
 	_test_projectile_ownership()
 	RNG.instance.seed = 42
 	var relics := RELICS.instantiate() as RelicHandler
@@ -112,6 +113,49 @@ func run() -> void:
 			"Shutdown releases pooled audio streams before the audio server stops")
 	print("Combat automation tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func _test_authored_encounters() -> void:
+	# The isolated validation project does not link documentation. Load every card
+	# through its actual Resource path rather than relying on a file existing.
+	for folder in ["res://resources/data/cards/riftwalker", "res://resources/data/cards/common"]:
+		for filename in DirAccess.get_files_at(folder):
+			if filename.ends_with(".tres"):
+				var card := load(folder.path_join(filename)) as Card
+				check(card.card_art != null and card.card_art.resource_path == "res://assets/rift/cards/%s.webp" % filename.get_basename(), "Every loaded card binds its own illustration after its script")
+				if card.card_art:
+					check(card.card_art.get_width() == 592 and card.card_art.get_height() == 396, "Cards use a high resolution 3:2 illustration")
+	var registry: EncounterRegistry = load("res://resources/data/registries/encounter_registry_act1.tres")
+	check(registry.encounters.size() == 27, "All existing and twenty new authored encounters are registered")
+	var ids: Array[String] = []
+	var new_profiles: Dictionary = {}
+	for definition in registry.encounters:
+		check(not definition.encounter_id.is_empty() and not ids.has(definition.encounter_id), "Stable encounter IDs are unique")
+		ids.append(definition.encounter_id)
+		var composition := definition.enemies.instantiate()
+		var obelisks := 0
+		for child in composition.get_children():
+			check(child is Enemy and child.stats != null and child.stats.ai != null, "Authored enemy has stats and AI")
+			if child is Obelisk:
+				obelisks += 1
+			if child is Enemy and child.stats.tactics:
+				new_profiles[child.stats.enemy_name] = true
+		check(obelisks == 1, "Every encounter retains one active Obelisk")
+		check(definition.victory_objective == EncounterDefinition.VictoryObjective.ELIMINATE_HOSTILES, "Default victory requires every hostile")
+		composition.free()
+	check(new_profiles.size() == 20, "Eight new bases and twelve variants appear in playable compositions")
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 18
+	var recent: Array[String] = []
+	for i in 100:
+		var normal := registry.select(0, [EncounterDefinition.Category.NORMAL], [], recent, "", rng)
+		check(normal != null and normal.battle_tier == 0 and normal.category == EncounterDefinition.Category.NORMAL, "Tier/category eligibility is exact")
+		check(not recent.has(normal.encounter_id), "Available alternatives prevent immediate repeats")
+		recent = [normal.encounter_id]
+		var boss := registry.select(2, [EncounterDefinition.Category.BOSS], [], [], "", rng)
+		check(boss != null and boss.battle_tier == 2 and boss.category == EncounterDefinition.Category.BOSS, "Tier two authored boss pool is preserved")
+	check(registry.select(9, [0]) == null, "Empty pools do not fall back to unrelated content")
+	check(registry.select(0, [0], [], [], "tier_2_bulwark_channelers") == registry.find("tier_2_bulwark_channelers"), "Explicit node override selects an authored encounter")
+	check(registry.select(0, [0], [], [], "missing") == null, "Unknown override fails explicitly")
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	var handler := world.enemy_handler

@@ -5,8 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_43f7b"]
 [ext_resource type="PackedScene" uid="uid://dl3cgeeoktnii" path="res://ui/fx/burn_fx.tscn" id="3_43f7b"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/arcane_flame.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_uyrpw")
+card_art = ExtResource("rift_art")
 target_type = 1
 id = "arcane_flame"
 name = "Arcane Flame"

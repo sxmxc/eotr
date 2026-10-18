@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://duxbq1vblfdny" path="res://scenes/enemy/bat/bat_enemy_ai.tscn" id="1_rkhoc"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_xwyds"]
-[ext_resource type="Texture2D" uid="uid://dhhvpyyrer6xa" path="res://assets/icons/bat.svg" id="2_dy2o3"]
+[ext_resource type="Texture2D" path="res://assets/rift/entities/bat.webp" id="2_dy2o3"]
 [ext_resource type="AudioStream" uid="uid://b2m8fyb2o88fn" path="res://assets/audio/Monster Sounds/Bat/Bat_Emerge.wav" id="3_dy2o3"]
 
 [resource]

@@ -4,7 +4,7 @@ class_name GameWorldSandbox
 const DEFAULT_PLAYER_STATS := preload("res://resources/data/stats/player/riftwalker_starting_stats.tres")
 
 @export var player_stats_resource: PlayerStats = DEFAULT_PLAYER_STATS
-@export var battle_stats: BattleStats
+@export var battle_stats: EncounterDefinition
 @export var run_stats: RunStats
 @export var card_registry: CardRegistry
 @export var encounter_registry: EncounterRegistry
@@ -47,7 +47,7 @@ func _initialize_resources() -> void:
 	else:
 		player_stats = PlayerStats.new()
 	if not battle_stats:
-		battle_stats = BattleStats.new()
+		battle_stats = EncounterDefinition.new()
 		battle_stats.battle_field_width = 11
 		battle_stats.battle_field_height = 11
 	if not run_stats:

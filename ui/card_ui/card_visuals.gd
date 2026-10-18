@@ -64,7 +64,7 @@ func set_interactable(active: bool) -> void:
 
 func _apply_card_art() -> void:
 	var authored_art := card.card_art if card else null
-	if authored_art and not authored_art.resource_path.ends_with("default_card_image.jpg"):
+	if authored_art:
 		card_art_texture.texture = authored_art
 		card_art_texture.modulate = Color.WHITE
 	else:

@@ -189,10 +189,10 @@ func _update_bounty_board() -> void:
 		if map_node_ui.available and map_node_ui.map_node and map_node_ui.map_node.battle_stats:
 			available_nodes.append(map_node_ui.map_node)
 
-	var battle_pool: BattleStatsPool = null
+	var registry: EncounterRegistry = null
 	if map_generator:
-		battle_pool = map_generator.battle_stats_pool
-	BountySystem.ensure_contracts(run_stats, floors_climbed, available_nodes, battle_pool)
+		registry = map_generator.encounter_registry
+	BountySystem.ensure_contracts(run_stats, floors_climbed, available_nodes, registry)
 	bounty_board.update_bounties(run_stats.bounty_contracts, floors_climbed, run_stats.next_bounty_refresh_floor)
 	if get_parent() is Run:
 		bounty_board.hide()

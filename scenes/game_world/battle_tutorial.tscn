@@ -10,7 +10,7 @@
 
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
 
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="42_0am1i"]
 
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
 

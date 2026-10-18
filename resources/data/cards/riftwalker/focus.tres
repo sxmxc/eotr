@@ -5,8 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://y8shlp65x13s" path="res://assets/audio/spells/blessing3.wav" id="2_arv0s"]
 [ext_resource type="PackedScene" uid="uid://clemke10r3mhf" path="res://ui/fx/flash_fx.tscn" id="3_37eoj"]
 
+
+[ext_resource type="Texture2D" path="res://assets/rift/cards/focus.webp" id="rift_art"]
+
 [resource]
 script = ExtResource("1_x6xu6")
+card_art = ExtResource("rift_art")
 card_type = 2
 id = "focus"
 name = "Focus"

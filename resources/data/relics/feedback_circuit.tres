@@ -1,6 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://cd45n3jrdgucm"]
 
-[ext_resource type="Texture2D" uid="uid://sdgqblonpvpy" path="res://assets/icons/circuitry.svg" id="1_ui7ic"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/circuit.svg" id="1_ui7ic"]
 [ext_resource type="Script" uid="uid://cx2phnwcooft1" path="res://resources/data/relics/feedback_circuit.gd" id="1_uuf6b"]
 
 [resource]

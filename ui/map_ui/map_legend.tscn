@@ -2,25 +2,25 @@
 
 [ext_resource type="Script" path="res://ui/map_ui/map_legend.gd" id="legend_script"]
 
-[ext_resource type="Texture2D" uid="uid://c60jlxwiajlnj" path="res://assets/icons/rolling-energy.svg" id="18_yj3lc"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/energy.svg" id="18_yj3lc"]
 
-[ext_resource type="Texture2D" uid="uid://mptcvsif4s5t" path="res://assets/icons/rolling-energy-2.svg" id="19_4aki2"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/energy.svg" id="19_4aki2"]
 
-[ext_resource type="Texture2D" uid="uid://dgyop01i0okhj" path="res://assets/icons/pay-money.svg" id="20_8fhq7"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="20_8fhq7"]
 
-[ext_resource type="Texture2D" uid="uid://bid8jyjlm8vfs" path="res://assets/icons/night-sleep.svg" id="21_x3nam"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/camp.svg" id="21_x3nam"]
 
-[ext_resource type="Texture2D" uid="uid://bt72lliaq55rd" path="res://assets/icons/chest.svg" id="22_0rx4c"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/chest.svg" id="22_0rx4c"]
 
-[ext_resource type="Texture2D" uid="uid://cpkby7jkl4j6e" path="res://assets/icons/overlord-helm.svg" id="23_ixteu"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/elite.svg" id="23_ixteu"]
 
 [ext_resource type="Texture2D" uid="uid://cdtkxwq6qq66l" path="res://assets/third_party/Keyboard & Mouse/Vector/mouse_scroll_vertical.svg" id="24_xrsi6"]
 
 [ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="25_xrrkx"]
 
-[ext_resource type="Texture2D" uid="uid://dvfs14vxx22h2" path="res://assets/icons/wanted-reward.svg" id="26_s0vt7"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/bounty.svg" id="26_s0vt7"]
 
-[ext_resource type="Texture2D" uid="uid://bj3pd7u46av1r" path="res://assets/icons/wanted-reward-pressed.svg" id="27_xqkow"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/bounty.svg" id="27_xqkow"]
 
 [ext_resource type="Script" uid="uid://fvkc0g4vuoag" path="res://ui/run_ui/bounty_board_button.gd" id="28_vksuo"]
 

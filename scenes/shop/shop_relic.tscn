@@ -3,7 +3,7 @@
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_vuhns"]
 [ext_resource type="Script" uid="uid://bof5g3lq5yini" path="res://scenes/shop/shop_relic.gd" id="2_vuhns"]
 [ext_resource type="PackedScene" uid="uid://cryppjpfbefjn" path="res://scenes/relic_handler/relic_ui.tscn" id="3_vuhns"]
-[ext_resource type="Texture2D" uid="uid://ci1pw3ahgqx7h" path="res://assets/icons/metal-bar-fg-only.svg" id="4_x3kbf"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/corrosion.svg" id="4_x3kbf"]
 
 [node name="ShopRelic" type="VBoxContainer" unique_id=569702973]
 custom_minimum_size = Vector2(180, 364)
