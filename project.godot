@@ -8,11 +8,6 @@
 
 config_version=5
 
-[addons]
-
-instance_dock/scene_data_file="res://InstanceDockSceneData.txt"
-instance_dock/preview_resolution=Vector2i(64, 64)
-
 [application]
 
 config/name="echoes_of_the_rift"
@@ -36,9 +31,9 @@ RegistryData="*res://scripts/autoloads/registry_data.gd"
 SoundManager="*uid://dpuhel5fjt0xl"
 PhantomCameraManager="*uid://duq6jhf6unyis"
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
-LimboConsole="*uid://8ksevjdks57p"
 PostFx="*res://scenes/post_fx/post_fx.tscn"
 UIAnimation="*uid://cawfyydj325or"
+LimboConsole="*uid://dyxornv8vwibg"
 
 [debug]
 
@@ -138,6 +133,16 @@ pause={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+limbo_auto_complete_reverse={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194306,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+limbo_console_search_history={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":82,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -150,6 +155,7 @@ pause={
 
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+textures/webp_compression/compression_method=4
 viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 
@@ -162,4 +168,4 @@ mouse_screen_pos={
 
 [telemetry]
 
-config_path=""
+config_path="uid://duaqoq4n0iiv5"
