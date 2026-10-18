@@ -31,7 +31,7 @@ void fragment() {
 	vec2 center_uv = UV - vec2(0.5, 0.5);
 	float gradient_to_edge = max(abs(center_uv.x), abs(center_uv.y));
 	gradient_to_edge = gradient_to_edge * Distortion;
-	gradient_to_edge = 1.0 - gradient_to_edge;
+	gradient_to_edge = max(0.0, 1.0 - gradient_to_edge);
 	vec2 rotaded_uv = rotate_uv(UV, vec2(0.5, 0.5), Rotation_deg, true);
 
 	float remapped_position;
@@ -73,9 +73,9 @@ void fragment() {
 
 	// White shine masked by sprite
 	float final_alpha = shine * mask;
-	vec3 final_color = vec3(1.0) * final_alpha;
+	vec3 final_color = vec3(1.0);
 
-	COLOR = vec4(final_color, final_alpha);
+	COLOR = vec4(final_color, final_alpha) * COLOR;
 
 	//vec4 surface_tex = texture(surface, UV);
 	//float a = remapped_line * surface_tex.a;

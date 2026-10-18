@@ -1,4 +1,5 @@
 shader_type canvas_item;
+varying vec4 canvas_modulation;
 
 // The texture to scroll with.
 uniform sampler2D scrollingTexture: hint_default_white;
@@ -28,6 +29,7 @@ uniform float tolerance: hint_range(0.0, 0.999) = 0.0;
 
 // Compensate UV for outline.
 void vertex() {
+	canvas_modulation = COLOR;
 	VERTEX = vec2(VERTEX.x * (1.0 + TEXTURE_PIXEL_SIZE.x * max(maxLineWidth, minLineWidth) * 2.0), VERTEX.y * (1.0 + TEXTURE_PIXEL_SIZE.y * max(maxLineWidth, minLineWidth) * 2.0));
 }
 
@@ -137,7 +139,7 @@ void fragment() {
 			vec4 finalColor = step(1.0 - tolerance, in_range(size, TEXTURE, uv) ? 1.0: 0.0) * mix(actualColor, textureColor, textureStrength);
 			newColor = finalColor;
 		}
-		COLOR = newColor;
+		COLOR = newColor * canvas_modulation;
 	}
 }
 

@@ -17,6 +17,36 @@ class CountingAction extends EnemyAction:
 	func update_intent_text() -> void:
 		pass
 
+func _test_visual_lifetimes(world: GameWorld) -> void:
+	var frame := Node2D.new()
+	frame.position = Vector2(37, -19)
+	frame.scale = Vector2(1.4, 1.4)
+	frame.rotation = 0.3
+	add_child(frame)
+	var projectile_scene := load("res://ui/fx/electric_arc_projectile_fx.tscn") as PackedScene
+	var first := projectile_scene.instantiate() as ProjectileFX
+	var second := projectile_scene.instantiate() as ProjectileFX
+	frame.add_child(first)
+	frame.add_child(second)
+	var target := world.enemy_handler.get_child(0) as Enemy
+	first.execute(target, world.player)
+	second.execute(world.player, target)
+	var arc_a := first.get_node("ElectricArcFX") as Line2D
+	var arc_b := second.get_node("ElectricArcFX") as Line2D
+	check(arc_a.material != arc_b.material, "Overlapping arcs own independent materials")
+	check(arc_a.to_global(arc_a.points[0]).is_equal_approx(world.player.global_position), "Arc origin respects transformed parent")
+	check(arc_b.to_global(arc_b.points[0]).is_equal_approx(target.global_position), "Enemy arc respects explicit source")
+	arc_a.set_shader_value(0.6)
+	check(is_equal_approx(float(arc_a.material.get_shader_parameter("transparency")), 0.6), "Arc fade writes the actual shader uniform")
+	var shield := load("res://ui/fx/shield_shine_fx.tscn").instantiate() as VisualFX
+	world.player.add_child(shield)
+	shield.execute()
+	await get_tree().create_timer(1.2).timeout
+	check(not is_instance_valid(first) and not is_instance_valid(second), "Completed arc wrappers are freed")
+	check(not is_instance_valid(shield), "Completed shield shine root is freed")
+	frame.queue_free()
+
+
 func _ready() -> void:
 	GameSettings.show_tutorial = false
 	TelemetryManager.suspended = true
@@ -41,6 +71,7 @@ func run() -> void:
 	world.relics = relics
 	world.start_world()
 	await get_tree().create_timer(0.2).timeout
+	await _test_visual_lifetimes(world)
 	var api := Interface.new()
 	api.world = world
 	var ready_deadline := Time.get_ticks_msec() + 2000

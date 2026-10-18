@@ -141,6 +141,15 @@ func _run() -> void:
 		run_scene.map_legend.hide()
 		await _capture("fog")
 		world.tilemap.hide_fog()
+		# Production gate: actual CardUI instances in the actual battle hand.
+		var art_hand: PlayerHand = world.game_world_ui.hand
+		for old_card: Node in art_hand.get_children():
+			art_hand.remove_child(old_card)
+			old_card.queue_free()
+		for art_id: String in ["arcane_bolt", "arcane_blast", "phase_step", "adrenaline_rush", "eldritch_barrier"]:
+			art_hand.add_card(load("res://resources/data/cards/riftwalker/%s.tres" % art_id).duplicate())
+		await get_tree().create_timer(0.3).timeout
+		await _capture("card-art-gate")
 		Events.rounds_until_shrink_updated.emit(1)
 		await get_tree().create_timer(0.5).timeout
 		await _capture("combat")

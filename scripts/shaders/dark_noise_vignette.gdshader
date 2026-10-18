@@ -37,7 +37,7 @@ void fragment()
 
     vec3 coord = vec3(atan(p.x, p.y) / 6.2832 + 0.5, length(p) * 0.4, 0.5);
 
-    float time = -TIME / speed;
+    float time = -TIME / max(speed, 0.001);
     for (int i = 1; i <= 7; i++)
     {
         float power = pow(2.0, float(i));

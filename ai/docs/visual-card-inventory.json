@@ -1,0 +1,377 @@
+{
+  "cards": [
+    {
+      "id": "void_residue",
+      "name": "Void Residue",
+      "description": "Worthless absolute.\n[b]Exhaust[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/common/void_residue.tres",
+      "old_art": "res://assets/rift/cards/void_residue.webp",
+      "new_art": "res://assets/rift/cards/void_residue.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "void_slime",
+      "name": "Void Slime",
+      "description": "Not very useful.\n[b]Exhaust[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/common/void_slime.tres",
+      "old_art": "res://assets/rift/cards/void_slime.webp",
+      "new_art": "res://assets/rift/cards/void_slime.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "adrenaline_rush",
+      "name": "Adrenaline Rush",
+      "description": "Draw [b]2[/b] cards, gain 1 temporary energy.",
+      "script_values": [
+        "cards_drawn := 2",
+        "energy_gained := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/adrenaline_rush.tres",
+      "old_art": "res://assets/rift/cards/adrenaline_rush.webp",
+      "new_art": "res://assets/rift/cards/adrenaline_rush.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "arcane_blast",
+      "name": "Arcane Blast",
+      "description": "Deal [b]%s[b] damage to a [b]single[/b] enemy.",
+      "script_values": [
+        "base_damage = 10"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_blast.tres",
+      "old_art": "res://assets/rift/cards/arcane_blast.webp",
+      "new_art": "res://assets/rift/cards/arcane_blast.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "arcane_bolt",
+      "name": "Arcane Bolt",
+      "description": "Deal [b]%s[/b] damage to target [b]enemy[/b]",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_bolt.tres",
+      "old_art": "res://assets/rift/cards/arcane_bolt.webp",
+      "new_art": "res://assets/rift/cards/arcane_bolt.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "arcane_explosion",
+      "name": "Arcane Explosion",
+      "description": "Deal [b]%s[/b] damage to [b]surrounding[/b] enemies",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_explosion.tres",
+      "old_art": "res://assets/rift/cards/arcane_explosion.webp",
+      "new_art": "res://assets/rift/cards/arcane_explosion.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "arcane_flame",
+      "name": "Arcane Flame",
+      "description": "Deal [b]%s[/b] damage to a [b]single[/b] enemy and apply [b]burn[/b]",
+      "script_values": [
+        "base_damage := 4",
+        "burn_duration := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_flame.tres",
+      "old_art": "res://assets/rift/cards/arcane_flame.webp",
+      "new_art": "res://assets/rift/cards/arcane_flame.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "chrono_jab",
+      "name": "Chrono Jab",
+      "description": "Deal [b]%s[/b] damage twice. Applies [b]1[/b] [b]Weakened[/b].",
+      "script_values": [
+        "base_damage := 6",
+        "weakened_duration := 3"
+      ],
+      "resource": "resources/data/cards/riftwalker/chrono_jab.tres",
+      "old_art": "res://assets/rift/cards/chrono_jab.webp",
+      "new_art": "res://assets/rift/cards/chrono_jab.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "corroding_shot",
+      "name": "Corroding Shot",
+      "description": "Deal [b]%s[/b] damage to a [b]single[/b] enemy and apply [b]%s[/b] Corroded (true damage + block shred each end of turn).",
+      "script_values": [
+        "base_damage := 6",
+        "corrode_stacks := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/corroding_shot.tres",
+      "old_art": "res://assets/rift/cards/corroding_shot.webp",
+      "new_art": "res://assets/rift/cards/corroding_shot.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "corrosion_wave",
+      "name": "Corrosion Wave",
+      "description": "Deal [b]%s[/b] damage to [b]all enemies[/b] and apply [b]%s[/b] Corroded.",
+      "script_values": [
+        "base_damage := 4",
+        "corrode_stacks := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/corrosion_wave.tres",
+      "old_art": "res://assets/rift/cards/corrosion_wave.webp",
+      "new_art": "res://assets/rift/cards/corrosion_wave.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "deminishing_returns",
+      "name": "Deminishing Returns",
+      "description": "Deal [b]2[/b] damage for each enemy alive to an adjacent enemy.",
+      "script_values": [
+        "base_damage := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/deminishing_returns.tres",
+      "old_art": "res://assets/rift/cards/deminishing_returns.webp",
+      "new_art": "res://assets/rift/cards/deminishing_returns.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "echo",
+      "name": "Echo",
+      "description": "Add the previous card in your discard pile to your hand. It costs 0 and exhausts.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/echo.tres",
+      "old_art": "res://assets/rift/cards/echo.webp",
+      "new_art": "res://assets/rift/cards/echo.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "echo_harvest",
+      "name": "Echo Harvest",
+      "description": "Gather [b]all[/b] resources from target [b]tile[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/echo_harvest.tres",
+      "old_art": "res://assets/rift/cards/echo_harvest.webp",
+      "new_art": "res://assets/rift/cards/echo_harvest.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "eldritch_barrier",
+      "name": "Eldricth Barrier",
+      "description": "Block [b]%s[/b] damage for [b]1[/b] turn(s)",
+      "script_values": [
+        "base_block := 10"
+      ],
+      "resource": "resources/data/cards/riftwalker/eldritch_barrier.tres",
+      "old_art": "res://assets/rift/cards/eldritch_barrier.webp",
+      "new_art": "res://assets/rift/cards/eldritch_barrier.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "focus",
+      "name": "Focus",
+      "description": "Gain [b]%s[/b] attunement. ",
+      "script_values": [
+        "base_amount := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/focus.tres",
+      "old_art": "res://assets/rift/cards/focus.webp",
+      "new_art": "res://assets/rift/cards/focus.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "fracture_pulse",
+      "name": "Fracture Pulse",
+      "description": "Deal [b]%s[/b] damage to all enemies. Gain 1 energy.",
+      "script_values": [
+        "base_damage := 4",
+        "energy_gain := 4",
+        "energy_sound_fx : AudioStream",
+        "energy_visual_fx : PackedScene"
+      ],
+      "resource": "resources/data/cards/riftwalker/fracture_pulse.tres",
+      "old_art": "res://assets/rift/cards/fracture_pulse.webp",
+      "new_art": "res://assets/rift/cards/fracture_pulse.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "jab",
+      "name": "Jab",
+      "description": "Deal [b]%s[/b] damage twice to adjacent enemy.",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/jab.tres",
+      "old_art": "res://assets/rift/cards/jab.webp",
+      "new_art": "res://assets/rift/cards/jab.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "mana_leech",
+      "name": "Mana Leech",
+      "description": "Target is [b]weakened[/b] for [b]3[/b] turns. \nGain [b]2[/b] energy temporarily.",
+      "script_values": [
+        "energy_gained := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/mana_leech.tres",
+      "old_art": "res://assets/rift/cards/mana_leech.webp",
+      "new_art": "res://assets/rift/cards/mana_leech.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "mana_surge",
+      "name": "Mana Surge",
+      "description": "Gain [b]%s[/b] extra energy [b]temporarily[/b]",
+      "script_values": [
+        "base_amount := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/mana_surge.tres",
+      "old_art": "res://assets/rift/cards/mana_surge.webp",
+      "new_art": "res://assets/rift/cards/mana_surge.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "nano_shield",
+      "name": "Nano Shield",
+      "description": "Block [b]%s[/b] damage and regain 3 energy.",
+      "script_values": [
+        "energy_sound_fx: AudioStream",
+        "energy_visual_fx: PackedScene",
+        "base_block := 6",
+        "energy_gain := 3"
+      ],
+      "resource": "resources/data/cards/riftwalker/nano_shield.tres",
+      "old_art": "res://assets/rift/cards/nano_shield.webp",
+      "new_art": "res://assets/rift/cards/nano_shield.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "overload_shot",
+      "name": "Overload Shot",
+      "description": "Spend all Energy. Deal [b]%s[/b] damage to a single enemy.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/overload_shot.tres",
+      "old_art": "res://assets/rift/cards/overload_shot.webp",
+      "new_art": "res://assets/rift/cards/overload_shot.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "phase_slash",
+      "name": "Phase Slash",
+      "description": "Deal [b]%s[/b] damage. Ignores enemy armor if player has played a movement card.",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/phase_slash.tres",
+      "old_art": "res://assets/rift/cards/phase_slash.webp",
+      "new_art": "res://assets/rift/cards/phase_slash.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "phase_step",
+      "name": "Phase Step",
+      "description": "Move [b]%s[/b] tile(s).",
+      "script_values": [
+        "movement_distance := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/phase_step.tres",
+      "old_art": "res://assets/rift/cards/phase_step.webp",
+      "new_art": "res://assets/rift/cards/phase_step.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "quantum_rift",
+      "name": "Quantum Rift",
+      "description": "Teleport to any explored tile.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/quantum_rift.tres",
+      "old_art": "res://assets/rift/cards/quantum_rift.webp",
+      "new_art": "res://assets/rift/cards/quantum_rift.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "rift_knowledge",
+      "name": "Rift Knowledge",
+      "description": "Target becomes [b]attuned[/b].\n[b]Exhaust[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/rift_knowledge.tres",
+      "old_art": "res://assets/rift/cards/rift_knowledge.webp",
+      "new_art": "res://assets/rift/cards/rift_knowledge.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "sever_anchor",
+      "name": "Sever Anchor",
+      "description": "Deal [b]%s[/b] damage. Deal an additional [b]%s[/b] if the target is the [b]Obelisk[/b].",
+      "script_values": [
+        "base_damage := 7",
+        "obelisk_bonus := 5"
+      ],
+      "resource": "resources/data/cards/riftwalker/sever_anchor.tres",
+      "old_art": "res://assets/rift/cards/sever_anchor.webp",
+      "new_art": "res://assets/rift/cards/sever_anchor.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "void_fracture",
+      "name": "Void Fracture",
+      "description": "Add 3 [b]Void Shard[b]'s to your hand.",
+      "script_values": [
+        "amount := 3"
+      ],
+      "resource": "resources/data/cards/riftwalker/void_fracture.tres",
+      "old_art": "res://assets/rift/cards/void_fracture.webp",
+      "new_art": "res://assets/rift/cards/void_fracture.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "void_shard",
+      "name": "Void Shard",
+      "description": "Deal [b]%s[/b] damage to target [b]enemy[/b]\n[b]Exhaust[/b]",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/void_shard.tres",
+      "old_art": "res://assets/rift/cards/void_shard.webp",
+      "new_art": "res://assets/rift/cards/void_shard.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    },
+    {
+      "id": "void_surge",
+      "name": "Void Surge",
+      "description": "Deal damage based on missing HP to a single enemy.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/void_surge.tres",
+      "old_art": "res://assets/rift/cards/void_surge.webp",
+      "new_art": "res://assets/rift/cards/void_surge.webp",
+      "replacement_status": "pending",
+      "validation_status": "pending"
+    }
+  ]
+}

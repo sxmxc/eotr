@@ -1,4 +1,5 @@
 shader_type canvas_item;
+varying vec4 canvas_modulation;
 
 // Max distance from texture.
 uniform float maxLineWidth: hint_range(0.0, 100.0) = 10.0;
@@ -17,6 +18,7 @@ uniform vec2 rect_size = vec2(0.0, 0.0);
 
 
 void vertex() {
+	canvas_modulation = COLOR;
 	// Expand geometry outward but keep it centered so the sprite doesn't drift.
 	float outline = max(maxLineWidth, minLineWidth);
 	vec2 size = rect_size;
@@ -122,6 +124,6 @@ void fragment() {
 			vec4 finalColor = step(1.0 - tolerance, in_range(spread, TEXTURE, uv)) * color;
 			newColor = finalColor;
 		}
-		COLOR = newColor;
+		COLOR = newColor * canvas_modulation;
 	}
 }

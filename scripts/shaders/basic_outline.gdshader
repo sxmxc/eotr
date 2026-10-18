@@ -1,4 +1,5 @@
 shader_type canvas_item;
+varying vec4 canvas_modulation;
 
 // Outline color.
 uniform vec4 color: source_color = vec4(1.0);
@@ -14,6 +15,7 @@ uniform bool diagonals = true;
 uniform bool rounded = true;
 
 void vertex() {
+	canvas_modulation = COLOR;
 	float outline = thickness;
 	vec2 size = rect_size;
 	if (size == vec2(0.0)) {
@@ -79,6 +81,6 @@ void fragment() {
 			vec4 finalColor = step(1.0 - tolerance, outline_mask) * color;
 			newColor = finalColor;
 		}
-		COLOR = newColor;
+		COLOR = newColor * canvas_modulation;
 	}
 }

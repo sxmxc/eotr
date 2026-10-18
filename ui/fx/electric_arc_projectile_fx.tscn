@@ -13,9 +13,9 @@ script = ExtResource("1_pehen")
 
 [node name="ElectricArcFX" type="Line2D" parent="." unique_id=1233003033]
 material = ExtResource("2_pehen")
-width = 200.0
+width = 3.0
 width_curve = SubResource("Curve_pehen")
-default_color = Color(0.524982, 3, 2.99105, 0.471)
+default_color = Color(0.38, 1.2, 1.15, 0.9)
 texture_mode = 1
 joint_mode = 2
 script = ExtResource("3_0l4m8")

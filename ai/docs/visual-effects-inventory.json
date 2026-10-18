@@ -1,0 +1,313 @@
+{
+  "shaders": [
+    {
+      "shader": "scripts/shaders/all_in_one_blotchy_aura.gdshader",
+      "consumers": [
+        "resources\\materials\\blotchy_border.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/all_in_one_outline.gdshader",
+      "consumers": [],
+      "state": "dormant authoring variant",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/basic_outline.gdshader",
+      "consumers": [
+        "resources\\materials\\card_hovered_material.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/battle_over_vignette.gdshader",
+      "consumers": [
+        "resources\\materials\\battle_over_vignette.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/blotchy_aura.gdshader",
+      "consumers": [
+        "resources\\materials\\card_modified_material.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/card_burnable.gdshader",
+      "consumers": [
+        "resources\\materials\\card_burnable.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/dark_noise_vignette.gdshader",
+      "consumers": [
+        "ui\\world_ui\\battle_presentation.tscn"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/electrical_arc_v2.gdshader",
+      "consumers": [
+        "resources\\materials\\electric_arc_v2.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/electrical_arc_v3.tres",
+      "consumers": [],
+      "state": "dormant authoring variant",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/fog_of_war.gdshader",
+      "consumers": [
+        "resources\\tilesets\\fog_of_war.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/gradient_blotchy_aura.gdshader",
+      "consumers": [],
+      "state": "dormant authoring variant",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/gradient_outline.gdshader",
+      "consumers": [],
+      "state": "dormant authoring variant",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/highlighter.gdshader",
+      "consumers": [
+        "resources\\materials\\highlighter_material.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/scrolling_texture_blotchy_aura.gdshader",
+      "consumers": [],
+      "state": "dormant authoring variant",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/scrolling_texture_outline.gdshader",
+      "consumers": [],
+      "state": "dormant authoring variant",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/tile_target_highlight.gdshader",
+      "consumers": [
+        "ui\\world_ui\\target_highlight.tscn"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/vignette.gdshader",
+      "consumers": [
+        "scenes\\post_fx\\post_fx.tscn"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    },
+    {
+      "shader": "scripts/shaders/white_sprite_material.gdshader",
+      "consumers": [
+        "resources\\materials\\white_sprite_material.tres"
+      ],
+      "state": "referenced",
+      "review": "source reviewed; native compatibility import pending"
+    }
+  ],
+  "particles": [
+    {
+      "file": "scripts\\tests\\compatibility_smoke.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\card_ui\\card_visuals.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\card_ui\\card_visuals.tscn",
+      "counts": [
+        "5000"
+      ],
+      "lifetimes": [
+        "2.0"
+      ]
+    },
+    {
+      "file": "ui\\fx\\ambient_particles.tscn",
+      "counts": [
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "lifetimes": [
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0"
+      ]
+    },
+    {
+      "file": "ui\\fx\\ember_burst_fx.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\fx\\ember_burst_fx.tscn",
+      "counts": [
+        "36"
+      ],
+      "lifetimes": [
+        "0.6"
+      ]
+    },
+    {
+      "file": "ui\\fx\\explosion_fx.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\fx\\explosion_fx.tscn",
+      "counts": [
+        "500"
+      ],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\fx\\slash_fx.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\fx\\slash_fx.tscn",
+      "counts": [
+        "1"
+      ],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\fx\\spark_fx.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\fx\\spark_fx.tscn",
+      "counts": [
+        "32"
+      ],
+      "lifetimes": [
+        "0.4"
+      ]
+    },
+    {
+      "file": "ui\\player_ui\\hex_trail.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "ui\\player_ui\\hex_trail.tscn",
+      "counts": [
+        "100"
+      ],
+      "lifetimes": [
+        "6.0"
+      ]
+    },
+    {
+      "file": "scenes\\map\\map.tscn",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes\\player\\player.gd",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes\\player\\player.tscn",
+      "counts": [
+        "250"
+      ],
+      "lifetimes": [
+        "0.5"
+      ]
+    },
+    {
+      "file": "scenes\\rest\\rest.tscn",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes\\run\\pause_menu.tscn",
+      "counts": [
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000",
+        "1000"
+      ],
+      "lifetimes": [
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0",
+        "100.0"
+      ]
+    },
+    {
+      "file": "scenes\\sandbox\\control_sandbox.tscn",
+      "counts": [
+        "4"
+      ],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes\\shop\\shop.tscn",
+      "counts": [],
+      "lifetimes": []
+    },
+    {
+      "file": "scenes\\treasure\\treasure.tscn",
+      "counts": [
+        "25",
+        "25",
+        "25",
+        "25"
+      ],
+      "lifetimes": [
+        "3.0",
+        "3.0",
+        "3.0",
+        "3.0"
+      ]
+    }
+  ],
+  "animation_tree_consumers": []
+}

@@ -29,13 +29,13 @@ void fragment() {
 
 // SmoothStep:9
 	float out_smooth = 1.00000;
-	float smoothed = smoothstep(input_transparency, out_smooth, out_texture.x);
+	float smoothed = smoothstep(min(input_transparency, 0.999), out_smooth, out_texture.x);
 	
 // VectorOp:12
 	vec3 out_color = vec3(input_color.xyz) * vec3(smoothed);
 	
 // Output:0
-	COLOR.rgb = out_color;
+	COLOR = vec4(out_color, input_color.a * (1.0 - input_transparency));
 
 
 }

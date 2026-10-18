@@ -40,7 +40,8 @@ angle_min = -720.0
 angle_max = 720.0
 direction = Vector3(1, 1, 0)
 spread = 180.0
-initial_velocity_max = 1000.0
+initial_velocity_min = 12.0
+initial_velocity_max = 48.0
 angular_velocity_min = -720.0
 angular_velocity_max = 720.0
 scale_min = 0.05
@@ -52,8 +53,6 @@ anim_speed_max = 16.0
 anim_speed_curve = SubResource("CurveTexture_ckmc5")
 turbulence_initial_displacement_min = 1.49012e-06
 turbulence_initial_displacement_max = 1.49012e-06
-sub_emitter_mode = 1
-sub_emitter_frequency = 100.0
 
 [sub_resource type="Curve" id="Curve_htrsy"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -132,39 +131,14 @@ script = ExtResource("1_56bra")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=760770495]
 material = SubResource("CanvasItemMaterial_32qx2")
 emitting = false
-amount = 100
+amount = 32
 texture = ExtResource("2_0pqfg")
-lifetime = 3.0
+lifetime = 0.4
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0
 randomness = 1.0
-visibility_rect = Rect2(-3489.71, -3763.78, 7024.88, 7309.21)
+visibility_rect = Rect2(-32, -32, 64, 64)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_blw0q")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=1073307792]
-visible = false
-show_behind_parent = true
-material = SubResource("CanvasItemMaterial_32qx2")
-emitting = false
-amount = 100
-texture = ExtResource("2_0pqfg")
-lifetime = 2.0
-one_shot = true
-speed_scale = 2.0
-explosiveness = 1.0
-randomness = 1.0
-visibility_rect = Rect2(-3489.71, -3763.78, 7024.88, 7309.21)
-draw_order = 0
-process_material = SubResource("ParticleProcessMaterial_0pqfg")
-
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="." unique_id=12412445]
-material = SubResource("CanvasItemMaterial_56bra")
-emitting = false
-amount = 500
-sub_emitter = NodePath("../GPUParticles2D")
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_eskjs")

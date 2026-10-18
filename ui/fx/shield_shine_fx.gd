@@ -7,6 +7,8 @@ const HIGHLIGHTER_MATERIAL = preload("res://resources/materials/highlighter_mate
 
 func _ready() -> void:
 	hide()
+	color_rect.material = color_rect.material.duplicate()
+	animation_player.animation_finished.connect(func(_animation: StringName): queue_free(), CONNECT_ONE_SHOT)
 	
 func execute() -> void:
 	show()

@@ -1,11 +1,13 @@
 shader_type canvas_item;
+varying vec4 flash_modulation;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
+	flash_modulation = COLOR;
 }
 
 void fragment() {
-	COLOR = vec4(1.0,1.0,1.0,texture(TEXTURE, UV).a);
+	// Incoming COLOR already includes texture alpha and CanvasItem fading.
+	COLOR.rgb = flash_modulation.rgb;
 }
 
 //void light() {

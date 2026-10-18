@@ -44,17 +44,29 @@ def prepare(source, key, category):
         canvas = Image.new('RGBA',(512,512))
         canvas.alpha_composite(image,((512-image.width)//2,(512-image.height)//2))
         image = canvas
+    elif category == 'cards':
+        # Packaging only: preserve the entire generated composition, without crops.
+        if abs(image.width / image.height - 592 / 396) > 0.06:
+            raise ValueError('Card source must be composed for the 3:2 art viewport')
+        image = image.convert('RGB').resize((592,396),Image.Resampling.LANCZOS)
+    elif category == 'terrain':
+        if image.width != image.height * 2:
+            raise ValueError('Terrain sheet must preserve the four by two square-cell layout')
+        # Retain the existing exact pixel silhouette and atlas addressing contract.
+        mask = Image.open(ROOT/'assets/rift/terrain/hex_atlas.png').getchannel('A')
+        image = image.resize((128,64),Image.Resampling.LANCZOS)
+        image.putalpha(mask)
     else:
         image.thumbnail((1920,1080) if key=='menu' else (768,512),Image.Resampling.LANCZOS)
-    output = ROOT/'assets/rift'/category/(key+'.webp')
+    output = ROOT/'assets/rift'/category/(key+('.png' if category == 'terrain' else '.webp'))
     output.parent.mkdir(parents=True,exist_ok=True)
-    image.save(str(output)+'.pending','WEBP',quality=92,method=6)
+    image.save(str(output)+'.pending','PNG' if category == 'terrain' else 'WEBP',quality=92,method=6)
     Path(str(output)+'.pending').replace(output)
     return output
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source');parser.add_argument('key');parser.add_argument('category',choices=['entities','source'])
+    parser.add_argument('source');parser.add_argument('key');parser.add_argument('category',choices=['entities','source','cards','terrain'])
     args=parser.parse_args()
     print(prepare(args.source,args.key,args.category))
