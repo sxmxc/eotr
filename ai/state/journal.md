@@ -2,6 +2,19 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: avoid Grafana HTTP server-hello timeout override**
+- The user still observed code 452 at the HTTP server handshake after the prior
+  timeout change. Driver source confirms context deadlines can overwrite custom
+  max_execution_time values with remaining seconds plus five. The previous static
+  checks did not account for this override and did not validate a live handshake.
+- Switched Grafana to internal native protocol/9000 and provisioning version 2,
+  retaining explicit 30-second timeouts, read-only grants and the 60-second ceiling.
+  Ingestion remains on HTTP, with no database ports published. Updated artifact
+  checks for native connection and five-second timeout headroom and documented
+  inspection of effective provisioning on the Docker host.
+- Backend artifact checks pass. No services launched; the deployed datasource
+  still requires operator verification after pulling and restarting Grafana.
+
 **2026-10-17 – Codex: tolerate non-JSON telemetry HTTP responses**
 - Removed unconditional JSON.parse_string from HTTP classification. Failed requests
   and non-200 statuses now produce transport/status diagnostics without parsing

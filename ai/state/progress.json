@@ -3,6 +3,12 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "GRAFANA-NATIVE-HANDSHAKE-001",
+      "status": "done",
+      "summary": "Switched Grafana to internal ClickHouse native/9000 with provisioning version 2 to avoid HTTP server-hello failures. Static checks cover protocol, port and five-second driver deadline headroom. Read-only limits retained; no services launched. Live host verification remains required.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "TELEMETRY-HTTP-RESPONSE-001",
       "status": "done",
       "summary": "Handle non-JSON HTTP responses without engine parser errors, report transport/status/acknowledgement failures and preserve retry classification. Standalone tests pass for malformed responses, error statuses, invalid acknowledgements and connection failures. No backend services started.",
