@@ -23,7 +23,7 @@ Reviewed on 2026-10-17 with `4.7.2.stable.official.ed1daf0bf` and the installed 
 - Exercised numeric event properties against the actual Talo Events API queue using a synthetic alias, without sending the queue to a server. Checked the alias signal, existing identity display, opt-out queue cleanup, and identity-label clearing.
 - Exercised main menu initialization, sandbox board creation, sandbox state restoration, new-run generation, save/load, and an encounter with Channelers/Bulwark and an Obelisk.
 - Ran the smoke scene with the actual NVIDIA RTX 2060 / D3D12 / Forward+ renderer: zero smoke assertions failed and no shader compilation errors appeared.
-- Added `tools/validate_project.py`, `scripts/tests/compatibility_smoke.tscn`, and an empty-key offline Talo configuration. The runner uses separate configuration and saves under ignored `build/` directories. It also rejects script errors even if Godot returns exit code zero.
+- Added `tools/validate_project.py`, `scripts/tests/compatibility_smoke.tscn`, and an empty-key offline Talo configuration. The runner uses separate configuration and saves under ignored `qa/` directories. It also rejects script errors even if Godot returns exit code zero.
 
 ## Remaining validation limits
 

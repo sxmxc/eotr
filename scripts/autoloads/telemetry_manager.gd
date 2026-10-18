@@ -8,6 +8,8 @@ var client: Node
 var qa_upload: Node
 var _configured_settings: Resource
 var session_start_ms := 0
+var _qa_run_id := ""
+var qa_turns := 0
 
 func _ready() -> void:
 	session_start_ms = Time.get_ticks_msec()
@@ -33,13 +35,21 @@ func _ready() -> void:
 	Events.enemy_decision_rejected.connect(func(enemy: Enemy, reason: String): track_event("enemy_waited", {"enemy": enemy.stats.enemy_name, "reason": reason}))
 	track_event("session_started")
 
-func track_event(event_name: String, props: Dictionary = {}) -> void:
+func track_event(event_name: String, props: Dictionary = {}, version: int = 1) -> void:
 	if not suspended:
 		if event_name == "run_started":
-			set_context({"run_id": client.new_id()})
-		client.record(event_name, props)
+			set_context({"run_id": _qa_run_id if not _qa_run_id.is_empty() else client.new_id()})
+		if event_name == "player_turn_started" and not _qa_run_id.is_empty():
+			qa_turns += 1
+		client.record(event_name, props, version)
 		if is_instance_valid(qa_upload):
-			qa_upload.record(event_name, props)
+			qa_upload.record(event_name, props, version)
+
+func begin_qa_simulation() -> String:
+	_qa_run_id = client.new_id()
+	qa_turns = 0
+	set_context({"run_id": _qa_run_id})
+	return _qa_run_id
 
 func set_context(values: Dictionary) -> void:
 	client.set_context(values)
@@ -55,6 +65,8 @@ func _on_telemetry_changed(enabled: bool) -> void:
 		qa_upload.set_consent(enabled)
 
 func configure_qa(path: String, upload_settings: Resource = null) -> void:
+	_qa_run_id = ""
+	qa_turns = 0
 	if is_instance_valid(qa_upload):
 		qa_upload.set_consent(false)
 		qa_upload.queue_free()
@@ -69,7 +81,13 @@ func configure_qa(path: String, upload_settings: Resource = null) -> void:
 	settings.profile = "qa"
 	settings.transport = "jsonl"
 	settings.output_path = path
+	settings.max_file_bytes = mini(settings.max_file_bytes, 8 * 1024 * 1024)
 	client.configure(settings)
+	# One JSONL belongs to one session; repeated launches must not append old samples.
+	var local_file := FileAccess.open(path, FileAccess.WRITE)
+	if local_file:
+		local_file.close()
+	client.diagnostics = {"recorded": 0, "dropped": 0, "rejected": 0, "delivered": 0, "last_error": ""}
 	if configured.enabled and configured.transport == "http" and not OS.get_cmdline_user_args().has("--telemetry-local"):
 		var remote: Resource = configured.duplicate(true)
 		remote.environment = "qa"

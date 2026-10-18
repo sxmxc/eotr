@@ -55,9 +55,14 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
 
 AutoWalker plays the real combat/run scenes visibly or headlessly, with random,
 greedy and stress policies, pause/step controls, replay checkpoints and local reports.
-See [AutoWalker commands and validation](ai/docs/autowalker-architecture.md).
+Start with the [AutoWalker user guide](ai/docs/autowalker.md) for setup, Watch controls,
+headless batches, replays and troubleshooting. See the
+[architecture and validation notes](ai/docs/autowalker-architecture.md) for internals.
 AutoWalker keeps local QA files and uploads bot telemetry when the configured HTTP
 transport is enabled. Use `--telemetry-local` to run without backend access.
+The guide's examples use backend delivery by default. Local QA artifacts have
+automatic age, count and size limits; copy long-term evidence outside `qa/`.
+For dashboard/query access from Codex, see [Grafana access](ai/docs/grafana-access.md).
 
 The reusable [Godot telemetry addon](addons/godot_telemetry/README.md) supports portable
 schemas, HTTP/JSONL/Null delivery and consent-aware bounded buffering. Game configuration
@@ -87,7 +92,13 @@ After importing the project in Godot 4.7.2, run:
 python tools/validate_project.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe
 ```
 
-Use your own executable path. The runner uses a separate project configuration and save directory under `build/`, with Null telemetry delivery and no backend access. It checks first-party resource loading, telemetry consent and event recording, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
+Use your own executable path. The runner uses a separate project configuration and save directory under `qa/`, with Null telemetry delivery and no backend access. It checks first-party resource loading, telemetry consent and event recording, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
+
+QA reports, logs, captures, temporary test projects and isolated saves live under
+`qa/`. AutoWalker defaults to `qa/autowalker/`; compatibility checks use
+`qa/compatibility-validation/`, and standalone addon tests use `qa/telemetry-standalone/`.
+Generated QA files are ignored by Git and Godot imports and excluded from release
+exports. Packaged Windows, Linux and macOS exports remain under `build/`.
 
 ## 📂 Repository Structure
 
@@ -100,6 +111,8 @@ Use your own executable path. The runner uses a separate project configuration a
 ├── scripts/              # Core GDScript code
 ├── script_templates/     # GDScript templates
 ├── ui/                   # User interface and HUD
+├── qa/                   # Generated QA reports, test projects, logs and isolated saves
+├── build/                # Packaged game exports
 └── README.md
 ```
 

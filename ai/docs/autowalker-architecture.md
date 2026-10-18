@@ -1,4 +1,9 @@
-# AutoWalker: operation, architecture and validation
+# AutoWalker: architecture and validation
+
+For setup and everyday use, start with the [AutoWalker user guide](autowalker.md).
+It covers your first battle, Watch controls, headless batches, replays, comparisons,
+command options and troubleshooting. This document explains implementation behavior
+and records validation evidence.
 
 AutoWalker instantiates the actual GameWorld and, for run mode, Run. Both visible and
 headless execution use `scripts/autowalker/core/gameplay_interface.gd`. Card actions
@@ -6,40 +11,33 @@ revalidate live costs, phase, resolution state, fog, valid cells and Card.is_val
 then execute CardUI.play → Card.play → existing effects. Turns use the existing battle
 controller. There is no duplicate combat engine and no coordinate-based input.
 
-## Commands (PowerShell, from repository root)
+## Execution and controls
 
-Replace the executable path for your installation. The launcher isolates saves.
-AutoWalker retains local JSONL telemetry and also uploads to the configured enabled
-HTTP backend, using the project's `telemetry/config_path` (or production.tres).
-Upload honors the configured consent requirement and the telemetry setting.
-Use `--telemetry-local` for offline QA without contacting a backend; automated
-validation always uses an isolated Null configuration. No launcher starts services.
+The Python launcher isolates saves and retains the project's `telemetry/config_path`
+(or production.tres) unless `--telemetry-local` selects the Null configuration.
+Automated validation always uses an isolated Null configuration. No launcher starts
+backend services. Headless batches execute sequentially; parallel workers have not
+been added without profiling evidence.
 
-```powershell
-python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch
-python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch --telemetry-local
-python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --policy greedy --seed 1 --count 3 --encounter res://resources/data/battles/tier_0_blobs.tres --output build/qa-baseline
-python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --watch --replay build/qa-baseline/simulation-1.json
-python tools/run_autowalker.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe --mode run --policy greedy --max-actions 1000 --timeout 300 --output build/qa-run
-python tools/compare_autowalker.py build/qa-baseline build/qa-candidate --output build/qa-comparison.json
-```
+Launcher projects, isolated saves, reports and captures are generated under `qa/`.
+The `qa/.gdignore`, Git ignore rules and release export filters keep QA artifacts
+out of imports, source control and packaged games. `build/` is reserved for exports.
 
-Watch can also open `scenes/developer/autowalker/watch.tscn` directly in the editor.
-The developer panel offers Start, Stop, Play, Pause, action/turn stepping, speed,
-Restart, seed, encounter resource path, policy, encounter/run mode and replay path.
-The inspector includes current observed state, selected action, reason, scores and
-alternatives, plus the original replay outcome/reason. Pause stops decisions at
-resolution boundaries; already resolving effects/enemy turns finish. It does not
-pause midway through effects or alter global Engine.time_scale. Speed changes
-supported presentation timing and decision delay. Start, restart and replay loading
-wait for an action boundary when an action is busy. The scene is
-debug-only and automation paths are excluded by release export presets.
+The Watch inspector exposes observed state, the selected action, reason, scores,
+alternatives and the original replay outcome/reason. Pause stops decisions at
+resolution boundaries; effects and enemy turns already resolving finish. Speed
+changes supported presentation timing and decision delay without changing global
+Engine.time_scale. Start, restart and replay loading wait for an action boundary
+when an action is busy. The scene is debug-only and automation paths are excluded
+by release export presets.
 
-`--verify-watch` runs the native renderer, captures `watch.png` after action two and
-exits after the simulation; use for rendered checks. Regular `--watch` remains open.
-Headless accepts `--seed`, `--count`, `--policy`, `--encounter`, `--max-turns`,
-`--max-actions`, `--timeout`, `--output` and `--replay`. Execution is sequential;
-parallel workers have not been added without profiling evidence.
+The launcher puts Godot in a separate process group/session so terminal Ctrl+C is
+handled by Python. It sends a unique per-invocation stop-file path to the runner;
+on interruption, creating that file pauses decisions, waits for a busy action to
+finish and requests normal telemetry-aware shutdown. The launcher waits up to 20
+seconds, then kills and reaps an unresponsive child. Interrupted launches return
+130 and retain completed simulation reports; they do not claim an unfinished
+simulation completed.
 
 ## Policies and observability
 
@@ -86,14 +84,21 @@ three; replay stops immediately. Strategic losses and configured action/turn lim
 are distinct from defects. Current Obelisk summons are synchronous: preview tiles
 are not pending combatants. Dead Obelisks cannot summon or act.
 
-Each simulation writes `simulation-<seed>.json`; batches write `summary.json` and a
-Godot log. Artifacts include outcomes, turns, net health loss, Obelisk destruction
+Each completed simulation writes `simulation-<seed>.json`. Headless batches and
+`--verify-watch` write `summary.json`; regular Watch does not. The launcher also
+captures a Godot log. Artifacts include outcomes, turns, net health loss, Obelisk destruction
 turn, summons, cards used, invalid decisions/actions, timing, warnings and action
-checkpoints. `damage_taken` currently measures net starting-minus-final health,
-not gross incoming damage after any healing. QA telemetry uses the standalone addon
-and writes bounded `events.jsonl`. Report/replay files are distinct QA artifacts,
+checkpoints. Metrics v2 measures actual health damage, effective healing and net
+health loss separately; turns span all battles in a simulation. Legacy v1 used net
+health loss as damage and the final battle's turns for run mode. QA telemetry uses
+the standalone addon and starts a fresh bounded `events.jsonl` each session. Report/replay files are distinct QA artifacts,
 not a temporary telemetry implementation. Reusing an output directory/seed overwrites
 its simulation artifact, so use separate directories for build comparisons.
+Reports carry unique run/session IDs assigned before scene startup. Comparisons
+match metric versions and only read the latest summary's session. Retention keeps
+32 reports/64 MiB per output directory with a 16 MiB compact trace budget; Python
+tools additionally prune generated QA artifacts after 14 days or above 256 MiB.
+See the user guide for active-file protections, exclusions and archival advice.
 
 When the configured transport is enabled HTTP, a second addon client sends bot
 events to the existing endpoint with `environment=qa`, `profile=qa` and
@@ -111,6 +116,35 @@ message explicitly reports backend-plus-local or local-only routing. No HTTP cli
 is created when configured telemetry is disabled, non-HTTP, or --telemetry-local.
 
 ## Validation evidence — 2026-10-17
+
+Metric/retention correction: five launcher tests, four storage/comparison tests and
+eight ingestion tests pass. Godot checks cover healing/block/overkill, fresh JSONL,
+startup identity, unique runs, cumulative turns and report retention. A two-battle
+run reports 10 total turns separately from final battle turn 4; 292 actual events
+pass the updated ingestion validator. A lowered test log threshold requests normal
+shutdown and produces a storage-limit artifact with no orphan stop request.
+The full compatibility suite loads 531 resources and has zero failed assertions,
+but this run exits nonzero on four retained shutdown resources and known diagnostics.
+No live ingestion deployment, Grafana query or MCP connection was performed.
+
+Launcher lifecycle regression: `python tools/test_run_autowalker.py` (no engine or
+backend required). Five tests cover exit-code propagation, process isolation,
+interruptible polling, graceful stop/report preservation and forced child cleanup.
+Polling avoids the installed Python 3.10.2 Windows timed-wait retry behavior during
+KeyboardInterrupt. A simulated interrupt during headless play and after a rendered
+Watch victory returned 130 without a traceback or static-string/navigation-parser
+shutdown errors; the completed Watch report's checksum stayed unchanged. These
+checks use local telemetry only. A normal rendered check still exposed existing
+texture/resource cleanup diagnostics.
+
+QA path migration: AutoWalker launches successfully with its default output under
+`qa/autowalker/`. The moved baseline and candidate batches match all three seeds
+with unchanged outcomes, turn counts and net health loss. Standalone telemetry tests
+and Watch control assertions pass from projects under `qa/`; the controls process
+still exits nonzero on existing shutdown resource-retention diagnostics.
+The full compatibility runner from the new location exits 0, loads 531 first-party
+resources and reports zero failed assertions; existing shader/certificate and
+single-resource shutdown diagnostics remain.
 
 Backend-free upload routing regression:
 `python tools/validate_project.py --godot <executable> --autowalker-telemetry`.

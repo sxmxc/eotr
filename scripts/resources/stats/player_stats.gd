@@ -52,6 +52,8 @@ func create_instance() -> Resource:
 	var instance: PlayerStats = self.duplicate()
 	instance.health = max_health
 	instance.block = 0
+	instance.total_health_damage = 0
+	instance.total_healing = 0
 	instance.reset_energy()
 	instance.deck = instance.starting_deck.duplicate()
 	instance.draw_pile = CardPile.new()

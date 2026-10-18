@@ -125,7 +125,7 @@ grafana/{dashboards,provisioning}/**, compose.yaml, .env.example, README.md.
 - Random tier-1 seeds 1–2: 2 losses; stress: 1 loss, 1 configured-limit abort.
   No runner failures, softlocks, timeouts or invalid player actions in those batches.
 - Native renderer replay matches 12 actions/3 turns, and a winning replay matches
-  20 actions/5 turns through victory. Captures are under build/autowalker-*-watch/.
+  20 actions/5 turns through victory. Captures are under qa/autowalker-*-watch/.
 - Run mode plays 76 real actions including routes, battle continuation, rewards and
   a chrono_jab draft, then defeat. All 307 captured QA JSONL events pass the actual
   backend validator with no service running.
@@ -142,8 +142,9 @@ grafana/{dashboards,provisioning}/**, compose.yaml, .env.example, README.md.
 - No complete 15-floor campaign victory, every optional room branch, large statistical
   balance study, release export or renderer benchmark was verified. Run mode can
   exercise supported progression but its shop policy deliberately leaves the shop.
-- Greedy is a heuristic baseline, not a full status/combination forecast. Reported
-  damage_taken is net health loss. Read the AutoWalker documentation before interpreting
+- Greedy is a heuristic baseline, not a full status/combination forecast. Legacy v1
+  damage_taken is net health loss; v2 separates health damage, healing and net loss.
+  Read the AutoWalker documentation before interpreting
   comparisons or human/bot win rates.
 - No physical projectile occluder terrain exists in the current rules; range and legal
   hex traversal are validated rather than inventing wall/cover rules.

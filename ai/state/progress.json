@@ -3,6 +3,24 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "QA-METRICS-RETENTION-001",
+      "status": "done",
+      "summary": "Fixed startup/run identity, per-session JSONL/counter reset, stale-report comparisons and v2 damage/healing/net-loss/cumulative-turn metrics. Added bounded trace/report/log storage plus age/size QA retention without following junctions or touching saves/caches. Default docs use configured backend; added read-only Grafana MCP setup. Updated backend schemas/tests/dashboards; deployment still required before live v2 uploads. Unit, targeted Godot and 292 real-event schema checks pass; full compatibility assertions pass with known shutdown diagnostics. No backend/Grafana access performed.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "AUTOWALKER-SHUTDOWN-QA-001",
+      "status": "done",
+      "summary": "Handled Ctrl+C through isolated Godot process groups, interruptible polling and a bounded graceful stop request, preserving completed reports and returning 130. Moved existing QA artifacts/projects/saves under qa/, updated tools, scene/test paths, all affected docs, Git/import/export exclusions. Five lifecycle tests, headless/rendered simulated interruption and migrated default-path battle pass; standalone telemetry passes; controls assertions pass but existing shutdown retention still causes nonzero runner exit. No backend access.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "AUTOWALKER-DOCS-001",
+      "status": "done",
+      "summary": "Added a task-oriented AutoWalker user guide with first battle, Watch controls, batches, reports, replay, progression, comparison, option reference and troubleshooting. Separated usage from architecture and historical validation, linked from README, and checked CLI/source behavior and local documentation links. Documentation-only change; no gameplay or backend execution.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "AUTOWALKER-BACKEND-UPLOAD-001",
       "status": "done",
       "summary": "AutoWalker honors configured HTTP telemetry alongside independent local JSONL, with QA/bot context, consent, bounded shutdown drain and upload health. Added explicit offline launcher flag. Fake asynchronous transport tests pass without backend access; local encounter wins without failures. Existing controls shutdown-resource diagnostics remain; live backend delivery requires host verification.",

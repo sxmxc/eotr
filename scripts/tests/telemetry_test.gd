@@ -29,7 +29,7 @@ func run() -> void:
 	config.enabled = true
 	config.transport = "jsonl"
 	config.game_id = "standalone-test"
-	config.output_path = "res://build/telemetry-unit.jsonl"
+	config.output_path = "res://qa/telemetry-unit.jsonl"
 	config.queue_capacity = 2
 	client.configure(config)
 	client.register_schema("test", JSON.parse_string('{"version":1,"required":["value"],"properties":{"value":{"type":"number","minimum":0}}}'))

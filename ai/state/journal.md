@@ -2,6 +2,72 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: trustworthy QA metrics, bounded storage and Grafana access**
+- Assigned unique simulation IDs before scene startup and preserved them through
+  run_started. Fresh JSONL per session and reset health counters prevent accumulated
+  launches/counter skew; comparison filters stale reports by summary session and
+  requires matching metric versions. Actual sample: 105 events after rerunning a
+  two-seed output as one seed; one current-session report selected, stale seed ignored.
+- Versioned encounter/simulation metrics as v2: actual health damage after block and
+  overkill, effective healing and net health loss are distinct; total player turns
+  span battles with final battle/floor counters separate. Updated both bundled
+  schemas, ingestion regression and dashboard queries, preserving the user's exported
+  AutoWalker dashboard layout. Deployment must update ingestion schemas first.
+- Bounded local artifacts: 8 MiB JSONL, 16 MiB compact replay trace, 32 reports/64 MiB
+  per output, global generated QA artifact retention of 14 days/256 MiB with five-second
+  launcher maintenance and active-file/replay protection. A log above 8 MiB triggers
+  bounded shutdown before trimming, retaining any script-error marker. Root confinement, no junction traversal, and
+  save/cache/unrelated-file exclusions are tested. Permanent evidence belongs outside qa/.
+- Backend delivery remains the default and all normal guide examples now use it;
+  offline is explicit. Updated stale architecture/backend statements and documented
+  official Grafana MCP with Viewer token environment configuration. Plugin discovery
+  found no Grafana connector; no credentials/configuration installed or live access claimed.
+- Verification: five launcher tests, four retention/comparison/log tests, eight mocked
+  ingestion tests, Godot health/identity/session/retention/turn tests with zero failed
+  assertions; 292 actual encounter/run events pass the canonical backend validator.
+  New run reports 10 total turns vs final battle turn 4. Full compatibility loads 531
+  resources with zero failed assertions but exits 1 on known shader/certificate and
+  four-resource shutdown diagnostics. No backend services started or contacted.
+- Live reduced-threshold log-budget check shuts Godot down normally, returns 2 and
+  writes launcher_storage_limit without leaving an orphan stop request. Log trimming
+  happens after writer shutdown so its seek offset cannot produce growing gaps.
+
+**2026-10-17 – Codex: graceful AutoWalker interruption and QA directory**
+- Confirmed the reported session ended with terminal Ctrl+C after a recorded win.
+  Isolated Godot from terminal interrupts, added a per-launch stop request handled
+  at an action boundary, retained bounded telemetry shutdown and completed reports,
+  and returned 130 without a traceback. Polling avoids Python 3.10.2's Windows
+  timed-wait retry turning a late KeyboardInterrupt into a long native wait.
+- Moved existing QA result folders, logs, AutoWalker scratch project and isolated
+  saves from build/ to qa/. Updated AutoWalker, compatibility and standalone telemetry
+  tools, scene defaults, test output paths, README and all affected documentation.
+  Git ignores generated QA data; qa/.gdignore and release filters exclude it from
+  imports/exports. Platform exports remain under build/. No directories merged or
+  existing report contents rewritten. Generated a fresh comparison in qa/.
+- Verification: five launcher lifecycle tests; simulated interruption during headless
+  play and after a rendered victory, with code 130, no static-string/navigation errors
+  and the completed report checksum unchanged; three-seed batch wins in 6/5/8 turns
+  with zero failures; migrated default-path battle wins in six turns. Standalone
+  telemetry exits 0 with zero failed assertions. Control assertions pass, but their
+  runner exits 1 on existing shutdown resource-retention diagnostics. Existing
+  certificate/headless shader and normal-renderer texture diagnostics remain.
+- Full compatibility check from qa/ exits 0, loads 531 first-party resources and
+  reports zero failed assertions, with existing shader/certificate/single-resource
+  shutdown diagnostics. The moved three-seed comparison has no outcome changes.
+- Context7 Godot 4.7 API guidance consulted. Resource guard, documentation path/link
+  checks and diff whitespace checks pass. No backend services started or contacted.
+
+**2026-10-17 – Codex: AutoWalker documentation walkthrough**
+- Added `ai/docs/autowalker.md` with an offline first-battle walkthrough, Watch controls,
+  headless batches, result interpretation, replay, progression, comparisons, option
+  defaults and troubleshooting. Linked it from the root README and architecture notes.
+- Kept implementation details and historical validation evidence in the architecture
+  document. Clarified import prerequisites, report overwrite behavior, headless-only
+  batching, Watch summary behavior and Start versus Restart/Play controls.
+- Verification: checked instructions against the launcher, comparison tool, runner and
+  Watch bindings; checked CLI help, Markdown local links and diff whitespace. Documentation
+  only; no gameplay or backend services launched and no new runtime validation claimed.
+
 **2026-10-17 – Codex: AutoWalker backend uploads alongside local QA**
 - AutoWalker now honors the configured enabled HTTP endpoint with an independent
   addon client, QA profile/environment, bot source and shared local session/run

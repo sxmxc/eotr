@@ -28,6 +28,8 @@ func until(predicate: Callable, seconds: float = 10.0) -> bool:
 	return predicate.call()
 
 func run() -> void:
+	test_health_metrics()
+	test_report_retention()
 	await test_qa_upload()
 	if OS.get_cmdline_user_args().has("--telemetry-only"):
 		TelemetryManager.suspended = true
@@ -39,7 +41,7 @@ func run() -> void:
 	var runner = watch.get_node("Runner")
 	runner.automatic_start = false
 	runner.quit_when_finished = false
-	runner.output = "res://build/controls-test"
+	runner.output = "res://qa/controls-test"
 	add_child(watch)
 	await runner.start()
 	runner.paused = true
@@ -68,6 +70,34 @@ func run() -> void:
 	print("AutoWalker controls tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
 
+func test_health_metrics() -> void:
+	var stats := Stats.new()
+	stats.max_health = 20
+	stats.health = 20
+	stats.block = 5
+	stats.take_damage(8)
+	stats.heal(2)
+	stats.take_direct_damage(25)
+	check(stats.total_health_damage == 22 and stats.total_healing == 2 and stats.health == 0,
+		"Health metrics include healing, exclude block and clamp overkill to actual health loss")
+	var fresh: Stats = stats.create_instance()
+	check(fresh.total_health_damage == 0 and fresh.total_healing == 0, "New stats reset cumulative counters")
+
+func test_report_retention() -> void:
+	var runner = load("res://scripts/autowalker/runners/runner.gd").new()
+	runner.output = "res://qa/report-retention-test"
+	runner.simulation_seed = 39
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(runner.output))
+	for index in 40:
+		var file := FileAccess.open(runner.output.path_join("simulation-%d.json" % index), FileAccess.WRITE)
+		file.store_string("{}")
+		file.close()
+	runner.prune_reports()
+	check(DirAccess.get_files_at(runner.output).size() == 32,
+		"Watch retention caps completed simulation files even without the Python launcher")
+	check(FileAccess.file_exists(runner.output.path_join("simulation-39.json")), "Retention preserves the current report")
+	runner.free()
+
 func test_qa_upload() -> void:
 	var config := preload("res://addons/godot_telemetry/resources/telemetry_config.gd").new()
 	config.enabled = true
@@ -79,7 +109,7 @@ func test_qa_upload() -> void:
 	config.retry_base_seconds = 0.01
 	var old_consent := GameSettings.telemetry_enabled
 	GameSettings.telemetry_enabled = true
-	var path := "res://build/qa-upload-test.jsonl"
+	var path := "res://qa/qa-upload-test.jsonl"
 	TelemetryManager.configure_qa(path, config)
 	var upload: Node = TelemetryManager.qa_upload
 	upload.set_process(false)
@@ -128,5 +158,17 @@ func test_qa_upload() -> void:
 	config.enabled = false
 	TelemetryManager.configure_qa(path, config)
 	check(not is_instance_valid(TelemetryManager.qa_upload), "Disabled backend keeps QA telemetry local")
+	check(FileAccess.get_file_as_string(path).is_empty(), "New QA session truncates previous JSONL samples")
+	var run_id := TelemetryManager.begin_qa_simulation()
+	TelemetryManager.track_event("run_started", {"player_class": "Riftwalker"})
+	TelemetryManager.track_event("encounter_started", {"encounter": "test", "width": 10, "height": 10})
+	check(TelemetryManager.client.queue.back().run_id == run_id,
+		"Run start and encounter startup keep the preassigned simulation identity")
+	var next_run := TelemetryManager.begin_qa_simulation()
+	check(next_run != run_id and TelemetryManager.client.queue.back().run_id == run_id,
+		"Repeated seeds get unique identities without changing queued envelopes")
+	TelemetryManager.track_event("player_turn_started", {"turn_number": 1, "player_class": "Riftwalker", "energy": 3, "health": 20})
+	TelemetryManager.track_event("player_turn_started", {"turn_number": 1, "player_class": "Riftwalker", "energy": 3, "health": 20})
+	check(TelemetryManager.qa_turns == 2, "QA counts turns across battle-local counter resets")
 	GameSettings.telemetry_enabled = old_consent
 	GameSettings.telemetry_changed.emit(old_consent)
