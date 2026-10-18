@@ -1,5 +1,13 @@
 # Continuous improvement
 
+## 2026-10-18 — Cancel stale enemy turn continuations
+
+- Battle shutdown now cancels the active enemy and releases its camera/focus. Starting another enemy turn invalidates prior work; sandbox board resets use the same cancellation path.
+- Fixed status/action callbacks resuming into a later activation of the same enemy, pacing timers emitting extra turn-end events after cancellation, and deferred death continuations surviving a turn reset. Reused the existing generation counter; combat balance and pacing durations are unchanged.
+- Regression checks reproduced seven failed assertions before the fix. Offline Godot 4.7.2 combat automation now passes with zero failures, including cancellation during camera/status/damage waits, stale pacing rejection, and normal completion advancing the round and drawing the next hand. The compatibility smoke check also passed (531 first-party resources, zero failures, exit 0). Resource guard and whitespace checks passed.
+- Limits: headless validation only; no rendered inspection or full campaign. Cancellation rejects handler continuations; it does not cancel every tween already executing inside an enemy action or status. Existing certificate-store and headless shader diagnostics remain.
+- Next candidates: exercise long campaign/save-resume sequences; inspect action/status-owned effects when ending a battle mid-animation; profile particles on target hardware.
+
 ## 2026-10-17 — Native UI composition, themes, rewards/shop and transitions
 
 - Centralized first-party typography, spacing, panels, icons, palettes and interaction states in `resources/themes/rift_ui.tres`; selected named variations instead of local overrides, duplicated styleboxes or runtime style construction. Fixed controls, status sizes and board presentation primitives are authored scenes/resources.

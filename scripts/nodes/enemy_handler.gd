@@ -106,6 +106,7 @@ func reset_enemy_actions(_args = null) -> void:
 
 
 func start_turn() -> void:
+	cancel_turn()
 	print("Enemy turn starting")
 	if get_child_count() == 0:
 		Events.enemy_turn_ended.emit()
@@ -121,7 +122,9 @@ func start_turn() -> void:
 	_start_next_enemy_turn()
 
 
-func _start_next_enemy_turn() -> void:
+func _start_next_enemy_turn(expected_generation: int = -1) -> void:
+	if expected_generation != -1 and expected_generation != turn_generation:
+		return
 	var world := get_parent() as GameWorld
 	if world and not world.battle_state.battle_active:
 		cancel_turn()
@@ -167,12 +170,15 @@ func _on_player_hand_drawn() -> void:
 		enemy.update_intent()
 
 func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
+	if not is_instance_valid(enemy) or enemy != active_enemy:
+		return
+	var generation := turn_generation
 	match type:
 		Enums.StatusType.START_OF_TURN:
 			await get_tree().process_frame
-			while is_instance_valid(enemy) and enemy.pending_damage > 0:
+			while generation == turn_generation and is_instance_valid(enemy) and enemy.pending_damage > 0:
 				await get_tree().process_frame
-			if not is_instance_valid(enemy) or enemy != active_enemy or enemy.is_dying:
+			if generation != turn_generation or not is_instance_valid(enemy) or enemy != active_enemy or enemy.is_dying:
 				return
 			if enemy.stats_ui:
 				enemy.stats_ui.grab_focus()
@@ -190,7 +196,7 @@ func _on_enemy_statuses_applied(type: Enums.StatusType, enemy: Enemy) -> void:
 			var quick_turn: bool = quick_turn_enemies.get(enemy.get_instance_id(), false)
 			quick_turn_enemies.erase(enemy.get_instance_id())
 			var delay := QUICK_POST_DELAY if quick_turn else SPOTLIGHT_POST_DELAY
-			get_tree().create_timer(delay).timeout.connect(_start_next_enemy_turn)
+			get_tree().create_timer(delay).timeout.connect(_start_next_enemy_turn.bind(generation))
 
 
 func _on_enemy_died(enemy: Enemy) -> void:
@@ -202,19 +208,27 @@ func _on_enemy_died(enemy: Enemy) -> void:
 	if was_active:
 		active_enemy = null
 		turn_generation += 1
-		_start_next_enemy_turn.call_deferred()
+		_start_next_enemy_turn.call_deferred(turn_generation)
 
 
 func _on_enemy_action_completed(enemy: Enemy) -> void:
+	if not is_instance_valid(enemy) or enemy != active_enemy:
+		return
+	var generation := turn_generation
 	await get_tree().process_frame
 	var player := get_tree().get_first_node_in_group("player") as Player
-	while is_instance_valid(player) and player.pending_effects > 0:
+	while generation == turn_generation and is_instance_valid(player) and player.pending_effects > 0:
 		await get_tree().process_frame
-	if is_instance_valid(enemy) and enemy == active_enemy and enemy.status_handler and not enemy.is_dying:
+	if generation == turn_generation and is_instance_valid(enemy) and enemy == active_enemy and enemy.status_handler and not enemy.is_dying:
 		enemy.status_handler.apply_statuses_by_type(Enums.StatusType.END_OF_TURN)
 
 func cancel_turn() -> void:
 	turn_generation += 1
+	if is_instance_valid(active_enemy):
+		if is_instance_valid(active_enemy.phantom_camera_2d):
+			active_enemy.phantom_camera_2d.priority = 0
+		if is_instance_valid(active_enemy.stats_ui):
+			active_enemy.stats_ui.release_focus()
 	active_enemy = null
 	acting_enemies.clear()
 	quick_turn_enemies.clear()

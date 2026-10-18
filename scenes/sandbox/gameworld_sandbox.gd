@@ -130,10 +130,9 @@ func _position_player() -> void:
 
 
 func _clear_enemies() -> void:
+	enemy_handler.cancel_turn()
 	for enemy: Enemy in enemy_handler.get_children():
 		enemy.queue_free()
-	enemy_handler.acting_enemies.clear()
-	enemy_handler.quick_turn_enemies.clear()
 	enemy_handler.enemy_turn_count = 0
 	if ui.enemy_stats_container:
 		for stats_panel: Control in ui.enemy_stats_container.get_children():
