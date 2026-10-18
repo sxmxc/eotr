@@ -2,6 +2,15 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: Grafana timeout constraint mismatch**
+- The deployed datasource authenticated but its server handshake failed with
+  ClickHouse code 452 because max_execution_time exceeded the reader's 60-second
+  ceiling. Explicitly provisioned a 30-second query timeout and matching custom
+  connection setting, so the initial handshake also uses a permitted value.
+- Kept the server ceiling and read-only profile. Added artifact checks comparing
+  datasource timeout values to the XML constraints and documented Grafana restart.
+  Static backend checks pass; no services started or live validation performed.
+
 **2026-10-17 – Codex: independent backend submodule build**
 - Kept the `backend/telemetry` Git submodule and its remote unchanged. Switched
   Compose/Dockerfile to backend-local paths, bundled the current event contract,

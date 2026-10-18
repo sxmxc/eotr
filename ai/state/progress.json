@@ -3,6 +3,12 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "GRAFANA-TIMEOUT-CONSTRAINT-001",
+      "status": "done",
+      "summary": "Provisioned explicit 30-second Grafana query and connection max_execution_time settings within the ClickHouse reader's 60-second ceiling. Static validation compares settings with server constraints. No services launched; deployed verification requires pulling backend changes and restarting Grafana.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "BACKEND-STANDALONE-SUBMODULE-001",
       "status": "done",
       "summary": "Made backend submodule self-contained with local Docker context/COPY paths, bundled event contract, local schema resolution, restricted build context and independent checkout documentation. Restored missing ClickHouse account/Grafana password fixes. Seven mocked ingestion tests and artifact checks pass from an isolated backend-only copy; Docker CLI unavailable, image build remains host validation. No services started or commits made.",
