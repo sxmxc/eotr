@@ -25,7 +25,7 @@ services:
       CLICKHOUSE_USER: telemetry_ingest
       CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?Set a strong server password}
       ALLOWED_GAMES: ${ALLOWED_GAMES:-echoes_of_the_rift}
-    ports: ["127.0.0.1:8080:8080"]
+    ports: ["8080:8080"]
     read_only: true
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
@@ -42,7 +42,7 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_AUTH_ANONYMOUS_ENABLED: "false"
       CLICKHOUSE_READ_PASSWORD: ${CLICKHOUSE_READ_PASSWORD:?Create the readonly account before using dashboards}
-    ports: ["127.0.0.1:3000:3000"]
+    ports: ["3000:3000"]
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning:ro
