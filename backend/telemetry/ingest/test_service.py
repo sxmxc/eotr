@@ -70,6 +70,14 @@ class IngestionTests(unittest.TestCase):
         limiter.allow("c")
         self.assertEqual(len(limiter.windows), 2)
 
+    def test_parallel_schema_versions(self):
+        one = SCHEMAS["stat_changed"]
+        two = {**one, "version": 2}
+        self.service.schemas = {"stat_changed": {"versions": {"1": one, "2": two}}}
+        first, second = event(), event()
+        second["schema_version"] = 2
+        self.assertEqual(self.send([first, second])[0], 200)
+
 
 if __name__ == "__main__":
     unittest.main()

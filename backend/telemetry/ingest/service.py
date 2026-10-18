@@ -65,6 +65,8 @@ def validate_event(event, schemas, allowed_games):
     if abs((datetime.now(timezone.utc) - stamp).total_seconds()) > 86400 * 7:
         raise ValueError("timestamp outside seven-day ingestion window")
     schema = schemas.get(event["event_name"])
+    if schema and "versions" in schema:
+        schema = schema["versions"].get(str(event["schema_version"]))
     if not schema or type(event["schema_version"]) is not int or event["schema_version"] != schema["version"]:
         raise ValueError("unknown event/schema version")
     validate_properties(event["properties"], schema)

@@ -30,13 +30,15 @@ func run() -> void:
 	config.output_path = "res://build/telemetry-unit.jsonl"
 	config.queue_capacity = 2
 	client.configure(config)
-	client.register_schema("test", {"version": 1, "required": ["value"], "properties": {"value": {"type": "number", "minimum": 0}}})
+	client.register_schema("test", JSON.parse_string('{"version":1,"required":["value"],"properties":{"value":{"type":"number","minimum":0}}}'))
 	check(not client.record("test", {"value": 1}), "Consent required")
 	client.set_consent(true)
 	check(not client.record("test", {}), "Required field")
 	check(not client.record("test", {"value": "bad"}), "Property type")
 	check(not client.record("test", {"value": -1}), "Minimum constraint")
 	check(not client.record("test", {"value": 1}, 2), "Schema version")
+	client.register_schema("oversize", {"version": 1, "additionalProperties": true})
+	check(not client.record("oversize", {"value": "x".repeat(20000)}), "Event byte bound")
 	check(client.record("test", {"value": 2.5}), "Valid event")
 	check(client.record("test", {"value": 3}), "Second event")
 	check(not client.record("test", {"value": 4}), "Bounded queue")

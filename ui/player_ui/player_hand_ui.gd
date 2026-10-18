@@ -76,6 +76,13 @@ func add_card_spotlight(card: Card) -> void:
 func get_cards() -> Array:
 	return get_children()
 
+func release_played_card(card_ui: CardUI) -> void:
+	# Played cards leave the logical hand before their burn animation. Otherwise a
+	# fast end turn can discard an already played card a second time.
+	var layer := get_tree().get_first_node_in_group("ui_layer")
+	card_ui.reparent(layer if layer else get_tree().root)
+	_update_cards()
+
 
 func discard_card(card: CardUI) -> void:
 	if card.reparent_requested.is_connected(_on_card_ui_reparent_requested):

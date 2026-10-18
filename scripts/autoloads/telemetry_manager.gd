@@ -12,12 +12,19 @@ func _ready() -> void:
 	client = Client.new()
 	add_child(client)
 	var config_path: String = ProjectSettings.get_setting("telemetry/config_path", "res://telemetry/config/production.tres")
+	if config_path.is_empty():
+		config_path = "res://telemetry/config/production.tres"
 	var settings: Resource = load(config_path) if ResourceLoader.exists(config_path) else Config.new()
 	client.configure(settings)
 	client.set_context({"build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
 	var definitions: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://telemetry/schemas/events.json"))
 	for event_name in definitions.events:
-		client.register_schema(event_name, definitions.events[event_name])
+		var definition: Dictionary = definitions.events[event_name]
+		if definition.has("versions"):
+			for version in definition.versions.values():
+				client.register_schema(event_name, version)
+		else:
+			client.register_schema(event_name, definition)
 	GameSettings.telemetry_changed.connect(_on_telemetry_changed)
 	_on_telemetry_changed(GameSettings.telemetry_enabled)
 	Events.enemy_decision_rejected.connect(func(enemy: Enemy, reason: String): track_event("enemy_waited", {"enemy": enemy.stats.enemy_name, "reason": reason}))

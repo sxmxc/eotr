@@ -67,6 +67,8 @@ func play() -> void:
 	if handler:
 		handler.resolving_action = true
 	disabled = true
+	if parent is PlayerHand:
+		parent.release_played_card(self)
 	await card.play(targets, player_stats, player_modifiers)
 	# Damage effects commit through tweens. Wait for their actual gameplay boundary.
 	await get_tree().process_frame

@@ -58,8 +58,8 @@
         "multi": false,
         "includeAll": false,
         "current": {
-          "text": "0.0.6.1",
-          "value": "0.0.6.1"
+          "text": "0.0.7.0",
+          "value": "0.0.7.0"
         }
       },
       {
@@ -150,6 +150,30 @@
           "editorType": "sql",
           "format": 1,
           "rawSql": "SELECT JSONExtractString(properties,'stat') AS metric, sum(JSONExtractFloat(properties,'change')) AS value FROM telemetry.events_deduplicated WHERE $__timeFilter(timestamp) AND game_id=${game_id:sqlstring} AND environment=${environment:sqlstring} AND build_version=${build_version:sqlstring} AND source_type=${source_type:sqlstring} AND (event_name='stat_changed' AND startsWith(JSONExtractString(properties,'stat'),'telemetry_')) GROUP BY metric LIMIT 1000"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "API rejection, rate-limit and storage counters (global server totals)",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 27,
+        "w": 24,
+        "h": 9
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "telemetry-clickhouse"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "queryType": "sql",
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT timestamp, requests, accepted, rejected, rate_limited, storage_failures FROM telemetry.ingest_health WHERE $__timeFilter(timestamp) ORDER BY timestamp DESC LIMIT 1000"
         }
       ]
     }

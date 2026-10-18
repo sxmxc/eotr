@@ -66,6 +66,14 @@ func setup_ai() -> void:
 	if enemy_action_picker:
 		enemy_action_picker.queue_free()
 	var new_action_picker: EnemyActionPicker = stats.ai.instantiate()
+	if self is MovingEnemy:
+		var escape: EnemyAction = preload("res://scenes/enemy/escape_collapse_action.gd").new()
+		escape.intent = Intent.new()
+		escape.intent.tooltip_text = "Plans to leave the collapsing edge"
+		escape.intent.base_text = "Reposition"
+		escape.intent.icon = preload("res://assets/icons/path-distance.svg")
+		new_action_picker.add_child(escape)
+		new_action_picker.move_child(escape, 0)
 	add_child(new_action_picker)
 	enemy_action_picker = new_action_picker
 	enemy_action_picker.enemy = self

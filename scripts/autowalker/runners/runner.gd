@@ -1,16 +1,27 @@
 extends Node
 
+@export var automatic_start := true
+@export var quit_when_finished := true
+
 const Interface = preload("res://scripts/autowalker/core/gameplay_interface.gd")
 const Policy = preload("res://scripts/autowalker/policies/policy.gd")
 const WORLD = preload("res://scenes/game_world/game_world.tscn")
 const RELICS = preload("res://scenes/relic_handler/relic_handler.tscn")
 const Progression = preload("res://scripts/autowalker/core/progression_interface.gd")
+const Watchdog = preload("res://scripts/autowalker/core/watchdog.gd")
+var watchdog = Watchdog.new()
+var diagnostic_warnings: Array = []
+var last_checkpoint: Dictionary = {}
 var run_mode := false
 var run_node: Run
 var ai_invalid_decisions := 0
+var invalid_actions := 0
+var actions_this_turn := 0
+var last_action_turn := -1
 var trace_generation := 0
 var verify_watch := false
 var captured := false
+var startup_error := ""
 var interface = Interface.new()
 var policy = Policy.new()
 var world: GameWorld
@@ -26,6 +37,7 @@ var count := 1
 var headless := false
 var paused := true
 var stopped := false
+var restart_requested := false
 var busy := false
 var step_budget := 0
 var step_turn := -1
@@ -67,7 +79,13 @@ func _ready() -> void:
 			"max-actions": max_actions = maxi(1, int(parts[1]))
 			"timeout": timeout_seconds = float(parts[1])
 			"output": output = parts[1]
-			"replay": load_replay(parts[1])
+			"replay":
+				if not load_replay(parts[1]):
+					startup_error = "Cannot load replay: " + parts[1]
+	if not startup_error.is_empty():
+		printerr(startup_error)
+		get_tree().quit(1)
+		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
 	GameSettings.show_tutorial = false
 	TelemetryManager.configure_qa(output.path_join("events.jsonl"))
@@ -75,10 +93,13 @@ func _ready() -> void:
 	Events.enemy_spawned.connect(func(_enemy: Enemy, summoned: bool):
 		if summoned: summons += 1)
 	Events.enemy_decision_rejected.connect(func(_enemy: Enemy, _reason: String): ai_invalid_decisions += 1)
-	if headless or args.has("--autostart"):
+	Events.enemy_action_completed.connect(func(_enemy: Enemy): progress_ms = Time.get_ticks_msec())
+	if automatic_start and (headless or args.has("--autostart")):
 		start.call_deferred()
 
 func load_replay(path: String) -> bool:
+	if not FileAccess.file_exists(path):
+		return false
 	var value: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not value is Dictionary or not value.has("trace") or not value.has("seed"):
 		return false
@@ -91,6 +112,7 @@ func load_replay(path: String) -> bool:
 
 func start() -> void:
 	if busy:
+		restart_requested = true
 		return
 	trace_generation += 1
 	if is_instance_valid(world):
@@ -109,6 +131,9 @@ func start() -> void:
 	policy.name = policy_name
 	policy.rng.seed = simulation_seed ^ 0xA170
 	trace.clear()
+	diagnostic_warnings.clear()
+	last_checkpoint.clear()
+	watchdog.checked_round = -1
 	card_usage.clear()
 	decision.clear()
 	action_count = 0
@@ -116,6 +141,9 @@ func start() -> void:
 	obelisk_turn = -1
 	summons = 0
 	ai_invalid_decisions = 0
+	invalid_actions = 0
+	actions_this_turn = 0
+	last_action_turn = -1
 	stopped = false
 	paused = false
 	get_tree().paused = false
@@ -145,14 +173,22 @@ func start() -> void:
 	interface.world = world
 	Utils.presentation_speed = playback_speed
 	report = {"seed": simulation_seed, "policy": policy_name, "policy_version": Policy.VERSION,
-		"encounter": encounter, "build_version": ProjectSettings.get_setting("application/config/version"),
+		"encounter": "run" if run_mode else encounter, "build_version": ProjectSettings.get_setting("application/config/version"),
 		"engine": Engine.get_version_info().string, "source_type": "bot", "mode": "run" if run_mode else "encounter",
 		"initial_health": run_node.player_stats.health if run_mode else world.player_stats.health}
 	TelemetryManager.client.set_context({"run_id": "autowalker-%d" % simulation_seed})
-	TelemetryManager.track_event("simulation_started", {"seed": simulation_seed, "policy": policy_name, "encounter": encounter})
+	TelemetryManager.track_event("simulation_started", {"seed": simulation_seed, "policy": policy_name, "encounter": "run" if run_mode else encounter})
 
 func _process(delta: float) -> void:
-	if stopped or (not is_instance_valid(world) and not is_instance_valid(run_node)):
+	if restart_requested and not busy:
+		restart_requested = false
+		start()
+		return
+	if stopped:
+		return
+	if not is_instance_valid(world) and not is_instance_valid(run_node):
+		if not report.is_empty():
+			finish("unexpected_teardown", "Simulation scene disappeared")
 		return
 	if run_mode:
 		world = interface.progression.view() as GameWorld
@@ -179,6 +215,14 @@ func _process(delta: float) -> void:
 		return
 	if busy or not interface.ready_for_action():
 		return
+	if is_instance_valid(world) and not world.battle_over_handled:
+		var inspection: Dictionary = watchdog.inspect(world)
+		if not inspection.fatal.is_empty():
+			finish("invariant_failure", inspection.fatal)
+			return
+		for warning in inspection.warnings:
+			if not warning in diagnostic_warnings:
+				diagnostic_warnings.append(warning)
 	if step_turn >= 0 and turn_number() > step_turn:
 		step_turn = -1
 		paused = true
@@ -190,12 +234,20 @@ func _process(delta: float) -> void:
 
 func act() -> void:
 	busy = true
+	if last_action_turn != turn_number():
+		last_action_turn = turn_number()
+		actions_this_turn = 0
+	if actions_this_turn >= 100:
+		busy = false
+		finish("aborted", "Per-turn legal-action limit; possible bot cycling, not proof of a game defect")
+		return
 	var epoch := trace_generation
 	var actions: Array[Dictionary] = interface.legal_actions()
 	if actions.is_empty():
 		busy = false
 		return
 	var before: String = interface.fingerprint()
+	last_checkpoint = interface.checkpoint()
 	var action: Dictionary
 	if not replay.is_empty():
 		if replay_index >= replay.trace.size():
@@ -218,11 +270,14 @@ func act() -> void:
 		return
 	if not accepted:
 		busy = false
-		finish("invalid_action", "Action failed live validation")
+		invalid_actions += 1
+		if invalid_actions >= 3 or not replay.is_empty():
+			finish("invalid_action", "Action failed live validation")
 		return
 	if action.kind == "play_card":
 		card_usage[action.card] = card_usage.get(action.card, 0) + 1
 	action_count += 1
+	actions_this_turn += 1
 	replay_index += 1
 	progress_ms = Time.get_ticks_msec()
 	step_budget = maxi(0, step_budget - 1)
@@ -239,28 +294,51 @@ func finish(outcome: String, reason: String = "") -> void:
 	stopped = true
 	trace_generation += 1
 	busy = false
+	var final_health: int = report.initial_health
+	if is_instance_valid(run_node):
+		final_health = run_node.player_stats.health
+	elif is_instance_valid(world):
+		final_health = world.player_stats.health
+	var final_state: Dictionary = interface.checkpoint() if is_instance_valid(world) or is_instance_valid(run_node) else last_checkpoint
 	report.merge({"outcome": outcome, "reason": reason, "turns": turn_number(), "actions": action_count,
-		"damage_taken": report.initial_health - (run_node.player_stats.health if run_mode else world.player_stats.health), "obelisk_destroyed_turn": obelisk_turn,
-		"summons": summons, "ai_invalid_decisions": ai_invalid_decisions, "invalid_actions": 1 if outcome == "invalid_action" else 0,
+		"damage_taken": report.initial_health - final_health, "obelisk_destroyed_turn": obelisk_turn,
+		"summons": summons, "ai_invalid_decisions": ai_invalid_decisions, "invalid_actions": invalid_actions,
 		"card_usage": card_usage.duplicate(), "duration_ms": Time.get_ticks_msec() - start_ms,
-		"trace": trace.duplicate(true), "final_state": interface.checkpoint()}, true)
+		"trace": trace.duplicate(true), "final_state": final_state, "warnings": diagnostic_warnings.duplicate()}, true)
 	var file := FileAccess.open(output.path_join("simulation-%d.json" % simulation_seed), FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(report, "\t"))
 	TelemetryManager.track_event("simulation_completed", {"outcome": outcome, "seed": simulation_seed, "policy": policy_name, "turns": turn_number(), "duration_ms": report.duration_ms})
 	TelemetryManager.client.flush()
-	results.append(report.duplicate(true))
+	var compact := report.duplicate(true)
+	compact.erase("trace")
+	compact.erase("final_state")
+	results.append(compact)
 	print("AutoWalker bot seed=%d policy=%s outcome=%s turns=%d actions=%d %s" % [simulation_seed, policy_name, outcome, turn_number(), action_count, reason])
 	if headless and results.size() < count:
 		simulation_seed += 1
 		start.call_deferred()
 	elif headless or verify_watch:
 		write_summary()
-		get_tree().quit()
+		if quit_when_finished:
+			get_tree().quit()
 
 func write_summary() -> void:
 	var summary := {"source_type": "bot", "simulations": results.size(), "wins": 0, "losses": 0, "aborted": 0, "failures": 0, "timeouts": 0, "softlocks": 0}
+	summary.merge({"policy": policy_name, "policy_version": Policy.VERSION, "encounter": "run" if run_mode else encounter,
+		"build_version": ProjectSettings.get_setting("application/config/version"), "turn_counts": [],
+		"damage_taken": [], "obelisk_destructions": 0, "obelisk_destroyed_turns": [], "summons": 0,
+		"invalid_actions": 0, "ai_invalid_decisions": 0, "duration_ms": 0, "card_usage": {}})
 	for result in results:
+		summary.turn_counts.append(result.turns)
+		summary.damage_taken.append(result.damage_taken)
+		if result.obelisk_destroyed_turn >= 0:
+			summary.obelisk_destructions += 1
+			summary.obelisk_destroyed_turns.append(result.obelisk_destroyed_turn)
+		for metric in ["summons", "invalid_actions", "ai_invalid_decisions", "duration_ms"]:
+			summary[metric] += result.get(metric, 0)
+		for card in result.card_usage:
+			summary.card_usage[card] = summary.card_usage.get(card, 0) + result.card_usage[card]
 		match result.outcome:
 			"win": summary.wins += 1
 			"loss": summary.losses += 1

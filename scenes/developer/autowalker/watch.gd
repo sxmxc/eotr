@@ -7,6 +7,11 @@ func _ready() -> void:
 	if not OS.is_debug_build():
 		queue_free()
 		return
+	panel.get_node("Seed").text = str(runner.simulation_seed)
+	panel.get_node("Encounter").text = runner.encounter
+	panel.get_node("ReplayPath").text = runner.output.path_join("simulation-%d.json" % runner.simulation_seed)
+	panel.get_node("Mode").select(1 if runner.run_mode else 0)
+	panel.get_node("Policy").select(["greedy", "random", "stress"].find(runner.policy_name))
 	panel.get_node("Start").pressed.connect(_start)
 	panel.get_node("Stop").pressed.connect(func(): runner.paused = true; runner.stopped = true)
 	panel.get_node("Play").pressed.connect(func(): runner.paused = false; runner.progress_ms = Time.get_ticks_msec(); runner.start_ms = Time.get_ticks_msec())
@@ -18,12 +23,16 @@ func _ready() -> void:
 		runner.playback_speed = [0.5, 1.0, 2.0, 4.0][index]
 		Utils.presentation_speed = runner.playback_speed)
 	panel.get_node("LoadReplay").pressed.connect(func():
+		while runner.busy:
+			await get_tree().process_frame
 		if runner.load_replay(panel.get_node("ReplayPath").text):
 			runner.start())
 	if DisplayServer.get_name() == "headless":
 		$Overlay.hide()
 
 func _start() -> void:
+	while runner.busy:
+		await get_tree().process_frame
 	runner.replay.clear()
 	runner.simulation_seed = int(panel.get_node("Seed").text)
 	runner.policy_name = panel.get_node("Policy").get_item_text(panel.get_node("Policy").selected)
@@ -35,3 +44,5 @@ func _process(_delta: float) -> void:
 	if not is_instance_valid(runner.world) and not is_instance_valid(runner.run_node):
 		return
 	panel.get_node("Inspector").text = "Seed %d | %s | %s | turn %d\n%s\n%s" % [runner.simulation_seed, runner.policy_name, "paused" if runner.paused else "playing", runner.turn_number(), JSON.stringify(runner.interface.observe()), JSON.stringify(runner.decision)]
+	if not runner.replay.is_empty():
+		panel.get_node("Inspector").text += "\nReplay source: %s — %s" % [runner.replay.get("outcome", "unknown"), runner.replay.get("reason", "")]

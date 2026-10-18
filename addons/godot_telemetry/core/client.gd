@@ -22,11 +22,16 @@ func configure(settings: Resource) -> void:
 	if is_instance_valid(transport):
 		transport.purge()
 		transport.queue_free()
-	config = settings
+	config = settings if settings is Config else Config.new()
+	if not config.transport in ["null", "jsonl", "http"]:
+		config.transport = "null"
+		diagnostics.last_error = "Unknown transport; using null delivery"
 	config.queue_capacity = clampi(config.queue_capacity, 1, 10000)
 	config.batch_size = clampi(config.batch_size, 1, mini(config.queue_capacity, 100))
 	config.flush_interval = maxf(0.1, config.flush_interval)
 	config.request_timeout = clampf(config.request_timeout, 0.1, 60.0)
+	config.max_event_bytes = clampi(config.max_event_bytes, 512, 65536)
+	config.max_batch_bytes = clampi(config.max_batch_bytes, config.max_event_bytes + 32, 16777216)
 	var script_path := "res://addons/godot_telemetry/transports/transport.gd"
 	if config.transport != "null":
 		script_path = "res://addons/godot_telemetry/transports/%s.gd" % config.transport
@@ -48,7 +53,7 @@ func new_id() -> String:
 	return Crypto.new().generate_random_bytes(16).hex_encode()
 
 func register_schema(name: String, definition: Dictionary) -> void:
-	schemas[name + ":" + str(definition.get("version", 1))] = definition
+	schemas[name + ":" + str(int(definition.get("version", 1)))] = definition
 
 func set_context(values: Dictionary) -> void:
 	context.merge(values, true)
@@ -82,11 +87,16 @@ func record(name: String, properties: Dictionary = {}, version: int = 1) -> bool
 	if queue.size() >= config.queue_capacity:
 		diagnostics.dropped += 1
 		return false
-	queue.append({"event_id": new_id(), "event_name": name, "schema_version": version,
+	var envelope := {"event_id": new_id(), "event_name": name, "schema_version": version,
 		"timestamp": Time.get_datetime_string_from_system(true) + "Z", "game_id": config.game_id,
 		"environment": config.environment, "build_version": context.get("build_version", "unknown"),
 		"session_id": session_id, "run_id": context.get("run_id", ""), "source_type": context.get("source_type", "human"),
-		"metadata": config.common_metadata.duplicate(true), "properties": properties.duplicate(true)})
+		"metadata": config.common_metadata.duplicate(true), "properties": properties.duplicate(true)}
+	if JSON.stringify(envelope).to_utf8_buffer().size() > config.max_event_bytes:
+		diagnostics.rejected += 1
+		diagnostics.last_error = "Event exceeds configured byte limit"
+		return false
+	queue.append(envelope)
 	diagnostics.recorded += 1
 	return true
 
@@ -101,7 +111,14 @@ func flush() -> void:
 	busy = true
 	elapsed = 0.0
 	var epoch := generation
-	var batch := queue.slice(0, config.batch_size)
+	var batch: Array = []
+	var bytes := 32
+	for event in queue.slice(0, config.batch_size):
+		var event_bytes := JSON.stringify(event).to_utf8_buffer().size() + 1
+		if bytes + event_bytes > config.max_batch_bytes:
+			break
+		bytes += event_bytes
+		batch.append(event)
 	var result: Dictionary = await transport.deliver(batch)
 	if epoch != generation:
 		return

@@ -29,6 +29,9 @@ func run() -> void:
 	await get_tree().create_timer(0.2).timeout
 	var api := Interface.new()
 	api.world = world
+	var ready_deadline := Time.get_ticks_msec() + 2000
+	while not api.ready_for_action() and Time.get_ticks_msec() < ready_deadline:
+		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
 	var actions: Array[Dictionary] = api.legal_actions()
 	check(not actions.is_empty() and actions.back().kind == "end_turn", "Enumerates real legal actions")
@@ -42,6 +45,18 @@ func run() -> void:
 		world.player_stats.energy = 0
 		check(not await api.execute(stale), "Live cost revalidation rejects stale play")
 		world.player_stats.energy = energy
+	var hand := world.player_handler.player_hand
+	var hand_before := hand.get_child_count()
+	hand.add_card(load("res://resources/data/cards/riftwalker/sever_anchor.tres").duplicate())
+	for action in api.legal_actions():
+		if action.kind == "play_card" and action.card == "sever_anchor" and action.obelisk:
+			var energy_before := world.player_stats.energy
+			var discarded_before := world.player_stats.discard.cards.size()
+			check(await api.execute(action), "Custom card executes through authoritative interface")
+			check(world.player_stats.energy == energy_before - int(action.cost) + 1, "Sever Anchor pays its cost and grants the existing first Obelisk hit bonus")
+			check(world.player_stats.discard.cards.size() == discarded_before + 1, "Custom card emits one pile commit")
+			check(hand.get_child_count() == hand_before, "Played card leaves hand before presentation completes")
+			break
 	var obelisk := get_tree().get_first_node_in_group("obelisk") as Obelisk
 	check(obelisk != null, "Encounter contains active Obelisk")
 	if obelisk:
@@ -74,5 +89,6 @@ func run() -> void:
 	world.queue_free()
 	relics.queue_free()
 	await get_tree().process_frame
+	get_tree().paused = false
 	print("Combat automation tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
