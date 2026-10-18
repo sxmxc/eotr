@@ -63,7 +63,7 @@ text = "res://resources/data/battles/tier_1_channelers_bulwark.tres"
 
 [node name="ReplayPath" type="LineEdit" parent="Overlay/Panel/Controls" unique_id=1076038395]
 layout_mode = 2
-text = "res://qa/autowalker/simulation-1.json"
+text = "res://.qa-tmp/autowalker/simulation-1.json"
 
 [node name="Policy" type="OptionButton" parent="Overlay/Panel/Controls" unique_id=428532465]
 layout_mode = 2

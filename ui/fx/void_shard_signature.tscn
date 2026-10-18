@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3]
+[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" path="res://scripts/shaders/spell_void.gdshader" id="shader"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/void_projectile_frames.tres" id="illustration"]
+[sub_resource type="Gradient" id="white"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+[sub_resource type="GradientTexture2D" id="canvas"]
+gradient = SubResource("white")
+width = 128
+height = 128
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/variant = 0
+shader_parameter/accent = Color(0.78, 0.32, 1, 1)
+[node name="VoidShardFX" type="Node2D"]
+z_index = 8
+script = ExtResource("script")
+duration = 0.5
+grounded = false
+[node name="Surface" type="Sprite2D" parent="."]
+texture_filter = 2
+texture = SubResource("canvas")
+material = SubResource("material")
+scale = Vector2(0.578125, 0.578125)
+
+[node name="Illustration" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+modulate = Color(1, 1, 1, 0.85)
+scale = Vector2(0.17, 0.17)
+sprite_frames = ExtResource("illustration")
+animation = &"default"

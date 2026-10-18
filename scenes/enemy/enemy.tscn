@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://cdknlta1672ly"]
 
 [ext_resource type="Script" uid="uid://un3nkq58ohs3" path="res://scenes/enemy/enemy.gd" id="1_a3pup"]
-[ext_resource type="Texture2D" uid="uid://dirs6xqs1hgpn" path="res://assets/icons/gluttony.svg" id="2_peoo5"]
-[ext_resource type="Texture2D" uid="uid://cqa07eh0qjja5" path="res://assets/particles/kenney-particles/magic_03.png" id="3_nbhyu"]
+[ext_resource type="Texture2D" uid="uid://cbqx0ui4o1is1" path="res://assets/rift/entities/blob.webp" id="2_peoo5"]
+[ext_resource type="Texture2D" uid="uid://h8vr1ddjhrex" path="res://assets/rift/fx/target_ring.webp" id="3_nbhyu"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_hvxgb"]
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="10_hvxgb"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_peoo5"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="12_dtxhd"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_so3kp"]
+[ext_resource type="Material" path="res://resources/materials/unit_outline.tres" id="outline"]
+[ext_resource type="PackedScene" path="res://ui/world_ui/unit_presence.tscn" id="presence"]
 
 [sub_resource type="Animation" id="Animation_kghx0"]
 length = 0.001
@@ -32,7 +35,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3, 3)]
+"values": [Vector2(0.68359375, 0.68359375)]
 }
 
 [sub_resource type="Animation" id="Animation_tmnun"]
@@ -61,7 +64,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(3, 3), Vector2(3.5, 3.5), Vector2(3, 3)]
+"values": [Vector2(0.68359375, 0.68359375), Vector2(0.71777344, 0.71777344), Vector2(0.68359375, 0.68359375)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_onf1d"]
@@ -70,26 +73,35 @@ _data = {
 &"rotate": SubResource("Animation_tmnun")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xxaiy"]
-radius = 13.0
+[sub_resource type="CapsuleShape2D" id="CircleShape2D_xxaiy"]
+radius = 20.0
+height = 66.0
 
 [sub_resource type="Resource" id="Resource_5woo5"]
 script = ExtResource("13_so3kp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvxgb"]
+resource_local_to_scene = true
+shader = ExtResource("10_hvxgb")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
 
 [node name="Enemy" type="Node2D" unique_id=1789051399 groups=["enemy"]]
 script = ExtResource("1_a3pup")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1185494559]
+z_index = 4
 y_sort_enabled = true
-scale = Vector2(0.05, 0.05)
+texture_filter = 2
+material = ExtResource("outline")
+scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_peoo5")
 
 [node name="CircleIndicator" type="Sprite2D" parent="Sprite2D" unique_id=2013064515]
 unique_name_in_owner = true
 visible = false
-self_modulate = Color(0.524982, 3, 2.99105, 0.471)
-z_index = 5
-scale = Vector2(3, 3)
+self_modulate = Color(1, 1, 1, 0.85)
+z_index = -1
+scale = Vector2(0.68359375, 0.68359375)
 texture = ExtResource("3_nbhyu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/CircleIndicator" unique_id=1969128387]
@@ -101,6 +113,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1146151181]
+position = Vector2(0, -31)
 shape = SubResource("CircleShape2D_xxaiy")
 
 [node name="ModifierHandler" parent="." unique_id=1209310480 instance=ExtResource("9_hvxgb")]
@@ -120,6 +133,15 @@ zoom = Vector2(3, 3)
 tween_resource = SubResource("Resource_5woo5")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="GroundPresence" parent="." unique_id=1324521260 instance=ExtResource("presence")]
+material = SubResource("ShaderMaterial_hvxgb")
+
+[node name="SpellOrigin" type="Marker2D" parent="." unique_id=805122027]
+position = Vector2(10, -40)
+
+[node name="ImpactAnchor" type="Marker2D" parent="." unique_id=2053466597]
+position = Vector2(0, -40)
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

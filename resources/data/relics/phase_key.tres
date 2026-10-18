@@ -1,6 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://b5nsik7o77yuu"]
 
-[ext_resource type="Texture2D" uid="uid://tji3ah2twswn" path="res://assets/icons/cross-flare.svg" id="1_awfxf"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/fire.svg" id="1_awfxf"]
 [ext_resource type="Script" uid="uid://drxskaarkb2x1" path="res://resources/data/relics/phase_key.gd" id="2_awfxf"]
 
 [resource]

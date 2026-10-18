@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_muhwa"]
 [ext_resource type="Script" uid="uid://cnou8fh6bmgbl" path="res://scenes/menus/settings_menu.gd" id="2_s2d1y"]
-[ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="3_s2d1y"]
+[ext_resource type="Texture2D"  path="res://assets/rift/menus/main_menu.webp" id="3_s2d1y"]
 
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
 colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)

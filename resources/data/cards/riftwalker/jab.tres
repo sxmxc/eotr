@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://6igf64g8bats" path="res://resources/data/cards/riftwalker/jab.gd" id="1_3u52m"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_o3n4m"]
+[ext_resource type="Texture2D" uid="uid://c2jmoc461egmn" path="res://assets/rift/cards/jab.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/jab_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_3u52m")
@@ -11,4 +13,6 @@ id = "jab"
 name = "Jab"
 description = "Deal [b]%s[/b] damage twice to adjacent enemy."
 energy_cost = 1
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

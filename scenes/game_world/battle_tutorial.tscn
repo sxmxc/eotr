@@ -10,29 +10,29 @@
 
 [ext_resource type="Resource" uid="uid://xoyjibjonsb5" path="res://resources/data/cards/riftwalker/arcane_bolt.tres" id="41_jwlkc"]
 
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="42_0am1i"]
 
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0sev3"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypuix"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mffv"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hdnyo"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qvqp"]
 atlas = ExtResource("42_0am1i")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 64, 64, 64)
 
 [node name="TutorialUI" type="CanvasLayer" unique_id=1263824074]
 process_mode = 3

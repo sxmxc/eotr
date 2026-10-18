@@ -2,13 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://bfq61vnibgnrd" path="res://scenes/enemy/horror/elite_horror_enemy_ai.tscn" id="1_0kr8k"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="2_aout3"]
-[ext_resource type="Texture2D" uid="uid://bpb4unvyfgehr" path="res://assets/icons/alien-bug.svg" id="2_tlcso"]
 [ext_resource type="AudioStream" uid="uid://dnmpehk88mii3" path="res://assets/audio/Monster Sounds/Spider/Spider_Emerge.wav" id="3_tlcso"]
+
+[sub_resource type="Resource" id="Resource_aout3"]
+metadata/__load_path__ = "res://assets/rift/entities/elite_horror.webp"
 
 [resource]
 script = ExtResource("2_aout3")
 enemy_name = "Elite Horror"
-board_icon = ExtResource("2_tlcso")
+board_icon = SubResource("Resource_aout3")
 ai = ExtResource("1_0kr8k")
 call_sound = ExtResource("3_tlcso")
 gold_value = 45

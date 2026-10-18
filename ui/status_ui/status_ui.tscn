@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://idysccphut6h"]
 
-[ext_resource type="Texture2D" uid="uid://b6davomdrg6nv" path="res://assets/icons/broken-skull.svg" id="1_0sws0"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/skull.svg" id="1_0sws0"]
 [ext_resource type="Script" uid="uid://be6ig40qrkjk3" path="res://ui/status_ui/status_ui.gd" id="1_7w20s"]
 
 [node name="StatusUI" type="Control" unique_id=1028765798]

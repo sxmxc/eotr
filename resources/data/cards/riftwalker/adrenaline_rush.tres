@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_dvper"]
 [ext_resource type="Script" uid="uid://dtto261n6k0ih" path="res://resources/data/cards/riftwalker/adrenaline_rush.gd" id="1_pd51d"]
+[ext_resource type="Texture2D" uid="uid://d0q3p7eo53tec" path="res://assets/rift/cards/adrenaline_rush.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/adrenaline_rush_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_pd51d")
@@ -10,4 +12,6 @@ id = "adrenaline_rush"
 name = "Adrenaline Rush"
 card_rarity = 1
 description = "Draw [b]2[/b] cards, gain 1 temporary energy."
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

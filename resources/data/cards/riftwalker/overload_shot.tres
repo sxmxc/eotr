@@ -1,10 +1,11 @@
 [gd_resource type="Resource" format=3 uid="uid://d4kltxwqyufoy"]
 
-[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="1_projectile"]
+[ext_resource type="PackedScene" path="res://ui/fx/overload_projectile_fx.tscn" id="1_projectile"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_pyowc"]
 [ext_resource type="AudioStream" uid="uid://cajk6alf5g5a5" path="res://assets/audio/launches/flaunch.wav" id="2_sound"]
 [ext_resource type="Script" uid="uid://d1nb7pp8ey0ye" path="res://resources/data/cards/riftwalker/overload_shot.gd" id="3_script"]
-[ext_resource type="PackedScene" uid="uid://b26pgaeesc2u2" path="res://ui/fx/spark_fx.tscn" id="4_fx"]
+[ext_resource type="Texture2D" uid="uid://xj1od3x17nnu" path="res://assets/rift/cards/overload_shot.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/overload_shot_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("3_script")
@@ -13,7 +14,8 @@ id = "overload_shot"
 name = "Overload Shot"
 card_rarity = 2
 description = "Spend all Energy. Deal [b]%s[/b] damage to a single enemy."
+card_art = ExtResource("rift_art")
 sound_fx = ExtResource("2_sound")
-visual_fx = ExtResource("4_fx")
+visual_fx = ExtResource("signature")
 projectile_fx = ExtResource("1_projectile")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

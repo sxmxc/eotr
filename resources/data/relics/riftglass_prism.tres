@@ -1,6 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://cbqo7jsdxagi4"]
 
-[ext_resource type="Texture2D" uid="uid://ck585tgce0rue" path="res://assets/icons/prism.svg" id="1_jj0de"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/crystal.svg" id="1_jj0de"]
 [ext_resource type="Script" uid="uid://dx1ahcdpio8k3" path="res://resources/data/relics/riftglass_prism.gd" id="2_wpui6"]
 
 [resource]

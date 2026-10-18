@@ -1,6 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://d0vl20m61tb65"]
 
-[ext_resource type="Texture2D" uid="uid://dsi11acepvvnm" path="res://assets/icons/mining-helmet.svg" id="1_d5esm"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/ruin.svg" id="1_d5esm"]
 [ext_resource type="Script" uid="uid://boauvuvm3l1kd" path="res://resources/data/relics/prospector_helmet.gd" id="2_qdr0v"]
 
 [resource]

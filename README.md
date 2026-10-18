@@ -42,8 +42,16 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
   2. If it moves, point to `moving_enemy.tscn`; if static, use/duplicate `enemy.tscn` variants.
   3. Add to `resources/data/catalogs/enemy_catalog.tres` with tags for filtering.
 - Encounter:
-  1. Build a PackedScene that instances your enemies (`resources/data/battles/*.tscn` are examples).
-  2. Wrap it in a `BattleStats` resource (size, rewards, elite/boss flags) and add to `resources/data/registries/encounter_registry_act1.tres`.
+  1. Build an authored composition scene that instances your enemies (`resources/data/battles/*.tscn`).
+  2. Create an `EncounterDefinition` resource with a stable ID, tier, category, weight, composition, battlefield settings and rewards.
+  3. Add its resource reference to `EncounterRegistry.encounters` in `resources/data/registries/encounter_registry_act1.tres`. The registry is the only weighted encounter selector.
+
+The [overhaul report](ai/docs/rift-overhaul.md) lists the expanded roster, variants,
+encounters, art workflow and validation. Final artwork lives in `assets/rift/`;
+the [asset inventory](ai/docs/rift-asset-inventory.json) records replacements and usage.
+Run `python tools/validate_rift_art.py` to check references, transparency, resolution,
+hex footprints, obsolete sources and unused outputs. Card illustrations and class
+screens reuse fixed illustrated character masters to keep costumes consistent.
 
 ## Architecture Notes
 

@@ -19,5 +19,5 @@ func _init() -> void:
 	effect_configs = [status_effect, energy_effect]
 
 
-func apply_effects(targets: Array[Node], _modifiers: ModifierHandler) -> void:
+func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass

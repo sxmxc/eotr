@@ -35,23 +35,26 @@ def main() -> int:
     parser.add_argument("--godot", default=shutil.which("godot"))
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--combat-automation", action="store_true")
+    parser.add_argument("--battlefield-only", action="store_true", help="Focused grid and Phantom Camera checks; one capture with --capture-ui")
+    parser.add_argument("--map-only", action="store_true", help="Focused route readability and connection checks")
     parser.add_argument("--autowalker-controls", action="store_true")
     parser.add_argument("--autowalker-telemetry", action="store_true", help="Test bot upload/local routing with a fake transport; no backend access")
     parser.add_argument("--capture-ui", action="store_true", help="Run the native renderer offscreen and save UI captures")
     parser.add_argument("--ui-transactions-only", action="store_true", help="Run only reward and shop interaction checks")
+    parser.add_argument("--event-room-only", action="store_true", help="Run only event choice and affordability checks")
     args = parser.parse_args()
     if not args.godot or Path(args.godot).suffix.lower() in (".cmd", ".bat"):
         parser.error("Pass --godot with the Godot 4.7.2 executable path")
     root = Path(__file__).resolve().parents[1]
-    maintain_qa(root / 'qa')
+    maintain_qa(root / '.qa-tmp')
     issues = check_resources(root)
     if issues:
         print("\n".join(issues))
         return 1
-    validation = root / "qa" / "compatibility-validation"
+    validation = root / ".qa-tmp" / "compatibility-validation"
     cache = validation / ".godot"
     cache.mkdir(parents=True, exist_ok=True)
-    (root / "qa" / ".gdignore").touch()
+    (root / ".qa-tmp" / ".gdignore").touch()
     (validation / "qa").mkdir(exist_ok=True)
     (validation / "qa" / ".gdignore").touch()
     for directory in ("addons", "assets", "resources", "scenes", "scripts", "ui", "telemetry"):
@@ -71,13 +74,19 @@ def main() -> int:
     config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
     (validation / "project.godot").write_text(config, encoding="utf-8")
     env = os.environ.copy()
-    user_data = root / "qa" / "compatibility-userdata"
+    user_data = root / ".qa-tmp" / "compatibility-userdata"
     user_data.mkdir(exist_ok=True)
     for variable in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
         env[variable] = str(user_data)
-    log_path = root / "qa" / "compatibility-smoke.log"
+    log_path = root / ".qa-tmp" / "compatibility-smoke.log"
     display_args = ["--windowed", "--position", "-32000,-32000", "--resolution", "1920x1080"] if args.capture_ui else ["--headless"]
     user_args = (["--capture-ui"] if args.capture_ui else []) + (["--ui-transactions-only"] if args.ui_transactions_only else [])
+    if args.event_room_only:
+        user_args.append("--event-room-only")
+    if args.battlefield_only:
+        user_args.append("--battlefield-only")
+    if args.map_only:
+        user_args.append("--map-only")
     if args.autowalker_telemetry:
         user_args.append("--telemetry-only")
     result = subprocess.run([
@@ -87,7 +96,7 @@ def main() -> int:
     ] + (["--verbose"] if args.verbose else []) + (["--", *user_args] if user_args else []), env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
     output = result.stdout + result.stderr
     print(output)
-    maintain_qa(root / 'qa')
+    maintain_qa(root / '.qa-tmp')
     # Godot can report a script failure and still return exit code zero.
     success = ("AutoWalker telemetry tests: 0 failures" if args.autowalker_telemetry else ("AutoWalker controls tests: 0 failures" if args.autowalker_controls else ("Combat automation tests: 0 failures" if args.combat_automation else "Compatibility smoke test: 0 failures"))) in output
     allowed_errors = (

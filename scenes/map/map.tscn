@@ -4,8 +4,7 @@
 
 [ext_resource type="Script" uid="uid://byyc2fbl2lt2d" path="res://scenes/map/map.gd" id="1_sxf4j"]
 [ext_resource type="Script" uid="uid://xnnvu4xhg15l" path="res://scenes/map/map_generator.gd" id="2_tqkkf"]
-[ext_resource type="Resource" uid="uid://dn7lhxxxvlq28" path="res://resources/data/battles/battle_stats_pool.tres" id="3_a2pkv"]
-[ext_resource type="Texture2D" uid="uid://y8pwlr2e8nyo" path="res://assets/images/static_title_no_text.png" id="4_ph54e"]
+[ext_resource type="Texture2D"  path="res://assets/rift/menus/main_menu.webp" id="4_ph54e"]
 [ext_resource type="Resource" uid="uid://rgkxgojapvgc" path="res://resources/data/registries/encounter_registry_act1.tres" id="5_encounter_registry"]
 
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
@@ -21,7 +20,6 @@ script = ExtResource("1_sxf4j")
 
 [node name="MapGenerator" type="Node" parent="." unique_id=810073491]
 script = ExtResource("2_tqkkf")
-battle_stats_pool = ExtResource("3_a2pkv")
 encounter_registry = ExtResource("5_encounter_registry")
 
 [node name="MapBackground" type="CanvasLayer" parent="." unique_id=1360854663]
@@ -37,7 +35,7 @@ mouse_filter = 2
 texture = ExtResource("4_ph54e")
 
 [node name="Gradient" type="TextureRect" parent="MapBackground" unique_id=362047290]
-modulate = Color(1, 1, 1, 0.82)
+modulate = Color(1, 1, 1, 0.94)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -58,6 +56,7 @@ unique_name_in_owner = true
 
 [node name="MapNodes" type="Node2D" parent="UILayer/Visuals" unique_id=1591094481]
 unique_name_in_owner = true
+z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="UILayer" unique_id=1868284293]
 unique_name_in_owner = true
@@ -67,20 +66,29 @@ zoom = Vector2(1.65, 1.65)
 [node name="MapChrome" type="CanvasLayer" parent="."]
 layer = 2
 
+[node name="Sidebar" type="Panel" parent="MapChrome"]
+offset_left = 24.0
+offset_top = 108.0
+offset_right = 334.0
+anchor_bottom = 1.0
+offset_bottom = -40.0
+mouse_filter = 2
+theme = ExtResource("rift_theme")
+theme_type_variation = &"MapSidebar"
+
 [node name="Title" type="Label" parent="MapChrome"]
 offset_left = 40.0
 offset_top = 120.0
 offset_right = 310.0
 offset_bottom = 214.0
 theme = ExtResource("rift_theme")
-theme_type_variation = &"BountyTitle"
-text = "Through
-the Rift"
+theme_type_variation = &"MapTitle"
+text = "RIFT ROUTE"
 mouse_filter = 2
 
 [node name="Progress" type="Label" parent="MapChrome"]
 offset_left = 40.0
-offset_top = 240.0
+offset_top = 188.0
 offset_right = 310.0
 offset_bottom = 332.0
 theme = ExtResource("rift_theme")
@@ -90,6 +98,7 @@ mouse_filter = 2
 
 
 [node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
+visible = false
 layer = -1
 
 [node name="GPUParticles2D3" parent="ParticlesLayer" index="2"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" path="res://scripts/shaders/spell_support.gdshader" id="shader"]
+[sub_resource type="Gradient" id="white"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+[sub_resource type="GradientTexture2D" id="canvas"]
+gradient = SubResource("white")
+width = 128
+height = 128
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/variant = 1
+shader_parameter/accent = Color(0.4, 0.85, 1, 1)
+[node name="NanoShieldFX" type="Node2D"]
+z_index = 8
+script = ExtResource("script")
+duration = 0.7
+grounded = false
+[node name="Surface" type="Sprite2D" parent="."]
+texture_filter = 2
+texture = SubResource("canvas")
+material = SubResource("material")
+scale = Vector2(0.8125, 0.8125)

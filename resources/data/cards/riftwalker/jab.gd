@@ -37,7 +37,7 @@ func is_valid_target(targets: Array[Node], _modifiers: ModifierHandler) -> bool:
 	var tilemap = enemy.tilemap
 	return tilemap.base_layer.get_surrounding_cells(tilemap.player_position).has(enemy.current_tile_position)
 
-func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
+func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	pass
 	
 

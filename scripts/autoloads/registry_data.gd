@@ -59,9 +59,11 @@ func get_card_entries() -> Array[Dictionary]:
 
 func get_encounter_entries() -> Array[Dictionary]:
 	_ensure_encounter_registry()
-	if encounter_registry and not encounter_registry.entries.is_empty():
-		return encounter_registry.entries.duplicate()
-	return _scan_encounter_resources()
+	var results: Array[Dictionary] = []
+	if encounter_registry:
+		for encounter in encounter_registry.encounters:
+			results.append({"stats": encounter, "path": encounter.resource_path, "label": encounter.encounter_name})
+	return results
 
 
 func _scan_card_resources() -> Array[Dictionary]:
@@ -80,22 +82,6 @@ func _scan_card_resources() -> Array[Dictionary]:
 				"label": card.name if card.name else path.get_file().get_basename(),
 				"rarity": card.card_rarity,
 				"tags": card.tags
-			})
-	return results
-
-
-func _scan_encounter_resources() -> Array[Dictionary]:
-	var results: Array[Dictionary] = []
-	var paths := _gather_resources("res://resources/data/battles", ["tres"])
-	for path in paths:
-		var res := load(path)
-		if res is BattleStats:
-			var stats := res as BattleStats
-			results.append({
-				"path": path,
-				"label": path.get_file().get_basename(),
-				"tier": stats.battle_tier,
-				"is_elite": stats.is_elite
 			})
 	return results
 

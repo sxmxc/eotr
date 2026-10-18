@@ -28,11 +28,11 @@
 
 [ext_resource type="Script" uid="uid://c7scdih6eyh6c" path="res://scenes/sandbox/gameworld_sandbox.gd" id="12_sandbox_script"]
 
-[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="13_battle_stats"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="13_battle_stats"]
 
 [ext_resource type="Script" uid="uid://dil4vy2ujmryb" path="res://scripts/resources/run_stats.gd" id="15_run_stats"]
 
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="16_highlight_atlas"]
+[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="16_highlight_atlas"]
 
 [ext_resource type="Resource" uid="uid://sp28xxw35dgt" path="res://resources/data/tile_effects/block_tile_effect.tres" id="17_block_effect"]
 
@@ -56,7 +56,7 @@
 
 [ext_resource type="Script" path="res://ui/world_ui/board_overlay.gd" id="28_overlay"]
 
-[sub_resource type="Resource" id="BattleStatsResource"]
+[sub_resource type="Resource" id="EncounterDefinitionResource"]
 script = ExtResource("13_battle_stats")
 weight = 1.0
 battle_field_width = 11
@@ -67,14 +67,14 @@ script = ExtResource("15_run_stats")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_highlight"]
 texture = ExtResource("16_highlight_atlas")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(64, 64)
 3:1/0 = 0
 3:1/0/modulate = Color(0.0913577, 1, 0, 0.523)
 
 [sub_resource type="TileSet" id="TileSet_highlight"]
 tile_shape = 3
 tile_layout = 5
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_highlight")
 
 [sub_resource type="Gradient" id="Gradient_xw31r"]
@@ -93,7 +93,7 @@ fill_to = Vector2(1, 1)
 
 [node name="GameWorldSandbox" type="Node2D" unique_id=317889488]
 script = ExtResource("12_sandbox_script")
-battle_stats = SubResource("BattleStatsResource")
+battle_stats = SubResource("EncounterDefinitionResource")
 run_stats = SubResource("RunStatsResource")
 card_registry = ExtResource("24_card_registry")
 encounter_registry = ExtResource("25_encounter_registry")

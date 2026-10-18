@@ -2,7 +2,7 @@ extends ProjectileFX
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-@export var speed: float = 800.0
+@export var speed: float = 720.0
 
 var start: Vector2
 var end: Vector2
@@ -50,6 +50,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_start_animation_finished():
+	if has_reached_target:
+		return
 	# Connect the end animation signal and play loop animation
 	animated_sprite_2d.play("loop")
 
@@ -74,3 +76,5 @@ func _attach_visual(target: Node) -> void:
 	if not visual_fx or not target:
 		return
 	target.add_child(visual_fx)
+	if target.has_node("ImpactAnchor"):
+		visual_fx.position = target.get_node("ImpactAnchor").position

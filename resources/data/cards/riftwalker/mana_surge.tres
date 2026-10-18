@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://mbgpntvymyhi" path="res://resources/data/cards/riftwalker/mana_surge.gd" id="1_gfg65"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_oyg2l"]
 [ext_resource type="AudioStream" uid="uid://cmvwhjnekgydw" path="res://assets/audio/spells/enchant.wav" id="2_47at8"]
+[ext_resource type="Texture2D" uid="uid://cy4pfw7sms50n" path="res://assets/rift/cards/mana_surge.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_gfg65")
@@ -10,5 +12,7 @@ card_type = 2
 id = "mana_surge"
 name = "Mana Surge"
 description = "Gain [b]%s[/b] extra energy [b]temporarily[/b]"
+card_art = ExtResource("rift_art")
 sound_fx = ExtResource("2_47at8")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

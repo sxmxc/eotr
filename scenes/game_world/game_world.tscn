@@ -1,68 +1,36 @@
 [gd_scene format=3 uid="uid://b2qxixht7uo34"]
 
 [ext_resource type="Script" uid="uid://3rhlfjrpfepm" path="res://scripts/nodes/proc-gen-tilemap.gd" id="1_3wu0g"]
-
 [ext_resource type="Script" uid="uid://bie2poqli3glf" path="res://scenes/game_world/game_world.gd" id="1_6c6v5"]
-
 [ext_resource type="TileSet" uid="uid://3lp7w512a61i" path="res://resources/tilesets/game_board.tres" id="1_tqoos"]
-
 [ext_resource type="TileSet" uid="uid://cfsbh25ygujlm" path="res://resources/tilesets/fog_of_war.tres" id="3_0jtfi"]
-
-[ext_resource type="Script" uid="uid://b60pfdc6xw7k7" path="res://scripts/nodes/map_camera.gd" id="3_bumdp"]
-
 [ext_resource type="AudioStream" uid="uid://bpxn2u0dlesmt" path="res://assets/audio/music/castle_loop.wav" id="3_qc6v1"]
-
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_bumdp"]
-
 [ext_resource type="AudioStream" uid="uid://dxu3xx8l822w" path="res://assets/audio/music/davina_horror.wav" id="4_lorak"]
-
 [ext_resource type="PackedScene" uid="uid://ct8j6u4avyd2y" path="res://scenes/player/player.tscn" id="5_dlaip"]
-
 [ext_resource type="PackedScene" uid="uid://ceyramfufub1e" path="res://scenes/game_world/card_target_selector/card_target_selector.tscn" id="6_ph1f2"]
-
 [ext_resource type="Resource" uid="uid://cjimv3kddhqjg" path="res://resources/data/stats/player/riftwalker_starting_stats.tres" id="6_u4x5r"]
-
 [ext_resource type="Script" uid="uid://de80q2cigowdw" path="res://scripts/effects/tile/ruin_tile_effect.gd" id="12_3lu4o"]
-
 [ext_resource type="Script" uid="uid://cc8ssghrjdrno" path="res://scripts/nodes/enemy_handler.gd" id="12_lsh46"]
-
 [ext_resource type="Resource" uid="uid://sp28xxw35dgt" path="res://resources/data/tile_effects/block_tile_effect.tres" id="13_wc6i6"]
-
 [ext_resource type="Script" uid="uid://dsd1inxc2s3jk" path="res://scenes/player/player_handler.gd" id="13_wek56"]
-
 [ext_resource type="Resource" uid="uid://yp6oi15t4x0" path="res://resources/data/tile_effects/damage_tile_effect.tres" id="14_u6b8t"]
-
 [ext_resource type="Resource" uid="uid://dooia6pfkqp46" path="res://resources/data/tile_effects/draw_card_tile_effect.tres" id="15_g77xe"]
-
 [ext_resource type="Resource" uid="uid://cncwxv041kjkn" path="res://resources/data/tile_effects/empty_tile_effect.tres" id="16_p5igc"]
-
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="16_qc6v1"]
-
+[ext_resource type="Script" path="res://scenes/game_world/world_camera.gd" id="16_qc6v1"]
 [ext_resource type="Resource" uid="uid://j7vb2jjk48vl" path="res://resources/data/tile_effects/energy_tile_effect.tres" id="17_3u2ga"]
-
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="17_lorak"]
-
 [ext_resource type="Resource" uid="uid://cw30y55ftjw7y" path="res://resources/data/tile_effects/resource_tile_effect.tres" id="18_dc582"]
-
 [ext_resource type="Resource" uid="uid://dygkjk4gjxd2o" path="res://resources/data/tile_effects/status_tile_effect.tres" id="19_dpyoc"]
-
 [ext_resource type="Script" uid="uid://2fd75iq1ribc" path="res://ui/world_ui/red_flash.gd" id="33_hgfka"]
-
 [ext_resource type="Texture2D" uid="uid://bjsfluk5isuof" path="res://assets/third_party/Stars-background/spr_stars01.png" id="39_lorak"]
-
 [ext_resource type="Texture2D" uid="uid://tg7rk1k00ets" path="res://assets/third_party/Stars-background/spr_stars02.png" id="40_ht6dc"]
-
-[ext_resource type="Texture2D" uid="uid://c4jkt7gymden3" path="res://assets/spritesheets/32x32-hex-tiles.png" id="42_0am1i"]
-
+[ext_resource type="Texture2D" uid="uid://dvo2nfctmljxl" path="res://assets/rift/terrain/hex_atlas.png" id="42_0am1i"]
 [ext_resource type="Script" uid="uid://ccfhmn0cjs704" path="res://scenes/game_world/battle_state_controller.gd" id="44_btlsf"]
-
 [ext_resource type="Script" uid="uid://dp7odwuufuohn" path="res://ui/world_ui/board_overlay.gd" id="46_overlay"]
-
-[ext_resource type="PackedScene" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
-
-[ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
-
 [ext_resource type="PackedScene" path="res://ui/world_ui/game_world_ui.tscn" id="battle_hud"]
+[ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
+[ext_resource type="PackedScene" uid="uid://cqdnmgot1dc0c" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -88,14 +56,14 @@ repeat = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udifo"]
 texture = ExtResource("42_0am1i")
-texture_region_size = Vector2i(32, 32)
+texture_region_size = Vector2i(64, 64)
 3:1/0 = 0
 3:1/0/modulate = Color(0.0913577, 1, 0, 0.523)
 
 [sub_resource type="TileSet" id="TileSet_qnbvx"]
 tile_shape = 3
 tile_layout = 5
-tile_size = Vector2i(32, 32)
+tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_udifo")
 
 [sub_resource type="Gradient" id="Gradient_wc6i6"]
@@ -126,7 +94,8 @@ follow_mode = 2
 follow_target = NodePath("../Tilemap/BaseLayer")
 zoom = Vector2(2.5, 2.5)
 tween_resource = SubResource("Resource_bumdp")
-follow_offset = Vector2(0, 35)
+follow_damping = true
+follow_damping_value = Vector2(0.18, 0.18)
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
@@ -153,6 +122,7 @@ repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(-5, 5)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxMidground" unique_id=1139902666]
+modulate = Color(0.3, 0.5, 0.5, 0.28)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
@@ -165,6 +135,7 @@ repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(5, -5)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxForeground" unique_id=712939182]
+modulate = Color(0.5, 0.42, 0.3, 0.2)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
@@ -173,7 +144,6 @@ texture = ExtResource("40_ht6dc")
 [node name="MapCamera" type="Camera2D" parent="." unique_id=373719138 groups=["map_camera"]]
 top_level = true
 editor_draw_limits = true
-script = ExtResource("3_bumdp")
 
 [node name="PhantomCameraHost" type="Node" parent="MapCamera" unique_id=941711093]
 process_priority = 300
@@ -193,7 +163,7 @@ modulate = Color(0.78, 0.85, 0.88, 1)
 tile_set = ExtResource("1_tqoos")
 
 [node name="FogLayer" type="TileMapLayer" parent="Tilemap" unique_id=148479914]
-modulate = Color(0.24, 0.32, 0.42, 1)
+modulate = Color(1, 1, 1, 1)
 z_index = 3
 tile_set = ExtResource("3_0jtfi")
 
@@ -223,7 +193,7 @@ player = NodePath("../Player")
 
 [node name="CardTargetSelector" parent="." unique_id=1152466135 instance=ExtResource("6_ph1f2")]
 
-[node name="GameWorldUI" parent="." instance=ExtResource("battle_hud")]
+[node name="GameWorldUI" parent="." unique_id=830479343 instance=ExtResource("battle_hud")]
 
 [node name="Effects" type="CanvasLayer" parent="." unique_id=131599209 groups=["fx_layer"]]
 layer = 4
@@ -253,6 +223,6 @@ offset_top = 784.0
 offset_bottom = 784.0
 grow_horizontal = 2
 
-[node name="TutorialUI" parent="." instance=ExtResource("battle_tutorial")]
+[node name="TutorialUI" parent="." unique_id=1198475512 instance=ExtResource("battle_tutorial")]
 
 [node name="BattlePresentation" parent="." unique_id=274044338 instance=ExtResource("presentation_scene")]

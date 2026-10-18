@@ -1,0 +1,567 @@
+{
+  "enemies": {
+    "shard_hound": {
+      "name": "Shard Hound",
+      "role": 0,
+      "range": 1,
+      "steps": 3,
+      "damage": 4,
+      "hits": 1,
+      "cadence": 2,
+      "support": 2,
+      "hp": 10,
+      "flying": false,
+      "protect": true
+    },
+    "rift_needle": {
+      "name": "Rift Needle",
+      "role": 1,
+      "range": 4,
+      "steps": 1,
+      "damage": 4,
+      "hits": 1,
+      "cadence": 2,
+      "support": 2,
+      "hp": 8,
+      "flying": false,
+      "protect": true
+    },
+    "ward_keeper": {
+      "name": "Ward Keeper",
+      "role": 2,
+      "range": 1,
+      "steps": 1,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 2,
+      "support": 5,
+      "hp": 14,
+      "flying": false,
+      "protect": true
+    },
+    "echo_mender": {
+      "name": "Echo Mender",
+      "role": 3,
+      "range": 2,
+      "steps": 1,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 2,
+      "support": 3,
+      "hp": 9,
+      "flying": false,
+      "protect": true
+    },
+    "hollow_siphon": {
+      "name": "Hollow Siphon",
+      "role": 4,
+      "range": 2,
+      "steps": 1,
+      "damage": 4,
+      "hits": 1,
+      "cadence": 2,
+      "support": 2,
+      "hp": 12,
+      "flying": true,
+      "protect": true
+    },
+    "glass_reaver": {
+      "name": "Glass Reaver",
+      "role": 5,
+      "range": 1,
+      "steps": 2,
+      "damage": 3,
+      "hits": 2,
+      "cadence": 2,
+      "support": 4,
+      "hp": 13,
+      "flying": false,
+      "protect": true
+    },
+    "ruin_scavenger": {
+      "name": "Ruin Scavenger",
+      "role": 6,
+      "range": 1,
+      "steps": 2,
+      "damage": 4,
+      "hits": 1,
+      "cadence": 2,
+      "support": 3,
+      "hp": 10,
+      "flying": false,
+      "protect": true
+    },
+    "rift_hexer": {
+      "name": "Rift Hexer",
+      "role": 7,
+      "range": 3,
+      "steps": 1,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 2,
+      "support": 1,
+      "hp": 10,
+      "flying": false,
+      "protect": true
+    },
+    "shard_hound_pouncer": {
+      "name": "Pouncer Hound",
+      "role": 0,
+      "range": 1,
+      "steps": 2,
+      "damage": 2,
+      "hits": 2,
+      "cadence": 2,
+      "support": 2,
+      "hp": 10,
+      "flying": false,
+      "protect": true,
+      "base": "shard_hound"
+    },
+    "rift_needle_close": {
+      "name": "Scatter Needle",
+      "role": 1,
+      "range": 2,
+      "steps": 2,
+      "damage": 2,
+      "hits": 2,
+      "cadence": 2,
+      "support": 2,
+      "hp": 8,
+      "flying": false,
+      "protect": true,
+      "base": "rift_needle"
+    },
+    "ward_keeper_anchor": {
+      "name": "Anchor Keeper",
+      "role": 2,
+      "range": 2,
+      "steps": 1,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 3,
+      "support": 5,
+      "hp": 14,
+      "flying": false,
+      "protect": false,
+      "base": "ward_keeper"
+    },
+    "echo_mender_triage": {
+      "name": "Triage Mender",
+      "role": 3,
+      "range": 1,
+      "steps": 2,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 3,
+      "support": 3,
+      "hp": 9,
+      "flying": false,
+      "protect": true,
+      "base": "echo_mender"
+    },
+    "hollow_siphon_stalker": {
+      "name": "Stalker Siphon",
+      "role": 4,
+      "range": 1,
+      "steps": 3,
+      "damage": 4,
+      "hits": 1,
+      "cadence": 2,
+      "support": 2,
+      "hp": 12,
+      "flying": true,
+      "protect": true,
+      "base": "hollow_siphon"
+    },
+    "glass_reaver_patient": {
+      "name": "Patient Reaver",
+      "role": 5,
+      "range": 1,
+      "steps": 1,
+      "damage": 2,
+      "hits": 3,
+      "cadence": 3,
+      "support": 4,
+      "hp": 13,
+      "flying": false,
+      "protect": true,
+      "base": "glass_reaver"
+    },
+    "ruin_scavenger_grazer": {
+      "name": "Grazer Scavenger",
+      "role": 6,
+      "range": 2,
+      "steps": 1,
+      "damage": 4,
+      "hits": 1,
+      "cadence": 1,
+      "support": 3,
+      "hp": 10,
+      "flying": false,
+      "protect": true,
+      "base": "ruin_scavenger"
+    },
+    "rift_hexer_corrosive": {
+      "name": "Corrosive Hexer",
+      "role": 7,
+      "range": 2,
+      "steps": 1,
+      "damage": 2,
+      "hits": 2,
+      "cadence": 2,
+      "support": 1,
+      "hp": 10,
+      "flying": false,
+      "protect": true,
+      "base": "rift_hexer"
+    },
+    "bat_darter": {
+      "role": 1,
+      "range": 2,
+      "steps": 2,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 2,
+      "support": 2,
+      "hp": 6,
+      "flying": true,
+      "protect": true,
+      "name": "Darter Bat",
+      "base": "bat"
+    },
+    "blob_warding": {
+      "role": 2,
+      "range": 1,
+      "steps": 1,
+      "damage": 2,
+      "hits": 1,
+      "cadence": 2,
+      "support": 3,
+      "hp": 12,
+      "flying": false,
+      "protect": true,
+      "name": "Warding Blob",
+      "base": "blob"
+    },
+    "horror_reaper": {
+      "role": 5,
+      "range": 1,
+      "steps": 2,
+      "damage": 3,
+      "hits": 2,
+      "cadence": 2,
+      "support": 2,
+      "hp": 16,
+      "flying": false,
+      "protect": true,
+      "name": "Reaper Horror",
+      "base": "horror"
+    },
+    "channeler_medic": {
+      "role": 3,
+      "range": 3,
+      "steps": 1,
+      "damage": 3,
+      "hits": 1,
+      "cadence": 2,
+      "support": 3,
+      "hp": 12,
+      "flying": false,
+      "protect": true,
+      "name": "Mending Channeler",
+      "base": "channeler"
+    }
+  },
+  "encounters": [
+    [
+      "shard_tracks",
+      0,
+      0,
+      [
+        "shard_hound",
+        "bat"
+      ],
+      10,
+      10,
+      4,
+      10,
+      3
+    ],
+    [
+      "needle_watch",
+      0,
+      0,
+      [
+        "rift_needle",
+        "blob"
+      ],
+      10,
+      10,
+      4,
+      10,
+      3
+    ],
+    [
+      "keepers_oath",
+      0,
+      0,
+      [
+        "ward_keeper",
+        "bat"
+      ],
+      10,
+      10,
+      4,
+      10,
+      2
+    ],
+    [
+      "ruin_foragers",
+      0,
+      0,
+      [
+        "ruin_scavenger",
+        "blob"
+      ],
+      10,
+      10,
+      4,
+      5,
+      2
+    ],
+    [
+      "darter_crossing",
+      0,
+      0,
+      [
+        "bat_darter",
+        "bat",
+        "blob"
+      ],
+      10,
+      10,
+      4,
+      10,
+      3
+    ],
+    [
+      "warded_mire",
+      0,
+      0,
+      [
+        "blob_warding",
+        "horror"
+      ],
+      10,
+      10,
+      4,
+      10,
+      3
+    ],
+    [
+      "triage_procession",
+      1,
+      0,
+      [
+        "echo_mender",
+        "shard_hound",
+        "blob"
+      ],
+      10,
+      10,
+      4,
+      15,
+      3
+    ],
+    [
+      "hollow_orbit",
+      1,
+      0,
+      [
+        "hollow_siphon",
+        "rift_needle"
+      ],
+      10,
+      10,
+      3,
+      25,
+      3
+    ],
+    [
+      "glass_ambush",
+      1,
+      0,
+      [
+        "glass_reaver",
+        "shard_hound_pouncer"
+      ],
+      9,
+      10,
+      4,
+      15,
+      3
+    ],
+    [
+      "hexer_screen",
+      1,
+      0,
+      [
+        "rift_hexer",
+        "ward_keeper"
+      ],
+      10,
+      10,
+      4,
+      15,
+      3
+    ],
+    [
+      "scatter_lanes",
+      1,
+      0,
+      [
+        "rift_needle_close",
+        "bat_darter",
+        "blob"
+      ],
+      11,
+      9,
+      4,
+      10,
+      3
+    ],
+    [
+      "anchor_guard",
+      1,
+      0,
+      [
+        "ward_keeper_anchor",
+        "rift_needle",
+        "shard_hound"
+      ],
+      10,
+      10,
+      4,
+      15,
+      3
+    ],
+    [
+      "menders_retreat",
+      1,
+      0,
+      [
+        "echo_mender_triage",
+        "horror_reaper"
+      ],
+      10,
+      11,
+      4,
+      15,
+      3
+    ],
+    [
+      "stalker_rift",
+      1,
+      0,
+      [
+        "hollow_siphon_stalker",
+        "rift_hexer"
+      ],
+      10,
+      10,
+      3,
+      30,
+      3
+    ],
+    [
+      "patient_blades",
+      1,
+      0,
+      [
+        "glass_reaver_patient",
+        "channeler_medic"
+      ],
+      10,
+      10,
+      4,
+      10,
+      3
+    ],
+    [
+      "grazing_ground",
+      1,
+      0,
+      [
+        "ruin_scavenger_grazer",
+        "ruin_scavenger",
+        "bat"
+      ],
+      11,
+      10,
+      4,
+      5,
+      3
+    ],
+    [
+      "corrosive_vigil",
+      1,
+      0,
+      [
+        "rift_hexer_corrosive",
+        "bulwark"
+      ],
+      10,
+      10,
+      4,
+      20,
+      3
+    ],
+    [
+      "fractured_convoy",
+      1,
+      1,
+      [
+        "ward_keeper",
+        "echo_mender",
+        "glass_reaver"
+      ],
+      11,
+      11,
+      4,
+      15,
+      4
+    ],
+    [
+      "hunters_convergence",
+      1,
+      1,
+      [
+        "shard_hound_pouncer",
+        "hollow_siphon_stalker",
+        "horror_reaper"
+      ],
+      11,
+      11,
+      4,
+      15,
+      4
+    ],
+    [
+      "prismatic_siege",
+      2,
+      2,
+      [
+        "rift_needle",
+        "ward_keeper_anchor",
+        "glass_reaver_patient",
+        "rift_hexer_corrosive"
+      ],
+      12,
+      12,
+      4,
+      20,
+      4
+    ]
+  ]
+}

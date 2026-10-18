@@ -1,0 +1,502 @@
+{
+  "cards": [
+    {
+      "id": "void_residue",
+      "name": "Void Residue",
+      "description": "Worthless absolute.\n[b]Exhaust[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/common/void_residue.tres",
+      "old_art": "res://assets/rift/cards/void_residue.webp",
+      "new_art": "res://assets/rift/cards/void_residue.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: useless one-use burden, costs energy to exhaust. Abandoned shallow leather pouch on an ochre stone shelf spills inert dull grey-plum cinders and one extinguished crystal husk; a gloved fingertip brushes dust away. Warm fading light from side, empty deep blue space above; close melancholic still life, no glowing useful resource, no creature, no attack, distinct from sticky slime.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-48da168b-165f-44ee-8aec-8193764843da.png",
+      "sha256": "848aeea3dde3797ae8300c393fedf811684256ea0ffa85ca6440e585966512a6"
+    },
+    {
+      "id": "void_slime",
+      "name": "Void Slime",
+      "description": "Not very useful.\n[b]Exhaust[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/common/void_slime.tres",
+      "old_art": "res://assets/rift/cards/void_slime.webp",
+      "new_art": "res://assets/rift/cards/void_slime.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: useless one-use burden, costs energy to exhaust. Small sticky charcoal-violet sludge clinging between a brown leather glove and a pouch strap, stretched elastic strands making the glove visibly stuck. Close still life on damp blue flagstone, cyan reflected edge, no face, no cute Blob creature, no useful magic or projectile. Sludge centered, heavy and obstructive, simple bold shapes.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-90be209e-6873-4eca-b893-4bf247f4919b.png",
+      "sha256": "7889bb8134e13a635b4e48f076e233a5dbd603cf79c8c5d3f52672c529bfa3b7"
+    },
+    {
+      "id": "adrenaline_rush",
+      "name": "Adrenaline Rush",
+      "description": "Draw [b]2[/b] cards, gain 1 temporary energy.",
+      "script_values": [
+        "cards_drawn := 2",
+        "energy_gained := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/adrenaline_rush.tres",
+      "old_art": "res://assets/rift/cards/adrenaline_rush.webp",
+      "new_art": "res://assets/rift/cards/adrenaline_rush.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: draw two cards and gain temporary energy, reflexes and immediate readiness. TIGHT DYNAMIC THREE-QUARTER portrait of Riftwalker leaning forward, one brown-gloved hand catching TWO blank gold-lit parchment slips while the other hand grips a belt pouch. Teal cloak sweeping in wind, mask alert, a few amber curved energy strokes around forearms integrated as light. A sloping ochre rooftop at dawn is the spare backdrop. Focus on hand and two parchments, no magical attack.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-5696cdbb-dc58-44a7-8963-463481aa73ea.png",
+      "sha256": "456d12aa4d715ee88e2f3b0fbc8c2b73fe67cf05df5a9e0ea7eea5f6ccc60bef"
+    },
+    {
+      "id": "arcane_blast",
+      "name": "Arcane Blast",
+      "description": "Deal [b]%s[b] damage to a [b]single[/b] enemy.",
+      "script_values": [
+        "base_damage = 10"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_blast.tres",
+      "old_art": "res://assets/rift/cards/arcane_blast.webp",
+      "new_art": "res://assets/rift/cards/arcane_blast.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: heavier ten-damage single-enemy strike. LOW FRONT ANGLE: a large purple armored Horror fills center recoiling backward as an oversized compact cyan-white blast erupts against its chest, few broad curling shock tongues, no surrounding victims. A small Riftwalker silhouette braced in the midground below. Scene a simple circular sunken courtyard beneath storm clouds. Warm ochre broken paving contrasts with cool magic; one decisive large impact. Different from the thin Bolt, emphasize concentrated impact and scale.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-d43fe911-ff9e-4eaf-9048-56685cc40a2b.png",
+      "sha256": "0ea60435ff4b32b454caa7d4d239f9291e3f3b25145cf33b36c840c7f9abeb36"
+    },
+    {
+      "id": "arcane_bolt",
+      "name": "Arcane Bolt",
+      "description": "Deal [b]%s[/b] damage to target [b]enemy[/b]",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_bolt.tres",
+      "old_art": "res://assets/rift/cards/arcane_bolt.webp",
+      "new_art": "res://assets/rift/cards/arcane_bolt.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Create ONE finished original Arcane Bolt card illustration, landscape 3:2. The three attached images are EXPLICIT STYLE AND CHARACTER DESIGN REFERENCES ONLY, never pasted or reused as layers. Image 1 Riftwalker: preserve precisely its slightly oversized hooded head, smooth tapered ivory mask, two long dark almond eye openings, teal cowl and layered tunic, brown gloves, gold clasp and leather belts. Images 2 and 3 enemies: match their clean thick dark contours, big simplified expressive shapes, few carefully chosen cel-shaded shadow planes and restrained painterly transitions. Use the purple armored six-legged Horror from image 2 as target, reillustrated in a recoiling pose. Composition: dynamic three-quarter over-shoulder Riftwalker at left extending a gloved hand; a SINGLE concentrated cyan magic bolt flies toward the Horror at right across a broken low stone walkway. Original action scene, integrated hand-drawn curled energy at the fingertips, tapered luminous bolt with only a couple broad accent strokes. Background is secondary atmospheric slate-blue shapes: two simple broken arches and a few mist bands. Broad intentional color blocks; only a handful of large stone slabs, no masonry microtexture. Camera close enough that both characters are large and legible. Character proportions and costume match references; clean contour rhythm carries the forms. Drama through pose and compositional diagonals, NOT realism. Match the rendering simplicity of the references exactly: no photorealism, no cinematic concept-art treatment, no fine hatching, no granular texture, no detailed faraway cities, no dense tiny particles or debris, no realistic volumetric lighting. Hand-size clarity at 148x99. No writing, card frame, watermark, symbols or UI overlays. Full original illustration with NEW character poses and perspective; do not composite existing sprites.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-424cebd3-71aa-4d8c-80d8-304445a42e41.png",
+      "sha256": "449e3a2425a5384e49a00b170049beb7ed510ea0d9122b1eed648f6f263481ad"
+    },
+    {
+      "id": "arcane_explosion",
+      "name": "Arcane Explosion",
+      "description": "Deal [b]%s[/b] damage to [b]surrounding[/b] enemies",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_explosion.tres",
+      "old_art": "res://assets/rift/cards/arcane_explosion.webp",
+      "new_art": "res://assets/rift/cards/arcane_explosion.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: damage to surrounding enemies. BIRD'S-EYE circular composition: small Riftwalker crouched dead center on a weathered ochre platform, one broad cyan shockwave expanding immediately around their boots into a purple Horror, teal Blob and silhouetted bat at the perimeter. Concentric force is physical billowing light, not geometric glyph rings. Strong top-down negative-space framing, simple broken radial paving, no distant architecture.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-ecda5651-5333-4176-9b6c-c2c9e79225be.png",
+      "sha256": "e0a3ae45ed9d66d1690676f60ab2c3e5d4a033e5e56619950fe17254850a86af"
+    },
+    {
+      "id": "arcane_flame",
+      "name": "Arcane Flame",
+      "description": "Deal [b]%s[/b] damage to a [b]single[/b] enemy and apply [b]burn[/b]",
+      "script_values": [
+        "base_damage := 4",
+        "burn_duration := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/arcane_flame.tres",
+      "old_art": "res://assets/rift/cards/arcane_flame.webp",
+      "new_art": "res://assets/rift/cards/arcane_flame.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: damage plus lingering burn to ONE enemy. Intimate enemy close-up: purple Horror face and ivory mandibles caught in a curling amber-and-teal magical flame clinging to the shell. One small gloved hand at bottom left releasing the flame, no full hero figure. Dark plum cave wall in broad simple planes. Fire rises vertically, shape and reflected warm light convey lingering burn, few large flame tongues.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-d032ceed-56c5-4716-8b5e-6d9ebc0342c2.png",
+      "sha256": "f296d7ca1f2eaa46b52476d33933a00730f8c7d5ba00cb30060cecd579d7e359"
+    },
+    {
+      "id": "chrono_jab",
+      "name": "Chrono Jab",
+      "description": "Deal [b]%s[/b] damage twice. Applies [b]1[/b] [b]Weakened[/b].",
+      "script_values": [
+        "base_damage := 6",
+        "weakened_duration := 3"
+      ],
+      "resource": "resources/data/cards/riftwalker/chrono_jab.tres",
+      "old_art": "res://assets/rift/cards/chrono_jab.webp",
+      "new_art": "res://assets/rift/cards/chrono_jab.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: two close strikes plus weakening. Dramatic cropped diagonal close action: Riftwalker twisting waist, delivering a brown-gloved palm strike to purple Horror armor, second translucent afterimage of the fist a short distance behind. The creature bends away, a muted gold double motion echo suggests stolen tempo, no clocks or glyphs. Quiet dusky red quarry wall, tight expressive silhouettes.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-0cff28ac-c459-4c80-b812-f4c8db0db3ae.png",
+      "sha256": "52ce5ac2802e008ebd6c1b6ec4e8ad79b1964acee22746f596012afae76c253c"
+    },
+    {
+      "id": "corroding_shot",
+      "name": "Corroding Shot",
+      "description": "Deal [b]%s[/b] damage to a [b]single[/b] enemy and apply [b]%s[/b] Corroded (true damage + block shred each end of turn).",
+      "script_values": [
+        "base_damage := 6",
+        "corrode_stacks := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/corroding_shot.tres",
+      "old_art": "res://assets/rift/cards/corroding_shot.webp",
+      "new_art": "res://assets/rift/cards/corroding_shot.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: single enemy hit and persistent corrosion shredding defense. MACRO enemy armor detail: one pointed violet energy droplet penetrating an ochre armored plate, plum liquid spreading in thick organic rivulets and exposing dark worn metal beneath. Reflected Riftwalker teal sleeve at edge only. Moody moss-green flooded ruin background, broad shapes and wet stylized highlights. No big blast, physical material decay focal.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-6ed975cc-af10-4ff9-a4bb-e3ab7d2c0c61.png",
+      "sha256": "a2c9a33c66c4cf2b42d0584a28c1761b9eaa04a5038f1777b89a6f834682acaa"
+    },
+    {
+      "id": "corrosion_wave",
+      "name": "Corrosion Wave",
+      "description": "Deal [b]%s[/b] damage to [b]all enemies[/b] and apply [b]%s[/b] Corroded.",
+      "script_values": [
+        "base_damage := 4",
+        "corrode_stacks := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/corrosion_wave.tres",
+      "old_art": "res://assets/rift/cards/corrosion_wave.webp",
+      "new_art": "res://assets/rift/cards/corrosion_wave.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 1 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: damage and Corroded to ALL enemies. WIDE but close middle-ground view at ground level of a low curling plum-violet tidal mist sweeping across THREE distinct enemy silhouettes: Horror, Blob, dark armored brute. Armor rims visibly pitted as wave passes; a few large droplets. Central rolling wave focus, no hero, no cyan beam. Simple desaturated green swamp stone terraces, dusty rose backlight.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-7e2abf9a-261a-49aa-84ec-9d0859067fc0.png",
+      "sha256": "d6964a6efb10506187830025ad885b0ae635184907f597be27b2905bb30ea99f"
+    },
+    {
+      "id": "deminishing_returns",
+      "name": "Deminishing Returns",
+      "description": "Deal [b]2[/b] damage for each enemy alive to an adjacent enemy.",
+      "script_values": [
+        "base_damage := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/deminishing_returns.tres",
+      "old_art": "res://assets/rift/cards/deminishing_returns.webp",
+      "new_art": "res://assets/rift/cards/deminishing_returns.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: hit an adjacent enemy harder when more enemies remain alive. Foreshortened compact Riftwalker fist at center striking nearby Horror; behind that enemy a crowded line of large looming monster shadows flows into the same impact as a widening ochre pressure shape. Slightly overhead close framing, enclosed reddish sandstone alley, one clear target absorbs collected pressure, no text/numbers.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-4ef43a82-b459-4812-9921-8737b54e4119.png",
+      "sha256": "784cbca4b3061d58457e810516766f9be325896d9e33872af0617a16a2be3b51"
+    },
+    {
+      "id": "echo",
+      "name": "Echo",
+      "description": "Add the previous card in your discard pile to your hand. It costs 0 and exhausts.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/echo.tres",
+      "old_art": "res://assets/rift/cards/echo.webp",
+      "new_art": "res://assets/rift/cards/echo.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: return previous discarded card as a free one-use echo. STILL-LIFE close-up from above: brown leather-gloved fingers lifting a ghostly pale gold parchment from a pile of spent grey curled parchments on a blue stone table. The original parchment remains below, its identical faint luminous echo lifted above, two overlapping readable silhouettes. Cyan window light and warm gold paper, no writing, no icons, no characters or attack.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-e8536e4f-e628-44a1-8c3d-3d1a0e7d4568.png",
+      "sha256": "75022e60fb5c0745233b9a9cd8cbd5df2c4b19e30ebfe4c1993273aa565a028a"
+    },
+    {
+      "id": "echo_harvest",
+      "name": "Echo Harvest",
+      "description": "Gather [b]all[/b] resources from target [b]tile[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/echo_harvest.tres",
+      "old_art": "res://assets/rift/cards/echo_harvest.webp",
+      "new_art": "res://assets/rift/cards/echo_harvest.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: gather all resources from one target tile. LOW SIDE CLOSE-UP of two brown leather gloves drawing THREE small ochre crystals from a fractured stone seam into an open leather pouch; warm flowing wisps join the crystals, no floating icons. Only teal sleeves visible. Mossy root-lined stone shelf in twilight, satisfying extraction moment, crystal/pouch focal group large and centered.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-d108f87a-c149-407b-bc08-c182e7c7a7ec.png",
+      "sha256": "f9c550f6887efc65c6769609fb83c3f2899a14300076ca5f94ba739f7c4c0ff5"
+    },
+    {
+      "id": "eldritch_barrier",
+      "name": "Eldricth Barrier",
+      "description": "Block [b]%s[/b] damage for [b]1[/b] turn(s)",
+      "script_values": [
+        "base_block := 10"
+      ],
+      "resource": "resources/data/cards/riftwalker/eldritch_barrier.tres",
+      "old_art": "res://assets/rift/cards/eldritch_barrier.webp",
+      "new_art": "res://assets/rift/cards/eldritch_barrier.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: ten temporary block. HIGH THREE-QUARTER view of Riftwalker kneeling calmly on a round worn mosaic, a translucent cyan shell curving close around shoulders and one raised gloved forearm. A SINGLE incoming purple thorn snaps against the exterior. Protective compact shelter silhouette, hand-inked refracted light bands, dark plum vault background with broad shadow shapes, no detailed masonry. Focus is defensive ward, no outgoing attack.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-771ea401-9671-4a28-aa01-709bdbab66c9.png",
+      "sha256": "722cf40cba7ebcd11f781a1160940be4979c4678f586cbbb2ec3e804d271f6a5"
+    },
+    {
+      "id": "focus",
+      "name": "Focus",
+      "description": "Gain [b]%s[/b] attunement. ",
+      "script_values": [
+        "base_amount := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/focus.tres",
+      "old_art": "res://assets/rift/cards/focus.webp",
+      "new_art": "res://assets/rift/cards/focus.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: gain one stack of attunement. Quiet symmetrical bust portrait Riftwalker with lowered hooded head, brown-gloved hands brought close around one tiny cyan flame, pale mask lit by its clean reflection. Teal and ivory against simple deep navy draped chamber, gold clasp at center. Deliberate stillness, large clean contour, no circles/glyphs or attack. Intimacy and discipline.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-61de65b6-3c43-4697-891f-e2a9dbcbd861.png",
+      "sha256": "f8aa610c0f485b435bcd6f6114552514c45674279e6d80fec95f5dec3a299900"
+    },
+    {
+      "id": "fracture_pulse",
+      "name": "Fracture Pulse",
+      "description": "Deal [b]%s[/b] damage to all enemies. Gain 1 energy.",
+      "script_values": [
+        "base_damage := 4",
+        "energy_gain := 4",
+        "energy_sound_fx : AudioStream",
+        "energy_visual_fx : PackedScene"
+      ],
+      "resource": "resources/data/cards/riftwalker/fracture_pulse.tres",
+      "old_art": "res://assets/rift/cards/fracture_pulse.webp",
+      "new_art": "res://assets/rift/cards/fracture_pulse.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: damage ALL enemies and replenish energy. HIGH THREE-QUARTER scene looking down a sloping slate rock shelf: jagged cyan pulse races outward across the ground toward several small enemy silhouettes while a thick gold energy current curls back into the central Riftwalker's open hands. Strong outward/inward visual rhythm, split slate surface and pale fog, few large fracture lines, NOT circular explosion composition.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-c98e4c4b-b470-40d9-81ae-ae5110fd5e27.png",
+      "sha256": "280968540457105b0cbcc21b767b37120ba05000a2fb56861a2566bf7a993289"
+    },
+    {
+      "id": "jab",
+      "name": "Jab",
+      "description": "Deal [b]%s[/b] damage twice to adjacent enemy.",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/jab.tres",
+      "old_art": "res://assets/rift/cards/jab.webp",
+      "new_art": "res://assets/rift/cards/jab.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: two adjacent melee hits. CROPPED SIDE-ON boxing close-up of Riftwalker stepping in and delivering two rapid brown-gloved punches into a nearby teal Blob's elastic surface. One solid fist and one fading motion impression, Blob squashes with wide pale eyes. Background only broad ochre arena wall with shadow band. Clean readable humorous physical recoil, no ranged magic, fists fill center.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-1b93dcab-45a6-41a0-9202-0676f4ae94f8.png",
+      "sha256": "4993abe35ff2798297358579ac47c9aae93c51aee87e1192978aa16e4384ed31"
+    },
+    {
+      "id": "mana_leech",
+      "name": "Mana Leech",
+      "description": "Target is [b]weakened[/b] for [b]3[/b] turns. \nGain [b]2[/b] energy temporarily.",
+      "script_values": [
+        "energy_gained := 2"
+      ],
+      "resource": "resources/data/cards/riftwalker/mana_leech.tres",
+      "old_art": "res://assets/rift/cards/mana_leech.webp",
+      "new_art": "res://assets/rift/cards/mana_leech.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: weaken target and gain temporary energy; NOT direct damage. Opposed profiles in close view: tired purple Horror slumping at left as a restrained pale gold stream of wisps is drawn from its fading purple aura into Riftwalker's open glove at right. Hero mask only partly in frame. Deep blue underground spring backdrop, energy transfer clear, no explosive impact, creature remains alive.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-30449053-216f-4723-a442-711d2c12d3bf.png",
+      "sha256": "968f00b9db5932451350890f9f778cec44427f05bcb36e72d7ed157dd61d84e7"
+    },
+    {
+      "id": "mana_surge",
+      "name": "Mana Surge",
+      "description": "Gain [b]%s[/b] extra energy [b]temporarily[/b]",
+      "script_values": [
+        "base_amount := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/mana_surge.tres",
+      "old_art": "res://assets/rift/cards/mana_surge.webp",
+      "new_art": "res://assets/rift/cards/mana_surge.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: gain temporary energy. Artifact-led extreme close-up: brown leather glove cradles a cracked blue mana pebble releasing a single swelling gold-cyan flame between fingers. Teal sleeve cuff curls at bottom, no face. Dark hanging vines and violet dusk silhouettes behind, strong vertical flame/hand focal point against subdued negative space, no attack or shields.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-242c7d70-21a1-4dd4-9a96-5571c847108a.png",
+      "sha256": "cd700a7b2a904c351a246f127fac249d1261f3c8c0574433761f297517c31919"
+    },
+    {
+      "id": "nano_shield",
+      "name": "Nano Shield",
+      "description": "Block [b]%s[/b] damage and regain 3 energy.",
+      "script_values": [
+        "energy_sound_fx: AudioStream",
+        "energy_visual_fx: PackedScene",
+        "base_block := 6",
+        "energy_gain := 3"
+      ],
+      "resource": "resources/data/cards/riftwalker/nano_shield.tres",
+      "old_art": "res://assets/rift/cards/nano_shield.webp",
+      "new_art": "res://assets/rift/cards/nano_shield.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 2 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: block plus regain energy. MID-SIDE view Riftwalker raising crossed forearms, compact layered ivory-gold protective plates blooming from the leather bracers like interlocking luminous scales; cyan light funnels toward the gloves. Different from a bubble ward. Enemy thorn glances off one plate at far edge. Low navy stairwell background, warm focused shield silhouette, simple hand-painted integrated magic.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-90d0a693-4205-44a0-856b-72f51bb42274.png",
+      "sha256": "6980d3ef6c79c8c155ecd202a507b2aa017ac1bd1263c3f6af338991692a36f3"
+    },
+    {
+      "id": "overload_shot",
+      "name": "Overload Shot",
+      "description": "Spend all Energy. Deal [b]%s[/b] damage to a single enemy.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/overload_shot.tres",
+      "old_art": "res://assets/rift/cards/overload_shot.webp",
+      "new_art": "res://assets/rift/cards/overload_shot.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: spend ALL remaining energy for one enemy strike. VERY LOW REAR angle of Riftwalker bracing two gloved hands around an intensely compressed white-gold orb, teal cloak blown backward; long thin amber stream pours from a dimming belt charm into orb before one thick shot launches straight UP toward a distant armored creature on high ledge. Broad vertical force inside landscape crop, dusk mauve rock ledge, controlled few light shapes.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-7df62337-b17a-4574-b4e5-bf438b5798f3.png",
+      "sha256": "ddccf0f149363a206ef07cb7cd75ec2c00ec48104644b4edbe519de3641bb864"
+    },
+    {
+      "id": "phase_slash",
+      "name": "Phase Slash",
+      "description": "Deal [b]%s[/b] damage. Ignores enemy armor if player has played a movement card.",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/phase_slash.tres",
+      "old_art": "res://assets/rift/cards/phase_slash.webp",
+      "new_art": "res://assets/rift/cards/phase_slash.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: damage, pierces armor after movement. PROFILE DIAGONAL lunge of Riftwalker sweeping one gloved arm with a narrow crescent of cyan fractured space THROUGH an armored Horror shell, purple shell edge ghosted transparent at cut. Trailing boot dissolves behind to imply preceding movement. Large centered crossing silhouettes, ochre grass and broken black rock hillside, no stone arches, no drawn sword required.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-d2d84067-98d8-4f66-b14f-8f1176c38f50.png",
+      "sha256": "7e85a84193813ef12abf9e5bf3200a9fc41b14d3a738a07f782186a3217cf7b4"
+    },
+    {
+      "id": "phase_step",
+      "name": "Phase Step",
+      "description": "Move [b]%s[/b] tile(s).",
+      "script_values": [
+        "movement_distance := 1"
+      ],
+      "resource": "resources/data/cards/riftwalker/phase_step.tres",
+      "old_art": "res://assets/rift/cards/phase_step.webp",
+      "new_art": "res://assets/rift/cards/phase_step.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: move to nearby tile, no damage. SIDE VIEW: full-body Riftwalker steps sideways between two neighboring stone slabs in a flooded cistern, solid leading boot landing in the center, cloak and rear silhouette dissolving into a short ribbon of fractured cyan space at left. No enemies, no attack. Two large pillars reflected in still water, pale mist behind feet for silhouette readability. Movement clearly focused on destination and boot, no giant portals.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:/Users/steve/.codex/generated_images/01a14fd5-8487-7c01-aa84-00ba9abcd049/exec-a672d5d0-af6e-44b0-8321-2196b299de99.png",
+      "sha256": "ff76b474a3ea169697555a22c1e7595d9067bb17ba2ff5a08237e1d015f32cdd"
+    },
+    {
+      "id": "quantum_rift",
+      "name": "Quantum Rift",
+      "description": "Teleport to any explored tile.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/quantum_rift.tres",
+      "old_art": "res://assets/rift/cards/quantum_rift.webp",
+      "new_art": "res://assets/rift/cards/quantum_rift.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: teleport to ANY explored tile. ENVIRONMENTAL depth composition: foreground teal-cloaked Riftwalker emerging sideways from a tall irregular cyan tear onto a dry ledge; through the tear a distant smaller figure's dissolving trail is visible across a deep ravine. Hero occupies center-right, clear destination safe ledge at bottom. Simple violet canyon faces, pale night sky, no enemies or attack, no circular portal glyphs.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-89d41add-b4d1-4dd3-b58e-b5e59ecb6fcd.png",
+      "sha256": "07bd4e06a9b065b3126fd6a03f85e6a094670ba5adf971bd31ee571cc95c869f"
+    },
+    {
+      "id": "rift_knowledge",
+      "name": "Rift Knowledge",
+      "description": "Target becomes [b]attuned[/b].\n[b]Exhaust[/b]",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/rift_knowledge.tres",
+      "old_art": "res://assets/rift/cards/rift_knowledge.webp",
+      "new_art": "res://assets/rift/cards/rift_knowledge.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Actual mechanic: apply Attuned to PLAYER (resource text says target, config targets player). Three-quarter seated Riftwalker studying an ancient open blank tome in a quiet ochre-lit alcove, reflected cyan shapes in the eye openings and one delicate curling wisp linking page to raised glove. Focus on mask and book, broad cloth folds; background one empty shelf and dark plaster, no letters, no runes. Permanent insight rather than projectile.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-59b7301e-79e2-4f75-ab47-20659ad17bc9.png",
+      "sha256": "f4003f94ea5547f0d0d42c6540e1f3edea7446c44c64bc30e4dffe134c4e59ad"
+    },
+    {
+      "id": "sever_anchor",
+      "name": "Sever Anchor",
+      "description": "Deal [b]%s[/b] damage. Deal an additional [b]%s[/b] if the target is the [b]Obelisk[/b].",
+      "script_values": [
+        "base_damage := 7",
+        "obelisk_bonus := 5"
+      ],
+      "resource": "resources/data/cards/riftwalker/sever_anchor.tres",
+      "old_art": "res://assets/rift/cards/sever_anchor.webp",
+      "new_art": "res://assets/rift/cards/sever_anchor.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: extra damage to active Obelisk. CLOSE LOW ANGLE of a black angular ancient Obelisk base bound to rock by a thick violet rootlike magical tether; brown-gloved hand tears a decisive cyan slash across the tether at center and its broken ends recoil. Tiny teal shoulder at left, Obelisk fills upper-right; ochre cracked earth below, plum sky. Show severing physical connection, no huge explosion.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-c68a9298-e272-4e37-bb8f-87c7bd8d1af8.png",
+      "sha256": "c3862caa2eed6d4c45cd092d8c1f93c7840fe0be87beda4336185b3ba3f4d8ad"
+    },
+    {
+      "id": "void_fracture",
+      "name": "Void Fracture",
+      "description": "Add 3 [b]Void Shard[b]'s to your hand.",
+      "script_values": [
+        "amount := 3"
+      ],
+      "resource": "resources/data/cards/riftwalker/void_fracture.tres",
+      "old_art": "res://assets/rift/cards/void_fracture.webp",
+      "new_art": "res://assets/rift/cards/void_fracture.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: create exactly THREE Void Shard cards. Artifact-only centered composition: a rough dark purple crystal held between two brown-gloved palms splits into THREE large distinct pointed shards hovering above the hands. Bright narrow violet seams and cyan reflected edges, a simple pale lavender mist backdrop in a cavern. Triangle grouping, safe margins, no extra crystals/particles, no text or symbols.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-d2888778-c144-4fa0-8cb9-6152a3631768.png",
+      "sha256": "defd1218549818617cb02ed556c5967e86353e0cc53369ae81e0c7345586929e"
+    },
+    {
+      "id": "void_shard",
+      "name": "Void Shard",
+      "description": "Deal [b]%s[/b] damage to target [b]enemy[/b]\n[b]Exhaust[/b]",
+      "script_values": [
+        "base_damage := 6"
+      ],
+      "resource": "resources/data/cards/riftwalker/void_shard.tres",
+      "old_art": "res://assets/rift/cards/void_shard.webp",
+      "new_art": "res://assets/rift/cards/void_shard.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: one-use single-target damage. MACRO oblique view of ONE dark plum crystal shard cutting through the air, its point in the center and smoky violet tail sweeping to upper-left; at lower-right a cropped armored creature shell about to be pierced. Cyan edge glint and ivory fracture highlight. Simplified moss-green cave walls as background, shard dominates, no hero or repeating beam scene.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-272113c1-46cb-4a1e-a0ef-ee57438fcac4.png",
+      "sha256": "5b0e2af0c296745de42a30fde092d16cc7d7f3e42dada42383007c618b3749d7"
+    },
+    {
+      "id": "void_surge",
+      "name": "Void Surge",
+      "description": "Deal damage based on missing HP to a single enemy.",
+      "script_values": [],
+      "resource": "resources/data/cards/riftwalker/void_surge.tres",
+      "old_art": "res://assets/rift/cards/void_surge.webp",
+      "new_art": "res://assets/rift/cards/void_surge.webp",
+      "replacement_status": "replaced",
+      "validation_status": "Native Godot CardPileView page 3 reviewed; shared hand/inspection/reward contexts passed",
+      "visual_concept": "Mechanic: single-target damage scales with missing health. LOW CLOSE view wounded Riftwalker with torn teal sleeve and a small dark red stain on the upper arm, crouching and thrusting a gloved palm forward as turbulent plum energy swells out from the injury into a rolling wave toward one looming enemy silhouette. Mask determined, strong diagonal body, stormy barren hillside in slate/ochre; pain transformed to power, no gore.",
+      "production_method": "built-in image_gen, reference-guided original illustration; full-frame downscale only",
+      "generated_source": "C:\\Users\\steve\\.codex\\generated_images\\01a14fd5-8487-7c01-aa84-00ba9abcd049\\exec-28ad90fd-5c99-44ac-b287-91559d297cac.png",
+      "sha256": "2be56e15591fa99578b50d4f542b1cbaf2cc05d7b959497b291146c2e84f3b43"
+    }
+  ],
+  "approved_style": "arcane_bolt",
+  "art_window": [
+    148,
+    99
+  ],
+  "texture_size": [
+    592,
+    396
+  ]
+}

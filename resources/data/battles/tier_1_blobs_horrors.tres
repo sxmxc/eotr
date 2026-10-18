@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://ctac13ctpal1i"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://ctac13ctpal1i"]
 
 [ext_resource type="PackedScene" uid="uid://vbvdmk1acur2" path="res://resources/data/battles/tier_1_blobs_horrors.tscn" id="1_ku3xg"]
-[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_t02sf"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="1_t02sf"]
 
 [resource]
 script = ExtResource("1_t02sf")
@@ -14,4 +14,6 @@ resource_reward_max = 5
 enemies = ExtResource("1_ku3xg")
 battle_field_width = 10
 battle_field_height = 10
+encounter_id = "tier_1_blobs_horrors"
+encounter_name = "Tier 1 Blobs Horrors"
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

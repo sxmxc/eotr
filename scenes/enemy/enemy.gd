@@ -7,9 +7,6 @@ const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_ma
 const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
 const DEATH_FLASH_FX : PackedScene = preload("res://ui/fx/flash_fx.tscn")
 const DEATH_SMOKE_FX : PackedScene = preload("res://ui/fx/smoke_fx.tscn")
-const DEATH_SPARK_FX : PackedScene = preload("res://ui/fx/spark_fx.tscn")
-const DEATH_IMPACT_FX : PackedScene = preload("res://ui/fx/impact_decal_fx.tscn")
-const DEATH_EMBER_FX : PackedScene = preload("res://ui/fx/ember_burst_fx.tscn")
 const DEFAULT_DEATH_SOUND : AudioStream = preload("res://assets/audio/Monster Sounds/Ghost/Ghost_Death.ogg")
 const DEATH_SHAKE_STRENGTH := 10.0
 const DEATH_SHAKE_DURATION := 0.18
@@ -42,6 +39,11 @@ func set_current_action(value: EnemyAction) -> void:
 		update_intent()
 
 func _ready():
+	if sprite_2d.material:
+		sprite_2d.material = sprite_2d.material.duplicate()
+		sprite_2d.material.set_shader_parameter("rim_color", Color(0.9, 0.68, 0.57, 0.55))
+	if has_node("GroundPresence"):
+		$GroundPresence.material.set_shader_parameter("accent", Color(0.84, 0.42, 0.34))
 	Events.player_died.connect(func(): self.set_process(false))
 	if not $Area2D.input_event.is_connected(_on_area_2d_input_event):
 		$Area2D.input_event.connect(_on_area_2d_input_event)
@@ -49,7 +51,9 @@ func _ready():
 	
 	
 func _physics_process(_delta):
-	pass # Tile position is authoritative; feedback must not move a unit logically.
+	# Taller illustrations must not leak out from under neighboring fog cells.
+	if is_instance_valid(tilemap):
+		visible = not tilemap.is_tile_behind_fog(current_tile_position)
 	
 
 func set_stats(value: EnemyStats) -> void:
@@ -71,7 +75,7 @@ func setup_ai() -> void:
 		escape.intent = Intent.new()
 		escape.intent.tooltip_text = "Plans to leave the collapsing edge"
 		escape.intent.base_text = "Reposition"
-		escape.intent.icon = preload("res://assets/icons/path-distance.svg")
+		escape.intent.icon = preload("res://assets/rift/ui/move.svg")
 		new_action_picker.add_child(escape)
 		new_action_picker.move_child(escape, 0)
 	add_child(new_action_picker)
@@ -97,6 +101,7 @@ func update_enemy() -> void:
 		await ready
 	
 	sprite_2d.texture = stats.board_icon
+	Utils.ground_sprite(sprite_2d)
 	setup_ai()
 	if stats_ui:
 		update_stats()
@@ -142,7 +147,7 @@ func take_damage(
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	print("[Enemy] %s incoming dmg=%s mod=%s direct=%s -> modified=%s (health=%s, block=%s)" % [name, damage, which_modifier, direct, modified_damage, stats.health, stats.block])
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
-	sprite_2d.material = WHITE_SPRITE_MATERIAL
+	sprite_2d.material.set_shader_parameter("hit_flash", 0.65)
 	sprite_2d.self_modulate = profile.tint_color
 	if profile.hitstop_duration > 0.0 and profile.hitstop_scale < 1.0:
 		Utils.apply_hitstop(profile.hitstop_scale, profile.hitstop_duration)
@@ -150,11 +155,13 @@ func take_damage(
 	var text_fx := TEXT_FX.instantiate() as TextFX
 	text_fx.text = str(modified_damage)
 	add_child(text_fx)
+	text_fx.position = $ImpactAnchor.position
 	text_fx.execute()
 	if profile.decal_scene:
 		var decal: VisualFX = profile.decal_scene.instantiate()
 		decal.scale *= profile.decal_scale
 		add_child(decal)
+		decal.position = $ImpactAnchor.position
 		decal.execute()
 	if direct:
 		tween.tween_callback(Utils.shake.bind(self, profile.shake_strength, profile.shake_duration))
@@ -168,7 +175,7 @@ func take_damage(
 	tween.finished.connect( 
 		func(): 
 			pending_damage -= 1
-			sprite_2d.material = null
+			sprite_2d.material.set_shader_parameter("hit_flash", 0.0)
 			sprite_2d.self_modulate = Color.WHITE
 			if stats.health <= 0 and not is_dying and pending_damage == 0:
 				Events.enemy_died.emit(self)
@@ -197,21 +204,6 @@ func _play_death_feedback() -> void:
 	var smoke_fx := DEATH_SMOKE_FX.instantiate() as VisualFX
 	add_child(smoke_fx)
 	smoke_fx.execute()
-	if DEATH_SPARK_FX:
-		var spark_fx := DEATH_SPARK_FX.instantiate() as VisualFX
-		spark_fx.scale *= 0.8
-		add_child(spark_fx)
-		spark_fx.execute()
-	if DEATH_IMPACT_FX:
-		var impact_fx := DEATH_IMPACT_FX.instantiate() as VisualFX
-		impact_fx.scale *= 0.75
-		add_child(impact_fx)
-		impact_fx.execute()
-	if DEATH_EMBER_FX:
-		var ember_fx := DEATH_EMBER_FX.instantiate() as VisualFX
-		ember_fx.scale *= 0.9
-		add_child(ember_fx)
-		ember_fx.execute()
 
 	if is_instance_valid(phantom_camera_2d):
 		Utils.shake(phantom_camera_2d, DEATH_SHAKE_STRENGTH, DEATH_SHAKE_DURATION)

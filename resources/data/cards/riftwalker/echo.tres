@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_6vn2s"]
 [ext_resource type="Script" uid="uid://lf8kuqf6k6sk" path="res://resources/data/cards/riftwalker/echo.gd" id="1_echo"]
+[ext_resource type="Texture2D" uid="uid://1wao0006unxh" path="res://assets/rift/cards/echo.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/echo_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_echo")
@@ -12,4 +14,7 @@ name = "Echo"
 card_rarity = 1
 description = "Add the previous card in your discard pile to your hand. It costs 0 and exhausts."
 energy_cost = 2
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("signature")
+cast_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crny6hpdmf0v7"]
 
 [ext_resource type="Script" uid="uid://crk2h8g21sarg" path="res://ui/health_ui/health_ui.gd" id="1_seohp"]
-[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="2_wbl7p"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/health.svg" id="2_wbl7p"]
 
 [node name="HealthUI" type="HBoxContainer" unique_id=1187274256]
 theme_type_variation = &"FlushRow"
@@ -9,7 +9,7 @@ alignment = 1
 script = ExtResource("1_seohp")
 
 [node name="HealthIcon" type="TextureRect" parent="." unique_id=658487368]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(40, 40)
 expand_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3

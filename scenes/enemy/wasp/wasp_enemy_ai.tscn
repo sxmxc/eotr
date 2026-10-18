@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_gpb23"]
 [ext_resource type="Script" uid="uid://c0a3c8an4t523" path="res://scenes/enemy/wasp/wasp_enemy_move_action.gd" id="2_2blif"]
-[ext_resource type="Texture2D" uid="uid://by4qq0m04u1a8" path="res://assets/icons/path-distance.svg" id="3_t3vsi"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/move.svg" id="3_t3vsi"]
 [ext_resource type="Script" uid="uid://dibwrrhojqhrh" path="res://scenes/enemy/wasp/wasp_enemy_attack_action.gd" id="3_xe6n3"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_7ug8v"]
 [ext_resource type="PackedScene" uid="uid://cln3yj26mtsp" path="res://ui/fx/curse_fx.tscn" id="6_t3vsi"]
-[ext_resource type="Texture2D" uid="uid://tks80lj4jujf" path="res://assets/icons/piercing-sword.svg" id="7_1usdb"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/attack.svg" id="7_1usdb"]
 [ext_resource type="AudioStream" uid="uid://dxigf55kawp72" path="res://assets/audio/Monster Sounds/Hornet/Hornet_Attack.wav" id="7_g25uw"]
 [ext_resource type="PackedScene" uid="uid://bf61do8j56a3t" path="res://ui/fx/claw_slash_fx.tscn" id="9_ot5ce"]
 

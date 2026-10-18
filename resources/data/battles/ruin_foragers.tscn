@@ -1,0 +1,18 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="obelisk_stats"]
+[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ruin_scavenger.tres" id="e0"]
+[ext_resource type="Resource" path="res://scenes/enemy/blob/blob_enemy.tres" id="e1"]
+
+[node name="ruin_foragers" type="Node2D"]
+[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
+stats = ExtResource("obelisk_stats")
+spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1")])
+
+[node name="Unit0" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e0")
+
+[node name="Unit1" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e1")

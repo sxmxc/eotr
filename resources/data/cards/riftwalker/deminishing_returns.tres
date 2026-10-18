@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://emxchgta4ikh" path="res://resources/data/cards/riftwalker/deminishing_returns.gd" id="1_demret"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_r7nw6"]
+[ext_resource type="Texture2D" uid="uid://ywkwg40i0bpq" path="res://assets/rift/cards/deminishing_returns.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/deminishing_returns_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_demret")
@@ -11,4 +13,6 @@ name = "Deminishing Returns"
 card_rarity = 1
 description = "Deal [b]2[/b] damage for each enemy alive to an adjacent enemy."
 energy_cost = 2
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

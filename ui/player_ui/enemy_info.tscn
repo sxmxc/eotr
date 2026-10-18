@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_t412h"]
 [ext_resource type="Script" uid="uid://cfqjgpp2m8fxx" path="res://ui/player_ui/enemy_info_ui.gd" id="2_t412h"]
-[ext_resource type="Texture2D" uid="uid://dilwvkks378lc" path="res://assets/icons/heart.png" id="3_t412h"]
-[ext_resource type="Texture2D" uid="uid://cm81st3fxaabw" path="res://assets/icons/shield.png" id="4_4m4ps"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/health.svg" id="3_t412h"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/block.svg" id="4_4m4ps"]
 
 [node name="EnemyInfo" type="Panel" unique_id=1730980556]
 offset_right = 278.0

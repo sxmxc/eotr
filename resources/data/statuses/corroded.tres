@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CorrodedStatus" format=3 uid="uid://coty7yryabpnv"]
 
-[ext_resource type="Texture2D" uid="uid://ci1pw3ahgqx7h" path="res://assets/icons/metal-bar-fg-only.svg" id="1_icon"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/corrosion.svg" id="1_icon"]
 [ext_resource type="Script" uid="uid://c2w00r2k0jdlh" path="res://resources/data/statuses/corroded.gd" id="2_script"]
 
 [resource]

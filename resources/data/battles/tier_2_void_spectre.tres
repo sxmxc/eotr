@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="BattleStats" format=3 uid="uid://bcl5etedpnoss"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://bcl5etedpnoss"]
 
-[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/battle_stats.gd" id="1_ak0t1"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="1_ak0t1"]
 [ext_resource type="PackedScene" uid="uid://dnpltte715j68" path="res://resources/data/battles/tier_2_void_spectre.tscn" id="1_tnbkk"]
 
 [resource]
@@ -14,4 +14,7 @@ resource_reward_max = 20
 enemies = ExtResource("1_tnbkk")
 battle_field_width = 10
 battle_field_height = 10
+encounter_id = "tier_2_void_spectre"
+encounter_name = "Tier 2 Void Spectre"
+category = 2
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

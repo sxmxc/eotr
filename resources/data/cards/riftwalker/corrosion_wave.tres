@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_0pu7c"]
 [ext_resource type="Script" uid="uid://cwavedaxna0rw" path="res://resources/data/cards/riftwalker/corrosion_wave.gd" id="1_script"]
 [ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_sound"]
-[ext_resource type="PackedScene" uid="uid://l2pxfjv70yqn" path="res://ui/fx/explosion_fx.tscn" id="3_fx"]
+[ext_resource type="Texture2D" uid="uid://dbjhu7vjfd3vs" path="res://assets/rift/cards/corrosion_wave.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/corrosion_wave_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_script")
@@ -14,6 +15,7 @@ card_rarity = 2
 description = "Deal [b]%s[/b] damage to [b]all enemies[/b] and apply [b]%s[/b] Corroded."
 energy_cost = 2
 exhaust = true
+card_art = ExtResource("rift_art")
 sound_fx = ExtResource("2_sound")
-visual_fx = ExtResource("3_fx")
+visual_fx = ExtResource("signature")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

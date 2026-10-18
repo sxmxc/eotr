@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/fx/spark_fx.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/void_mote.webp" id="texture"]
+
+[sub_resource type="CanvasItemMaterial" id="canvas"]
+particles_animation = false
+
+[sub_resource type="Gradient" id="gradient"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="ramp"]
+gradient = SubResource("gradient")
+
+[sub_resource type="ParticleProcessMaterial" id="process"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 4
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 14
+initial_velocity_max = 28
+gravity = Vector3(0, 0, 0)
+scale_min = 0.07
+scale_max = 0.13
+color_ramp = SubResource("ramp")
+
+[node name="summon_wisp_fx" type="Node2D"]
+z_index = 2
+script = ExtResource("script")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 2
+material = SubResource("canvas")
+emitting = false
+amount = 8
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+visibility_rect = Rect2(-56, -56, 112, 112)
+texture = ExtResource("texture")
+process_material = SubResource("process")

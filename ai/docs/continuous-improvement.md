@@ -1,5 +1,20 @@
 # Continuous improvement
 
+
+## 2026-10-18 � Authored encounters, roster and coherent final art
+
+- Consolidated typed encounter definitions/registry; removed the pool selector and migrated map, sandbox, tools and bounties. Preserved tier two and all original compositions. Added eight enemy roles, twelve behavioral variants and twenty encounters using existing rules.
+- Replaced battlefield, 29 card illustrations, UI/map symbols, terrain, main menu and all three class backgrounds. Fixed class masters preserve costume identity. Removed rejected alternatives, 88 obsolete sources and 438 old import cache files; final image sources total about 5.5 MB.
+- Offline combat/native compatibility and asset/alpha/hex/reference checks pass. 27 headless battles plus a rendered elite and run-mode progression executed with no runtime failures or softlocks. Full report and limits are in [rift-overhaul.md](rift-overhaul.md). Full human balance/campaign and release export remain future validation.
+
+## 2026-10-18 — Event choices preserve player agency
+
+- Caravan trades show their currency requirements and use native disabled states when unaffordable. Currency changes update availability immediately. An unsuccessful attempt no longer consumes both event choices; exact-price purchases retain the authored costs, healing and card reward weights.
+- Event choices commit once before currency signals/reward callbacks, preventing repeated callbacks from granting extra rewards. Successful choices move keyboard focus to Leave. Costs now live alongside their event option and are checked and charged in the same path.
+- Added focused checks to the existing offline runner (`--event-room-only`); reproduced eleven failed assertions before the fix. Targeted headless and native D3D12 checks pass, including actual button activation, currency thresholds, failed alternatives, repeat callbacks and free rewards. Compatibility smoke passed with 531 resources and zero failures (exit 0); resource guard and whitespace checks passed. Inspected native `overhaul-event-{unaffordable,affordable,resolved}.png` captures under `qa/compatibility-validation/`.
+- Limits: no full campaign or packaged export; existing Windows certificate-store and headless shader diagnostics remain. The save/resume inspection did not establish a new persistence defect.
+- Next candidates: investigate event HP costs with leftover combat block/low health; exercise multi-floor campaign save/resume; inspect action/status effects surviving battle shutdown.
+
 ## 2026-10-18 — Reliable relic interactions with the hand
 
 - Feedback Circuit now resets at the actual player-turn start, rather than whenever a draw completes. Drawing extra cards preserves accumulated skills, so the third skill still deals the authored five damage to every enemy. Acquisition/removal clears its transient counter and UI reference; obsolete map/draw subscriptions are removed.

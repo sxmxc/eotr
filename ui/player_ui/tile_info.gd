@@ -23,6 +23,8 @@ func update_info(tile_info: HexTileData) -> void:
 	if not tile_info:
 		return
 	type_label.text = str(Enums.TileType.keys()[tile_info.type]).capitalize()
+	if tile_info.type == Enums.TileType.RESOURCE and tile_info.resource_count == 0:
+		type_label.text = "Depleted resource"
 	loc_label.text = str(tile_info.tile_id)
 	resource_label.text = "%d resource%s" % [tile_info.resource_count, "" if tile_info.resource_count == 1 else "s"]
 	resource_label.visible = tile_info.type == Enums.TileType.RESOURCE

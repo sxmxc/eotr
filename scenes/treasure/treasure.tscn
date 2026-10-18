@@ -8,17 +8,17 @@
 [ext_resource type="Resource" uid="uid://b3cnm8pclsxek" path="res://resources/data/relics/unstable_core.tres" id="3_bbvtr"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="3_nr0se"]
 [ext_resource type="Resource" uid="uid://cfauwsp41tgk7" path="res://resources/data/relics/temporal_conduit.tres" id="4_ko1oj"]
-[ext_resource type="Texture2D" uid="uid://1371fmcp5ecq" path="res://assets/icons/chest (1).svg" id="4_ufafs"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/chest.svg" id="4_ufafs"]
 [ext_resource type="Resource" uid="uid://cbqo7jsdxagi4" path="res://resources/data/relics/riftglass_prism.tres" id="5_ab3yx"]
-[ext_resource type="Texture2D" uid="uid://csl5fu57hjje4" path="res://assets/icons/open-treasure-chest.svg" id="5_ufafs"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/chest.svg" id="5_ufafs"]
 [ext_resource type="Resource" uid="uid://cd45n3jrdgucm" path="res://resources/data/relics/feedback_circuit.tres" id="6_bbvtr"]
 [ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="7_ko1oj"]
 [ext_resource type="Resource" uid="uid://d0vl20m61tb65" path="res://resources/data/relics/prospector_helmet.tres" id="8_2i7av"]
 [ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="9_energy"]
-[ext_resource type="Texture2D" uid="uid://b0smcjr2p45fs" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_coin_8x8.png" id="12_odogb"]
-[ext_resource type="Texture2D" uid="uid://cb0gy21niwki8" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_shine_8x8.png" id="13_2i7av"]
-[ext_resource type="Texture2D" uid="uid://btlqw2o1x21s8" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_cup_8x8.png" id="14_wp70s"]
-[ext_resource type="Texture2D" uid="uid://djyrwq2phgci7" path="res://assets/third_party/Spritesheet Pack/confetti/jettelly_hexagon_8x8.png" id="15_50sti"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="12_odogb"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="13_2i7av"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="14_wp70s"]
+[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="15_50sti"]
 
 [sub_resource type="Animation" id="Animation_1nl1m"]
 length = 0.001
@@ -248,10 +248,7 @@ _data = {
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rkoa3"]
-particles_animation = true
-particles_anim_h_frames = 8
-particles_anim_v_frames = 8
-particles_anim_loop = true
+particles_animation = false
 
 [sub_resource type="Curve" id="Curve_kw0bu"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0664062, 1), 0.0, 0.0, 0, 0, Vector2(0.746094, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -279,8 +276,8 @@ initial_velocity_max = 300.0
 angular_velocity_min = -20.0
 angular_velocity_max = 20.0
 gravity = Vector3(0, 98, 0)
-scale_min = 0.13
-scale_max = 0.25
+scale_min = 0.05
+scale_max = 0.12
 scale_curve = SubResource("CurveTexture_8bkex")
 color = Color(0.701961, 0.647059, 0.333333, 1)
 alpha_curve = SubResource("CurveTexture_5w44q")
@@ -288,10 +285,7 @@ anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unvyv"]
-particles_animation = true
-particles_anim_h_frames = 8
-particles_anim_v_frames = 8
-particles_anim_loop = true
+particles_animation = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_odogb"]
 lifetime_randomness = 1.0
@@ -306,8 +300,8 @@ initial_velocity_max = 300.0
 angular_velocity_min = -20.0
 angular_velocity_max = 20.0
 gravity = Vector3(0, 98, 0)
-scale_min = 0.13
-scale_max = 0.25
+scale_min = 0.05
+scale_max = 0.12
 scale_curve = SubResource("CurveTexture_8bkex")
 color = Color(0.823529, 0.788235, 0.647059, 1)
 alpha_curve = SubResource("CurveTexture_5w44q")
@@ -315,10 +309,7 @@ anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kt3tj"]
-particles_animation = true
-particles_anim_h_frames = 8
-particles_anim_v_frames = 8
-particles_anim_loop = true
+particles_animation = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mn6fe"]
 lifetime_randomness = 1.0
@@ -333,8 +324,8 @@ initial_velocity_max = 300.0
 angular_velocity_min = -20.0
 angular_velocity_max = 20.0
 gravity = Vector3(0, 98, 0)
-scale_min = 0.13
-scale_max = 0.25
+scale_min = 0.05
+scale_max = 0.12
 scale_curve = SubResource("CurveTexture_8bkex")
 color = Color(0.670588, 0.607843, 0.556863, 1)
 alpha_curve = SubResource("CurveTexture_5w44q")
@@ -342,10 +333,7 @@ anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xln5j"]
-particles_animation = true
-particles_anim_h_frames = 8
-particles_anim_v_frames = 8
-particles_anim_loop = true
+particles_animation = false
 
 [node name="Treasure" type="Control" unique_id=404450698]
 layout_mode = 3
@@ -414,9 +402,9 @@ autoplay = &"highlight"
 material = SubResource("CanvasItemMaterial_rkoa3")
 position = Vector2(241, 267)
 emitting = false
-amount = 25
+amount = 12
 texture = ExtResource("12_odogb")
-lifetime = 3.0
+lifetime = 1.2
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_tg8jj")
@@ -425,9 +413,9 @@ process_material = SubResource("ParticleProcessMaterial_tg8jj")
 material = SubResource("CanvasItemMaterial_unvyv")
 position = Vector2(241, 267)
 emitting = false
-amount = 25
+amount = 12
 texture = ExtResource("13_2i7av")
-lifetime = 3.0
+lifetime = 1.2
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_odogb")
@@ -436,9 +424,9 @@ process_material = SubResource("ParticleProcessMaterial_odogb")
 material = SubResource("CanvasItemMaterial_kt3tj")
 position = Vector2(241, 267)
 emitting = false
-amount = 25
+amount = 12
 texture = ExtResource("14_wp70s")
-lifetime = 3.0
+lifetime = 1.2
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_mn6fe")
@@ -447,9 +435,9 @@ process_material = SubResource("ParticleProcessMaterial_mn6fe")
 material = SubResource("CanvasItemMaterial_xln5j")
 position = Vector2(241, 267)
 emitting = false
-amount = 25
+amount = 12
 texture = ExtResource("15_50sti")
-lifetime = 3.0
+lifetime = 1.2
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_mn6fe")

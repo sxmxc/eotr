@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TraderBadgeRelic" format=3 uid="uid://3dykoxgiq7hi"]
 
-[ext_resource type="Texture2D" uid="uid://d0icav7p5suom" path="res://assets/icons/shiny-purse.svg" id="1_hhcrt"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="1_hhcrt"]
 [ext_resource type="Script" uid="uid://cxv0k7ewrhtxh" path="res://resources/data/relics/trader_badge.gd" id="2_endpm"]
 
 [resource]

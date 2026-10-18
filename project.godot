@@ -8,23 +8,18 @@
 
 config_version=5
 
-[addons]
-
-instance_dock/scene_data_file="res://InstanceDockSceneData.txt"
-instance_dock/preview_resolution=Vector2i(64, 64)
-
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.1.1.1"
+config/version="0.2.0.0"
 run/main_scene="res://scenes/splash_screens/splash_screen.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/use_filter=false
-boot_splash/image="uid://cbx47wp1tythp"
+boot_splash/image="uid://bvc1wka1kiw3j"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="8109cf4"
+config/build="aa92b6e"
 
 [autoload]
 
@@ -36,9 +31,9 @@ RegistryData="*res://scripts/autoloads/registry_data.gd"
 SoundManager="*uid://dpuhel5fjt0xl"
 PhantomCameraManager="*uid://duq6jhf6unyis"
 TelemetryManager="*res://scripts/autoloads/telemetry_manager.gd"
-LimboConsole="*uid://8ksevjdks57p"
 PostFx="*res://scenes/post_fx/post_fx.tscn"
 UIAnimation="*uid://cawfyydj325or"
+LimboConsole="*uid://dyxornv8vwibg"
 
 [debug]
 
@@ -63,7 +58,7 @@ movie_writer/movie_file="//NATAS/Shared/videos/unedited/eotr_dev_godot_out.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/InstanceDock/plugin.cfg", "res://addons/godot_telemetry/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/godot_telemetry/plugin.cfg", "res://addons/godot_ui_animations/plugin.cfg", "res://addons/limbo_console/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg", "res://addons/uiJuicer/plugin.cfg")
 
 [global_group]
 
@@ -138,6 +133,16 @@ pause={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+limbo_auto_complete_reverse={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194306,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+limbo_console_search_history={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":82,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -150,6 +155,7 @@ pause={
 
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+textures/webp_compression/compression_method=4
 viewport/hdr_2d=true
 2d/snap/snap_2d_transforms_to_pixel=true
 
@@ -162,4 +168,4 @@ mouse_screen_pos={
 
 [telemetry]
 
-config_path=""
+config_path="uid://duaqoq4n0iiv5"

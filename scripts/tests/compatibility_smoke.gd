@@ -15,6 +15,47 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 	RNG.instance.seed = 472001
+	if OS.get_cmdline_user_args().has("--map-only"):
+		GameSettings.show_tutorial = false
+		var run_scene: Run = load("res://scenes/run/run.tscn").instantiate()
+		run_scene.run_bootstrap = RunBootstrap.new()
+		run_scene.run_bootstrap.type = RunBootstrap.Type.NEW_RUN
+		run_scene.run_bootstrap.selected_player_class = load("res://resources/data/stats/player/riftwalker_starting_stats.tres")
+		get_tree().root.add_child(run_scene)
+		await get_tree().create_timer(1.0).timeout
+		await _test_route_and_icon_feedback(run_scene)
+		for route: Line2D in run_scene.map.lines.get_children():
+			var origin: MapNode = route.get_meta("from_node")
+			var destination: MapNode = route.get_meta("to_node")
+			var face := PackedVector2Array([Vector2(-16, -26), Vector2(-31, 0), Vector2(-16, 26), Vector2(16, 26), Vector2(31, 0), Vector2(16, -26)])
+			_check(not Geometry2D.is_point_in_polygon(route.points[0] - origin.position, face), "Route stops outside source node")
+			_check(not Geometry2D.is_point_in_polygon(route.points[1] - destination.position, face), "Route stops outside destination node")
+		for entry: MapNodeUI in run_scene.map.map_nodes.get_children():
+			_check(entry.get_node("Visuals/Face").color.a == 1.0, "Node face conceals underlying connections")
+		var current: MapNode
+		for entry: MapNodeUI in run_scene.map.map_nodes.get_children():
+			if entry.available and current == null:
+				current = entry.map_node
+			entry.available = false
+		current.selected = true
+		run_scene.map.last_map_node = current
+		run_scene.map.floors_climbed = 1
+		run_scene.map.unlock_next_map_node()
+		run_scene.map.center_camera_on_current_floor()
+		await get_tree().create_timer(1.1).timeout
+		await _capture("map")
+		run_scene.queue_free()
+		await get_tree().process_frame
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--event-room-only"):
+		await _test_event_choices()
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--ui-transactions-only"):
 		GameSettings.show_tutorial = false
 		GameSettings.telemetry_enabled = false
@@ -58,11 +99,20 @@ func _run() -> void:
 	await get_tree().process_frame
 	await _test_ui_composition()
 	if OS.get_cmdline_user_args().has("--capture-ui"):
+		await _capture_production_deck()
+	if OS.get_cmdline_user_args().has("--capture-ui"):
 		for screen: String in ["class_selector", "settings_menu"]:
 			var supporting: Control = load("res://scenes/menus/%s.tscn" % screen).instantiate()
 			get_tree().root.add_child(supporting)
 			await get_tree().create_timer(0.4).timeout
 			await _capture(screen)
+			if screen == "class_selector":
+				supporting._on_synthforge_button_pressed()
+				await get_tree().create_timer(0.3).timeout
+				await _capture("class-synthforged")
+				supporting._on_voidbinder_button_pressed()
+				await get_tree().create_timer(0.3).timeout
+				await _capture("class-voidbinder")
 			supporting.queue_free()
 			await get_tree().process_frame
 	var data_editor: DataEditor = load("res://scenes/devtools/data_editor.tscn").instantiate()
@@ -104,12 +154,18 @@ func _run() -> void:
 	_check(get_tree().paused and run_scene.tutorial_ui.visible, "Extracted run tutorial opens")
 	run_scene.tutorial_ui._on_button_pressed()
 	_test_save_overwrite(run_scene)
+	await _test_event_choices()
+	await _test_route_and_icon_feedback(run_scene)
 	await _capture("map")
 	if OS.get_cmdline_user_args().has("--capture-ui"):
 		var legend := run_scene.map_legend.get_node("MapLegend")
 		legend.toggle.button_pressed = true
 		await _capture("legend")
 		legend.toggle.button_pressed = false
+		var bounty: ThemedIconButton = run_scene.map_legend.get_node("BountyBoardButton")
+		bounty._on_mouse_entered()
+		await _capture("icon-hover")
+		bounty._on_mouse_exited()
 		run_scene.hud.relic_tooltip.show_tooltip(run_scene.player_stats.starting_relic)
 		await _capture("relic")
 		run_scene.hud.relic_tooltip.hide()
@@ -127,6 +183,15 @@ func _run() -> void:
 		run_scene.map_legend.hide()
 		await _capture("fog")
 		world.tilemap.hide_fog()
+		# Production gate: actual CardUI instances in the actual battle hand.
+		var art_hand: PlayerHand = world.game_world_ui.hand
+		for old_card: Node in art_hand.get_children():
+			art_hand.remove_child(old_card)
+			old_card.queue_free()
+		for art_id: String in ["arcane_bolt", "arcane_blast", "phase_step", "adrenaline_rush", "eldritch_barrier"]:
+			art_hand.add_card(load("res://resources/data/cards/riftwalker/%s.tres" % art_id).duplicate())
+		await get_tree().create_timer(0.3).timeout
+		await _capture("card-art-gate")
 		Events.rounds_until_shrink_updated.emit(1)
 		await get_tree().create_timer(0.5).timeout
 		await _capture("combat")
@@ -260,6 +325,62 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		_check(run_scene.run_stats.resources == 100 - cost and run_scene.relic_handler.has_relic(relic_id), "Relic purchase charges once and grants its relic")
 
 
+func _test_route_and_icon_feedback(run_scene: Run) -> void:
+	var content := run_scene.map_legend.find_child("LegendContent", true, false)
+	var rows: VBoxContainer = content.get_node("%VBoxContainer")
+	_check(rows.get_child_count() == 7, "Legend includes all seven encounter types")
+	for row: Node in rows.get_children():
+		var kind: StringName = row.get_meta("map_node_type")
+		var icon: TextureRect = row.get_child(0)
+		_check(icon.texture == rows.get_theme_icon(kind, &"MapNode"), "Legend matches map icon for " + kind)
+	var bounty: ThemedIconButton = run_scene.map_legend.get_node("BountyBoardButton")
+	var original_size := bounty.size
+	for i in 20:
+		bounty._on_mouse_entered()
+		_check(bounty.self_modulate == bounty.get_theme_color(&"hover", &"IconButton"), "Hover uses shared theme color")
+		bounty._on_mouse_exited()
+	_check(bounty.material == null and bounty.size == original_size, "Repeated hover preserves icon bounds without aura shader")
+	var node := preload("res://scenes/map/map_node_ui.tscn").instantiate() as MapNodeUI
+	add_child(node)
+	node.map_node = MapNode.new()
+	node.map_node.type = Enums.MapNodeType.MONSTER
+	node.available = true
+	node.clicked.connect(func(_data: MapNode): node.available = false)
+	_check(node.select_route(), "Available route can be entered")
+	_check(node.get_node("RouteLabel").text == "Entering", "Entry never flashes a premature cleared label")
+	_check(not node.select_route(), "Entering route rejects duplicate selection")
+	node.queue_free()
+	await get_tree().process_frame
+
+
+func _capture_production_deck() -> void:
+	var cards: Array[Card] = []
+	for folder: String in ["common", "riftwalker"]:
+		var directory := "res://resources/data/cards/" + folder
+		var files := DirAccess.get_files_at(directory)
+		files.sort()
+		for file: String in files:
+			if file.ends_with(".tres"):
+				cards.append(load(directory.path_join(file)) as Card)
+	var fixture := Control.new()
+	fixture.size = Vector2(1920, 1080)
+	add_child(fixture)
+	for first in range(0, cards.size(), 10):
+		var pile := CardPile.new()
+		for card: Card in cards.slice(first, mini(first + 10, cards.size())):
+			pile.add_card(card)
+		var view := load("res://ui/card_pile/card_pile_view.tscn").instantiate() as CardPileView
+		view.card_pile = pile
+		fixture.add_child(view)
+		view.show_current_view("Deck")
+		await _settle_ui()
+		await _capture("illustrated-deck-%d" % (first / 10 + 1))
+		view.queue_free()
+		await get_tree().process_frame
+	fixture.queue_free()
+	await get_tree().process_frame
+
+
 func _test_ui_composition() -> void:
 	var fixture := Control.new()
 	fixture.size = Vector2(1920, 1080)
@@ -312,6 +433,12 @@ func _test_ui_composition() -> void:
 	_check(face.get_theme_stylebox("panel") != shared_style, "Card state selects another theme style")
 	var other := selection.card_container.get_child(1) as CardMenuUI
 	_check(other.visuals.background_texture.get_theme_stylebox("panel") == shared_style, "Changing one card does not mutate shared styles")
+	var authored := load("res://ui/card_ui/card_visuals.tscn").instantiate() as CardVisuals
+	authored.get_node("CardBackgroundTexture").theme_type_variation = &"CardFaceModified"
+	fixture.add_child(authored)
+	authored.set_hover_outline(true)
+	authored.set_hover_outline(false)
+	_check(authored.background_texture.theme_type_variation == &"CardFaceModified", "Returning from hover preserves the face style authored in the scene")
 	fixture.queue_free()
 	await get_tree().process_frame
 
@@ -393,6 +520,60 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	Events.player_hand_drawn.disconnect(on_drawn)
 
 
+func _test_event_choices() -> void:
+	var room: EventRoom = load("res://scenes/event/event_room.tscn").instantiate()
+	add_child(room)
+	var stats: PlayerStats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	stats.health = 10
+	var run_stats := RunStats.new()
+	room.setup_event(stats, run_stats, null)
+	room._current_event = EventRoom.EVENTS[1]
+	room._populate_event()
+	_check(room.option_a_button.disabled and room.option_b_button.disabled, "Caravan disables trades without their required currency")
+	_check(room.option_a_button.text.contains("Requires 10 gold"), "Unavailable gold trade explains its requirement")
+	_check(room.option_b_button.text.contains("Requires 1 resource"), "Unavailable resource trade explains its requirement")
+	await _settle_ui()
+	await _capture("event-unaffordable")
+	room._on_option_a_pressed()
+	run_stats.resources = 1
+	_check(not room.option_b_button.disabled, "Failed gold trade preserves the alternative and updates live affordability")
+	run_stats.gold = 9
+	_check(room.option_a_button.disabled, "Gold below the price remains insufficient")
+	run_stats.gold = 10
+	_check(not room.option_a_button.disabled, "Exact gold price enables the trade without reopening the event")
+	await _settle_ui()
+	await _capture("event-affordable")
+	await _click_control(room.option_a_button)
+	_check(run_stats.gold == 0 and stats.health == 16, "Caravan salve charges ten gold and heals six HP")
+	_check(room.option_a_button.disabled and room.option_b_button.disabled, "Successful trade consumes the event choice")
+	_check(room.leave_button.has_focus(), "Resolved event moves keyboard focus to Leave")
+	room._on_option_a_pressed()
+	room._on_option_b_pressed()
+	run_stats.gold = 100
+	_check(stats.health == 16 and run_stats.resources == 1, "Repeated callbacks cannot claim another event reward")
+	_check(room.option_a_button.disabled and room.option_b_button.disabled, "Currency updates cannot reopen a resolved event")
+	await _capture("event-resolved")
+	room._populate_event()
+	run_stats.resources = 0
+	room._on_option_b_pressed()
+	_check(not room.option_a_button.disabled, "Failed resource trade preserves the affordable gold alternative")
+	run_stats.resources = 1
+	var common := run_stats.common_weight
+	var uncommon := run_stats.uncommon_weight
+	var rare := run_stats.rare_weight
+	await _click_control(room.option_b_button)
+	_check(run_stats.resources == 0, "Intel charges exactly one resource")
+	_check(is_equal_approx(run_stats.common_weight, common - 0.5) and is_equal_approx(run_stats.uncommon_weight, uncommon + 0.25) and is_equal_approx(run_stats.rare_weight, rare + 0.05), "Intel preserves the authored reward odds change")
+	room._current_event = EventRoom.EVENTS[2]
+	room._populate_event()
+	var gold := run_stats.gold
+	room._on_option_a_pressed()
+	room._on_option_a_pressed()
+	_check(run_stats.gold == gold + 25 and run_stats.resources == 1, "Free event reward can only be claimed once")
+	room.queue_free()
+	await get_tree().process_frame
+
+
 func _test_save_overwrite(run_scene: Run) -> void:
 	var first := SaveGame.load_data()
 	var health := first.player_stats.max_health
@@ -444,7 +625,7 @@ func _test_overhaul_lifetimes(sandbox: GameWorldSandbox) -> void:
 	Utils.shake(target, 5.0)
 	parent.queue_free()
 	var handler := sandbox.enemy_handler
-	var battle: BattleStats = load("res://resources/data/battles/tier_1_channelers_bulwark.tres")
+	var battle: EncounterDefinition = load("res://resources/data/battles/tier_1_channelers_bulwark.tres")
 	handler.setup_enemies(battle)
 	await get_tree().create_timer(0.05).timeout
 	var enemy := handler.get_child(0) as Enemy
@@ -692,7 +873,7 @@ func _capture_aim_and_inspection(world: GameWorld) -> void:
 			motion.global_position = screen_point
 			get_viewport().push_input(motion, true)
 		await get_tree().create_timer(0.25).timeout
-		_check(card.global_position.y >= get_viewport().get_visible_rect().size.y - 300.0, "Aiming card stays in hand zone")
+		_check(card.global_position.y >= get_viewport().get_visible_rect().size.y - card.size.y - card.aim_bottom_inset - 1.0, "Aiming card stays in hand zone")
 		var selector := get_tree().get_first_node_in_group("target_selector") as TargetSelector
 		_check(selector.targeting and selector.card_arc.get_point_count() > 1, "Aiming draws the targeting arc")
 		_check(not world.tilemap.get_node("CardTargetHighlights").active_target_highlights.is_empty(), "Aiming displays legal target outlines")

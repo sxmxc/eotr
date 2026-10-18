@@ -27,6 +27,7 @@ var last_energy_cost: int = 0
 @export var sound_fx: AudioStream
 @export var visual_fx: PackedScene
 @export var projectile_fx: PackedScene
+@export var cast_fx: PackedScene
 
 
 func is_single_targeted() -> bool:
@@ -81,6 +82,12 @@ func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHa
 
 
 func resolve_effects(resolved_targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
+	if cast_fx and DisplayServer.get_name() != "headless" and modifiers:
+		var player := modifiers.get_tree().get_first_node_in_group("player") as Player
+		if is_instance_valid(player):
+			var feedback := cast_fx.instantiate() as VisualFX
+			player.add_child(feedback)
+			feedback.execute()
 
 	if not effect_configs.is_empty():
 		var resolver := CardResolver.new()

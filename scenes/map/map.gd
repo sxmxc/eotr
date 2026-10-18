@@ -91,7 +91,6 @@ func unlock_next_map_node() -> void:
 
 func show_map() -> void:
 	$MapChrome.show()
-	$ParticlesLayer.show()
 	show()
 	ui_layer.show()
 	camera_2d.enabled = true
@@ -140,8 +139,10 @@ func _connect_lines(map_node: MapNode) -> void:
 		var new_map_line := MAP_NODE_LINE_SCENE.instantiate() as Line2D
 		new_map_line.set_meta("from_node", map_node)
 		new_map_line.set_meta("to_node", next)
-		new_map_line.add_point(map_node.position)
-		new_map_line.add_point(next.position)
+		var direction := map_node.position.direction_to(next.position)
+		var trim := minf(MapNodeUI.CONNECTION_CLEARANCE, map_node.position.distance_to(next.position) * 0.49)
+		new_map_line.add_point(map_node.position + direction * trim)
+		new_map_line.add_point(next.position - direction * trim)
 		lines.add_child(new_map_line)
 
 
@@ -189,10 +190,10 @@ func _update_bounty_board() -> void:
 		if map_node_ui.available and map_node_ui.map_node and map_node_ui.map_node.battle_stats:
 			available_nodes.append(map_node_ui.map_node)
 
-	var battle_pool: BattleStatsPool = null
+	var registry: EncounterRegistry = null
 	if map_generator:
-		battle_pool = map_generator.battle_stats_pool
-	BountySystem.ensure_contracts(run_stats, floors_climbed, available_nodes, battle_pool)
+		registry = map_generator.encounter_registry
+	BountySystem.ensure_contracts(run_stats, floors_climbed, available_nodes, registry)
 	bounty_board.update_bounties(run_stats.bounty_contracts, floors_climbed, run_stats.next_bounty_refresh_floor)
 	if get_parent() is Run:
 		bounty_board.hide()

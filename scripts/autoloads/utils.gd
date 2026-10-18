@@ -3,6 +3,19 @@ extends Node
 var _hitstop_scales: Array[float] = []
 var _hitstop_baseline: float = 1.0
 var presentation_speed := 1.0
+var _ground_offsets: Dictionary[Texture2D, Vector2] = {}
+
+func ground_sprite(sprite: Sprite2D) -> void:
+	if not sprite.texture:
+		return
+	if not _ground_offsets.has(sprite.texture):
+		var image := sprite.texture.get_image()
+		if image.is_compressed():
+			image.decompress()
+		var bounds := image.get_used_rect()
+		# The opaque artwork's bottom rests on the node origin, regardless of padding.
+		_ground_offsets[sprite.texture] = Vector2(0.0, image.get_height() * 0.5 - bounds.end.y)
+	sprite.offset = _ground_offsets[sprite.texture]
 
 func _exit_tree() -> void:
 	# Input outlives RenderingServer and otherwise retains the configured texture.

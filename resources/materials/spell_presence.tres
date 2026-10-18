@@ -1,0 +1,4 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+[ext_resource type="Shader" path="res://scripts/shaders/spell_presence.gdshader" id="shader"]
+[resource]
+shader = ExtResource("shader")

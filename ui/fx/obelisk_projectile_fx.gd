@@ -1,9 +1,8 @@
 extends ProjectileFX
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var phantom_camera_2d: PhantomCamera2D = $PhantomCamera2D
 var start: Vector2
 var end: Vector2
-var speed: float = 100.0
+var speed: float = 720.0
 var has_reached_target: bool = false
 var is_initialized: bool = false
 
@@ -22,7 +21,6 @@ func execute(target, source = null) -> void:
 		target,
 		get_parent()
 	])
-	phantom_camera_2d.priority = 100
 	# Start animation sequence
 	animated_sprite_2d.animation_finished.connect(_on_start_animation_finished, CONNECT_ONE_SHOT)
 	animated_sprite_2d.play("start")
@@ -37,8 +35,8 @@ func _physics_process(delta: float) -> void:
 	look_at(target_pos)
 	
 	# Move toward target
-	var direction = (end - position).normalized()
-	var distance_to_target = position.distance_to(end)
+	var direction = (end - global_position).normalized()
+	var distance_to_target = global_position.distance_to(end)
 	var move_distance = speed * delta
 	
 	if move_distance >= distance_to_target:
@@ -49,6 +47,8 @@ func _physics_process(delta: float) -> void:
 		global_position += direction * move_distance
 
 func _on_start_animation_finished():
+	if has_reached_target:
+		return
 	# Connect the end animation signal and play loop animation
 	animated_sprite_2d.play("loop")
 
@@ -63,7 +63,6 @@ func _on_projectile_reached_target():
 	animated_sprite_2d.play("end")
 	if visual_fx and visual_fx.has_method("execute"):
 		visual_fx.execute()
-	phantom_camera_2d.priority = 0
 	mark_complete()
 
 func _on_end_animation_finished():
@@ -74,3 +73,5 @@ func _attach_visual(target: Node) -> void:
 	if not visual_fx or not target:
 		return
 	target.add_child(visual_fx)
+	if target.has_node("ImpactAnchor"):
+		visual_fx.position = target.get_node("ImpactAnchor").position

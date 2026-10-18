@@ -3,7 +3,7 @@
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_q5376"]
 [ext_resource type="Script" uid="uid://o5nv282ngkyy" path="res://scenes/shop/shop_card.gd" id="2_ve2vk"]
 [ext_resource type="PackedScene" uid="uid://bc3nktjl4vqur" path="res://ui/card_menu_ui/card_menu_ui.tscn" id="2_w7nxn"]
-[ext_resource type="Texture2D" uid="uid://dhj5kkndltdbv" path="res://assets/icons/two-coins.svg" id="3_ve2vk"]
+[ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="3_ve2vk"]
 
 [node name="ShopCard" type="VBoxContainer" unique_id=1855532495]
 custom_minimum_size = Vector2(180, 364)

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerStats" format=3 uid="uid://b6ij5882o3liy"]
 
-[ext_resource type="Texture2D" uid="uid://b5fwi1h2q28bo" path="res://assets/icons/robot-helmet.svg" id="1_006r2"]
+[ext_resource type="Texture2D" path="res://assets/rift/entities/synthforged.webp" id="1_006r2"]
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="1_im602"]
 [ext_resource type="Resource" uid="uid://dtslrfsyrt0oq" path="res://resources/data/card_piles/synthforged_starting_dec.tres" id="3_nfhtv"]
 [ext_resource type="Resource" uid="uid://b3cnm8pclsxek" path="res://resources/data/relics/unstable_core.tres" id="4_l10xa"]

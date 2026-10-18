@@ -9,3 +9,4 @@ class_name EnemyStats
 @export var flying: bool
 @export var gold_value: int
 @export var resource_value_max: int
+@export var tactics: EnemyTactics
