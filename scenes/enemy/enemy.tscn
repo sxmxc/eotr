@@ -80,7 +80,7 @@ height = 66.0
 [sub_resource type="Resource" id="Resource_5woo5"]
 script = ExtResource("13_so3kp")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_peoo5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvxgb"]
 resource_local_to_scene = true
 shader = ExtResource("10_hvxgb")
 shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
@@ -135,7 +135,7 @@ draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GroundPresence" parent="." unique_id=1324521260 instance=ExtResource("presence")]
-material = SubResource("ShaderMaterial_peoo5")
+material = SubResource("ShaderMaterial_hvxgb")
 
 [node name="SpellOrigin" type="Marker2D" parent="." unique_id=805122027]
 position = Vector2(10, -40)

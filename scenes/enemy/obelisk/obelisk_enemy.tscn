@@ -85,7 +85,7 @@ height = 90.0
 [sub_resource type="Resource" id="Resource_fjfnb"]
 script = ExtResource("13_ysoax")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q0k6f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m853w"]
 resource_local_to_scene = true
 shader = ExtResource("15_m853w")
 shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
@@ -100,6 +100,7 @@ z_index = 4
 y_sort_enabled = true
 texture_filter = 2
 material = ExtResource("outline")
+position = Vector2(-4, -30)
 scale = Vector2(0.205, 0.205)
 texture = ExtResource("2_180ib")
 
@@ -107,6 +108,7 @@ texture = ExtResource("2_180ib")
 unique_name_in_owner = true
 visible = false
 self_modulate = Color(1, 1, 1, 0.85)
+show_behind_parent = true
 z_index = -1
 scale = Vector2(0.5335366, 0.5335366)
 texture = ExtResource("8_41nl8")
@@ -142,7 +144,7 @@ draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GroundPresence" parent="." unique_id=49715605 instance=ExtResource("presence")]
-material = SubResource("ShaderMaterial_q0k6f")
+material = SubResource("ShaderMaterial_m853w")
 
 [node name="SpellOrigin" type="Marker2D" parent="." unique_id=1192266594]
 position = Vector2(10, -57)
