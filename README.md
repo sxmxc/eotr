@@ -64,6 +64,12 @@ The [analytics backend source package](backend/telemetry/README.md) includes ing
 ClickHouse migrations, Grafana dashboards and deployment artifacts for later hosting.
 No analytics backend services were started during implementation.
 
+The backend is a Git submodule with its own repository and self-contained Docker
+build. Use `git submodule update --init backend/telemetry` to populate it in a game
+checkout, or clone `git@github.com:sxmxc/eotr-telemetry-backend.git` directly on the
+Docker host. Backend changes can be committed and pushed independently; update the
+game's submodule pointer only when recording a newer backend revision.
+
 The [implementation checklist](ai/docs/implementation-checklist.md) records all five
 deliverables, acceptance evidence and remaining validation limits.
 

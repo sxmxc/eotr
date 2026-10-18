@@ -3,6 +3,12 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "BACKEND-STANDALONE-SUBMODULE-001",
+      "status": "done",
+      "summary": "Made backend submodule self-contained with local Docker context/COPY paths, bundled event contract, local schema resolution, restricted build context and independent checkout documentation. Restored missing ClickHouse account/Grafana password fixes. Seven mocked ingestion tests and artifact checks pass from an isolated backend-only copy; Docker CLI unavailable, image build remains host validation. No services started or commits made.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "TELEMETRY-TALO-REMOVAL-GRAFANA-001",
       "status": "done",
       "summary": "Removed remaining Talo runtime/UI/export/test integration; validation uses isolated Null telemetry. Provisioned ClickHouse ingestion and Grafana accounts with environment passwords, explicit grants, bounded reader timeout changes and safe Grafana password substitution. Gameplay smoke, standalone addon, mocked ingestion and backend static checks pass; live backend authentication remains operator validation. No backend services started.",

@@ -83,6 +83,10 @@ grafana/{dashboards,provisioning}/**, compose.yaml, .env.example, README.md.
 - [x] ClickHouse versioned migration, retention, deduplicated reporting view.
 - [x] Five provisioned dashboards with game/environment/build/time/source filters.
 - [x] Dockerfile, Compose, persistent volumes, health checks, secret templates.
+- [x] Backend remains a Git submodule and builds from an independent checkout:
+  local Docker context, bundled versioned schemas, local test paths and restricted
+  build context. Backend-only temporary source copy passes ingestion and artifact
+  checks. Docker CLI is unavailable locally, so image build remains host validation.
 - [x] Follow-up: provision ingestion/reader accounts on every ClickHouse startup
   from `.env`, bound reader permissions and timeout settings, and preserve `$` passwords
   in Grafana provisioning. Static validation covers account/password/grant wiring;

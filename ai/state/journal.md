@@ -2,6 +2,22 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: independent backend submodule build**
+- Kept the `backend/telemetry` Git submodule and its remote unchanged. Switched
+  Compose/Dockerfile to backend-local paths, bundled the current event contract,
+  updated schema lookup for tests and source execution, and excluded secrets and
+  unrelated files from the Docker context. Documented independent backend commits
+  and explicit contract version coordination with the game.
+- Restored account configuration and Grafana password fixes missing from the newly
+  extracted backend repository. Artifact checks validate local Docker COPY inputs,
+  Compose context and the account/grant/password wiring, with host port assertions
+  matching the existing deployment configuration.
+- Validation: seven mocked ingestion tests and artifact checks passed both in the
+  submodule and in a temporary backend-only copy outside the game tree. Bundled
+  schemas match the game's current contract; both repositories pass diff checks.
+  Docker CLI is unavailable, so image build was not executed. No backend services
+  or containers started. Backend changes remain uncommitted in the submodule.
+
 **2026-10-17 – Codex: final Talo removal and Grafana account provisioning**
 - Removed leftover Talo calls from telemetry consent, main menu and sandbox,
   deleted identity UI/script and offline settings, and cleaned export references.

@@ -22,7 +22,9 @@ compatibility. Numeric gameplay data now remains numeric where the caller suppli
 numbers. Some legacy run/floor properties are still strings; dashboards should use
 the new encounter events for balance measures. Do not infer human win rates from QA.
 
-JSON schemas are shared directly with the backend Docker image, not copied by hand.
+The backend submodule bundles its own `schemas/events.json` contract so it can build
+without the game checkout. It matches the current game schema; introduce new event
+versions in the backend first, then update the game's schema before emitting them.
 Export presets include the schema JSON and exclude developer automation/backend tools.
 No backend is needed for gameplay or local reports. HTTP is not configured by default.
 Delivery reliability, consent purge and offline-persistence limitations are explicit
