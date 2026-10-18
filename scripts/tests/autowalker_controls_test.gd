@@ -67,6 +67,7 @@ func run() -> void:
 	await get_tree().create_timer(0.1).timeout
 	Utils.presentation_speed = 1.0
 	TelemetryManager.suspended = true
+	await Utils.stop_audio_for_shutdown()
 	print("AutoWalker controls tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
 

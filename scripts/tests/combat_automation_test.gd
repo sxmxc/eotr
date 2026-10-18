@@ -16,6 +16,7 @@ func check(value: bool, message: String) -> void:
 		printerr("FAIL: " + message)
 
 func run() -> void:
+	_test_projectile_ownership()
 	RNG.instance.seed = 42
 	var relics := RELICS.instantiate() as RelicHandler
 	add_child(relics)
@@ -90,5 +91,32 @@ func run() -> void:
 	relics.queue_free()
 	await get_tree().process_frame
 	get_tree().paused = false
+	await Utils.stop_audio_for_shutdown()
+	for audio: Node in get_tree().root.find_children("*", "AudioStreamPlayer", true, false):
+		check(not (audio as AudioStreamPlayer).playing and (audio as AudioStreamPlayer).stream == null,
+			"Shutdown releases pooled audio streams before the audio server stops")
 	print("Combat automation tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func _test_projectile_ownership() -> void:
+	var projectile := ProjectileFX.new()
+	var impact := preload("res://ui/fx/explosion_fx.tscn").instantiate() as VisualFX
+	projectile.visual_fx = impact
+	projectile.free()
+	check(not is_instance_valid(impact), "Skipped projectile frees its unattached impact particles")
+	var target := Node2D.new()
+	projectile = ProjectileFX.new()
+	impact = VisualFX.new()
+	projectile.visual_fx = impact
+	target.add_child(impact)
+	projectile.free()
+	check(is_instance_valid(impact), "Projectile teardown preserves an impact already owned by its target")
+	target.free()
+	var config := CardEffectConfig.new()
+	config.projectile_fx = preload("res://ui/fx/fireball_projectile_fx.tscn")
+	config.projectile_visual_fx = preload("res://ui/fx/explosion_fx.tscn")
+	var orphan_count := Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
+	check(CardFxRunner.new()._spawn_projectile(config, null, null) == null,
+		"Projectile creation without a valid parent fails safely")
+	check(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) == orphan_count,
+		"Failed projectile creation does not orphan its projectile or impact")

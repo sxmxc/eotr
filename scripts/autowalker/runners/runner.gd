@@ -356,6 +356,7 @@ func finish(outcome: String, reason: String = "") -> void:
 		await TelemetryManager.flush_pending()
 		write_summary()
 		if quit_when_finished:
+			await Utils.stop_audio_for_shutdown()
 			get_tree().quit()
 
 func write_summary() -> void:

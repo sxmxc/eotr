@@ -133,4 +133,5 @@ func request_quit() -> void:
 	_quitting = true
 	track_event("session_ended", {"duration_ms": Time.get_ticks_msec() - session_start_ms})
 	await flush_pending()
+	await Utils.stop_audio_for_shutdown()
 	get_tree().quit()

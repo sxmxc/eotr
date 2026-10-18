@@ -124,6 +124,7 @@ func _spawn_projectile(config: CardEffectConfig, context, target: Node2D) -> Pro
 	var parent := _resolve_parent(target, context)
 	if not parent:
 		print("[CardFxRunner] no parent for projectile; target=%s card=%s" % [target, context.card.id if context and context.card else "unknown"])
+		projectile.free()
 		return null
 
 	parent.add_child(projectile)

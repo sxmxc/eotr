@@ -4,6 +4,19 @@ var _hitstop_scales: Array[float] = []
 var _hitstop_baseline: float = 1.0
 var presentation_speed := 1.0
 
+func _exit_tree() -> void:
+	# Input outlives RenderingServer and otherwise retains the configured texture.
+	if DisplayServer.get_name() != "headless":
+		Input.set_custom_mouse_cursor(null)
+
+func stop_audio_for_shutdown() -> void:
+	# Release playback while the audio server is still mixing. Stopping only as
+	# SceneTree destroys its nodes can retain playback/stream resources at exit.
+	for audio: Node in get_tree().root.find_children("*", "AudioStreamPlayer", true, false):
+		(audio as AudioStreamPlayer).stop()
+		(audio as AudioStreamPlayer).stream = null
+	await get_tree().create_timer(0.1, true, false, true).timeout
+
 func presentation_duration(seconds: float) -> float:
 	return 0.001 if DisplayServer.get_name() == "headless" else seconds / maxf(presentation_speed, 0.1)
 

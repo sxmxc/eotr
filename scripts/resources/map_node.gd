@@ -5,7 +5,9 @@ class_name MapNode
 @export var row: int
 @export var column: int
 @export var position: Vector2
-@export var next_nodes: Array[MapNode]
+# An exported array of this same script retains its own GDScript at shutdown.
+# Keep the stored edges resource-typed; graph consumers validate/use MapNode.
+@export var next_nodes: Array[Resource] = []
 @export var selected:= false
 
 #only used by monster/boss types

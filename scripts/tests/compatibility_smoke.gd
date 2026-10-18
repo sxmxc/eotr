@@ -30,6 +30,7 @@ func _run() -> void:
 		run_scene.queue_free()
 		await get_tree().process_frame
 		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
 		get_tree().quit(1 if failures else 0)
 		return
 	for directory: String in ["res://scripts", "res://scenes", "res://resources", "res://ui"]:
@@ -157,6 +158,7 @@ func _run() -> void:
 	run_scene.queue_free()
 	await get_tree().process_frame
 	print("Compatibility smoke test: %d failures" % failures)
+	await Utils.stop_audio_for_shutdown()
 	get_tree().quit(1 if failures else 0)
 
 

@@ -7,6 +7,14 @@ signal complete
 var _completed := false
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		# The impact visual is instantiated before it is transferred to a target.
+		# Skipped/interrupted projectiles still own that otherwise orphaned node.
+		if is_instance_valid(visual_fx) and visual_fx.get_parent() == null:
+			visual_fx.free()
+
+
 func execute(_target: Node, _source: Node = null) -> void:
 	force_complete_deferred()
 
