@@ -3,6 +3,8 @@
 
 /android/
 /build
+/qa/*
+!/qa/.gdignore
 
 # Godot-specific ignores
 .import/

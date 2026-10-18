@@ -132,7 +132,7 @@ func _setup_boss_room() -> void:
 	for j in MAP_WIDTH:
 		var current_map_node = map_data[FLOORS - 2][j] as MapNode
 		if current_map_node.next_nodes:
-			current_map_node.next_nodes = [] as Array[MapNode]
+			current_map_node.next_nodes.clear()
 			current_map_node.next_nodes.append(boss_room)
 
 	boss_room.type = Enums.MapNodeType.BOSS

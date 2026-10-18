@@ -16,7 +16,7 @@ instance_dock/preview_resolution=Vector2i(64, 64)
 [application]
 
 config/name="echoes_of_the_rift"
-config/version="0.0.7.0"
+config/version="0.1.1.0"
 run/main_scene="res://scenes/splash_screens/splash_screen.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/use_filter=false
@@ -24,7 +24,7 @@ boot_splash/image="uid://cbx47wp1tythp"
 config/icon="uid://cx4gp5ik04vrd"
 config/macos_native_icon="uid://cx4gp5ik04vrd"
 config/windows_native_icon="res://assets/icons/icon.ico"
-config/build="6d139bc"
+config/build="3a3cf04"
 
 [autoload]
 

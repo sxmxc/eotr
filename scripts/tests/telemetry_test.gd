@@ -29,7 +29,7 @@ func run() -> void:
 	config.enabled = true
 	config.transport = "jsonl"
 	config.game_id = "standalone-test"
-	config.output_path = "res://build/telemetry-unit.jsonl"
+	config.output_path = "res://qa/telemetry-unit.jsonl"
 	config.queue_capacity = 2
 	client.configure(config)
 	client.register_schema("test", JSON.parse_string('{"version":1,"required":["value"],"properties":{"value":{"type":"number","minimum":0}}}'))
@@ -88,6 +88,18 @@ func run() -> void:
 	check(http.classify(0, 200, '{"accepted":0}'.to_utf8_buffer(), 1).retryable, "Ambiguous acknowledgement retries")
 	check(not http.classify(0, 400, '{}'.to_utf8_buffer(), 1).retryable, "HTTP permanent rejection")
 	check(http.classify(0, 429, '{}'.to_utf8_buffer(), 1).retryable, "HTTP rate limiting retries")
+	for response_body: String in ["", "<html>Bad gateway</html>", "not json"]:
+		var malformed: Dictionary = http.classify(HTTPRequest.RESULT_SUCCESS, 200, response_body.to_utf8_buffer(), 1)
+		check(not malformed.ok and malformed.retryable and malformed.error == "Invalid JSON acknowledgement (HTTP 200)", "Malformed success acknowledgement is handled without parser errors")
+	for response_body: String in ["null", "[]", '{"accepted":0}']:
+		var invalid: Dictionary = http.classify(HTTPRequest.RESULT_SUCCESS, 200, response_body.to_utf8_buffer(), 1)
+		check(not invalid.ok and invalid.retryable, "Invalid acknowledgement shape/count retries")
+	var unavailable: Dictionary = http.classify(HTTPRequest.RESULT_SUCCESS, 503, "<html>Unavailable</html>".to_utf8_buffer(), 1)
+	check(not unavailable.ok and unavailable.retryable and unavailable.error == "HTTP status 503", "HTML server error reports status and retries")
+	var missing: Dictionary = http.classify(HTTPRequest.RESULT_SUCCESS, 404, "Not found".to_utf8_buffer(), 1)
+	check(not missing.ok and not missing.retryable and missing.error == "HTTP status 404", "Plain-text client rejection remains permanent")
+	var disconnected: Dictionary = http.classify(HTTPRequest.RESULT_CANT_CONNECT, 0, PackedByteArray(), 1)
+	check(not disconnected.ok and disconnected.retryable and disconnected.error.contains("transport failure"), "Connection failures skip parsing and retry")
 	http.queue_free()
 	client.queue_free()
 	test_minimum_batch_boundary()

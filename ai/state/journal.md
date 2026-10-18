@@ -2,6 +2,154 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: trustworthy QA metrics, bounded storage and Grafana access**
+- Assigned unique simulation IDs before scene startup and preserved them through
+  run_started. Fresh JSONL per session and reset health counters prevent accumulated
+  launches/counter skew; comparison filters stale reports by summary session and
+  requires matching metric versions. Actual sample: 105 events after rerunning a
+  two-seed output as one seed; one current-session report selected, stale seed ignored.
+- Versioned encounter/simulation metrics as v2: actual health damage after block and
+  overkill, effective healing and net health loss are distinct; total player turns
+  span battles with final battle/floor counters separate. Updated both bundled
+  schemas, ingestion regression and dashboard queries, preserving the user's exported
+  AutoWalker dashboard layout. Deployment must update ingestion schemas first.
+- Bounded local artifacts: 8 MiB JSONL, 16 MiB compact replay trace, 32 reports/64 MiB
+  per output, global generated QA artifact retention of 14 days/256 MiB with five-second
+  launcher maintenance and active-file/replay protection. A log above 8 MiB triggers
+  bounded shutdown before trimming, retaining any script-error marker. Root confinement, no junction traversal, and
+  save/cache/unrelated-file exclusions are tested. Permanent evidence belongs outside qa/.
+- Backend delivery remains the default and all normal guide examples now use it;
+  offline is explicit. Updated stale architecture/backend statements and documented
+  official Grafana MCP with Viewer token environment configuration. Plugin discovery
+  found no Grafana connector; no credentials/configuration installed or live access claimed.
+- Verification: five launcher tests, four retention/comparison/log tests, eight mocked
+  ingestion tests, Godot health/identity/session/retention/turn tests with zero failed
+  assertions; 292 actual encounter/run events pass the canonical backend validator.
+  New run reports 10 total turns vs final battle turn 4. Full compatibility loads 531
+  resources with zero failed assertions but exits 1 on known shader/certificate and
+  four-resource shutdown diagnostics. No backend services started or contacted.
+- Live reduced-threshold log-budget check shuts Godot down normally, returns 2 and
+  writes launcher_storage_limit without leaving an orphan stop request. Log trimming
+  happens after writer shutdown so its seek offset cannot produce growing gaps.
+
+**2026-10-17 – Codex: graceful AutoWalker interruption and QA directory**
+- Confirmed the reported session ended with terminal Ctrl+C after a recorded win.
+  Isolated Godot from terminal interrupts, added a per-launch stop request handled
+  at an action boundary, retained bounded telemetry shutdown and completed reports,
+  and returned 130 without a traceback. Polling avoids Python 3.10.2's Windows
+  timed-wait retry turning a late KeyboardInterrupt into a long native wait.
+- Moved existing QA result folders, logs, AutoWalker scratch project and isolated
+  saves from build/ to qa/. Updated AutoWalker, compatibility and standalone telemetry
+  tools, scene defaults, test output paths, README and all affected documentation.
+  Git ignores generated QA data; qa/.gdignore and release filters exclude it from
+  imports/exports. Platform exports remain under build/. No directories merged or
+  existing report contents rewritten. Generated a fresh comparison in qa/.
+- Verification: five launcher lifecycle tests; simulated interruption during headless
+  play and after a rendered victory, with code 130, no static-string/navigation errors
+  and the completed report checksum unchanged; three-seed batch wins in 6/5/8 turns
+  with zero failures; migrated default-path battle wins in six turns. Standalone
+  telemetry exits 0 with zero failed assertions. Control assertions pass, but their
+  runner exits 1 on existing shutdown resource-retention diagnostics. Existing
+  certificate/headless shader and normal-renderer texture diagnostics remain.
+- Full compatibility check from qa/ exits 0, loads 531 first-party resources and
+  reports zero failed assertions, with existing shader/certificate/single-resource
+  shutdown diagnostics. The moved three-seed comparison has no outcome changes.
+- Context7 Godot 4.7 API guidance consulted. Resource guard, documentation path/link
+  checks and diff whitespace checks pass. No backend services started or contacted.
+
+**2026-10-17 – Codex: AutoWalker documentation walkthrough**
+- Added `ai/docs/autowalker.md` with an offline first-battle walkthrough, Watch controls,
+  headless batches, result interpretation, replay, progression, comparisons, option
+  defaults and troubleshooting. Linked it from the root README and architecture notes.
+- Kept implementation details and historical validation evidence in the architecture
+  document. Clarified import prerequisites, report overwrite behavior, headless-only
+  batching, Watch summary behavior and Start versus Restart/Play controls.
+- Verification: checked instructions against the launcher, comparison tool, runner and
+  Watch bindings; checked CLI help, Markdown local links and diff whitespace. Documentation
+  only; no gameplay or backend services launched and no new runtime validation claimed.
+
+**2026-10-17 – Codex: AutoWalker backend uploads alongside local QA**
+- AutoWalker now honors the configured enabled HTTP endpoint with an independent
+  addon client, QA profile/environment, bot source and shared local session/run
+  context. The local JSONL/report/replay path remains available during backend
+  failure or remote queue pressure. Remote consent and disabled settings are honored.
+- The Python launcher preserves configured telemetry by default and offers
+  --telemetry-local for offline runs. Validation retains its isolated Null config.
+  Completed batches and Watch close use a bounded 15-second multi-batch drain;
+  unresolved uploads are exposed through warning/health rather than claimed sent.
+  Watch inspector and summary.json include delivered/pending/retry/error metrics.
+- Regression uses a fake asynchronous upload transport without opening a service
+  or contacting the user's endpoint. Telemetry-only runner exits 0 with zero failed
+  assertions. Full controls assertions also pass; that run still reports existing
+  shutdown-resource diagnostics and exits 1. Headless local-only seed 1 wins in six
+  turns with zero failures/invalid actions and 105 local events delivered, none
+  pending. Existing certificate/shader/resource diagnostics remain. No backend
+  services started or live HTTP delivery claimed. User project/export/scene edits
+  were preserved.
+
+**2026-10-17 – Codex: cancel card draws when the player is removed**
+- Draw callbacks were bound to PlayerHandler and could outlive its player node.
+  Guarded draws against missing/dead/queued/detached players and hand controls,
+  retained and cancelled the draw tween on player/handler exit and replacement,
+  and prevented cancelled draw completion from advancing the player phase.
+- Added a regression that advances a draw tween deterministically, queues player
+  deletion mid-sequence, then attempts direct and zero-card draws after freeing.
+  Timing-based setup initially raced headless presentation; custom stepping makes
+  the fixture independent of frame duration. User project/export/Watch-scene
+  edits were preserved. AutoWalker telemetry routing was not changed by this fix.
+- Validation: isolated compatibility runner exited 0, loaded 531 resources and
+  reported zero failed assertions, including deletion during draw. Existing
+  certificate-store, headless shader and retained MapNode shutdown diagnostics
+  remain; no backend services were launched.
+
+**2026-10-17 – Codex: avoid Grafana HTTP server-hello timeout override**
+- The user still observed code 452 at the HTTP server handshake after the prior
+  timeout change. Driver source confirms context deadlines can overwrite custom
+  max_execution_time values with remaining seconds plus five. The previous static
+  checks did not account for this override and did not validate a live handshake.
+- Switched Grafana to internal native protocol/9000 and provisioning version 2,
+  retaining explicit 30-second timeouts, read-only grants and the 60-second ceiling.
+  Ingestion remains on HTTP, with no database ports published. Updated artifact
+  checks for native connection and five-second timeout headroom and documented
+  inspection of effective provisioning on the Docker host.
+- Backend artifact checks pass. No services launched; the deployed datasource
+  still requires operator verification after pulling and restarting Grafana.
+
+**2026-10-17 – Codex: tolerate non-JSON telemetry HTTP responses**
+- Removed unconditional JSON.parse_string from HTTP classification. Failed requests
+  and non-200 statuses now produce transport/status diagnostics without parsing
+  the response body. HTTP 200 acknowledgements use JSON.parse with explicit error
+  handling, preserving bounded retries for malformed or incomplete acknowledgements.
+- Standalone addon regressions cover empty/text/HTML responses, null/array/wrong
+  counts, 503 retries, permanent 404s and connection failures. Telemetry tests pass
+  with no JSON parser errors; the existing Windows certificate-store diagnostic
+  remains. Endpoint configuration was preserved; no backend service was launched.
+
+**2026-10-17 – Codex: Grafana timeout constraint mismatch**
+- The deployed datasource authenticated but its server handshake failed with
+  ClickHouse code 452 because max_execution_time exceeded the reader's 60-second
+  ceiling. Explicitly provisioned a 30-second query timeout and matching custom
+  connection setting, so the initial handshake also uses a permitted value.
+- Kept the server ceiling and read-only profile. Added artifact checks comparing
+  datasource timeout values to the XML constraints and documented Grafana restart.
+  Static backend checks pass; no services started or live validation performed.
+
+**2026-10-17 – Codex: independent backend submodule build**
+- Kept the `backend/telemetry` Git submodule and its remote unchanged. Switched
+  Compose/Dockerfile to backend-local paths, bundled the current event contract,
+  updated schema lookup for tests and source execution, and excluded secrets and
+  unrelated files from the Docker context. Documented independent backend commits
+  and explicit contract version coordination with the game.
+- Restored account configuration and Grafana password fixes missing from the newly
+  extracted backend repository. Artifact checks validate local Docker COPY inputs,
+  Compose context and the account/grant/password wiring, with host port assertions
+  matching the existing deployment configuration.
+- Validation: seven mocked ingestion tests and artifact checks passed both in the
+  submodule and in a temporary backend-only copy outside the game tree. Bundled
+  schemas match the game's current contract; both repositories pass diff checks.
+  Docker CLI is unavailable, so image build was not executed. No backend services
+  or containers started. Backend changes remain uncommitted in the submodule.
+
 **2026-10-17 – Codex: final Talo removal and Grafana account provisioning**
 - Removed leftover Talo calls from telemetry consent, main menu and sandbox,
   deleted identity UI/script and offline settings, and cleaned export references.

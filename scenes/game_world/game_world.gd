@@ -29,6 +29,8 @@ var rounds_until_shrink : int :
 var battle_over_handled := false
 var victory_committed := false
 var initial_health := 0
+var initial_health_damage := 0
+var initial_healing := 0
 
 func _ready():
 	game_world_ui.bind_world(player, tilemap, map_camera)
@@ -59,6 +61,8 @@ func start_world() -> void:
 	get_tree().paused = false
 	Events.enemy_died.connect(_on_enemy_died)
 	initial_health = player_stats.health
+	initial_health_damage = player_stats.total_health_damage
+	initial_healing = player_stats.total_healing
 	TelemetryManager.track_event("encounter_started", {"encounter": battle_stats.get_encounter_id(), "width": battle_stats.battle_field_width, "height": battle_stats.battle_field_height})
 	audio_stream_player = SoundManager.play_music_queue(audio_playlist,1)
 	audio_stream_player.stream_paused = false
@@ -233,7 +237,9 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 	battle_over_handled = true
 	TelemetryManager.track_event("encounter_completed", {"encounter": battle_stats.get_encounter_id(),
 		"outcome": "win" if result == BattleOverPanel.Type.WIN else "loss", "turns": current_round,
-		"damage_taken": initial_health - player_stats.health})
+		"damage_taken": player_stats.total_health_damage - initial_health_damage,
+		"net_health_loss": initial_health - player_stats.health,
+		"healing_received": player_stats.total_healing - initial_healing}, 2)
 	battle_state.end_battle()
 	if is_instance_valid(battle_presentation):
 		call_deferred("_play_battle_outro", message, result)

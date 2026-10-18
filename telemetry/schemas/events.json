@@ -202,34 +202,76 @@
       ]
     },
     "encounter_completed": {
-      "version": 1,
-      "additionalProperties": false,
-      "properties": {
-        "encounter": {
-          "type": "string",
-          "maxLength": 256
-        },
-        "outcome": {
-          "type": "string",
-          "enum": [
-            "win",
-            "loss"
+      "versions": {
+        "1": {
+          "version": 1,
+          "additionalProperties": false,
+          "properties": {
+            "encounter": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "win",
+                "loss"
+              ]
+            },
+            "turns": {
+              "type": "integer"
+            },
+            "damage_taken": {
+              "type": "integer"
+            }
+          },
+          "diagnostic": false,
+          "required": [
+            "encounter",
+            "outcome",
+            "turns",
+            "damage_taken"
           ]
         },
-        "turns": {
-          "type": "integer"
-        },
-        "damage_taken": {
-          "type": "integer"
+        "2": {
+          "version": 2,
+          "additionalProperties": false,
+          "properties": {
+            "encounter": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "win",
+                "loss"
+              ]
+            },
+            "turns": {
+              "type": "integer"
+            },
+            "damage_taken": {
+              "type": "integer"
+            },
+            "net_health_loss": {
+              "type": "integer"
+            },
+            "healing_received": {
+              "type": "integer"
+            }
+          },
+          "diagnostic": false,
+          "required": [
+            "encounter",
+            "outcome",
+            "turns",
+            "damage_taken",
+            "net_health_loss",
+            "healing_received"
+          ]
         }
-      },
-      "diagnostic": false,
-      "required": [
-        "encounter",
-        "outcome",
-        "turns",
-        "damage_taken"
-      ]
+      }
     },
     "enemy_spawned": {
       "version": 1,
@@ -353,35 +395,98 @@
       "additionalProperties": true
     },
     "simulation_completed": {
-      "version": 1,
-      "additionalProperties": false,
-      "properties": {
-        "outcome": {
-          "type": "string",
-          "maxLength": 256
+      "versions": {
+        "1": {
+          "version": 1,
+          "additionalProperties": false,
+          "properties": {
+            "outcome": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "seed": {
+              "type": "integer"
+            },
+            "policy": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "turns": {
+              "type": "integer"
+            },
+            "duration_ms": {
+              "type": "integer"
+            }
+          },
+          "diagnostic": false,
+          "required": [
+            "outcome",
+            "seed",
+            "policy",
+            "turns",
+            "duration_ms"
+          ]
         },
-        "seed": {
-          "type": "integer"
-        },
-        "policy": {
-          "type": "string",
-          "maxLength": 256
-        },
-        "turns": {
-          "type": "integer"
-        },
-        "duration_ms": {
-          "type": "integer"
+        "2": {
+          "version": 2,
+          "additionalProperties": false,
+          "properties": {
+            "outcome": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "seed": {
+              "type": "integer"
+            },
+            "policy": {
+              "type": "string",
+              "maxLength": 256
+            },
+            "turns": {
+              "type": "integer"
+            },
+            "duration_ms": {
+              "type": "integer"
+            },
+            "net_health_loss": {
+              "type": "integer"
+            },
+            "healing_received": {
+              "type": "integer"
+            },
+            "damage_taken": {
+              "type": "integer"
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "encounter",
+                "run"
+              ]
+            },
+            "last_battle_turn": {
+              "type": "integer"
+            },
+            "floors_climbed": {
+              "type": "integer"
+            }
+          },
+          "diagnostic": false,
+          "required": [
+            "outcome",
+            "seed",
+            "policy",
+            "turns",
+            "duration_ms",
+            "net_health_loss",
+            "healing_received",
+            "damage_taken",
+            "mode",
+            "last_battle_turn",
+            "floors_climbed"
+          ]
         }
-      },
-      "diagnostic": false,
-      "required": [
-        "outcome",
-        "seed",
-        "policy",
-        "turns",
-        "duration_ms"
-      ]
+      }
     },
     "simulation_action": {
       "version": 1,

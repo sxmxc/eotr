@@ -7,9 +7,13 @@ from statistics import mean
 
 def read(directory):
     records = {}
+    summary_path = Path(directory) / 'summary.json'
+    summary = json.loads(summary_path.read_text(encoding='utf-8')) if summary_path.exists() else {}
     for path in Path(directory).glob("simulation-*.json"):
         value = json.loads(path.read_text(encoding="utf-8"))
-        key = (value["seed"], value["encounter"], value["policy"], value["policy_version"], value.get("mode", "encounter"))
+        if summary.get('session_id') and value.get('session_id') != summary['session_id']:
+            continue
+        key = (value["seed"], value["encounter"], value["policy"], value["policy_version"], value.get("mode", "encounter"), value.get('metrics_version', 1))
         records[key] = value
     return records
 
@@ -18,14 +22,14 @@ def compare(before, after):
     common = sorted(before.keys() & after.keys())
     result = {"source_type": "bot", "matched_simulations": len(common), "unmatched_before": len(before.keys() - after.keys()),
               "unmatched_after": len(after.keys() - before.keys()), "metrics": {}}
-    for metric in ("turns", "damage_taken", "duration_ms", "summons", "ai_invalid_decisions", "invalid_actions"):
+    for metric in ("turns", "damage_taken", "net_health_loss", "healing_received", "duration_ms", "summons", "ai_invalid_decisions", "invalid_actions"):
         if common:
             left = mean(before[k].get(metric, 0) for k in common)
             right = mean(after[k].get(metric, 0) for k in common)
             result["metrics"][metric] = {"before": left, "after": right, "delta": right - left}
     result["outcome_changes"] = [{"seed": k[0], "policy": k[2], "before": before[k]["outcome"], "after": after[k]["outcome"]}
                                  for k in common if before[k]["outcome"] != after[k]["outcome"]]
-    result["note"] = "Descriptive matched-seed comparison; policy versions must match. Statistical changes alone are not regressions."
+    result["note"] = "Descriptive matched-seed comparison; policy and metrics versions must match. Only the latest summary session is read. Retention may remove older reports. Statistical changes alone are not regressions."
     return result
 
 

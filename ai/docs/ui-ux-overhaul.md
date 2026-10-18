@@ -139,7 +139,7 @@ and editor stay practical developer utilities.
 - Reviewed rendered menu, character, settings, map, expanded legend, relic,
   bounties, fog, combat, aim, enemy inspection, hover, ten-card unaffordable hand,
   victory and rewards. Captures live under
-  `build/compatibility-validation/overhaul-*.png`; the capture fixture now uses the
+  `qa/compatibility-validation/overhaul-*.png`; the capture fixture now uses the
   real battle-over handler before moving to rewards. Native Forward+ checks
   verify the aiming card position, targeting arc, occupied target outlines and
   screen-space inspection ownership. This is a focused encounter fixture, not a
