@@ -7,7 +7,7 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
 ## What’s In This Build
 
 - Hex map with fog, resource, corrupted, mana well, rift gate, and ruin tiles.
-- Obelisk boss objective and periodic board shrink every N rounds.
+- Active Obelisk attacks/summons, enemy-elimination victory and periodic board shrink.
 - Deck/energy system with rarities, exhaust, and status-driven modifiers.
 - Enemy AI defined by weighted/conditional actions and per-unit stats.
 - Dev sandbox for fast iteration (spawn enemies, add cards, regenerate maps).
@@ -52,6 +52,20 @@ Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blend
 - Status system: `scripts/resources/status.gd` + `ui/status_ui/status_handler.gd` manage stacks/durations; modifiers live under `scenes/modifier_handler`.
 
 ## Developer Utilities
+
+AutoWalker plays the real combat/run scenes visibly or headlessly, with random,
+greedy and stress policies, pause/step controls, replay checkpoints and local reports.
+See [AutoWalker commands and validation](ai/docs/autowalker-architecture.md).
+
+The reusable [Godot telemetry addon](addons/godot_telemetry/README.md) supports portable
+schemas, HTTP/JSONL/Null delivery and consent-aware bounded buffering. Game configuration
+and migration notes are in [telemetry architecture](ai/docs/telemetry-architecture.md).
+The [analytics backend source package](backend/telemetry/README.md) includes ingestion,
+ClickHouse migrations, Grafana dashboards and deployment artifacts for later hosting.
+No analytics backend services were started during implementation.
+
+The [implementation checklist](ai/docs/implementation-checklist.md) records all five
+deliverables, acceptance evidence and remaining validation limits.
 
 - Sandbox Dev Panel: spawn enemies, add cards, refill stats, center/zoom camera, clear fog.
 - RegistryData autoload scans registries/resources for cards and encounters.

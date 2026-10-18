@@ -1,11 +1,13 @@
 """Run actual Godot AutoWalker with isolated saves and offline Talo configuration."""
 import argparse
+import json
 import os
 from pathlib import Path
 import re
 import shutil
 import subprocess
 import sys
+import time
 from validate_project import link_directory
 
 
@@ -59,9 +61,23 @@ def main():
         command.append(f"--replay={Path(args.replay).resolve().as_posix()}")
     if args.verify_watch:
         command.append("--verify-watch")
-    result = subprocess.run(command, env=env, timeout=None if args.watch else args.count * (args.timeout + 20) + 30)
-    if not args.watch and not (output / "summary.json").exists():
-        return 1
+    started_ns = time.time_ns()
+    try:
+        result = subprocess.run(command, env=env, timeout=None if args.watch else args.count * (args.timeout + 20) + 30)
+    except subprocess.TimeoutExpired:
+        failure = {"seed": args.seed, "policy": args.policy, "policy_version": "1.0.0", "encounter": args.encounter,
+                   "mode": args.mode, "outcome": "launcher_timeout", "reason": "Godot exceeded the launcher deadline", "trace": []}
+        (output / "launcher-failure.json").write_text(json.dumps(failure, indent=2), encoding="utf-8")
+        return 2
+    if not args.watch:
+        if not (output / "summary.json").exists() or (output / "summary.json").stat().st_mtime_ns < started_ns:
+            return 1
+        summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
+        if summary.get("failures", 0):
+            return 1
+        log = (output / "godot.log").read_text(encoding="utf-8", errors="replace")
+        if "SCRIPT ERROR:" in log:
+            return 1
     return result.returncode
 
 

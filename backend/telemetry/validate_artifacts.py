@@ -15,7 +15,7 @@ def main():
         assert dashboard["panels"]
         for panel in dashboard["panels"]:
             query = panel["targets"][0]["rawSql"]
-            assert "events_deduplicated" in query and "$__timeFilter" in query
+            assert ("events_deduplicated" in query or "telemetry.ingest_health" in query) and "$__timeFilter" in query
     schemas = json.loads((ROOT.parents[1] / "telemetry/schemas/events.json").read_text())
     assert schemas["format_version"] == 1 and len(schemas["events"]) >= 30
     migrations = list((ROOT / "clickhouse/migrations").glob("*.sql"))

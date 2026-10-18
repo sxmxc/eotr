@@ -6,5 +6,5 @@
 script = ExtResource("1")
 enabled = true
 game_id = "echoes_of_the_rift"
-environment = "production"
-transport = "jsonl"
+transport = "http"
+endpoint = "http://docker01.voidmoose.local:8080"

@@ -3,6 +3,18 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "TELEMETRY-BATCH-BOUNDARY-001",
+      "status": "done",
+      "summary": "Fixed maximum-size events stalling minimum-size telemetry batches by counting commas only between events. Standalone regression reproduces the old empty-batch stall and verifies exact byte limits, FIFO acknowledgement progress and complete queue drainage after the fix.",
+      "updated": "2026-10-17"
+    },
+    {
+      "id": "COMBAT-AUTOWALKER-TELEMETRY-001",
+      "status": "done",
+      "summary": "Implemented combat victory/AI fixes, real-scene AutoWalker Watch/headless/policies/replay/run progression, standalone schema-aware telemetry addon, Talo event migration, and ingestion/ClickHouse/Grafana deployment source package. Local runtime and mocked/static backend evidence plus explicit shutdown/integration limits are recorded in ai/docs/implementation-checklist.md. No backend services started or deployed.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "UI-COMPOSITION-001",
       "status": "done",
       "summary": "Migrated first-party UI to the shared Rift theme and named variations, authored fixed visuals as native scenes, repaired reward/shop layout and activation, and split run/battle HUDs, tutorials, pause, legend and sandbox panel into owned components. Removed private child injection and UI group discovery. Native scene save/reload ownership and interaction checks pass; see ai/docs/continuous-improvement.md for validation and shutdown limits.",

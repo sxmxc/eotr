@@ -2,6 +2,41 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: telemetry minimum-batch byte boundary**
+- Count JSON separators only between events so an accepted event exactly at
+  max_event_bytes fits a batch clamped to max_event_bytes + 32, avoiding empty
+  deliveries and a permanently blocked queue head.
+- Added a standalone regression covering exact-size acceptance, one-byte-over rejection,
+  nonempty one-event batches, acknowledgement progress, FIFO order and subsequent drain.
+  Reproduced three failed assertions before the fix; the updated standalone test passes.
+
+**2026-10-17 – Codex: combat, AutoWalker, reusable telemetry and analytics source package**
+- Implemented all five deliverables tracked in `ai/docs/implementation-checklist.md`.
+  Enemy elimination replaces automatic Obelisk victory; guarded enemy turns, bounded
+  tactical movement, collapse escape, occupied movement and pure AI predicates retain
+  the existing weighted/conditional architecture and enemy roster.
+- AutoWalker uses real GameWorld/Run scenes and shared card validation, random/greedy/
+  stress policies, Watch controls and inspector, headless batches, checkpoint replay,
+  invariants and local reports. Fixed delayed hand removal/double discard, Sever Anchor
+  skipping costs/events, logical fog delays and presentation consuming gameplay RNG.
+- Added independent schema-aware Godot telemetry addon, JSONL/HTTP/Null transports,
+  bounded buffering/retries, consent controls and portable game schemas. Migrated Talo
+  event/stat delivery while preserving unrelated identity UI/APIs and opt-out cleanup.
+- Authored Python ingestion, ClickHouse migrations, Grafana dashboards/provisioning,
+  Compose/Docker source and operator guidance. No analytics services or containers
+  were started or deployed; all backend tests use mocked storage or static inspection.
+- Validation: standalone addon, combat and Watch-control assertions pass; compatibility
+  smoke reports 530 resource loads and zero failed assertions. Greedy tier-0 seeds 1–3
+  win in 6/5/8 turns; random/stress batches distinguish losses/limits from failures.
+  Native Watch replay matches a 20-action winning encounter; run automation performs
+  76 actions including route, rewards and a card draft before defeat. All 307 QA events
+  from that run pass the backend schema validator. Seven ingestion tests and static
+  artifact/resource/whitespace checks pass. Version bumped to 0.0.7.0.
+- Limits: existing certificate/shader/resource-retention shutdown diagnostics persist;
+  no complete campaign win, every optional room, large balance benchmark or release
+  export verified. Gross damage accounting, optional disk HTTP retry spool and later
+  live backend/TLS/dashboard integration limits are documented, not claimed verified.
+
 ---
 
 **2025-12-15 – Codex**

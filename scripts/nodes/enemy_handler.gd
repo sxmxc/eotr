@@ -270,5 +270,7 @@ func get_active_mobile_enemy_count() -> int:
 			continue
 		if not is_instance_valid(active_enemy):
 			continue
+		if active_enemy.is_dying or active_enemy.stats.health <= 0:
+			continue
 		count += 1
 	return count

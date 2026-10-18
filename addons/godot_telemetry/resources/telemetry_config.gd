@@ -14,6 +14,8 @@ extends Resource
 @export var max_retries := 5
 @export var retry_base_seconds := 2.0
 @export var max_file_bytes := 8388608
+@export var max_event_bytes := 16384
+@export var max_batch_bytes := 1048576
 @export_enum("strict", "warn", "off") var validation := "strict"
 @export_enum("production", "development", "qa") var profile := "production"
 @export var excluded_events: PackedStringArray = []
