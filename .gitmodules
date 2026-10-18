@@ -1,0 +1,3 @@
+[submodule "backend/telemetry"]
+	path = backend/telemetry
+	url = git@github.com:sxmxc/eotr-telemetry-backend.git
