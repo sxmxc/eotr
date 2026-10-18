@@ -14,8 +14,8 @@ const EVENTS := [
 		"title": "Drifter Caravan",
 		"body": "Nomads wave you over to trade. Their wares are worn, but their salves still sting with life.",
 		"options": [
-			{"label": "Trade 10 gold for a salve (+6 HP)", "action": "_option_caravan_heal"},
-			{"label": "Trade 1 resource for intel (+card reward odds)", "action": "_option_caravan_intel"}
+			{"label": "Trade 10 gold for a salve (+6 HP)", "action": "_option_caravan_heal", "gold_cost": 10},
+			{"label": "Trade 1 resource for intel (+card reward odds)", "action": "_option_caravan_intel", "resource_cost": 1}
 		]
 	},
 	{
@@ -38,12 +38,18 @@ var player_stats: PlayerStats
 var run_stats: RunStats
 var relic_handler: RelicHandler
 var _current_event: Dictionary
+var _choice_made := false
 
 
 func setup_event(player: PlayerStats, run: RunStats, relics: RelicHandler) -> void:
+	if run_stats:
+		run_stats.gold_changed.disconnect(_refresh_options)
+		run_stats.resources_changed.disconnect(_refresh_options)
 	player_stats = player
 	run_stats = run
 	relic_handler = relics
+	run_stats.gold_changed.connect(_refresh_options)
+	run_stats.resources_changed.connect(_refresh_options)
 	_roll_event()
 
 
@@ -64,15 +70,37 @@ func _roll_event() -> void:
 
 
 func _populate_event() -> void:
+	_choice_made = false
 	title_label.text = _current_event.get("title", "Unknown Event")
 	body_label.text = _current_event.get("body", "")
-	var options: Array = _current_event.get("options", [])
-	if options.size() >= 2:
-		option_a_button.text = options[0].get("label", "Option A")
-		option_b_button.text = options[1].get("label", "Option B")
-	option_a_button.disabled = false
-	option_b_button.disabled = false
+	_refresh_options()
 	leave_button.disabled = false
+
+
+func _refresh_options() -> void:
+	var options: Array = _current_event.get("options", [])
+	var buttons: Array[Button] = [option_a_button, option_b_button]
+	for idx in buttons.size():
+		var button := buttons[idx]
+		button.visible = idx < options.size()
+		if not button.visible:
+			continue
+		var option: Dictionary = options[idx]
+		var requirement := _unmet_requirement(option)
+		button.text = option.get("label", "Option")
+		if not _choice_made and not requirement.is_empty():
+			button.text += " — " + requirement
+		button.disabled = _choice_made or not requirement.is_empty()
+
+
+func _unmet_requirement(option: Dictionary) -> String:
+	var gold_cost: int = option.get("gold_cost", 0)
+	var resource_cost: int = option.get("resource_cost", 0)
+	if gold_cost > 0 and run_stats.gold < gold_cost:
+		return "Requires %d gold" % gold_cost
+	if resource_cost > 0 and run_stats.resources < resource_cost:
+		return "Requires %d resource" % resource_cost
+	return ""
 
 
 func _on_option_a_pressed() -> void:
@@ -84,21 +112,27 @@ func _on_option_b_pressed() -> void:
 
 
 func _run_option_by_index(idx: int) -> void:
-	var options: Array = _current_event.get("options", [])
-	if idx >= options.size():
-		_leave_event()
+	if _choice_made:
 		return
-	var action_name: String = options[idx].get("action", "")
-	if action_name != "" and has_method(action_name):
-		call(action_name)
-	_disable_inputs()
+	var options: Array = _current_event.get("options", [])
+	if idx < 0 or idx >= options.size():
+		return
+	var option: Dictionary = options[idx]
+	if not _unmet_requirement(option).is_empty():
+		_refresh_options()
+		return
+	var action_name: String = option.get("action", "")
+	if action_name.is_empty() or not has_method(action_name):
+		return
+	# Commit once before currency signals or reward callbacks can reenter.
+	_choice_made = true
+	run_stats.gold -= int(option.get("gold_cost", 0))
+	run_stats.resources -= int(option.get("resource_cost", 0))
+	call(action_name)
+	_refresh_options()
 	leave_button.text = "Leave"
 	leave_button.disabled = false
-
-
-func _disable_inputs() -> void:
-	option_a_button.disabled = true
-	option_b_button.disabled = true
+	leave_button.grab_focus()
 
 
 func _leave_event() -> void:
@@ -117,22 +151,13 @@ func _option_rift_harvest() -> void:
 
 
 func _option_caravan_heal() -> void:
-	if run_stats.gold >= 10:
-		run_stats.gold -= 10
-		body_label.text = "The salve burns before it soothes. (-10 gold, +6 HP)"
-	else:
-		body_label.text = "You lack the gold to trade."
-		return
+	body_label.text = "The salve burns before it soothes. (-10 gold, +6 HP)"
 	_heal(6)
 
 
 func _option_caravan_intel() -> void:
-	if run_stats.resources > 0:
-		run_stats.resources -= 1
-		_boost_card_weights()
-		body_label.text = "Their intel sharpens your draft instincts. (-1 resource, improved card reward odds)"
-	else:
-		body_label.text = "No spare resources to barter."
+	_boost_card_weights()
+	body_label.text = "Their intel sharpens your draft instincts. (-1 resource, improved card reward odds)"
 
 
 func _option_scout_claim() -> void:

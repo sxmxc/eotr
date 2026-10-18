@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-17",
+  "updated": "2026-10-18",
   "tasks": [
+    {
+      "id": "EVENT-CHOICE-AFFORDABILITY-001",
+      "status": "done",
+      "summary": "Fixed unsuccessful caravan trades consuming both event choices and repeat callbacks granting extra rewards. Existing costs are checked and charged once; currency signals refresh disabled buttons with requirement text, and completion focuses Leave. Regression baseline reproduced eleven failures; targeted offline headless/native and compatibility checks pass. Native event states inspected; no campaign/export QA. See ai/docs/continuous-improvement.md.",
+      "updated": "2026-10-18"
+    },
     {
       "id": "QA-METRICS-RETENTION-001",
       "status": "done",

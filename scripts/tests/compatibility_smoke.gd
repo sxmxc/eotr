@@ -15,6 +15,12 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 	RNG.instance.seed = 472001
+	if OS.get_cmdline_user_args().has("--event-room-only"):
+		await _test_event_choices()
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--ui-transactions-only"):
 		GameSettings.show_tutorial = false
 		GameSettings.telemetry_enabled = false
@@ -104,6 +110,7 @@ func _run() -> void:
 	_check(get_tree().paused and run_scene.tutorial_ui.visible, "Extracted run tutorial opens")
 	run_scene.tutorial_ui._on_button_pressed()
 	_test_save_overwrite(run_scene)
+	await _test_event_choices()
 	await _capture("map")
 	if OS.get_cmdline_user_args().has("--capture-ui"):
 		var legend := run_scene.map_legend.get_node("MapLegend")
@@ -391,6 +398,60 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	_check(drawn.signals == 0 and not handler.hand_ready, "Cancelled draws never complete the player phase")
 	_check(hand.get_child_count() == count_before, "Freed player draws leave the hand unchanged")
 	Events.player_hand_drawn.disconnect(on_drawn)
+
+
+func _test_event_choices() -> void:
+	var room: EventRoom = load("res://scenes/event/event_room.tscn").instantiate()
+	add_child(room)
+	var stats: PlayerStats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	stats.health = 10
+	var run_stats := RunStats.new()
+	room.setup_event(stats, run_stats, null)
+	room._current_event = EventRoom.EVENTS[1]
+	room._populate_event()
+	_check(room.option_a_button.disabled and room.option_b_button.disabled, "Caravan disables trades without their required currency")
+	_check(room.option_a_button.text.contains("Requires 10 gold"), "Unavailable gold trade explains its requirement")
+	_check(room.option_b_button.text.contains("Requires 1 resource"), "Unavailable resource trade explains its requirement")
+	await _settle_ui()
+	await _capture("event-unaffordable")
+	room._on_option_a_pressed()
+	run_stats.resources = 1
+	_check(not room.option_b_button.disabled, "Failed gold trade preserves the alternative and updates live affordability")
+	run_stats.gold = 9
+	_check(room.option_a_button.disabled, "Gold below the price remains insufficient")
+	run_stats.gold = 10
+	_check(not room.option_a_button.disabled, "Exact gold price enables the trade without reopening the event")
+	await _settle_ui()
+	await _capture("event-affordable")
+	await _click_control(room.option_a_button)
+	_check(run_stats.gold == 0 and stats.health == 16, "Caravan salve charges ten gold and heals six HP")
+	_check(room.option_a_button.disabled and room.option_b_button.disabled, "Successful trade consumes the event choice")
+	_check(room.leave_button.has_focus(), "Resolved event moves keyboard focus to Leave")
+	room._on_option_a_pressed()
+	room._on_option_b_pressed()
+	run_stats.gold = 100
+	_check(stats.health == 16 and run_stats.resources == 1, "Repeated callbacks cannot claim another event reward")
+	_check(room.option_a_button.disabled and room.option_b_button.disabled, "Currency updates cannot reopen a resolved event")
+	await _capture("event-resolved")
+	room._populate_event()
+	run_stats.resources = 0
+	room._on_option_b_pressed()
+	_check(not room.option_a_button.disabled, "Failed resource trade preserves the affordable gold alternative")
+	run_stats.resources = 1
+	var common := run_stats.common_weight
+	var uncommon := run_stats.uncommon_weight
+	var rare := run_stats.rare_weight
+	await _click_control(room.option_b_button)
+	_check(run_stats.resources == 0, "Intel charges exactly one resource")
+	_check(is_equal_approx(run_stats.common_weight, common - 0.5) and is_equal_approx(run_stats.uncommon_weight, uncommon + 0.25) and is_equal_approx(run_stats.rare_weight, rare + 0.05), "Intel preserves the authored reward odds change")
+	room._current_event = EventRoom.EVENTS[2]
+	room._populate_event()
+	var gold := run_stats.gold
+	room._on_option_a_pressed()
+	room._on_option_a_pressed()
+	_check(run_stats.gold == gold + 25 and run_stats.resources == 1, "Free event reward can only be claimed once")
+	room.queue_free()
+	await get_tree().process_frame
 
 
 func _test_save_overwrite(run_scene: Run) -> void:

@@ -39,6 +39,7 @@ def main() -> int:
     parser.add_argument("--autowalker-telemetry", action="store_true", help="Test bot upload/local routing with a fake transport; no backend access")
     parser.add_argument("--capture-ui", action="store_true", help="Run the native renderer offscreen and save UI captures")
     parser.add_argument("--ui-transactions-only", action="store_true", help="Run only reward and shop interaction checks")
+    parser.add_argument("--event-room-only", action="store_true", help="Run only event choice and affordability checks")
     args = parser.parse_args()
     if not args.godot or Path(args.godot).suffix.lower() in (".cmd", ".bat"):
         parser.error("Pass --godot with the Godot 4.7.2 executable path")
@@ -78,6 +79,8 @@ def main() -> int:
     log_path = root / "qa" / "compatibility-smoke.log"
     display_args = ["--windowed", "--position", "-32000,-32000", "--resolution", "1920x1080"] if args.capture_ui else ["--headless"]
     user_args = (["--capture-ui"] if args.capture_ui else []) + (["--ui-transactions-only"] if args.ui_transactions_only else [])
+    if args.event_room_only:
+        user_args.append("--event-room-only")
     if args.autowalker_telemetry:
         user_args.append("--telemetry-only")
     result = subprocess.run([
