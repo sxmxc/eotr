@@ -2,6 +2,14 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-17 – Codex: telemetry minimum-batch byte boundary**
+- Count JSON separators only between events so an accepted event exactly at
+  max_event_bytes fits a batch clamped to max_event_bytes + 32, avoiding empty
+  deliveries and a permanently blocked queue head.
+- Added a standalone regression covering exact-size acceptance, one-byte-over rejection,
+  nonempty one-event batches, acknowledgement progress, FIFO order and subsequent drain.
+  Reproduced three failed assertions before the fix; the updated standalone test passes.
+
 **2026-10-17 – Codex: combat, AutoWalker, reusable telemetry and analytics source package**
 - Implemented all five deliverables tracked in `ai/docs/implementation-checklist.md`.
   Enemy elimination replaces automatic Obelisk victory; guarded enemy turns, bounded

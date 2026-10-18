@@ -114,7 +114,8 @@ func flush() -> void:
 	var batch: Array = []
 	var bytes := 32
 	for event in queue.slice(0, config.batch_size):
-		var event_bytes := JSON.stringify(event).to_utf8_buffer().size() + 1
+		# A comma is needed only between events, not before the first event.
+		var event_bytes := JSON.stringify(event).to_utf8_buffer().size() + (0 if batch.is_empty() else 1)
 		if bytes + event_bytes > config.max_batch_bytes:
 			break
 		bytes += event_bytes

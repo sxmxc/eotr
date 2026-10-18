@@ -7,7 +7,9 @@ var failures := 0
 class FakeTransport:
 	extends Node
 	var result := {"ok": false, "retryable": true}
-	func deliver(_batch: Array) -> Dictionary:
+	var batches: Array = []
+	func deliver(batch: Array) -> Dictionary:
+		batches.append(batch.duplicate(true))
 		return result
 	func purge() -> void:
 		pass
@@ -88,5 +90,47 @@ func run() -> void:
 	check(http.classify(0, 429, '{}'.to_utf8_buffer(), 1).retryable, "HTTP rate limiting retries")
 	http.queue_free()
 	client.queue_free()
+	test_minimum_batch_boundary()
 	print("Telemetry tests: %d failures" % failures)
 	quit(1 if failures else 0)
+
+func test_minimum_batch_boundary() -> void:
+	var client := Client.new()
+	root.add_child(client)
+	var config := Config.new()
+	config.enabled = true
+	config.consent_required = false
+	config.max_event_bytes = 512
+	config.max_batch_bytes = 0
+	client.configure(config)
+	check(config.max_batch_bytes == config.max_event_bytes + 32, "Batch byte limit clamps to minimum allowance")
+	client.register_schema("boundary", {"version": 1, "properties": {"value": {"type": "string"}}})
+	check(client.record("boundary", {"value": ""}), "Boundary fixture fits event limit")
+	if client.queue.is_empty():
+		client.queue_free()
+		return
+	var padding := config.max_event_bytes - JSON.stringify(client.queue[0]).to_utf8_buffer().size()
+	client.queue.clear()
+	var props := {"value": "x".repeat(padding)}
+	check(client.record("boundary", props), "Accept exactly maximum-size event")
+	check(client.record("boundary", props), "Accept a following maximum-size event")
+	check(not client.record("boundary", {"value": "x".repeat(padding + 1)}), "Reject an event one byte over the limit")
+	if client.queue.size() != 2:
+		client.queue_free()
+		return
+	check(JSON.stringify(client.queue[0]).to_utf8_buffer().size() == config.max_event_bytes, "Fixture reaches exact serialized byte boundary")
+	var first_id: String = client.queue[0].event_id
+	var second_id: String = client.queue[1].event_id
+	client.transport.queue_free()
+	var fake := FakeTransport.new()
+	fake.result = {"ok": true}
+	client.add_child(fake)
+	client.transport = fake
+	client.flush()
+	check(fake.batches.size() == 1 and fake.batches[0].size() == 1, "Minimum-size batch delivers one maximum-size event")
+	check(client.queue.size() == 1 and client.queue[0].event_id == second_id, "Acknowledgement advances past the maximum-size head event")
+	client.flush()
+	check(client.queue.is_empty() and client.diagnostics.delivered == 2, "Following event drains on the next flush")
+	if fake.batches.size() == 2 and fake.batches[0].size() == 1 and fake.batches[1].size() == 1:
+		check(fake.batches[0][0].event_id == first_id and fake.batches[1][0].event_id == second_id, "Boundary-sized batches preserve FIFO delivery")
+	client.queue_free()

@@ -3,6 +3,12 @@
   "updated": "2026-10-17",
   "tasks": [
     {
+      "id": "TELEMETRY-BATCH-BOUNDARY-001",
+      "status": "done",
+      "summary": "Fixed maximum-size events stalling minimum-size telemetry batches by counting commas only between events. Standalone regression reproduces the old empty-batch stall and verifies exact byte limits, FIFO acknowledgement progress and complete queue drainage after the fix.",
+      "updated": "2026-10-17"
+    },
+    {
       "id": "COMBAT-AUTOWALKER-TELEMETRY-001",
       "status": "done",
       "summary": "Implemented combat victory/AI fixes, real-scene AutoWalker Watch/headless/policies/replay/run progression, standalone schema-aware telemetry addon, Talo event migration, and ingestion/ClickHouse/Grafana deployment source package. Local runtime and mocked/static backend evidence plus explicit shutdown/integration limits are recorded in ai/docs/implementation-checklist.md. No backend services started or deployed.",
