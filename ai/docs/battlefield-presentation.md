@@ -1,5 +1,38 @@
 # Battlefield presentation — 2026-10-18
 
+## Center anchoring, route readability and spell identity
+
+Unit roots, ground rings, hover markers and gate effects now share the exact hex
+center. Utils.ground_sprite caches each illustration's opaque lower edge and
+offsets the artwork so its feet rest on that origin. Idle bobbing remains relative
+to it; movement traces copy the texture offset. Picking and spell-body anchors
+were raised to match. Character scale and logical occupancy are unchanged.
+
+The route screen has opaque, aligned hex faces, smaller consistent icons, solid
+label backing and stronger current/available/locked states. A dark sidebar and
+single-line title replace the wrapping title over the illustration; background
+particles are disabled there. Route lines are trimmed at both ends and drawn
+below node faces. Map layout, progression and encounter selection are unchanged.
+
+Twenty-five cards now reference dedicated signature scenes. Six shader families
+provide cuts/ticks/tethers, expanding pressure rings, ascending flame, creeping
+corrosion, inward void shards/apertures and assembling/orbiting/rising support
+effects. Selected families retain their illustrated animation layers. Arcane Bolt
+and harvesting retain their existing distinct feedback. Overload uses a broad
+jagged discharge, Sever Anchor a split gold tether, and Void Shard uses void
+projectile artwork. Energy effects now play their configured visuals; otherwise
+silent custom utility cards have an optional cosmetic cast effect. Playback is
+bounded, releases its nodes and never gates authoritative outcomes.
+
+Validation: full headless combat regression and a short AutoWalker encounter
+passed. Focused native checks passed for exact artwork/ground contact, picking,
+fog, camera, harvest and teleport behavior, signature cleanup, and the real
+Overload/Sever/Void Shard card-resolution paths. Route checks passed for opaque
+faces, trimmed endpoints, selection guards and current/available states. Reviewed
+native battle and route captures plus a representative six-family comparison.
+Art/resource checks and diff whitespace checks passed. The temporary QA workspace
+is absent; existing source art was preserved.
+
 ## Presentation and interaction follow-up
 
 This follow-up preserves the existing tile atlas and character illustrations.

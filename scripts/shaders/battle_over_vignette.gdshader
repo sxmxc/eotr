@@ -21,7 +21,7 @@ void fragment() {
 	centered.x *= SCREEN_PIXEL_SIZE.y / SCREEN_PIXEL_SIZE.x;
 	float dist = length(centered);
 
-	float edge = smoothstep(radius - softness, radius, dist);
+	float edge = smoothstep(radius - max(softness, 0.001), radius, dist);
 
 	float t = TIME * noise_speed;
 	float n = hash(floor(uv * vec2(640.0, 360.0) + t));

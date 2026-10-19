@@ -19,14 +19,14 @@ curve = SubResource("Curve_7j1up")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a3crw"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(55, 0, 0)
+emission_shape_offset = Vector3(0, 0, 0)
 direction = Vector3(0, 0, 0)
 spread = 3.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.25
 scale_max = 0.25
 scale_curve = SubResource("CurveTexture_2gbir")
-color = Color(0.524982, 3, 2.99105, 0.471)
+color = Color(0.38, 0.85, 0.79, 0.32)
 alpha_curve = SubResource("CurveTexture_qp38b")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
@@ -35,9 +35,10 @@ anim_speed_max = 1.0
 script = ExtResource("1_qeteu")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1943041744]
-amount = 100
+amount = 28
 texture = ExtResource("2_qeteu")
-lifetime = 6.0
-speed_scale = 6.0
+lifetime = 0.28
+speed_scale = 1.0
+visibility_rect = Rect2(-96, -96, 192, 192)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_a3crw")

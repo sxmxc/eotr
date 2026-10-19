@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3]
+
 [ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_strike.gdshader" id="shader"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/arcane_impact_frames.tres" id="illustration"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/arcane_impact_frames.tres" id="art_arcane_impact"]
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -22,3 +26,19 @@ texture_filter = 2
 texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.53125, 0.53125)
+self_modulate = Color(1, 1, 1, 0.14)
+
+[node name="Illustration" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, 0)
+rotation = -0.35
+scale = Vector2(0.19, 0.16)
+sprite_frames = ExtResource("art_arcane_impact")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 0.72
+drift = Vector2(5, -2)
+final_scale = Vector2(0.8, 0.8)
+first_frame = 0
+last_frame = 7

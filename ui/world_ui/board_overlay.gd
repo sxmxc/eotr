@@ -15,17 +15,25 @@ var last_target_highlight_cells: Array[Vector2i] = []
 @onready var board: ProcGenTilemap = get_parent()
 var rounds_until_collapse := 99
 var edge: Array[Vector2i] = []
+var refresh_pending := false
 
 func _ready() -> void:
 	Events.rounds_until_shrink_updated.connect(_collapse_changed)
-	board.presentation_changed.connect(_refresh)
-	board.map_generated.connect(_refresh)
+	board.presentation_changed.connect(_schedule_refresh)
+	board.map_generated.connect(_schedule_refresh)
+
+func _schedule_refresh() -> void:
+	if refresh_pending:
+		return
+	refresh_pending = true
+	_refresh.call_deferred()
 
 func _collapse_changed(value: int) -> void:
 	rounds_until_collapse = value
 	_refresh()
 
 func _refresh() -> void:
+	refresh_pending = false
 	if not board.base_layer:
 		return
 	edge.clear()
@@ -37,6 +45,18 @@ func _refresh() -> void:
 	show_target_highlights(cells)
 	_refresh_collapse_outlines()
 	_refresh_gates()
+	queue_redraw()
+
+func _draw() -> void:
+	# Warm, thin fracture branches communicate danger; cyan filled cells are targets.
+	for cell in edge:
+		if board.is_tile_behind_fog(cell) or not board.tile_map_data.has(cell):
+			continue
+		var center := board.base_layer.map_to_local(cell)
+		var sign_x := 1.0 if posmod(cell.x + cell.y, 2) == 0 else -1.0
+		var points := PackedVector2Array([center + Vector2(25 * sign_x, 17), center + Vector2(14 * sign_x, 8), center + Vector2(17 * sign_x, 1), center + Vector2(8 * sign_x, -7)])
+		draw_polyline(points, Color(0.09, 0.035, 0.025, 0.85), 2.6, true)
+		draw_polyline(points, Color(0.91, 0.46, 0.24, 0.65), 0.7, true)
 
 func _refresh_gates() -> void:
 	for cell: Vector2i in gates.keys():

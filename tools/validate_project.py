@@ -36,6 +36,10 @@ def main() -> int:
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--combat-automation", action="store_true")
     parser.add_argument("--battlefield-only", action="store_true", help="Focused grid and Phantom Camera checks; one capture with --capture-ui")
+    parser.add_argument("--terrain-only", action="store_true", help="Native terrain boundary and collapse validation")
+    parser.add_argument("--motion-review", action="store_true", help="Record bounded native combat and collapse at 60 fps")
+    parser.add_argument("--utility-review", action="store_true", help="Focused actual Phase Step and translucent shield review")
+    parser.add_argument("--vfx-only", action="store_true", help="Focused ambient, transition, shader alpha and resource checks")
     parser.add_argument("--map-only", action="store_true", help="Focused route readability and connection checks")
     parser.add_argument("--autowalker-controls", action="store_true")
     parser.add_argument("--autowalker-telemetry", action="store_true", help="Test bot upload/local routing with a fake transport; no backend access")
@@ -43,6 +47,10 @@ def main() -> int:
     parser.add_argument("--ui-transactions-only", action="store_true", help="Run only reward and shop interaction checks")
     parser.add_argument("--event-room-only", action="store_true", help="Run only event choice and affordability checks")
     args = parser.parse_args()
+    if args.terrain_only and not args.capture_ui:
+        parser.error("--terrain-only requires --capture-ui for the native breakup checks")
+    if args.motion_review and not (args.capture_ui and args.combat_automation):
+        parser.error("--motion-review requires --capture-ui and --combat-automation")
     if not args.godot or Path(args.godot).suffix.lower() in (".cmd", ".bat"):
         parser.error("Pass --godot with the Godot 4.7.2 executable path")
     root = Path(__file__).resolve().parents[1]
@@ -80,11 +88,21 @@ def main() -> int:
         env[variable] = str(user_data)
     log_path = root / ".qa-tmp" / "compatibility-smoke.log"
     display_args = ["--windowed", "--position", "-32000,-32000", "--resolution", "1920x1080"] if args.capture_ui else ["--headless"]
+    if args.motion_review:
+        display_args = ["--windowed", "--position", "-32000,-32000", "--resolution", "1280x720", "--write-movie", str(root / ".qa-tmp/combat-motion.avi"), "--fixed-fps", "60"]
     user_args = (["--capture-ui"] if args.capture_ui else []) + (["--ui-transactions-only"] if args.ui_transactions_only else [])
     if args.event_room_only:
         user_args.append("--event-room-only")
     if args.battlefield_only:
         user_args.append("--battlefield-only")
+    if args.terrain_only:
+        user_args.extend(["--battlefield-only", "--terrain-only"])
+    if args.motion_review:
+        user_args.extend(["--battlefield-only", "--motion-review"])
+    if args.utility_review:
+        user_args.extend(["--battlefield-only", "--utility-review"])
+    if args.vfx_only:
+        user_args.append("--vfx-only")
     if args.map_only:
         user_args.append("--map-only")
     if args.autowalker_telemetry:

@@ -29,10 +29,15 @@ func perform_action() -> void:
 		Events.enemy_action_completed.emit(enemy)
 		return
 	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
-	var start := enemy.global_position
-	var end := start + start.direction_to(obelisk.global_position) * 2
+	# Flying idle also writes Sprite2D.position; pause it for the authored lunge.
+	var idle := enemy.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	var resume_idle := idle != null and idle.is_playing()
+	if resume_idle:
+		idle.pause()
+	var start := enemy.sprite_2d.position
+	var end := start + enemy.to_local(obelisk.global_position).normalized() * 4.0
 
-	tween.tween_property(enemy, "global_position", end, Utils.presentation_duration(0.4))
+	tween.tween_property(enemy.sprite_2d, "position", end, Utils.presentation_duration(0.4)).set_ease(Tween.EASE_IN)
 	tween.tween_callback(armored_status_effect.execute.bind([obelisk] as Array[Node]))
 	tween.tween_callback(
 		func():
@@ -40,10 +45,18 @@ func perform_action() -> void:
 			var heal_amount: int = min(heal_cap, missing)
 			if heal_amount > 0:
 				obelisk.stats.heal(heal_amount)
+				if DisplayServer.get_name() != "headless":
+					var mend := preload("res://ui/fx/mend_signature.tscn").instantiate() as VisualFX
+					obelisk.add_child(mend)
+					mend.execute()
 	)
 	tween.tween_interval(Utils.presentation_duration(0.25))
-	tween.tween_property(enemy, "global_position", start, Utils.presentation_duration(0.4))
+	tween.tween_property(enemy.sprite_2d, "position", start, Utils.presentation_duration(0.4)).set_ease(Tween.EASE_OUT)
 
+	tween.tween_callback(func():
+		if resume_idle and is_instance_valid(idle):
+			idle.play()
+	)
 	tween.finished.connect(
 		func(): Events.enemy_action_completed.emit(enemy)
 	)

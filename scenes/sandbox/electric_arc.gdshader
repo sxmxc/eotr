@@ -35,7 +35,7 @@ uniform float repeats:   hint_range(0.0, 50.0);
 void fragment(){
 	vec2 in_uv = UV;
 	if (inverted) {in_uv = vec2(UV.y, UV.x);} // Reverse the axes if inverted
-	in_uv.y = ((in_uv.y - .5) / scale + .5); // scale the y axis
+	in_uv.y = ((in_uv.y - .5) / max(scale, 0.001) + .5); // scale the y axis
 	
 	// Get the noise value for this point at this time
 	float repeat_x = mod(in_uv.x * repeats, 1.); // Alter the x sample position for for the number of repeats
@@ -51,5 +51,5 @@ void fragment(){
 	float gradient_offset = noise_sample*new_variation - new_variation / 2.;
 	
 	// Grab the colour from the line gradient texture offset by a varied amount
-	COLOR = texture(line_gradient, vec2((in_uv.y-0.5 )/width + 0.5 + gradient_offset/width, in_uv.x));
+	COLOR = texture(line_gradient, vec2((in_uv.y-0.5 )/max(width, 0.001) + 0.5 + gradient_offset/max(width, 0.001), in_uv.x));
 }

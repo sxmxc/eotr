@@ -1,6 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3]
+
 [ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_support.gdshader" id="shader"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/ward_assembly_frames.tres" id="illustration"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/ward_assembly_frames.tres" id="art_ward_assembly"]
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -22,3 +26,52 @@ texture_filter = 2
 texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.8125, 0.8125)
+self_modulate = Color(1, 1, 1, 0.14)
+
+[node name="Illustration" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.4)
+texture_filter = 2
+position = Vector2(0, 0)
+rotation = 0
+scale = Vector2(0.16, 0.2)
+sprite_frames = ExtResource("art_ward_assembly")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 1
+drift = Vector2(0, -4)
+final_scale = Vector2(1.1, 1.1)
+first_frame = 0
+last_frame = 7
+
+[node name="LeftPlate" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.4)
+texture_filter = 2
+position = Vector2(-18, 3)
+rotation = -0.5
+scale = Vector2(0.13, 0.17)
+sprite_frames = ExtResource("art_ward_assembly")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.08
+ends = 1
+drift = Vector2(-2, -4)
+final_scale = Vector2(1, 1)
+first_frame = 0
+last_frame = 7
+
+[node name="RightPlate" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.4)
+texture_filter = 2
+position = Vector2(18, 3)
+rotation = 0.5
+scale = Vector2(0.13, 0.17)
+sprite_frames = ExtResource("art_ward_assembly")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.16
+ends = 1
+drift = Vector2(2, -4)
+final_scale = Vector2(1, 1)
+first_frame = 0
+last_frame = 7

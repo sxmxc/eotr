@@ -147,6 +147,10 @@ func take_damage(
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	print("[Enemy] %s incoming dmg=%s mod=%s direct=%s -> modified=%s (health=%s, block=%s)" % [name, damage, which_modifier, direct, modified_damage, stats.health, stats.block])
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
+	var fully_blocked := not direct and stats.block >= modified_damage and modified_damage > 0
+	if fully_blocked:
+		profile = ImpactProfile.for_weight(ImpactProfile.Weight.LIGHT)
+		profile.tint_color = Color(0.66, 0.91, 0.94)
 	sprite_2d.material.set_shader_parameter("hit_flash", 0.65)
 	sprite_2d.self_modulate = profile.tint_color
 	if profile.hitstop_duration > 0.0 and profile.hitstop_scale < 1.0:
@@ -156,6 +160,8 @@ func take_damage(
 	text_fx.text = str(modified_damage)
 	add_child(text_fx)
 	text_fx.position = $ImpactAnchor.position
+	if fully_blocked:
+		text_fx.label.modulate = Color(0.66, 0.91, 0.94)
 	text_fx.execute()
 	if profile.decal_scene:
 		var decal: VisualFX = profile.decal_scene.instantiate()

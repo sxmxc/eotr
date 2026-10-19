@@ -31,6 +31,17 @@
 [ext_resource type="PackedScene" path="res://ui/world_ui/game_world_ui.tscn" id="battle_hud"]
 [ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
 [ext_resource type="PackedScene" uid="uid://cqdnmgot1dc0c" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
+[ext_resource type="Script" path="res://ui/world_ui/terrain_depth.gd" id="terrain_depth"]
+[ext_resource type="Shader" path="res://scripts/shaders/terrain_surface.gdshader" id="terrain_shader"]
+[ext_resource type="Shader" path="res://scripts/shaders/tile_target_highlight.gdshader" id="movement_shader"]
+[ext_resource type="Texture2D" path="res://assets/rift/environment/rift_void.webp" id="void_plate"]
+[ext_resource type="Shader" path="res://scripts/shaders/rift_void.gdshader" id="void_shader"]
+
+[sub_resource type="ShaderMaterial" id="void_material"]
+shader = ExtResource("void_shader")
+
+[sub_resource type="ShaderMaterial" id="terrain_surface"]
+shader = ExtResource("terrain_shader")
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -54,11 +65,18 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.985437, 0.490291)
 repeat = 2
 
+[sub_resource type="ShaderMaterial" id="movement_material"]
+shader = ExtResource("movement_shader")
+shader_parameter/HighlightColor = Color(0.29, 0.75, 0.67, 1)
+shader_parameter/MinAlpha = 0.08
+shader_parameter/MaxAlpha = 0.14
+shader_parameter/OutlineWidth = 0.022
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udifo"]
 texture = ExtResource("42_0am1i")
 texture_region_size = Vector2i(64, 64)
 3:1/0 = 0
-3:1/0/modulate = Color(0.0913577, 1, 0, 0.523)
+3:1/0/material = SubResource("movement_material")
 
 [sub_resource type="TileSet" id="TileSet_qnbvx"]
 tile_shape = 3
@@ -100,26 +118,29 @@ draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="ParallaxBackgroundNode" type="Node2D" parent="." unique_id=1130594946]
+z_index = -10
 
 [node name="ParallaxBackground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1807066080]
 physics_interpolation_mode = 1
 scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(1280, 1280)
 repeat_size = Vector2(2560, 2560)
-autoscroll = Vector2(10, -20)
+autoscroll = Vector2(1, -2)
 
 [node name="ColorRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxBackground" unique_id=663436897]
+material = SubResource("void_material")
 custom_minimum_size = Vector2(2560, 2560)
 offset_right = 2560.0
 offset_bottom = 2560.0
 mouse_filter = 2
-texture = SubResource("GradientTexture2D_ht6dc")
+texture = ExtResource("void_plate")
 
 [node name="ParallaxMidground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1907417246]
+visible = false
 physics_interpolation_mode = 1
 scroll_scale = Vector2(0.25, 0.25)
 repeat_size = Vector2(2560, 2560)
-autoscroll = Vector2(-5, 5)
+autoscroll = Vector2(-0.6, 0.6)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxMidground" unique_id=1139902666]
 modulate = Color(0.3, 0.5, 0.5, 0.28)
@@ -129,10 +150,11 @@ mouse_filter = 2
 texture = ExtResource("39_lorak")
 
 [node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1050922327]
+visible = false
 physics_interpolation_mode = 1
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(2560, 2560)
-autoscroll = Vector2(5, -5)
+autoscroll = Vector2(0.9, -0.9)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackgroundNode/ParallaxForeground" unique_id=712939182]
 modulate = Color(0.5, 0.42, 0.3, 0.2)
@@ -158,7 +180,12 @@ mana_weight = 1
 warp_weight = 1
 ruin_tile_effects = Array[ExtResource("12_3lu4o")]([ExtResource("13_wc6i6"), ExtResource("14_u6b8t"), ExtResource("15_g77xe"), ExtResource("16_p5igc"), ExtResource("17_3u2ga"), ExtResource("18_dc582"), ExtResource("19_dpyoc")])
 
+[node name="TerrainDepth" type="Node2D" parent="Tilemap"]
+z_index = -1
+script = ExtResource("terrain_depth")
+
 [node name="BaseLayer" type="TileMapLayer" parent="Tilemap" unique_id=1805553683]
+material = SubResource("terrain_surface")
 modulate = Color(0.78, 0.85, 0.88, 1)
 tile_set = ExtResource("1_tqoos")
 

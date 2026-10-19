@@ -1,21 +1,14 @@
 [gd_scene format=3 uid="uid://cibke4ls75caw"]
 
-[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="hex_atlas"]
-
 [ext_resource type="Script" uid="uid://pavih4tqan8i" path="res://scenes/game_world/movement_target_selector/movement_target_selector.gd" id="1_6f7n0"]
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_ehu6f"]
-[ext_resource type="PackedScene" uid="uid://wes3rheva03s" path="res://ui/fx/electric_arc_projectile_fx.tscn" id="3_vfed1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_stkcn"]
-atlas = ExtResource("hex_atlas")
-region = Rect2(192, 64, 64, 64)
+[ext_resource type="PackedScene" path="res://ui/fx/discharge_projectile_fx.tscn" id="3_vfed1"]
+[ext_resource type="PackedScene" path="res://ui/world_ui/target_highlight.tscn" id="highlight"]
 
 [node name="MovementTargetSelector" type="Node2D" unique_id=2037679228]
 script = ExtResource("1_6f7n0")
 
-[node name="HexIndicator" type="Sprite2D" parent="." unique_id=1040261360]
-self_modulate = Color(0.380392, 1, 0.262745, 0.580392)
-texture = SubResource("AtlasTexture_stkcn")
+[node name="HexIndicator" parent="." instance=ExtResource("highlight")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=470035443]
 

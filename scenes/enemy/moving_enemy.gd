@@ -153,11 +153,12 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 	move_tween = create_tween()
 	move_tween.set_trans(Tween.TRANS_SINE)
 	move_tween.set_ease(Tween.EASE_OUT)
+	var resting_scale := sprite_2d.scale
 
 	move_tween.tween_property(
-		self,
+		sprite_2d,
 		"scale",
-		Vector2(1.04, 1.04),
+		resting_scale * 1.04,
 		Utils.presentation_duration(move_duration * 0.5)
 	)
 
@@ -169,9 +170,9 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 	)
 
 	move_tween.tween_property(
-		self,
+		sprite_2d,
 		"scale",
-		Vector2.ONE,
+		resting_scale,
 		Utils.presentation_duration(move_duration * 0.25)
 	)
 

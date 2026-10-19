@@ -1,6 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3]
+
 [ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_void.gdshader" id="shader"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="illustration"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="art_rift_implosion"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/void_projectile_frames.tres" id="art_void_projectile"]
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -22,3 +27,64 @@ texture_filter = 2
 texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.875, 0.875)
+self_modulate = Color(1, 1, 1, 0.14)
+
+[node name="Illustration" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, 0)
+rotation = 0
+scale = Vector2(0.19, 0.21)
+sprite_frames = ExtResource("art_rift_implosion")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 0.55
+drift = Vector2(0, -4)
+final_scale = Vector2(0.5, 0.5)
+first_frame = 0
+last_frame = 7
+
+[node name="ShardLeft" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-4, -3)
+rotation = -1.9
+scale = Vector2(0.11, 0.15)
+sprite_frames = ExtResource("art_void_projectile")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.18
+ends = 1
+drift = Vector2(-20, -25)
+final_scale = Vector2(0.7, 0.7)
+first_frame = 3
+last_frame = 3
+
+[node name="ShardCrown" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, -4)
+rotation = -1.57
+scale = Vector2(0.13, 0.17)
+sprite_frames = ExtResource("art_void_projectile")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.24
+ends = 1
+drift = Vector2(0, -33)
+final_scale = Vector2(0.7, 0.7)
+first_frame = 3
+last_frame = 3
+
+[node name="ShardRight" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(4, -3)
+rotation = -1.2
+scale = Vector2(0.11, 0.15)
+sprite_frames = ExtResource("art_void_projectile")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.3
+ends = 1
+drift = Vector2(20, -25)
+final_scale = Vector2(0.7, 0.7)
+first_frame = 3
+last_frame = 3

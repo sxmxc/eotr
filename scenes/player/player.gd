@@ -55,6 +55,10 @@ func take_damage(
 		
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
+	var fully_blocked := not direct and stats.block >= modified_damage and modified_damage > 0
+	if fully_blocked:
+		profile = ImpactProfile.for_weight(ImpactProfile.Weight.LIGHT)
+		profile.tint_color = Color(0.66, 0.91, 0.94)
 	var cam: Node2D = get_tree().get_first_node_in_group("map_camera")
 	sprite_2d.material.set_shader_parameter("hit_flash", 0.65)
 	sprite_2d.self_modulate = profile.tint_color
@@ -65,6 +69,8 @@ func take_damage(
 	text_fx.text = str(modified_damage)
 	add_child(text_fx)
 	text_fx.position = $ImpactAnchor.position
+	if fully_blocked:
+		text_fx.label.modulate = Color(0.66, 0.91, 0.94)
 	text_fx.execute()
 	if profile.decal_scene:
 		var decal: VisualFX = profile.decal_scene.instantiate()
@@ -94,11 +100,11 @@ func take_damage(
 func _on_position_updated(pos: Vector2) -> void:
 	_spawn_phase_trace()
 	pending_effects += 1
-	var og_scale = scale
+	var og_scale := sprite_2d.scale
 	var tween = create_tween()
-	tween.tween_property(self, "scale", scale * 1.04,.1)
+	tween.tween_property(sprite_2d, "scale", og_scale * 1.04,.1)
 	tween.parallel().tween_property(self, "position", pos, Utils.presentation_duration(.2))
-	tween.tween_property(self, "scale", og_scale,.1)
+	tween.tween_property(sprite_2d, "scale", og_scale,.1)
 	tween.tween_callback(
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)

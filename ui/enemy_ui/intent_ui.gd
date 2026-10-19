@@ -5,6 +5,7 @@ extends Control
 @onready var intent_label: Label = $IntentLabel
 
 var _intent : Intent
+var pulse: Tween
 
 func update_intent(intent: Intent) -> void:
 	if not intent:
@@ -52,6 +53,9 @@ func _apply_accent() -> void:
 
 
 func _pulse() -> void:
-	var tween := create_tween()
-	tween.tween_property(self, "scale", Vector2(1.04, 1.04), 0.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	if pulse and pulse.is_valid():
+		pulse.kill()
+	scale = Vector2.ONE
+	pulse = create_tween()
+	pulse.tween_property(self, "scale", Vector2(1.04, 1.04), 0.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	pulse.tween_property(self, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)

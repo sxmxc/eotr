@@ -82,6 +82,13 @@ func _run() -> void:
 	await _test_battle_presentation()
 	if DisplayServer.get_name() != "headless":
 		await _test_shader_fades()
+	if OS.get_cmdline_user_args().has("--vfx-only"):
+		if DisplayServer.get_name() != "headless":
+			await _test_lunge_presentation()
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	GameSettings.show_tutorial = false
 	GameSettings.telemetry_enabled = false
 	TelemetryManager.track_event("compatibility_test", {"amount": 3, "duration": 1.25})
@@ -662,6 +669,50 @@ func _test_telemetry_event_contract() -> void:
 	_check(TelemetryManager.client.queue.is_empty(), "Opt-out prevents subsequent recording")
 
 
+func _test_lunge_presentation() -> void:
+	GameSettings.show_tutorial = false
+	var relics := load("res://scenes/relic_handler/relic_handler.tscn").instantiate() as RelicHandler
+	add_child(relics)
+	var world := load("res://scenes/game_world/game_world.tscn").instantiate() as GameWorld
+	add_child(world)
+	world.player_stats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	world.run_stats = RunStats.new()
+	world.battle_stats = load("res://resources/data/battles/tier_1_channelers_bulwark.tres").duplicate(true)
+	world.relics = relics
+	world.start_world()
+	world.tilemap.hide_fog()
+	await get_tree().create_timer(0.6).timeout
+	world.player.stats.block = 1000
+	var actor: MovingEnemy
+	for unit in world.enemy_handler.get_children():
+		if unit is MovingEnemy and unit.flying:
+			actor = unit
+			break
+	_check(actor != null, "Native attack fixture includes a flying actor")
+	if actor:
+		for path: String in ["bat/bat_enemy_attack_action", "blob/blob_attack_action", "horror/horror_attack_action", "bulwark/bulwark_cleave_action", "wasp/wasp_enemy_attack_action", "void_spectre/void_spectre_attack_action"]:
+			var action := load("res://scenes/enemy/%s.gd" % path).new() as EnemyAction
+			action.enemy = actor
+			action.target = world.player
+			action.intent = Intent.new()
+			action.visual_fx = load("res://ui/fx/claw_slash_fx.tscn")
+			if path.begins_with("wasp/"):
+				action.set("curse_fx_scene", load("res://ui/fx/curse_fx.tscn"))
+			actor.add_child(action)
+			var origin := actor.global_transform
+			var health := world.player.stats.health
+			action.perform_action()
+			await get_tree().create_timer(0.2).timeout
+			_check(actor.global_transform.is_equal_approx(origin), "Attack windup preserves the authoritative entity transform: %s" % path)
+			_check(not actor.animation_player.is_playing(), "Flying idle cannot overwrite the active lunge: %s" % path)
+			await get_tree().create_timer(1.4).timeout
+			_check(actor.animation_player.is_playing(), "Attack restores flying idle: %s" % path)
+			_check(world.player.stats.health == health, "Fully blocked native attack preserves health: %s" % path)
+			action.queue_free()
+	world.queue_free()
+	relics.queue_free()
+	await get_tree().process_frame
+
 func _test_ambient_particles() -> void:
 	var texture := load("res://resources/vfx/menu_emission_points.res") as ImageTexture
 	_check(texture != null, "Load binary emission texture")
@@ -685,6 +736,7 @@ func _test_ambient_particles() -> void:
 		_check(particles.get_node("GPUParticles2D5").position.x == cases[path][2], "Preserve left emitter position: %s" % path)
 		for emitter: GPUParticles2D in particles.get_children():
 			_check(emitter.process_material.emission_point_texture == texture, "Share emission texture: %s" % path)
+			_check(emitter.amount <= 8 and emitter.process_material.initial_velocity_max <= 4.0, "Ambient presentation stays within the quiet-motion budget: %s" % path)
 		scene.free()
 
 

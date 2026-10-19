@@ -162,6 +162,8 @@ func set_rounds_until_shrink(value: int) -> void:
 	Events.rounds_until_shrink_updated.emit(rounds_until_shrink)
 
 func shrink_game_board(amount: int = 1) -> void:
+	if DisplayServer.get_name() != "headless":
+		Utils.shake(map_camera, 12.0, 0.2)
 	Events.world_message_requested.emit(
 		WorldMessageData.new(
 			"The void consumes",

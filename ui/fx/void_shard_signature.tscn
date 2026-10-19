@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3]
+
 [ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_void.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/void_projectile_frames.tres" id="illustration"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="illustration"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="art_rift_implosion"]
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -24,9 +27,19 @@ texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.578125, 0.578125)
 
+self_modulate = Color(1, 1, 1, 0.14)
+
 [node name="Illustration" type="AnimatedSprite2D" parent="."]
 texture_filter = 2
-modulate = Color(1, 1, 1, 0.85)
-scale = Vector2(0.17, 0.17)
-sprite_frames = ExtResource("illustration")
+position = Vector2(0, 0)
+rotation = 0.7
+scale = Vector2(0.24, 0.3)
+sprite_frames = ExtResource("art_rift_implosion")
 animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 1
+drift = Vector2(0, 0)
+final_scale = Vector2(0.7, 0.7)
+first_frame = 0
+last_frame = 7
