@@ -279,10 +279,12 @@ launcher’s own option list with `python tools/run_autowalker.py --help`.
 | `--verify-watch` | Off | Rendered check with capture and automatic exit. Use instead of `--watch`. |
 | `--telemetry-local` | Off | Keep telemetry local without contacting the configured backend. |
 | `--mode encounter\|run` | `encounter` | One battle or run progression. |
+| `--loadout tier\|starter\|tier_0\|tier_1\|tier_2\|legacy` | `tier` | Encounter build. `tier` selects the preset matching the encounter's tier; `starter` is equivalent to `tier_0`; `legacy` uses the old starter deck without relics. Explicit overrides require encounter mode. See [Choose encounter loadouts](#choose-encounter-loadouts) for preset contents. |
+| `--health-percent N` | `100` | Starting encounter health as an integer percentage of maximum, from 1 to 100. Overrides require encounter mode. |
 | `--encounter PATH` | `res://resources/data/battles/tier_1_channelers_bulwark.tres` | BattleStats resource for encounter mode. The introductory examples use the easier tier-0 blobs instead. |
 | `--policy greedy\|random\|stress` | `greedy` | Greedy scores useful actions; random ranks legal actions randomly; stress favors movement and board edges. |
 | `--seed N` | `1` | Starting simulation seed. |
-| `--count N` | `1` | Number of sequential simulations in headless mode, incrementing the seed each time. |
+| `--count N` | `1` | Number of sequential simulations in headless mode, incrementing the seed each time. With `--all-encounters`, this is the number of seeds per encounter. |
 | `--max-turns N` | `50` | Cumulative player-turn limit across the simulation. |
 | `--max-actions N` | `500` | Maximum completed bot actions per simulation. |
 | `--max-actions-per-turn N` | `100` | Guard against bot cycling within one turn/progression step. |
