@@ -16,6 +16,8 @@ func _ready() -> void:
 	client = Client.new()
 	add_child(client)
 	var config_path: String = ProjectSettings.get_setting("telemetry/config_path", "res://telemetry/config/production.tres")
+	if OS.get_cmdline_user_args().has("--validation-local"):
+		config_path = "res://scripts/tests/telemetry_null.tres"
 	if config_path.is_empty():
 		config_path = "res://telemetry/config/production.tres"
 	var settings: Resource = load(config_path) if ResourceLoader.exists(config_path) else Config.new()

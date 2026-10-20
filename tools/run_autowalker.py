@@ -3,13 +3,11 @@ import argparse
 import json
 import os
 from pathlib import Path
-import re
-import shutil
 import subprocess
 import sys
 import time
 import uuid
-from validate_project import link_directory
+import tempfile
 from qa_storage import MAX_LOG_BYTES, maintain_qa
 
 
@@ -58,7 +56,7 @@ def run_godot(command, env, timeout, stop_file, maintenance=None):
         stop_file.unlink(missing_ok=True)
 
 
-def main():
+def run(temporary):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", required=True)
     parser.add_argument("--watch", action="store_true")
@@ -73,35 +71,18 @@ def main():
     parser.add_argument("--max-actions", type=int, default=500)
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--encounter", default="res://resources/data/battles/tier_1_channelers_bulwark.tres")
-    parser.add_argument("--output", default=".qa-tmp/autowalker")
+    parser.add_argument("--output", default="qa/autowalker")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    project = root / ".qa-tmp/autowalker-project"
-    cache = project / ".godot"
-    cache.mkdir(parents=True, exist_ok=True)
-    (root / ".qa-tmp/.gdignore").touch()
-    for directory in ("addons", "assets", "resources", "scenes", "scripts", "ui", "telemetry"):
-        link_directory(root / directory, project / directory)
-    link_directory(root / ".godot/imported", cache / "imported")
-    for filename in ("uid_cache.bin", "global_script_class_cache.cfg"):
-        shutil.copy2(root / ".godot" / filename, cache / filename)
-    for filename in ("default_bus_layout.tres", "icon.svg", "icon.svg.import"):
-        shutil.copy2(root / filename, project / filename)
-    config = (root / "project.godot").read_text(encoding="utf-8")
-    config = re.sub(r'^config/name=.*$', 'config/name="eotr_autowalker"', config, flags=re.M)
-    config = re.sub(r'^config/(use_custom_user_dir|custom_user_dir)=.*\n?', '', config, flags=re.M)
-    if args.telemetry_local:
-        config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
-        config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
-    (project / "project.godot").write_text(config, encoding="utf-8")
-    userdata = root / ".qa-tmp/autowalker-userdata"
-    userdata.mkdir(exist_ok=True)
+    project = root
+    userdata = temporary / "userdata"
+    userdata.mkdir()
     env = os.environ.copy()
     for name in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
         env[name] = str(userdata)
     output = (root / args.output).resolve()
-    if root / '.qa-tmp' not in output.parents and output != root / '.qa-tmp':
-        parser.error('--output must be inside the repository .qa-tmp/ directory for bounded retention')
+    if root / 'qa' not in output.parents and output != root / 'qa':
+        parser.error('--output must be inside the repository qa/ directory for bounded retention')
     output.mkdir(parents=True, exist_ok=True)
     stop_file = output / f".stop-{uuid.uuid4().hex}"
     storage_stop_at = None
@@ -109,7 +90,7 @@ def main():
     def maintenance(active=True):
         nonlocal storage_stop_at
         # Never truncate a file while Godot's writer still owns its seek offset.
-        maintain_qa(root / '.qa-tmp', output, args.replay, trim_log=not active)
+        maintain_qa(root / 'qa', output, args.replay, trim_log=not active)
         log = output / 'godot.log'
         if active and log.exists() and log.stat().st_size > MAX_LOG_BYTES:
             if storage_stop_at is None:
@@ -127,6 +108,7 @@ def main():
     command.append(f"--output={output.as_posix()}")
     if args.telemetry_local:
         command.append("--telemetry-local")
+        command.append("--validation-local")
     if args.replay:
         command.append(f"--replay={Path(args.replay).resolve().as_posix()}")
     if args.verify_watch:
@@ -159,6 +141,11 @@ def main():
         if "SCRIPT ERROR:" in log:
             return 1
     return returncode
+
+
+def main():
+    with tempfile.TemporaryDirectory(prefix="eotr-autowalker-") as directory:
+        return run(Path(directory))
 
 
 if __name__ == "__main__":

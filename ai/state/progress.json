@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "ENEMY-LUNGE-DIRECT-QA-001",
+      "status": "done",
+      "summary": "Seven owned lunge tweens cancel pending hits/completion/residue and restore sprite/idle. Six baseline failures; focused headless/native real-project checks pass, including partial Horror resolution. Removed duplicate project/junction setup from four runner tools; auto-clean system-temp data. Removed .qa-tmp and obsolete operating guidance. Telemetry and nine Python checks pass. Movement/status cancellation and campaign save/resume remain.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "EVENT-HP-COST-001",
       "status": "done",
       "summary": "Rift Echo four-HP cost uses existing direct damage, bypassing leftover block. Focused real-button checks cover 0/2/10 block, damage accounting and one-time rewards. Eight baseline failures; final focused headless run passes. Low-health event/death flow remains a separate candidate.",

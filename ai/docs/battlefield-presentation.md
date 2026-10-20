@@ -138,9 +138,10 @@ store diagnostic; validation used Null/local telemetry. The existing offset/cube
 distance helper disagrees with TileMap adjacency in some cases; its rules were
 left intact, with tests verifying unchanged adjacency and conversion round trips.
 
-All task logs, captures, isolated projects and test saves were confined to ignored
-`.qa-tmp/` and removed after validation. Launcher/validator defaults and the
-AutoWalker runner now use that workspace. No pre-existing `qa/` data was deleted.
+Historical task artifacts were removed after validation. The launcher and validator
+now run the original project directly; duplicate project trees and junction workspaces
+are prohibited. Disposable saves/logs use automatically cleaned system temp storage.
+No pre-existing `qa/` data was deleted.
 Only `qa/.gdignore` is tracked there. Candidate cleanup: generated `visual-*`,
 `followup-*`, `rift-*`, `overhaul-*` logs/screenshots/source metadata and comparison
 reports. Review/save any desired regression evidence before deleting. Treat

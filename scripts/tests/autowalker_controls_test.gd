@@ -41,7 +41,7 @@ func run() -> void:
 	var runner = watch.get_node("Runner")
 	runner.automatic_start = false
 	runner.quit_when_finished = false
-	runner.output = "res://qa/controls-test"
+	runner.output = "user://qa/controls-test"
 	add_child(watch)
 	await runner.start()
 	runner.paused = true
@@ -86,7 +86,7 @@ func test_health_metrics() -> void:
 
 func test_report_retention() -> void:
 	var runner = load("res://scripts/autowalker/runners/runner.gd").new()
-	runner.output = "res://qa/report-retention-test"
+	runner.output = "user://qa/report-retention-test"
 	runner.simulation_seed = 39
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(runner.output))
 	for index in 40:
@@ -110,7 +110,7 @@ func test_qa_upload() -> void:
 	config.retry_base_seconds = 0.01
 	var old_consent := GameSettings.telemetry_enabled
 	GameSettings.telemetry_enabled = true
-	var path := "res://qa/qa-upload-test.jsonl"
+	var path := "user://qa-upload-test.jsonl"
 	TelemetryManager.configure_qa(path, config)
 	var upload: Node = TelemetryManager.qa_upload
 	upload.set_process(false)

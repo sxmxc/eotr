@@ -100,11 +100,10 @@ After importing the project in Godot 4.7.2, run:
 python tools/validate_project.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe
 ```
 
-Use your own executable path. The runner uses a separate project configuration and save directory under `qa/`, with Null telemetry delivery and no backend access. It checks first-party resource loading, telemetry consent and event recording, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
+Use your own executable path. The runner tests this project directly, with Null telemetry delivery and disposable saves/logs in the system temp directory, automatically removed afterward. Never copy or junction the project into a nested test workspace. It checks first-party resource loading, telemetry consent and event recording, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
 
-QA reports, logs, captures, temporary test projects and isolated saves live under
-`qa/`. AutoWalker defaults to `qa/autowalker/`; compatibility checks use
-`qa/compatibility-validation/`, and standalone addon tests use `qa/telemetry-standalone/`.
+AutoWalker reports default to `qa/autowalker/`. Compatibility checks run against
+the original project; disposable logs, captures and saves use system temp storage.
 Generated QA files are ignored by Git and Godot imports and excluded from release
 exports. Packaged Windows, Linux and macOS exports remain under `build/`.
 
@@ -119,7 +118,7 @@ exports. Packaged Windows, Linux and macOS exports remain under `build/`.
 ├── scripts/              # Core GDScript code
 ├── script_templates/     # GDScript templates
 ├── ui/                   # User interface and HUD
-├── qa/                   # Generated QA reports, test projects, logs and isolated saves
+├── qa/                   # Explicitly generated AutoWalker reports
 ├── build/                # Packaged game exports
 └── README.md
 ```

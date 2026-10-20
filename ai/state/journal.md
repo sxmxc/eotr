@@ -2,6 +2,12 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-20 - Cancel enemy lunges; remove duplicate test projects**
+- Seven lunge actions now own cancellable tweens; cancellation restores sprite/idle and stops pending hits/completion/residue. Six baseline failures; focused headless/native real-project checks pass, including Horror cancellation between hits. Full headless combat passed before runner changes.
+- Removed project/junction construction from validation, AutoWalker, visual capture and telemetry tools. Use the original project and auto-cleaned system-temp user data; captures no longer write into res://. Removed this session's .qa-tmp and obsolete operating guidance. Duplicate test projects are prohibited per user instruction.
+- Telemetry, nine Python tests, syntax, resource and whitespace checks pass. No manual visual, full post-runner-change combat, campaign or export QA. Follow up on movement/status coroutines and multi-floor save/resume.
+
+
 **2026-10-18 - Codex: actual Phase Step phasing and translucent shields**
 - User confirmed Arcane Bolt appeared changed after editor resource refresh. Fresh process probe confirms card and UID both resolve to the animated projectile, with no old ElectricArcFX child. No broad cache deletion performed; the precise editor refresh cause is unproven.
 - Replaced Phase Step's rejected floor slash with an actual player sprite fade-out, mid-step hold and fade-in at arrival, plus two dissolving snapshots of the actual moved illustration. Reads authoritative movement events; does not change movement/collision/board timing. Cancellation restores opacity; completed old effects relinquish opacity ownership so a later cast cannot be reset by cleanup.

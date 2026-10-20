@@ -14,6 +14,33 @@ enum Type {CONDITIONAL, CHANCE_BASED}
 
 var enemy: Enemy
 var target: Node2D
+var lunge_tween: Tween
+var lunge_start := Vector2.ZERO
+var lunge_idle: AnimationPlayer
+var lunge_resume_idle := false
+
+
+func create_lunge_tween() -> Tween:
+	cancel_lunge()
+	lunge_start = enemy.sprite_2d.position
+	lunge_idle = enemy.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	lunge_resume_idle = lunge_idle != null and lunge_idle.is_playing()
+	lunge_tween = create_tween()
+	lunge_tween.finished.connect(func(): lunge_tween = null)
+	return lunge_tween
+
+
+func cancel_lunge() -> void:
+	if lunge_tween == null:
+		return
+	lunge_tween.kill()
+	lunge_tween = null
+	if is_instance_valid(enemy) and is_instance_valid(enemy.sprite_2d):
+		enemy.sprite_2d.position = lunge_start
+	if lunge_resume_idle and is_instance_valid(lunge_idle):
+		lunge_idle.play()
+	lunge_idle = null
+	lunge_resume_idle = false
 
 # Conditional actions retain their own predicates. Chance attacks share live range
 # validation so a stale intent cannot strike from the other side of the board.

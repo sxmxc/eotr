@@ -40,7 +40,7 @@ func _test_combatant_wards(world: GameWorld) -> void:
 				check(fx.position == fx.get_parent().get_node("ImpactAnchor").position, "Ward follows combatant impact anchor")
 				check(fx.get_node("Illustration").frame > 0, "Combatant ward illustration advances")
 		await RenderingServer.frame_post_draw
-		get_viewport().get_texture().get_image().save_png("res://combatant-wards.png")
+		get_viewport().get_texture().get_image().save_png("user://combatant-wards.png")
 	await get_tree().create_timer(0.7).timeout
 	for ref: WeakRef in refs:
 		check(ref.get_ref() == null, "Combatant ward cleans up after playback")
@@ -95,7 +95,7 @@ func _test_visual_lifetimes(world: GameWorld) -> void:
 				for x in image.get_width():
 					image.set_pixel(x, y, image.get_pixel(x, y).linear_to_srgb())
 		image.convert(Image.FORMAT_RGBA8)
-		image.save_png("res://overhaul-vfx-overlap.png")
+		image.save_png("user://overhaul-vfx-overlap.png")
 	await get_tree().create_timer(1.2).timeout
 	for transient: WeakRef in transients:
 		check(transient.get_ref() == null, "Overlapping particle effect is freed, including in headless mode")
@@ -124,7 +124,7 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 					for x in shot.get_width():
 						shot.set_pixel(x, y, shot.get_pixel(x, y).linear_to_srgb())
 			shot.convert(Image.FORMAT_RGBA8)
-			shot.save_png("res://overhaul-fx-%s.png" % family)
+			shot.save_png("user://overhaul-fx-%s.png" % family)
 		await get_tree().create_timer(0.45).timeout
 	for family: String in ["electric_arc_projectile", "fireball_projectile", "fireball_small_projectile", "obelisk_projectile"]:
 		var projectile := load("res://ui/fx/%s_fx.tscn" % family).instantiate() as ProjectileFX
@@ -144,7 +144,7 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 					for x in shot.get_width():
 						shot.set_pixel(x, y, shot.get_pixel(x, y).linear_to_srgb())
 			shot.convert(Image.FORMAT_RGBA8)
-			shot.save_png("res://overhaul-fx-%s.png" % family)
+			shot.save_png("user://overhaul-fx-%s.png" % family)
 		await get_tree().create_timer(1.6).timeout
 	var ward := load("res://ui/fx/shield_shine_fx.tscn").instantiate() as VisualFX
 	ward.set("persistent", true)
@@ -192,14 +192,14 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 	board.presentation_changed.emit()
 	await get_tree().create_timer(0.22).timeout
 	check(board.base_layer.get_cell_source_id(cell) == -1 and reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
-	await _capture_battle("res://terrain-collapse.png")
+	await _capture_battle("user://terrain-collapse.png")
 	await get_tree().create_timer(0.6).timeout
 	check(reference.get_ref() == null, "All breakup geometry releases within 0.82 seconds")
 	check(RNG.instance.state == rng_before, "Terrain presentation does not consume gameplay RNG")
 	board.base_layer.set_cell(cell, 0, atlas_coords)
 	board.presentation_changed.emit()
 	await get_tree().process_frame
-	await _capture_battle("res://terrain-stable.png")
+	await _capture_battle("user://terrain-stable.png")
 	# Real successive shrinks must invalidate every cached edge during erasure.
 	# Clear entities only in this disposable fixture so collapse cannot end the run.
 	for enemy in world.enemy_handler.get_children():
@@ -220,7 +220,7 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 			var b := board.base_layer.local_to_map(middle - (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
 			check((board.base_layer.get_cell_source_id(a) == -1) != (board.base_layer.get_cell_source_id(b) == -1), "Cached rim separates surviving terrain from void")
 	await get_tree().create_timer(0.9).timeout
-	await _capture_battle("res://terrain-shrunk.png")
+	await _capture_battle("user://terrain-shrunk.png")
 
 func _test_all_signature_lifetimes(world: GameWorld) -> void:
 	var directory := DirAccess.open("res://ui/fx")
@@ -297,7 +297,7 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 			check(highlight.global_position.is_equal_approx(board.cell_to_world(board.player_position)), "Target mask center matches the authoritative TileMap world center")
 			check(highlight.texture.get_size() == Vector2(64, 64) and highlight.scale == Vector2.ONE, "Target mask uses exact canonical tile dimensions without compensating scale")
 			highlight.material.set_shader_parameter("HighlightColor", Color(0.29, 0.75, 0.67, 1))
-		await _capture_battle("res://target-alignment.png")
+		await _capture_battle("user://target-alignment.png")
 		overlay.clear_target_highlights()
 	var previous_layer := TileMapLayer.new()
 	previous_layer.tile_set = board.base_layer.tile_set.duplicate()
@@ -354,7 +354,7 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 				for x in shot.get_width():
 					shot.set_pixel(x, y, shot.get_pixel(x, y).linear_to_srgb())
 		shot.convert(Image.FORMAT_RGBA8)
-		shot.save_png("res://battlefield.png")
+		shot.save_png("user://battlefield.png")
 
 func _capture_battle(path: String) -> void:
 	await RenderingServer.frame_post_draw
@@ -388,7 +388,7 @@ func _test_harvest_state(world: GameWorld) -> void:
 	check(world.run_stats.resources == resources + 3, "A depleted deposit cannot be harvested twice")
 	if DisplayServer.get_name() != "headless" and OS.get_cmdline_user_args().has("--battlefield-only"):
 		await get_tree().create_timer(0.08).timeout
-		await _capture_battle("res://battlefield-harvest.png")
+		await _capture_battle("user://battlefield-harvest.png")
 	data.type = previous_type
 	board.set_resource_count(cell, previous_count)
 	board.base_layer.set_cell(cell, 0, previous_atlas)
@@ -404,7 +404,7 @@ func _test_spell_readability(world: GameWorld) -> void:
 	var resolver := CardResolver.new()
 	resolver.resolve(card, [target], world.player_stats, world.player.modifier_handler, card.effect_configs)
 	await get_tree().create_timer(0.12).timeout
-	await _capture_battle("res://battlefield-spell.png")
+	await _capture_battle("user://battlefield-spell.png")
 	await get_tree().create_timer(0.8).timeout
 	check(target.sprite_2d.material != null and target.sprite_2d.material.shader.resource_path.ends_with("unit_outline.gdshader"), "Hit flash preserves the silhouette shader")
 	target.stats.block = previous_block
@@ -436,7 +436,7 @@ func _test_spell_identities(world: GameWorld) -> void:
 		label.position = Vector2(-50, -100)
 		anchor.add_child(label)
 	await get_tree().create_timer(0.34).timeout
-	await _capture_battle("res://spell-identities.png")
+	await _capture_battle("user://spell-identities.png")
 	await get_tree().create_timer(0.8).timeout
 	for reference in refs:
 		check(reference.get_ref() == null, "Distinct spell signatures finish and release their nodes")
@@ -515,7 +515,7 @@ func _test_mana_well_presentation(world: GameWorld) -> void:
 	if DisplayServer.get_name() != "headless":
 		world.world_camera.frame_battle()
 		await get_tree().create_timer(1.2).timeout
-		await _capture_battle("res://mana-wells.png")
+		await _capture_battle("user://mana-wells.png")
 	board.fog_state.erase(empty)
 	board.presentation_changed.emit()
 	await get_tree().process_frame
@@ -561,7 +561,7 @@ func _test_board_badges(world: GameWorld) -> void:
 	await get_tree().process_frame
 	check(badges.block_panel.visible and badges.block_label.text == "7", "Board exposes current block separately from planned block")
 	if DisplayServer.get_name() != "headless":
-		await _capture_battle("res://board-intents-statuses.png")
+		await _capture_battle("user://board-intents-statuses.png")
 	duration_status.duration = 0
 	intensity_status.stacks = 0
 	await get_tree().process_frame
@@ -765,6 +765,15 @@ func run() -> void:
 	while not api.ready_for_action() and Time.get_ticks_msec() < ready_deadline:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
+	if OS.get_cmdline_user_args().has("--attack-cancellation-only"):
+		await _test_attack_tween_cancellation(world)
+		world.queue_free()
+		relics.queue_free()
+		await get_tree().process_frame
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
 		await _test_lethal_ruin_move(world)
 		world.queue_free()
@@ -817,6 +826,7 @@ func run() -> void:
 	await _test_visual_lifetimes(world)
 	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)
+	await _test_attack_tween_cancellation(world)
 	await _test_instability_costs(world, relics)
 	await _test_feedback_circuit(world, relics)
 	var actions: Array[Dictionary] = api.legal_actions()
@@ -925,6 +935,62 @@ func _test_authored_encounters() -> void:
 	check(registry.select(9, [0]) == null, "Empty pools do not fall back to unrelated content")
 	check(registry.select(0, [0], [], [], "tier_2_bulwark_channelers") == registry.find("tier_2_bulwark_channelers"), "Explicit node override selects an authored encounter")
 	check(registry.select(0, [0], [], [], "missing") == null, "Unknown override fails explicitly")
+
+func _test_attack_tween_cancellation(world: GameWorld) -> void:
+	var handler := world.enemy_handler
+	var enemy := handler.get_child(0) as Enemy
+	var previous_action := enemy.current_action
+	var previous_block := world.player.stats.block
+	var previous_draw := world.player.stats.draw_pile.cards.duplicate()
+	var completed := {"count": 0}
+	var on_completed := func(actor: Enemy):
+		if actor == enemy:
+			completed.count += 1
+	Events.enemy_action_completed.connect(on_completed)
+	for script_path in ["res://scenes/enemy/horror/horror_attack_action.gd", "res://scenes/enemy/void_spectre/void_spectre_attack_action.gd"]:
+		var action: EnemyAction = load(script_path).new()
+		action.enemy = enemy
+		action.target = world.player
+		action.intent = Intent.new()
+		action.intent.base_text = "%s"
+		enemy.enemy_action_picker.add_child(action)
+		enemy.current_action = action
+		world.player.stats.block = 999
+		var draw_count := world.player.stats.draw_pile.cards.size()
+		var start := enemy.sprite_2d.position
+		completed.count = 0
+		handler.active_enemy = enemy
+		action.perform_action()
+		action.lunge_tween.pause()
+		action.lunge_tween.custom_step(Utils.presentation_duration(0.4) * 0.5)
+		handler.cancel_turn()
+		await get_tree().create_timer(1.4).timeout
+		check(world.player.stats.block == 999, "Cancelled real attack cannot deliver delayed damage")
+		check(world.player.stats.draw_pile.cards.size() == draw_count, "Cancelled Spectre cannot add Void Residue")
+		check(completed.count == 0, "Cancelled attack cannot complete a later activation")
+		check(enemy.sprite_2d.position.is_equal_approx(start), "Cancelled lunge restores its starting position")
+		completed.count = 0
+		action.perform_action()
+		await get_tree().create_timer(1.4).timeout
+		check(world.player.stats.block < 999, "Uninterrupted real attack still deals damage")
+		check(completed.count == 1, "Uninterrupted attack completes exactly once")
+		check(world.player.stats.draw_pile.cards.size() == draw_count + (1 if script_path.contains("spectre") else 0), "Only uninterrupted Spectre adds one Void Residue")
+		if script_path.contains("horror"):
+			world.player.stats.block = 999
+			completed.count = 0
+			handler.active_enemy = enemy
+			action.perform_action()
+			action.lunge_tween.pause()
+			action.lunge_tween.custom_step(Utils.presentation_duration(0.4) + Utils.presentation_duration(0.35) * 0.5)
+			handler.cancel_turn()
+			await get_tree().create_timer(1.4).timeout
+			check(world.player.stats.block == 995, "Cancellation between Horror hits preserves the first hit and stops the second")
+			check(completed.count == 0, "Partially resolved attack cannot emit completion after cancellation")
+		enemy.current_action = previous_action
+		action.queue_free()
+	Events.enemy_action_completed.disconnect(on_completed)
+	world.player.stats.block = previous_block
+	world.player.stats.draw_pile.cards.assign(previous_draw)
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	var handler := world.enemy_handler
@@ -1065,7 +1131,7 @@ func _test_instability_costs(world: GameWorld, relics: RelicHandler) -> void:
 		if previous_cost == 0 and DisplayServer.get_name() != "headless" and OS.get_cmdline_user_args().has("--capture-ui"):
 			await get_tree().create_timer(0.25).timeout
 			await RenderingServer.frame_post_draw
-			get_viewport().get_texture().get_image().save_png("res://relic-costs.png")
+			get_viewport().get_texture().get_image().save_png("user://relic-costs.png")
 		for ui: CardUI in costs:
 			saw_free_card = saw_free_card or ui.card.energy_cost == 0
 			saw_paid_card = saw_paid_card or ui.card.energy_cost > 0

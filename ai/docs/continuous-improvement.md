@@ -1,5 +1,14 @@
 # Continuous improvement
 
+## 2026-10-20 - Cancel pending lunges; test the original project
+
+- Seven enemy lunge actions now own cancellable tweens. Cancelling a turn stops pending hits, completion and Void Residue, restores sprite/idle state, and handles changed intent. Between-hit Horror cancellation preserves the first hit; normal effects/timings remain.
+- Six baseline assertions failed. Focused headless/native D3D12 checks pass on the original project; full headless combat passed before runner replacement. Telemetry tests, nine Python tests, syntax, resource and whitespace checks pass afterward.
+- User requirement: never copy/clone/junction the project for tests. Removed duplicate-project setup from validation, AutoWalker, visual capture and telemetry runners and removed obsolete guidance. Disposable saves/logs/captures use auto-cleaned system temp/user storage. Removed this session's .qa-tmp workspace; verified it stays absent.
+- Limits: no manual visual review, full post-runner-change combat suite, campaign or export QA. Existing certificate-store diagnostic remains. Already dispatched damage is preserved; movement/status coroutines remain separate work.
+- Next: movement/status cancellation and multi-floor save/resume. Historical artifact paths below describe old runs, not current testing instructions.
+
+
 ## 2026-10-20 - Escape respects active card inspection
 
 - Shop/reward inspection consumes cancel before the run pause fallback. Escape closes inspection; the next press pauses, and another resumes. Pause uses native unhandled input so existing modal handlers get first refusal.

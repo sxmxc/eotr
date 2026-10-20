@@ -45,9 +45,9 @@ Stopping or closing an unfinished battle does not produce a completed simulation
 
 The examples upload bot telemetry by default when the project's HTTP transport is
 enabled and consent permits it. Add `--telemetry-local` only for an offline run.
-The launcher does not start backend services. Its generated project and save data
-live under `qa/autowalker-project` and `qa/autowalker-userdata`, separate from
-your normal game saves.
+The launcher runs the original project directly and does not start backend services.
+Disposable saves use automatically cleaned system temp storage, separate from
+normal game saves. Never create duplicate project trees or junction workspaces.
 
 QA files now live under `qa/`. Existing result folders keep their names: for
 example, the former `build/qa-baseline/` is now `qa/qa-baseline/`. Update any saved
@@ -56,8 +56,7 @@ commands and replay paths accordingly. `build/` holds packaged game exports.
 | Location | Contents |
 | --- | --- |
 | `qa/autowalker/` | Reports, telemetry and logs when you omit `--output`. |
-| `qa/autowalker-project/` | Generated launcher project with links to game assets and code. |
-| `qa/autowalker-userdata/` | Isolated launcher saves and settings. |
+| System temp directory | Disposable saves/settings, automatically removed after execution. |
 | Your `--output` directory | `simulation-<seed>.json`, `events.jsonl`, `godot.log`, and, for headless/rendered checks, `summary.json`. |
 
 Generated files under `qa/` are ignored by Git and Godot imports and excluded from

@@ -232,6 +232,11 @@ func _on_enemy_action_completed(enemy: Enemy) -> void:
 func cancel_turn() -> void:
 	turn_generation += 1
 	if is_instance_valid(active_enemy):
+		# Intent may change while a hit resolves; cancel the action that owns
+		# the lunge even when it is no longer current_action.
+		if is_instance_valid(active_enemy.enemy_action_picker):
+			for action: EnemyAction in active_enemy.enemy_action_picker.get_children():
+				action.cancel_lunge()
 		if is_instance_valid(active_enemy.phantom_camera_2d):
 			active_enemy.phantom_camera_2d.priority = 0
 		if is_instance_valid(active_enemy.stats_ui):
