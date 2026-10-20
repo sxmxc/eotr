@@ -13,7 +13,7 @@ def read(directory):
         value = json.loads(path.read_text(encoding="utf-8"))
         if summary.get('session_id') and value.get('session_id') != summary['session_id']:
             continue
-        key = (value["seed"], value["encounter"], value["policy"], value["policy_version"], value.get("mode", "encounter"), value.get('metrics_version', 1))
+        key = (value["seed"], value["encounter"], value["policy"], value["policy_version"], value.get("mode", "encounter"), value.get('metrics_version', 1), value.get('loadout_fingerprint', 'legacy_unspecified'))
         records[key] = value
     return records
 
@@ -29,7 +29,7 @@ def compare(before, after):
             result["metrics"][metric] = {"before": left, "after": right, "delta": right - left}
     result["outcome_changes"] = [{"seed": k[0], "policy": k[2], "before": before[k]["outcome"], "after": after[k]["outcome"]}
                                  for k in common if before[k]["outcome"] != after[k]["outcome"]]
-    result["note"] = "Descriptive matched-seed comparison; policy and metrics versions must match. Only the latest summary session is read. Retention may remove older reports. Statistical changes alone are not regressions."
+    result["note"] = "Descriptive matched-seed comparison; policy, metrics version and loadout fingerprint must match. Only the latest summary session is read. Retention may remove older reports. Statistical changes alone are not regressions."
     return result
 
 

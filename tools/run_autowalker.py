@@ -70,6 +70,8 @@ def run(temporary, argv=None):
     parser.add_argument("--telemetry-upload", action="store_true", help="Explicitly consent to configured QA uploads for this launch, including isolated saves")
     parser.add_argument("--verify-watch", action="store_true", help="Run rendered playback, save a capture and exit after the simulation")
     parser.add_argument("--mode", choices=["encounter", "run"], default="encounter")
+    parser.add_argument('--loadout', choices=['tier', 'starter', 'tier_0', 'tier_1', 'tier_2', 'legacy'], default='tier', help='Encounter build: tier selects the encounter tier; legacy reproduces the old relic-free starter harness')
+    parser.add_argument('--health-percent', type=int, default=100, help='Encounter starting health, 1–100 percent of maximum')
     parser.add_argument("--replay")
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--policy", choices=["random", "greedy", "stress"], default="greedy")
@@ -83,6 +85,10 @@ def run(temporary, argv=None):
     parser.add_argument("--output", default="qa/autowalker")
     args = parser.parse_args(argv)
     root = Path(__file__).resolve().parents[1]
+    if not 1 <= args.health_percent <= 100:
+        parser.error('--health-percent must be between 1 and 100')
+    if args.mode == 'run' and (args.loadout != 'tier' or args.health_percent != 100):
+        parser.error('--loadout and --health-percent overrides require encounter mode')
     if args.telemetry_local and args.telemetry_upload:
         parser.error('--telemetry-local and --telemetry-upload are mutually exclusive')
     if args.count < 1 or min(args.max_turns, args.max_actions, args.max_actions_per_turn) < 1 or args.timeout <= 0:
@@ -97,7 +103,9 @@ def run(temporary, argv=None):
         if not paths:
             parser.error('No encounter resources found')
         suite_output.mkdir(parents=True, exist_ok=True)
+        print(f'AutoWalker suite: {len(paths)} encounters x {args.count} seeds = {len(paths) * args.count} simulations; policy={args.policy}, loadout={args.loadout}, health={args.health_percent}%', flush=True)
         suite = {'mode': 'encounter_suite', 'policy': args.policy, 'encounters': [],
+                 'loadout_selection': args.loadout, 'health_percent': args.health_percent,
                  'expected_encounters': len(paths), 'complete': False,
                  'simulations': 0, 'wins': 0, 'losses': 0, 'aborted': 0, 'failures': 0, 'launcher_failures': 0}
         status = 0
@@ -105,7 +113,7 @@ def run(temporary, argv=None):
             print(f'Encounter {index}/{len(paths)}: {path.stem}', flush=True)
             child_output = suite_output / path.stem
             child_args = ['--godot', args.godot, '--encounter', 'res://' + path.relative_to(root).as_posix(),
-                          '--output', str(child_output), '--policy', args.policy]
+                          '--output', str(child_output), '--policy', args.policy, '--loadout', args.loadout, '--health-percent', str(args.health_percent)]
             for key in ('seed', 'count', 'max_turns', 'max_actions', 'max_actions_per_turn', 'timeout'):
                 child_args.extend(['--' + key.replace('_', '-'), str(getattr(args, key))])
             if args.telemetry_local:
@@ -162,7 +170,7 @@ def run(temporary, argv=None):
     maintenance(active=False)
     command = [args.godot, *( ["--windowed", "--resolution", "1920x1080"] if args.watch or args.verify_watch else ["--headless"] ), "--path", str(project),
                "res://scenes/developer/autowalker/watch.tscn", "--log-file", str(output / "godot.log"), "--", "--autostart"]
-    for key in ("mode", "seed", "policy", "count", "max_turns", "max_actions", "max_actions_per_turn", "timeout", "encounter"):
+    for key in ("mode", "seed", "policy", "count", "max_turns", "max_actions", "max_actions_per_turn", "timeout", "encounter", "loadout", "health_percent"):
         command.append(f"--{key.replace('_', '-')}={getattr(args, key)}")
     command.append(f"--output={output.as_posix()}")
     if args.telemetry_local:

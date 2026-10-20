@@ -9,6 +9,10 @@ const WORLD = preload("res://scenes/game_world/game_world.tscn")
 const RELICS = preload("res://scenes/relic_handler/relic_handler.tscn")
 const Progression = preload("res://scripts/autowalker/core/progression_interface.gd")
 const Watchdog = preload("res://scripts/autowalker/core/watchdog.gd")
+const Loadouts = preload("res://scripts/autowalker/core/loadouts.gd")
+var loadout_selection := "tier"
+var health_percent := 100
+var loadout_snapshot: Dictionary = {}
 var watchdog = Watchdog.new()
 var diagnostic_warnings: Array = []
 var last_checkpoint: Dictionary = {}
@@ -76,6 +80,8 @@ func _ready() -> void:
 			continue
 		match parts[0]:
 			"mode": run_mode = parts[1] == "run"
+			"loadout": loadout_selection = parts[1]
+			"health-percent": health_percent = int(parts[1])
 			"seed": simulation_seed = int(parts[1])
 			"policy": policy_name = parts[1]
 			"encounter": encounter = parts[1]
@@ -89,6 +95,10 @@ func _ready() -> void:
 			"replay":
 				if not load_replay(parts[1]):
 					startup_error = "Cannot load replay: " + parts[1]
+	if loadout_selection not in ["tier", "starter", "tier_0", "tier_1", "tier_2", "legacy"] or health_percent < 1 or health_percent > 100:
+		startup_error = "Invalid loadout or health percent"
+	if run_mode and (loadout_selection != "tier" or health_percent != 100):
+		startup_error = "Encounter loadouts cannot be applied to run mode"
 	if not startup_error.is_empty():
 		printerr(startup_error)
 		get_tree().quit(1)
@@ -115,6 +125,8 @@ func load_replay(path: String) -> bool:
 	encounter = value.encounter
 	policy_name = value.policy
 	run_mode = value.get("mode", "encounter") == "run"
+	loadout_selection = value.get("loadout_selection", "tier" if run_mode else "legacy")
+	health_percent = int(value.get("health_percent", 100))
 	return true
 
 func start() -> void:
@@ -158,6 +170,8 @@ func start() -> void:
 	start_ms = Time.get_ticks_msec()
 	progress_ms = start_ms
 	interface.progression = null
+	loadout_snapshot = {"loadout": "run_progression", "loadout_selection": "tier", "loadout_version": 1,
+		"loadout_fingerprint": "run_progression_v1", "loadout_basis": "live_progression"}
 	# Run/encounter startup emits events immediately, so bind context first.
 	simulation_run_id = TelemetryManager.begin_qa_simulation()
 	if run_mode:
@@ -178,6 +192,11 @@ func start() -> void:
 		world.run_stats = RunStats.new()
 		world.battle_stats = load(encounter).duplicate(true)
 		world.relics = relics
+		loadout_snapshot = Loadouts.apply(world.player_stats, relics, loadout_selection, world.battle_stats.battle_tier, health_percent)
+		if replay.has("loadout_fingerprint") and replay.loadout_fingerprint != loadout_snapshot.loadout_fingerprint:
+			printerr("Replay loadout changed; regenerate the recording")
+			get_tree().quit(1)
+			return
 		world.start_world()
 		initial_enemies = world.enemy_handler.get_child_count()
 	interface.world = world
@@ -187,7 +206,8 @@ func start() -> void:
 		"engine": Engine.get_version_info().string, "source_type": "bot", "mode": "run" if run_mode else "encounter",
 		"initial_health": run_node.player_stats.health if run_mode else world.player_stats.health,
 		"metrics_version": 2, "session_id": TelemetryManager.client.session_id, "run_id": simulation_run_id}
-	TelemetryManager.track_event("simulation_started", {"seed": simulation_seed, "policy": policy_name, "encounter": "run" if run_mode else encounter})
+	report.merge(loadout_snapshot, true)
+	TelemetryManager.track_event("simulation_started", {"seed": simulation_seed, "policy": policy_name, "encounter": "run" if run_mode else encounter}, 1, loadout_snapshot)
 
 func _process(delta: float) -> void:
 	if not launcher_stop_file.is_empty() and FileAccess.file_exists(launcher_stop_file):
@@ -339,6 +359,7 @@ func finish(outcome: String, reason: String = "", reason_code: String = "") -> v
 		"timeout_seconds": timeout_seconds, "final_health": final_health,
 		"invalid_actions": invalid_actions, "ai_invalid_decisions": ai_invalid_decisions,
 		"warning_count": diagnostic_warnings.size(), "last_action": trace.back().action if not trace.is_empty() else {}}
+	details.merge(loadout_snapshot, true)
 	report.merge(details, true)
 	report.merge({"outcome": outcome, "reason": reason, "turns": TelemetryManager.qa_turns,
 		"last_battle_turn": turn_number() if is_instance_valid(world) else 0,
@@ -383,6 +404,7 @@ func write_summary() -> void:
 		"damage_taken": [], "net_health_loss": [], "healing_received": [], "floors_climbed": [],
 		"obelisk_destructions": 0, "obelisk_destroyed_turns": [], "summons": 0,
 		"invalid_actions": 0, "ai_invalid_decisions": 0, "duration_ms": 0, "card_usage": {}})
+	summary.merge(loadout_snapshot, true)
 	for result in results:
 		summary.turn_counts.append(result.turns)
 		summary.damage_taken.append(result.damage_taken)
