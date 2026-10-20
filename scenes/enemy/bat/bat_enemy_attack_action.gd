@@ -13,7 +13,7 @@ func perform_action() -> void:
 	print("%s attacks!" % enemy.name)
 	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
 	Events.world_message_requested.emit(world_message)
-	var tween := create_tween().set_trans(Tween.TRANS_QUINT)
+	var tween := create_lunge_tween().set_trans(Tween.TRANS_QUINT)
 	# Flying idle also writes Sprite2D.position; pause it for the authored lunge.
 	var idle := enemy.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	var resume_idle := idle != null and idle.is_playing()

@@ -16,6 +16,8 @@ func _ready() -> void:
 	client = Client.new()
 	add_child(client)
 	var config_path: String = ProjectSettings.get_setting("telemetry/config_path", "res://telemetry/config/production.tres")
+	if OS.get_cmdline_user_args().has("--validation-local"):
+		config_path = "res://scripts/tests/telemetry_null.tres"
 	if config_path.is_empty():
 		config_path = "res://telemetry/config/production.tres"
 	var settings: Resource = load(config_path) if ResourceLoader.exists(config_path) else Config.new()
@@ -35,15 +37,15 @@ func _ready() -> void:
 	Events.enemy_decision_rejected.connect(func(enemy: Enemy, reason: String): track_event("enemy_waited", {"enemy": enemy.stats.enemy_name, "reason": reason}))
 	track_event("session_started")
 
-func track_event(event_name: String, props: Dictionary = {}, version: int = 1) -> void:
+func track_event(event_name: String, props: Dictionary = {}, version: int = 1, metadata: Dictionary = {}) -> void:
 	if not suspended:
 		if event_name == "run_started":
 			set_context({"run_id": _qa_run_id if not _qa_run_id.is_empty() else client.new_id()})
 		if event_name == "player_turn_started" and not _qa_run_id.is_empty():
 			qa_turns += 1
-		client.record(event_name, props, version)
+		client.record(event_name, props, version, metadata)
 		if is_instance_valid(qa_upload):
-			qa_upload.record(event_name, props, version)
+			qa_upload.record(event_name, props, version, metadata)
 
 func begin_qa_simulation() -> String:
 	_qa_run_id = client.new_id()
@@ -97,7 +99,7 @@ func configure_qa(path: String, upload_settings: Resource = null) -> void:
 		qa_upload.configure(remote)
 		qa_upload.schemas = client.schemas.duplicate(true)
 		qa_upload.session_id = client.session_id
-		qa_upload.set_consent(GameSettings.telemetry_enabled)
+		qa_upload.set_consent(GameSettings.telemetry_enabled or OS.get_cmdline_user_args().has("--telemetry-upload"))
 	set_context({"source_type": "bot", "run_id": "", "build_version": ProjectSettings.get_setting("application/config/version", "unknown")})
 	print("AutoWalker telemetry: local JSONL + configured backend" if is_instance_valid(qa_upload) else "AutoWalker telemetry: local JSONL only")
 	track_event("session_started")

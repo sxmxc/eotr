@@ -2,46 +2,28 @@
 import json
 import os
 from pathlib import Path
-import re
-import shutil
+import tempfile
 import subprocess
 import sys
 import hashlib
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
-from validate_project import link_directory
 
 
-def capture(scenario, output, godot):
+def _capture(scenario, output, godot, temporary):
     if sys.platform.startswith("linux") and not (os.getenv("DISPLAY") or os.getenv("WAYLAND_DISPLAY")):
         raise RuntimeError("No display: run under xvfb-run -a with Mesa/OpenGL installed. Headless does not capture VFX.")
-    # Fail before an expensive capture if a vendor-trimmed FFmpeg lacks required features.
-    project = output / "project"
-    cache = project / ".godot"
-    cache.mkdir(parents=True)
-    for name in ("addons", "assets", "resources", "scenes", "scripts", "ui", "telemetry"):
-        link_directory(ROOT / name, project / name)
+    project = ROOT
     if not (ROOT / ".godot/global_script_class_cache.cfg").exists():
         raise RuntimeError("Open this project in Godot and complete imports first.")
-    link_directory(ROOT / ".godot/imported", cache / "imported")
-    for name in ("uid_cache.bin", "global_script_class_cache.cfg"):
-        shutil.copy2(ROOT / ".godot" / name, cache / name)
-    for name in ("icon.svg", "icon.svg.import", "default_bus_layout.tres"):
-        shutil.copy2(ROOT / name, project / name)
-    config = (ROOT / "project.godot").read_text(encoding="utf-8")
-    config = re.sub(r'^config/name=.*$', 'config/name="eotr_visual"', config, flags=re.M)
-    config = re.sub(r'^config/(use_custom_user_dir|custom_user_dir)=.*\n?', '', config, flags=re.M)
-    config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
-    config += '\n[telemetry]\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
-    (project / "project.godot").write_text(config, encoding="utf-8")
     env = os.environ.copy()
     for key in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
-        env[key] = str(output / "userdata")
+        env[key] = str(temporary)
     command = [godot, "--path", str(project), "--windowed", "--resolution", "1280x720",
                "--write-movie", str(output / "capture.avi"), "--fixed-fps", str(scenario["fps"]),
                "--log-file", str(output / "godot.log"),
-               "res://scenes/developer/visual_test/visual_test.tscn", "--", "--telemetry-local",
+               "res://scenes/developer/visual_test/visual_test.tscn", "--", "--telemetry-local", "--validation-local",
                f"--output={output.as_posix()}"]
     for key in ("seed", "encounter", "policy", "duration"):
         command.append(f"--{key}={scenario[key]}")
@@ -63,3 +45,8 @@ def capture(scenario, output, godot):
     data["git_commit"] = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     (output / "timing.json").write_text(json.dumps(data, indent=2))
     return data
+
+
+def capture(scenario, output, godot):
+    with tempfile.TemporaryDirectory(prefix="eotr-capture-") as directory:
+        return _capture(scenario, output, godot, Path(directory))

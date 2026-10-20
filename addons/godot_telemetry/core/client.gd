@@ -72,7 +72,7 @@ func set_consent(value: bool) -> void:
 			transport.purge()
 		busy = false
 
-func record(name: String, properties: Dictionary = {}, version: int = 1) -> bool:
+func record(name: String, properties: Dictionary = {}, version: int = 1, metadata: Dictionary = {}) -> bool:
 	if not config.enabled or (config.consent_required and not consent) or name in config.excluded_events:
 		return false
 	var schema: Dictionary = schemas.get(name + ":" + str(version), {})
@@ -92,6 +92,11 @@ func record(name: String, properties: Dictionary = {}, version: int = 1) -> bool
 		"environment": config.environment, "build_version": context.get("build_version", "unknown"),
 		"session_id": session_id, "run_id": context.get("run_id", ""), "source_type": context.get("source_type", "human"),
 		"metadata": config.common_metadata.duplicate(true), "properties": properties.duplicate(true)}
+	envelope.metadata.merge(metadata.duplicate(true), true)
+	if JSON.stringify(envelope.metadata).to_utf8_buffer().size() > 4096:
+		diagnostics.rejected += 1
+		diagnostics.last_error = "Event metadata exceeds 4096 bytes"
+		return false
 	if JSON.stringify(envelope).to_utf8_buffer().size() > config.max_event_bytes:
 		diagnostics.rejected += 1
 		diagnostics.last_error = "Event exceeds configured byte limit"

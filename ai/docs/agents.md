@@ -39,6 +39,7 @@ Welcome! This guide equips agents contributing to **Echoes of the Rift** with th
 2. **Inspect**: Gather references via `grep`, `find`, `sed`, or Godot scene paths.
 3. **Edit**: Use `apply_patch` for manual edits. Respect existing user changes; never revert unrelated diffs.
 4. **Verify**:
+   - Run the original project directly. Never clone, copy, or junction it into `.qa-tmp`, `qa/`, or another test workspace. The validation runner uses automatically cleaned system-temp storage for disposable saves/logs only.
    - Static checks: `godot --headless --editor` (if needed) or targeted script `--check-only`.
    - Runtime sanity: launch relevant scene if possible (`godot --headless -s scripts/…`).
    - Manual QA: note which scene/card/system to test in the journal.

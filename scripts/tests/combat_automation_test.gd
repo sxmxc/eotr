@@ -5,6 +5,13 @@ const RELICS = preload("res://scenes/relic_handler/relic_handler.tscn")
 const Interface = preload("res://scripts/autowalker/core/gameplay_interface.gd")
 var failures := 0
 
+class CountingStatus extends Status:
+	var calls := 0
+
+	func apply_status(_target: Node) -> void:
+		calls += 1
+		status_applied.emit(self)
+
 class CountingAction extends EnemyAction:
 	var calls := 0
 
@@ -40,7 +47,7 @@ func _test_combatant_wards(world: GameWorld) -> void:
 				check(fx.position == fx.get_parent().get_node("ImpactAnchor").position, "Ward follows combatant impact anchor")
 				check(fx.get_node("Illustration").frame > 0, "Combatant ward illustration advances")
 		await RenderingServer.frame_post_draw
-		get_viewport().get_texture().get_image().save_png("res://combatant-wards.png")
+		get_viewport().get_texture().get_image().save_png("user://combatant-wards.png")
 	await get_tree().create_timer(0.7).timeout
 	for ref: WeakRef in refs:
 		check(ref.get_ref() == null, "Combatant ward cleans up after playback")
@@ -95,7 +102,7 @@ func _test_visual_lifetimes(world: GameWorld) -> void:
 				for x in image.get_width():
 					image.set_pixel(x, y, image.get_pixel(x, y).linear_to_srgb())
 		image.convert(Image.FORMAT_RGBA8)
-		image.save_png("res://overhaul-vfx-overlap.png")
+		image.save_png("user://overhaul-vfx-overlap.png")
 	await get_tree().create_timer(1.2).timeout
 	for transient: WeakRef in transients:
 		check(transient.get_ref() == null, "Overlapping particle effect is freed, including in headless mode")
@@ -124,7 +131,7 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 					for x in shot.get_width():
 						shot.set_pixel(x, y, shot.get_pixel(x, y).linear_to_srgb())
 			shot.convert(Image.FORMAT_RGBA8)
-			shot.save_png("res://overhaul-fx-%s.png" % family)
+			shot.save_png("user://overhaul-fx-%s.png" % family)
 		await get_tree().create_timer(0.45).timeout
 	for family: String in ["electric_arc_projectile", "fireball_projectile", "fireball_small_projectile", "obelisk_projectile"]:
 		var projectile := load("res://ui/fx/%s_fx.tscn" % family).instantiate() as ProjectileFX
@@ -144,7 +151,7 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 					for x in shot.get_width():
 						shot.set_pixel(x, y, shot.get_pixel(x, y).linear_to_srgb())
 			shot.convert(Image.FORMAT_RGBA8)
-			shot.save_png("res://overhaul-fx-%s.png" % family)
+			shot.save_png("user://overhaul-fx-%s.png" % family)
 		await get_tree().create_timer(1.6).timeout
 	var ward := load("res://ui/fx/shield_shine_fx.tscn").instantiate() as VisualFX
 	ward.set("persistent", true)
@@ -192,14 +199,14 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 	board.presentation_changed.emit()
 	await get_tree().create_timer(0.22).timeout
 	check(board.base_layer.get_cell_source_id(cell) == -1 and reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
-	await _capture_battle("res://terrain-collapse.png")
+	await _capture_battle("user://terrain-collapse.png")
 	await get_tree().create_timer(0.6).timeout
 	check(reference.get_ref() == null, "All breakup geometry releases within 0.82 seconds")
 	check(RNG.instance.state == rng_before, "Terrain presentation does not consume gameplay RNG")
 	board.base_layer.set_cell(cell, 0, atlas_coords)
 	board.presentation_changed.emit()
 	await get_tree().process_frame
-	await _capture_battle("res://terrain-stable.png")
+	await _capture_battle("user://terrain-stable.png")
 	# Real successive shrinks must invalidate every cached edge during erasure.
 	# Clear entities only in this disposable fixture so collapse cannot end the run.
 	for enemy in world.enemy_handler.get_children():
@@ -220,7 +227,7 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 			var b := board.base_layer.local_to_map(middle - (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
 			check((board.base_layer.get_cell_source_id(a) == -1) != (board.base_layer.get_cell_source_id(b) == -1), "Cached rim separates surviving terrain from void")
 	await get_tree().create_timer(0.9).timeout
-	await _capture_battle("res://terrain-shrunk.png")
+	await _capture_battle("user://terrain-shrunk.png")
 
 func _test_all_signature_lifetimes(world: GameWorld) -> void:
 	var directory := DirAccess.open("res://ui/fx")
@@ -297,7 +304,7 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 			check(highlight.global_position.is_equal_approx(board.cell_to_world(board.player_position)), "Target mask center matches the authoritative TileMap world center")
 			check(highlight.texture.get_size() == Vector2(64, 64) and highlight.scale == Vector2.ONE, "Target mask uses exact canonical tile dimensions without compensating scale")
 			highlight.material.set_shader_parameter("HighlightColor", Color(0.29, 0.75, 0.67, 1))
-		await _capture_battle("res://target-alignment.png")
+		await _capture_battle("user://target-alignment.png")
 		overlay.clear_target_highlights()
 	var previous_layer := TileMapLayer.new()
 	previous_layer.tile_set = board.base_layer.tile_set.duplicate()
@@ -354,7 +361,7 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 				for x in shot.get_width():
 					shot.set_pixel(x, y, shot.get_pixel(x, y).linear_to_srgb())
 		shot.convert(Image.FORMAT_RGBA8)
-		shot.save_png("res://battlefield.png")
+		shot.save_png("user://battlefield.png")
 
 func _capture_battle(path: String) -> void:
 	await RenderingServer.frame_post_draw
@@ -388,7 +395,7 @@ func _test_harvest_state(world: GameWorld) -> void:
 	check(world.run_stats.resources == resources + 3, "A depleted deposit cannot be harvested twice")
 	if DisplayServer.get_name() != "headless" and OS.get_cmdline_user_args().has("--battlefield-only"):
 		await get_tree().create_timer(0.08).timeout
-		await _capture_battle("res://battlefield-harvest.png")
+		await _capture_battle("user://battlefield-harvest.png")
 	data.type = previous_type
 	board.set_resource_count(cell, previous_count)
 	board.base_layer.set_cell(cell, 0, previous_atlas)
@@ -404,7 +411,7 @@ func _test_spell_readability(world: GameWorld) -> void:
 	var resolver := CardResolver.new()
 	resolver.resolve(card, [target], world.player_stats, world.player.modifier_handler, card.effect_configs)
 	await get_tree().create_timer(0.12).timeout
-	await _capture_battle("res://battlefield-spell.png")
+	await _capture_battle("user://battlefield-spell.png")
 	await get_tree().create_timer(0.8).timeout
 	check(target.sprite_2d.material != null and target.sprite_2d.material.shader.resource_path.ends_with("unit_outline.gdshader"), "Hit flash preserves the silhouette shader")
 	target.stats.block = previous_block
@@ -436,7 +443,7 @@ func _test_spell_identities(world: GameWorld) -> void:
 		label.position = Vector2(-50, -100)
 		anchor.add_child(label)
 	await get_tree().create_timer(0.34).timeout
-	await _capture_battle("res://spell-identities.png")
+	await _capture_battle("user://spell-identities.png")
 	await get_tree().create_timer(0.8).timeout
 	for reference in refs:
 		check(reference.get_ref() == null, "Distinct spell signatures finish and release their nodes")
@@ -515,7 +522,7 @@ func _test_mana_well_presentation(world: GameWorld) -> void:
 	if DisplayServer.get_name() != "headless":
 		world.world_camera.frame_battle()
 		await get_tree().create_timer(1.2).timeout
-		await _capture_battle("res://mana-wells.png")
+		await _capture_battle("user://mana-wells.png")
 	board.fog_state.erase(empty)
 	board.presentation_changed.emit()
 	await get_tree().process_frame
@@ -561,7 +568,7 @@ func _test_board_badges(world: GameWorld) -> void:
 	await get_tree().process_frame
 	check(badges.block_panel.visible and badges.block_label.text == "7", "Board exposes current block separately from planned block")
 	if DisplayServer.get_name() != "headless":
-		await _capture_battle("res://board-intents-statuses.png")
+		await _capture_battle("user://board-intents-statuses.png")
 	duration_status.duration = 0
 	intensity_status.stacks = 0
 	await get_tree().process_frame
@@ -765,6 +772,17 @@ func run() -> void:
 	while not api.ready_for_action() and Time.get_ticks_msec() < ready_deadline:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
+	if OS.get_cmdline_user_args().has("--attack-cancellation-only"):
+		await _test_status_cancellation(world)
+		await _test_attack_tween_cancellation(world)
+		await _test_movement_cancellation(world)
+		world.queue_free()
+		relics.queue_free()
+		await get_tree().process_frame
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
 		await _test_lethal_ruin_move(world)
 		world.queue_free()
@@ -817,6 +835,9 @@ func run() -> void:
 	await _test_visual_lifetimes(world)
 	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)
+	await _test_status_cancellation(world)
+	await _test_attack_tween_cancellation(world)
+	await _test_movement_cancellation(world)
 	await _test_instability_costs(world, relics)
 	await _test_feedback_circuit(world, relics)
 	var actions: Array[Dictionary] = api.legal_actions()
@@ -925,6 +946,188 @@ func _test_authored_encounters() -> void:
 	check(registry.select(9, [0]) == null, "Empty pools do not fall back to unrelated content")
 	check(registry.select(0, [0], [], [], "tier_2_bulwark_channelers") == registry.find("tier_2_bulwark_channelers"), "Explicit node override selects an authored encounter")
 	check(registry.select(0, [0], [], [], "missing") == null, "Unknown override fails explicitly")
+
+func _test_attack_tween_cancellation(world: GameWorld) -> void:
+	var handler := world.enemy_handler
+	var enemy := handler.get_child(0) as Enemy
+	var previous_action := enemy.current_action
+	var previous_block := world.player.stats.block
+	var previous_draw := world.player.stats.draw_pile.cards.duplicate()
+	var completed := {"count": 0}
+	var on_completed := func(actor: Enemy):
+		if actor == enemy:
+			completed.count += 1
+	Events.enemy_action_completed.connect(on_completed)
+	for script_path in ["res://scenes/enemy/horror/horror_attack_action.gd", "res://scenes/enemy/void_spectre/void_spectre_attack_action.gd"]:
+		var action: EnemyAction = load(script_path).new()
+		action.enemy = enemy
+		action.target = world.player
+		action.intent = Intent.new()
+		action.intent.base_text = "%s"
+		enemy.enemy_action_picker.add_child(action)
+		enemy.current_action = action
+		world.player.stats.block = 999
+		var draw_count := world.player.stats.draw_pile.cards.size()
+		var start := enemy.sprite_2d.position
+		completed.count = 0
+		handler.active_enemy = enemy
+		action.perform_action()
+		action.lunge_tween.pause()
+		action.lunge_tween.custom_step(Utils.presentation_duration(0.4) * 0.5)
+		handler.cancel_turn()
+		await get_tree().create_timer(1.4).timeout
+		check(world.player.stats.block == 999, "Cancelled real attack cannot deliver delayed damage")
+		check(world.player.stats.draw_pile.cards.size() == draw_count, "Cancelled Spectre cannot add Void Residue")
+		check(completed.count == 0, "Cancelled attack cannot complete a later activation")
+		check(enemy.sprite_2d.position.is_equal_approx(start), "Cancelled lunge restores its starting position")
+		completed.count = 0
+		action.perform_action()
+		await get_tree().create_timer(1.4).timeout
+		check(world.player.stats.block < 999, "Uninterrupted real attack still deals damage")
+		check(completed.count == 1, "Uninterrupted attack completes exactly once")
+		check(world.player.stats.draw_pile.cards.size() == draw_count + (1 if script_path.contains("spectre") else 0), "Only uninterrupted Spectre adds one Void Residue")
+		if script_path.contains("horror"):
+			world.player.stats.block = 999
+			completed.count = 0
+			handler.active_enemy = enemy
+			action.perform_action()
+			action.lunge_tween.pause()
+			action.lunge_tween.custom_step(Utils.presentation_duration(0.4) + Utils.presentation_duration(0.35) * 0.5)
+			handler.cancel_turn()
+			await get_tree().create_timer(1.4).timeout
+			check(world.player.stats.block == 995, "Cancellation between Horror hits preserves the first hit and stops the second")
+			check(completed.count == 0, "Partially resolved attack cannot emit completion after cancellation")
+		enemy.current_action = previous_action
+		action.queue_free()
+	Events.enemy_action_completed.disconnect(on_completed)
+	world.player.stats.block = previous_block
+	world.player.stats.draw_pile.cards.assign(previous_draw)
+
+func _test_movement_cancellation(world: GameWorld) -> void:
+	var mover: MovingEnemy
+	for child in world.enemy_handler.get_children():
+		if child is MovingEnemy:
+			mover = child
+			break
+	check(mover != null, "Movement regression has a real moving enemy")
+	if mover == null:
+		return
+	var original_action := mover.current_action
+	var origin := mover.current_tile_position
+	var original_scale := mover.sprite_2d.scale
+	var destination := MovingEnemy.INVALID_TILE
+	for cell in world.tilemap.tile_map_data:
+		if cell != origin and mover.can_move_to_tile(cell):
+			destination = cell
+			break
+	check(destination != MovingEnemy.INVALID_TILE, "Movement cancellation has a legal destination")
+	if destination != MovingEnemy.INVALID_TILE:
+		check(mover.set_movement_target(destination), "Real movement starts before cancellation")
+		if mover.move_tween:
+			mover.move_tween.pause()
+			mover.move_tween.custom_step(Utils.presentation_duration(mover.move_duration * 0.75))
+		world.enemy_handler.active_enemy = mover
+		world.enemy_handler.cancel_turn()
+		await get_tree().process_frame
+		check(mover.current_tile_position == origin, "Cancelled real movement rejects its deferred/tween destination")
+		check(mover.position.is_equal_approx(world.tilemap.base_layer.map_to_local(origin) + Vector2(0, 1)), "Cancelled real movement restores committed board position")
+		check(mover.sprite_2d.scale.is_equal_approx(original_scale), "Interrupted movement restores its original scale")
+		check(mover.set_movement_target(destination), "Movement can restart after cancellation")
+		await get_tree().create_timer(0.6).timeout
+		check(mover.current_tile_position == destination and not mover.is_moving, "New movement commits its own destination")
+		mover._notify_move_finished(origin)
+	var completions := {"count": 0}
+	var on_completed := func(actor: Enemy):
+		if actor == mover:
+			completions.count += 1
+	Events.enemy_action_completed.connect(on_completed)
+	for path in ["blob/blob_move_action.gd", "horror/horror_move_action.gd", "bat/bat_enemy_move_action.gd", "wasp/wasp_enemy_move_action.gd", "void_spectre/void_spectre_move_action.gd", "escape_collapse_action.gd"]:
+		var action: EnemyAction = load("res://scenes/enemy/" + path).new()
+		action.enemy = mover
+		action.target = world.player
+		action.intent = Intent.new()
+		action.intent.base_text = "%s"
+		mover.enemy_action_picker.add_child(action)
+		mover.current_action = action
+		completions.count = 0
+		world.enemy_handler.active_enemy = mover
+		action.perform_action()
+		if mover.move_tween and mover.is_moving:
+			mover.move_tween.pause()
+			mover.move_tween.custom_step(Utils.presentation_duration(mover.move_duration * 0.75))
+		world.enemy_handler.cancel_turn()
+		await get_tree().create_timer(0.85).timeout
+		check(mover.current_tile_position == origin, "Cancelled %s cannot commit a destination" % path)
+		check(not mover.is_moving, "Cancelled %s leaves no active movement" % path)
+		check(mover.sprite_2d.scale.is_equal_approx(original_scale), "Cancelled movement restores sprite scale")
+		check(completions.count == 0, "Cancelled %s cannot finish a later turn" % path)
+		# Reuse the same action to reject stale work across activations.
+		action.perform_action()
+		await get_tree().create_timer(1.6).timeout
+		check(completions.count == 1, "Uninterrupted %s completes once" % path)
+		mover.cancel_movement()
+		mover._notify_move_finished(origin)
+		mover.current_action = original_action
+		action.queue_free()
+	# A completion already in its pacing delay must also be invalidated.
+	var waiting := EnemyAction.new()
+	mover.enemy_action_picker.add_child(waiting)
+	waiting.enemy = mover
+	completions.count = 0
+	waiting.complete_movement_action(waiting.action_generation, 0.1)
+	world.enemy_handler.active_enemy = mover
+	world.enemy_handler.cancel_turn()
+	await get_tree().create_timer(0.2).timeout
+	check(completions.count == 0, "Cancelled movement pacing cannot emit a stale completion")
+	waiting.queue_free()
+	Events.enemy_action_completed.disconnect(on_completed)
+
+
+func _test_status_cancellation(world: GameWorld) -> void:
+	var handler := world.enemy_handler
+	var enemy := handler.get_child(0) as Enemy
+	var original := enemy.status_handler
+	var statuses := StatusHandler.new()
+	enemy.add_child(statuses)
+	statuses.status_owner = enemy
+	enemy.status_handler = statuses
+	var completed := {"count": 0}
+	statuses.statuses_applied.connect(func(_type): completed.count += 1)
+	var first := CountingStatus.new()
+	first.id = "cancel_first"
+	first.type = Enums.StatusType.START_OF_TURN
+	first.can_expire = true
+	first.duration = 5
+	var second := first.duplicate() as CountingStatus
+	second.id = "cancel_second"
+	statuses.add_status(first)
+	statuses.add_status(second)
+	handler.active_enemy = enemy
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	handler.cancel_turn()
+	await get_tree().create_timer(0.7).timeout
+	check(first.calls == 0 and second.calls == 0, "Cancellation before playback prevents queued status effects")
+	check(completed.count == 0, "Cancelled status batch cannot signal completion")
+	first.calls = 0
+	second.calls = 0
+	first.duration = 5
+	second.duration = 5
+	handler.active_enemy = enemy
+	# Headless pacing can run the whole batch in one frame. Cancel at the
+	# actual effect boundary instead of racing the renderer's frame rate.
+	first.status_applied.connect(func(_status): handler.cancel_turn(), CONNECT_ONE_SHOT)
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	await get_tree().create_timer(0.7).timeout
+	check(first.calls == 1 and first.duration == 4, "Cancellation preserves an already applied status and its expiration")
+	check(second.calls == 0 and second.duration == 5, "Cancellation preserves unapplied status duration")
+	check(completed.count == 0, "Partial cancellation cannot complete a later activation")
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	await get_tree().create_timer(0.7).timeout
+	check(first.calls == 2 and second.calls == 1 and completed.count == 1, "A fresh status batch works after cancellation")
+	enemy.status_handler = original
+	statuses.queue_free()
+	await get_tree().process_frame
+
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	var handler := world.enemy_handler
@@ -1065,7 +1268,7 @@ func _test_instability_costs(world: GameWorld, relics: RelicHandler) -> void:
 		if previous_cost == 0 and DisplayServer.get_name() != "headless" and OS.get_cmdline_user_args().has("--capture-ui"):
 			await get_tree().create_timer(0.25).timeout
 			await RenderingServer.frame_post_draw
-			get_viewport().get_texture().get_image().save_png("res://relic-costs.png")
+			get_viewport().get_texture().get_image().save_png("user://relic-costs.png")
 		for ui: CardUI in costs:
 			saw_free_card = saw_free_card or ui.card.energy_cost == 0
 			saw_paid_card = saw_paid_card or ui.card.energy_cost > 0

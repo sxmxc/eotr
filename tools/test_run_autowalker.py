@@ -1,5 +1,6 @@
 """Launcher lifecycle regressions; no engine or backend required."""
 import os
+import json
 from pathlib import Path
 import subprocess
 import tempfile
@@ -66,6 +67,36 @@ class LauncherLifecycleTests(unittest.TestCase):
                 launcher.run_godot(['godot'], {}, 5, self.stop_file)
         self.process.kill.assert_called_once()
         self.process.wait.assert_called_once_with()
+
+
+class EncounterSuiteTests(unittest.TestCase):
+    def test_suite_keeps_encounter_reports_separate_and_aggregates(self):
+        root = Path(launcher.__file__).resolve().parents[1]
+        paths = launcher.encounter_paths(root)[:2]
+        self.assertEqual(len(paths), 2)
+        (root / 'qa').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root / 'qa') as output, tempfile.TemporaryDirectory() as temporary:
+            def launch(command, env, timeout, stop_file, maintenance):
+                directory = Path(next(arg.split('=', 1)[1] for arg in command if arg.startswith('--output=')))
+                encounter = next(arg.split('=', 1)[1] for arg in command if arg.startswith('--encounter='))
+                self.assertEqual(directory.name, Path(encounter).stem)
+                self.assertIn('--count=2', command)
+                self.assertIn('--max-actions-per-turn=300', command)
+                (directory / 'godot.log').write_text('')
+                (directory / 'summary.json').write_text(json.dumps({'simulations': 2, 'wins': 1, 'losses': 1}))
+                return 0
+            with patch.object(launcher, 'encounter_paths', return_value=paths), patch.object(launcher, 'run_godot', side_effect=launch):
+                code = launcher.run(Path(temporary), ['--godot', 'fake', '--all-encounters', '--count', '2',
+                                                      '--max-actions-per-turn', '300', '--output', output])
+            self.assertEqual(code, 0)
+            suite = json.loads((Path(output) / 'summary.json').read_text())
+            self.assertEqual((suite['simulations'], suite['wins'], suite['losses']), (4, 2, 2))
+            self.assertEqual(len(suite['encounters']), 2)
+
+    def test_suite_rejects_run_mode(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            with self.assertRaises(SystemExit):
+                launcher.run(Path(temporary), ['--godot', 'fake', '--all-encounters', '--mode', 'run'])
 
 
 if __name__ == '__main__':

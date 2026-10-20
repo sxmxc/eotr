@@ -979,7 +979,7 @@ func _capture(screen: String) -> void:
 			for x in frame.get_width():
 				frame.set_pixel(x, y, frame.get_pixel(x, y).linear_to_srgb())
 		frame.convert(Image.FORMAT_RGBA8)
-	frame.save_png("res://overhaul-%s.png" % screen)
+	frame.save_png("user://overhaul-%s.png" % screen)
 
 
 func _test_save_failure(data: SaveGame) -> void:

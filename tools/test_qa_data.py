@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from compare_autowalker import compare, read
 from qa_storage import artifact_files, cap_log, prune_qa
-from validate_project import link_directory
+import subprocess
 
 
 class QADataTests(unittest.TestCase):
@@ -46,7 +46,12 @@ class QADataTests(unittest.TestCase):
         (source / 'events.jsonl').write_text('outside QA')
         qa = self.root / 'qa'
         qa.mkdir()
-        link_directory(source, qa / 'linked-assets')
+        link = qa / 'linked-assets'
+        if os.name == 'nt':
+            subprocess.run(['cmd', '/c', 'mklink', '/J', str(link), str(source)],
+                           check=True, capture_output=True)
+        else:
+            link.symlink_to(source, target_is_directory=True)
         saves = qa / 'autowalker-userdata'
         saves.mkdir()
         (saves / 'events.jsonl').write_text('save data')

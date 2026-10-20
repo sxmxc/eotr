@@ -446,4 +446,4 @@ Leave the project in a coherent, working state.
 
 Begin by reviewing the current project state and previous improvement log, identify the highest-value actionable opportunities, and implement the best cohesive set of improvements you can safely complete.
 
-Do not stop at recommendations. Make the improvements.
+Do not stop at recommendations. Make the improvements. Commit changes. Do not push.

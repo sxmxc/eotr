@@ -3,13 +3,11 @@ import argparse
 import json
 import os
 from pathlib import Path
-import re
-import shutil
 import subprocess
 import sys
 import time
 import uuid
-from validate_project import link_directory
+import tempfile
 from qa_storage import MAX_LOG_BYTES, maintain_qa
 
 
@@ -58,11 +56,18 @@ def run_godot(command, env, timeout, stop_file, maintenance=None):
         stop_file.unlink(missing_ok=True)
 
 
-def main():
+def encounter_paths(root):
+    return sorted(path for path in (root / 'resources/data/battles').glob('*.tres')
+                  if 'script_class="EncounterDefinition"' in path.read_text(encoding='utf-8')
+                  or 'script_class="BattleStats"' in path.read_text(encoding='utf-8'))
+
+
+def run(temporary, argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--godot", required=True)
     parser.add_argument("--watch", action="store_true")
     parser.add_argument("--telemetry-local", action="store_true", help="Keep QA telemetry local without contacting the configured backend")
+    parser.add_argument("--telemetry-upload", action="store_true", help="Explicitly consent to configured QA uploads for this launch, including isolated saves")
     parser.add_argument("--verify-watch", action="store_true", help="Run rendered playback, save a capture and exit after the simulation")
     parser.add_argument("--mode", choices=["encounter", "run"], default="encounter")
     parser.add_argument("--replay")
@@ -71,37 +76,72 @@ def main():
     parser.add_argument("--count", type=int, default=1)
     parser.add_argument("--max-turns", type=int, default=50)
     parser.add_argument("--max-actions", type=int, default=500)
+    parser.add_argument("--max-actions-per-turn", type=int, default=100)
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--encounter", default="res://resources/data/battles/tier_1_channelers_bulwark.tres")
-    parser.add_argument("--output", default=".qa-tmp/autowalker")
-    args = parser.parse_args()
+    parser.add_argument("--all-encounters", action="store_true", help="Run every encounter with the same seed range; write separate encounter folders and a suite summary")
+    parser.add_argument("--output", default="qa/autowalker")
+    args = parser.parse_args(argv)
     root = Path(__file__).resolve().parents[1]
-    project = root / ".qa-tmp/autowalker-project"
-    cache = project / ".godot"
-    cache.mkdir(parents=True, exist_ok=True)
-    (root / ".qa-tmp/.gdignore").touch()
-    for directory in ("addons", "assets", "resources", "scenes", "scripts", "ui", "telemetry"):
-        link_directory(root / directory, project / directory)
-    link_directory(root / ".godot/imported", cache / "imported")
-    for filename in ("uid_cache.bin", "global_script_class_cache.cfg"):
-        shutil.copy2(root / ".godot" / filename, cache / filename)
-    for filename in ("default_bus_layout.tres", "icon.svg", "icon.svg.import"):
-        shutil.copy2(root / filename, project / filename)
-    config = (root / "project.godot").read_text(encoding="utf-8")
-    config = re.sub(r'^config/name=.*$', 'config/name="eotr_autowalker"', config, flags=re.M)
-    config = re.sub(r'^config/(use_custom_user_dir|custom_user_dir)=.*\n?', '', config, flags=re.M)
-    if args.telemetry_local:
-        config = re.sub(r'^\[telemetry\]\n.*?(?=^\[|\Z)', '', config, flags=re.M | re.S)
-        config += '\n[telemetry]\n\nconfig_path="res://scripts/tests/telemetry_null.tres"\n'
-    (project / "project.godot").write_text(config, encoding="utf-8")
-    userdata = root / ".qa-tmp/autowalker-userdata"
+    if args.telemetry_local and args.telemetry_upload:
+        parser.error('--telemetry-local and --telemetry-upload are mutually exclusive')
+    if args.count < 1 or min(args.max_turns, args.max_actions, args.max_actions_per_turn) < 1 or args.timeout <= 0:
+        parser.error('count, limits and timeout must be positive')
+    if args.all_encounters:
+        if args.mode != 'encounter' or args.watch or args.verify_watch or args.replay:
+            parser.error('--all-encounters requires headless encounter mode without replay')
+        suite_output = (root / args.output).resolve()
+        if root / 'qa' not in suite_output.parents:
+            parser.error('--output must be inside the repository qa/ directory')
+        paths = encounter_paths(root)
+        if not paths:
+            parser.error('No encounter resources found')
+        suite_output.mkdir(parents=True, exist_ok=True)
+        suite = {'mode': 'encounter_suite', 'policy': args.policy, 'encounters': [],
+                 'expected_encounters': len(paths), 'complete': False,
+                 'simulations': 0, 'wins': 0, 'losses': 0, 'aborted': 0, 'failures': 0, 'launcher_failures': 0}
+        status = 0
+        for index, path in enumerate(paths, 1):
+            print(f'Encounter {index}/{len(paths)}: {path.stem}', flush=True)
+            child_output = suite_output / path.stem
+            child_args = ['--godot', args.godot, '--encounter', 'res://' + path.relative_to(root).as_posix(),
+                          '--output', str(child_output), '--policy', args.policy]
+            for key in ('seed', 'count', 'max_turns', 'max_actions', 'max_actions_per_turn', 'timeout'):
+                child_args.extend(['--' + key.replace('_', '-'), str(getattr(args, key))])
+            if args.telemetry_local:
+                child_args.append('--telemetry-local')
+            if args.telemetry_upload:
+                child_args.append('--telemetry-upload')
+            started_ns = time.time_ns()
+            code = run(temporary, child_args)
+            entry = {'encounter': path.stem, 'exit_code': code}
+            summary_path = child_output / 'summary.json'
+            if summary_path.exists() and summary_path.stat().st_mtime_ns >= started_ns:
+                summary = json.loads(summary_path.read_text(encoding='utf-8'))
+                entry['summary'] = summary
+                for key in ('simulations', 'wins', 'losses', 'aborted', 'failures'):
+                    suite[key] += summary.get(key, 0)
+            suite['encounters'].append(entry)
+            if code not in (0, 130):
+                suite['launcher_failures'] += 1
+            (suite_output / 'summary.json').write_text(json.dumps(suite, indent=2), encoding='utf-8')
+            if code == 130:
+                return 130
+            if code != 0:
+                status = max(status, code, 1)
+        suite['complete'] = True
+        (suite_output / 'summary.json').write_text(json.dumps(suite, indent=2), encoding='utf-8')
+        print(json.dumps({key: value for key, value in suite.items() if key != 'encounters'}))
+        return status
+    project = root
+    userdata = temporary / "userdata"
     userdata.mkdir(exist_ok=True)
     env = os.environ.copy()
     for name in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
         env[name] = str(userdata)
     output = (root / args.output).resolve()
-    if root / '.qa-tmp' not in output.parents and output != root / '.qa-tmp':
-        parser.error('--output must be inside the repository .qa-tmp/ directory for bounded retention')
+    if root / 'qa' not in output.parents and output != root / 'qa':
+        parser.error('--output must be inside the repository qa/ directory for bounded retention')
     output.mkdir(parents=True, exist_ok=True)
     stop_file = output / f".stop-{uuid.uuid4().hex}"
     storage_stop_at = None
@@ -109,7 +149,7 @@ def main():
     def maintenance(active=True):
         nonlocal storage_stop_at
         # Never truncate a file while Godot's writer still owns its seek offset.
-        maintain_qa(root / '.qa-tmp', output, args.replay, trim_log=not active)
+        maintain_qa(root / 'qa', output, args.replay, trim_log=not active)
         log = output / 'godot.log'
         if active and log.exists() and log.stat().st_size > MAX_LOG_BYTES:
             if storage_stop_at is None:
@@ -122,11 +162,14 @@ def main():
     maintenance(active=False)
     command = [args.godot, *( ["--windowed", "--resolution", "1920x1080"] if args.watch or args.verify_watch else ["--headless"] ), "--path", str(project),
                "res://scenes/developer/autowalker/watch.tscn", "--log-file", str(output / "godot.log"), "--", "--autostart"]
-    for key in ("mode", "seed", "policy", "count", "max_turns", "max_actions", "timeout", "encounter"):
+    for key in ("mode", "seed", "policy", "count", "max_turns", "max_actions", "max_actions_per_turn", "timeout", "encounter"):
         command.append(f"--{key.replace('_', '-')}={getattr(args, key)}")
     command.append(f"--output={output.as_posix()}")
     if args.telemetry_local:
         command.append("--telemetry-local")
+        command.append("--validation-local")
+    if args.telemetry_upload:
+        command.append('--telemetry-upload')
     if args.replay:
         command.append(f"--replay={Path(args.replay).resolve().as_posix()}")
     if args.verify_watch:
@@ -159,6 +202,11 @@ def main():
         if "SCRIPT ERROR:" in log:
             return 1
     return returncode
+
+
+def main():
+    with tempfile.TemporaryDirectory(prefix="eotr-autowalker-") as directory:
+        return run(Path(directory))
 
 
 if __name__ == "__main__":

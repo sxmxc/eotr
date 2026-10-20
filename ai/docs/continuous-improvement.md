@@ -1,5 +1,30 @@
 # Continuous improvement
 
+## 2026-10-20 - Cancel queued enemy statuses
+
+- Enemy turn cancellation now kills its active status application tween before releasing action/movement work. Pending effects, duration consumption and completion signals stop; effects already applied remain committed. StatusHandler owns its tween, replaces pending batches and cancels on tree exit.
+- Reproduced queued effects and completion after cancellation before the fix. Focused headless and native D3D12 cancellation/reuse checks pass, alongside existing lunge/movement checks. Tests cancel before playback and at the first applied effect, checking remaining duration and subsequent normal completion. Full headless combat, resource reference and whitespace checks pass.
+- Limits: native checks are offscreen assertions, not human visual review. No campaign/export QA. Existing Windows certificate-store diagnostic remains. Already dispatched damage is preserved; player status/relic shutdown remains separate work.
+- Next: multi-floor save/resume; inspect player status/relic continuations during battle shutdown and enemy death during status resolution.
+
+## 2026-10-20 - Cancel pending enemy movement
+
+- Turn cancellation invalidates action continuations before releasing movement waiters. Blob, Horror, Bat, Wasp, Spectre, collapse escape and tactics movement reject stale completion; Horror cannot continue its second move after cancellation. Tactics also rejects cancellation during its between-hit wait.
+- MovingEnemy cancels native tweens and deferred headless destinations, restores scale and the last committed tile, and supports subsequent movement. No-path moves use the same cancellable pending state. Existing movement rules and pacing remain.
+- Focused headless and native D3D12 checks pass: real mid-tween interruption, restoration, new destination commit, six action cancellation/reuse cases and cancelled completion delays. Full headless combat passes. Final no-path waiter adjustment has a separate focused headless check. Validation includes resource references; whitespace checks pass.
+- Limits: native assertions ran offscreen; no human visual review, campaign or export QA. Existing Windows certificate-store diagnostic remains. Already dispatched effects are preserved; status-owned effects still need investigation.
+- Next: multi-floor save/resume; status effects during battle shutdown; focused tactics coverage between multi-hit damage resolutions.
+
+
+## 2026-10-20 - Cancel pending lunges; test the original project
+
+- Seven enemy lunge actions now own cancellable tweens. Cancelling a turn stops pending hits, completion and Void Residue, restores sprite/idle state, and handles changed intent. Between-hit Horror cancellation preserves the first hit; normal effects/timings remain.
+- Six baseline assertions failed. Focused headless/native D3D12 checks pass on the original project; full headless combat passed before runner replacement. Telemetry tests, nine Python tests, syntax, resource and whitespace checks pass afterward.
+- User requirement: never copy/clone/junction the project for tests. Removed duplicate-project setup from validation, AutoWalker, visual capture and telemetry runners and removed obsolete guidance. Disposable saves/logs/captures use auto-cleaned system temp/user storage. Removed this session's .qa-tmp workspace; verified it stays absent.
+- Limits: no manual visual review, full post-runner-change combat suite, campaign or export QA. Existing certificate-store diagnostic remains. Already dispatched damage is preserved; movement/status coroutines remain separate work.
+- Next: movement/status cancellation and multi-floor save/resume. Historical artifact paths below describe old runs, not current testing instructions.
+
+
 ## 2026-10-20 - Escape respects active card inspection
 
 - Shop/reward inspection consumes cancel before the run pause fallback. Escape closes inspection; the next press pauses, and another resumes. Pause uses native unhandled input so existing modal handlers get first refusal.

@@ -3,6 +3,24 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "ENEMY-STATUS-CANCEL-001",
+      "status": "done",
+      "summary": "Cancel pending enemy status application on turn cancellation; preserve resolved effects and unapplied duration. Focused headless/native D3D12 checks pass, including reuse and existing lunge/movement cases. Player status/relic shutdown, enemy death during status resolution and campaign save/resume remain.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "ENEMY-MOVEMENT-CANCEL-001",
+      "status": "done",
+      "summary": "Cancelled enemy movement rejects deferred destinations, action continuations and pacing callbacks; restores committed tile and sprite scale. Six movement action cancellation/reuse cases plus native tween interruption and restart pass. Full headless combat and focused native checks pass; final no-path waiter adjustment checked headlessly. No human visual/campaign/export QA. Next: status teardown and multi-floor save/resume.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "ENEMY-LUNGE-DIRECT-QA-001",
+      "status": "done",
+      "summary": "Seven owned lunge tweens cancel pending hits/completion/residue and restore sprite/idle. Six baseline failures; focused headless/native real-project checks pass, including partial Horror resolution. Removed duplicate project/junction setup from four runner tools; auto-clean system-temp data. Removed .qa-tmp and obsolete operating guidance. Telemetry and nine Python checks pass. Movement/status cancellation and campaign save/resume remain.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "EVENT-HP-COST-001",
       "status": "done",
       "summary": "Rift Echo four-HP cost uses existing direct damage, bypassing leftover block. Focused real-button checks cover 0/2/10 block, damage accounting and one-time rewards. Eight baseline failures; final focused headless run passes. Low-health event/death flow remains a separate candidate.",

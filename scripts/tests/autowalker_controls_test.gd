@@ -30,6 +30,7 @@ func until(predicate: Callable, seconds: float = 10.0) -> bool:
 func run() -> void:
 	test_health_metrics()
 	test_report_retention()
+	await test_treasure_progression()
 	await test_qa_upload()
 	if OS.get_cmdline_user_args().has("--telemetry-only"):
 		TelemetryManager.suspended = true
@@ -41,7 +42,7 @@ func run() -> void:
 	var runner = watch.get_node("Runner")
 	runner.automatic_start = false
 	runner.quit_when_finished = false
-	runner.output = "res://qa/controls-test"
+	runner.output = "user://qa/controls-test"
 	add_child(watch)
 	await runner.start()
 	runner.paused = true
@@ -86,7 +87,7 @@ func test_health_metrics() -> void:
 
 func test_report_retention() -> void:
 	var runner = load("res://scripts/autowalker/runners/runner.gd").new()
-	runner.output = "res://qa/report-retention-test"
+	runner.output = "user://qa/report-retention-test"
 	runner.simulation_seed = 39
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(runner.output))
 	for index in 40:
@@ -99,6 +100,27 @@ func test_report_retention() -> void:
 	check(FileAccess.file_exists(runner.output.path_join("simulation-39.json")), "Retention preserves the current report")
 	runner.free()
 
+func test_treasure_progression() -> void:
+	var fake_run := Run.new()
+	fake_run.map = Map.new()
+	fake_run.add_child(fake_run.map)
+	fake_run.map.visible = false
+	var container := Node.new()
+	add_child(container)
+	fake_run.current_view = container
+	var treasure: Treasure = load("res://scenes/treasure/treasure.tscn").instantiate()
+	container.add_child(treasure)
+	var progression = preload("res://scripts/autowalker/core/progression_interface.gd").new()
+	progression.run_node = fake_run
+	check(treasure.found_relic == null and progression.legal_actions() == [{"kind": "treasure"}], "Empty treasure cache remains actionable")
+	progression.execute({"kind": "treasure"})
+	check(treasure.opening and progression.legal_actions().is_empty(), "Treasure uses current button flow without repeating opening")
+	check(await until(func(): return treasure.reward_emitted), "Treasure opening finishes")
+	check(progression.legal_actions().is_empty(), "Completed treasure cannot emit rewards twice")
+	container.queue_free()
+	fake_run.free()
+	await get_tree().process_frame
+
 func test_qa_upload() -> void:
 	var config := preload("res://addons/godot_telemetry/resources/telemetry_config.gd").new()
 	config.enabled = true
@@ -110,7 +132,7 @@ func test_qa_upload() -> void:
 	config.retry_base_seconds = 0.01
 	var old_consent := GameSettings.telemetry_enabled
 	GameSettings.telemetry_enabled = true
-	var path := "res://qa/qa-upload-test.jsonl"
+	var path := "user://qa-upload-test.jsonl"
 	TelemetryManager.configure_qa(path, config)
 	var upload: Node = TelemetryManager.qa_upload
 	upload.set_process(false)
@@ -121,13 +143,14 @@ func test_qa_upload() -> void:
 	upload.add_child(fake)
 	upload.transport = fake
 	TelemetryManager.set_context({"run_id": "upload-test"})
-	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 1})
+	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 1}, 1, {"reason_code": "action_limit"})
 	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 2})
 	check(await TelemetryManager.flush_pending(1.0), "Shutdown drain delivers every queued batch asynchronously")
 	check(fake.batches.size() == 2 and upload.diagnostics.delivered == 3, "HTTP upload acknowledges more than one batch")
 	var event: Dictionary = fake.batches[0][1]
 	check(event.source_type == "bot" and event.environment == "qa" and event.run_id == "upload-test", "Backend events carry bot source, QA environment and current run")
 	check(event.session_id == TelemetryManager.client.session_id, "Local and uploaded events share session context")
+	check(event.metadata.reason_code == "action_limit", "Per-event diagnostic metadata reaches upload transport")
 	fake.result = {"ok": false, "retryable": true, "error": "offline"}
 	TelemetryManager.track_event("stat_changed", {"stat": "test", "change": 3})
 	TelemetryManager.flush()

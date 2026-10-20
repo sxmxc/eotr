@@ -14,6 +14,7 @@ func is_performable() -> bool:
 	return true
 	
 func perform_action() -> void:
+	var generation := action_generation
 	if not enemy:
 		return
 	print("%s moves closer to player" % enemy.name)
@@ -21,9 +22,8 @@ func perform_action() -> void:
 	Events.world_message_requested.emit(world_message)
 	enemy.perform_turn_based_move(tiles_per_turn)
 	await enemy.movement_finished
+	if generation != action_generation:
+		return
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(
-		func(): 
-			Events.enemy_action_completed.emit(enemy)
-	)
+	complete_movement_action(generation, .3)
 	

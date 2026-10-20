@@ -52,3 +52,15 @@ can temporarily exceed the global target between checks; scratch caches, isolate
 saves, links and unrelated files are excluded. The launcher confines output to `qa/`.
 
 See [the user guide](autowalker.md) and [read-only Grafana access](grafana-access.md).
+
+AutoWalker completion events also carry bounded per-event `metadata`: stop reason
+and reason code, encounter and policy identity, action counts and configured limits,
+final health, last action, and warning/validation counts. These diagnostic fields
+use the existing envelope metadata contract (4096-byte maximum), preserving v2
+gameplay metric semantics and compatibility with the deployed ingestion schema.
+The QA dashboard includes an abort/technical-failure table reading these fields;
+provision its updated JSON to expose that table. Historical events without metadata
+remain queryable, with the reason displayed as `legacy_unknown`.
+`--telemetry-upload` explicitly opts disposable QA saves into uploads for one launch;
+otherwise the existing player consent setting applies. `--all-encounters` runs a
+separate session/output subfolder per encounter, using the same seed range.

@@ -2,6 +2,8 @@
 
 Use these playbooks to accelerate common contributions. Always capture outcomes in `ai/state/journal.md` and `ai/state/progress.json`.
 
+Run checks against the existing project. Do not create duplicate project trees or junction workspaces for testing. Disposable validation data belongs in automatically cleaned system temp storage.
+
 ## 1. Add or Update a Card
 
 1. **Review Existing Card**: Locate script under `resources/data/cards/<class>/<card_id>.gd`.
