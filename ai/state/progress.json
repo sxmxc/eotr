@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-18",
+  "updated": "2026-10-20",
   "tasks": [
+    {
+      "id": "EVENT-HP-COST-001",
+      "status": "done",
+      "summary": "Rift Echo four-HP cost uses existing direct damage, bypassing leftover block. Focused real-button checks cover 0/2/10 block, damage accounting and one-time rewards. Eight baseline failures; final focused headless run passes. Low-health event/death flow remains a separate candidate.",
+      "updated": "2026-10-20"
+    },
     {
       "id": "BATTLEFIELD-VFX-OVERHAUL-004",
       "status": "in_review",

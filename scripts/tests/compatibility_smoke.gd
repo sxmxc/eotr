@@ -294,6 +294,8 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 	await _click_control(option)
 	_check(choices.card_popup.visible and choices.selected_card == option.card, "Clicking a reward card opens confirmation")
 	await _capture("reward-confirm")
+	await _test_inspection_cancel(run_scene, choices.card_popup)
+	await _click_control(option)
 	await _click_control(choices.card_popup.confirm_button)
 	_check(run_scene.player_stats.deck.cards.size() == deck_size + 1, "Taking a reward adds exactly one card")
 	rewards._show_card_rewards()
@@ -320,6 +322,8 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		await _click_control(item.current_card_ui)
 		_check(shop.card_popup.visible, "Shop cards open inspection on click")
 		await _capture("shop-inspect")
+		await _test_inspection_cancel(run_scene, shop.card_popup)
+		await _click_control(item.current_card_ui)
 		await _click_control(shop.card_popup.close_button)
 		_check(not shop.card_popup.visible, "Shop inspection closes with Back")
 		var cost := item.gold_cost
@@ -337,6 +341,34 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		var relic_id := item.relic.id
 		await _click_control(item.buy_button)
 		_check(run_scene.run_stats.resources == 100 - cost and run_scene.relic_handler.has_relic(relic_id), "Relic purchase charges once and grants its relic")
+
+
+func _press_escape() -> void:
+	var event := InputEventKey.new()
+	event.keycode = KEY_ESCAPE
+	event.physical_keycode = KEY_ESCAPE
+	event.pressed = true
+	Input.parse_input_event(event)
+	await get_tree().process_frame
+	event = InputEventKey.new()
+	event.keycode = KEY_ESCAPE
+	event.physical_keycode = KEY_ESCAPE
+	event.pressed = false
+	Input.parse_input_event(event)
+	await get_tree().process_frame
+
+
+func _test_inspection_cancel(run_scene: Run, popup: CardPopup) -> void:
+	await _press_escape()
+	_check(not popup.visible, "Escape closes active card inspection")
+	_check(not get_tree().paused and not run_scene.pause_menu.visible, "Closing inspection does not also pause")
+	# Recover after a failed baseline assertion so later transactions can run.
+	run_scene.pause_menu._unpause()
+	popup.hide_popup()
+	await _press_escape()
+	_check(get_tree().paused and run_scene.pause_menu.visible, "Escape without inspection opens pause")
+	await _press_escape()
+	_check(not get_tree().paused and not run_scene.pause_menu.visible, "Escape resumes from pause")
 
 
 func _test_route_and_icon_feedback(run_scene: Run) -> void:
@@ -664,6 +696,19 @@ func _test_event_choices() -> void:
 	room._on_option_a_pressed()
 	room._on_option_a_pressed()
 	_check(run_stats.gold == gold + 25 and run_stats.resources == 1, "Free event reward can only be claimed once")
+	room._current_event = EventRoom.EVENTS[0]
+	for remaining_block in [0, 2, 10]:
+		room._populate_event()
+		stats.health = 10
+		stats.block = remaining_block
+		var damage_before := stats.total_health_damage
+		var resources_before := run_stats.resources
+		await _click_control(room.option_a_button)
+		_check(stats.health == 6, "Rift Echo costs four HP with %d block" % remaining_block)
+		_check(stats.block == remaining_block, "Event HP cost preserves combat block")
+		_check(stats.total_health_damage == damage_before + 4, "Event HP loss is included in run damage accounting")
+		room._on_option_a_pressed()
+		_check(stats.health == 6 and run_stats.resources == resources_before + 1, "Rift Echo charges and rewards exactly once")
 	room.queue_free()
 	await get_tree().process_frame
 

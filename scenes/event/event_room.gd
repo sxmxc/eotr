@@ -179,7 +179,8 @@ func _option_scout_rest() -> void:
 
 func _apply_damage(amount: int) -> void:
 	if player_stats:
-		player_stats.take_damage(amount)
+		# Event HP costs bypass block left over from combat.
+		player_stats.take_direct_damage(amount)
 
 
 func _heal(amount: int) -> void:

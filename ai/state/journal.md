@@ -462,3 +462,8 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Final illustrated masters replace the rejected art experiments. The exact class master supplies class screen, unit and card identity; all 29 card resources bind their own 592×396 art. Main menu, three class screens, battlefield entities, map/UI icons and terrain replaced. 88 obsolete sources and 438 import cache files removed; final images total about 5.5 MB.
 - Asset/reference/alpha/animated-footprint/unused checks, combat automation and native compatibility pass. Actual runtime: 27 headless encounter simulations (19 wins/8 losses), one rendered elite win, and a run-mode loss after one climbed floor; no invalid actions, softlocks, timeouts or runtime failures. Screenshots inspected for combat/cards, main menu and all class screens. No backend, export or complete human campaign QA. Known certificate/headless shader diagnostics remain.
 - Report, inventories, authoring and validation evidence: ai/docs/rift-overhaul.md, rift-asset-inventory.json, rift-content.json, rift-validation-results.json.
+
+**2026-10-20 - Rift Echo HP cost**
+- Replaced combat damage with existing direct damage for the event HP cost; leftover block no longer absorbs the cost. Added actual-button checks at zero/two/ten block; eight baseline failures, final focused headless checks pass. Context7 Godot 4.7 documentation consulted.
+- No visual changes or campaign/export QA; low-health event/death flow remains a follow-up. See ai/docs/continuous-improvement.md.
+- Broader compatibility smoke: 654 resources loaded, two unrelated map emitter position failures in unchanged scene/checks. Resource guard and git diff --check pass.

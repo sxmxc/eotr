@@ -17,6 +17,37 @@ class CountingAction extends EnemyAction:
 	func update_intent_text() -> void:
 		pass
 
+func _test_combatant_wards(world: GameWorld) -> void:
+	world.tilemap.hide_fog()
+	var enemy := world.enemy_handler.get_child(0) as Enemy
+	var refs: Array[WeakRef] = []
+	var original_blocks: Array[int] = [world.player.stats.block, enemy.stats.block]
+	for combatant: Node2D in [world.player, enemy]:
+		var before: int = combatant.stats.block
+		var block := BlockEffect.new()
+		block.amount = 4
+		block.visual_fx = preload("res://ui/fx/eldritch_barrier_signature.tscn")
+		block.execute([combatant])
+		check(combatant.stats.block == before + 4, "Ward grants block to both combatant types")
+		var fx := combatant.get_node("EldritchBarrierFX")
+		refs.append(weakref(fx))
+	await get_tree().create_timer(0.22).timeout
+	if DisplayServer.get_name() != "headless":
+		for ref: WeakRef in refs:
+			var fx = ref.get_ref()
+			check(fx != null and fx.is_visible_in_tree(), "Combatant ward survives into visible playback")
+			if fx:
+				check(fx.position == fx.get_parent().get_node("ImpactAnchor").position, "Ward follows combatant impact anchor")
+				check(fx.get_node("Illustration").frame > 0, "Combatant ward illustration advances")
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png("res://combatant-wards.png")
+	await get_tree().create_timer(0.7).timeout
+	for ref: WeakRef in refs:
+		check(ref.get_ref() == null, "Combatant ward cleans up after playback")
+	world.player.stats.block = original_blocks[0]
+	enemy.stats.block = original_blocks[1]
+
+
 func _test_visual_lifetimes(world: GameWorld) -> void:
 	var frame := Node2D.new()
 	frame.position = Vector2(37, -19)
@@ -750,6 +781,7 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--utility-review"):
+		await _test_combatant_wards(world)
 		await _review_utility_motion(world)
 		print("Combat automation tests: %d failures" % failures)
 		await Utils.stop_audio_for_shutdown()
@@ -781,6 +813,7 @@ func run() -> void:
 		await Utils.stop_audio_for_shutdown()
 		get_tree().quit(1 if failures else 0)
 		return
+	await _test_combatant_wards(world)
 	await _test_visual_lifetimes(world)
 	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)

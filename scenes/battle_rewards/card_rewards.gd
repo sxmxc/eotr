@@ -34,8 +34,9 @@ func _on_skip_pressed() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") and card_popup.visible:
 		card_popup.hide_popup()
+		get_viewport().set_input_as_handled()
 
 
 func _clear_rewards() -> void:
