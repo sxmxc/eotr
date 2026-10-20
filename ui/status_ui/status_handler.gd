@@ -9,10 +9,23 @@ const STATUS_APPLY_INTERVAL := 0.25
 @export var status_owner: Node2D
 @export var status_ui_scene: PackedScene = preload("res://ui/status_ui/status_ui.tscn")
 
+var _application_tween: Tween
+
+
+func cancel_application() -> void:
+	if _application_tween and _application_tween.is_valid():
+		_application_tween.kill()
+	_application_tween = null
+
+
+func _exit_tree() -> void:
+	cancel_application()
+
 
 func apply_statuses_by_type(type: Enums.StatusType) -> void:
 	if type == Enums.StatusType.EVENT_BASED:
 		return
+	cancel_application()
 
 	var status_queue: Array[Status] = _get_all_statuses().filter(
 		func(status: Status): return status.type == type
@@ -22,12 +35,15 @@ func apply_statuses_by_type(type: Enums.StatusType) -> void:
 		statuses_applied.emit(type)
 		return
 
-	var tween := create_tween()
+	_application_tween = create_tween()
 	for status: Status in status_queue:
-		tween.tween_callback(status.apply_status.bind(status_owner))
-		tween.tween_interval(Utils.presentation_duration(STATUS_APPLY_INTERVAL))
+		_application_tween.tween_callback(status.apply_status.bind(status_owner))
+		_application_tween.tween_interval(Utils.presentation_duration(STATUS_APPLY_INTERVAL))
 
-	tween.finished.connect(func(): statuses_applied.emit(type))
+	_application_tween.finished.connect(func():
+		_application_tween = null
+		statuses_applied.emit(type)
+	)
 
 
 func add_status(status: Status) -> void:

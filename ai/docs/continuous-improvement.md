@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-20 - Cancel queued enemy statuses
+
+- Enemy turn cancellation now kills its active status application tween before releasing action/movement work. Pending effects, duration consumption and completion signals stop; effects already applied remain committed. StatusHandler owns its tween, replaces pending batches and cancels on tree exit.
+- Reproduced queued effects and completion after cancellation before the fix. Focused headless and native D3D12 cancellation/reuse checks pass, alongside existing lunge/movement checks. Tests cancel before playback and at the first applied effect, checking remaining duration and subsequent normal completion. Full headless combat, resource reference and whitespace checks pass.
+- Limits: native checks are offscreen assertions, not human visual review. No campaign/export QA. Existing Windows certificate-store diagnostic remains. Already dispatched damage is preserved; player status/relic shutdown remains separate work.
+- Next: multi-floor save/resume; inspect player status/relic continuations during battle shutdown and enemy death during status resolution.
+
 ## 2026-10-20 - Cancel pending enemy movement
 
 - Turn cancellation invalidates action continuations before releasing movement waiters. Blob, Horror, Bat, Wasp, Spectre, collapse escape and tactics movement reject stale completion; Horror cannot continue its second move after cancellation. Tactics also rejects cancellation during its between-hit wait.

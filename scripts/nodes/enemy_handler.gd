@@ -232,6 +232,8 @@ func _on_enemy_action_completed(enemy: Enemy) -> void:
 func cancel_turn() -> void:
 	turn_generation += 1
 	if is_instance_valid(active_enemy):
+		if is_instance_valid(active_enemy.status_handler):
+			active_enemy.status_handler.cancel_application()
 		# Invalidate every action before releasing movement waiters: intent
 		# may have changed while the previous action was still resolving.
 		if is_instance_valid(active_enemy.enemy_action_picker):

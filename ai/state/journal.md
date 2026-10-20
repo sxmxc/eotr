@@ -477,3 +477,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 **2026-10-20 - Codex: cancellable enemy movement**
 - Invalidated movement action continuations and pacing callbacks before releasing cancelled movement. Native tweens/deferred destinations stop and restore the committed board position and scale; subsequent movement still completes. Horror second moves and tactics between-hit waits reject cancelled work. No-path pending moves also release waiters.
 - Context7 Godot 4.7 docs consulted. Focused headless/native D3D12 and full headless combat checks pass; final no-path adjustment checked headlessly. Native checks were offscreen assertions, not human visual review. Known certificate-store diagnostic remains; no campaign/export QA. See ai/docs/continuous-improvement.md for follow-ups.
+
+**2026-10-20 - Codex: queued enemy status cancellation**
+- StatusHandler owns and cancels pending application tweens; enemy turn cancellation stops queued effects and completion while preserving applied effects and duration changes. Fresh batches work afterward. Context7 Godot 4.7 docs consulted.
+- Focused headless/native D3D12 and full headless combat checks pass with existing lunge/movement cases. Native checks are offscreen assertions; no human visual/campaign/export QA. See ai/docs/continuous-improvement.md for limits and follow-ups.

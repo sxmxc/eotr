@@ -5,6 +5,13 @@ const RELICS = preload("res://scenes/relic_handler/relic_handler.tscn")
 const Interface = preload("res://scripts/autowalker/core/gameplay_interface.gd")
 var failures := 0
 
+class CountingStatus extends Status:
+	var calls := 0
+
+	func apply_status(_target: Node) -> void:
+		calls += 1
+		status_applied.emit(self)
+
 class CountingAction extends EnemyAction:
 	var calls := 0
 
@@ -766,6 +773,7 @@ func run() -> void:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
 	if OS.get_cmdline_user_args().has("--attack-cancellation-only"):
+		await _test_status_cancellation(world)
 		await _test_attack_tween_cancellation(world)
 		await _test_movement_cancellation(world)
 		world.queue_free()
@@ -827,6 +835,7 @@ func run() -> void:
 	await _test_visual_lifetimes(world)
 	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)
+	await _test_status_cancellation(world)
 	await _test_attack_tween_cancellation(world)
 	await _test_movement_cancellation(world)
 	await _test_instability_costs(world, relics)
@@ -1072,6 +1081,52 @@ func _test_movement_cancellation(world: GameWorld) -> void:
 	check(completions.count == 0, "Cancelled movement pacing cannot emit a stale completion")
 	waiting.queue_free()
 	Events.enemy_action_completed.disconnect(on_completed)
+
+
+func _test_status_cancellation(world: GameWorld) -> void:
+	var handler := world.enemy_handler
+	var enemy := handler.get_child(0) as Enemy
+	var original := enemy.status_handler
+	var statuses := StatusHandler.new()
+	enemy.add_child(statuses)
+	statuses.status_owner = enemy
+	enemy.status_handler = statuses
+	var completed := {"count": 0}
+	statuses.statuses_applied.connect(func(_type): completed.count += 1)
+	var first := CountingStatus.new()
+	first.id = "cancel_first"
+	first.type = Enums.StatusType.START_OF_TURN
+	first.can_expire = true
+	first.duration = 5
+	var second := first.duplicate() as CountingStatus
+	second.id = "cancel_second"
+	statuses.add_status(first)
+	statuses.add_status(second)
+	handler.active_enemy = enemy
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	handler.cancel_turn()
+	await get_tree().create_timer(0.7).timeout
+	check(first.calls == 0 and second.calls == 0, "Cancellation before playback prevents queued status effects")
+	check(completed.count == 0, "Cancelled status batch cannot signal completion")
+	first.calls = 0
+	second.calls = 0
+	first.duration = 5
+	second.duration = 5
+	handler.active_enemy = enemy
+	# Headless pacing can run the whole batch in one frame. Cancel at the
+	# actual effect boundary instead of racing the renderer's frame rate.
+	first.status_applied.connect(func(_status): handler.cancel_turn(), CONNECT_ONE_SHOT)
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	await get_tree().create_timer(0.7).timeout
+	check(first.calls == 1 and first.duration == 4, "Cancellation preserves an already applied status and its expiration")
+	check(second.calls == 0 and second.duration == 5, "Cancellation preserves unapplied status duration")
+	check(completed.count == 0, "Partial cancellation cannot complete a later activation")
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	await get_tree().create_timer(0.7).timeout
+	check(first.calls == 2 and second.calls == 1 and completed.count == 1, "A fresh status batch works after cancellation")
+	enemy.status_handler = original
+	statuses.queue_free()
+	await get_tree().process_frame
 
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:

@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "ENEMY-STATUS-CANCEL-001",
+      "status": "done",
+      "summary": "Cancel pending enemy status application on turn cancellation; preserve resolved effects and unapplied duration. Focused headless/native D3D12 checks pass, including reuse and existing lunge/movement cases. Player status/relic shutdown, enemy death during status resolution and campaign save/resume remain.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "ENEMY-MOVEMENT-CANCEL-001",
       "status": "done",
       "summary": "Cancelled enemy movement rejects deferred destinations, action continuations and pacing callbacks; restores committed tile and sprite scale. Six movement action cancellation/reuse cases plus native tween interruption and restart pass. Full headless combat and focused native checks pass; final no-path waiter adjustment checked headlessly. No human visual/campaign/export QA. Next: status teardown and multi-floor save/resume.",
