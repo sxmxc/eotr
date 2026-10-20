@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "ENEMY-MOVEMENT-CANCEL-001",
+      "status": "done",
+      "summary": "Cancelled enemy movement rejects deferred destinations, action continuations and pacing callbacks; restores committed tile and sprite scale. Six movement action cancellation/reuse cases plus native tween interruption and restart pass. Full headless combat and focused native checks pass; final no-path waiter adjustment checked headlessly. No human visual/campaign/export QA. Next: status teardown and multi-floor save/resume.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "ENEMY-LUNGE-DIRECT-QA-001",
       "status": "done",
       "summary": "Seven owned lunge tweens cancel pending hits/completion/residue and restore sprite/idle. Six baseline failures; focused headless/native real-project checks pass, including partial Horror resolution. Removed duplicate project/junction setup from four runner tools; auto-clean system-temp data. Removed .qa-tmp and obsolete operating guidance. Telemetry and nine Python checks pass. Movement/status cancellation and campaign save/resume remain.",

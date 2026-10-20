@@ -57,6 +57,7 @@ func _plan() -> String:
 	return "Advance"
 
 func perform_action() -> void:
+	var generation := action_generation
 	var p := _profile()
 	var plan := _plan()
 	match plan:
@@ -88,6 +89,8 @@ func perform_action() -> void:
 		"Advance", "Retreat":
 			enemy.perform_turn_based_move(p.steps)
 			await enemy.movement_finished
+			if generation != action_generation:
+				return
 		"Strike":
 			for hit in p.hits:
 				if not is_instance_valid(target) or target.stats.health <= 0:
@@ -99,6 +102,8 @@ func perform_action() -> void:
 				# Resolve each hit separately so block and death are authoritative.
 				while is_instance_valid(target) and target.pending_effects > 0:
 					await get_tree().process_frame
+					if generation != action_generation:
+						return
 			if p.role == EnemyTactics.Role.SIPHON:
 				enemy.stats.heal(p.support_amount)
 				_play_mend(enemy)

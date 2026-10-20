@@ -473,3 +473,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Replaced combat damage with existing direct damage for the event HP cost; leftover block no longer absorbs the cost. Added actual-button checks at zero/two/ten block; eight baseline failures, final focused headless checks pass. Context7 Godot 4.7 documentation consulted.
 - No visual changes or campaign/export QA; low-health event/death flow remains a follow-up. See ai/docs/continuous-improvement.md.
 - Broader compatibility smoke: 654 resources loaded, two unrelated map emitter position failures in unchanged scene/checks. Resource guard and git diff --check pass.
+
+**2026-10-20 - Codex: cancellable enemy movement**
+- Invalidated movement action continuations and pacing callbacks before releasing cancelled movement. Native tweens/deferred destinations stop and restore the committed board position and scale; subsequent movement still completes. Horror second moves and tactics between-hit waits reject cancelled work. No-path pending moves also release waiters.
+- Context7 Godot 4.7 docs consulted. Focused headless/native D3D12 and full headless combat checks pass; final no-path adjustment checked headlessly. Native checks were offscreen assertions, not human visual review. Known certificate-store diagnostic remains; no campaign/export QA. See ai/docs/continuous-improvement.md for follow-ups.

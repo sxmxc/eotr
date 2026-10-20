@@ -15,6 +15,7 @@ func is_performable() -> bool:
 	return true
 
 func perform_action():
+	var generation := action_generation
 	var bat = enemy as MovingEnemy
 	if not bat or not bat.tilemap:
 		return
@@ -40,15 +41,17 @@ func perform_action():
 
 	# If no tiles were found even after searching max radius, give up
 	if found_tile == Vector2i(-1, -1):
-		get_tree().create_timer(Utils.presentation_duration(.6)).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+		complete_movement_action(generation, .6)
 		return
 
 	# Move to the selected tile
 	var world_message = WorldMessageData.new("%s flys closer to player" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	if not bat.set_movement_target(found_tile):
-		get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+		complete_movement_action(generation, .3)
 		return
 	await bat.movement_finished
+	if generation != action_generation:
+		return
 	SoundManager.play_sound_random_pitch(sound)
-	get_tree().create_timer(Utils.presentation_duration(.3)).timeout.connect(func(): Events.enemy_action_completed.emit(bat))
+	complete_movement_action(generation, .3)

@@ -20,6 +20,8 @@ const INVALID_TILE: Vector2i = Vector2i(-1, -1)
 var is_moving: bool = false
 var move_tween: Tween
 var previous_tile: Vector2i = INVALID_TILE
+var movement_generation := 0
+var movement_resting_scale := Vector2.ONE
 
 # 1 = facing right, -1 = facing left.
 var facing_direction: int = 1
@@ -141,14 +143,14 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 	# Face the direction of movement before starting the tween.
 	face_tile(movement_target)
 
+	cancel_movement()
 	is_moving = true
+	movement_resting_scale = sprite_2d.scale
+	var generation := movement_generation
 
 	if DisplayServer.get_name() == "headless":
-		_notify_move_finished.call_deferred(movement_target)
+		_finish_movement.call_deferred(movement_target, generation)
 		return true
-
-	if move_tween:
-		move_tween.kill()
 
 	move_tween = create_tween()
 	move_tween.set_trans(Tween.TRANS_SINE)
@@ -178,10 +180,29 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 
 	move_tween.tween_callback(
 		func() -> void:
-			_notify_move_finished(movement_target)
+			_finish_movement(movement_target, generation)
 	)
 
 	return true
+
+
+func cancel_movement() -> void:
+	movement_generation += 1
+	if move_tween:
+		move_tween.kill()
+		move_tween = null
+	if not is_moving:
+		return
+	is_moving = false
+	sprite_2d.scale = movement_resting_scale
+	position = tilemap.base_layer.map_to_local(current_tile_position) + Vector2(0, 1)
+	# Release waiters; their action generation rejects this cancelled move.
+	movement_finished.emit(current_tile_position)
+
+
+func _finish_movement(tile: Vector2i, generation: int) -> void:
+	if generation == movement_generation:
+		_notify_move_finished(tile)
 
 
 func calculate_next_tile_move(tiles_moved_per_turn: int) -> Vector2i:
@@ -334,8 +355,10 @@ func perform_turn_based_move(tiles_per_turn: int = 1) -> void:
 	)
 
 	if not set_movement_target(next_tile):
-		_notify_move_finished.call_deferred(
-			current_tile_position
+		is_moving = true
+		movement_resting_scale = sprite_2d.scale
+		_finish_movement.call_deferred(
+			current_tile_position, movement_generation
 		)
 
 

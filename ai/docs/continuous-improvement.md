@@ -1,5 +1,14 @@
 # Continuous improvement
 
+## 2026-10-20 - Cancel pending enemy movement
+
+- Turn cancellation invalidates action continuations before releasing movement waiters. Blob, Horror, Bat, Wasp, Spectre, collapse escape and tactics movement reject stale completion; Horror cannot continue its second move after cancellation. Tactics also rejects cancellation during its between-hit wait.
+- MovingEnemy cancels native tweens and deferred headless destinations, restores scale and the last committed tile, and supports subsequent movement. No-path moves use the same cancellable pending state. Existing movement rules and pacing remain.
+- Focused headless and native D3D12 checks pass: real mid-tween interruption, restoration, new destination commit, six action cancellation/reuse cases and cancelled completion delays. Full headless combat passes. Final no-path waiter adjustment has a separate focused headless check. Validation includes resource references; whitespace checks pass.
+- Limits: native assertions ran offscreen; no human visual review, campaign or export QA. Existing Windows certificate-store diagnostic remains. Already dispatched effects are preserved; status-owned effects still need investigation.
+- Next: multi-floor save/resume; status effects during battle shutdown; focused tactics coverage between multi-hit damage resolutions.
+
+
 ## 2026-10-20 - Cancel pending lunges; test the original project
 
 - Seven enemy lunge actions now own cancellable tweens. Cancelling a turn stops pending hits, completion and Void Residue, restores sprite/idle state, and handles changed intent. Between-hit Horror cancellation preserves the first hit; normal effects/timings remain.

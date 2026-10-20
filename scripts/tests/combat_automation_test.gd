@@ -767,6 +767,7 @@ func run() -> void:
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
 	if OS.get_cmdline_user_args().has("--attack-cancellation-only"):
 		await _test_attack_tween_cancellation(world)
+		await _test_movement_cancellation(world)
 		world.queue_free()
 		relics.queue_free()
 		await get_tree().process_frame
@@ -827,6 +828,7 @@ func run() -> void:
 	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)
 	await _test_attack_tween_cancellation(world)
+	await _test_movement_cancellation(world)
 	await _test_instability_costs(world, relics)
 	await _test_feedback_circuit(world, relics)
 	var actions: Array[Dictionary] = api.legal_actions()
@@ -991,6 +993,86 @@ func _test_attack_tween_cancellation(world: GameWorld) -> void:
 	Events.enemy_action_completed.disconnect(on_completed)
 	world.player.stats.block = previous_block
 	world.player.stats.draw_pile.cards.assign(previous_draw)
+
+func _test_movement_cancellation(world: GameWorld) -> void:
+	var mover: MovingEnemy
+	for child in world.enemy_handler.get_children():
+		if child is MovingEnemy:
+			mover = child
+			break
+	check(mover != null, "Movement regression has a real moving enemy")
+	if mover == null:
+		return
+	var original_action := mover.current_action
+	var origin := mover.current_tile_position
+	var original_scale := mover.sprite_2d.scale
+	var destination := MovingEnemy.INVALID_TILE
+	for cell in world.tilemap.tile_map_data:
+		if cell != origin and mover.can_move_to_tile(cell):
+			destination = cell
+			break
+	check(destination != MovingEnemy.INVALID_TILE, "Movement cancellation has a legal destination")
+	if destination != MovingEnemy.INVALID_TILE:
+		check(mover.set_movement_target(destination), "Real movement starts before cancellation")
+		if mover.move_tween:
+			mover.move_tween.pause()
+			mover.move_tween.custom_step(Utils.presentation_duration(mover.move_duration * 0.75))
+		world.enemy_handler.active_enemy = mover
+		world.enemy_handler.cancel_turn()
+		await get_tree().process_frame
+		check(mover.current_tile_position == origin, "Cancelled real movement rejects its deferred/tween destination")
+		check(mover.position.is_equal_approx(world.tilemap.base_layer.map_to_local(origin) + Vector2(0, 1)), "Cancelled real movement restores committed board position")
+		check(mover.sprite_2d.scale.is_equal_approx(original_scale), "Interrupted movement restores its original scale")
+		check(mover.set_movement_target(destination), "Movement can restart after cancellation")
+		await get_tree().create_timer(0.6).timeout
+		check(mover.current_tile_position == destination and not mover.is_moving, "New movement commits its own destination")
+		mover._notify_move_finished(origin)
+	var completions := {"count": 0}
+	var on_completed := func(actor: Enemy):
+		if actor == mover:
+			completions.count += 1
+	Events.enemy_action_completed.connect(on_completed)
+	for path in ["blob/blob_move_action.gd", "horror/horror_move_action.gd", "bat/bat_enemy_move_action.gd", "wasp/wasp_enemy_move_action.gd", "void_spectre/void_spectre_move_action.gd", "escape_collapse_action.gd"]:
+		var action: EnemyAction = load("res://scenes/enemy/" + path).new()
+		action.enemy = mover
+		action.target = world.player
+		action.intent = Intent.new()
+		action.intent.base_text = "%s"
+		mover.enemy_action_picker.add_child(action)
+		mover.current_action = action
+		completions.count = 0
+		world.enemy_handler.active_enemy = mover
+		action.perform_action()
+		if mover.move_tween and mover.is_moving:
+			mover.move_tween.pause()
+			mover.move_tween.custom_step(Utils.presentation_duration(mover.move_duration * 0.75))
+		world.enemy_handler.cancel_turn()
+		await get_tree().create_timer(0.85).timeout
+		check(mover.current_tile_position == origin, "Cancelled %s cannot commit a destination" % path)
+		check(not mover.is_moving, "Cancelled %s leaves no active movement" % path)
+		check(mover.sprite_2d.scale.is_equal_approx(original_scale), "Cancelled movement restores sprite scale")
+		check(completions.count == 0, "Cancelled %s cannot finish a later turn" % path)
+		# Reuse the same action to reject stale work across activations.
+		action.perform_action()
+		await get_tree().create_timer(1.6).timeout
+		check(completions.count == 1, "Uninterrupted %s completes once" % path)
+		mover.cancel_movement()
+		mover._notify_move_finished(origin)
+		mover.current_action = original_action
+		action.queue_free()
+	# A completion already in its pacing delay must also be invalidated.
+	var waiting := EnemyAction.new()
+	mover.enemy_action_picker.add_child(waiting)
+	waiting.enemy = mover
+	completions.count = 0
+	waiting.complete_movement_action(waiting.action_generation, 0.1)
+	world.enemy_handler.active_enemy = mover
+	world.enemy_handler.cancel_turn()
+	await get_tree().create_timer(0.2).timeout
+	check(completions.count == 0, "Cancelled movement pacing cannot emit a stale completion")
+	waiting.queue_free()
+	Events.enemy_action_completed.disconnect(on_completed)
+
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	var handler := world.enemy_handler

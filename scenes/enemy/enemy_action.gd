@@ -18,6 +18,18 @@ var lunge_tween: Tween
 var lunge_start := Vector2.ZERO
 var lunge_idle: AnimationPlayer
 var lunge_resume_idle := false
+var action_generation := 0
+
+
+func cancel_action() -> void:
+	action_generation += 1
+	cancel_lunge()
+
+
+func complete_movement_action(generation: int, delay: float) -> void:
+	await get_tree().create_timer(Utils.presentation_duration(delay)).timeout
+	if generation == action_generation:
+		Events.enemy_action_completed.emit(enemy)
 
 
 func create_lunge_tween() -> Tween:
