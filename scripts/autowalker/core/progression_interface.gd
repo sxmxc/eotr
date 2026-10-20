@@ -35,7 +35,7 @@ func legal_actions() -> Array[Dictionary]:
 		result.append({"kind": "rest"})
 	elif current is Shop:
 		result.append({"kind": "leave_shop"})
-	elif current is Treasure and current.found_relic and current.animation_player.current_animation != "open":
+	elif current is Treasure and not current.opening and not current.reward_emitted:
 		result.append({"kind": "treasure"})
 	elif current is EventRoom:
 		if not current.option_a_button.disabled:
@@ -68,7 +68,7 @@ func execute(action: Dictionary) -> bool:
 		"leave_rewards": current._on_back_button_pressed()
 		"rest": current._on_rest_button_pressed()
 		"leave_shop": current._on_leave_button_pressed()
-		"treasure": current.animation_player.play("open")
+		"treasure": current.open_button.pressed.emit()
 		"event_option": current._run_option_by_index(int(action.index))
 		"leave_event": current._leave_event()
 		"continue_battle": current.game_world_ui.get_node("BattleOverLayer/BattleOverPanel").continue_button.pressed.emit()

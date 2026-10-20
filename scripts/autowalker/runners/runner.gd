@@ -33,6 +33,7 @@ var policy_name := "greedy"
 var output := "res://.qa-tmp/autowalker"
 var max_turns := 50
 var max_actions := 500
+var max_actions_per_turn := 100
 var timeout_seconds := 120.0
 var count := 1
 var headless := false
@@ -81,6 +82,7 @@ func _ready() -> void:
 			"count": count = maxi(1, int(parts[1]))
 			"max-turns": max_turns = maxi(1, int(parts[1]))
 			"max-actions": max_actions = maxi(1, int(parts[1]))
+			"max-actions-per-turn": max_actions_per_turn = maxi(1, int(parts[1]))
 			"timeout": timeout_seconds = float(parts[1])
 			"output": output = parts[1]
 			"stop-file": launcher_stop_file = parts[1]
@@ -227,8 +229,11 @@ func _process(delta: float) -> void:
 	if now - progress_ms > 30000:
 		finish("softlock", "No completed action or turn in 30 seconds")
 		return
-	if TelemetryManager.qa_turns > max_turns or action_count >= max_actions:
-		finish("aborted", "Configured turn/action limit; not necessarily a defect")
+	if TelemetryManager.qa_turns > max_turns:
+		finish("aborted", "Configured cumulative turn limit reached", "turn_limit")
+		return
+	if action_count >= max_actions:
+		finish("aborted", "Configured simulation action limit reached", "action_limit")
 		return
 	if busy or not interface.ready_for_action():
 		return
@@ -254,9 +259,9 @@ func act() -> void:
 	if last_action_turn != turn_number():
 		last_action_turn = turn_number()
 		actions_this_turn = 0
-	if actions_this_turn >= 100:
+	if actions_this_turn >= max_actions_per_turn:
 		busy = false
-		finish("aborted", "Per-turn legal-action limit; possible bot cycling, not proof of a game defect")
+		finish("aborted", "Per-turn legal-action limit; possible bot cycling", "per_turn_action_limit")
 		return
 	var epoch := trace_generation
 	var actions: Array[Dictionary] = interface.legal_actions()
@@ -285,7 +290,7 @@ func act() -> void:
 	trace_bytes += JSON.stringify(trace_entry).to_utf8_buffer().size()
 	if trace_bytes > MAX_TRACE_BYTES:
 		busy = false
-		finish("aborted", "Local replay trace reached the 16 MiB limit")
+		finish("aborted", "Local replay trace reached the 16 MiB limit", "trace_limit")
 		return
 	trace.append(trace_entry)
 	var accepted: bool = await interface.execute(action)
@@ -311,7 +316,7 @@ func act() -> void:
 		captured = true
 		capture_watch.call_deferred()
 
-func finish(outcome: String, reason: String = "") -> void:
+func finish(outcome: String, reason: String = "", reason_code: String = "") -> void:
 	if stopped:
 		return
 	stopped = true
@@ -324,6 +329,17 @@ func finish(outcome: String, reason: String = "") -> void:
 		final_health = world.player_stats.health
 	var final_state: Dictionary = interface.checkpoint() if is_instance_valid(world) or is_instance_valid(run_node) else last_checkpoint
 	var stats: PlayerStats = run_node.player_stats if is_instance_valid(run_node) else (world.player_stats if is_instance_valid(world) else null)
+	var current_view: Node = interface.progression.view() if run_mode and is_instance_valid(run_node) else world
+	var details := {"reason": reason.left(512), "reason_code": reason_code if not reason_code.is_empty() else outcome,
+		"scene": current_view.scene_file_path if is_instance_valid(current_view) else "",
+		"policy_version": Policy.VERSION, "encounter": report.encounter,
+		"current_encounter": world.battle_stats.encounter_id if is_instance_valid(world) and world.battle_stats else "",
+		"actions": action_count, "actions_this_turn": actions_this_turn,
+		"max_turns": max_turns, "max_actions": max_actions, "max_actions_per_turn": max_actions_per_turn,
+		"timeout_seconds": timeout_seconds, "final_health": final_health,
+		"invalid_actions": invalid_actions, "ai_invalid_decisions": ai_invalid_decisions,
+		"warning_count": diagnostic_warnings.size(), "last_action": trace.back().action if not trace.is_empty() else {}}
+	report.merge(details, true)
 	report.merge({"outcome": outcome, "reason": reason, "turns": TelemetryManager.qa_turns,
 		"last_battle_turn": turn_number() if is_instance_valid(world) else 0,
 		"floors_climbed": run_node.map.floors_climbed if is_instance_valid(run_node) else 0, "actions": action_count,
@@ -341,7 +357,7 @@ func finish(outcome: String, reason: String = "") -> void:
 	TelemetryManager.track_event("simulation_completed", {"outcome": outcome, "seed": simulation_seed, "policy": policy_name,
 		"mode": report.mode, "turns": report.turns, "last_battle_turn": report.last_battle_turn,
 		"floors_climbed": report.floors_climbed, "damage_taken": report.damage_taken,
-		"net_health_loss": report.net_health_loss, "healing_received": report.healing_received, "duration_ms": report.duration_ms}, 2)
+		"net_health_loss": report.net_health_loss, "healing_received": report.healing_received, "duration_ms": report.duration_ms}, 2, details)
 	TelemetryManager.flush()
 	var compact := report.duplicate(true)
 	compact.erase("trace")

@@ -41,7 +41,12 @@ func run() -> void:
 	check(not client.record("test", {"value": 1}, 2), "Schema version")
 	client.register_schema("oversize", {"version": 1, "additionalProperties": true})
 	check(not client.record("oversize", {"value": "x".repeat(20000)}), "Event byte bound")
-	check(client.record("test", {"value": 2.5}), "Valid event")
+	config.common_metadata = {"origin": "test"}
+	var details := {"reason_code": "turn_limit", "limits": {"turns": 50}}
+	check(client.record("test", {"value": 2.5}, 1, details), "Valid event with metadata")
+	details.limits.turns = 100
+	check(client.queue[0].metadata.origin == "test" and client.queue[0].metadata.limits.turns == 50, "Per-event metadata merged and copied")
+	check(not client.record("test", {"value": 1}, 1, {"oversize": "x".repeat(4097)}), "Backend metadata byte bound")
 	check(client.record("test", {"value": 3}), "Second event")
 	check(not client.record("test", {"value": 4}), "Bounded queue")
 	var stable_id: String = client.queue[0].event_id
@@ -52,6 +57,7 @@ func run() -> void:
 	if file:
 		var event: Dictionary = JSON.parse_string(file.get_line())
 		check(event.event_id == stable_id and event.properties.value == 2.5, "Stable ID and numeric serialization")
+		check(event.metadata.reason_code == "turn_limit", "Diagnostic metadata survives serialization")
 		file.close()
 	client.record("test", {"value": 1})
 	client.set_consent(false)

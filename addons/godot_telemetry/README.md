@@ -29,6 +29,11 @@ func _ready():
     telemetry.flush()
 ```
 
+`record(name, properties, version, metadata)` optionally attaches per-event metadata,
+merged over a deep copy of `common_metadata`. Metadata must fit within 4096 UTF-8
+bytes; oversize metadata is rejected before enqueueing. Keep gameplay metrics in
+schema-validated properties and use metadata for bounded diagnostic context.
+
 Use a JSON file containing the same definitions in other tools: `register_schema`
 accepts ordinary dictionaries. The game integration uses `telemetry/schemas/events.json`
 outside this addon. This is a documented portable subset, not a full JSON Schema

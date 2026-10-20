@@ -45,6 +45,8 @@ Stopping or closing an unfinished battle does not produce a completed simulation
 
 The examples upload bot telemetry by default when the project's HTTP transport is
 enabled and consent permits it. Add `--telemetry-local` only for an offline run.
+Disposable saves default to consent off. Add `--telemetry-upload` to explicitly
+enable QA uploads for this launch without changing your normal player settings.
 The launcher runs the original project directly and does not start backend services.
 Disposable saves use automatically cleaned system temp storage, separate from
 normal game saves. Never create duplicate project trees or junction workspaces.
@@ -139,6 +141,41 @@ Use a **new output folder** for each batch you want to keep. Running the same se
 into the same folder overwrites its simulation report. Watch and replay runs can
 overwrite reports too.
 
+### Run every encounter
+
+Use `--all-encounters` to discover every encounter resource and run the same seed
+range against each one, in filename order:
+
+```powershell
+python tools/run_autowalker.py --godot "$godot" --all-encounters --policy greedy --seed 1 --count 100 --telemetry-upload --output qa/all-greedy
+```
+
+Repeat with `--policy stress --output qa/all-stress` for matched coverage.
+`--count` is the number of seeds **per encounter**. This is headless encounter
+mode only; it cannot be combined with Watch, rendered verification, run mode or replay.
+Each encounter gets its own subfolder, reports and session; the root `summary.json`
+aggregates outcomes and retains each encounter's exit code and summary. Compare
+matching encounter subfolders with the comparison tool.
+
+### Inspect aborts through telemetry
+
+Every `simulation_completed` event retains v2 gameplay metrics in `properties`.
+Its `metadata` contains `reason_code`, `reason`, encounter identity, policy version,
+action counts, configured turn/action/per-turn/time limits, final health, last action,
+and validation/warning counts. This uses the backend's existing metadata contract;
+no schema or table migration is required. The AutoWalker QA dashboard's
+**Aborts and technical failures — reasons and limits** table exposes the details
+after the updated dashboard source is provisioned. Older events show `legacy_unknown`.
+
+Abort reason codes are `turn_limit`, `action_limit`, `per_turn_action_limit`, and
+`trace_limit`. The cumulative turn budget applies across the whole run.
+`--max-actions-per-turn` defaults to 100 and can be raised for a diagnostic rerun.
+An explicit upload launch might look like:
+
+```powershell
+python tools/run_autowalker.py --godot "$godot" --mode run --policy stress --seed 33 --max-turns 200 --max-actions 2000 --max-actions-per-turn 300 --timeout 300 --telemetry-upload --output qa/retry-stress-33
+```
+
 ## 4. Replay a recorded battle
 
 Pass a `simulation-<seed>.json` report, rather than a summary or telemetry file.
@@ -213,8 +250,11 @@ launcher’s own option list with `python tools/run_autowalker.py --help`.
 | `--policy greedy\|random\|stress` | `greedy` | Greedy scores useful actions; random ranks legal actions randomly; stress favors movement and board edges. |
 | `--seed N` | `1` | Starting simulation seed. |
 | `--count N` | `1` | Number of sequential simulations in headless mode, incrementing the seed each time. |
-| `--max-turns N` | `50` | Turn limit checked against the current turn number. |
+| `--max-turns N` | `50` | Cumulative player-turn limit across the simulation. |
 | `--max-actions N` | `500` | Maximum completed bot actions per simulation. |
+| `--max-actions-per-turn N` | `100` | Guard against bot cycling within one turn/progression step. |
+| `--all-encounters` | Off | Run the seed range for every encounter in separate subfolders. |
+| `--telemetry-upload` | Off | Explicitly consent to QA uploads for this launch. Mutually exclusive with `--telemetry-local`. |
 | `--timeout SECONDS` | `120` | Simulation time limit. Longer visible runs may need a larger value. |
 | `--output PATH` | `qa/autowalker` | Report directory inside `qa/`, relative to the repository root or absolute. |
 | `--replay PATH` | None | Simulation JSON to replay; use a separate output directory. |
