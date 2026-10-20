@@ -29,5 +29,6 @@ func _on_status_changed() -> void:
 	if status.stack_type == Enums.StatusStackType.INTENSITY and status.stacks == 0:
 		queue_free()
 		
+	tooltip_text = status.get_display_tooltip()
 	duration.text = str(status.duration)
 	stacks.text = str(status.stacks)

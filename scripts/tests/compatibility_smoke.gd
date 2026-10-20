@@ -3,6 +3,11 @@ extends Node
 var failures := 0
 var resource_count := 0
 
+class ConsentSplash extends "res://scenes/splash_screens/splash_screen.gd":
+	var continuations := 0
+	func _continue_to_menu() -> void:
+		continuations += 1
+
 
 func _ready() -> void:
 	_run.call_deferred()
@@ -51,6 +56,8 @@ func _run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--event-room-only"):
+		await _test_telemetry_disclaimer()
+		await _test_supporting_rooms()
 		await _test_event_choices()
 		print("Compatibility smoke test: %d failures" % failures)
 		await Utils.stop_audio_for_shutdown()
@@ -508,6 +515,15 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	for card_ui in discarded_ui:
 		_check(not is_instance_valid(card_ui), "Completed discard animations release their controls")
 	_check(stats.discard.cards.size() == cards.size(), "Animation completion does not duplicate discarded cards")
+	var exhaust_card := cards[0].duplicate(true) as Card
+	exhaust_card.exhaust = true
+	var exhaust_before := stats.exhaust_pile.cards.size()
+	hand.add_card(exhaust_card)
+	handler.discard_cards()
+	_check(stats.exhaust_pile.cards.size() == exhaust_before + 1 and stats.exhaust_pile.cards.has(exhaust_card), "Unplayed Exhaust cards enter the exhaust pile at end of turn")
+	_check(not stats.discard.cards.has(exhaust_card), "Unplayed Exhaust cards never enter the reshuffle pool")
+	handler.discard_cards()
+	_check(stats.exhaust_pile.cards.size() == exhaust_before + 1, "Repeated cleanup cannot duplicate exhausted cards")
 	# A draw tween belongs to the handler, which can outlive the player.
 	drawn.signals = 0
 	Events.player_hand_drawn.connect(on_drawn)
@@ -525,6 +541,77 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	_check(drawn.signals == 0 and not handler.hand_ready, "Cancelled draws never complete the player phase")
 	_check(hand.get_child_count() == count_before, "Freed player draws leave the hand unchanged")
 	Events.player_hand_drawn.disconnect(on_drawn)
+
+
+func _test_telemetry_disclaimer() -> void:
+	_check(not SettingsData.new().telemetry_enabled, "Fresh settings leave optional telemetry disabled")
+	var original := GameSettings.get_current_settings()
+	original.fullscreen = false
+	GameSettings.save_settings(original)
+	var packed: PackedScene = load("res://scenes/splash_screens/splash_screen.tscn")
+	for enabled: bool in [false, true]:
+		var splash = packed.instantiate()
+		splash.set_script(ConsentSplash)
+		add_child(splash)
+		await get_tree().create_timer(0.8).timeout
+		_check(not splash.accept_button.disabled and not splash.decline_button.disabled, "Both telemetry choices become available after the splash")
+		_check(splash.decline_button.has_focus(), "Optional telemetry does not default focus to sharing")
+		if not enabled:
+			await _capture("telemetry-disclaimer")
+		await _click_control(splash.accept_button if enabled else splash.decline_button)
+		splash._choose_telemetry(not enabled)
+		_check(GameSettings.telemetry_enabled == enabled and GameSettings.get_current_settings().telemetry_enabled == enabled, "Telemetry choice is applied and persisted")
+		_check(TelemetryManager.client.consent == enabled, "Telemetry client follows the saved consent choice")
+		await get_tree().create_timer(0.3).timeout
+		_check(splash.continuations == 1, "Both choices continue to the menu exactly once")
+		_check(not TelemetryManager._quitting, "Declining optional telemetry never quits the game")
+		splash.queue_free()
+		await get_tree().process_frame
+	GameSettings.save_settings(original)
+
+
+func _test_supporting_rooms() -> void:
+	var stats: PlayerStats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	stats.health = 10
+	var run_stats := RunStats.new()
+	var hud = load("res://ui/run_ui/run_hud.tscn").instantiate()
+	add_child(hud)
+	hud.bind_run(stats, run_stats)
+	var rest: Rest = load("res://scenes/rest/rest.tscn").instantiate()
+	add_child(rest)
+	rest.player_stats = stats
+	await _settle_ui()
+	_check(rest.get_node("%RecoveryAmount").text.contains(str(ceili(stats.max_health * 0.3))), "Campfire previews the actual recovery amount")
+	await _capture("campfire")
+	var expected := mini(stats.max_health, stats.health + ceili(stats.max_health * 0.3))
+	await _click_control(rest.rest_button)
+	rest._on_rest_button_pressed()
+	_check(stats.health == expected, "Campfire restores 30 percent once even with repeated input")
+	await get_tree().create_timer(1.1).timeout
+	rest.queue_free()
+	await get_tree().process_frame
+	var relics: RelicHandler = load("res://scenes/relic_handler/relic_handler.tscn").instantiate()
+	add_child(relics)
+	var treasure: Treasure = load("res://scenes/treasure/treasure.tscn").instantiate()
+	add_child(treasure)
+	treasure.player_stats = stats
+	treasure.relic_handler = relics
+	treasure.generate_relic()
+	await _settle_ui()
+	_check(treasure.found_relic != null, "Treasure preserves the eligible relic reward pool")
+	await _capture("treasure")
+	var observed := {"count": 0}
+	var on_reward := func(_relic: Relic): observed.count += 1
+	Events.treasure_room_exited.connect(on_reward)
+	await _click_control(treasure.open_button)
+	treasure._open_treasure()
+	await get_tree().create_timer(0.7).timeout
+	_check(observed.count == 1, "Opening a treasure cache announces exactly one reward")
+	Events.treasure_room_exited.disconnect(on_reward)
+	treasure.queue_free()
+	relics.queue_free()
+	hud.queue_free()
+	await get_tree().process_frame
 
 
 func _test_event_choices() -> void:

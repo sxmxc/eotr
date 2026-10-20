@@ -1,45 +1,53 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://diol2vdhhygwy"]
 
-[ext_resource type="Texture2D" uid="uid://bpuixbqth6ubf" path="res://assets/rift/fx/void_projectile.webp" id="sheet"]
+[ext_resource type="Texture2D" uid="uid://dgxwi4jq5nw2q" path="res://assets/rift/fx/atlases/void_projectile.png" id="sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_5"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 256, 256, 256)
+region = Rect2(545, 564, 268, 227)
+margin = Rect2(378, 398.5, 756, 797)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_6"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(977, 586, 264, 183)
+margin = Rect2(380, 420.5, 760, 841)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_7"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 256, 256, 256)
+region = Rect2(1425, 602, 245, 144)
+margin = Rect2(389.5, 440, 779, 880)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_2"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(938, 179, 322, 182)
+margin = Rect2(194, 421, 702, 842)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_3"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(1370, 191, 334, 161)
+margin = Rect2(182, 431.5, 690, 863)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_4"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 256, 256, 256)
+region = Rect2(101, 611, 279, 129)
+margin = Rect2(237, 447.5, 745, 895)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_0"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 0, 256, 256)
+region = Rect2(140, 184, 190, 172)
+margin = Rect2(417, 426, 834, 852)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_1"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(520, 163, 270, 201)
+margin = Rect2(246, 411.5, 754, 823)
 filter_clip = true
 
 [resource]

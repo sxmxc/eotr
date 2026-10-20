@@ -417,6 +417,162 @@ func _test_spell_identities(world: GameWorld) -> void:
 		await card.resolve_effects([world.tilemap.obelisk], world.player_stats, world.player.modifier_handler)
 		await get_tree().create_timer(0.6).timeout
 
+func _observe_card_play(card_ui: CardUI, result: Dictionary) -> void:
+	await card_ui.play()
+	result.completed = true
+
+func _test_lethal_ruin_move(world: GameWorld) -> void:
+	var hand := world.player_handler.player_hand
+	var move_card := load("res://resources/data/cards/riftwalker/phase_step.tres").duplicate(true) as Card
+	hand.add_card(move_card)
+	var card_ui := hand.get_cards().back() as CardUI
+	var destination := world.tilemap.player_position
+	for cell: Vector2i in move_card.get_valid_targets(card_ui, world.player.modifier_handler):
+		if world.tilemap.is_tile_valid(cell):
+			destination = cell
+			break
+	check(destination != world.tilemap.player_position, "Lethal ruin regression has a legal move destination")
+	world.tilemap.tile_map_data[destination].type = Enums.TileType.ANCIENT_RUIN
+	var ruin_damage := load("res://resources/data/tile_effects/damage_tile_effect.tres").duplicate(true) as RuinTileEffect
+	ruin_damage.set("base_amount", 999)
+	world.tilemap.ruin_tile_effects.assign([ruin_damage])
+	world.player_stats.health = 1
+	world.player_stats.block = 0
+	var target := TilemapTarget.new(destination, world.tilemap)
+	world.add_child(target)
+	card_ui.targets.assign([target])
+	var on_death := func():
+		# Keep the UI alive but detached, matching scene teardown during resolution.
+		if is_instance_valid(card_ui) and card_ui.is_inside_tree():
+			card_ui.get_parent().remove_child(card_ui)
+	Events.player_died.connect(on_death)
+	var result := {"completed": false}
+	_observe_card_play(card_ui, result)
+	await get_tree().create_timer(0.8).timeout
+	check(world.player_stats.health <= 0 and world.battle_over_handled, "Moving onto the ruin produces the real lethal tile effect")
+	check(not card_ui.is_inside_tree(), "Death cleanup detaches the resolving card UI")
+	check(result.completed and not world.player_handler.resolving_action, "Lethal movement exits card resolution and releases the action lock")
+	Events.player_died.disconnect(on_death)
+	card_ui.free()
+	target.queue_free()
+
+func _test_mana_well_presentation(world: GameWorld) -> void:
+	var board := world.tilemap
+	var occupied := board.player_position
+	var empty := occupied
+	var best_distance := INF
+	for cell: Vector2i in board.tile_map_data:
+		if cell != occupied and board.is_tile_valid(cell):
+			var distance := board.cell_to_world(cell).distance_to(world.player.global_position)
+			if distance < best_distance:
+				empty = cell
+				best_distance = distance
+	check(empty != occupied, "Mana well review has an unoccupied comparison tile")
+	var occupied_type := board.tile_map_data[occupied].type
+	var empty_type := board.tile_map_data[empty].type
+	var energy := world.player_stats.energy
+	board.tile_map_data[occupied].type = Enums.TileType.MANA_WELL
+	board.tile_map_data[empty].type = Enums.TileType.MANA_WELL
+	board.hide_fog()
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var overlay := board.target_highlight_layer
+	check(overlay.mana_wells.has(occupied) and overlay.mana_wells.has(empty), "Mana well visuals cover occupied and empty wells")
+	check(overlay.mana_wells[occupied].visible and overlay.mana_wells[empty].visible, "Revealed mana wells remain visible under the player")
+	check(world.player_stats.energy == energy, "Cosmetic mana well refresh cannot grant energy")
+	if DisplayServer.get_name() != "headless":
+		world.world_camera.frame_battle()
+		await get_tree().create_timer(1.2).timeout
+		await _capture_battle("res://mana-wells.png")
+	board.fog_state.erase(empty)
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(not overlay.mana_wells[empty].visible, "Mana well visuals cannot reveal fogged terrain")
+	board.tile_map_data[occupied].type = occupied_type
+	board.tile_map_data[empty].type = empty_type
+	board.hide_fog()
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if empty_type != Enums.TileType.MANA_WELL:
+		check(not overlay.mana_wells.has(empty), "Changing terrain removes obsolete mana well visuals")
+
+func _test_board_badges(world: GameWorld) -> void:
+	var board := world.tilemap
+	board.hide_fog()
+	world.world_camera.frame_battle(true)
+	await get_tree().create_timer(1.2).timeout
+	var enemy := world.enemy_handler.get_child(0) as Enemy
+	var badges := enemy.get_node("UnitBadges")
+	await get_tree().process_frame
+	check(badges.intent_panel.visible and badges.intent_icon.texture != null, "Board shows the enemy's current intent icon")
+	check(badges.intent_label.text == enemy.current_action.intent.get_display_text(), "Board intent uses the announced action and amount")
+	var duration_status := load("res://resources/data/statuses/burned.tres").duplicate(true) as Status
+	duration_status.duration = 3
+	enemy.status_handler.add_status(duration_status)
+	var intensity_status := Status.new()
+	intensity_status.id = "badge_test"
+	intensity_status.stack_type = Enums.StatusStackType.INTENSITY
+	intensity_status.stacks = 2
+	intensity_status.icon = load("res://assets/rift/ui/strength.svg")
+	intensity_status.tooltip = "Status display fixture"
+	enemy.status_handler.add_status(intensity_status)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(badges.chips.has(duration_status) and badges.chips.has(intensity_status), "Board mirrors duration and intensity statuses")
+	check(badges.chips[duration_status].count.text == "3" and badges.chips[intensity_status].count.text == "2", "Board distinguishes remaining turns and stack counts")
+	intensity_status.stacks = 5
+	check(badges.chips[intensity_status].count.text == "5", "Board status counts update when the live resource changes")
+	var initial_block := enemy.stats.block
+	enemy.stats.block = 7
+	await get_tree().process_frame
+	check(badges.block_panel.visible and badges.block_label.text == "7", "Board exposes current block separately from planned block")
+	if DisplayServer.get_name() != "headless":
+		await _capture_battle("res://board-intents-statuses.png")
+	duration_status.duration = 0
+	intensity_status.stacks = 0
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(not badges.chips.has(duration_status) and not badges.chips.has(intensity_status), "Expired and depleted statuses disappear from board badges")
+	enemy.stats.block = initial_block
+	board.fog_state.erase(enemy.current_tile_position)
+	await get_tree().physics_frame
+	await get_tree().process_frame
+	check(not enemy.visible and not badges.is_visible_in_tree(), "Fog hides unit badges with the enemy")
+	board.hide_fog()
+
+func _test_camera_follow(world: GameWorld) -> void:
+	var camera = world.world_camera
+	var board := world.tilemap
+	var origin := board.player_position
+	var destination := origin
+	for cell: Vector2i in board.tile_map_data:
+		if cell != origin and board.is_tile_valid(cell):
+			destination = cell
+			break
+	check(destination != origin, "Camera regression has a movement destination")
+	camera.frame_battle(true)
+	camera._start_pan()
+	board.center_marker.global_position += Vector2(120, -80)
+	camera.aiming = true
+	# Phase Step uses the board movement path while card aiming may still be active.
+	board.move_player(destination, false)
+	check(not camera.manual and not camera.overview and not camera.dragging, "Movement releases free look even during card resolution")
+	check(camera.follow_target == world.player and camera.follow_mode == PhantomCamera2D.FollowMode.SIMPLE, "Movement delegates player tracking to Phantom Camera")
+	camera.aiming = false
+	await get_tree().create_timer(0.5).timeout
+	camera._start_pan()
+	check(camera.follow_target == board.center_marker and camera.manual, "Free look can be used again after following the player")
+	board.teleport_player(origin)
+	check(camera.follow_target == world.player and not camera.manual and not camera.dragging, "Teleport returns free look to native player follow")
+	await get_tree().create_timer(1.2).timeout
+	if DisplayServer.get_name() != "headless":
+		var projected: Vector2 = world.map_camera.get_canvas_transform() * world.player.global_position
+		check(projected.distance_to(camera.combat_rect().get_center()) < 8.0, "Native camera follows the teleported player into the HUD safe area")
+	camera.frame_battle()
+
 func _test_gate_presentation(world: GameWorld) -> void:
 	var board := world.tilemap
 	var origin := board.player_position
@@ -428,6 +584,33 @@ func _test_gate_presentation(world: GameWorld) -> void:
 	if destination == origin:
 		return
 	var tile_count := board.tile_map_data.size()
+	var original_type := board.tile_map_data[origin].type
+	board.tile_map_data[origin].type = Enums.TileType.RIFT_GATE
+	# Enter through normal movement, exercising overlapping walk/phase animations.
+	board.move_player(origin)
+	var gate_destination := board.player_position
+	await get_tree().create_timer(0.65).timeout
+	check(gate_destination != origin, "Entering a gate activates another free gate")
+	check(board.world_to_cell(world.player.global_position) == gate_destination, "Gate arrival survives the movement animation")
+	board.tile_map_data[origin].type = original_type
+	var facing_card := Card.new()
+	facing_card.target_type = Enums.TargetType.SINGLE_ENEMY
+	var facing_target := Node2D.new()
+	add_child(facing_target)
+	facing_target.global_position = world.player.global_position + Vector2(-100, 0)
+	await facing_card.resolve_effects([facing_target], world.player_stats, world.player.modifier_handler)
+	check(world.player.sprite_2d.flip_h, "Targeted cast faces a target to the left")
+	facing_target.global_position = world.player.global_position + Vector2(100, 0)
+	await facing_card.resolve_effects([facing_target], world.player_stats, world.player.modifier_handler)
+	check(not world.player.sprite_2d.flip_h, "Targeted cast faces a target to the right")
+	facing_card.target_type = Enums.TargetType.SINGLE_TILE
+	var tile_target := TilemapTarget.new(origin, board)
+	await facing_card.resolve_effects([tile_target], world.player_stats, world.player.modifier_handler)
+	tile_target.free()
+	var direction := board.cell_to_world(origin).x - world.player.global_position.x
+	if not is_zero_approx(direction):
+		check(world.player.sprite_2d.flip_h == (direction < 0.0), "Tile-targeted cast faces the chosen tile")
+	facing_target.queue_free()
 	board.teleport_player(destination)
 	await get_tree().create_timer(0.3).timeout
 	check(board.player_position == destination and board.world_to_cell(world.player.global_position) == destination, "Teleport feedback preserves the authoritative destination")
@@ -551,6 +734,21 @@ func run() -> void:
 	while not api.ready_for_action() and Time.get_ticks_msec() < ready_deadline:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
+	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		await _test_lethal_ruin_move(world)
+		world.queue_free()
+		relics.queue_free()
+		await get_tree().process_frame
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--mana-wells-only"):
+		await _test_mana_well_presentation(world)
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--utility-review"):
 		await _review_utility_motion(world)
 		print("Combat automation tests: %d failures" % failures)
@@ -571,6 +769,8 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	await _test_harvest_state(world)
+	await _test_camera_follow(world)
+	await _test_board_badges(world)
 	if OS.get_cmdline_user_args().has("--battlefield-only"):
 		await _test_gate_presentation(world)
 		if DisplayServer.get_name() != "headless":

@@ -15,6 +15,6 @@ release_fx = ExtResource("release")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 2
 material = ExtResource("spell_material")
-scale = Vector2(0.38, 0.38)
+scale = Vector2(0.21934611, 0.21934611)
 sprite_frames = ExtResource("frames")
 animation = &"start"

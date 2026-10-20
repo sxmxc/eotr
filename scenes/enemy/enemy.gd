@@ -3,6 +3,7 @@ extends Node2D
 
 signal damage_taken(amount: int)
 
+const UNIT_BADGES := preload("res://ui/world_ui/unit_badges.tscn")
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
 const TEXT_FX : PackedScene = preload("res://ui/fx/text_fx.tscn")
 const DEATH_FLASH_FX : PackedScene = preload("res://ui/fx/flash_fx.tscn")
@@ -35,10 +36,10 @@ var pending_damage := 0
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
-	if current_action:
-		update_intent()
+	update_intent()
 
 func _ready():
+	add_child(UNIT_BADGES.instantiate())
 	if sprite_2d.material:
 		sprite_2d.material = sprite_2d.material.duplicate()
 		sprite_2d.material.set_shader_parameter("rim_color", Color(0.9, 0.68, 0.57, 0.55))

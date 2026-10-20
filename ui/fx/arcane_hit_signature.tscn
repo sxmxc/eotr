@@ -28,6 +28,6 @@ self_modulate = Color(1, 1, 1, 0.14)
 
 [node name="Illustration" type="AnimatedSprite2D" parent="."]
 texture_filter = 2
-scale = Vector2(0.21, 0.21)
+scale = Vector2(0.12121759, 0.12121759)
 sprite_frames = ExtResource("illustration")
 animation = &"default"

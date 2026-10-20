@@ -71,6 +71,9 @@ func _roll_event() -> void:
 
 func _populate_event() -> void:
 	_choice_made = false
+	%OutcomeLabel.text = "THE CHOICE IS YOURS"
+	%Hint.text = "You may leave without making a choice."
+	leave_button.text = "Return to the path"
 	title_label.text = _current_event.get("title", "Unknown Event")
 	body_label.text = _current_event.get("body", "")
 	_refresh_options()
@@ -88,6 +91,7 @@ func _refresh_options() -> void:
 		var option: Dictionary = options[idx]
 		var requirement := _unmet_requirement(option)
 		button.text = option.get("label", "Option")
+		button.tooltip_text = requirement if not requirement.is_empty() else "Choose this outcome. You can choose only once."
 		if not _choice_made and not requirement.is_empty():
 			button.text += " — " + requirement
 		button.disabled = _choice_made or not requirement.is_empty()
@@ -130,7 +134,9 @@ func _run_option_by_index(idx: int) -> void:
 	run_stats.resources -= int(option.get("resource_cost", 0))
 	call(action_name)
 	_refresh_options()
-	leave_button.text = "Leave"
+	%OutcomeLabel.text = "CHOICE RESOLVED"
+	%Hint.text = "Your choice is complete. Continue when you are ready."
+	leave_button.text = "Continue the journey"
 	leave_button.disabled = false
 	leave_button.grab_focus()
 

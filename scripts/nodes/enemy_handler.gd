@@ -284,14 +284,14 @@ func _configure_enemy_camera(enemy: Enemy, spotlight: bool) -> void:
 func get_active_mobile_enemy_count() -> int:
 	var count := 0
 	for node in get_children():
-		var active_enemy := node as Enemy
-		if not active_enemy:
+		var mobile_enemy := node as Enemy
+		if not mobile_enemy:
 			continue
-		if active_enemy is Obelisk:
+		if mobile_enemy is Obelisk:
 			continue
-		if not is_instance_valid(active_enemy):
+		if not is_instance_valid(mobile_enemy):
 			continue
-		if active_enemy.is_dying or active_enemy.stats.health <= 0:
+		if mobile_enemy.is_dying or mobile_enemy.stats.health <= 0:
 			continue
 		count += 1
 	return count

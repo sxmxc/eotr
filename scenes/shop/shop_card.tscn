@@ -6,11 +6,13 @@
 [ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="3_ve2vk"]
 
 [node name="ShopCard" type="VBoxContainer" unique_id=1855532495]
-custom_minimum_size = Vector2(180, 364)
+theme_type_variation = &"ShopCardListing"
+custom_minimum_size = Vector2(220, 420)
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_q5376")
 script = ExtResource("2_ve2vk")
+size_flags_horizontal = 3
 
 [node name="CardContainer" type="CenterContainer" parent="." unique_id=39829222]
 unique_name_in_owner = true
@@ -32,7 +34,7 @@ text = "999"
 
 [node name="GoldIcon" type="TextureRect" parent="Price" unique_id=653471201]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 texture = ExtResource("3_ve2vk")
 expand_mode = 1
@@ -41,6 +43,7 @@ stretch_mode = 6
 [node name="BuyButton" type="Button" parent="." unique_id=1204341735]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Buy"
+custom_minimum_size = Vector2(0, 50)
+text = "Buy card"
 
 [connection signal="pressed" from="BuyButton" to="." method="_on_buy_button_pressed"]

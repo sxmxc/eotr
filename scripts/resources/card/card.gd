@@ -82,6 +82,16 @@ func play(targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHa
 
 
 func resolve_effects(resolved_targets: Array[Node], player_stats: PlayerStats, modifiers: ModifierHandler) -> void:
+	if modifiers and is_single_targeted():
+		var caster := modifiers.get_tree().get_first_node_in_group("player") as Player
+		if is_instance_valid(caster):
+			for target: Node in resolved_targets:
+				if target is TilemapTarget:
+					caster.face_target(target.tilemap.cell_to_world(target.tile_position))
+					break
+				if target is Node2D and target != caster:
+					caster.face_target(target.global_position)
+					break
 	if cast_fx and DisplayServer.get_name() != "headless" and modifiers:
 		var player := modifiers.get_tree().get_first_node_in_group("player") as Player
 		if is_instance_valid(player):
@@ -93,6 +103,8 @@ func resolve_effects(resolved_targets: Array[Node], player_stats: PlayerStats, m
 		var resolver := CardResolver.new()
 		await resolver.resolve(self, resolved_targets, player_stats, modifiers, effect_configs)
 	else:
+		# Legacy card overrides may yield even though the base hook is synchronous.
+		@warning_ignore("redundant_await")
 		await apply_effects(resolved_targets, modifiers)
 
 

@@ -1,13 +1,11 @@
 [gd_scene format=3 uid="uid://bj2o5bhx1vq8b"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
-
 [ext_resource type="Script" uid="uid://byyc2fbl2lt2d" path="res://scenes/map/map.gd" id="1_sxf4j"]
 [ext_resource type="Script" uid="uid://xnnvu4xhg15l" path="res://scenes/map/map_generator.gd" id="2_tqkkf"]
-[ext_resource type="Texture2D"  path="res://assets/rift/menus/main_menu.webp" id="4_ph54e"]
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="4_ph54e"]
 [ext_resource type="Resource" uid="uid://rgkxgojapvgc" path="res://resources/data/registries/encounter_registry_act1.tres" id="5_encounter_registry"]
-
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
 
 [sub_resource type="Gradient" id="Gradient_vn8vg"]
 colors = PackedColorArray(0.015, 0.03, 0.05, 1, 0.02, 0.05, 0.075, 1)
@@ -63,20 +61,21 @@ unique_name_in_owner = true
 offset = Vector2(960, 540)
 zoom = Vector2(1.65, 1.65)
 
-[node name="MapChrome" type="CanvasLayer" parent="."]
+[node name="MapChrome" type="CanvasLayer" parent="." unique_id=1434813839]
 layer = 2
 
-[node name="Sidebar" type="Panel" parent="MapChrome"]
+[node name="Sidebar" type="Panel" parent="MapChrome" unique_id=334436964]
+anchors_preset = 9
+anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = 108.0
 offset_right = 334.0
-anchor_bottom = 1.0
 offset_bottom = -40.0
 mouse_filter = 2
 theme = ExtResource("rift_theme")
 theme_type_variation = &"MapSidebar"
 
-[node name="Title" type="Label" parent="MapChrome"]
+[node name="Title" type="Label" parent="MapChrome" unique_id=801601227]
 offset_left = 40.0
 offset_top = 120.0
 offset_right = 310.0
@@ -84,32 +83,16 @@ offset_bottom = 214.0
 theme = ExtResource("rift_theme")
 theme_type_variation = &"MapTitle"
 text = "RIFT ROUTE"
-mouse_filter = 2
 
-[node name="Progress" type="Label" parent="MapChrome"]
+[node name="Progress" type="Label" parent="MapChrome" unique_id=1464779533]
 offset_left = 40.0
 offset_top = 188.0
 offset_right = 310.0
 offset_bottom = 332.0
 theme = ExtResource("rift_theme")
 theme_type_variation = &"BountyProgress"
-text = "Choose your next encounter · Scroll to explore the route"
-mouse_filter = 2
+text = "Choose your next rift · Scroll to explore the route between the rfits"
 
-
-[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
-visible = false
+[node name="ParticlesLayer" parent="." unique_id=1329872539 instance=ExtResource("ambient_particles")]
 layer = -1
-
-[node name="GPUParticles2D3" parent="ParticlesLayer" index="2"]
-position = Vector2(1598, 523)
-
-[node name="GPUParticles2D4" parent="ParticlesLayer" index="3"]
-position = Vector2(1598, 523)
-
-[node name="GPUParticles2D5" parent="ParticlesLayer" index="4"]
-position = Vector2(170, 523)
-
-[node name="GPUParticles2D6" parent="ParticlesLayer" index="5"]
-position = Vector2(170, 523)
-
+visible = false

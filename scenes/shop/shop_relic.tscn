@@ -5,43 +5,74 @@
 [ext_resource type="PackedScene" uid="uid://cryppjpfbefjn" path="res://scenes/relic_handler/relic_ui.tscn" id="3_vuhns"]
 [ext_resource type="Texture2D" uid="uid://dds3f61nigdk1" path="res://assets/rift/ui/resource.svg" id="4_vuhns"]
 
-[node name="ShopRelic" type="VBoxContainer" unique_id=569702973]
-custom_minimum_size = Vector2(180, 364)
-offset_right = 40.0
-offset_bottom = 40.0
+
+[node name="ShopRelic" type="VBoxContainer"]
+custom_minimum_size = Vector2(430, 140)
 theme = ExtResource("1_vuhns")
-alignment = 1
 script = ExtResource("2_vuhns")
 
-[node name="RelicContainer" type="CenterContainer" parent="." unique_id=1491287527]
-unique_name_in_owner = true
+[node name="Panel" type="PanelContainer" parent="."]
+theme_type_variation = &"ShopRelicPanel"
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Row" type="HBoxContainer" parent="Panel"]
+theme_type_variation = &"ShopRelicRow"
 layout_mode = 2
 
-[node name="RelicUI" parent="RelicContainer" unique_id=313528940 instance=ExtResource("3_vuhns")]
+[node name="RelicContainer" type="CenterContainer" parent="Panel/Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Price" type="HBoxContainer" parent="." unique_id=821525847]
+[node name="Details" type="VBoxContainer" parent="Panel/Row"]
+theme_type_variation = &"ShopRelicDetails"
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RelicName" type="Label" parent="Panel/Row/Details"]
+theme_type_variation = &"ShopRelicName"
 unique_name_in_owner = true
 layout_mode = 2
-theme_type_variation = &"FlushRow"
+autowrap_mode = 3
+
+[node name="Description" type="RichTextLabel" parent="Panel/Row/Details"]
+theme_type_variation = &"ShopRelicDescription"
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+mouse_filter = 2
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="Purchase" type="VBoxContainer" parent="Panel/Row"]
+theme_type_variation = &"ShopRelicPurchase"
+layout_mode = 2
+custom_minimum_size = Vector2(100, 0)
 alignment = 1
 
-[node name="PriceLabel" type="Label" parent="Price" unique_id=792784490]
+[node name="Price" type="HBoxContainer" parent="Panel/Row/Purchase"]
+theme_type_variation = &"ShopRelicPrice"
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="PriceLabel" type="Label" parent="Panel/Row/Purchase/Price"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "999"
 
-[node name="ResourceIcon" type="TextureRect" parent="Price" unique_id=1135768412]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
+[node name="ResourceIcon" type="TextureRect" parent="Panel/Row/Purchase/Price"]
+custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
 texture = ExtResource("4_vuhns")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="BuyButton" type="Button" parent="." unique_id=1394804154]
+[node name="BuyButton" type="Button" parent="Panel/Row/Purchase"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Buy"
+text = "Buy relic"
 
-[connection signal="pressed" from="BuyButton" to="." method="_on_buy_button_pressed"]
+[connection signal="pressed" from="Panel/Row/Purchase/BuyButton" to="." method="_on_buy_button_pressed"]

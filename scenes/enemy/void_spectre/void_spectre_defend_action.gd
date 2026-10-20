@@ -65,3 +65,6 @@ func perform_action() -> void:
 func update_intent_text() -> void:
 	var summary := "%d/%d" % [block, heal_cap]
 	intent.current_text = intent.base_text % summary
+	intent.secondary_icon = preload("res://assets/rift/ui/health.svg")
+	intent.secondary_text = str(heal_cap)
+	intent.detail_text = "Gain %d block and heal up to %d HP" % [block, heal_cap]

@@ -35,6 +35,8 @@ def main() -> int:
     parser.add_argument("--godot", default=shutil.which("godot"))
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--combat-automation", action="store_true")
+    parser.add_argument("--card-lifecycle-only", action="store_true", help="Lethal movement card teardown regression")
+    parser.add_argument("--mana-wells-only", action="store_true", help="Focused mana well visibility and native visual review")
     parser.add_argument("--battlefield-only", action="store_true", help="Focused grid and Phantom Camera checks; one capture with --capture-ui")
     parser.add_argument("--terrain-only", action="store_true", help="Native terrain boundary and collapse validation")
     parser.add_argument("--motion-review", action="store_true", help="Record bounded native combat and collapse at 60 fps")
@@ -91,6 +93,10 @@ def main() -> int:
     if args.motion_review:
         display_args = ["--windowed", "--position", "-32000,-32000", "--resolution", "1280x720", "--write-movie", str(root / ".qa-tmp/combat-motion.avi"), "--fixed-fps", "60"]
     user_args = (["--capture-ui"] if args.capture_ui else []) + (["--ui-transactions-only"] if args.ui_transactions_only else [])
+    if args.card_lifecycle_only:
+        user_args.append("--card-lifecycle-only")
+    if args.mana_wells_only:
+        user_args.append("--mana-wells-only")
     if args.event_room_only:
         user_args.append("--event-room-only")
     if args.battlefield_only:

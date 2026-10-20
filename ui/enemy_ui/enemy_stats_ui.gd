@@ -71,10 +71,7 @@ func _on_enemy_updated(enemy: Enemy) -> void:
 		return
 	if enemy.current_action and enemy.current_action.intent:
 		var plan := enemy.current_action.intent
-		var description := plan.tooltip_text
-		if description.contains("%s"):
-			description = description % plan.current_text
-		plan_label.text = description.trim_prefix("Plans to ").capitalize()
+		plan_label.text = plan.get_description()
 	else:
 		plan_label.text = "Considering…"
 

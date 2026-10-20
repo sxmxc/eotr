@@ -1,45 +1,53 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://058rhj12ym2a"]
 
-[ext_resource type="Texture2D" uid="uid://1wpqunbib4xt" path="res://assets/rift/fx/ember_flame.webp" id="sheet"]
+[ext_resource type="Texture2D" uid="uid://bnnfufv4srk2v" path="res://assets/rift/fx/atlases/ember_flame.png" id="sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_0"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 0, 256, 256)
+region = Rect2(168, 166, 124, 217)
+margin = Rect2(450, 299, 900, 807)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_1"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(551, 106, 232, 293)
+margin = Rect2(396, 223, 792, 731)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_2"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(916, 61, 368, 354)
+margin = Rect2(328, 162, 656, 670)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_3"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(1399, 80, 314, 326)
+margin = Rect2(355, 190, 710, 698)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_4"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 256, 256, 256)
+region = Rect2(117, 522, 232, 284)
+margin = Rect2(396, 232, 792, 740)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_5"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 256, 256, 256)
+region = Rect2(568, 541, 192, 261)
+margin = Rect2(416, 255, 832, 763)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_6"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(1029, 575, 156, 226)
+margin = Rect2(434, 290, 868, 798)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_7"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 256, 256, 256)
+region = Rect2(1475, 646, 137, 155)
+margin = Rect2(443.5, 361, 887, 869)
 filter_clip = true
 
 [resource]

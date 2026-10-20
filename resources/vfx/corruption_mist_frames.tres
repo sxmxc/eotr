@@ -1,45 +1,53 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://104whb7deutn"]
 
-[ext_resource type="Texture2D" uid="uid://dbqk7gcbqwfqe" path="res://assets/rift/fx/corruption_mist.webp" id="sheet"]
+[ext_resource type="Texture2D" uid="uid://cww5uu0qfdnao" path="res://assets/rift/fx/atlases/corruption_mist.png" id="sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_0"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 0, 256, 256)
+region = Rect2(113, 272, 221, 135)
+margin = Rect2(401.5, 381, 803, 889)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_1"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(507, 176, 322, 236)
+margin = Rect2(351, 280, 702, 788)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_2"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(938, 96, 349, 318)
+margin = Rect2(337.5, 198, 675, 706)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_3"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(1361, 34, 387, 381)
+margin = Rect2(318.5, 135, 637, 643)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_4"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 256, 256, 256)
+region = Rect2(55, 488, 350, 356)
+margin = Rect2(337, 160, 674, 668)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_5"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 256, 256, 256)
+region = Rect2(504, 490, 337, 352)
+margin = Rect2(343.5, 164, 687, 672)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_6"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(963, 485, 296, 357)
+margin = Rect2(364, 159, 728, 667)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_7"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 256, 256, 256)
+region = Rect2(1413, 488, 276, 348)
+margin = Rect2(374, 168, 748, 676)
 filter_clip = true
 
 [resource]

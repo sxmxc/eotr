@@ -1,94 +1,27 @@
 [gd_scene format=3 uid="uid://cs1i5d3k8wpeo"]
 
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
-
 [ext_resource type="Script" uid="uid://ce1trfycndk5j" path="res://scenes/shop/shop.gd" id="1_100s2"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_ctpgp"]
 [ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="2_7lxhl"]
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="3_131kw"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/card.svg" id="3_jp048"]
 [ext_resource type="Resource" uid="uid://cbqo7jsdxagi4" path="res://resources/data/relics/riftglass_prism.tres" id="4_xoc10"]
 [ext_resource type="Resource" uid="uid://cfauwsp41tgk7" path="res://resources/data/relics/temporal_conduit.tres" id="5_k5co3"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="5_ptf86"]
 [ext_resource type="Resource" uid="uid://b3cnm8pclsxek" path="res://resources/data/relics/unstable_core.tres" id="6_6kbe7"]
-[ext_resource type="PackedScene" uid="uid://reltmlqdjpbr" path="res://scenes/shop/shop_card.tscn" id="6_ge4d2"]
 [ext_resource type="Resource" uid="uid://3dykoxgiq7hi" path="res://resources/data/relics/trader_badge.tres" id="7_hbyua"]
-[ext_resource type="PackedScene" uid="uid://d02yq3iuxpgj4" path="res://scenes/shop/shop_relic.tscn" id="7_tp26b"]
 [ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="7_xcdpw"]
 [ext_resource type="Resource" uid="uid://cd45n3jrdgucm" path="res://resources/data/relics/feedback_circuit.tres" id="8_hbyua"]
 [ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="9_36j3v"]
 [ext_resource type="PackedScene" uid="uid://coupj55agy31s" path="res://scenes/relic_handler/relic_tooltip.tscn" id="9_tp26b"]
 [ext_resource type="Resource" uid="uid://d0vl20m61tb65" path="res://resources/data/relics/prospector_helmet.tres" id="10_5y7fm"]
-[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="10_6kbe7"]
 [ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="11_energy"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="15_k5co3"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="16_6kbe7"]
 [ext_resource type="Resource" uid="uid://b84eu1klb7uxe" path="res://resources/data/registries/card_registry_riftwalker.tres" id="17_card_registry"]
 
-[sub_resource type="Animation" id="Animation_ptf86"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ShopIcon:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ShopIcon:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
-[sub_resource type="Animation" id="Animation_ctpgp"]
-resource_name = "pulse"
-length = 4.0
-loop_mode = 1
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ShopIcon:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.96, 1.47, 1.95, 2.46, 2.97),
-"transitions": PackedFloat32Array(1, 2, 0.5, -2, 2, 0.5),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0, 1.05), Vector2(1, 1), Vector2(0, 1.05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ShopIcon:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.96, 1.47, 2.46),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ge4d2"]
-_data = {
-&"RESET": SubResource("Animation_ptf86"),
-&"pulse": SubResource("Animation_ctpgp")
-}
-
-[node name="Shop" type="Control" unique_id=1078784600]
+[node name="Shop" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -101,14 +34,15 @@ script = ExtResource("1_100s2")
 shop_relics = Array[ExtResource("3_131kw")]([ExtResource("4_xoc10"), ExtResource("5_k5co3"), ExtResource("6_6kbe7"), ExtResource("7_hbyua"), ExtResource("8_hbyua"), ExtResource("9_36j3v"), ExtResource("10_5y7fm"), ExtResource("11_energy")])
 card_registry = ExtResource("17_card_registry")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=782098670]
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = 0
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=1479281763]
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+mouse_filter = 2
+modulate = Color(0.13, 0.19, 0.24, 1)
 texture = ExtResource("2_7lxhl")
 
 [node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
@@ -125,107 +59,139 @@ position = Vector2(170, 523)
 [node name="GPUParticles2D6" parent="ParticlesLayer" index="5"]
 position = Vector2(170, 523)
 
-[node name="DecorationLayer" type="CanvasLayer" parent="." unique_id=264432735]
-
-[node name="ShopIcon" type="TextureRect" parent="DecorationLayer" unique_id=168850920]
-custom_minimum_size = Vector2(640, 640)
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 184.0
-offset_top = -872.0
-offset_right = 824.0
-offset_bottom = -232.0
-grow_vertical = 0
-pivot_offset = Vector2(320, 320)
-texture = ExtResource("3_jp048")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Bouncer" type="Node" parent="DecorationLayer/ShopIcon" unique_id=1949247145]
-script = ExtResource("10_6kbe7")
-metadata/_custom_type_script = "uid://c7wfd2um7frkt"
-
-[node name="ShopIconAnimation" type="AnimationPlayer" parent="DecorationLayer" unique_id=809338614]
-unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_ge4d2")
-
-[node name="UILayer" type="CanvasLayer" parent="." unique_id=1133186497]
+[node name="UILayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Label" type="Label" parent="UILayer" unique_id=1984404575]
-theme_type_variation = &"HeroText"
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 203.0
-offset_top = 122.0
-offset_right = 436.0
-offset_bottom = 251.0
-grow_horizontal = 2
-theme = ExtResource("5_ptf86")
+[node name="Layout" type="VBoxContainer" parent="UILayer"]
+theme_type_variation = &"ShopLayout"
+anchor_left = 0.07
+anchor_top = 0.14
+anchor_right = 0.93
+anchor_bottom = 0.94
+
+[node name="Header" type="HBoxContainer" parent="UILayer/Layout"]
+theme_type_variation = &"ShopHeader"
+layout_mode = 2
+
+[node name="Titles" type="VBoxContainer" parent="UILayer/Layout/Header"]
+theme_type_variation = &"ShopTitles"
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Eyebrow" type="Label" parent="UILayer/Layout/Header/Titles"]
+theme_type_variation = &"ShopEyebrow"
+layout_mode = 2
+text = "THE WAYFARER’S EXCHANGE"
+
+[node name="Title" type="Label" parent="UILayer/Layout/Header/Titles"]
+theme_type_variation = &"ShopTitle"
+layout_mode = 2
 text = "Shop"
 
-[node name="LeaveButton" type="Button" parent="UILayer" unique_id=2011217849]
+[node name="Subtitle" type="Label" parent="UILayer/Layout/Header/Titles"]
+theme_type_variation = &"ShopSubtitle"
+layout_mode = 2
+text = "Supplies for the journey beyond the rift."
+
+[node name="Balance" type="Label" parent="UILayer/Layout/Header"]
+theme_type_variation = &"ShopBalance"
+layout_mode = 2
+text = ""
 unique_name_in_owner = true
-offset_left = 442.0
-offset_top = 777.0
-offset_right = 553.0
-offset_bottom = 829.0
-theme = ExtResource("5_ptf86")
-text = "Leave"
+vertical_alignment = 1
 
-[node name="ShopContent" type="VBoxContainer" parent="UILayer" unique_id=791452530]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -268.0
-offset_right = -320.0
-offset_bottom = 464.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="Inventory" type="HBoxContainer" parent="UILayer/Layout"]
+theme_type_variation = &"ShopInventory"
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="Cards" type="HBoxContainer" parent="UILayer/ShopContent" unique_id=1667214194]
-theme_type_variation = &"RewardRow"
+[node name="CardShelf" type="PanelContainer" parent="UILayer/Layout/Inventory"]
+theme_type_variation = &"ShopCardShelf"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.6
+
+[node name="Content" type="VBoxContainer" parent="UILayer/Layout/Inventory/CardShelf"]
+theme_type_variation = &"ShopContent"
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="UILayer/Layout/Inventory/CardShelf/Content"]
+theme_type_variation = &"ShopCaption"
+layout_mode = 2
+text = "CARDS · GOLD"
+
+[node name="Heading" type="Label" parent="UILayer/Layout/Inventory/CardShelf/Content"]
+theme_type_variation = &"ShopHeading"
+layout_mode = 2
+text = "Spellcraft"
+
+[node name="Rule" type="HSeparator" parent="UILayer/Layout/Inventory/CardShelf/Content"]
+layout_mode = 2
+
+[node name="Cards" type="HBoxContainer" parent="UILayer/Layout/Inventory/CardShelf/Content"]
+theme_type_variation = &"ShopCards"
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
 
-[node name="ShopCard" parent="UILayer/ShopContent/Cards" unique_id=612059513 instance=ExtResource("6_ge4d2")]
+[node name="RelicShelf" type="PanelContainer" parent="UILayer/Layout/Inventory"]
+theme_type_variation = &"ShopRelicShelf"
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.0
+
+[node name="Content" type="VBoxContainer" parent="UILayer/Layout/Inventory/RelicShelf"]
+theme_type_variation = &"ShopContent"
 layout_mode = 2
 
-[node name="ShopCard2" parent="UILayer/ShopContent/Cards" unique_id=1663390336 instance=ExtResource("6_ge4d2")]
+[node name="Caption" type="Label" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
+theme_type_variation = &"ShopCaption"
+layout_mode = 2
+text = "ARTIFACTS · RESOURCES"
+
+[node name="Heading" type="Label" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
+theme_type_variation = &"ShopHeading"
+layout_mode = 2
+text = "Relics"
+
+[node name="Rule" type="HSeparator" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
 layout_mode = 2
 
-[node name="ShopCard3" parent="UILayer/ShopContent/Cards" unique_id=937008654 instance=ExtResource("6_ge4d2")]
-layout_mode = 2
-
-[node name="Relics" type="HBoxContainer" parent="UILayer/ShopContent" unique_id=566003263]
-theme_type_variation = &"RewardRow"
+[node name="Relics" type="VBoxContainer" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
+theme_type_variation = &"ShopRelics"
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="ShopRelic" parent="UILayer/ShopContent/Relics" unique_id=1457089204 instance=ExtResource("7_tp26b")]
+[node name="Footer" type="HBoxContainer" parent="UILayer/Layout"]
+theme_type_variation = &"ShopFooter"
 layout_mode = 2
 
-[node name="ShopRelic2" parent="UILayer/ShopContent/Relics" unique_id=1562135857 instance=ExtResource("7_tp26b")]
+[node name="Hint" type="Label" parent="UILayer/Layout/Footer"]
+theme_type_variation = &"ShopHint"
 layout_mode = 2
+text = "Inspect a card or relic to learn more before buying."
+size_flags_horizontal = 3
+vertical_alignment = 1
 
-[node name="ShopRelic3" parent="UILayer/ShopContent/Relics" unique_id=462630478 instance=ExtResource("7_tp26b")]
+[node name="LeaveButton" type="Button" parent="UILayer/Layout/Footer"]
+unique_name_in_owner = true
 layout_mode = 2
+custom_minimum_size = Vector2(240, 54)
+text = "Return to the path"
 
-[node name="CardPopup" parent="UILayer" unique_id=856668922 instance=ExtResource("7_xcdpw")]
+[node name="CardPopup" parent="UILayer" instance=ExtResource("7_xcdpw")]
 unique_name_in_owner = true
 visible = false
 
-[node name="RelicTooltip" parent="UILayer" unique_id=538541720 instance=ExtResource("9_tp26b")]
+[node name="RelicTooltip" parent="UILayer" instance=ExtResource("9_tp26b")]
+unique_name_in_owner = true
 visible = false
 
-[node name="ModifierHandler" parent="." unique_id=1783349182 instance=ExtResource("15_k5co3")]
+[node name="ModifierHandler" parent="." instance=ExtResource("15_k5co3")]
 
-[node name="ShopCostModifier" parent="ModifierHandler" unique_id=1417353518 instance=ExtResource("16_6kbe7")]
+[node name="ShopCostModifier" parent="ModifierHandler" instance=ExtResource("16_6kbe7")]
 type = 3
 
-[connection signal="pressed" from="UILayer/LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="UILayer/Layout/Footer/LeaveButton" to="." method="_on_leave_button_pressed"]

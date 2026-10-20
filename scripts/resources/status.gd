@@ -32,3 +32,9 @@ func set_duration(new_duration: int) -> void:
 func set_stacks(new_stacks: int) -> void:
 	stacks = new_stacks
 	status_changed.emit()
+
+
+func get_display_tooltip() -> String:
+	var markup := RegEx.new()
+	markup.compile("\\[[^\\]]*\\]")
+	return id.capitalize() + "\n" + markup.sub(get_tooltip(), "", true).replace("%%", "%")

@@ -65,14 +65,11 @@ func refresh() -> void:
 	var prefix := "◇ " if enemy is Obelisk else ""
 	var block := " +%d block" % bound_stats.block if bound_stats.block > 0 else ""
 	var intent := "Considering…"
+	icon = null
 	if enemy.current_action and enemy.current_action.intent:
 		var plan := enemy.current_action.intent
-		intent = plan.tooltip_text
-		if intent.contains("%s"):
-			intent = intent % plan.current_text
-		intent = intent.trim_prefix("Plans to ").capitalize()
-		if intent.is_empty():
-			intent = plan.current_text
+		icon = plan.get_display_icon()
+		intent = plan.get_description()
 		if intent.begins_with(title + " "):
 			intent = intent.trim_prefix(title + " ")
 	text = "%s%s  ·  %d/%d%s\n%s" % [prefix, title, bound_stats.health, bound_stats.max_health, block, intent.replace(" For ", " ")]

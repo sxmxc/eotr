@@ -5,7 +5,7 @@ signal telemetry_changed(enabled: bool)
 const SETTINGS_PATH = "user://user_settings.ini"
 
 @export var show_tutorial := true
-var telemetry_enabled := true
+var telemetry_enabled := false
 
 
 func _ready() -> void:
