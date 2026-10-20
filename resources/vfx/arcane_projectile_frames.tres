@@ -1,45 +1,41 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://0elumkrrrvj0"]
 
-[ext_resource type="Texture2D" uid="uid://ebsfeh3utqcb" path="res://assets/rift/fx/arcane_projectile.webp" id="sheet"]
+[ext_resource type="Texture2D" uid="uid://cr5xk8d38qo6m" path="res://assets/rift/fx/atlases/arcane_projectile.png" id="sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_5"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 256, 256, 256)
+region = Rect2(604, 545, 266, 237)
+margin = Rect2(379, 393.5, 758, 787)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_6"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(992, 562, 292, 205)
+margin = Rect2(366, 409.5, 732, 819)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_7"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 256, 256, 256)
+region = Rect2(1512, 642, 158, 71)
+margin = Rect2(433, 476.5, 866, 953)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_2"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(833, 165, 455, 160)
+margin = Rect2(61, 432, 569, 864)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_3"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(1335, 177, 410, 146)
+margin = Rect2(106, 439, 614, 878)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_4"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 256, 256, 256)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="frame_0"]
-atlas = ExtResource("sheet")
-region = Rect2(0, 0, 256, 256)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="frame_1"]
-atlas = ExtResource("sheet")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(37, 583, 487, 165)
+margin = Rect2(29, 429.5, 537, 859)
 filter_clip = true
 
 [resource]
@@ -86,13 +82,7 @@ animations = [{
 "name": &"loop",
 "speed": 24.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("frame_0")
-}, {
-"duration": 1.0,
-"texture": SubResource("frame_1")
-}],
+"frames": [],
 "loop": 0,
 "name": &"start",
 "speed": 24.0

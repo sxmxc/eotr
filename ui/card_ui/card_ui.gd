@@ -63,27 +63,40 @@ func animate_to_position(pos: Vector2, duration: float):
 func play() -> void:
 	if not can_execute(targets):
 		return
-	var handler := get_tree().get_first_node_in_group("player_handler") as PlayerHandler
+	var tree := get_tree()
+	var handler := tree.get_first_node_in_group("player_handler") as PlayerHandler
 	if handler:
 		handler.resolving_action = true
 	disabled = true
 	if parent is PlayerHand:
 		parent.release_played_card(self)
 	await card.play(targets, player_stats, player_modifiers)
-	# Damage effects commit through tweens. Wait for their actual gameplay boundary.
-	await get_tree().process_frame
-	while _has_pending_effects(handler):
-		await get_tree().process_frame
-	if handler:
+	# Tile damage can end combat and detach this UI during any suspension.
+	# Keep the original tree's frame signal, and recheck ownership after each wait.
+	while _play_context_active():
+		await tree.process_frame
+		if not _play_context_active() or not _has_pending_effects(handler):
+			break
+	if is_instance_valid(handler):
 		handler.resolving_action = false
-	var board := get_tree().get_first_node_in_group("map_layer")
+	if not _play_context_active():
+		return
+	var board := tree.get_first_node_in_group("map_layer")
 	if board and board.get_parent() is GameWorld:
 		board.get_parent().check_victory()
-	burn_card()
+	if _play_context_active():
+		burn_card()
+
+
+func _play_context_active() -> bool:
+	return is_inside_tree() and not is_queued_for_deletion() \
+		and player_stats != null and player_stats.health > 0
 
 
 func _has_pending_effects(handler: PlayerHandler) -> bool:
-	if handler and not handler.hand_ready:
+	if not _play_context_active():
+		return false
+	if is_instance_valid(handler) and not handler.hand_ready:
 		return true
 	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
 		if enemy.pending_damage > 0:
@@ -93,7 +106,7 @@ func _has_pending_effects(handler: PlayerHandler) -> bool:
 
 
 func can_execute(selected_targets: Array[Node]) -> bool:
-	if not card or disabled or not player_stats or not player_stats.can_play_card(card):
+	if not _play_context_active() or not card or disabled or not player_stats.can_play_card(card):
 		return false
 	var handler := get_tree().get_first_node_in_group("player_handler") as PlayerHandler
 	if handler and (handler.resolving_action or not handler.hand_ready):

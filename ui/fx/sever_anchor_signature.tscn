@@ -1,6 +1,16 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3]
+
 [ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_strike.gdshader" id="shader"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/phase_cut_frames.tres" id="illustration"]
+[ext_resource type="Shader" path="res://scripts/shaders/illustrated_palette.gdshader" id="palette_shader"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/phase_cut_frames.tres" id="art_phase_cut"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="art_rift_implosion"]
+[sub_resource type="ShaderMaterial" id="palette"]
+shader = ExtResource("palette_shader")
+shader_parameter/accent = Color(1, 0.75, 0.28, 1)
+
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -22,3 +32,35 @@ texture_filter = 2
 texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.859375, 0.859375)
+self_modulate = Color(1, 1, 1, 0.14)
+
+[node name="Illustration" type="AnimatedSprite2D" parent="."]
+material = SubResource("palette")
+texture_filter = 2
+position = Vector2(0, 0)
+rotation = 1.25
+scale = Vector2(0.21357384, 0.28284104)
+sprite_frames = ExtResource("art_phase_cut")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 0.85
+drift = Vector2(0, 8)
+final_scale = Vector2(0.85, 1.5)
+first_frame = 0
+last_frame = 7
+
+[node name="BrokenAnchor" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, 6)
+rotation = 0
+scale = Vector2(0.12698985, 0.17894025)
+sprite_frames = ExtResource("art_rift_implosion")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.18
+ends = 1
+drift = Vector2(0, 2)
+final_scale = Vector2(0.4, 0.7)
+first_frame = 2
+last_frame = 7

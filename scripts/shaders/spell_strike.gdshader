@@ -8,7 +8,8 @@ float stroke(vec2 p, float slope, float width) {
 }
 void fragment() {
 	vec2 p = (UV - 0.5) * 2.0;
-	float t = progress;
+	float t = clamp(progress, 0.0, 1.0);
+	float release = smoothstep(0.0, 0.07, t);
 	float a = 0.0;
 	if (variant == 0) { // Jab: narrow punch line and four blunt impact wedges.
 		a = stroke(p - vec2(mix(-0.35, 0.25, t), 0.0), 0.0, 0.055) * (1.0 - t);
@@ -31,5 +32,7 @@ void fragment() {
 		a = spokes * exp(-abs(length(p) - t * 0.85) * 18.0) * (1.0 - t);
 		a += exp(-length(p) * 18.0) * (1.0 - t);
 	}
-	COLOR = vec4(mix(accent.rgb, vec3(1.0), clamp(a - 0.5, 0.0, 0.5)), clamp(a, 0.0, 1.0)) * COLOR;
+	float flash = (1.0 - smoothstep(0.12, 0.28, t)) * release;
+	vec3 pigment = mix(accent.rgb * 0.8, vec3(0.96, 0.98, 1.0), flash * 0.8);
+	COLOR = vec4(pigment, clamp(a * release, 0.0, 0.96) * (1.0 - smoothstep(0.8, 1.0, t))) * COLOR;
 }

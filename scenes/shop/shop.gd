@@ -12,8 +12,8 @@ const SHOP_RELIC = preload("res://scenes/shop/shop_relic.tscn")
 @export var shop_card_tags: Array[String] = ["shop"]
 
 @onready var cards: HBoxContainer = %Cards
-@onready var relics: HBoxContainer = %Relics
-@onready var shop_icon_animation: AnimationPlayer = %ShopIconAnimation
+@onready var relics: VBoxContainer = %Relics
+@onready var balance: Label = %Balance
 @onready var card_popup: CardPopup = %CardPopup
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
 
@@ -30,17 +30,19 @@ func _ready() -> void:
 	Events.shop_card_bought.connect(_on_shop_card_bought)
 	Events.shop_relic_bought.connect(_on_shop_relic_bought)
 
-	shop_icon_animation.play("pulse")
+
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and card_popup.visible:
 		card_popup.hide_popup()
+		get_viewport().set_input_as_handled()
 
 
 func populate_shop() -> void:
 	_generate_shop_cards()
 	_generate_shop_relics()
+	_update_balance()
 
 
 func _generate_shop_cards() -> void:
@@ -102,7 +104,13 @@ func _generate_shop_relics() -> void:
 		new_shop_relic.update(run_stats)
 
 
+func _update_balance() -> void:
+	if run_stats:
+		balance.text = "%d gold   /   %d resources" % [run_stats.gold, run_stats.resources]
+
+
 func _update_items() -> void:
+	_update_balance()
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.update(run_stats)
 
@@ -115,6 +123,7 @@ func _get_updated_shop_cost(original_cost: int) -> int:
 
 
 func _update_item_costs() -> void:
+	_update_balance()
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.gold_cost = _get_updated_shop_cost(shop_card.gold_cost)
 		shop_card.update(run_stats)

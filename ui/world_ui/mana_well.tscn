@@ -1,0 +1,13 @@
+[gd_scene format=3]
+[ext_resource type="Shader" path="res://scripts/shaders/mana_well.gdshader" id="shader"]
+[sub_resource type="Gradient" id="white"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+[sub_resource type="GradientTexture2D" id="canvas"]
+gradient = SubResource("white")
+width = 64
+height = 64
+[sub_resource type="ShaderMaterial" id="material"]
+shader = ExtResource("shader")
+[node name="ManaWell" type="Sprite2D"]
+texture = SubResource("canvas")
+material = SubResource("material")

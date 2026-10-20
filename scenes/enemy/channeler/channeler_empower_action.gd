@@ -51,6 +51,9 @@ func perform_action() -> void:
 func update_intent_text() -> void:
 	var summary := "%d/%d" % [block_amount, strength_stacks]
 	intent.current_text = intent.base_text % summary
+	intent.secondary_icon = preload("res://assets/rift/ui/strength.svg")
+	intent.secondary_text = str(strength_stacks)
+	intent.detail_text = "Grant allies %d block and %d strength" % [block_amount, strength_stacks]
 
 
 func _get_allies() -> Array[Node]:

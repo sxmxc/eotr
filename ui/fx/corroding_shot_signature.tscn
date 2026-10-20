@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3]
+
 [ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_corrosion.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/corruption_mist_frames.tres" id="illustration"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/corrosion_bloom_frames.tres" id="illustration"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/corrosion_bloom_frames.tres" id="art_corrosion_bloom"]
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -24,9 +27,34 @@ texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.640625, 0.640625)
 
+self_modulate = Color(1, 1, 1, 0.14)
+
 [node name="Illustration" type="AnimatedSprite2D" parent="."]
 texture_filter = 2
-modulate = Color(1, 1, 1, 0.55)
-scale = Vector2(0.23, 0.23)
-sprite_frames = ExtResource("illustration")
+position = Vector2(0, 0)
+rotation = 0
+scale = Vector2(0.19625705, 0.20202931)
+sprite_frames = ExtResource("art_corrosion_bloom")
 animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 1
+drift = Vector2(0, 7)
+final_scale = Vector2(1.1, 0.9)
+first_frame = 1
+last_frame = 7
+
+[node name="Droplets" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-7, -6)
+rotation = -0.7
+scale = Vector2(0.075039459, 0.10967306)
+sprite_frames = ExtResource("art_corrosion_bloom")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.14
+ends = 1
+drift = Vector2(6, 10)
+final_scale = Vector2(0.8, 0.8)
+first_frame = 2
+last_frame = 7

@@ -17,13 +17,44 @@ class CountingAction extends EnemyAction:
 	func update_intent_text() -> void:
 		pass
 
+func _test_combatant_wards(world: GameWorld) -> void:
+	world.tilemap.hide_fog()
+	var enemy := world.enemy_handler.get_child(0) as Enemy
+	var refs: Array[WeakRef] = []
+	var original_blocks: Array[int] = [world.player.stats.block, enemy.stats.block]
+	for combatant: Node2D in [world.player, enemy]:
+		var before: int = combatant.stats.block
+		var block := BlockEffect.new()
+		block.amount = 4
+		block.visual_fx = preload("res://ui/fx/eldritch_barrier_signature.tscn")
+		block.execute([combatant])
+		check(combatant.stats.block == before + 4, "Ward grants block to both combatant types")
+		var fx := combatant.get_node("EldritchBarrierFX")
+		refs.append(weakref(fx))
+	await get_tree().create_timer(0.22).timeout
+	if DisplayServer.get_name() != "headless":
+		for ref: WeakRef in refs:
+			var fx = ref.get_ref()
+			check(fx != null and fx.is_visible_in_tree(), "Combatant ward survives into visible playback")
+			if fx:
+				check(fx.position == fx.get_parent().get_node("ImpactAnchor").position, "Ward follows combatant impact anchor")
+				check(fx.get_node("Illustration").frame > 0, "Combatant ward illustration advances")
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png("res://combatant-wards.png")
+	await get_tree().create_timer(0.7).timeout
+	for ref: WeakRef in refs:
+		check(ref.get_ref() == null, "Combatant ward cleans up after playback")
+	world.player.stats.block = original_blocks[0]
+	enemy.stats.block = original_blocks[1]
+
+
 func _test_visual_lifetimes(world: GameWorld) -> void:
 	var frame := Node2D.new()
 	frame.position = Vector2(37, -19)
 	frame.scale = Vector2(1.4, 1.4)
 	frame.rotation = 0.3
 	add_child(frame)
-	var projectile_scene := load("res://ui/fx/electric_arc_projectile_fx.tscn") as PackedScene
+	var projectile_scene := load("res://ui/fx/overload_projectile_fx.tscn") as PackedScene
 	var first := projectile_scene.instantiate() as ProjectileFX
 	var second := projectile_scene.instantiate() as ProjectileFX
 	frame.add_child(first)
@@ -103,11 +134,9 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 		if DisplayServer.get_name() != "headless":
 			await get_tree().create_timer(0.06).timeout
 			if family == "electric_arc_projectile":
-				check(is_instance_valid(projectile), "Arc survives long enough to display its inked strike")
+				check(is_instance_valid(projectile), "Energy bolt survives through its travel window")
 				if is_instance_valid(projectile):
-					var line: Line2D = projectile.get_node("ElectricArcFX")
-					var fade := float(line.material.get_shader_parameter("transparency"))
-					check(fade > 0.0 and fade < 1.0, "Arc fade interpolates continuously instead of stepping integer endpoints")
+					check(projectile.get_node("AnimatedSprite2D").visible, "Energy bolt has an authored visible body during travel")
 			await RenderingServer.frame_post_draw
 			var shot := get_viewport().get_texture().get_image()
 			if get_viewport().use_hdr_2d:
@@ -131,6 +160,117 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 		check(reference.get_ref() == null, "Illustrated effect or projectile releases its root after playback")
 
 
+func _test_terrain_breakup(world: GameWorld) -> void:
+	var board := world.tilemap
+	board.hide_fog()
+	board.target_highlight_layer._collapse_changed(1)
+	await get_tree().process_frame
+	var depth := board.get_node("TerrainDepth")
+	check(not depth.faces.is_empty(), "Exposed terrain has cached cosmetic boundary geometry")
+	var rng_before := RNG.instance.state
+	var cells_before := board.base_layer.get_used_cells().size()
+	# Sample actual artwork on an unoccupied visible cell. This fixture simulates
+	# erasure, while production shrink_map remains covered by real AutoWalker turns.
+	var cell: Vector2i
+	for candidate: Vector2i in board.base_layer.get_used_cells():
+		if board.is_tile_valid(candidate):
+			cell = candidate
+			break
+	var atlas_coords := board.base_layer.get_cell_atlas_coords(cell)
+	var atlas := AtlasTexture.new()
+	atlas.atlas = (board.base_layer.tile_set.get_source(0) as TileSetAtlasSource).texture
+	atlas.region = Rect2(Vector2(atlas_coords) * 64, Vector2(64, 64))
+	var fragment := load("res://scenes/game_world/tile_sprite.tscn").instantiate() as TileSprite
+	fragment.texture = atlas
+	fragment.position = board.base_layer.map_to_local(cell)
+	board.base_layer.add_child(fragment)
+	var reference: WeakRef = weakref(fragment)
+	fragment.swirl_out()
+	check(board.base_layer.get_used_cells().size() == cells_before, "Breakup cannot invalidate a gameplay tile")
+	check(fragment.has_node("Shard4") and not fragment.has_node("Shard5"), "Terrain separates into five irregular textured pieces")
+	board.base_layer.erase_cell(cell)
+	board.presentation_changed.emit()
+	await get_tree().create_timer(0.22).timeout
+	check(board.base_layer.get_cell_source_id(cell) == -1 and reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
+	await _capture_battle("res://terrain-collapse.png")
+	await get_tree().create_timer(0.6).timeout
+	check(reference.get_ref() == null, "All breakup geometry releases within 0.82 seconds")
+	check(RNG.instance.state == rng_before, "Terrain presentation does not consume gameplay RNG")
+	board.base_layer.set_cell(cell, 0, atlas_coords)
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await _capture_battle("res://terrain-stable.png")
+	# Real successive shrinks must invalidate every cached edge during erasure.
+	# Clear entities only in this disposable fixture so collapse cannot end the run.
+	for enemy in world.enemy_handler.get_children():
+		enemy.remove_from_group("enemy")
+	board.player_position = Vector2i(-999, -999)
+	for shrink in 2:
+		await board.shrink_map(1)
+		await get_tree().process_frame
+		var expected := 0
+		for tile: Vector2i in board.base_layer.get_used_cells():
+			for neighbor: Vector2i in board.base_layer.get_surrounding_cells(tile):
+				if board.base_layer.get_cell_source_id(neighbor) == -1:
+					expected += 1
+		check(depth.rims.size() == expected, "Shrink %s rebuilds precisely the surviving terrain boundary" % (shrink + 1))
+		for rim: PackedVector2Array in depth.rims:
+			var middle := (rim[0] + rim[1]) * 0.5
+			var a := board.base_layer.local_to_map(middle + (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
+			var b := board.base_layer.local_to_map(middle - (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
+			check((board.base_layer.get_cell_source_id(a) == -1) != (board.base_layer.get_cell_source_id(b) == -1), "Cached rim separates surviving terrain from void")
+	await get_tree().create_timer(0.9).timeout
+	await _capture_battle("res://terrain-shrunk.png")
+
+func _test_all_signature_lifetimes(world: GameWorld) -> void:
+	var directory := DirAccess.open("res://ui/fx")
+	var refs: Array[WeakRef] = []
+	var count := 0
+	for file in directory.get_files():
+		if not file.ends_with("_signature.tscn"):
+			continue
+		var fx := load("res://ui/fx/" + file).instantiate() as VisualFX
+		world.player.add_child(fx)
+		fx.execute()
+		refs.append(weakref(fx))
+		count += 1
+		# Crowded burst: exercise materials/lifetimes together, not in 25 runs.
+	await get_tree().create_timer(1.2).timeout
+	for reference in refs:
+		check(reference.get_ref() == null, "Every ability signature releases after overlapping playback")
+	print("Validated ability signature lifetimes: ", count)
+
+func _test_projectile_motion(world: GameWorld) -> void:
+	var frame := Node2D.new()
+	frame.rotation = 0.3
+	frame.scale = Vector2(1.4, 1.4)
+	world.add_child(frame)
+	var bolt := load("res://ui/fx/electric_arc_projectile_fx.tscn").instantiate() as ProjectileFX
+	frame.add_child(bolt)
+	var source := world.player.get_node("SpellOrigin") as Node2D
+	var target := world.tilemap.obelisk.get_node("ImpactAnchor") as Node2D
+	var completed: Array[bool] = [false]
+	bolt.complete.connect(func(): completed[0] = true)
+	bolt.execute(world.tilemap.obelisk, world.player)
+	check(bolt.global_position.is_equal_approx(source.global_position), "Moving bolt releases at the true world SpellOrigin")
+	check(absf(angle_difference(bolt.global_rotation, (target.global_position - source.global_position).angle())) < 0.001, "Moving bolt orientation respects transformed parents")
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	check(not completed[0] and bolt.global_position.distance_to(source.global_position) > 0.1, "Energy body moves before impact; completion is tied to arrival")
+	await get_tree().create_timer(0.4).timeout
+	check(completed[0] and not is_instance_valid(bolt), "Fast projectile completes and frees its wake within 0.4 seconds")
+	frame.queue_free()
+
+func _test_projectile_cancellation(world: GameWorld) -> void:
+	var projectile := load("res://ui/fx/fireball_projectile_fx.tscn").instantiate() as ProjectileFX
+	var impact := load("res://ui/fx/jab_signature.tscn").instantiate() as VisualFX
+	projectile.visual_fx = impact
+	var reference: WeakRef = weakref(impact)
+	world.add_child(projectile)
+	# Cancellation before arrival must free the otherwise detached impact.
+	projectile.free()
+	check(reference.get_ref() == null, "Cancelled flight owns and releases its unattached impact")
+
 func _ready() -> void:
 	GameSettings.show_tutorial = false
 	TelemetryManager.suspended = true
@@ -146,6 +286,19 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 	check(board.base_layer.tile_set.tile_size == Vector2i(64, 64), "Battle uses 64px hex geometry")
 	check(board.fog_layer.tile_set.tile_size == board.base_layer.tile_set.tile_size, "Fog shares board geometry")
 	check(board.highlight_layer.tile_set.tile_size == board.base_layer.tile_set.tile_size, "Movement highlights share board geometry")
+	if DisplayServer.get_name() != "headless":
+		board.hide_fog()
+		var overlay := board.target_highlight_layer
+		var highlighted_cells: Array[Vector2i] = [board.player_position]
+		overlay.show_target_highlights(highlighted_cells)
+		check(overlay.active_target_highlights.size() == 1, "Target overlay includes an occupied legal hex")
+		if overlay.active_target_highlights.size() == 1:
+			var highlight: Sprite2D = overlay.active_target_highlights[0]
+			check(highlight.global_position.is_equal_approx(board.cell_to_world(board.player_position)), "Target mask center matches the authoritative TileMap world center")
+			check(highlight.texture.get_size() == Vector2(64, 64) and highlight.scale == Vector2.ONE, "Target mask uses exact canonical tile dimensions without compensating scale")
+			highlight.material.set_shader_parameter("HighlightColor", Color(0.29, 0.75, 0.67, 1))
+		await _capture_battle("res://target-alignment.png")
+		overlay.clear_target_highlights()
 	var previous_layer := TileMapLayer.new()
 	previous_layer.tile_set = board.base_layer.tile_set.duplicate()
 	previous_layer.tile_set.tile_size = Vector2i(32, 32)
@@ -295,6 +448,162 @@ func _test_spell_identities(world: GameWorld) -> void:
 		await card.resolve_effects([world.tilemap.obelisk], world.player_stats, world.player.modifier_handler)
 		await get_tree().create_timer(0.6).timeout
 
+func _observe_card_play(card_ui: CardUI, result: Dictionary) -> void:
+	await card_ui.play()
+	result.completed = true
+
+func _test_lethal_ruin_move(world: GameWorld) -> void:
+	var hand := world.player_handler.player_hand
+	var move_card := load("res://resources/data/cards/riftwalker/phase_step.tres").duplicate(true) as Card
+	hand.add_card(move_card)
+	var card_ui := hand.get_cards().back() as CardUI
+	var destination := world.tilemap.player_position
+	for cell: Vector2i in move_card.get_valid_targets(card_ui, world.player.modifier_handler):
+		if world.tilemap.is_tile_valid(cell):
+			destination = cell
+			break
+	check(destination != world.tilemap.player_position, "Lethal ruin regression has a legal move destination")
+	world.tilemap.tile_map_data[destination].type = Enums.TileType.ANCIENT_RUIN
+	var ruin_damage := load("res://resources/data/tile_effects/damage_tile_effect.tres").duplicate(true) as RuinTileEffect
+	ruin_damage.set("base_amount", 999)
+	world.tilemap.ruin_tile_effects.assign([ruin_damage])
+	world.player_stats.health = 1
+	world.player_stats.block = 0
+	var target := TilemapTarget.new(destination, world.tilemap)
+	world.add_child(target)
+	card_ui.targets.assign([target])
+	var on_death := func():
+		# Keep the UI alive but detached, matching scene teardown during resolution.
+		if is_instance_valid(card_ui) and card_ui.is_inside_tree():
+			card_ui.get_parent().remove_child(card_ui)
+	Events.player_died.connect(on_death)
+	var result := {"completed": false}
+	_observe_card_play(card_ui, result)
+	await get_tree().create_timer(0.8).timeout
+	check(world.player_stats.health <= 0 and world.battle_over_handled, "Moving onto the ruin produces the real lethal tile effect")
+	check(not card_ui.is_inside_tree(), "Death cleanup detaches the resolving card UI")
+	check(result.completed and not world.player_handler.resolving_action, "Lethal movement exits card resolution and releases the action lock")
+	Events.player_died.disconnect(on_death)
+	card_ui.free()
+	target.queue_free()
+
+func _test_mana_well_presentation(world: GameWorld) -> void:
+	var board := world.tilemap
+	var occupied := board.player_position
+	var empty := occupied
+	var best_distance := INF
+	for cell: Vector2i in board.tile_map_data:
+		if cell != occupied and board.is_tile_valid(cell):
+			var distance := board.cell_to_world(cell).distance_to(world.player.global_position)
+			if distance < best_distance:
+				empty = cell
+				best_distance = distance
+	check(empty != occupied, "Mana well review has an unoccupied comparison tile")
+	var occupied_type := board.tile_map_data[occupied].type
+	var empty_type := board.tile_map_data[empty].type
+	var energy := world.player_stats.energy
+	board.tile_map_data[occupied].type = Enums.TileType.MANA_WELL
+	board.tile_map_data[empty].type = Enums.TileType.MANA_WELL
+	board.hide_fog()
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var overlay := board.target_highlight_layer
+	check(overlay.mana_wells.has(occupied) and overlay.mana_wells.has(empty), "Mana well visuals cover occupied and empty wells")
+	check(overlay.mana_wells[occupied].visible and overlay.mana_wells[empty].visible, "Revealed mana wells remain visible under the player")
+	check(world.player_stats.energy == energy, "Cosmetic mana well refresh cannot grant energy")
+	if DisplayServer.get_name() != "headless":
+		world.world_camera.frame_battle()
+		await get_tree().create_timer(1.2).timeout
+		await _capture_battle("res://mana-wells.png")
+	board.fog_state.erase(empty)
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(not overlay.mana_wells[empty].visible, "Mana well visuals cannot reveal fogged terrain")
+	board.tile_map_data[occupied].type = occupied_type
+	board.tile_map_data[empty].type = empty_type
+	board.hide_fog()
+	board.presentation_changed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if empty_type != Enums.TileType.MANA_WELL:
+		check(not overlay.mana_wells.has(empty), "Changing terrain removes obsolete mana well visuals")
+
+func _test_board_badges(world: GameWorld) -> void:
+	var board := world.tilemap
+	board.hide_fog()
+	world.world_camera.frame_battle(true)
+	await get_tree().create_timer(1.2).timeout
+	var enemy := world.enemy_handler.get_child(0) as Enemy
+	var badges := enemy.get_node("UnitBadges")
+	await get_tree().process_frame
+	check(badges.intent_panel.visible and badges.intent_icon.texture != null, "Board shows the enemy's current intent icon")
+	check(badges.intent_label.text == enemy.current_action.intent.get_display_text(), "Board intent uses the announced action and amount")
+	var duration_status := load("res://resources/data/statuses/burned.tres").duplicate(true) as Status
+	duration_status.duration = 3
+	enemy.status_handler.add_status(duration_status)
+	var intensity_status := Status.new()
+	intensity_status.id = "badge_test"
+	intensity_status.stack_type = Enums.StatusStackType.INTENSITY
+	intensity_status.stacks = 2
+	intensity_status.icon = load("res://assets/rift/ui/strength.svg")
+	intensity_status.tooltip = "Status display fixture"
+	enemy.status_handler.add_status(intensity_status)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(badges.chips.has(duration_status) and badges.chips.has(intensity_status), "Board mirrors duration and intensity statuses")
+	check(badges.chips[duration_status].count.text == "3" and badges.chips[intensity_status].count.text == "2", "Board distinguishes remaining turns and stack counts")
+	intensity_status.stacks = 5
+	check(badges.chips[intensity_status].count.text == "5", "Board status counts update when the live resource changes")
+	var initial_block := enemy.stats.block
+	enemy.stats.block = 7
+	await get_tree().process_frame
+	check(badges.block_panel.visible and badges.block_label.text == "7", "Board exposes current block separately from planned block")
+	if DisplayServer.get_name() != "headless":
+		await _capture_battle("res://board-intents-statuses.png")
+	duration_status.duration = 0
+	intensity_status.stacks = 0
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(not badges.chips.has(duration_status) and not badges.chips.has(intensity_status), "Expired and depleted statuses disappear from board badges")
+	enemy.stats.block = initial_block
+	board.fog_state.erase(enemy.current_tile_position)
+	await get_tree().physics_frame
+	await get_tree().process_frame
+	check(not enemy.visible and not badges.is_visible_in_tree(), "Fog hides unit badges with the enemy")
+	board.hide_fog()
+
+func _test_camera_follow(world: GameWorld) -> void:
+	var camera = world.world_camera
+	var board := world.tilemap
+	var origin := board.player_position
+	var destination := origin
+	for cell: Vector2i in board.tile_map_data:
+		if cell != origin and board.is_tile_valid(cell):
+			destination = cell
+			break
+	check(destination != origin, "Camera regression has a movement destination")
+	camera.frame_battle(true)
+	camera._start_pan()
+	board.center_marker.global_position += Vector2(120, -80)
+	camera.aiming = true
+	# Phase Step uses the board movement path while card aiming may still be active.
+	board.move_player(destination, false)
+	check(not camera.manual and not camera.overview and not camera.dragging, "Movement releases free look even during card resolution")
+	check(camera.follow_target == world.player and camera.follow_mode == PhantomCamera2D.FollowMode.SIMPLE, "Movement delegates player tracking to Phantom Camera")
+	camera.aiming = false
+	await get_tree().create_timer(0.5).timeout
+	camera._start_pan()
+	check(camera.follow_target == board.center_marker and camera.manual, "Free look can be used again after following the player")
+	board.teleport_player(origin)
+	check(camera.follow_target == world.player and not camera.manual and not camera.dragging, "Teleport returns free look to native player follow")
+	await get_tree().create_timer(1.2).timeout
+	if DisplayServer.get_name() != "headless":
+		var projected: Vector2 = world.map_camera.get_canvas_transform() * world.player.global_position
+		check(projected.distance_to(camera.combat_rect().get_center()) < 8.0, "Native camera follows the teleported player into the HUD safe area")
+	camera.frame_battle()
+
 func _test_gate_presentation(world: GameWorld) -> void:
 	var board := world.tilemap
 	var origin := board.player_position
@@ -306,6 +615,33 @@ func _test_gate_presentation(world: GameWorld) -> void:
 	if destination == origin:
 		return
 	var tile_count := board.tile_map_data.size()
+	var original_type := board.tile_map_data[origin].type
+	board.tile_map_data[origin].type = Enums.TileType.RIFT_GATE
+	# Enter through normal movement, exercising overlapping walk/phase animations.
+	board.move_player(origin)
+	var gate_destination := board.player_position
+	await get_tree().create_timer(0.65).timeout
+	check(gate_destination != origin, "Entering a gate activates another free gate")
+	check(board.world_to_cell(world.player.global_position) == gate_destination, "Gate arrival survives the movement animation")
+	board.tile_map_data[origin].type = original_type
+	var facing_card := Card.new()
+	facing_card.target_type = Enums.TargetType.SINGLE_ENEMY
+	var facing_target := Node2D.new()
+	add_child(facing_target)
+	facing_target.global_position = world.player.global_position + Vector2(-100, 0)
+	await facing_card.resolve_effects([facing_target], world.player_stats, world.player.modifier_handler)
+	check(world.player.sprite_2d.flip_h, "Targeted cast faces a target to the left")
+	facing_target.global_position = world.player.global_position + Vector2(100, 0)
+	await facing_card.resolve_effects([facing_target], world.player_stats, world.player.modifier_handler)
+	check(not world.player.sprite_2d.flip_h, "Targeted cast faces a target to the right")
+	facing_card.target_type = Enums.TargetType.SINGLE_TILE
+	var tile_target := TilemapTarget.new(origin, board)
+	await facing_card.resolve_effects([tile_target], world.player_stats, world.player.modifier_handler)
+	tile_target.free()
+	var direction := board.cell_to_world(origin).x - world.player.global_position.x
+	if not is_zero_approx(direction):
+		check(world.player.sprite_2d.flip_h == (direction < 0.0), "Tile-targeted cast faces the chosen tile")
+	facing_target.queue_free()
 	board.teleport_player(destination)
 	await get_tree().create_timer(0.3).timeout
 	check(board.player_position == destination and board.world_to_cell(world.player.global_position) == destination, "Teleport feedback preserves the authoritative destination")
@@ -314,6 +650,96 @@ func _test_gate_presentation(world: GameWorld) -> void:
 	await get_tree().create_timer(0.3).timeout
 	for cell: Vector2i in board.target_highlight_layer.gates:
 		check(board.target_highlight_layer.gates[cell].visible == not board.is_tile_behind_fog(cell), "Rift gate effects respect fog visibility")
+
+func _review_utility_motion(world: GameWorld) -> void:
+	var board := world.tilemap
+	board.hide_fog()
+	world.world_camera.frame_battle()
+	await get_tree().create_timer(0.7).timeout
+	var origin: Vector2i = board.player_position
+	var destination := origin
+	for cell: Vector2i in board.base_layer.get_surrounding_cells(origin):
+		if board.is_tile_valid(cell) and board.get_tile_data(cell).type == Enums.TileType.RESOURCE:
+			destination = cell
+			break
+	check(destination != origin, "Utility fixture has a legal resource-tile step")
+	if destination == origin:
+		return
+	var card := load("res://resources/data/cards/riftwalker/phase_step.tres") as Card
+	var tile_target := TilemapTarget.new(destination, board)
+	add_child(tile_target)
+	var rng_state := RNG.instance.state
+	print("MOTION phase_step frame=", Engine.get_process_frames())
+	await card.resolve_effects([tile_target], world.player_stats, world.player.modifier_handler)
+	check(board.player_position == destination, "Phase visuals preserve immediate authoritative move commit")
+	await get_tree().create_timer(0.085).timeout
+	check(RNG.instance.state == rng_state, "Phasing presentation consumes no gameplay RNG before existing move-completion AI replanning")
+	var phase := world.player.get_node_or_null("PhaseStepFX")
+	check(world.player.sprite_2d.self_modulate.a < 0.15, "Actual player illustration phases out during movement")
+	if phase:
+		var echo := phase.get_node("EarlyEcho") as Sprite2D
+		check(echo.visible and echo.texture == world.player.sprite_2d.texture, "Phase Step samples the actual illustrated player")
+		check(echo.global_position.distance_to(world.player.sprite_2d.global_position) > 0.1, "Afterimage remains behind on the actual movement path")
+	else:
+		check(false, "Phase Step owns its movement feedback")
+	await get_tree().create_timer(0.5).timeout
+	check(is_equal_approx(world.player.sprite_2d.self_modulate.a, 1.0), "Player phases back in at the destination")
+	check(board.world_to_cell(world.player.global_position) == destination and world.player.pending_effects == 0, "Move finishes at the unchanged destination and timing boundary")
+	check(not is_instance_valid(phase), "Phase afterimages release their owner")
+	tile_target.queue_free()
+	for id: String in ["eldritch_barrier", "nano_shield"]:
+		print("MOTION ", id, " frame=", Engine.get_process_frames())
+		var shield := load("res://ui/fx/%s_signature.tscn" % id).instantiate() as VisualFX
+		world.player.add_child(shield)
+		shield.execute()
+		await get_tree().create_timer(0.22).timeout
+		for child in shield.get_children():
+			if child is AnimatedSprite2D:
+				check(child.self_modulate.a <= 0.42, "Shield plates remain translucent throughout playback")
+		await get_tree().create_timer(0.7).timeout
+	# Interrupted presentation must never leave the real player invisible.
+	tile_target = TilemapTarget.new(origin, board)
+	add_child(tile_target)
+	await card.resolve_effects([tile_target], world.player_stats, world.player.modifier_handler)
+	await get_tree().create_timer(0.07).timeout
+	phase = world.player.get_node_or_null("PhaseStepFX")
+	if phase:
+		phase.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(is_equal_approx(world.player.sprite_2d.self_modulate.a, 1.0), "Cancelled phasing restores the original sprite opacity")
+	await get_tree().create_timer(0.3).timeout
+	tile_target.queue_free()
+
+func _review_combat_motion(world: GameWorld) -> void:
+	world.tilemap.hide_fog()
+	var target := world.tilemap.obelisk
+	# Durable fixture only; exercise actual resolver/impact/status consumers.
+	target.stats.max_health = 1000
+	target.stats.health = 1000
+	target.stats.block = 0
+	world.player_stats.health = 20
+	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.stats.max_health = 1000
+		enemy.stats.health = 1000
+	for id: String in ["arcane_bolt", "arcane_blast", "chrono_jab", "phase_slash", "overload_shot", "sever_anchor", "void_shard", "arcane_flame", "corroding_shot", "corrosion_wave", "void_surge", "mana_leech", "eldritch_barrier", "nano_shield", "mana_surge", "focus", "rift_knowledge", "void_fracture"]:
+		print("MOTION ", id, " frame=", Engine.get_process_frames())
+		var card := load("res://resources/data/cards/riftwalker/%s.tres" % id) as Card
+		card._sync_effect_configs()
+		card.last_energy_cost = 4
+		var targets: Array[Node] = [target]
+		if not card.is_single_targeted():
+			targets = card._get_targets(targets)
+		await card.resolve_effects(targets, world.player_stats, world.player.modifier_handler)
+		await get_tree().create_timer(0.65).timeout
+	await _test_all_signature_lifetimes(world)
+	print("MOTION collapse frame=", Engine.get_process_frames())
+	# Keep fixture actors off the destroyed outer ring without changing shrink code.
+	for enemy in world.enemy_handler.get_children():
+		enemy.remove_from_group("enemy")
+	world.tilemap.player_position = Vector2i(-999, -999)
+	await world.tilemap.shrink_map(1)
+	await get_tree().create_timer(0.9).timeout
 
 func run() -> void:
 	_test_authored_encounters()
@@ -339,17 +765,57 @@ func run() -> void:
 	while not api.ready_for_action() and Time.get_ticks_msec() < ready_deadline:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
-	await _test_battlefield_presentation(world)
-	await _test_harvest_state(world)
-	if OS.get_cmdline_user_args().has("--battlefield-only"):
-		await _test_gate_presentation(world)
-		if DisplayServer.get_name() != "headless":
-			await _test_spell_readability(world)
+	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		await _test_lethal_ruin_move(world)
+		world.queue_free()
+		relics.queue_free()
+		await get_tree().process_frame
 		print("Combat automation tests: %d failures" % failures)
 		await Utils.stop_audio_for_shutdown()
 		get_tree().quit(1 if failures else 0)
 		return
+	if OS.get_cmdline_user_args().has("--mana-wells-only"):
+		await _test_mana_well_presentation(world)
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--utility-review"):
+		await _test_combatant_wards(world)
+		await _review_utility_motion(world)
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--motion-review"):
+		await _review_combat_motion(world)
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	await _test_battlefield_presentation(world)
+	if OS.get_cmdline_user_args().has("--terrain-only"):
+		await _test_terrain_breakup(world)
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	await _test_harvest_state(world)
+	await _test_camera_follow(world)
+	await _test_board_badges(world)
+	if OS.get_cmdline_user_args().has("--battlefield-only"):
+		await _test_gate_presentation(world)
+		if DisplayServer.get_name() != "headless":
+			await _test_projectile_motion(world)
+			await _test_spell_readability(world)
+			await _test_all_signature_lifetimes(world)
+		print("Combat automation tests: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	await _test_combatant_wards(world)
 	await _test_visual_lifetimes(world)
+	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)
 	await _test_instability_costs(world, relics)
 	await _test_feedback_circuit(world, relics)

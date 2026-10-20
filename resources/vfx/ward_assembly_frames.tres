@@ -1,0 +1,83 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://rpgplph2nipe"]
+
+[ext_resource type="Texture2D" uid="uid://bo8e1lcgqugif" path="res://assets/rift/fx/atlases/ward_assembly.png" id="sheet"]
+
+[sub_resource type="AtlasTexture" id="frame_0"]
+atlas = ExtResource("sheet")
+region = Rect2(79, 61, 336, 339)
+margin = Rect2(344, 342.5, 688, 685)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_1"]
+atlas = ExtResource("sheet")
+region = Rect2(509, 59, 330, 343)
+margin = Rect2(347, 340.5, 694, 681)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_2"]
+atlas = ExtResource("sheet")
+region = Rect2(951, 56, 337, 352)
+margin = Rect2(343.5, 336, 687, 672)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_3"]
+atlas = ExtResource("sheet")
+region = Rect2(1377, 49, 333, 360)
+margin = Rect2(345.5, 332, 691, 664)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_4"]
+atlas = ExtResource("sheet")
+region = Rect2(37, 472, 377, 357)
+margin = Rect2(323.5, 333.5, 647, 667)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_5"]
+atlas = ExtResource("sheet")
+region = Rect2(488, 469, 350, 357)
+margin = Rect2(337, 333.5, 674, 667)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_6"]
+atlas = ExtResource("sheet")
+region = Rect2(927, 477, 389, 363)
+margin = Rect2(317.5, 330.5, 635, 661)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_7"]
+atlas = ExtResource("sheet")
+region = Rect2(1417, 510, 253, 303)
+margin = Rect2(385.5, 360.5, 771, 721)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_3")
+}, {
+"duration": 1.5,
+"texture": SubResource("frame_4")
+}, {
+"duration": 1.5,
+"texture": SubResource("frame_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 15.0
+}]

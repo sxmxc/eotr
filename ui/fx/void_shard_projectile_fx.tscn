@@ -1,6 +1,10 @@
 [gd_scene load_steps=3 format=3]
 [ext_resource type="PackedScene" path="res://ui/fx/fireball_small_projectile_fx.tscn" id="base"]
 [ext_resource type="SpriteFrames" path="res://resources/vfx/void_projectile_frames.tres" id="frames"]
+[ext_resource type="PackedScene" path="res://ui/fx/void_release_signature.tscn" id="release"]
 [node name="VoidShardProjectileFX" instance=ExtResource("base")]
+wake_color = Color(0.62, 0.27, 0.86, 0.6)
+release_fx = ExtResource("release")
 [node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.57722661, 0.57722661)
 sprite_frames = ExtResource("frames")

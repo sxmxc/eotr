@@ -5,5 +5,5 @@ extends RefCounted
 @export var resolution : int = 0
 @export var master_volume : float = 1.0
 @export var sfx_volume : float = 1.0
-@export var telemetry_enabled : bool = true
+@export var telemetry_enabled : bool = false
 @export var tutorial_enabled : bool = true

@@ -1,45 +1,53 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://bt3vexrqnl8ye"]
 
-[ext_resource type="Texture2D" uid="uid://bp8bmrbg3xhtx" path="res://assets/rift/fx/energy_wisp.webp" id="sheet"]
+[ext_resource type="Texture2D" uid="uid://bghpa4i0mkxuj" path="res://assets/rift/fx/atlases/energy_wisp.png" id="sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_0"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 0, 256, 256)
+region = Rect2(204, 170, 89, 148)
+margin = Rect2(467.5, 438, 935, 876)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_1"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(609, 134, 124, 205)
+margin = Rect2(450, 409.5, 900, 819)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_2"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(983, 83, 245, 301)
+margin = Rect2(389.5, 361.5, 779, 723)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_3"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(1412, 60, 292, 345)
+margin = Rect2(366, 339.5, 732, 679)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_4"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 256, 256, 256)
+region = Rect2(93, 457, 347, 384)
+margin = Rect2(338.5, 320, 677, 640)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_5"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 256, 256, 256)
+region = Rect2(552, 462, 275, 377)
+margin = Rect2(374.5, 323.5, 749, 647)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_6"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(1070, 499, 175, 318)
+margin = Rect2(424.5, 353, 849, 706)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_7"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 256, 256, 256)
+region = Rect2(1501, 553, 140, 252)
+margin = Rect2(442, 386, 884, 772)
 filter_clip = true
 
 [resource]

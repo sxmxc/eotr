@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://dkkgouxh43dvc"]
-
+[ext_resource type="Script" path="res://scenes/rest/rest.gd" id="script"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" path="res://scenes/rest/rest.tres" id="background"]
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
-
-[ext_resource type="Script" uid="uid://b1jqhouqnh5b5" path="res://scenes/rest/rest.gd" id="1_mfytg"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2_wjpkg"]
-[ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="2_x1a1d"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/camp.svg" id="emblem"]
 
 [sub_resource type="Animation" id="Animation_j8u1v"]
 length = 0.001
@@ -104,86 +103,170 @@ _data = {
 &"fade_out": SubResource("Animation_x1a1d")
 }
 
-[node name="Rest" type="Control" unique_id=246489424]
-layout_mode = 3
+
+[node name="Rest" type="Control"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_mfytg")
+theme = ExtResource("theme")
+script = ExtResource("script")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=504833040]
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = 0
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=753438460]
-anchors_preset = 15
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_x1a1d")
-
-[node name="ColorRect" type="ColorRect" parent="BackgroundLayer" unique_id=1427562918]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
+modulate = Color(0.13, 0.19, 0.24, 1)
+texture = ExtResource("background")
 
 [node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
+layer = 1
 
-[node name="UILayer" type="CanvasLayer" parent="." unique_id=1822260249]
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer" unique_id=501821599]
-theme_type_variation = &"RestOptionsStack"
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -105.5
-offset_right = 160.0
-offset_bottom = 105.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_wjpkg")
-
-[node name="Title" type="Label" parent="UILayer/VBoxContainer" unique_id=1285411372]
-theme_type_variation = &"RestTitle"
-layout_mode = 2
-text = "Rest"
-horizontal_alignment = 1
-
-[node name="Spacer" type="Control" parent="UILayer/VBoxContainer" unique_id=1379534242]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer" unique_id=50898083]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Skip"
+anchor_left = 0.14
+anchor_top = 0.17
+anchor_right = 0.86
+anchor_bottom = 0.90
+theme = ExtResource("theme")
+theme_type_variation = &"RoomStack"
 
-[node name="RestButton" type="Button" parent="UILayer/VBoxContainer" unique_id=277007256]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+[node name="Eyebrow" type="Label" parent="UILayer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_type_variation = &"RoomEyebrow"
+text = "A MOMENT OF RESPITE"
+autowrap_mode = 3
+
+[node name="Title" type="Label" parent="UILayer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"RoomTitle"
+text = "Campfire"
+autowrap_mode = 3
+
+[node name="Subtitle" type="Label" parent="UILayer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "Beyond the firelight, the rift waits. Take a breath before you continue."
+autowrap_mode = 3
+
+[node name="Choices" type="HBoxContainer" parent="UILayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"RoomRow"
+
+[node name="Hearth" type="PanelContainer" parent="UILayer/VBoxContainer/Choices"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"RoomSurface"
+
+[node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Hearth"]
+layout_mode = 2
+theme_type_variation = &"RoomStack"
+
+[node name="EmblemCenter" type="CenterContainer" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Emblem" type="TextureRect" parent="UILayer/VBoxContainer/Choices/Hearth/Content/EmblemCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(160, 160)
+texture = ExtResource("emblem")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="Caption" type="Label" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "A QUIET FIRE"
+autowrap_mode = 3
+
+[node name="Story" type="Label" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomBody"
+text = "Warmth settles into tired limbs. For a little while, nothing asks you to fight."
+autowrap_mode = 3
+
+[node name="Recovery" type="PanelContainer" parent="UILayer/VBoxContainer/Choices"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"RoomSurface"
+
+[node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Recovery"]
+layout_mode = 2
+theme_type_variation = &"RoomStack"
+
+[node name="Caption" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "RECOVER"
+autowrap_mode = 3
+
+[node name="Heading" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomHeading"
+text = "Rest by the embers"
+autowrap_mode = 3
+
+[node name="RecoveryAmount" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+layout_mode = 2
+unique_name_in_owner = true
+theme_type_variation = &"RoomValue"
+text = "Restore 30% of maximum HP"
+autowrap_mode = 3
+
+[node name="HealthPreview" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+layout_mode = 2
+unique_name_in_owner = true
+theme_type_variation = &"RoomMuted"
+text = ""
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Description" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "Healing cannot exceed your maximum health."
+autowrap_mode = 3
+
+[node name="RestButton" type="Button" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(240, 60)
+theme_type_variation = &"RoomPrimaryButton"
 text = "Rest"
 
-[node name="Description" type="Label" parent="UILayer/VBoxContainer" unique_id=742281533]
+[node name="Footer" type="HBoxContainer" parent="UILayer/VBoxContainer"]
 layout_mode = 2
-text = "Regain 30% health"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=7745090]
+[node name="Hint" type="Label" parent="UILayer/VBoxContainer/Footer"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "You can also move on without resting."
+autowrap_mode = 3
+size_flags_horizontal = 3
+
+[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(240, 60)
+theme_type_variation = &"RoomButton"
+text = "Continue without resting"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("AnimationLibrary_7w0af")
 
-[connection signal="pressed" from="UILayer/VBoxContainer/SkipButton" to="." method="_on_skip_button_pressed"]
-[connection signal="pressed" from="UILayer/VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="UILayer/VBoxContainer/Choices/Recovery/Content/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="UILayer/VBoxContainer/Footer/SkipButton" to="." method="_on_skip_button_pressed"]

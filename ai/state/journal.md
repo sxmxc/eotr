@@ -2,6 +2,38 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-18 - Codex: actual Phase Step phasing and translucent shields**
+- User confirmed Arcane Bolt appeared changed after editor resource refresh. Fresh process probe confirms card and UID both resolve to the animated projectile, with no old ElectricArcFX child. No broad cache deletion performed; the precise editor refresh cause is unproven.
+- Replaced Phase Step's rejected floor slash with an actual player sprite fade-out, mid-step hold and fade-in at arrival, plus two dissolving snapshots of the actual moved illustration. Reads authoritative movement events; does not change movement/collision/board timing. Cancellation restores opacity; completed old effects relinquish opacity ownership so a later cast cannot be reset by cleanup.
+- Eldritch Barrier and legacy shield shine now render at 42% opacity; Nano Shield's three plates at 40%. Self modulation preserves translucency throughout existing animation fades.
+- Reviewed native 60fps Phase Step/shield sequence and focused runtime checks for actor opacity, actual traveled snapshots, arrival, cancellation and cleanup. Art/resource/whitespace checks pass. An initial fixture incorrectly compared RNG across existing move-completion AI replanning; assertion now checks the presentation interval before that existing gameplay callback. No production RNG change made.
+- Updated ability direction and source inventory; task-only .qa-tmp recordings, probe and isolated test data removed after verification. Concurrent user workflow files preserved.
+
+**2026-10-18 - Codex: corrective battlefield/VFX direction and regression review**
+- Supersedes the insufficient first pass below. Restored original local/card/player camera impact strengths and player-hit veil, 96-particle card trail, stronger readable damage pop; retained useful child-only lunge/movement fixes and pulse cancellation.
+- Fixed stale terrain-depth geometry by consuming authoritative map presentation/generation events; two successive real shrinks verify every cached edge against surviving TileMap cells. Replaced batched-vertex highlight math with the canonical texture-alpha silhouette, shared aligned movement/target/hover masks. Exact 64px tile geometry and atlas alpha remain unchanged.
+- Five irregular actual-art shards expose undersides and accelerate/fade into the void, with finite dust/residue. Added illustrated peripheral ruins/rift background. Source/import agreement explicitly inspected; cache timestamps alone were not proof of stale content.
+- Added painted energy bodies, fast 75-260ms flight, short actual-motion wakes, separate casting/contact and arrival ownership. Individual ability staging follows implementation: temporal echo cuts, flame crown, wet corrosion, three shield plates vs one barrier, stolen mana to player, three created shards, standing teleport tear and recalled-card artwork. Removed an accidental idle-projectile selector dependency introduced during redesign.
+- Reviewed ordered temporal samples from an 1117-frame/60fps native action/collapse recording; corrected the review fixture's missing Arcane Blast config sync and actual target expansion. Broadened corrosion contact after tactical-scale review. Frame-boundary validator caught bleed in two new sheets; repacked transparent gutters and passed art validation.
+- Final checks: native combat/target/flight and all 29 signature lifetimes; two-shrink integration; native 640-resource shader-alpha/ambient/transition/six-lunge regression; full headless combat; headless AutoWalker seed 42 again 7 turns/27 actions/one summon, zero invalid actions, failures, AI-invalid decisions, softlocks or timeouts. Art (29 cards/32 entities/19 FX), resource and whitespace checks pass.
+- Review scope remains representative, not full campaign/boss/export coverage or an AAA claim. Prior native/headless policy trace divergence and certificate diagnostic remain documented. No gameplay/camera architecture rewrite, vendor edits or backend delivery. Task-only QA artifacts removed after review; existing user QA and concurrently created ai/visual and tools/visual_pipeline files preserved.
+- Persistent direction, audit/dispositions, asset provenance and limitations: ai/docs/battlefield-vfx-overhaul.md, ai/docs/battlefield-ability-direction.json and ai/docs/battlefield-vfx-inventory.json. Status in_review for the delivered corrective pass.
+
+**2026-10-18 - Codex: comprehensive battlefield and VFX presentation pass**
+- Audited 19 existing shaders, 26 GPU emitters, 17 particle materials, 54 reusable FX/world scenes, animation resources, card bindings and script presentation candidates. Persistent paths, dependencies, ten review dimensions and final dispositions: ai/docs/battlefield-vfx-inventory.json. Direction, decisions and limitations: ai/docs/battlefield-vfx-overhaul.md.
+- Replaced the exact-mask 64px atlas with broad illustrated ashlar; added cached exposed-edge depth, quieter void motion, amber warnings and six actual-art shards per collapse. Preserved TileSet, navigation, collision, coordinates, state transitions and gameplay RNG.
+- Refined six spell families, added mend and silent-variant feedback; consolidated projectile implementations and pause ambience. Ambient particles 6000 to 48, card trails 128 to 36, aiming trails 100 to 28 and mana motes 24 to 10. Replaced overlapping UI pulses; restrained camera/edge feedback; child-only lunges/squash and corrected Obelisk offset.
+- Native terrain/card checks pass; all 26 signatures release after overlap. Full headless combat, native shader-alpha/ambient/transition/six-attack checks, art and resource checks pass. Native Watch and headless encounters have zero invalid actions, failures, softlocks or timeouts. Investigated and fixed terrain/contact and tutorial-paused fixture failures.
+- Limits: no AAA, full campaign/boss, export or hardware benchmark claim. Native/headless policy traces differ; authoritative action-boundary/deferred-outcome architecture retained, cross-renderer replay parity not claimed. Existing certificate diagnostic remains. Task-only .qa-tmp artifacts removed after final checks; prior user edits preserved.
+
+
+**2026-10-18 - Codex: centered anchors, readable routes and distinct spells**
+- Centered artwork contact, ground/hover/gate markers and idle offsets on logical hex origins; traces, picking and body-effect anchors follow the corrected art pivot. Scales and occupancy preserved.
+- Route screen now uses opaque aligned faces, clear state contrast, solid labels and sidebar, a readable title, no particle clutter, and trimmed connections beneath faces.
+- Added 25 authored spell signature scenes across six motion/shape families with illustrated layers; differentiated Overload, Sever and Void Shard projectiles. Connected configured energy feedback and optional cosmetic utility casts.
+- Full headless combat and AutoWalker passed; focused native anchor/picking, map/connection/selection, spell cleanup and real projectile-card checks passed. Art/resource and whitespace checks passed. Temporary QA workspace absent. See ai/docs/battlefield-presentation.md.
+
+
 **2026-10-18 - Codex: battlefield presentation follow-up and harvesting fix**
 - Preserved existing tile artwork. Added persistent per-unit ink/rim outlines, grounded faction/objective markers, taller proportional character scales and body picking. Corrected fly-idle animation keys that shrank units to half size; fog-hidden enemies remain concealed despite taller art.
 - Kept Phantom Camera authoritative; tactical framing uses revealed bounds at 1.9-2.15 zoom. Continuous dark world-space fog retains hex alpha, and reveal feedback fades the fog rather than growing stone sprites. Moved camera hints clear of notification toasts.
@@ -430,3 +462,8 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Final illustrated masters replace the rejected art experiments. The exact class master supplies class screen, unit and card identity; all 29 card resources bind their own 592×396 art. Main menu, three class screens, battlefield entities, map/UI icons and terrain replaced. 88 obsolete sources and 438 import cache files removed; final images total about 5.5 MB.
 - Asset/reference/alpha/animated-footprint/unused checks, combat automation and native compatibility pass. Actual runtime: 27 headless encounter simulations (19 wins/8 losses), one rendered elite win, and a run-mode loss after one climbed floor; no invalid actions, softlocks, timeouts or runtime failures. Screenshots inspected for combat/cards, main menu and all class screens. No backend, export or complete human campaign QA. Known certificate/headless shader diagnostics remain.
 - Report, inventories, authoring and validation evidence: ai/docs/rift-overhaul.md, rift-asset-inventory.json, rift-content.json, rift-validation-results.json.
+
+**2026-10-20 - Rift Echo HP cost**
+- Replaced combat damage with existing direct damage for the event HP cost; leftover block no longer absorbs the cost. Added actual-button checks at zero/two/ten block; eight baseline failures, final focused headless checks pass. Context7 Godot 4.7 documentation consulted.
+- No visual changes or campaign/export QA; low-health event/death flow remains a follow-up. See ai/docs/continuous-improvement.md.
+- Broader compatibility smoke: 654 resources loaded, two unrelated map emitter position failures in unchanged scene/checks. Resource guard and git diff --check pass.

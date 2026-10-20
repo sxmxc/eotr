@@ -12,8 +12,13 @@ func perform_action():
 	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
 	Events.world_message_requested.emit(world_message)
 	var tween = create_tween().set_trans(Tween.TRANS_QUINT)
-	var start = enemy.global_position
-	var end = start + start.direction_to(target.global_position) * 2
+	# Flying idle also writes Sprite2D.position; pause it for the authored lunge.
+	var idle := enemy.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	var resume_idle := idle != null and idle.is_playing()
+	if resume_idle:
+		idle.pause()
+	var start := enemy.sprite_2d.position
+	var end := start + enemy.to_local(target.global_position).normalized() * 5.0
 	var damage_effect = DamageEffect.new()
 	damage_effect.visual_fx = visual_fx
 	var target_array: Array[Node] = [target]
@@ -22,13 +27,17 @@ func perform_action():
 	
 	intent.current_text = intent.base_text
 	
-	tween.tween_property(enemy, "global_position", end, Utils.presentation_duration(0.4))
+	tween.tween_property(enemy.sprite_2d, "position", end, Utils.presentation_duration(0.4)).set_ease(Tween.EASE_IN)
 	tween.tween_callback(damage_effect.execute.bind(target_array))
 	tween.tween_interval(Utils.presentation_duration(0.35))
 	tween.tween_callback(damage_effect.execute.bind(target_array))
 	tween.tween_interval(Utils.presentation_duration(0.25))
-	tween.tween_property(enemy, "global_position", start, Utils.presentation_duration(0.4))
+	tween.tween_property(enemy.sprite_2d, "position", start, Utils.presentation_duration(0.4)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
+	tween.tween_callback(func():
+		if resume_idle and is_instance_valid(idle):
+			idle.play()
+	)
 	tween.finished.connect(
 		func(): 
 			Events.enemy_action_completed.emit(enemy)

@@ -8,7 +8,8 @@ z_index = 2
 script = ExtResource("script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.42)
 texture_filter = 2
-scale = Vector2(0.34, 0.34)
+scale = Vector2(0.19625705, 0.19625705)
 sprite_frames = ExtResource("frames")
 animation = &"default"

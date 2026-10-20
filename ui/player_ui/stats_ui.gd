@@ -20,6 +20,7 @@ var last_health
 var last_block
 var last_energy
 var last_max_energy
+var icon_pulses: Dictionary[Control, Tween] = {}
 
 func set_player_stats(value: PlayerStats) -> void:
 	if player_stats and player_stats.stats_changed.is_connected(_on_stats_changed):
@@ -116,16 +117,24 @@ func stat_changed(which: String) -> void:
 	match which:
 		"block":
 			fx.global_position = block_icon.get_global_rect().get_center()
-			var tween = create_tween()
-			tween.tween_property(block_icon, "scale", Vector2(1.1,1.1), .3)
-			tween.tween_property(block_icon, "scale", Vector2.ONE, .3)
+			_pulse_icon(block_icon)
 			
 		"energy_max", "energy":
 			fx.global_position = energy_icon.get_global_rect().get_center()
-			var tween = create_tween()
-			tween.tween_property(energy_icon, "scale", Vector2(1.1,1.1), .3)
-			tween.tween_property(energy_icon, "scale", Vector2.ONE, .3)
+			_pulse_icon(energy_icon)
 	
 	fx.execute()
+
+func _pulse_icon(icon: Control) -> void:
+	if icon_pulses.has(icon) and icon_pulses[icon].is_valid():
+		icon_pulses[icon].kill()
+	var resting: Vector2 = icon.get_meta("pulse_resting_scale", icon.scale)
+	icon.set_meta("pulse_resting_scale", resting)
+	icon.scale = resting
+	icon.pivot_offset = icon.size * 0.5
+	var pulse := create_tween()
+	icon_pulses[icon] = pulse
+	pulse.tween_property(icon, "scale", resting * 1.08, 0.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	pulse.tween_property(icon, "scale", resting, 0.16).set_trans(Tween.TRANS_SINE)
 	
 	

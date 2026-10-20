@@ -1,45 +1,53 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://dhw5v3klnf86s"]
 
-[ext_resource type="Texture2D" uid="uid://4a6rtwsis8ga" path="res://assets/rift/fx/impact_dust.webp" id="sheet"]
+[ext_resource type="Texture2D" uid="uid://b37s767mdcwvt" path="res://assets/rift/fx/atlases/impact_dust.png" id="sheet"]
 
 [sub_resource type="AtlasTexture" id="frame_0"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 0, 256, 256)
+region = Rect2(144, 162, 164, 159)
+margin = Rect2(430, 432.5, 860, 865)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_1"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(540, 135, 259, 226)
+margin = Rect2(382.5, 399, 765, 798)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_2"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(921, 89, 374, 299)
+margin = Rect2(325, 362.5, 650, 725)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_3"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(1385, 78, 349, 316)
+margin = Rect2(337.5, 354, 675, 708)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_4"]
 atlas = ExtResource("sheet")
-region = Rect2(0, 256, 256, 256)
+region = Rect2(64, 509, 334, 299)
+margin = Rect2(345, 362.5, 690, 725)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_5"]
 atlas = ExtResource("sheet")
-region = Rect2(256, 256, 256, 256)
+region = Rect2(510, 540, 314, 255)
+margin = Rect2(355, 384.5, 710, 769)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_6"]
 atlas = ExtResource("sheet")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(972, 550, 272, 243)
+margin = Rect2(376, 390.5, 752, 781)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="frame_7"]
 atlas = ExtResource("sheet")
-region = Rect2(768, 256, 256, 256)
+region = Rect2(1465, 573, 176, 202)
+margin = Rect2(424, 411, 848, 822)
 filter_clip = true
 
 [resource]

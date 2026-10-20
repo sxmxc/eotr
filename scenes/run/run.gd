@@ -146,6 +146,7 @@ func _change_view(scene: PackedScene) -> Node:
 	var new_view := scene.instantiate()
 	current_view.add_child(new_view)
 	map.hide_map()
+	map_legend.hide()
 	
 	return new_view
 

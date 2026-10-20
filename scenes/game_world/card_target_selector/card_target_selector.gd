@@ -10,8 +10,8 @@ const ARC_POINTS := 8
 
 @onready var area_2d: Area2D = get_node_or_null("Area2D")
 @onready var card_arc: Line2D = get_node_or_null("CanvasLayer/CardArc")
-@onready var electric_arc_fx: Line2D = get_node_or_null("CanvasLayer/ElectricArcFX")
-@onready var hex_indicator: Node2D = $HexIndicator
+@onready var electric_arc_fx: Line2D = _find_electric_arc()
+@onready var hex_indicator: Sprite2D = $HexIndicator
 
 var current_card: CardUI
 var targeting := false
@@ -21,6 +21,12 @@ var cached_targets := {}
 var validators := {}
 var tilemap: ProcGenTilemap
 var base_layer: TileMapLayer
+
+func _find_electric_arc() -> Line2D:
+	var candidate := get_node_or_null("CanvasLayer/ElectricArcFX")
+	if candidate is Line2D:
+		return candidate
+	return candidate.get_node_or_null("ElectricArcFX") as Line2D if candidate else null
 
 
 func _ready() -> void:
@@ -168,10 +174,10 @@ func _update_tile_hover() -> void:
 	if is_valid:
 		current_tile_target = candidate
 		_set_current_target(current_tile_target)
-		hex_indicator.self_modulate = valid_indicator_color
+		hex_indicator.material.set_shader_parameter("HighlightColor", valid_indicator_color)
 	else:
 		candidate.queue_free()
-		hex_indicator.self_modulate = invalid_indicator_color
+		hex_indicator.material.set_shader_parameter("HighlightColor", invalid_indicator_color)
 
 	hex_indicator.show()
 
@@ -247,7 +253,7 @@ func _on_card_aim_ended(card_ui: CardUI) -> void:
 	current_card = null
 	hex_indicator.hide()
 	hex_indicator.position = Vector2.ZERO
-	hex_indicator.self_modulate = neutral_indicator_color
+	hex_indicator.material.set_shader_parameter("HighlightColor", neutral_indicator_color)
 	last_hovered_tile = Vector2i(-9999, -9999)
 
 

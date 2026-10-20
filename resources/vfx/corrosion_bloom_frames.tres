@@ -1,0 +1,83 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cuytjrbf2u88o"]
+
+[ext_resource type="Texture2D" uid="uid://jgkci11aadh7" path="res://assets/rift/fx/atlases/corrosion_bloom.png" id="sheet"]
+
+[sub_resource type="AtlasTexture" id="frame_0"]
+atlas = ExtResource("sheet")
+region = Rect2(184, 133, 106, 196)
+margin = Rect2(459, 263.16, 918, 828)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_1"]
+atlas = ExtResource("sheet")
+region = Rect2(513, 199, 310, 204)
+margin = Rect2(357, 329.16, 714, 820)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_2"]
+atlas = ExtResource("sheet")
+region = Rect2(915, 66, 375, 348)
+margin = Rect2(324.5, 196.16, 649, 676)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_3"]
+atlas = ExtResource("sheet")
+region = Rect2(1355, 37, 396, 385)
+margin = Rect2(314, 167.16, 628, 639)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_4"]
+atlas = ExtResource("sheet")
+region = Rect2(56, 469, 361, 372)
+margin = Rect2(331.5, 156.02, 663, 652)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_5"]
+atlas = ExtResource("sheet")
+region = Rect2(510, 502, 328, 339)
+margin = Rect2(348, 189.02, 696, 685)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_6"]
+atlas = ExtResource("sheet")
+region = Rect2(1002, 571, 247, 260)
+margin = Rect2(388.5, 258.02, 777, 764)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="frame_7"]
+atlas = ExtResource("sheet")
+region = Rect2(1427, 673, 232, 150)
+margin = Rect2(396, 360.02, 792, 874)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("frame_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("frame_7")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 20.0
+}]

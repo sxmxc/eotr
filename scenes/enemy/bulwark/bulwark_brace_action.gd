@@ -45,3 +45,6 @@ func perform_action() -> void:
 func update_intent_text() -> void:
 	var summary := "%d/%d" % [block_amount, armor_stacks]
 	intent.current_text = intent.base_text % summary
+	intent.secondary_icon = preload("res://assets/rift/ui/armor.svg")
+	intent.secondary_text = str(armor_stacks)
+	intent.detail_text = "Gain %d block and %d armor stacks" % [block_amount, armor_stacks]

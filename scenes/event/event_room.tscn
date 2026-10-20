@@ -1,84 +1,167 @@
 [gd_scene format=3 uid="uid://bqvmg8kciy6th"]
+[ext_resource type="Script" path="res://scenes/event/event_room.gd" id="script"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" path="res://scenes/rest/rest.tres" id="background"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/event.svg" id="emblem"]
 
-[ext_resource type="Script" uid="uid://btl3x4ojg4jq7" path="res://scenes/event/event_room.gd" id="1_kgld7"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2_jwbhv"]
-
-[node name="EventRoom" type="Control" unique_id=2104578590]
-layout_mode = 3
+[node name="EventRoom" type="Control"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_jwbhv")
-script = ExtResource("1_kgld7")
+mouse_filter = 2
+theme = ExtResource("theme")
+script = ExtResource("script")
 
-[node name="Panel" type="Panel" parent="." unique_id=854919544]
-custom_minimum_size = Vector2(900, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -450.0
-offset_top = -260.0
-offset_right = 450.0
-offset_bottom = 240.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"HudPanelMain"
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = 0
 
-[node name="Margin" type="MarginContainer" parent="Panel" unique_id=2041925735]
-theme_type_variation = &"PopupInset"
-layout_mode = 1
-anchors_preset = 15
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+mouse_filter = 2
+modulate = Color(0.13, 0.19, 0.24, 1)
+texture = ExtResource("background")
 
-[node name="VBox" type="VBoxContainer" parent="Panel/Margin" unique_id=1234395260]
-theme_type_variation = &"ListStack"
-layout_mode = 2
+[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
+layer = 1
 
-[node name="TitleLabel" type="Label" parent="Panel/Margin/VBox" unique_id=97496247]
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="RoomLayout" type="VBoxContainer" parent="UILayer"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Event"
-horizontal_alignment = 1
-vertical_alignment = 1
+anchor_left = 0.14
+anchor_top = 0.17
+anchor_right = 0.86
+anchor_bottom = 0.90
+theme = ExtResource("theme")
+theme_type_variation = &"RoomStack"
 
-[node name="BodyLabel" type="RichTextLabel" parent="Panel/Margin/VBox" unique_id=1296413478]
-unique_name_in_owner = true
+[node name="Eyebrow" type="Label" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "BETWEEN WORLDS"
+autowrap_mode = 3
+
+[node name="Title" type="Label" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomTitle"
+text = "An encounter"
+autowrap_mode = 3
+
+[node name="Subtitle" type="Label" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "Every journey leaves room for a choice."
+autowrap_mode = 3
+
+[node name="StoryRow" type="HBoxContainer" parent="UILayer/RoomLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"RoomRow"
+
+[node name="Seal" type="PanelContainer" parent="UILayer/RoomLayout/StoryRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_type_variation = &"RoomSurface"
+
+[node name="Content" type="VBoxContainer" parent="UILayer/RoomLayout/StoryRow/Seal"]
+layout_mode = 2
+theme_type_variation = &"RoomStack"
+
+[node name="EmblemCenter" type="CenterContainer" parent="UILayer/RoomLayout/StoryRow/Seal/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/StoryRow/Seal/Content/EmblemCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(160, 160)
+texture = ExtResource("emblem")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="SealCaption" type="Label" parent="UILayer/RoomLayout/StoryRow/Seal/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "A CHANCE ENCOUNTER"
+autowrap_mode = 3
+
+[node name="SealHint" type="Label" parent="UILayer/RoomLayout/StoryRow/Seal/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "Read the signs. Choose your path."
+autowrap_mode = 3
+
+[node name="Narrative" type="PanelContainer" parent="UILayer/RoomLayout/StoryRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"RoomSurface"
+
+[node name="Content" type="VBoxContainer" parent="UILayer/RoomLayout/StoryRow/Narrative"]
+layout_mode = 2
+theme_type_variation = &"RoomStack"
+
+[node name="TitleLabel" type="Label" parent="UILayer/RoomLayout/StoryRow/Narrative/Content"]
+layout_mode = 2
+unique_name_in_owner = true
+theme_type_variation = &"RoomHeading"
+text = "Event"
+autowrap_mode = 3
+
+[node name="BodyLabel" type="RichTextLabel" parent="UILayer/RoomLayout/StoryRow/Narrative/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(620, 130)
+size_flags_vertical = 3
 bbcode_enabled = true
-text = "..."
 fit_content = true
 scroll_active = false
+theme_type_variation = &"RoomNarrative"
 
-[node name="Buttons" type="VBoxContainer" parent="Panel/Margin/VBox" unique_id=1888564877]
-theme_type_variation = &"SmallStack"
+[node name="OutcomeLabel" type="Label" parent="UILayer/RoomLayout/StoryRow/Narrative/Content"]
 layout_mode = 2
-size_flags_horizontal = 3
+unique_name_in_owner = true
+theme_type_variation = &"RoomEyebrow"
+text = "The choice is yours."
+autowrap_mode = 3
 
-[node name="OptionAButton" type="Button" parent="Panel/Margin/VBox/Buttons" unique_id=27562120]
+[node name="Buttons" type="VBoxContainer" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomStack"
+
+[node name="OptionAButton" type="Button" parent="UILayer/RoomLayout/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+custom_minimum_size = Vector2(240, 60)
+theme_type_variation = &"RoomButton"
 text = "Option A"
 
-[node name="OptionBButton" type="Button" parent="Panel/Margin/VBox/Buttons" unique_id=1714763970]
+[node name="OptionBButton" type="Button" parent="UILayer/RoomLayout/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+custom_minimum_size = Vector2(240, 60)
+theme_type_variation = &"RoomButton"
 text = "Option B"
 
-[node name="LeaveButton" type="Button" parent="Panel/Margin/VBox" unique_id=1936424644]
+[node name="Footer" type="HBoxContainer" parent="UILayer/RoomLayout"]
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="UILayer/RoomLayout/Footer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "You may leave without making a choice."
+autowrap_mode = 3
 size_flags_horizontal = 3
-text = "Leave"
+
+[node name="LeaveButton" type="Button" parent="UILayer/RoomLayout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(240, 60)
+theme_type_variation = &"RoomButton"
+text = "Return to the path"

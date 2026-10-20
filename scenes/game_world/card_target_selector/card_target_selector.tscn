@@ -2,14 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_dnal8"]
 [ext_resource type="Script" uid="uid://btrsx10lrt8yd" path="res://scenes/game_world/card_target_selector/card_target_selector.gd" id="1_s6vcj"]
-[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="5_gwqsc"]
+[ext_resource type="PackedScene" path="res://ui/world_ui/target_highlight.tscn" id="highlight"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66gff"]
 size = Vector2(4, 4)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ws524"]
-atlas = ExtResource("5_gwqsc")
-region = Rect2(192, 64, 64, 64)
 
 [node name="CardTargetSelector" type="Node2D" unique_id=843188531]
 script = ExtResource("1_s6vcj")
@@ -23,10 +19,7 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=582307958]
 shape = SubResource("RectangleShape2D_66gff")
 
-[node name="HexIndicator" type="Sprite2D" parent="." unique_id=1878936360]
-self_modulate = Color(1, 1, 1, 0.493)
-z_index = 2
-texture = SubResource("AtlasTexture_ws524")
+[node name="HexIndicator" parent="." instance=ExtResource("highlight")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1654681459]
 layer = 2

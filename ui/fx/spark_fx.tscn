@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/fx/spark_fx.gd" id="script"]
 [ext_resource type="Texture2D" path="res://assets/rift/fx/arcane_spark.webp" id="texture"]
+[ext_resource type="PackedScene" path="res://ui/fx/arcane_hit_signature.tscn" id="impact"]
 
 [sub_resource type="CanvasItemMaterial" id="canvas"]
 particles_animation = false
@@ -28,6 +29,7 @@ color_ramp = SubResource("ramp")
 [node name="spark_fx" type="Node2D"]
 z_index = 8
 script = ExtResource("script")
+impact_scene = ExtResource("impact")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 texture_filter = 2

@@ -1,0 +1,9 @@
+{
+  "event": "Arcane Bolt in seeded tier-0 combat",
+  "encounter": "res://resources/data/battles/tier_0_blobs.tres",
+  "seed": 1,
+  "policy": "greedy",
+  "duration": 12,
+  "fps": 30,
+  "expect_card": "Arcane Bolt"
+}

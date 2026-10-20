@@ -31,7 +31,7 @@ void fragment() {
 	float a = texture(noise_texture_1, p + TIME * vec2(0.012, -0.008)).r;
 	float b = texture(noise_texture_2, p * 1.8 + TIME * vec2(-0.009, 0.011)).r;
 	float cloud = smoothstep(0.22, 0.82, a * 0.7 + b * 0.3);
-	vec3 mist = mix(vec3(0.003, 0.006, 0.012), vec3(0.012, 0.022, 0.038), cloud);
+	vec3 mist = mix(vec3(0.0007, 0.0012, 0.0022), vec3(0.003, 0.0045, 0.008), cloud);
 	// Use alpha only: floor pigments and outlines never appear in the fog.
 	float mask = smoothstep(0.01, 0.3, texture(TEXTURE, UV).a);
 	COLOR = vec4(mist, density * mask * fog_modulation.a);

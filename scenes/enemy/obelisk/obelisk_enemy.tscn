@@ -100,7 +100,6 @@ z_index = 4
 y_sort_enabled = true
 texture_filter = 2
 material = ExtResource("outline")
-position = Vector2(-4, -30)
 scale = Vector2(0.205, 0.205)
 texture = ExtResource("2_180ib")
 

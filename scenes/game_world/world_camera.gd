@@ -1,3 +1,5 @@
+# Runtime-only framing controller; the base camera supplies its editor integration.
+@warning_ignore("missing_tool")
 extends PhantomCamera2D
 
 # Framing inputs only; PhantomCameraHost remains the sole Camera2D driver.
@@ -17,14 +19,28 @@ func _ready() -> void:
 	Events.card_drag_started.connect(_aim_started)
 	Events.card_aim_ended.connect(_aim_ended)
 	Events.card_drag_ended.connect(_aim_ended)
-	Events.player_moved.connect(_keep_player_visible)
+	var board := world.get_node("Tilemap") as ProcGenTilemap
+	board.player_position_updated.connect(_follow_player)
+	board.player_teleported.connect(_follow_player)
 
-func _keep_player_visible() -> void:
-	if manual or overview or aiming or not is_instance_valid(world.player):
+func _follow_player(_position: Vector2) -> void:
+	if not is_instance_valid(world.player):
 		return
-	var screen_point := world.map_camera.get_canvas_transform() * world.player.global_position
-	if not combat_rect().grow(-96.0).has_point(screen_point):
-		frame_battle()
+	manual = false
+	overview = false
+	dragging = false
+	# Give Phantom Camera the moving actor; its native damping owns the chase.
+	set_follow_target(world.player)
+	follow_mode = FollowMode.SIMPLE
+	_update_safe_offset()
+
+func _start_pan() -> void:
+	if follow_target == world.player:
+		world.tilemap.center_marker.global_position = world.player.global_position
+	set_follow_target(world.tilemap.center_marker)
+	follow_mode = FollowMode.SIMPLE
+	manual = true
+	dragging = true
 
 func combat_rect() -> Rect2:
 	return world.game_world_ui.combat_rect()
@@ -77,7 +93,7 @@ func _update_safe_offset() -> void:
 func _resize() -> void:
 	if not is_node_ready() or not world.is_node_ready():
 		return
-	if manual:
+	if manual or follow_target == world.player:
 		_update_safe_offset()
 	else:
 		frame_battle(overview)
@@ -100,7 +116,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 	if event is InputEventMouseButton and combat_rect().has_point(event.position):
 		if event.is_action_pressed("drag_camera"):
-			dragging = true
+			_start_pan()
 		if event.is_action_pressed("zoom_in") or event.is_action_pressed("zoom_out"):
 			manual = true
 			var factor := 1.1 if event.is_action_pressed("zoom_in") else 1.0 / 1.1

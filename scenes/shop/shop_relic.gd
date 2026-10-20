@@ -32,6 +32,8 @@ func set_relic(new_relic: Relic) -> void:
 		await ready
 
 	relic = new_relic
+	%RelicName.text = relic.relic_name
+	%Description.text = relic.get_description()
 
 	for relic_ui: RelicUI in relic_container.get_children():
 		relic_ui.queue_free()

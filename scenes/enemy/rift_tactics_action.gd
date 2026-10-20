@@ -5,6 +5,11 @@ const CORRODED = preload("res://resources/data/statuses/corroded.tres")
 const ATTACK_ICON = preload("res://assets/rift/ui/attack.svg")
 const MOVE_ICON = preload("res://assets/rift/ui/move.svg")
 const WARD_ICON = preload("res://assets/rift/ui/block.svg")
+const MEND_FX = preload("res://ui/fx/mend_signature.tscn")
+const WARD_FX = preload("res://ui/fx/eldritch_barrier_signature.tscn")
+const CUT_FX = preload("res://ui/fx/jab_signature.tscn")
+const RANGED_FX = preload("res://ui/fx/void_shard_signature.tscn")
+const HEX_FX = preload("res://ui/fx/curse_fx.tscn")
 
 func is_performable() -> bool:
 	return enemy != null and enemy.stats.tactics != null and target is Player
@@ -59,21 +64,26 @@ func perform_action() -> void:
 			var ally := _support_target()
 			if ally:
 				ally.stats.heal(p.support_amount)
+				_play_mend(ally)
 		"Ward ally":
 			var ally := _support_target()
 			if ally:
 				var ward := BlockEffect.new()
 				ward.amount = p.support_amount
+				ward.visual_fx = WARD_FX
 				ward.execute([ally])
 		"Consume resource":
 			enemy.tilemap.set_resource_count(enemy.current_tile_position, enemy.tilemap.get_resource_count(enemy.current_tile_position) - 1)
 			enemy.stats.heal(p.support_amount)
+			_play_mend(enemy)
 			var block := BlockEffect.new()
 			block.amount = p.support_amount
+			block.visual_fx = WARD_FX
 			block.execute([enemy])
 		"Brace":
 			var block := BlockEffect.new()
 			block.amount = p.support_amount
+			block.visual_fx = WARD_FX
 			block.execute([enemy])
 		"Advance", "Retreat":
 			enemy.perform_turn_based_move(p.steps)
@@ -84,20 +94,30 @@ func perform_action() -> void:
 					break
 				var damage := DamageEffect.new()
 				damage.amount = enemy.modifier_handler.get_modified_value(p.damage, Enums.ModifierType.DMG_DEALT)
+				damage.visual_fx = CUT_FX if p.preferred_range <= 1 else RANGED_FX
 				damage.execute([target])
 				# Resolve each hit separately so block and death are authoritative.
 				while is_instance_valid(target) and target.pending_effects > 0:
 					await get_tree().process_frame
 			if p.role == EnemyTactics.Role.SIPHON:
 				enemy.stats.heal(p.support_amount)
+				_play_mend(enemy)
 			if p.role == EnemyTactics.Role.HEXER:
 				var effect := StatusEffect.new()
 				var status: Status = CORRODED.duplicate() if p.hits > 1 else WEAKENED.duplicate()
 				status.duration = p.support_amount
 				status.stacks = p.support_amount
 				effect.status = status
+				effect.visual_fx = HEX_FX
 				effect.execute([target])
 	Events.enemy_action_completed.emit(enemy)
+
+func _play_mend(recipient: Node2D) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
+	var fx := MEND_FX.instantiate() as VisualFX
+	recipient.add_child(fx)
+	fx.execute()
 
 func update_intent_text() -> void:
 	if not is_performable():

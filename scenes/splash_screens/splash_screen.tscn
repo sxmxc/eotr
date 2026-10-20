@@ -5,240 +5,121 @@
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
 [ext_resource type="Texture2D" uid="uid://bvc1wka1kiw3j" path="res://assets/splash/banner1-2560x1440.png" id="4_iju21"]
 
-[sub_resource type="Gradient" id="Gradient_iju21"]
-colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ttpkl"]
-gradient = SubResource("Gradient_iju21")
-
-[sub_resource type="Animation" id="Animation_exrag"]
+[sub_resource type="Animation" id="splash_reset"]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Splash:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Splash:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/TelemetryDisclaimer:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_6rt2x"]
+tracks/0/path = NodePath("Splash:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 0, "values": [Color(1, 1, 1, 1)]}
+[sub_resource type="Animation" id="splash_fade"]
 resource_name = "fade_splash_out"
+length = 0.65
 tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Splash:self_modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
-"transitions": PackedFloat32Array(1, 2),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Splash:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0666667, 0.966667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_c8ln4"]
+tracks/0/path = NodePath("Splash:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.65), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+[sub_resource type="Animation" id="disclaimer_fade"]
 resource_name = "fade_telemetry_out"
+length = 0.2
 tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/TelemetryDisclaimer:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
+tracks/0/path = NodePath("DisclaimerPanel:modulate")
+tracks/0/keys = {"times": PackedFloat32Array(0, 0.2), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+[sub_resource type="AnimationLibrary" id="animations"]
+_data = {&"RESET": SubResource("splash_reset"), &"fade_splash_out": SubResource("splash_fade"), &"fade_telemetry_out": SubResource("disclaimer_fade")}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_23hq6"]
-_data = {
-&"RESET": SubResource("Animation_exrag"),
-&"fade_splash_out": SubResource("Animation_6rt2x"),
-&"fade_telemetry_out": SubResource("Animation_c8ln4")
-}
-
-[node name="SplashScreen" type="Control" unique_id=1543879228]
-layout_mode = 3
-anchors_preset = 15
+[node name="SplashScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 theme = ExtResource("1_c8ln4")
 script = ExtResource("2_ttpkl")
-
-[node name="Background" type="TextureRect" parent="." unique_id=94476354]
-layout_mode = 1
-anchors_preset = 15
+[node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("2_iju21")
-
-[node name="Gradient" type="TextureRect" parent="." unique_id=245728513]
-modulate = Color(1, 1, 1, 0.647059)
-layout_mode = 1
-anchors_preset = 15
+expand_mode = 1
+stretch_mode = 6
+mouse_filter = 2
+modulate = Color(0.45, 0.50, 0.55, 1)
+[node name="Shade" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_ttpkl")
-
-[node name="DisclaimerPanel" type="Panel" parent="." unique_id=211373180]
+mouse_filter = 2
+color = Color(0.015, 0.025, 0.04, 0.55)
+[node name="DisclaimerPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0.654902)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 143.0
-offset_top = 174.0
-offset_right = -127.0
-offset_bottom = -175.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"HudPanelBackground"
-
-[node name="MarginContainer" type="MarginContainer" parent="DisclaimerPanel" unique_id=795895231]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"InsetCompact"
-
-[node name="Panel" type="Panel" parent="DisclaimerPanel/MarginContainer" unique_id=829194725]
+anchor_left = 0.18
+anchor_top = 0.13
+anchor_right = 0.82
+anchor_bottom = 0.87
+theme_type_variation = &"ConsentSurface"
+[node name="Content" type="VBoxContainer" parent="DisclaimerPanel"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="DisclaimerPanel/MarginContainer/Panel" unique_id=584865014]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"InsetContent"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer" unique_id=194474909]
+theme_type_variation = &"ConsentStack"
+[node name="Eyebrow" type="Label" parent="DisclaimerPanel/Content"]
 layout_mode = 2
-
-[node name="TelemetryDisclaimer" type="RichTextLabel" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=574276471]
+theme_type_variation = &"RoomEyebrow"
+text = "ECHOES OF THE RIFT  /  YOUR CHOICE"
+[node name="Title" type="Label" parent="DisclaimerPanel/Content"]
 layout_mode = 2
-bbcode_enabled = true
-text = "To help improve Echoes of the Rift, anonymous gameplay statistics are collected such as:
-
-Card choices and usage
-Class and relic selection
-Run duration and completion rates
-Bugs and performance issues
-
-This data contains no personal or identifying information, and is only used to balance the game and enhance the player experience.
-
-You can disable telemetry at any time in the settings."
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=556189520]
+theme_type_variation = &"RoomTitle"
+text = "Help shape the rift"
+[node name="Intro" type="Label" parent="DisclaimerPanel/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomBody"
+autowrap_mode = 3
+text = "Share optional gameplay data to help us understand balance and improve the game. You can play either way."
+[node name="Rule" type="HSeparator" parent="DisclaimerPanel/Content"]
+layout_mode = 2
+[node name="Details" type="VBoxContainer" parent="DisclaimerPanel/Content"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_type_variation = &"RewardRow"
-alignment = 1
-
-[node name="AcceptButton" type="Button" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1076426131]
+theme_type_variation = &"ConsentDetails"
+[node name="CollectedHeading" type="Label" parent="DisclaimerPanel/Content/Details"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "WHAT IS SHARED"
+[node name="Collected" type="Label" parent="DisclaimerPanel/Content/Details"]
+layout_mode = 2
+theme_type_variation = &"RoomBody"
+autowrap_mode = 3
+text = "Card plays, class and relic choices, rewards, combat events, run duration and outcomes."
+[node name="ContextHeading" type="Label" parent="DisclaimerPanel/Content/Details"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "HOW EVENTS ARE GROUPED"
+[node name="Context" type="Label" parent="DisclaimerPanel/Content/Details"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+autowrap_mode = 3
+text = "Events include timestamps, the game version, and randomly generated session and run identifiers. No name, email, or account is required."
+[node name="SettingsNote" type="Label" parent="DisclaimerPanel/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+autowrap_mode = 3
+text = "Your choice is saved. You can change it at any time in Settings."
+[node name="Actions" type="HBoxContainer" parent="DisclaimerPanel/Content"]
+layout_mode = 2
+theme_type_variation = &"ConsentActions"
+[node name="DeclineButton" type="Button" parent="DisclaimerPanel/Content/Actions"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 4
-text = "That's ok"
-
-[node name="DeclineButton" type="Button" parent="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=138312722]
+custom_minimum_size = Vector2(0, 60)
+size_flags_horizontal = 3
+theme_type_variation = &"RoomButton"
+text = "Play without sharing"
+[node name="AcceptButton" type="Button" parent="DisclaimerPanel/Content/Actions"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 4
-text = "Fuck no"
-
-[node name="Splash" type="TextureRect" parent="." unique_id=447831308]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
+custom_minimum_size = Vector2(0, 60)
+size_flags_horizontal = 3
+theme_type_variation = &"RoomButton"
+text = "Share gameplay data"
+[node name="Splash" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("4_iju21")
 expand_mode = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=884562537]
-libraries/ = SubResource("AnimationLibrary_23hq6")
-
-[connection signal="pressed" from="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
-[connection signal="pressed" from="DisclaimerPanel/MarginContainer/Panel/MarginContainer/VBoxContainer/HBoxContainer/DeclineButton" to="." method="_on_decline_button_pressed"]
+stretch_mode = 6
+mouse_filter = 2
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = SubResource("animations")
+[connection signal="pressed" from="DisclaimerPanel/Content/Actions/AcceptButton" to="." method="_on_accept_button_pressed"]
+[connection signal="pressed" from="DisclaimerPanel/Content/Actions/DeclineButton" to="." method="_on_decline_button_pressed"]

@@ -1,4 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3]
-[ext_resource type="Shader" path="res://scripts/shaders/spell_presence.gdshader" id="shader"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dqnhs4mdd53m1"]
+
+[ext_resource type="Shader" uid="uid://ytsxhuwdxgdl" path="res://scripts/shaders/spell_presence.gdshader" id="shader"]
+
 [resource]
 shader = ExtResource("shader")

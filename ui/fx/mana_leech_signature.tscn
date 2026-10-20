@@ -1,6 +1,11 @@
-[gd_scene load_steps=6 format=3]
-[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/fx/mana_leech_signature.gd" id="script"]
 [ext_resource type="Shader" path="res://scripts/shaders/spell_void.gdshader" id="shader"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="illustration"]
+[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/energy_wisp_frames.tres" id="art_energy_wisp"]
+[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="art_rift_implosion"]
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="canvas"]
@@ -22,3 +27,49 @@ texture_filter = 2
 texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.609375, 0.609375)
+self_modulate = Color(1, 1, 1, 0.14)
+
+[node name="Illustration" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(0, 0)
+rotation = 0
+scale = Vector2(0.13276212, 0.15585118)
+sprite_frames = ExtResource("art_rift_implosion")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0
+ends = 0.8
+drift = Vector2(0, 0)
+final_scale = Vector2(0.4, 0.6)
+first_frame = 0
+last_frame = 7
+
+[node name="StolenManaA" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(-6, -2)
+rotation = -0.5
+scale = Vector2(0.051950395, 0.080811725)
+sprite_frames = ExtResource("art_energy_wisp")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.12
+ends = 0.85
+drift = Vector2(0, 0)
+final_scale = Vector2(0.6, 0.6)
+first_frame = 2
+last_frame = 6
+
+[node name="StolenManaB" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(4, -8)
+rotation = 0.2
+scale = Vector2(0.046178129, 0.069267193)
+sprite_frames = ExtResource("art_energy_wisp")
+animation = &"default"
+script = ExtResource("layer_script")
+begins = 0.24
+ends = 1
+drift = Vector2(0, 0)
+final_scale = Vector2(0.6, 0.6)
+first_frame = 2
+last_frame = 6

@@ -8,11 +8,12 @@ atlas = ExtResource("atlas")
 region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="ShaderMaterial" id="highlight"]
+resource_local_to_scene = true
 shader = ExtResource("shader")
 shader_parameter/PulseSpeed = 1.35
 shader_parameter/MinAlpha = 0.1
 shader_parameter/MaxAlpha = 0.22
-shader_parameter/OutlineWidth = 0.065
+shader_parameter/OutlineWidth = 0.025
 shader_parameter/HighlightColor = Color(0.29, 0.75, 0.67, 1)
 
 [node name="TargetHighlight" type="Sprite2D"]

@@ -1,445 +1,116 @@
 [gd_scene format=3 uid="uid://2lbb3o8s61p3"]
-
+[ext_resource type="Script" path="res://scenes/treasure/treasure.gd" id="script"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" path="res://scenes/rest/rest.tres" id="background"]
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
+[ext_resource type="Texture2D" path="res://assets/rift/ui/chest.svg" id="emblem"]
 
-[ext_resource type="Script" uid="uid://ci0s82s7h0wph" path="res://scenes/treasure/treasure.gd" id="1_b65ik"]
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="2_8auyv"]
-[ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="2_w2wav"]
 [ext_resource type="Resource" uid="uid://b3cnm8pclsxek" path="res://resources/data/relics/unstable_core.tres" id="3_bbvtr"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="3_nr0se"]
 [ext_resource type="Resource" uid="uid://cfauwsp41tgk7" path="res://resources/data/relics/temporal_conduit.tres" id="4_ko1oj"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/chest.svg" id="4_ufafs"]
 [ext_resource type="Resource" uid="uid://cbqo7jsdxagi4" path="res://resources/data/relics/riftglass_prism.tres" id="5_ab3yx"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/chest.svg" id="5_ufafs"]
 [ext_resource type="Resource" uid="uid://cd45n3jrdgucm" path="res://resources/data/relics/feedback_circuit.tres" id="6_bbvtr"]
 [ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="7_ko1oj"]
 [ext_resource type="Resource" uid="uid://d0vl20m61tb65" path="res://resources/data/relics/prospector_helmet.tres" id="8_2i7av"]
 [ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="9_energy"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="12_odogb"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="13_2i7av"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="14_wp70s"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="15_50sti"]
-
-[sub_resource type="Animation" id="Animation_1nl1m"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_ufafs")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles2D:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GPUParticles2D2:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles2D4:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GPUParticles2D3:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(704, 284)]
-}
-
-[sub_resource type="Animation" id="Animation_e0jy8"]
-resource_name = "highlight"
-length = 2.0
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.102317, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -0.174533, 0.174533, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(704, 284), Vector2(704, 264.065), Vector2(704, 284)]
-}
-
-[sub_resource type="Animation" id="Animation_gkj16"]
-resource_name = "open"
-length = 2.0
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("4_ufafs"), ExtResource("5_ufafs")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GPUParticles2D:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GPUParticles2D2:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.203324),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../..")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_on_treasure_opened"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles2D4:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GPUParticles2D3:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_saykf"]
-_data = {
-&"RESET": SubResource("Animation_1nl1m"),
-&"highlight": SubResource("Animation_e0jy8"),
-&"open": SubResource("Animation_gkj16")
-}
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rkoa3"]
-particles_animation = false
-
-[sub_resource type="Curve" id="Curve_kw0bu"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0664062, 1), 0.0, 0.0, 0, 0, Vector2(0.746094, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_5w44q"]
-curve = SubResource("Curve_kw0bu")
-
-[sub_resource type="Curve" id="Curve_5a1kc"]
-_data = [Vector2(0, 0.496705), 0.0, 0.0, 0, 0, Vector2(0.253906, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.314662), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_8bkex"]
-curve = SubResource("Curve_5a1kc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tg8jj"]
-lifetime_randomness = 1.0
-particle_flag_disable_z = true
-angle_min = -360.0
-angle_max = 360.0
-direction = Vector3(0, -1, 0)
-spread = 90.0
-initial_velocity_min = 200.0
-initial_velocity_max = 300.0
-angular_velocity_min = -20.0
-angular_velocity_max = 20.0
-gravity = Vector3(0, 98, 0)
-scale_min = 0.05
-scale_max = 0.12
-scale_curve = SubResource("CurveTexture_8bkex")
-color = Color(0.701961, 0.647059, 0.333333, 1)
-alpha_curve = SubResource("CurveTexture_5w44q")
-anim_speed_min = 1.0
-anim_speed_max = 1.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_unvyv"]
-particles_animation = false
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_odogb"]
-lifetime_randomness = 1.0
-particle_flag_rotate_y = true
-particle_flag_disable_z = true
-angle_min = -360.0
-angle_max = 360.0
-direction = Vector3(0, -1, 0)
-spread = 90.0
-initial_velocity_min = 200.0
-initial_velocity_max = 300.0
-angular_velocity_min = -20.0
-angular_velocity_max = 20.0
-gravity = Vector3(0, 98, 0)
-scale_min = 0.05
-scale_max = 0.12
-scale_curve = SubResource("CurveTexture_8bkex")
-color = Color(0.823529, 0.788235, 0.647059, 1)
-alpha_curve = SubResource("CurveTexture_5w44q")
-anim_speed_min = 1.0
-anim_speed_max = 1.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kt3tj"]
-particles_animation = false
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mn6fe"]
-lifetime_randomness = 1.0
-particle_flag_rotate_y = true
-particle_flag_disable_z = true
-angle_min = -360.0
-angle_max = 360.0
-direction = Vector3(0, -1, 0)
-spread = 90.0
-initial_velocity_min = 200.0
-initial_velocity_max = 300.0
-angular_velocity_min = -20.0
-angular_velocity_max = 20.0
-gravity = Vector3(0, 98, 0)
-scale_min = 0.05
-scale_max = 0.12
-scale_curve = SubResource("CurveTexture_8bkex")
-color = Color(0.670588, 0.607843, 0.556863, 1)
-alpha_curve = SubResource("CurveTexture_5w44q")
-anim_speed_min = 1.0
-anim_speed_max = 1.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xln5j"]
-particles_animation = false
-
-[node name="Treasure" type="Control" unique_id=404450698]
-layout_mode = 3
+[node name="Treasure" type="Control"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("1_b65ik")
+theme = ExtResource("theme")
+script = ExtResource("script")
 treasure_relic_pool = Array[ExtResource("2_8auyv")]([ExtResource("3_bbvtr"), ExtResource("5_ab3yx"), ExtResource("4_ko1oj"), ExtResource("6_bbvtr"), ExtResource("7_ko1oj"), ExtResource("8_2i7av"), ExtResource("9_energy")])
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=674526172]
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = 0
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=2063771227]
-anchors_preset = 15
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_w2wav")
+mouse_filter = 2
+modulate = Color(0.13, 0.19, 0.24, 1)
+texture = ExtResource("background")
 
 [node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
 layer = 2
 
-[node name="UILayer" type="CanvasLayer" parent="." unique_id=1972744723]
+[node name="UILayer" type="CanvasLayer" parent="."]
 layer = 3
 
-[node name="Label" type="Label" parent="UILayer" unique_id=2065333935]
-theme_type_variation = &"HeroText"
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -212.0
-offset_top = 101.0
-offset_right = 212.0
-offset_bottom = 230.0
-grow_horizontal = 2
-theme = ExtResource("3_nr0se")
-text = "Treasure"
-horizontal_alignment = 1
-
-[node name="TreasureChest" type="TextureRect" parent="UILayer" unique_id=681987621]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -256.0
-offset_right = 256.0
-offset_bottom = 256.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(256, 256)
-mouse_filter = 0
-texture = ExtResource("4_ufafs")
-stretch_mode = 6
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/TreasureChest" unique_id=1493099958]
+[node name="RoomLayout" type="VBoxContainer" parent="UILayer"]
 unique_name_in_owner = true
-libraries/ = SubResource("AnimationLibrary_saykf")
-autoplay = &"highlight"
+anchor_left = 0.14
+anchor_top = 0.17
+anchor_right = 0.86
+anchor_bottom = 0.90
+theme = ExtResource("theme")
+theme_type_variation = &"RoomStack"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=819617579]
-material = SubResource("CanvasItemMaterial_rkoa3")
-position = Vector2(241, 267)
-emitting = false
-amount = 12
-texture = ExtResource("12_odogb")
-lifetime = 1.2
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_tg8jj")
+[node name="Eyebrow" type="Label" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "SOMETHING LEFT BEHIND"
+autowrap_mode = 3
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=1247357796]
-material = SubResource("CanvasItemMaterial_unvyv")
-position = Vector2(241, 267)
-emitting = false
-amount = 12
-texture = ExtResource("13_2i7av")
-lifetime = 1.2
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_odogb")
+[node name="Title" type="Label" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomTitle"
+text = "Treasure"
+autowrap_mode = 3
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=180393946]
-material = SubResource("CanvasItemMaterial_kt3tj")
-position = Vector2(241, 267)
-emitting = false
-amount = 12
-texture = ExtResource("14_wp70s")
-lifetime = 1.2
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_mn6fe")
+[node name="Subtitle" type="Label" parent="UILayer/RoomLayout"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "A sealed cache rests where the old road ends."
+autowrap_mode = 3
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="UILayer/TreasureChest" unique_id=2139562035]
-material = SubResource("CanvasItemMaterial_xln5j")
-position = Vector2(241, 267)
-emitting = false
-amount = 12
-texture = ExtResource("15_50sti")
-lifetime = 1.2
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_mn6fe")
+[node name="Cache" type="PanelContainer" parent="UILayer/RoomLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"RoomSurface"
 
-[connection signal="gui_input" from="UILayer/TreasureChest" to="." method="_on_treasure_chest_gui_input"]
+[node name="Content" type="VBoxContainer" parent="UILayer/RoomLayout/Cache"]
+layout_mode = 2
+theme_type_variation = &"RoomStack"
+
+[node name="EmblemCenter" type="CenterContainer" parent="UILayer/RoomLayout/Cache/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/Cache/Content/EmblemCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(160, 160)
+texture = ExtResource("emblem")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="Caption" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "AN UNCLAIMED RELIC"
+autowrap_mode = 3
+
+[node name="Heading" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomHeading"
+text = "Break the seal"
+autowrap_mode = 3
+
+[node name="Story" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomBody"
+text = "A relic waits within. Open the cache to discover what the rift has kept."
+autowrap_mode = 3
+
+[node name="OpenButton" type="Button" parent="UILayer/RoomLayout/Cache/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(240, 60)
+theme_type_variation = &"RoomPrimaryButton"
+text = "Open the cache"
+
+[connection signal="pressed" from="UILayer/RoomLayout/Cache/Content/OpenButton" to="." method="_open_treasure"]

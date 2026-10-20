@@ -539,7 +539,11 @@ func hex_distance(a: Vector3i, b: Vector3i) -> int:
 	return max(abs(a.x - b.x), abs(a.y - b.y), abs(a.z - b.z))
 
 func get_tiles_of_type(type: Enums.TileType) -> Array[Vector2i]:
-	return base_layer.get_used_cells_by_id(0, tile_dict[type])
+	var cells: Array[Vector2i] = []
+	for cell: Vector2i in tile_map_data:
+		if tile_map_data[cell].type == type and is_within_bounds(cell):
+			cells.append(cell)
+	return cells
 
 # Get all tiles within a certain hex distance
 func get_tiles_in_range(center: Vector2i, radius: int) -> Array[Vector2i]:
@@ -608,6 +612,12 @@ func shrink_map(amount) -> void:
 				
 			var tile_sprite = TILE_SPRITE.instantiate()
 			tile_sprite.position = base_layer.map_to_local(cell)
+			# Preserve visible artwork in the cosmetic breakup; never reveal fogged cells.
+			if not is_tile_behind_fog(cell):
+				var fragment := AtlasTexture.new()
+				fragment.atlas = (base_layer.tile_set.get_source(base_layer.get_cell_source_id(cell)) as TileSetAtlasSource).texture
+				fragment.region = Rect2(Vector2(base_layer.get_cell_atlas_coords(cell)) * 64.0, Vector2(64, 64))
+				tile_sprite.texture = fragment
 			base_layer.add_child(tile_sprite)
 			# Erase tile after processing entities
 			tile_sprite.swirl_out()

@@ -3,6 +3,11 @@ extends Node
 var failures := 0
 var resource_count := 0
 
+class ConsentSplash extends "res://scenes/splash_screens/splash_screen.gd":
+	var continuations := 0
+	func _continue_to_menu() -> void:
+		continuations += 1
+
 
 func _ready() -> void:
 	_run.call_deferred()
@@ -51,6 +56,8 @@ func _run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--event-room-only"):
+		await _test_telemetry_disclaimer()
+		await _test_supporting_rooms()
 		await _test_event_choices()
 		print("Compatibility smoke test: %d failures" % failures)
 		await Utils.stop_audio_for_shutdown()
@@ -82,6 +89,13 @@ func _run() -> void:
 	await _test_battle_presentation()
 	if DisplayServer.get_name() != "headless":
 		await _test_shader_fades()
+	if OS.get_cmdline_user_args().has("--vfx-only"):
+		if DisplayServer.get_name() != "headless":
+			await _test_lunge_presentation()
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	GameSettings.show_tutorial = false
 	GameSettings.telemetry_enabled = false
 	TelemetryManager.track_event("compatibility_test", {"amount": 3, "duration": 1.25})
@@ -280,6 +294,8 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 	await _click_control(option)
 	_check(choices.card_popup.visible and choices.selected_card == option.card, "Clicking a reward card opens confirmation")
 	await _capture("reward-confirm")
+	await _test_inspection_cancel(run_scene, choices.card_popup)
+	await _click_control(option)
 	await _click_control(choices.card_popup.confirm_button)
 	_check(run_scene.player_stats.deck.cards.size() == deck_size + 1, "Taking a reward adds exactly one card")
 	rewards._show_card_rewards()
@@ -306,6 +322,8 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		await _click_control(item.current_card_ui)
 		_check(shop.card_popup.visible, "Shop cards open inspection on click")
 		await _capture("shop-inspect")
+		await _test_inspection_cancel(run_scene, shop.card_popup)
+		await _click_control(item.current_card_ui)
 		await _click_control(shop.card_popup.close_button)
 		_check(not shop.card_popup.visible, "Shop inspection closes with Back")
 		var cost := item.gold_cost
@@ -323,6 +341,34 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		var relic_id := item.relic.id
 		await _click_control(item.buy_button)
 		_check(run_scene.run_stats.resources == 100 - cost and run_scene.relic_handler.has_relic(relic_id), "Relic purchase charges once and grants its relic")
+
+
+func _press_escape() -> void:
+	var event := InputEventKey.new()
+	event.keycode = KEY_ESCAPE
+	event.physical_keycode = KEY_ESCAPE
+	event.pressed = true
+	Input.parse_input_event(event)
+	await get_tree().process_frame
+	event = InputEventKey.new()
+	event.keycode = KEY_ESCAPE
+	event.physical_keycode = KEY_ESCAPE
+	event.pressed = false
+	Input.parse_input_event(event)
+	await get_tree().process_frame
+
+
+func _test_inspection_cancel(run_scene: Run, popup: CardPopup) -> void:
+	await _press_escape()
+	_check(not popup.visible, "Escape closes active card inspection")
+	_check(not get_tree().paused and not run_scene.pause_menu.visible, "Closing inspection does not also pause")
+	# Recover after a failed baseline assertion so later transactions can run.
+	run_scene.pause_menu._unpause()
+	popup.hide_popup()
+	await _press_escape()
+	_check(get_tree().paused and run_scene.pause_menu.visible, "Escape without inspection opens pause")
+	await _press_escape()
+	_check(not get_tree().paused and not run_scene.pause_menu.visible, "Escape resumes from pause")
 
 
 func _test_route_and_icon_feedback(run_scene: Run) -> void:
@@ -501,6 +547,15 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	for card_ui in discarded_ui:
 		_check(not is_instance_valid(card_ui), "Completed discard animations release their controls")
 	_check(stats.discard.cards.size() == cards.size(), "Animation completion does not duplicate discarded cards")
+	var exhaust_card := cards[0].duplicate(true) as Card
+	exhaust_card.exhaust = true
+	var exhaust_before := stats.exhaust_pile.cards.size()
+	hand.add_card(exhaust_card)
+	handler.discard_cards()
+	_check(stats.exhaust_pile.cards.size() == exhaust_before + 1 and stats.exhaust_pile.cards.has(exhaust_card), "Unplayed Exhaust cards enter the exhaust pile at end of turn")
+	_check(not stats.discard.cards.has(exhaust_card), "Unplayed Exhaust cards never enter the reshuffle pool")
+	handler.discard_cards()
+	_check(stats.exhaust_pile.cards.size() == exhaust_before + 1, "Repeated cleanup cannot duplicate exhausted cards")
 	# A draw tween belongs to the handler, which can outlive the player.
 	drawn.signals = 0
 	Events.player_hand_drawn.connect(on_drawn)
@@ -518,6 +573,77 @@ func _test_hand_cycle(sandbox: GameWorldSandbox) -> void:
 	_check(drawn.signals == 0 and not handler.hand_ready, "Cancelled draws never complete the player phase")
 	_check(hand.get_child_count() == count_before, "Freed player draws leave the hand unchanged")
 	Events.player_hand_drawn.disconnect(on_drawn)
+
+
+func _test_telemetry_disclaimer() -> void:
+	_check(not SettingsData.new().telemetry_enabled, "Fresh settings leave optional telemetry disabled")
+	var original := GameSettings.get_current_settings()
+	original.fullscreen = false
+	GameSettings.save_settings(original)
+	var packed: PackedScene = load("res://scenes/splash_screens/splash_screen.tscn")
+	for enabled: bool in [false, true]:
+		var splash = packed.instantiate()
+		splash.set_script(ConsentSplash)
+		add_child(splash)
+		await get_tree().create_timer(0.8).timeout
+		_check(not splash.accept_button.disabled and not splash.decline_button.disabled, "Both telemetry choices become available after the splash")
+		_check(splash.decline_button.has_focus(), "Optional telemetry does not default focus to sharing")
+		if not enabled:
+			await _capture("telemetry-disclaimer")
+		await _click_control(splash.accept_button if enabled else splash.decline_button)
+		splash._choose_telemetry(not enabled)
+		_check(GameSettings.telemetry_enabled == enabled and GameSettings.get_current_settings().telemetry_enabled == enabled, "Telemetry choice is applied and persisted")
+		_check(TelemetryManager.client.consent == enabled, "Telemetry client follows the saved consent choice")
+		await get_tree().create_timer(0.3).timeout
+		_check(splash.continuations == 1, "Both choices continue to the menu exactly once")
+		_check(not TelemetryManager._quitting, "Declining optional telemetry never quits the game")
+		splash.queue_free()
+		await get_tree().process_frame
+	GameSettings.save_settings(original)
+
+
+func _test_supporting_rooms() -> void:
+	var stats: PlayerStats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	stats.health = 10
+	var run_stats := RunStats.new()
+	var hud = load("res://ui/run_ui/run_hud.tscn").instantiate()
+	add_child(hud)
+	hud.bind_run(stats, run_stats)
+	var rest: Rest = load("res://scenes/rest/rest.tscn").instantiate()
+	add_child(rest)
+	rest.player_stats = stats
+	await _settle_ui()
+	_check(rest.get_node("%RecoveryAmount").text.contains(str(ceili(stats.max_health * 0.3))), "Campfire previews the actual recovery amount")
+	await _capture("campfire")
+	var expected := mini(stats.max_health, stats.health + ceili(stats.max_health * 0.3))
+	await _click_control(rest.rest_button)
+	rest._on_rest_button_pressed()
+	_check(stats.health == expected, "Campfire restores 30 percent once even with repeated input")
+	await get_tree().create_timer(1.1).timeout
+	rest.queue_free()
+	await get_tree().process_frame
+	var relics: RelicHandler = load("res://scenes/relic_handler/relic_handler.tscn").instantiate()
+	add_child(relics)
+	var treasure: Treasure = load("res://scenes/treasure/treasure.tscn").instantiate()
+	add_child(treasure)
+	treasure.player_stats = stats
+	treasure.relic_handler = relics
+	treasure.generate_relic()
+	await _settle_ui()
+	_check(treasure.found_relic != null, "Treasure preserves the eligible relic reward pool")
+	await _capture("treasure")
+	var observed := {"count": 0}
+	var on_reward := func(_relic: Relic): observed.count += 1
+	Events.treasure_room_exited.connect(on_reward)
+	await _click_control(treasure.open_button)
+	treasure._open_treasure()
+	await get_tree().create_timer(0.7).timeout
+	_check(observed.count == 1, "Opening a treasure cache announces exactly one reward")
+	Events.treasure_room_exited.disconnect(on_reward)
+	treasure.queue_free()
+	relics.queue_free()
+	hud.queue_free()
+	await get_tree().process_frame
 
 
 func _test_event_choices() -> void:
@@ -570,6 +696,19 @@ func _test_event_choices() -> void:
 	room._on_option_a_pressed()
 	room._on_option_a_pressed()
 	_check(run_stats.gold == gold + 25 and run_stats.resources == 1, "Free event reward can only be claimed once")
+	room._current_event = EventRoom.EVENTS[0]
+	for remaining_block in [0, 2, 10]:
+		room._populate_event()
+		stats.health = 10
+		stats.block = remaining_block
+		var damage_before := stats.total_health_damage
+		var resources_before := run_stats.resources
+		await _click_control(room.option_a_button)
+		_check(stats.health == 6, "Rift Echo costs four HP with %d block" % remaining_block)
+		_check(stats.block == remaining_block, "Event HP cost preserves combat block")
+		_check(stats.total_health_damage == damage_before + 4, "Event HP loss is included in run damage accounting")
+		room._on_option_a_pressed()
+		_check(stats.health == 6 and run_stats.resources == resources_before + 1, "Rift Echo charges and rewards exactly once")
 	room.queue_free()
 	await get_tree().process_frame
 
@@ -662,6 +801,50 @@ func _test_telemetry_event_contract() -> void:
 	_check(TelemetryManager.client.queue.is_empty(), "Opt-out prevents subsequent recording")
 
 
+func _test_lunge_presentation() -> void:
+	GameSettings.show_tutorial = false
+	var relics := load("res://scenes/relic_handler/relic_handler.tscn").instantiate() as RelicHandler
+	add_child(relics)
+	var world := load("res://scenes/game_world/game_world.tscn").instantiate() as GameWorld
+	add_child(world)
+	world.player_stats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	world.run_stats = RunStats.new()
+	world.battle_stats = load("res://resources/data/battles/tier_1_channelers_bulwark.tres").duplicate(true)
+	world.relics = relics
+	world.start_world()
+	world.tilemap.hide_fog()
+	await get_tree().create_timer(0.6).timeout
+	world.player.stats.block = 1000
+	var actor: MovingEnemy
+	for unit in world.enemy_handler.get_children():
+		if unit is MovingEnemy and unit.flying:
+			actor = unit
+			break
+	_check(actor != null, "Native attack fixture includes a flying actor")
+	if actor:
+		for path: String in ["bat/bat_enemy_attack_action", "blob/blob_attack_action", "horror/horror_attack_action", "bulwark/bulwark_cleave_action", "wasp/wasp_enemy_attack_action", "void_spectre/void_spectre_attack_action"]:
+			var action := load("res://scenes/enemy/%s.gd" % path).new() as EnemyAction
+			action.enemy = actor
+			action.target = world.player
+			action.intent = Intent.new()
+			action.visual_fx = load("res://ui/fx/claw_slash_fx.tscn")
+			if path.begins_with("wasp/"):
+				action.set("curse_fx_scene", load("res://ui/fx/curse_fx.tscn"))
+			actor.add_child(action)
+			var origin := actor.global_transform
+			var health := world.player.stats.health
+			action.perform_action()
+			await get_tree().create_timer(0.2).timeout
+			_check(actor.global_transform.is_equal_approx(origin), "Attack windup preserves the authoritative entity transform: %s" % path)
+			_check(not actor.animation_player.is_playing(), "Flying idle cannot overwrite the active lunge: %s" % path)
+			await get_tree().create_timer(1.4).timeout
+			_check(actor.animation_player.is_playing(), "Attack restores flying idle: %s" % path)
+			_check(world.player.stats.health == health, "Fully blocked native attack preserves health: %s" % path)
+			action.queue_free()
+	world.queue_free()
+	relics.queue_free()
+	await get_tree().process_frame
+
 func _test_ambient_particles() -> void:
 	var texture := load("res://resources/vfx/menu_emission_points.res") as ImageTexture
 	_check(texture != null, "Load binary emission texture")
@@ -685,6 +868,7 @@ func _test_ambient_particles() -> void:
 		_check(particles.get_node("GPUParticles2D5").position.x == cases[path][2], "Preserve left emitter position: %s" % path)
 		for emitter: GPUParticles2D in particles.get_children():
 			_check(emitter.process_material.emission_point_texture == texture, "Share emission texture: %s" % path)
+			_check(emitter.amount <= 8 and emitter.process_material.initial_velocity_max <= 4.0, "Ambient presentation stays within the quiet-motion budget: %s" % path)
 		scene.free()
 
 

@@ -1,5 +1,22 @@
 # Continuous improvement
 
+## 2026-10-20 - Escape respects active card inspection
+
+- Shop/reward inspection consumes cancel before the run pause fallback. Escape closes inspection; the next press pauses, and another resumes. Pause uses native unhandled input so existing modal handlers get first refusal.
+- Actual Escape dispatch reproduced four failed assertions before the fix. Focused shop/reward transaction checks pass headlessly and with native D3D12 rendering (zero failures, exit 0), including purchases and reward confirmation after cancellation.
+- Investigated the enemy ward report: this checkout already uses target-agnostic spell_signature.gd, not the reported Player-only script. Added shared BlockEffect coverage for player/enemy block, native anchor placement, advancing illustration and cleanup. Native utility checks pass (zero failures, exit 0). Inspected .qa-tmp/compatibility-validation/combatant-wards.png showing both barriers. No ward runtime change was needed.
+- Limits: no full campaign/export validation; existing Windows certificate-store diagnostic remains. Ward checks exercise the shared BlockEffect path, not each tactics decision branch.
+- Next candidates: multi-floor save/resume; action/status effects during battle shutdown. Existing local event HP-cost changes preserved.
+
+
+## 2026-10-20 - Rift Echo honors its HP cost
+
+- Fixed the advertised four-HP cost being absorbed by leftover combat block. Events now use the existing direct-damage API, preserving block and run damage accounting. Authored cost and reward values are unchanged.
+- Real event-button checks at zero, two and ten block cover HP loss, preserved block, damage accounting and repeated callbacks. Baseline reproduced eight failed assertions; focused Godot 4.7.2 headless event checks pass (zero failures, exit 0).
+- Broader compatibility smoke loaded 654 resources and reported two unrelated map ambient-emitter position assertion failures; the unchanged map scene/test expects different coordinates. Resource reference guard and git diff --check pass.
+- Limits: no visual changes or rendered inspection; no full campaign/export QA. Existing Windows certificate-store diagnostic remains.
+- Next candidates: verify low-health event/death resolution end to end before changing lethal-cost rules; exercise multi-floor save/resume; inspect action/status-owned effects during battle shutdown.
+
 
 ## 2026-10-18 — Authored encounters, roster and coherent final art
 

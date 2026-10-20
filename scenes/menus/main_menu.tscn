@@ -90,10 +90,11 @@ offset_right = 292.5
 offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"FlushStack"
+theme_type_variation = &"MainMenuTitleStack"
 alignment = 1
 
 [node name="Label" type="Label" parent="UILayer/Control/Title/VBoxContainer" unique_id=1864023194]
+visible = false
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"BrandTitle"
@@ -105,9 +106,13 @@ vertical_alignment = 1
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"BrandConnector"
-text = "of the"
+text = "The"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Fader" type="Node" parent="UILayer/Control/Title/VBoxContainer/Label2" unique_id=700761613]
+script = ExtResource("7_50h1w")
+metadata/_custom_type_script = "uid://cxwnehr2avcec"
 
 [node name="Label3" type="Label" parent="UILayer/Control/Title/VBoxContainer" unique_id=1830782874]
 layout_mode = 2
@@ -116,8 +121,10 @@ theme_type_variation = &"BrandTitle"
 text = "Rift"
 horizontal_alignment = 1
 
-[node name="Fader" type="Node" parent="UILayer/Control/Title" unique_id=700761613]
+[node name="Fader" type="Node" parent="UILayer/Control/Title/VBoxContainer/Label3" unique_id=519666784]
 script = ExtResource("7_50h1w")
+FadeInTime = 2.0
+FadeOutTime = 2.0
 metadata/_custom_type_script = "uid://cxwnehr2avcec"
 
 [node name="Buttons" type="MarginContainer" parent="UILayer/Control" unique_id=1319771817]

@@ -157,7 +157,11 @@ func discard_cards() -> void:
 		player_hand.layout_tween.kill()
 	for card_ui: CardUI in player_hand.get_cards():
 		# Animations can be interrupted; commit pile changes before advancing.
-		player_stats.discard.add_card(card_ui.card)
+		var exhaust := card_ui.card.exhaust
+		if exhaust:
+			player_stats.exhaust_pile.add_card(card_ui.card)
+		else:
+			player_stats.discard.add_card(card_ui.card)
 		card_ui.disabled = true
 		if world_ui:
 			card_ui.reparent(world_ui)
@@ -171,6 +175,10 @@ func discard_cards() -> void:
 		card_ui.visuals.animation_player.play("swirl_out")
 		tween.tween_property(card_ui,"global_position", card_ui_offset,.08)
 		var target_position: Vector2 = discard_pile_position if discard_pile_position != Vector2.ZERO else card_ui_offset
+		if exhaust and world_ui:
+			var exhaust_button: Variant = world_ui.get("exhaust_pile_button")
+			if exhaust_button is Control:
+				target_position = exhaust_button.get_global_rect().get_center()
 		tween.tween_property(card_ui,"global_position", target_position,.1)
 		tween.parallel().tween_property(card_ui, "scale", Vector2.ZERO, Utils.presentation_duration(.12))
 		tween.tween_callback(player_hand.discard_card.bind(card_ui))

@@ -1,7 +1,25 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-18",
+  "updated": "2026-10-20",
   "tasks": [
+    {
+      "id": "EVENT-HP-COST-001",
+      "status": "done",
+      "summary": "Rift Echo four-HP cost uses existing direct damage, bypassing leftover block. Focused real-button checks cover 0/2/10 block, damage accounting and one-time rewards. Eight baseline failures; final focused headless run passes. Low-health event/death flow remains a separate candidate.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "BATTLEFIELD-VFX-OVERHAUL-004",
+      "status": "in_review",
+      "summary": "Corrective presentation pass, including actual player phase-out/in with cancellation-safe opacity and translucent shields (40-42%): synchronized surviving TileMap edge depth, alpha-aligned highlights, five-piece actual-art collapse and illustrated void atmosphere. Restored original impact/camera feedback, stronger number pop and dense card trail. New painted fast energy bolts and individually authored ability compositions follow actual behavior. Native 60 fps temporal review, two real shrinks, target/flight/29-signature checks, 640-resource shader/lunge regression, full headless combat, seed-42 AutoWalker (7 turns/27 actions, zero failures), art/resource checks pass. Preserve existing gameplay and unrelated work. See ai/docs/battlefield-vfx-overhaul.md; representative coverage and native/headless trace-parity limitation documented.",
+      "updated": "2026-10-18"
+    },
+    {
+      "id": "ANCHORS-ROUTE-SPELLS-006",
+      "status": "done",
+      "summary": "Centered feet, ground/hover/gate markers using cached artwork contact offsets; preserved scale and occupancy. Improved route contrast, opaque faces, labels/sidebar and trimmed connections. Added 25 card-specific signature scenes across six geometric/motion families with illustrated layers; distinct Overload/Sever/Void Shard projectiles and configured energy/cast feedback. Full combat, focused native anchor/map/FX tests, AutoWalker and art/resource checks pass. Temporary QA workspace absent. See ai/docs/battlefield-presentation.md.",
+      "updated": "2026-10-18"
+    },
     {
       "id": "BATTLEFIELD-POLISH-005",
       "status": "done",

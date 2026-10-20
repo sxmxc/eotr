@@ -10,7 +10,7 @@ const KEYWORD_STATUSES := {
 }
 
 const KEYWORD_DESCRIPTIONS := {
-	"exhaust": "Removed from combat after use."
+	"exhaust": "Removed from combat when played or discarded at end of turn."
 }
 
 static var _bold_regex: RegEx

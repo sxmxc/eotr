@@ -10,7 +10,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def prepare(source, key, category):
+def prepare(source, key, category, frame_inset=0):
     image = Image.open(source).convert('RGBA')
     if category == 'entities':
         alpha = image.getchannel('A')
@@ -61,6 +61,18 @@ def prepare(source, key, category):
         if image.getchannel('A').getextrema()[0] != 0:
             raise ValueError('FX sheet needs real transparent alpha')
         image = image.resize((1024,512),Image.Resampling.LANCZOS)
+        if frame_inset:
+            # Packaging only: reserve a consistent transparent gutter per frame
+            # so filtering cannot sample the adjacent authored animation cell.
+            if not 0 < frame_inset < 64:
+                raise ValueError('Frame inset must be between 1 and 63 pixels')
+            sheet = Image.new('RGBA', image.size)
+            for y in range(2):
+                for x in range(4):
+                    cell = image.crop((x*256,y*256,(x+1)*256,(y+1)*256))
+                    cell = cell.resize((256-frame_inset*2,256-frame_inset*2),Image.Resampling.LANCZOS)
+                    sheet.alpha_composite(cell,(x*256+frame_inset,y*256+frame_inset))
+            image = sheet
         # GPUParticles2D samples a full texture RID; ship explicit single-cell
         # textures instead of relying on AtlasTexture region support there.
         particle_frames = {'arcane_projectile': ('arcane_spark',5), 'energy_wisp': ('energy_mote',3), 'ember_flame': ('ember_mote',3), 'void_projectile': ('void_mote',7)}
@@ -71,12 +83,24 @@ def prepare(source, key, category):
             particle_path.parent.mkdir(parents=True,exist_ok=True)
             image.crop((x,y,x+256,y+256)).save(particle_path,'WEBP',quality=92,method=6)
     elif category == 'terrain':
-        if image.width != image.height * 2:
+        if abs(image.width / image.height - 2) > 0.015:
             raise ValueError('Terrain sheet must preserve the four by two square-cell layout')
         # Retain the current logical hex silhouette and atlas addressing contract.
         mask = Image.open(ROOT/'assets/rift/terrain/hex_atlas.png').getchannel('A')
-        image = image.resize(mask.size,Image.Resampling.LANCZOS)
-        image.putalpha(mask)
+        canvas = Image.new('RGBA', mask.size)
+        cell_size = mask.height // 2
+        for y in range(2):
+            for x in range(4):
+                cell = image.crop((x*image.width//4, y*image.height//2, (x+1)*image.width//4, (y+1)*image.height//2))
+                bounds = cell.getchannel('A').point(lambda a: 255 if a > 32 else 0).getbbox()
+                if not bounds:
+                    raise ValueError(f'Empty terrain cell: {x},{y}')
+                cell = cell.crop(bounds).resize((cell_size,cell_size),Image.Resampling.LANCZOS)
+                cell.putalpha(mask.crop((x*cell_size,y*cell_size,(x+1)*cell_size,(y+1)*cell_size)))
+                canvas.paste(cell,(x*cell_size,y*cell_size))
+        image = canvas
+    elif category == 'environment':
+        image.thumbnail((2048,1152),Image.Resampling.LANCZOS)
     else:
         image.thumbnail((1920,1080) if key=='menu' else (768,512),Image.Resampling.LANCZOS)
     output = ROOT/'assets/rift'/category/(key+('.png' if category == 'terrain' else '.webp'))
@@ -88,6 +112,7 @@ def prepare(source, key, category):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('source');parser.add_argument('key');parser.add_argument('category',choices=['entities','source','cards','terrain','fx'])
+    parser.add_argument('source');parser.add_argument('key');parser.add_argument('category',choices=['entities','source','cards','terrain','fx','environment'])
+    parser.add_argument('--frame-inset',type=int,default=0,help='Transparent per-frame packaging gutter for FX sheets')
     args=parser.parse_args()
-    print(prepare(args.source,args.key,args.category))
+    print(prepare(args.source,args.key,args.category,args.frame_inset))

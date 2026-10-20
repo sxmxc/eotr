@@ -5,6 +5,7 @@ extends Control
 @onready var intent_label: Label = $IntentLabel
 
 var _intent : Intent
+var pulse: Tween
 
 func update_intent(intent: Intent) -> void:
 	if not intent:
@@ -13,19 +14,15 @@ func update_intent(intent: Intent) -> void:
 	_intent = intent
 	_apply_accent()
 	_pulse()
-	intent_icon.texture = intent.icon
+	intent_icon.texture = intent.get_display_icon()
 	intent_icon.visible = intent_icon.texture != null
 	
-	intent_label.text = str(intent.current_text)
-	intent_label.visible = intent.current_text.length() > 0
+	intent_label.text = intent.get_display_text()
+	intent_label.visible = not intent_label.text.is_empty()
 	show()
 
 func _get_tooltip(_at_position: Vector2) -> String:
-	if _intent.tooltip_text.find("%") != -1:
-		return _intent.tooltip_text % str(_intent.current_text)
-	if _intent.tooltip_text.length() > 0:
-		return _intent.tooltip_text
-	return str(_intent.current_text)
+	return _intent.get_description() if _intent else ""
 
 
 func _apply_accent() -> void:
@@ -52,6 +49,9 @@ func _apply_accent() -> void:
 
 
 func _pulse() -> void:
-	var tween := create_tween()
-	tween.tween_property(self, "scale", Vector2(1.04, 1.04), 0.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(self, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	if pulse and pulse.is_valid():
+		pulse.kill()
+	scale = Vector2.ONE
+	pulse = create_tween()
+	pulse.tween_property(self, "scale", Vector2(1.04, 1.04), 0.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	pulse.tween_property(self, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)

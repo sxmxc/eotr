@@ -1,8 +1,10 @@
 extends Node2D
 class_name Player
 
+const UNIT_BADGES := preload("res://ui/world_ui/unit_badges.tscn")
 const WHITE_SPRITE_MATERIAL = preload("res://resources/materials/white_sprite_material.tres")
 const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
+const BLOCK_BREAK_FX = preload("res://ui/fx/block_break_fx.tscn")
 const PHASE_TRACE_FX = preload("res://ui/fx/phase_trace_fx.tscn")
 
 @export var stats: PlayerStats : set = set_player_stats
@@ -19,6 +21,11 @@ const PHASE_TRACE_FX = preload("res://ui/fx/phase_trace_fx.tscn")
 
 var is_mana_buffed : bool = false : set = set_is_mana_buffed
 var pending_effects := 0
+var movement_tween: Tween
+
+func _ready() -> void:
+	add_child(UNIT_BADGES.instantiate())
+
 
 func set_player_stats(value: PlayerStats) -> void:
 	if not is_node_ready():
@@ -55,6 +62,10 @@ func take_damage(
 		
 	var modified_damage := modifier_handler.get_modified_value(damage, which_modifier)
 	var profile := impact_profile if impact_profile else ImpactProfile.for_damage(modified_damage)
+	var fully_blocked := not direct and stats.block >= modified_damage and modified_damage > 0
+	if fully_blocked:
+		profile = ImpactProfile.for_weight(ImpactProfile.Weight.LIGHT)
+		profile.tint_color = Color(0.66, 0.91, 0.94)
 	var cam: Node2D = get_tree().get_first_node_in_group("map_camera")
 	sprite_2d.material.set_shader_parameter("hit_flash", 0.65)
 	sprite_2d.self_modulate = profile.tint_color
@@ -65,6 +76,8 @@ func take_damage(
 	text_fx.text = str(modified_damage)
 	add_child(text_fx)
 	text_fx.position = $ImpactAnchor.position
+	if fully_blocked:
+		text_fx.label.modulate = Color(0.66, 0.91, 0.94)
 	text_fx.execute()
 	if profile.decal_scene:
 		var decal: VisualFX = profile.decal_scene.instantiate()
@@ -78,7 +91,16 @@ func take_damage(
 	if direct:
 		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
 	else:
-		tween.tween_callback(stats.take_damage.bind(modified_damage))
+		tween.tween_callback(func():
+			var block_before := stats.block
+			stats.take_damage(modified_damage)
+			# A cast is transient. Only a damaging hit that exhausts existing
+			# block gets fracture feedback; turn resets and bypass damage do not.
+			if block_before > 0 and stats.block == 0:
+				var fracture := BLOCK_BREAK_FX.instantiate() as VisualFX
+				add_child(fracture)
+				fracture.execute()
+		)
 	tween.tween_interval(Utils.presentation_duration(0.17))
 	tween.finished.connect(
 		func():
@@ -91,14 +113,21 @@ func take_damage(
 				queue_free()
 	)
 
+func face_target(target_position: Vector2) -> void:
+	var direction := target_position.x - global_position.x
+	if not is_zero_approx(direction):
+		sprite_2d.flip_h = direction < 0.0
+
+
 func _on_position_updated(pos: Vector2) -> void:
 	_spawn_phase_trace()
 	pending_effects += 1
-	var og_scale = scale
+	var og_scale := sprite_2d.scale
 	var tween = create_tween()
-	tween.tween_property(self, "scale", scale * 1.04,.1)
+	movement_tween = tween
+	tween.tween_property(sprite_2d, "scale", og_scale * 1.04,.1)
 	tween.parallel().tween_property(self, "position", pos, Utils.presentation_duration(.2))
-	tween.tween_property(self, "scale", og_scale,.1)
+	tween.tween_property(sprite_2d, "scale", og_scale,.1)
 	tween.tween_callback(
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)
@@ -108,6 +137,9 @@ func _on_position_updated(pos: Vector2) -> void:
 
 func _on_player_teleported(pos: Vector2) -> void:
 	pending_effects += 1
+	# Finish arriving on the gate before phasing to the destination.
+	if movement_tween and movement_tween.is_running():
+		await movement_tween.finished
 	_spawn_phase_trace()
 	var tween = create_tween()
 	tween.tween_property(sprite_2d, "modulate:a", 0.0, Utils.presentation_duration(.1))
@@ -116,6 +148,7 @@ func _on_player_teleported(pos: Vector2) -> void:
 	tween.tween_callback(
 		func():
 			SoundManager.play_sound_random_pitch(movement_sound)
+			Events.player_moved.emit()
 			pending_effects -= 1
 			)
 
