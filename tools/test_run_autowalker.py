@@ -82,6 +82,9 @@ class EncounterSuiteTests(unittest.TestCase):
                 self.assertEqual(directory.name, Path(encounter).stem)
                 self.assertIn('--count=2', command)
                 self.assertIn('--max-actions-per-turn=300', command)
+
+                self.assertIn('--loadout=tier', command)
+                self.assertIn('--health-percent=100', command)
                 (directory / 'godot.log').write_text('')
                 (directory / 'summary.json').write_text(json.dumps({'simulations': 2, 'wins': 1, 'losses': 1}))
                 return 0

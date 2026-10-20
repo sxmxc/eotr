@@ -157,7 +157,40 @@ Each encounter gets its own subfolder, reports and session; the root `summary.js
 aggregates outcomes and retains each encounter's exit code and summary. Compare
 matching encounter subfolders with the comparison tool.
 
-### Inspect aborts through telemetry
+### Choose encounter loadouts
+
+Encounter mode now defaults to `--loadout tier`, selected from the encounter's
+`battle_tier`. These are fixed, attainable Riftwalker test builds, **not measured
+player averages or a substitute for full-run balance tests**:
+
+| Preset | Deck | Relics |
+| --- | --- | --- |
+| `tier_0` / `starter` | 11 starter cards | Phase Key |
+| `tier_1` | Starter + Nano Shield, Phase Slash, Arcane Explosion, Focus | Phase Key, Feedback Circuit |
+| `tier_2` | Tier 1 + Void Fracture, Mana Leech, Rift Knowledge, Adrenaline Rush | Tier 1 + Temporal Conduit |
+| `legacy` | 11 starter cards | None, reproducing the old harness |
+
+All additions are existing draftable cards/reward relics. Presets keep normal
+maximum HP, energy and draw; they do not invent card upgrades. Starting health is
+full unless `--health-percent 75` (or another integer 1–100) is selected. A health
+sweep can expose attrition sensitivity without claiming to model actual arrival HP.
+
+```powershell
+python tools/run_autowalker.py --godot "$godot" --all-encounters --policy greedy --count 100 --loadout tier --telemetry-upload --output qa/tier-greedy
+python tools/run_autowalker.py --godot "$godot" --all-encounters --policy stress --count 100 --loadout tier --telemetry-upload --output qa/tier-stress
+```
+
+Use a new output folder. Reports, summaries and start/completion event metadata
+include the resolved preset, version, exact initial deck/relic IDs, health and a
+fingerprint. The comparison tool refuses to match different fingerprints. The
+dashboard source adds an **Encounter outcomes by loadout** table; historical
+events display `legacy_unspecified`. Provision the source to expose that panel.
+Old replay reports select the legacy setup automatically; newer replays reject
+a changed preset fingerprint. Run mode continues to acquire its build through
+normal progression and rejects encounter loadout/health overrides. Its shop policy
+still skips purchases, so full-run balance conclusions retain that limitation.
+
+### Completion diagnostics
 
 Every `simulation_completed` event retains v2 gameplay metrics in `properties`.
 Its `metadata` contains `reason_code`, `reason`, encounter identity, policy version,
