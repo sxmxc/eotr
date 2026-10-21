@@ -7,6 +7,9 @@ var output := ""
 var events: Array = []
 var seen := 0
 var done := false
+var ruin_fixture := false
+var ruin_stage := 0
+var ruin_time := 0.0
 
 func _ready() -> void:
 	if not OS.is_debug_build() or DisplayServer.get_name() == "headless":
@@ -14,6 +17,7 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	for arg in OS.get_cmdline_user_args():
+		if arg == "--fixture=ruin": ruin_fixture = true
 		if arg.begins_with("--duration="): duration = float(arg.get_slice("=", 1))
 		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
 	Events.card_played.connect(func(card: Card): mark("card_played", {"card": card.id, "name": card.name}))
@@ -28,6 +32,14 @@ func mark(kind: String, details: Dictionary) -> void:
 func _process(delta: float) -> void:
 	if done: return
 	elapsed += delta
+	if ruin_fixture and is_instance_valid(runner.world):
+		runner.paused = true
+		if runner.world.tilemap.has_start_tile_effects_pending():
+			return
+		if ruin_stage == 0 and elapsed >= 1.0:
+			_activate_ruin("block_tile_effect")
+		elif ruin_stage == 1 and elapsed >= ruin_time + 1.5:
+			_activate_ruin("empty_tile_effect")
 	while seen < runner.trace.size():
 		mark("action_started", runner.trace[seen].action)
 		seen += 1
@@ -44,3 +56,23 @@ func _process(delta: float) -> void:
 	file.store_string(JSON.stringify(data, "  "))
 	file.close()
 	get_tree().quit()
+
+func _activate_ruin(effect_id: String) -> void:
+	# Explicit fixture setup: repeat activation on the occupied tile through real gameplay.
+	var board: ProcGenTilemap = runner.world.tilemap
+	board.tile_map_data[board.player_position].type = Enums.TileType.ANCIENT_RUIN
+	board.ruin_tile_effects.assign([load("res://resources/data/tile_effects/%s.tres" % effect_id)])
+	board.presentation_changed.emit()
+	mark("ruin_activation", {"effect": effect_id, "cell": str(board.player_position)})
+	board.apply_tile_effects()
+	ruin_stage += 1
+	ruin_time = elapsed
+	_capture_ruin_phases(ruin_stage)
+
+func _capture_ruin_phases(stage: int) -> void:
+	for phase: String in ["contact", "rise", "recovery"]:
+		await get_tree().create_timer(0.12 if phase != "recovery" else 0.5).timeout
+		await RenderingServer.frame_post_draw
+		var filename := "ruin-%d-%s.png" % [stage, phase]
+		get_viewport().get_texture().get_image().save_png(output.path_join(filename))
+		mark("ruin_frame", {"file": filename, "phase": phase})

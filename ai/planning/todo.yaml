@@ -204,15 +204,15 @@ backlog:
   - id: BKL-016
     title: "Enhance ruin tile feedback"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Ruins currently provide limited feedback when triggered/looted."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+      - "Added scene-authored local column echo and ruin-attributed outcome text; repeatability and mechanics preserved. Native before/after phase review and focused headless/native lifecycle checks pass. See ai/state/journal-bkl-016.md."
     next_steps:
-      - "Audit ruin tile scripts for feedback hooks."
-      - "Add visuals/audio/tooltips clarifying activation state and rewards."
+      - "Optional continuous-motion/audio review; investigate startup message competition separately."
 
   - id: BKL-017
     title: "Boost enemy death feedback"

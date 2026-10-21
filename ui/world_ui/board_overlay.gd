@@ -4,6 +4,7 @@ const TARGET_HIGHLIGHT := preload("res://ui/world_ui/target_highlight.tscn")
 const COLLAPSE_OUTLINE := preload("res://ui/world_ui/collapse_outline.tscn")
 const RIFT_GATE := preload("res://ui/world_ui/rift_gate.tscn")
 const MANA_WELL := preload("res://ui/world_ui/mana_well.tscn")
+const RUIN_ACTIVATION := preload("res://ui/world_ui/ruin_activation.tscn")
 var mana_wells: Dictionary[Vector2i, Sprite2D] = {}
 var gates: Dictionary[Vector2i, Sprite2D] = {}
 var collapse_outlines: Array[Line2D] = []
@@ -113,6 +114,13 @@ func _refresh_mana_wells() -> void:
 			well.position = board.base_layer.map_to_local(cell)
 			mana_wells[cell] = well
 		mana_wells[cell].visible = not board.is_tile_behind_fog(cell)
+
+func play_ruin_activation(cell: Vector2i) -> void:
+	if not board.tile_map_data.has(cell) or board.is_tile_behind_fog(cell):
+		return
+	var echo: Node2D = RUIN_ACTIVATION.instantiate()
+	echo.position = board.base_layer.map_to_local(cell)
+	add_child(echo)
 
 func play_gate_burst(cell: Vector2i) -> void:
 	if DisplayServer.get_name() == "headless":

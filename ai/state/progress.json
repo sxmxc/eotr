@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "BKL-016",
+      "status": "done",
+      "summary": "Added bounded scene-authored ruin column echo and attributed outcome messages without changing mechanics. Matching native phase captures preserve final observation and events. Focused headless/native repeat, empty, overlap cleanup and lethal movement checks pass. Sparse visual review only; FFmpeg unavailable. Evidence: ai/state/journal-bkl-016.md.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "BKL-008",
       "status": "in_progress",
       "summary": "Completed read-only live relic baseline: 24 human-labelled development runs with 8 purchases and 1 claim; 236 eligible run-mode bot identities kept separate. Bot shops permit leaving only. Missing acquisition floors, incomplete room coverage and resumed run identity prevent reliable floor curves. Balance unchanged; evidence and follow-ups: ai/docs/relic-acquisition-baseline.md.",

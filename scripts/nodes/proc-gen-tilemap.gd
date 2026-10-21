@@ -318,11 +318,12 @@ func _trigger_ancient_ruin_effect() -> void:
 	var chosen_effect : RuinTileEffect = ruin_tile_effects[RNG.instance.rand_weighted(probabilities)]
 
 	if chosen_effect:
+		target_highlight_layer.play_ruin_activation(player_position)
 		chosen_effect.execute([player], player.modifier_handler)
 		_show_ruin_effect_feedback(chosen_effect.description)
 		
 func _show_ruin_effect_feedback(text: String) -> void:
-	var message = WorldMessageData.new(text)
+	var message = WorldMessageData.new("Ancient Ruin: %s" % text)
 	Events.world_message_requested.emit(message)
 
 func queue_start_tile_effects() -> void:

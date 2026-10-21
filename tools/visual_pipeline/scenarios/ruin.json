@@ -1,0 +1,9 @@
+{
+  "event": "Repeated ruin activation: protection and no effect",
+  "encounter": "res://resources/data/battles/tier_0_blobs.tres",
+  "seed": 1,
+  "policy": "greedy",
+  "duration": 5,
+  "fps": 30,
+  "fixture": "ruin"
+}
