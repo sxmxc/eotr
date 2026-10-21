@@ -18,12 +18,9 @@
   for visual claims and [AutoWalker](docs/autowalker.md) for real gameplay sequences.
   Offline checks must not contact the backend. Report actual outcomes and limits;
   bot losses, configured aborts and engine failures are different results.
-- Preserve user edits. Do not commit, push, deploy services or change release
-  versions unless requested. Report tooling defects outside the task scope.
+- Preserve user edits. Do not commit, push, deploy services or change release versions unless requested. When authorized to commit, follow Conventional Commits (type(optional-scope): imperative description), using a meaningful type and subject that describes the actual change. Keep commits logically focused; do not bypass commit validation. Report tooling defects outside the task scope.
 - Update the authoritative guide when changing behavior. Update a planning item
-  only when working on that item; do not mark unrelated work done. Multi-act/boss
-  work remains a requirement despite older completion labels; see
-  [campaign.md](docs/campaign.md).
+  only when working on that item; do not mark unrelated work done.
 
 For backlog-driven sessions, follow [ai/workflows/development.md](ai/workflows/development.md).
 For visual agent work, begin with [discovery](ai/visual/workflows/discover.md).
