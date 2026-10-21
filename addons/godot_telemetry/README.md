@@ -84,6 +84,8 @@ the owner should allow a bounded deadline for `busy`, draining further queued ba
 with `flush()` as appropriate. No shutdown routine blocks the game indefinitely.
 
 Tests from the host repository: `python tools/test_telemetry.py --godot <executable>`.
-This creates a separate project containing only the addon and tests, with no game
-autoloads, and checks schemas, JSONL, queue limits, retry/backoff/recovery, rejection,
-consent, shutdown and HTTP serialization/acknowledgements. No HTTP server is started.
+This runs the original host project with disposable user data and local-only
+telemetry. It checks schemas, JSONL, queue limits, retry/backoff/recovery, rejection,
+consent, shutdown and HTTP serialization/acknowledgements without starting a server.
+It is a host-repository integration test, not an addon-only project isolation test.
+See [the game telemetry guide](../../docs/telemetry.md) for current integration.

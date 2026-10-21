@@ -51,6 +51,9 @@ func update_stats(stats: EnemyStats) -> void:
 	shield_label.text = "Block %d" % stats.block
 	health_label.text = "%d / %d HP" % [stats.health, stats.max_health]
 	health_bar.value = stats.health
+	var encounter_health := is_instance_valid(bound_enemy) and bound_enemy.has_meta("encounter_health")
+	health_bar.visible = not encounter_health
+	health_label.visible = not encounter_health
 	
 	shield_container.visible = !stats.block <= 0
 	

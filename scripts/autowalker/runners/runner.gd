@@ -191,6 +191,13 @@ func start() -> void:
 		world.player_stats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
 		world.run_stats = RunStats.new()
 		world.battle_stats = load(encounter).duplicate(true)
+		var campaign := ActDefinition.campaign()
+		for act_index in campaign.size():
+			if campaign[act_index].encounters.find(world.battle_stats.encounter_id):
+				world.run_stats.act_index = act_index
+				TelemetryManager.progression_context = {"act": act_index + 1, "act_id": campaign[act_index].act_id,
+					"encounter_id": world.battle_stats.encounter_id, "encounter_category": EncounterDefinition.Category.keys()[world.battle_stats.category]}
+				break
 		world.relics = relics
 		loadout_snapshot = Loadouts.apply(world.player_stats, relics, loadout_selection, world.battle_stats.battle_tier, health_percent)
 		if replay.has("loadout_fingerprint") and replay.loadout_fingerprint != loadout_snapshot.loadout_fingerprint:
@@ -363,7 +370,7 @@ func finish(outcome: String, reason: String = "", reason_code: String = "") -> v
 	report.merge(details, true)
 	report.merge({"outcome": outcome, "reason": reason, "turns": TelemetryManager.qa_turns,
 		"last_battle_turn": turn_number() if is_instance_valid(world) else 0,
-		"floors_climbed": run_node.map.floors_climbed if is_instance_valid(run_node) else 0, "actions": action_count,
+		"floors_climbed": run_node.run_stats.completed_floors + run_node.map.floors_climbed if is_instance_valid(run_node) else 0, "actions": action_count,
 		"damage_taken": stats.total_health_damage if stats else 0,
 		"net_health_loss": report.initial_health - final_health, "healing_received": stats.total_healing if stats else 0,
 		"obelisk_destroyed_turn": obelisk_turn,

@@ -1,26 +1,34 @@
 [gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_needle.tres" id="e0"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper_anchor.tres" id="e1"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/glass_reaver_patient.tres" id="e2"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_hexer_corrosive.tres" id="e3"]
-
-[node name="prismatic_siege" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
-spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3")])
-
-[node name="Unit0" parent="." instance=ExtResource("moving")]
-stats = ExtResource("e0")
-
-[node name="Unit1" parent="." instance=ExtResource("moving")]
-stats = ExtResource("e1")
-
-[node name="Unit2" parent="." instance=ExtResource("moving")]
-stats = ExtResource("e2")
-
-[node name="Unit3" parent="." instance=ExtResource("moving")]
-stats = ExtResource("e3")
+[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/prismatic_core.tscn" id="core"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/enemy.tscn" id="relay"]
+[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/relay_ai.tscn" id="ai"]
+[ext_resource type="Texture2D" path="res://assets/rift/entities/rift_needle.webp" id="art0"]
+[ext_resource type="Texture2D" path="res://assets/rift/entities/ward_keeper_anchor.webp" id="art1"]
+[ext_resource type="Texture2D" path="res://assets/rift/entities/glass_reaver_patient.webp" id="art2"]
+[sub_resource type="Resource" id="relay0"]
+script = ExtResource("stats")
+enemy_name = "Needle Relay"
+board_icon = ExtResource("art0")
+ai = ExtResource("ai")
+max_health = 12
+[sub_resource type="Resource" id="relay1"]
+script = ExtResource("stats")
+enemy_name = "Anchor Relay"
+board_icon = ExtResource("art1")
+ai = ExtResource("ai")
+max_health = 12
+[sub_resource type="Resource" id="relay2"]
+script = ExtResource("stats")
+enemy_name = "Glass Relay"
+board_icon = ExtResource("art2")
+ai = ExtResource("ai")
+max_health = 12
+[node name="PrismaticSiege" type="Node2D"]
+[node name="Core" parent="." instance=ExtResource("core")]
+[node name="Relay0" parent="." instance=ExtResource("relay")]
+stats = SubResource("relay0")
+[node name="Relay1" parent="." instance=ExtResource("relay")]
+stats = SubResource("relay1")
+[node name="Relay2" parent="." instance=ExtResource("relay")]
+stats = SubResource("relay2")

@@ -1,12 +1,19 @@
 [gd_resource type="Resource" script_class="EncounterDefinition" format=3]
 [ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="script"]
 [ext_resource type="PackedScene" path="res://resources/data/battles/prismatic_siege.tscn" id="composition"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/davina_horror.wav" id="boss_music"]
 [resource]
 script = ExtResource("script")
+boss_music = ExtResource("boss_music")
 encounter_id = "prismatic_siege"
 encounter_name = "Prismatic Siege"
-battle_tier = 2
+battle_tier = 8
 category = 2
+player_start_cell = Vector2i(5, 8)
+enemy_start_cells = Array[Vector2i]([Vector2i(6, 5), Vector2i(4, 6), Vector2i(8, 6), Vector2i(6, 4)])
+arena_floor = 0
+terrain_cells = Dictionary[Vector2i, int]({Vector2i(4, 7): 3, Vector2i(8, 7): 3, Vector2i(3, 4): 1, Vector2i(9, 4): 1})
+reveal_arena = true
 weight = 1.0
 gold_reward_min = 105
 gold_reward_max = 125

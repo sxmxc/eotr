@@ -41,6 +41,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func generate_new_map() -> void:
+	for container: Node in [map_nodes, lines]:
+		for child in container.get_children():
+			container.remove_child(child)
+			child.queue_free()
+	last_map_node = null
 	floors_climbed = 0
 	map_data = map_generator.generate_map()
 	create_map()
@@ -67,7 +72,7 @@ func create_map() -> void:
 			if map_node.next_nodes.size() > 0:
 				_spawn_map_node(map_node)
 	var middle := floori(MapGenerator.MAP_WIDTH * .5)
-	_spawn_map_node(map_data[MapGenerator.FLOORS - 1][middle])
+	_spawn_map_node(map_data[map_generator.floor_count - 1][middle])
 
 	var map_width_pixels := MapGenerator.X_DIST * (MapGenerator.MAP_WIDTH - 1)
 	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
@@ -108,7 +113,7 @@ func hide_map() -> void:
 func center_camera_on_current_floor():
 	var target_floor = floors_climbed
 	var floor_node : MapNode
-	if target_floor == MapGenerator.FLOORS:
+	if target_floor == map_generator.floor_count:
 		floor_node = map_data[target_floor - 1][0]
 	else:
 		floor_node = map_data[target_floor][0]
@@ -171,7 +176,9 @@ func _ensure_bounty_board() -> void:
 
 
 func _update_bounty_board() -> void:
-	$MapChrome/Progress.text = "Floor %d / %d\nChoose your next encounter\nScroll to explore" % [mini(floors_climbed + 1, MapGenerator.FLOORS), MapGenerator.FLOORS]
+	var act_title := map_generator.act.title if map_generator.act else "The Fracture"
+	$MapChrome/Title.text = act_title.to_upper()
+	$MapChrome/Progress.text = "Floor %d / %d\nChoose your next encounter\nScroll to explore" % [mini(floors_climbed + 1, map_generator.floor_count), map_generator.floor_count]
 	for entry: MapNodeUI in map_nodes.get_children():
 		entry.update_route_state(entry.map_node == last_map_node)
 	for route: Line2D in lines.get_children():

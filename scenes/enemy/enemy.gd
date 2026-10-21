@@ -62,6 +62,9 @@ func _physics_process(_delta):
 	
 
 func set_stats(value: EnemyStats) -> void:
+	# Inherited scenes can deserialize an empty base export before their override.
+	if value == null:
+		return
 	stats = value.create_instance()
 	if not stats.stats_changed.is_connected(update_stats):
 		stats.stats_changed.connect(update_stats)

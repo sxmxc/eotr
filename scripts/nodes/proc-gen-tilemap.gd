@@ -154,6 +154,10 @@ func generate_tilemap(battle_stats: EncounterDefinition):
 			if !is_tile_in_shape(tile_position):
 				continue
 			var tile_type: Enums.TileType = weighted_random_tile()
+			if battle_stats.arena_floor >= 0:
+				tile_type = battle_stats.arena_floor as Enums.TileType
+			if battle_stats.terrain_cells.has(tile_position):
+				tile_type = battle_stats.terrain_cells[tile_position] as Enums.TileType
 			base_layer.set_cell(tile_position, 0, tile_dict[tile_type])
 			fog_layer.set_cell(tile_position, 1, Vector2i(1, 1))  # Cover with fog
 			var resources := 0
@@ -163,6 +167,8 @@ func generate_tilemap(battle_stats: EncounterDefinition):
 			tile_map_data[tile_position] = tile_data
 			if tile_type == Enums.TileType.RESOURCE and resources == 0:
 				base_layer.set_cell(tile_position, 0, RESOURCE_USED_ID)
+	if battle_stats.reveal_arena:
+		hide_fog()
 	map_generated.emit()
 	has_generated = true
 	center_marker.global_position = get_center_tile_global_position()
@@ -263,6 +269,15 @@ func set_resource_count(tile_pos: Vector2i, amount: int) -> void:
 	Events.tile_updated.emit(tile_data)
 	presentation_changed.emit()
 
+func change_terrain(cell: Vector2i, type: Enums.TileType) -> void:
+	if not is_within_bounds(cell):
+		return
+	tile_map_data[cell].type = type
+	var atlas := RESOURCE_USED_ID if type == Enums.TileType.RESOURCE and tile_map_data[cell].resource_count == 0 else tile_dict[type]
+	base_layer.set_cell(cell, 0, atlas)
+	Events.tile_updated.emit(tile_map_data[cell])
+	presentation_changed.emit()
+
 
 func get_resource_count(tile_pos: Vector2i) -> int:
 	var tile_data: HexTileData = tile_map_data.get(tile_pos, null)
@@ -351,6 +366,8 @@ func teleport_player(tile_pos) -> void:
 
 func place_obelisk(obelisk_to_place: Obelisk) -> void:
 	obelisk = obelisk_to_place
+	if not is_instance_valid(obelisk):
+		return
 	var center_tile = get_center_tile_coord()
 	obelisk_position = base_layer.map_to_local(center_tile)
 	obelisk.position = obelisk_position

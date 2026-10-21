@@ -15,6 +15,9 @@ const EVENT_NODE_WEIGHT := 3.5
 @export var left_gutter_offset: int = 50  # <-- You can tweak this value
 @export var encounter_registry: EncounterRegistry
 @export var encounter_tags: Array[String] = []
+var act: ActDefinition
+var floor_count: int:
+	get: return act.floors if act else FLOORS
 
 var random_map_node_type_weights = {
 	Enums.MapNodeType.MONSTER: 0.0,
@@ -33,7 +36,7 @@ func generate_map() -> Array[Array]:
 
 	for j in starting_points:
 		var current_j := j
-		for i in FLOORS - 1:
+		for i in floor_count - 1:
 			current_j = _setup_connection(i, current_j)
 
 	recent_encounter_ids.clear()
@@ -41,6 +44,7 @@ func generate_map() -> Array[Array]:
 	_setup_boss_room()
 	_setup_random_node_weights()
 	_setup_map_node_types()
+	_ensure_elite_alternatives()
 
 	return map_data
 
@@ -48,7 +52,7 @@ func generate_map() -> Array[Array]:
 func _generate_initial_grid() -> Array[Array]:
 	var result: Array[Array] = []
 
-	for i in FLOORS:
+	for i in floor_count:
 		var adjacent_map_nodes: Array[MapNode] = []
 
 		for j in MAP_WIDTH:
@@ -60,7 +64,7 @@ func _generate_initial_grid() -> Array[Array]:
 			current_map_node.next_nodes = []
 
 			# Boss map_node has a non-random Y
-			if i == FLOORS - 1:
+			if i == floor_count - 1:
 				current_map_node.position.y = i * -Y_DIST
 
 			adjacent_map_nodes.append(current_map_node)
@@ -125,17 +129,17 @@ func _would_cross_existing_path(i: int, j: int, map_node: MapNode) -> bool:
 
 func _setup_boss_room() -> void:
 	var middle := floori(MAP_WIDTH * 0.5)
-	var boss_room := map_data[FLOORS - 1][middle] as MapNode
+	var boss_room := map_data[floor_count - 1][middle] as MapNode
 
 	for j in MAP_WIDTH:
-		var current_map_node = map_data[FLOORS - 2][j] as MapNode
+		var current_map_node = map_data[floor_count - 2][j] as MapNode
 		if current_map_node.next_nodes:
 			current_map_node.next_nodes.clear()
 			current_map_node.next_nodes.append(boss_room)
 
 	boss_room.type = Enums.MapNodeType.BOSS
 	var boss_tags := encounter_tags.duplicate()
-	boss_room.battle_stats = _pick_battle_for_tier(2, true, true, boss_tags)
+	boss_room.battle_stats = _pick_battle_for_tier(act.boss_tier if act else 2, false, true, boss_tags)
 
 
 func _setup_random_node_weights() -> void:
@@ -156,7 +160,7 @@ func _setup_map_node_types() -> void:
 	for map_node: MapNode in map_data[0]:
 		if map_node.next_nodes.size() > 0:
 			map_node.type = Enums.MapNodeType.MONSTER
-			map_node.battle_stats = _pick_battle_for_tier(0, true, false, encounter_tags)
+			map_node.battle_stats = _pick_battle_for_tier(act.early_tier if act else 0, false, false, encounter_tags)
 
 	# 9th floor is always a treasure
 	for map_node: MapNode in map_data[8]:
@@ -164,9 +168,13 @@ func _setup_map_node_types() -> void:
 			map_node.type = Enums.MapNodeType.TREASURE
 
 	# last floor is always a campfire
-	for map_node: MapNode in map_data[13]:
+	for map_node: MapNode in map_data[floor_count - 2]:
 		if map_node.next_nodes.size() > 0:
 			map_node.type = Enums.MapNodeType.REST
+	if act:
+		for row in act.recovery_rows:
+			for map_node: MapNode in map_data[row]:
+				if not map_node.next_nodes.is_empty(): map_node.type = Enums.MapNodeType.REST
 
 	# rest of rooms
 	for current_floor in map_data:
@@ -205,7 +213,7 @@ func _set_map_node_randomly(nodes_to_set: MapNode) -> void:
 
 	nodes_to_set.type = type_candidate
 	if type_candidate == Enums.MapNodeType.MONSTER:
-		var tier_for_monster_nodes := 0 if nodes_to_set.row <= 2 else 1
+		var tier_for_monster_nodes := (act.early_tier if act else 0) if nodes_to_set.row <= 2 else (act.late_tier if act else 1)
 		nodes_to_set.battle_stats = _pick_battle_for_tier(
 			tier_for_monster_nodes, true, false, encounter_tags
 		)
@@ -236,6 +244,19 @@ func _map_node_has_parent_of_type(map_node: MapNode, type: Enums.MapNodeType) ->
 			return true
 
 	return false
+
+func _ensure_elite_alternatives() -> void:
+	# Every entrance to an Elite must offer a connected non-Elite route.
+	for row: Array in map_data:
+		for node: MapNode in row:
+			if node.next_nodes.is_empty(): continue
+			var only_elites := true
+			for next: MapNode in node.next_nodes:
+				if next.type != Enums.MapNodeType.ELITE: only_elites = false
+			if only_elites:
+				var safe := node.next_nodes[0] as MapNode
+				safe.type = Enums.MapNodeType.MONSTER
+				safe.battle_stats = _pick_battle_for_tier(act.late_tier if act else 1, false, false, encounter_tags)
 
 
 func _get_random_map_node_type_by_weight() -> Enums.MapNodeType:

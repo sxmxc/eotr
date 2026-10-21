@@ -1,0 +1,53 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://scenes/run/act_transition.gd" id="script"]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="art"]
+[ext_resource type="PackedScene" path="res://ui/card_selection/card_cost_selection.tscn" id="selection"]
+[node name="ActTransition" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("theme")
+script = ExtResource("script")
+[node name="Backdrop" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("art")
+expand_mode = 1
+stretch_mode = 6
+modulate = Color(0.2, 0.24, 0.3, 1)
+mouse_filter = 2
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+[node name="Layout" type="VBoxContainer" parent="Center"]
+custom_minimum_size = Vector2(760, 0)
+theme_type_variation = &"SpaciousStack"
+[node name="Title" type="Label" parent="Center/Layout"]
+unique_name_in_owner = true
+theme_type_variation = &"Title"
+horizontal_alignment = 1
+[node name="Next" type="Label" parent="Center/Layout"]
+unique_name_in_owner = true
+theme_type_variation = &"ShopSubtitle"
+horizontal_alignment = 1
+[node name="Story" type="Label" parent="Center/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(760, 70)
+autowrap_mode = 2
+horizontal_alignment = 1
+[node name="Reward" type="Label" parent="Center/Layout"]
+unique_name_in_owner = true
+autowrap_mode = 2
+horizontal_alignment = 1
+[node name="Continue" type="Button" parent="Center/Layout"]
+unique_name_in_owner = true
+text = "Recover 40% HP and enter the next act"
+theme_type_variation = &"MenuPrimary"
+[node name="Refine" type="Button" parent="Center/Layout"]
+unique_name_in_owner = true
+text = "Remove a card and recover 20% HP"
+[node name="SelectionLayer" type="CanvasLayer" parent="."]
+layer = 12
+[node name="Selection" parent="SelectionLayer" instance=ExtResource("selection")]

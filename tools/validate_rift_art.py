@@ -67,7 +67,7 @@ def validate():
         ref='res://'+p.relative_to(ROOT).as_posix()
         if ref not in refs:unused.append(p.relative_to(ROOT).as_posix())
     if unused:issues.append('Unused final assets: '+', '.join(unused))
-    manifest=json.loads((ROOT/'ai/docs/rift-asset-inventory.json').read_text())
+    manifest=json.loads((ROOT/'ai/visual/reference/rift-asset-inventory.json').read_text())
     remaining=[x['old'] for x in manifest['assets'] if (ROOT/x['old'].removeprefix('res://')).exists()]
     if remaining:issues.append('Superseded sources remain: '+', '.join(remaining))
     return issues,dict(cards=cards,entities=entities,fx=fx_count,art_files=sum(1 for p in ART.rglob('*') if p.suffix in ['.webp','.png','.svg']),bytes=sum(p.stat().st_size for p in ART.rglob('*') if p.is_file()))

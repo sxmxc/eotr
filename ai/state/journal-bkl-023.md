@@ -1,6 +1,6 @@
 # 2026-10-20 - BKL-023: Obelisk terminology
 
-- Added ai/docs/obelisks.md as the canonical description of existing variants and
+- Added docs/combat.md as the canonical description of existing variants and
   current role. Obelisk destruction stops its actions and summons, but remaining
   hostiles must still be defeated. Linked the encounter authoring workflow.
 - Kept player-facing names, resource paths, gameplay and presentation unchanged.

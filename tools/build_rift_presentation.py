@@ -17,7 +17,7 @@ def save(image, path):
 
 
 def build_variants():
-    content=json.loads((ROOT/'ai/docs/rift-content.json').read_text())
+    content=json.loads((ROOT/'ai/visual/reference/rift-content.json').read_text())
     for index,(key,data) in enumerate(content['enemies'].items()):
         if 'base' not in data:continue
         image=Image.open(ART/'entities'/(data['base']+'.webp')).convert('RGBA')

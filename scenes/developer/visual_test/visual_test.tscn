@@ -2,6 +2,7 @@
 [ext_resource type="Script" path="res://scenes/developer/visual_test/visual_test.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/autowalker/runners/runner.gd" id="2"]
 [node name="VisualTest" type="Node"]
+process_mode = 3
 script = ExtResource("1")
 [node name="Runner" type="Node" parent="."]
 script = ExtResource("2")

@@ -1,7 +1,7 @@
 extends Resource
 class_name EnemyTactics
 
-enum Role { HUNTER, NEEDLE, GUARDIAN, MENDER, SIPHON, REAVER, SCAVENGER, HEXER }
+enum Role { HUNTER, NEEDLE, GUARDIAN, MENDER, SIPHON, REAVER, SCAVENGER, HEXER, DEBT_EATER }
 @export var role: Role = Role.HUNTER
 @export_range(1, 5) var preferred_range := 1
 @export_range(1, 3) var steps := 1

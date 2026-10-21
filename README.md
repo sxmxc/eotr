@@ -2,128 +2,41 @@
 
 [![Release build](https://github.com/sxmxc/eotr/actions/workflows/build_release.yml/badge.svg)](https://github.com/sxmxc/eotr/actions/workflows/build_release.yml)
 
-Echoes of the Rift is a hybrid hex-grid tactics x deckbuilder. Each battle blends positional play (fog of war, shrinking arenas, an Obelisk objective) with card-driven actions, relics, and resource-gathering tiles.
+The Rift is a tactical deckbuilding roguelite built with Godot. Spend energy on attacks, defense, movement and gathering
+across a hex battlefield. Fog hides threats and periodic collapse removes outer
+cells. Between battles, choose routes, acquire cards and relics, and manage health
+through three acts.
 
-## What’s In This Build
+## Run the project
 
-- Hex map with fog, resource, corrupted, mana well, rift gate, and ruin tiles.
-- Active Obelisk attacks/summons, enemy-elimination victory and periodic board shrink.
-- Deck/energy system with rarities, exhaust, and status-driven modifiers.
-- Enemy AI defined by weighted/conditional actions and per-unit stats.
-- Dev sandbox for fast iteration (spawn enemies, add cards, regenerate maps).
+1. Install **Godot 4.7.2** and open `project.godot`. Let resource imports finish.
+2. Press **F5** for the splash/menu/new-run flow. For combat experimentation,
+   open `scenes/sandbox/gameworld_sandbox.tscn` and press **F6**.
+3. Drag cards to aim; right-click cancels aiming. End Turn starts the enemy phase.
+   The sandbox panel can add cards, spawn enemies and regenerate the battlefield.
 
-## Quickstart
-
-1. Install Godot 4.7.2 (use the renderer configured in project.godot).
-2. Open the project and run the default main scene (`scenes/splash_screens/splash_screen.tscn`) for the full flow, or run `scenes/sandbox/gameworld_sandbox.tscn` for instant combat iteration.
-3. Controls: drag/aim cards to targets, right-click to cancel aim, End Turn ends the player phase.
-
-## Playtesting the Deckbuilder
-
-- Use the Sandbox (`scenes/sandbox/gameworld_sandbox.tscn`):
-  - Dev Panel lets you regenerate the map, spawn enemies, toggle fog, refill energy/health, and pass turns.
-  - Card dropdowns add cards to hand/draw/discard; “Draw Card” triggers a draw.
-- LimboConsole commands (press the console hotkey):
-  - `draw_card` (from `PlayerHandler`) draws the top card.
-  - `hide_fog` / `show_fog`, `show_resources` / `hide_resources` (from `ProcGenTilemap`) adjust visibility.
-- To sanity-check drafts: add cards to the draw pile, pass turn, and observe energy/block/HP deltas in the Dev Panel.
-
-## Adding New Cards
-
-1. Create a script that extends `Card` (see `resources/data/cards/riftwalker/arcane_bolt.gd`) and implement `apply_effects` plus optional `get_modified_description` / `is_valid_target`.
-2. Make a `.tres` resource for the card (art, cost, rarity, target_type, sfx/vfx, projectile) pointing to your script.
-3. Register it in `resources/data/registries/card_registry_riftwalker.tres` (or add via the Sandbox Dev Panel pulling from `RegistryData`).
-4. Test quickly in `gameworld_sandbox.tscn` by adding the card to hand/draw and spawning a target.
-
-## Adding New Enemies & Encounters
-
-- Enemy:
-  1. Create an `EnemyStats` resource (see `scenes/enemy/bat/bat_enemy.tres`) with icon, sounds, HP, AI scene, and rewards.
-  2. If it moves, point to `moving_enemy.tscn`; if static, use/duplicate `enemy.tscn` variants.
-  3. Add to `resources/data/catalogs/enemy_catalog.tres` with tags for filtering.
-- Encounter:
-  1. Build an authored composition scene that instances your enemies (`resources/data/battles/*.tscn`).
-  2. Create an `EncounterDefinition` resource with a stable ID, tier, category, weight, composition, battlefield settings and rewards.
-  3. Add its resource reference to `EncounterRegistry.encounters` in `resources/data/registries/encounter_registry_act1.tres`. The registry is the only weighted encounter selector.
-
-The [overhaul report](ai/docs/rift-overhaul.md) lists the expanded roster, variants,
-encounters, art workflow and validation. Final artwork lives in `assets/rift/`;
-the [asset inventory](ai/docs/rift-asset-inventory.json) records replacements and usage.
-Run `python tools/validate_rift_art.py` to check references, transparency, resolution,
-hex footprints, obsolete sources and unused outputs. Card illustrations and class
-screens reuse fixed illustrated character masters to keep costumes consistent.
-
-## Architecture Notes
-
-- Core logic lives in `scenes/game_world/game_world.gd` (battle loop), `scenes/player/player_handler.gd` (hand/turn), `scripts/nodes/proc-gen-tilemap.gd` (map/fog/shrink), and `scripts/nodes/enemy_handler.gd` (enemy loop).
-- Reusable effects: `scripts/effects/node` (damage, block, energy), `scripts/effects/tile` (move, gather).
-- Status system: `scripts/resources/status.gd` + `ui/status_ui/status_handler.gd` manage stacks/durations; modifiers live under `scenes/modifier_handler`.
-
-## Developer Utilities
-
-AutoWalker plays the real combat/run scenes visibly or headlessly, with random,
-greedy and stress policies, pause/step controls, replay checkpoints and local reports.
-Start with the [AutoWalker user guide](ai/docs/autowalker.md) for setup, Watch controls,
-headless batches, replays and troubleshooting. See the
-[architecture and validation notes](ai/docs/autowalker-architecture.md) for internals.
-AutoWalker keeps local QA files and uploads bot telemetry when the configured HTTP
-transport is enabled. Use `--telemetry-local` to run without backend access.
-The guide's examples use backend delivery by default. Local QA artifacts have
-automatic age, count and size limits; copy long-term evidence outside `qa/`.
-For dashboard/query access from Codex, see [Grafana access](ai/docs/grafana-access.md).
-
-The reusable [Godot telemetry addon](addons/godot_telemetry/README.md) supports portable
-schemas, HTTP/JSONL/Null delivery and consent-aware bounded buffering. Game configuration
-and migration notes are in [telemetry architecture](ai/docs/telemetry-architecture.md).
-The [analytics backend source package](backend/telemetry/README.md) includes ingestion,
-ClickHouse migrations, Grafana dashboards and deployment artifacts for later hosting.
-No analytics backend services were started during implementation.
-
-The backend is a Git submodule with its own repository and self-contained Docker
-build. Use `git submodule update --init backend/telemetry` to populate it in a game
-checkout, or clone `git@github.com:sxmxc/eotr-telemetry-backend.git` directly on the
-Docker host. Backend changes can be committed and pushed independently; update the
-game's submodule pointer only when recording a newer backend revision.
-
-The [implementation checklist](ai/docs/implementation-checklist.md) records all five
-deliverables, acceptance evidence and remaining validation limits.
-
-- Sandbox Dev Panel: spawn enemies, add cards, refill stats, center/zoom camera, clear fog.
-- RegistryData autoload scans registries/resources for cards and encounters.
-- Audio/FX libraries are prewired; `SoundManager` and PhantomCamera handle feedback.
-
-## Compatibility Validation
-
-After importing the project in Godot 4.7.2, run:
+Python is needed for developer launchers and validators, not ordinary play.
+From PowerShell in the repository root, run an offline compatibility check:
 
 ```powershell
-python tools/validate_project.py --godot D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe
+$godot = 'D:/Godot-Editors/current/Godot_v4.7.2-stable_win64_console.exe'
+python tools/validate_project.py --godot "$godot"
 ```
 
-Use your own executable path. The runner tests this project directly, with Null telemetry delivery and disposable saves/logs in the system temp directory, automatically removed afterward. Never copy or junction the project into a nested test workspace. It checks first-party resource loading, telemetry consent and event recording, sandbox setup and cleanup, new-run saves, and combat startup. See [the upgrade notes](ai/docs/godot-4.7.2-upgrade.md) for remaining validation limits.
+Replace the executable path with your installation. This runs the actual project
+with disposable saves and Null telemetry. See [setup](docs/development.md) for
+dependencies, sandbox use, troubleshooting and release builds.
 
-AutoWalker reports default to `qa/autowalker/`. Compatibility checks run against
-the original project; disposable logs, captures and saves use system temp storage.
-Generated QA files are ignored by Git and Godot imports and excluded from release
-exports. Packaged Windows, Linux and macOS exports remain under `build/`.
+## Developer guides
 
-## 📂 Repository Structure
+The [documentation index](docs/README.md) covers architecture, combat, campaign,
+content authoring, testing, telemetry and visual production. Start with the
+[AutoWalker guide](docs/autowalker.md) to watch or repeat real battles with bot
+policies. Generated evidence goes under `.qa-tmp/`; `build/` is for game exports.
+Gameplay and offline QA do not require an analytics backend.
 
-```
-/
-├── addons/               # Custom Godot editor plugins
-├── assets/               # Art, audio, fonts, animations
-├── resources/            # Data assets (cards, encounters, registries, statuses)
-├── scenes/               # Scene files for battles, map, UI, enemies, sandbox
-├── scripts/              # Core GDScript code
-├── script_templates/     # GDScript templates
-├── ui/                   # User interface and HUD
-├── qa/                   # Explicitly generated AutoWalker reports
-├── build/                # Packaged game exports
-└── README.md
-```
+Coding agents should begin with [AGENTS.md](AGENTS.md). Active planning and
+specialized agent workflows remain under [ai/](ai/README.md).
 
-## Credits
-
-Created by Voidmoose  
-Inspired by *Slay the Spire*, *Into the Breach*, *Griftlands*, and *Settlers of Catan*
+Created by Voidmoose. Inspired by *Slay the Spire*, *Into the Breach*,
+*Griftlands*, and *Settlers of Catan*.

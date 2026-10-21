@@ -1,0 +1,10 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://ui/card_selection/deck_refinement.gd" id="script"]
+[ext_resource type="PackedScene" path="res://ui/card_selection/card_cost_selection.tscn" id="selection"]
+[node name="RefineDeck" type="Button"]
+custom_minimum_size = Vector2(240, 54)
+text = "Refine deck"
+script = ExtResource("script")
+[node name="SelectionLayer" type="CanvasLayer" parent="."]
+layer = 14
+[node name="Selection" parent="SelectionLayer" instance=ExtResource("selection")]

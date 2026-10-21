@@ -17,7 +17,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Evidence: .qa-tmp/art-direction/{before,final,route-check} and visual pipeline
   art-direction-final; prototype screenshots removed. No new assets/dependencies.
   Continuous audio/motion, exports, ultrawide, campaign and hardware QA remain
-  unverified. See ai/docs/final-ui-art-direction.md and its evidence links.
+  unverified. See docs/ui-authoring.md and its evidence links.
 
 
 **2026-10-20 - Visual cohesion and presentation**
@@ -33,7 +33,7 @@ Record notable work here. Use reverse chronological order (newest at top).
   fallbacks. Incremental videos match all 10 actions and final state.
 - Evidence in .qa-tmp/cohesion/ and .qa-tmp/visual/cohesion-{combat,final}.
   Sparse frame review only; continuous motion/audio, campaign/export and hardware
-  QA not established. See ai/docs/presentation-cohesion.md.
+  QA not established. See docs/visual-production.md.
 
 
 **2026-10-20 - Cancel enemy lunges; remove duplicate test projects**
@@ -57,10 +57,10 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Reviewed ordered temporal samples from an 1117-frame/60fps native action/collapse recording; corrected the review fixture's missing Arcane Blast config sync and actual target expansion. Broadened corrosion contact after tactical-scale review. Frame-boundary validator caught bleed in two new sheets; repacked transparent gutters and passed art validation.
 - Final checks: native combat/target/flight and all 29 signature lifetimes; two-shrink integration; native 640-resource shader-alpha/ambient/transition/six-lunge regression; full headless combat; headless AutoWalker seed 42 again 7 turns/27 actions/one summon, zero invalid actions, failures, AI-invalid decisions, softlocks or timeouts. Art (29 cards/32 entities/19 FX), resource and whitespace checks pass.
 - Review scope remains representative, not full campaign/boss/export coverage or an AAA claim. Prior native/headless policy trace divergence and certificate diagnostic remain documented. No gameplay/camera architecture rewrite, vendor edits or backend delivery. Task-only QA artifacts removed after review; existing user QA and concurrently created ai/visual and tools/visual_pipeline files preserved.
-- Persistent direction, audit/dispositions, asset provenance and limitations: ai/docs/battlefield-vfx-overhaul.md, ai/docs/battlefield-ability-direction.json and ai/docs/battlefield-vfx-inventory.json. Status in_review for the delivered corrective pass.
+- Persistent direction, audit/dispositions, asset provenance and limitations: docs/visual-production.md, ai/docs/battlefield-ability-direction.json and ai/docs/battlefield-vfx-inventory.json. Status in_review for the delivered corrective pass.
 
 **2026-10-18 - Codex: comprehensive battlefield and VFX presentation pass**
-- Audited 19 existing shaders, 26 GPU emitters, 17 particle materials, 54 reusable FX/world scenes, animation resources, card bindings and script presentation candidates. Persistent paths, dependencies, ten review dimensions and final dispositions: ai/docs/battlefield-vfx-inventory.json. Direction, decisions and limitations: ai/docs/battlefield-vfx-overhaul.md.
+- Audited 19 existing shaders, 26 GPU emitters, 17 particle materials, 54 reusable FX/world scenes, animation resources, card bindings and script presentation candidates. Persistent paths, dependencies, ten review dimensions and final dispositions: ai/docs/battlefield-vfx-inventory.json. Direction, decisions and limitations: docs/visual-production.md.
 - Replaced the exact-mask 64px atlas with broad illustrated ashlar; added cached exposed-edge depth, quieter void motion, amber warnings and six actual-art shards per collapse. Preserved TileSet, navigation, collision, coordinates, state transitions and gameplay RNG.
 - Refined six spell families, added mend and silent-variant feedback; consolidated projectile implementations and pause ambience. Ambient particles 6000 to 48, card trails 128 to 36, aiming trails 100 to 28 and mana motes 24 to 10. Replaced overlapping UI pulses; restrained camera/edge feedback; child-only lunges/squash and corrected Obelisk offset.
 - Native terrain/card checks pass; all 26 signatures release after overlap. Full headless combat, native shader-alpha/ambient/transition/six-attack checks, art and resource checks pass. Native Watch and headless encounters have zero invalid actions, failures, softlocks or timeouts. Investigated and fixed terrain/contact and tutorial-paused fixture failures.
@@ -71,7 +71,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Centered artwork contact, ground/hover/gate markers and idle offsets on logical hex origins; traces, picking and body-effect anchors follow the corrected art pivot. Scales and occupancy preserved.
 - Route screen now uses opaque aligned faces, clear state contrast, solid labels and sidebar, a readable title, no particle clutter, and trimmed connections beneath faces.
 - Added 25 authored spell signature scenes across six motion/shape families with illustrated layers; differentiated Overload, Sever and Void Shard projectiles. Connected configured energy feedback and optional cosmetic utility casts.
-- Full headless combat and AutoWalker passed; focused native anchor/picking, map/connection/selection, spell cleanup and real projectile-card checks passed. Art/resource and whitespace checks passed. Temporary QA workspace absent. See ai/docs/battlefield-presentation.md.
+- Full headless combat and AutoWalker passed; focused native anchor/picking, map/connection/selection, spell cleanup and real projectile-card checks passed. Art/resource and whitespace checks passed. Temporary QA workspace absent. See docs/visual-production.md.
 
 
 **2026-10-18 - Codex: battlefield presentation follow-up and harvesting fix**
@@ -79,13 +79,13 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Kept Phantom Camera authoritative; tactical framing uses revealed bounds at 1.9-2.15 zoom. Continuous dark world-space fog retains hex alpha, and reveal feedback fades the fog rather than growing stone sprites. Moved camera hints clear of notification toasts.
 - Enlarged spell strokes/particles/projectiles, improved contrast/timing, and authored launch/impact anchors. Hit flashes retain outlines. Rift gates animate while visible and burst on real departure/arrival without changing teleport resolution.
 - Fixed Echo Harvest's zero config payout, failure to consume deposits, and hex-as-pixel FX coordinates. Deposit count, depleted atlas state and HUD now update together; repeated harvest cannot duplicate resources. Initially empty deposits render depleted. Ruin reward mechanics remain unchanged.
-- Full headless combat regression: zero failures. Focused native fog/HUD, harvest/depletion/repeat protection, teleport, visibility, picking, grid and camera checks: zero failures. Reviewed fixed-name battle/harvest/Arcane Bolt captures. Art/resource validation passed; one seven-turn AutoWalker encounter had zero invalid actions, failures, softlocks or timeouts. Removed task QA output, retained prior user QA data. See ai/docs/battlefield-presentation.md.
+- Full headless combat regression: zero failures. Focused native fog/HUD, harvest/depletion/repeat protection, teleport, visibility, picking, grid and camera checks: zero failures. Reviewed fixed-name battle/harvest/Arcane Bolt captures. Art/resource validation passed; one seven-turn AutoWalker encounter had zero invalid actions, failures, softlocks or timeouts. Removed task QA output, retained prior user QA data. See docs/visual-production.md.
 
 
 **2026-10-18 - Codex: 64px battlefield, terrain and Phantom Camera framing**
 - Migrated board/fog/atlas, navigation/collision, picking and overlays to 64px pointy hexes. Doubled original characters and shadows proportionally, preserving smaller Spectre proportions; replaced eight-cell terrain atlas without changing addresses or combat mechanics.
 - Existing Phantom Camera supplies HUD-safe tactical/overview/inspection framing. Detached competing production Camera2D script; guarded inactive spotlight waits. Wheel/MMB inspect, Home resets and F fits; targeting locks framing and collapse reframes once per batch. Updated shader normalization, FX footprints and projectile speeds.
-- Art/resource checks, five launcher tests, focused native checks and one seven-turn headless AutoWalker encounter pass. Full combat pass found only a new float-precision assertion; corrected tolerance passed focused reruns. Fixed discovered camera and edge-framing defects using fixed output filenames. See ai/docs/battlefield-presentation.md for validation limits, existing cube-distance discrepancy and QA cleanup recommendations.
+- Art/resource checks, five launcher tests, focused native checks and one seven-turn headless AutoWalker encounter pass. Full combat pass found only a new float-precision assertion; corrected tolerance passed focused reruns. Fixed discovered camera and edge-framing defects using fixed output filenames. See docs/visual-production.md for validation limits, existing cube-distance discrepancy and QA cleanup recommendations.
 - Generated outputs now default to ignored .qa-tmp. This task's temporary projects, saves, logs and screenshots were removed after inspection. Existing qa data remains intact.
 
 
@@ -95,7 +95,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Replaced duplicate/expanded hover aura with theme-bound tint; corrected all seven legend mappings using the same MapNode theme icons. Resource HUD icon matches crystal terrain; normalized health/clock sizing. Route selection reads Entering before battle instead of flashing Cleared.
 - Replaced scrolling arc shader with ink/core bands and corrected integer tween endpoints, UV texture, layering and fade checks. Guarded interrupted projectile charge, fixed Obelisk world-coordinate movement and removed its projectile camera takeover. Reusable native sprite lifecycle hides persistent wards and frees transients.
 - Reviewed first-party FX, particles, hit/death, movement, collapse, summoning, gathering, treasure, ambient and UI shader uses. Reduced death stacking, bounded impact/restoration/reward particles and replaced green/comic gather feedback with shared gold outlined text. Specialized fog/targeting/flash/burn/vignette shaders retained with explicit decisions.
-- Removed 67 superseded legacy files/sidecars after path/UID scans, plus rejected marker preview; no addon edits. Native UI and combat, headless combat, art/reference/resource checks and diff whitespace checks pass. Three offline encounters and one rendered 12-turn victory completed without harness failures, invalid player actions, softlocks or timeouts; existing AI fallback counters and Windows certificate diagnostic documented. Full campaign/export/hardware performance remains untested. See ai/docs/icon-fx-followup.md and visual-effects-inventory.json.
+- Removed 67 superseded legacy files/sidecars after path/UID scans, plus rejected marker preview; no addon edits. Native UI and combat, headless combat, art/reference/resource checks and diff whitespace checks pass. Three offline encounters and one rendered 12-turn victory completed without harness failures, invalid player actions, softlocks or timeouts; existing AI fallback counters and Windows certificate diagnostic documented. Full campaign/export/hardware performance remains untested. See docs/visual-production.md and visual-effects-inventory.json.
 
 
 **2026-10-18 - Codex: original card art, terrain and combat presentation**
@@ -103,7 +103,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Replaced symbol terrain with coherent physical surfaces while preserving exact atlas geometry, navigation, targeting and authoritative state. Preserved character art and footprints.
 - Audited 18 shaders, removed six unused variants, fixed arc coordinates/uniforms/materials/lifetimes and alpha/tint/shine defects. Added bounded movement traces and summon wisps; fixed ineffective teleport parent fade. Reduced impact/card-trail GPU allocations and verified overlapping effect cleanup.
 - Removed obsolete card/terrain compositors, arena background and old assets/card frame sources. The existing shared CardVisuals scene/theme remains authoritative and now honors editor-authored normal face styling.
-- Native/headless compatibility and actual combat checks pass; three offline AutoWalker seeds plus one native Watch encounter completed without simulation failures, invalid card actions, softlocks or timeouts. Collapse, summons, deaths and Obelisk destruction exercised. Existing AI fallbacks/platform diagnostics documented. Hardware FPS, full campaign and export QA not claimed. See ai/docs/visual-production.md.
+- Native/headless compatibility and actual combat checks pass; three offline AutoWalker seeds plus one native Watch encounter completed without simulation failures, invalid card actions, softlocks or timeouts. Collapse, summons, deaths and Obelisk destruction exercised. Existing AI fallbacks/platform diagnostics documented. Hardware FPS, full campaign and export QA not claimed. See docs/visual-production.md.
 
 
 **2026-10-17 – Codex: trustworthy QA metrics, bounded storage and Grafana access**
@@ -162,7 +162,7 @@ Record notable work here. Use reverse chronological order (newest at top).
   checks and diff whitespace checks pass. No backend services started or contacted.
 
 **2026-10-17 – Codex: AutoWalker documentation walkthrough**
-- Added `ai/docs/autowalker.md` with an offline first-battle walkthrough, Watch controls,
+- Added `docs/autowalker.md` with an offline first-battle walkthrough, Watch controls,
   headless batches, result interpretation, replay, progression, comparisons, option
   defaults and troubleshooting. Linked it from the root README and architecture notes.
 - Kept implementation details and historical validation evidence in the architecture
@@ -282,7 +282,7 @@ Record notable work here. Use reverse chronological order (newest at top).
   Reproduced three failed assertions before the fix; the updated standalone test passes.
 
 **2026-10-17 – Codex: combat, AutoWalker, reusable telemetry and analytics source package**
-- Implemented all five deliverables tracked in `ai/docs/implementation-checklist.md`.
+- Implemented all five deliverables tracked in `docs/testing.md`.
   Enemy elimination replaces automatic Obelisk victory; guarded enemy turns, bounded
   tactical movement, collapse escape, occupied movement and pure AI predicates retain
   the existing weighted/conditional architecture and enemy roster.
@@ -318,7 +318,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 
 **2025-12-15 – Codex**
 - Summary: Migrated more Riftwalker cards to the CardResolver pipeline: Arcane Explosion and Void Shard now use data-driven damage configs; Overload Shot, Void Surge, and Deminishing Returns build resolver configs at play time for dynamic damage. Added a resolver-first note to the card workflow doc.
-- Files: `resources/data/cards/riftwalker/arcane_explosion.gd`, `.tres`, `resources/data/cards/riftwalker/void_shard.gd`, `.tres`, `resources/data/cards/riftwalker/overload_shot.gd`, `resources/data/cards/riftwalker/void_surge.gd`, `resources/data/cards/riftwalker/deminishing_returns.gd`, `ai/docs/workflows.md`
+- Files: `resources/data/cards/riftwalker/arcane_explosion.gd`, `.tres`, `resources/data/cards/riftwalker/void_shard.gd`, `.tres`, `resources/data/cards/riftwalker/overload_shot.gd`, `resources/data/cards/riftwalker/void_surge.gd`, `resources/data/cards/riftwalker/deminishing_returns.gd`, `ai/workflows/development.md`
 - Verification: Manual sandbox check advised for new resolver cards; no automated tests run.
 - Follow-ups: Migrate remaining cards once resolver supports energy/status/multi-hit, and consider adding resolver effect types for energy/status.
 
@@ -459,7 +459,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Added safe defaults for partial settings, restored sandbox offline state, removed the menu/data-editor preload cycle, repaired 18 external-resource UIDs, corrected the renderer feature tag, and updated CI to 4.7.2.
 - Fixed Obelisk scene teardown triggering victory and detached world-message timer calls. Added fallback returns to four gradient shaders.
 - Verification: loaded 487 first-party resources; numeric event/alias/opt-out checks; menu, sandbox, new run, save/load, and combat startup. Final isolated headless runner exited 0 with zero failed assertions and no script errors. Hidden D3D12/Forward+ smoke run also passed, with no shader compilation errors.
-- Remaining diagnostics/limits: headless dummy-renderer sampler diagnostics, sandbox Windows certificate-store access failure, a retained MapNode script at shutdown, and stale imported-background UID cache warnings. Live backend delivery, packaged exports, and complete campaign QA remain unverified. Details: `ai/docs/godot-4.7.2-upgrade.md`; repeatable runner: `tools/validate_project.py`.
+- Remaining diagnostics/limits: headless dummy-renderer sampler diagnostics, sandbox Windows certificate-store access failure, a retained MapNode script at shutdown, and stale imported-background UID cache warnings. Live backend delivery, packaged exports, and complete campaign QA remain unverified. Details: `docs/development.md`; repeatable runner: `tools/validate_project.py`.
 
 **2026-10-17 – Codex: scene/resource architecture cleanup**
 - Replaced fourteen identical embedded RGFloat emission images with one compressed binary texture; verified the saved image bytes exactly.
@@ -467,7 +467,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Moved BattlePresentation's fixed controls/material into an editor-visible scene, instanced by game_world.tscn, with per-instance material state.
 - Added the scene resource guard to the validation runner and coverage for binary resources, all seven particle layouts, overlay animation completion, and material isolation.
 - Verification: baseline and updated offline Godot 4.7.2 smoke checks passed with zero failed assertions; existing headless shader/certificate/shutdown diagnostics remain. An intermediate run retained more resources; verbose and subsequent checks returned to baseline. No visual/export/campaign QA performed.
-- Remaining work and manual QA: ai/docs/godot-architecture-audit.md. Existing dirty working tree and addons preserved.
+- Remaining work and manual QA: docs/architecture.md. Existing dirty working tree and addons preserved.
 **2026-10-17 – Codex: run.tscn large text-resource warning**
 - The run scene is now text rather than the previous binary run.scn. Its pause menu contained two identical embedded RGFloat images and sixteen cache texture dependencies.
 - Reused menu_emission_points.res and original star PNGs. Reduced run.tscn from 9,916,548 to 35,936 bytes. Compared emission arrays with the previously verified texture source and asserted every node/connection section stayed unchanged.
@@ -476,7 +476,7 @@ Record notable work here. Use reverse chronological order (newest at top).
 **2026-10-17 – Codex: reliable hand cleanup and exhausted decks**
 - Reproduced animation-dependent discard loss, null-card draw errors, and a zero-card empty-tween error. Committed discard state before phase notification, detached standalone controls, guarded empty draws, and completed zero-card draw phases directly.
 - Added focused hand-cycle cases to the existing isolated compatibility scene. Godot 4.7.2 runner passed with 494 resources and zero failed assertions; existing shader/certificate/shutdown diagnostics remain. No rendered visual QA or campaign playthrough. Existing run.tscn edits preserved.
-- Continuity and follow-ups: `ai/docs/continuous-improvement.md`; next investigate card resolution versus end-turn timing and empty enemy turns, establishing actual failures first.
+- Continuity and follow-ups: `ai/state/continuous-improvement.md`; next investigate card resolution versus end-turn timing and empty enemy turns, establishing actual failures first.
 
 **2026-10-17 – Codex: DataEditor enum startup crash**
 - Fixed _populate_enum_options and _populate_card_filters using inherited Node.name as a dictionary key rather than enum_name/rarity_name. This caused lookups for the key DataEditor and aborted startup population.
@@ -489,32 +489,32 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Corrected both fullscreen shaders to respect CanvasItem modulation, the outcome vignette edge, whole-screen scaling and intro effects freezing over paused tutorials. Victory awaits completion, outgoing views detach immediately, and transient presentation no longer changes global music volume.
 - Verification: isolated Godot 4.7.2 headless runner exited 0 with zero failed assertions. Native D3D12 checks also reported zero failed assertions, including actual shader pixels at zero/half/full opacity and scene pack/save/reload ownership. Reviewed reward confirmation, shop, enemy inspection, selection/pile and victory captures. Existing hand-cycle, editor startup, sandbox, save overwrite, clock and shake checks remain in the suite. Resource guard and diff whitespace checks pass.
 - Limits: native runner still exits nonzero on texture/resource shutdown diagnostics; headless shader/certificate and known shutdown retention diagnostics remain. No full campaign, release export or performance benchmark. Godot repeatedly resaved an old in-memory run.tscn during work; restored the extracted composition and told the user to reload from disk before saving.
-- Authoring and continuity: ai/docs/ui-authoring.md, ai/docs/continuous-improvement.md and updated ai/docs/godot-architecture-audit.md. Particle profiling and further board simulation separation remain explicit opportunities.
+- Authoring and continuity: docs/ui-authoring.md, ai/state/continuous-improvement.md and updated docs/architecture.md. Particle profiling and further board simulation separation remain explicit opportunities.
 
 **2026-10-18 – Codex: reliable event choices and caravan affordability**
 - Reproduced failed caravan trades consuming the entire event choice and repeated callbacks granting additional rewards. Centralized existing costs on event options, checked affordability before committing, guarded completed choices, and refreshed native button states from currency signals. Unavailable trades explain their requirements; successful choices focus Leave.
 - Existing offline smoke runner now supports `--event-room-only`. Regression baseline had eleven failed assertions; targeted headless/native D3D12 runs and the compatibility smoke pass (531 resources, zero failures, exit 0). Inspected native affordable/unaffordable/resolved captures. No campaign/export QA; known certificate-store/headless shader diagnostics remain.
-- Context7 Godot 4.7 documentation consulted; UI authoring conventions preserved. Follow-ups: event HP cost handling, multi-floor save/resume and action/status teardown. See `ai/docs/continuous-improvement.md`.
+- Context7 Godot 4.7 documentation consulted; UI authoring conventions preserved. Follow-ups: event HP cost handling, multi-floor save/resume and action/status teardown. See `ai/state/continuous-improvement.md`.
 
 
 **2026-10-18 � Combat, authored content and visual overhaul**
 - One typed EncounterDefinition/EncounterRegistry selection pipeline; pool removed, consumers migrated, tier two and all original encounters preserved. Eight new bases, twelve behavioral variants and twenty authored compositions integrated.
 - Final illustrated masters replace the rejected art experiments. The exact class master supplies class screen, unit and card identity; all 29 card resources bind their own 592�396 art. Main menu, three class screens, battlefield entities, map/UI icons and terrain replaced. 88 obsolete sources and 438 import cache files removed; final images total about 5.5 MB.
 - Asset/reference/alpha/animated-footprint/unused checks, combat automation and native compatibility pass. Actual runtime: 27 headless encounter simulations (19 wins/8 losses), one rendered elite win, and a run-mode loss after one climbed floor; no invalid actions, softlocks, timeouts or runtime failures. Screenshots inspected for combat/cards, main menu and all class screens. No backend, export or complete human campaign QA. Known certificate/headless shader diagnostics remain.
-- Report, inventories, authoring and validation evidence: ai/docs/rift-overhaul.md, rift-asset-inventory.json, rift-content.json, rift-validation-results.json.
+- Report, inventories, authoring and validation evidence: docs/content-authoring.md, rift-asset-inventory.json, rift-content.json, rift-validation-results.json.
 
 **2026-10-20 - Rift Echo HP cost**
 - Replaced combat damage with existing direct damage for the event HP cost; leftover block no longer absorbs the cost. Added actual-button checks at zero/two/ten block; eight baseline failures, final focused headless checks pass. Context7 Godot 4.7 documentation consulted.
-- No visual changes or campaign/export QA; low-health event/death flow remains a follow-up. See ai/docs/continuous-improvement.md.
+- No visual changes or campaign/export QA; low-health event/death flow remains a follow-up. See ai/state/continuous-improvement.md.
 - Broader compatibility smoke: 654 resources loaded, two unrelated map emitter position failures in unchanged scene/checks. Resource guard and git diff --check pass.
 
 **2026-10-20 - Codex: cancellable enemy movement**
 - Invalidated movement action continuations and pacing callbacks before releasing cancelled movement. Native tweens/deferred destinations stop and restore the committed board position and scale; subsequent movement still completes. Horror second moves and tactics between-hit waits reject cancelled work. No-path pending moves also release waiters.
-- Context7 Godot 4.7 docs consulted. Focused headless/native D3D12 and full headless combat checks pass; final no-path adjustment checked headlessly. Native checks were offscreen assertions, not human visual review. Known certificate-store diagnostic remains; no campaign/export QA. See ai/docs/continuous-improvement.md for follow-ups.
+- Context7 Godot 4.7 docs consulted. Focused headless/native D3D12 and full headless combat checks pass; final no-path adjustment checked headlessly. Native checks were offscreen assertions, not human visual review. Known certificate-store diagnostic remains; no campaign/export QA. See ai/state/continuous-improvement.md for follow-ups.
 
 **2026-10-20 - Codex: queued enemy status cancellation**
 - StatusHandler owns and cancels pending application tweens; enemy turn cancellation stops queued effects and completion while preserving applied effects and duration changes. Fresh batches work afterward. Context7 Godot 4.7 docs consulted.
-- Focused headless/native D3D12 and full headless combat checks pass with existing lunge/movement cases. Native checks are offscreen assertions; no human visual/campaign/export QA. See ai/docs/continuous-improvement.md for limits and follow-ups.
+- Focused headless/native D3D12 and full headless combat checks pass with existing lunge/movement cases. Native checks are offscreen assertions; no human visual/campaign/export QA. See ai/state/continuous-improvement.md for limits and follow-ups.
 
 
 ## 2026-10-20 - Route legend and resource icon correction

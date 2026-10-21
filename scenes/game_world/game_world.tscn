@@ -92,6 +92,17 @@ script = ExtResource("1_6c6v5")
 player_stats = ExtResource("6_u4x5r")
 audio_playlist = SubResource("AudioStreamPlaylist_ht6dc")
 
+[node name="ActEnvironment" type="CanvasLayer" parent="." unique_id=1020114841]
+layer = -10
+
+[node name="Illustration" type="TextureRect" parent="ActEnvironment" unique_id=2067174726]
+modulate = Color(0.4, 0.4, 0.4, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+expand_mode = 1
+
 [node name="WorldCamera" type="Node2D" parent="." unique_id=1631417894 node_paths=PackedStringArray("follow_target")]
 unique_name_in_owner = true
 top_level = true

@@ -257,6 +257,7 @@ func _run() -> void:
 		await _capture("rewards")
 	await _test_reward_and_shop(run_scene, encounter)
 	run_scene.map.floors_climbed = MapGenerator.FLOORS
+	run_scene.run_stats.act_index = run_scene.acts.size() - 1
 	run_scene._on_battle_won()
 	await _settle_ui()
 	_check(run_scene.current_view.get_child_count() == 1 and run_scene.current_view.get_child(0) is WinScreen, "Final victory replaces the previous view completely")

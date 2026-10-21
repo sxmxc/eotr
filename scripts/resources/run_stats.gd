@@ -13,6 +13,11 @@ const BASE_RARE_WEIGHT := 0.3
 
 @export var bounty_contracts: Array[BountyContract] = []
 @export var next_bounty_refresh_floor: int = 0
+@export var act_index := 0
+@export var completed_floors := 0
+@export var run_id := ""
+@export var pending_act_transition := false
+@export var boss_reward_claimed := false
 @export var gold := STARTING_GOLD:
 	set = set_gold
 @export var resources := STARTING_RESOURCES:

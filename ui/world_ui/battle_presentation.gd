@@ -14,6 +14,14 @@ signal finished
 @onready var _label: Label = $BattleVignette/BeatLabel
 
 var _tween: Tween
+var _boss := false
+
+func prepare_boss(enemy: Enemy) -> void:
+	_boss = true
+	$BattleVignette/BossPortrait.texture = enemy.stats.board_icon
+	$BattleVignette/BossPortrait.show()
+	if enemy.stats.call_sound:
+		SoundManager.play_sound(enemy.stats.call_sound)
 
 
 func _ready() -> void:
@@ -25,7 +33,7 @@ func play_intro() -> void:
 	_reset_overlay(intro_tint)
 	_label.text = intro_text
 	_label.modulate = Color(1, 1, 1, 0)
-	_run_sequence(0.18, 0.22)
+	_run_sequence(0.3 if _boss else 0.18, 0.35 if _boss else 0.22)
 
 
 func play_outro(is_win: bool) -> void:
@@ -35,6 +43,7 @@ func play_outro(is_win: bool) -> void:
 	else:
 		tint = lose_tint
 	_reset_overlay(tint)
+	$BattleVignette/BossPortrait.hide()
 	if is_win:
 		_label.text = win_text
 	else:
@@ -53,7 +62,7 @@ func _run_sequence(fade_in: float, fade_out: float) -> void:
 	_tween.set_ease(Tween.EASE_OUT)
 	_tween.tween_property(_vignette, "modulate:a", 1.0, fade_in)
 	_tween.parallel().tween_property(_label, "modulate:a", 1.0, fade_in)
-	_tween.tween_interval(0.05)
+	_tween.tween_interval(0.4 if _boss else 0.05)
 	_tween.tween_property(_vignette, "modulate:a", 0.0, fade_out)
 	_tween.parallel().tween_property(_label, "modulate:a", 0.0, fade_out)
 	_tween.tween_callback(_finish)

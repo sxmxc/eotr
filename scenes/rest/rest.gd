@@ -12,11 +12,13 @@ class_name Rest
 var leaving := false
 
 func _ready() -> void:
+	%RefineDeck.refined.connect(_on_skip_button_pressed)
 	_refresh_recovery()
 
 func _refresh_recovery() -> void:
 	if not player_stats:
 		return
+	%RefineDeck.configure(player_stats)
 	var amount := mini(ceili(player_stats.max_health * 0.3), player_stats.max_health - player_stats.health)
 	%RecoveryAmount.text = "Restore %d HP" % amount
 	%HealthPreview.text = "%d / %d HP now  ->  %d / %d HP after resting" % [player_stats.health, player_stats.max_health, player_stats.health + amount, player_stats.max_health]

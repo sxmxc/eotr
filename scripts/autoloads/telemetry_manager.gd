@@ -10,6 +10,8 @@ var _configured_settings: Resource
 var session_start_ms := 0
 var _qa_run_id := ""
 var qa_turns := 0
+var progression_context: Dictionary = {}
+const LIFECYCLE_MARKERS := ["act_started", "act_completed", "run_failed", "card_removed"]
 
 func _ready() -> void:
 	session_start_ms = Time.get_ticks_msec()
@@ -40,14 +42,31 @@ func _ready() -> void:
 func track_event(event_name: String, props: Dictionary = {}, version: int = 1, metadata: Dictionary = {}) -> void:
 	if not suspended:
 		if event_name == "run_started":
+			progression_context.clear()
 			set_context({"run_id": _qa_run_id if not _qa_run_id.is_empty() else client.new_id()})
 		if event_name == "player_turn_started" and not _qa_run_id.is_empty():
 			qa_turns += 1
-		client.record(event_name, props, version, metadata)
+		var attributed := progression_context.duplicate(true)
+		attributed.merge(metadata, true)
+		var recorded_name := event_name
+		var recorded_props := props
+		if event_name in LIFECYCLE_MARKERS:
+			# Reuse the deployed stat_changed contract; lifecycle detail lives in
+			# metadata so existing ingestion servers accept the new attribution.
+			attributed.merge(props, true)
+			attributed["lifecycle_event"] = event_name
+			recorded_name = "stat_changed"
+			recorded_props = {"stat": event_name, "change": 1.0}
+			version = 1
+		client.record(recorded_name, recorded_props, version, attributed)
 		if is_instance_valid(qa_upload):
-			qa_upload.record(event_name, props, version, metadata)
+			qa_upload.record(recorded_name, recorded_props, version, attributed)
+
+func current_run_id() -> String:
+	return str(client.context.get("run_id", ""))
 
 func begin_qa_simulation() -> String:
+	progression_context.clear()
 	_qa_run_id = client.new_id()
 	qa_turns = 0
 	set_context({"run_id": _qa_run_id})

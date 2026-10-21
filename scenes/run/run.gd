@@ -9,6 +9,10 @@ const TREASURE_SCENE = preload("res://scenes/treasure/treasure.tscn")
 const WIN_SCREEN_SCENE = preload("res://scenes/win_screen/win_screen.tscn")
 const EVENT_SCENE = preload("res://scenes/event/event_room.tscn")
 const MAIN_MENU_PATH = "res://scenes/menus/main_menu.tscn"
+const ACT_TRANSITION = preload("res://scenes/run/act_transition.tscn")
+var acts: Array[ActDefinition] = []
+var active_act: ActDefinition:
+	get: return acts[run_stats.act_index]
 
 @export var run_bootstrap: RunBootstrap
 @export var music_playlist : AudioStreamPlaylist
@@ -30,10 +34,12 @@ var audio_stream_player: AudioStreamPlayer
 
 
 func _ready() -> void:
+	acts = ActDefinition.campaign()
 	if not run_bootstrap:
 		return
 
 	pause_menu.save_and_quit.connect(_on_save_and_quit)
+	pause_menu.abandon_run.connect(_on_abandon_run)
 
 	match run_bootstrap.type:
 		RunBootstrap.Type.NEW_RUN:
@@ -77,6 +83,10 @@ func _start_run() -> void:
 	TelemetryManager.track_event("run_started", event_props)
 	TelemetryManager.track_stat("runs_started")
 	run_stats = RunStats.new()
+	run_stats.run_id = TelemetryManager.current_run_id()
+	if run_stats.run_id.is_empty():
+		run_stats.run_id = TelemetryManager.client.new_id()
+	_configure_act()
 	map.run_stats = run_stats
 	_setup_event_connections()
 	_connect_bounty_board()
@@ -117,8 +127,12 @@ func _load_run() -> void:
 
 	RNG.set_from_save_data(save_data.rng_seed, save_data.rng_state)
 	run_stats = save_data.run_stats
+	if run_stats.run_id.is_empty():
+		run_stats.run_id = TelemetryManager.client.new_id()
+	_configure_act(false)
 	map.run_stats = run_stats
 	player_stats = save_data.player_stats
+	player_stats.is_running = true
 	player_stats.deck = save_data.current_deck
 	player_stats.health = save_data.current_health
 	relic_handler.add_relics(save_data.relics)
@@ -128,6 +142,10 @@ func _load_run() -> void:
 	run_time_ui.resume_from(save_data.elapsed_run_time)
 	
 	map.load_map(save_data.map_data, save_data.floors_climbed, save_data.last_map_node)
+	_bind_floor_context(map.last_map_node)
+	if run_stats.pending_act_transition:
+		_show_act_transition()
+		return
 	if save_data.last_map_node and not save_data.was_on_map:
 		_on_map_exited(save_data.last_map_node)
 		return
@@ -164,9 +182,10 @@ func _show_map() -> void:
 
 
 func _setup_event_connections() -> void:
+	player_stats.stats_changed.connect(_check_noncombat_defeat)
 	Events.player_died.connect(run_time_ui.stop)
 	Events.battle_won.connect(_on_battle_won)
-	Events.battle_reward_exited.connect(_show_map)
+	Events.battle_reward_exited.connect(_leave_rewards)
 	Events.rest_exited.connect(_show_map)
 	Events.map_exited.connect(_on_map_exited)
 	Events.event_exited.connect(_show_map)
@@ -205,6 +224,9 @@ func _show_regular_rewards() -> void:
 	reward_scene.add_enemy_gold_reward(map.last_map_node.battle_stats.enemy_gold_reward)
 	reward_scene.add_enemy_resource_reward(map.last_map_node.battle_stats.enemy_resource_reward)
 	reward_scene.add_card_reward()
+	if map.last_map_node.battle_stats.is_elite:
+		reward_scene.add_resource_reward(2)
+		reward_scene.add_elite_relic_reward()
 
 
 func _on_battle_won() -> void:
@@ -213,7 +235,14 @@ func _on_battle_won() -> void:
 	}
 	TelemetryManager.track_event("floor_completed", props)
 	TelemetryManager.track_stat("floors_completed")
-	if map.floors_climbed == MapGenerator.FLOORS:
+	if map.floors_climbed == active_act.floors and run_stats.act_index < acts.size() - 1:
+		TelemetryManager.track_event("act_completed", {"act_id": active_act.act_id, "act": run_stats.act_index + 1})
+		run_stats.pending_act_transition = true
+		run_stats.boss_reward_claimed = false
+		_save_run(true)
+		_show_act_transition()
+	elif map.floors_climbed == active_act.floors:
+		TelemetryManager.track_event("act_completed", {"act_id": active_act.act_id, "act": run_stats.act_index + 1})
 		run_time_ui.stop()
 		player_stats.is_running = false
 		var event_props := {
@@ -281,6 +310,7 @@ func _on_shop_entered() -> void:
 
 
 func _on_map_exited(map_node: MapNode) -> void:
+	_bind_floor_context(map_node)
 	map_legend.hide()
 	_save_run(false)
 	match map_node.type:
@@ -324,3 +354,77 @@ func _on_save_and_quit() -> void:
 	checkpoint.elapsed_run_time = run_time_ui.elapsed_time
 	if checkpoint.save_data():
 		get_tree().change_scene_to_file(MAIN_MENU_PATH)
+
+func _on_abandon_run() -> void:
+	player_stats.is_running = false
+	run_time_ui.stop()
+	TelemetryManager.track_event("run_failed", {"reason": "abandoned"})
+	SaveGame.delete_data()
+	get_tree().paused = false
+	get_tree().change_scene_to_file(MAIN_MENU_PATH)
+
+func _configure_act(announce: bool = true) -> void:
+	map.map_generator.act = active_act
+	map.map_generator.encounter_registry = active_act.encounters
+	map.get_node("MapBackground/TextureRect").texture = active_act.background
+	map.camera_edge_y = MapGenerator.Y_DIST * (active_act.floors - 1)
+	TelemetryManager.set_context({"run_id": run_stats.run_id})
+	TelemetryManager.progression_context = {"act_id": active_act.act_id, "act": run_stats.act_index + 1,
+		"act_floor": 0, "run_floor": run_stats.completed_floors}
+	if announce:
+		TelemetryManager.track_event("act_started", {"act_id": active_act.act_id, "act": run_stats.act_index + 1})
+
+func _bind_floor_context(map_node: MapNode) -> void:
+	TelemetryManager.progression_context = {"act_id": active_act.act_id, "act": run_stats.act_index + 1,
+		"act_floor": map.floors_climbed, "run_floor": run_stats.completed_floors + map.floors_climbed,
+		"encounter_id": map_node.battle_stats.encounter_id if map_node and map_node.battle_stats else "",
+		"encounter_category": EncounterDefinition.Category.keys()[map_node.battle_stats.category] if map_node and map_node.battle_stats else (Enums.MapNodeType.keys()[map_node.type] if map_node else "MAP")}
+
+func _check_noncombat_defeat() -> void:
+	if player_stats.health > 0 or not player_stats.is_running:
+		return
+	if current_view.get_child_count() and current_view.get_child(0) is GameWorld:
+		return
+	player_stats.is_running = false
+	run_time_ui.stop()
+	SaveGame.delete_data()
+	TelemetryManager.track_event("run_failed", {"reason": "event"})
+	var panel := _change_view(preload("res://ui/world_ui/battle_over_panel.tscn")) as BattleOverPanel
+	panel.show_screen("The Rift claimed your journey", BattleOverPanel.Type.LOSE)
+
+func _leave_rewards() -> void:
+	_show_map()
+
+func _show_act_transition() -> void:
+	var gate := _change_view(ACT_TRANSITION)
+	gate.bind_run(self)
+
+func advance_act(refine_card: Card = null) -> void:
+	if not run_stats.pending_act_transition:
+		return
+	if not run_stats.boss_reward_claimed:
+		if active_act.boss_relic and not relic_handler.has_relic(active_act.boss_relic.id):
+			relic_handler.add_relic(active_act.boss_relic)
+			TelemetryManager.track_event("relic_prize_taken", {"relic": active_act.boss_relic.id, "source": "act_boss"})
+		if refine_card and player_stats.deck.cards.has(refine_card) and player_stats.deck.cards.size() > 8:
+			player_stats.deck.remove_card(refine_card)
+			TelemetryManager.track_event("card_removed", {"card": refine_card.id, "source": "act_transition"})
+		player_stats.heal(ceili(player_stats.max_health * (0.2 if refine_card else 0.4)))
+		run_stats.gold += 35
+		run_stats.boss_reward_claimed = true
+	run_stats.completed_floors += active_act.floors
+	run_stats.act_index += 1
+	run_stats.pending_act_transition = false
+	run_stats.bounty_contracts.clear()
+	run_stats.next_bounty_refresh_floor = 0
+	_configure_act()
+	map.generate_new_map()
+	if current_view.get_child_count():
+		var old := current_view.get_child(0)
+		current_view.remove_child(old)
+		old.queue_free()
+	get_tree().paused = false
+	map.show_map()
+	map.unlock_floor(0)
+	map_legend.show()
+	_save_run(true)

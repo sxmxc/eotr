@@ -1,0 +1,7 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
+[ext_resource type="Script" path="res://scenes/enemy/bosses/prismatic_core.gd" id="behavior"]
+[ext_resource type="Resource" path="res://scenes/enemy/bosses/prismatic_core.tres" id="stats"]
+[node name="prismatic_core" instance=ExtResource("body")]
+script = ExtResource("behavior")
+stats = ExtResource("stats")

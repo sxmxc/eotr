@@ -31,6 +31,7 @@ var victory_committed := false
 var initial_health := 0
 var initial_health_damage := 0
 var initial_healing := 0
+var encounter_started_ms := 0
 
 func _ready():
 	game_world_ui.bind_world(player, tilemap, map_camera)
@@ -54,6 +55,7 @@ func _ready():
 
 
 func start_world() -> void:
+	encounter_started_ms = Time.get_ticks_msec()
 	# Definitions stay immutable; reward counters belong to this combat instance.
 	battle_stats = battle_stats.duplicate()
 	shrink_frequency = battle_stats.collapse_frequency
@@ -71,9 +73,18 @@ func start_world() -> void:
 	audio_stream_player.stream_paused = false
 
 	tilemap.generate_tilemap(battle_stats)
+	if run_stats and run_stats.act_index < ActDefinition.campaign().size():
+		var act := ActDefinition.campaign()[run_stats.act_index]
+		$ActEnvironment/Illustration.texture = act.background
+		$ParallaxBackgroundNode.visible = act.background == null
+		if act.music:
+			audio_stream_player.stream = battle_stats.boss_music if battle_stats.boss_music else act.music
+			audio_stream_player.play()
 
 	game_world_ui.player_stats = player_stats
 	player.stats = player_stats
+	if not player_stats.stats_changed.is_connected(enemy_handler.refresh_enemy_intents):
+		player_stats.stats_changed.connect(enemy_handler.refresh_enemy_intents)
 	player_handler.relics = relics
 	player_handler.tilemap = tilemap
 	enemy_handler.tilemap = tilemap
@@ -81,7 +92,10 @@ func start_world() -> void:
 	var force_start_tile := battle_stats and battle_stats.enforce_start_tile_type
 	var player_starting_position := Vector2i.ZERO
 
-	if force_start_tile:
+	if tilemap.is_tile_valid(battle_stats.player_start_cell):
+		player_starting_position = battle_stats.player_start_cell
+		reserved_start_tiles.append(player_starting_position)
+	elif force_start_tile:
 		player_starting_position = tilemap.get_starting_tile(
 			battle_stats.starting_tile_type,
 			true
@@ -96,6 +110,7 @@ func start_world() -> void:
 		reserved_start_tiles.append(adjacent)
 
 	enemy_handler.setup_enemies(battle_stats, reserved_start_tiles)
+	game_world_ui.get_node("BossHealth").bind_world(self)
 	enemy_handler.reset_enemy_actions.call_deferred()
 	battle_stats.enemy_gold_reward = 0
 	battle_stats.enemy_resource_reward = 0
@@ -108,6 +123,10 @@ func start_world() -> void:
 	tilemap.move_player(player_starting_position, false)
 	tilemap.queue_start_tile_effects()
 	if is_instance_valid(battle_presentation):
+		if battle_stats.category == EncounterDefinition.Category.BOSS:
+			battle_presentation.intro_text = battle_stats.encounter_name
+			battle_presentation.win_text = "Rift sealed"
+			battle_presentation.prepare_boss(enemy_handler.get_child(0) as Enemy)
 		battle_presentation.play_intro()
 	Events.tile_selected.emit(tilemap.tile_map_data[player_starting_position])
 	tilemap.place_obelisk(get_tree().get_first_node_in_group("obelisk"))
@@ -128,6 +147,8 @@ func start_world() -> void:
 
 	get_tree().create_timer(1).timeout.connect(
 		func():
+			if not is_instance_valid(tilemap.obelisk):
+				return
 			Events.world_message_requested.emit(
 				WorldMessageData.new(
 					"The Obelisk has revealed itself",
@@ -222,6 +243,8 @@ func _on_obelisk_destroyed() -> void:
 
 
 func _on_player_died() -> void:
+	TelemetryManager.track_event("run_failed", {"reason": "combat", "encounter": battle_stats.encounter_id})
+	player_stats.is_running = false
 	_handle_battle_over("Game Over!", BattleOverPanel.Type.LOSE)
 	SaveGame.delete_data()
 
@@ -245,7 +268,9 @@ func _handle_battle_over(message: String, result: BattleOverPanel.Type) -> void:
 		"outcome": "win" if result == BattleOverPanel.Type.WIN else "loss", "turns": current_round,
 		"damage_taken": player_stats.total_health_damage - initial_health_damage,
 		"net_health_loss": initial_health - player_stats.health,
-		"healing_received": player_stats.total_healing - initial_healing}, 2)
+		"healing_received": player_stats.total_healing - initial_healing}, 2,
+		{"duration_ms": Time.get_ticks_msec() - encounter_started_ms, "starting_health": initial_health,
+		"ending_health": player_stats.health, "deck_size": player_stats.deck.cards.size()})
 	battle_state.end_battle()
 	if is_instance_valid(battle_presentation):
 		call_deferred("_play_battle_outro", message, result)

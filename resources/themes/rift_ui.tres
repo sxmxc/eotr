@@ -46,6 +46,26 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="boss_frame"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.018, 0.027, 0.041, 0.92)
+border_width_top = 2
+border_width_bottom = 1
+border_color = Color(0.55, 0.46, 0.29, 0.8)
+corner_radius_top_left = 14
+corner_radius_bottom_right = 14
+
+[sub_resource type="StyleBoxFlat" id="ui_style_2"]
+bg_color = Color(0.11, 0.16, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="boss_health_fill"]
+bg_color = Color(0.61, 0.47, 0.27, 1)
+border_width_top = 1
+border_color = Color(0.9, 0.78, 0.54, 1)
+
 [sub_resource type="StyleBoxFlat" id="disabled"]
 content_margin_left = 20.0
 content_margin_top = 12.0
@@ -194,9 +214,6 @@ border_color = Color(0.54, 0.46, 0.32, 0.7)
 shadow_size = 20
 
 [sub_resource type="StyleBoxEmpty" id="ui_style_0"]
-
-[sub_resource type="StyleBoxFlat" id="ui_style_2"]
-bg_color = Color(0.11, 0.16, 0.2, 1)
 
 [sub_resource type="StyleBoxFlat" id="ui_style_3"]
 bg_color = Color(0.65, 0.31, 0.29, 1)
@@ -380,6 +397,17 @@ BodySmall/base_type = &"Label"
 BodySmall/font_sizes/font_size = 20
 BodyText/base_type = &"Label"
 BodyText/font_sizes/font_size = 24
+BossCaption/base_type = &"Label"
+BossCaption/font_sizes/font_size = 18
+BossFrame/base_type = &"PanelContainer"
+BossFrame/styles/panel = SubResource("boss_frame")
+BossHealth/base_type = &"EnemyHealthBar"
+BossHealth/styles/background = SubResource("ui_style_2")
+BossHealth/styles/fill = SubResource("boss_health_fill")
+BossName/base_type = &"Label"
+BossName/colors/font_color = Color(0.9, 0.83, 0.67, 1)
+BossName/font_sizes/font_size = 28
+BossName/fonts/font = ExtResource("font_BrandConnector")
 BottomContentInset/base_type = &"MarginContainer"
 BottomContentInset/constants/margin_bottom = 10
 BottomContentInset/constants/margin_left = 10
