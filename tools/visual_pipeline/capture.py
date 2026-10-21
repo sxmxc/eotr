@@ -30,6 +30,10 @@ def _capture(scenario, output, godot, temporary):
     if scenario.get("replay"):
         replay = Path(scenario["replay"]).resolve()
         command.append(f"--replay={replay.as_posix()}")
+    if scenario.get("fixture"):
+        if scenario["fixture"] != "ruin":
+            raise ValueError("Unknown visual fixture")
+        command.append("--fixture=ruin")
     (output / "command.json").write_text(json.dumps(command, indent=2))
     with (output / "console.log").open("w") as log:
         subprocess.run(command, env=env, stdout=log, stderr=subprocess.STDOUT,

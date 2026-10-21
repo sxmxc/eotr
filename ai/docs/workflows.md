@@ -22,6 +22,9 @@ Run checks against the existing project. Do not create duplicate project trees o
 
 ## 2. Create / Modify an Enemy Encounter
 
+Use [Obelisk terminology and current role](obelisks.md) when describing Obelisks.
+Current encounters require defeating remaining hostiles after an Obelisk dies.
+
 1. **Enemy Scene**: Scenes live in `scenes/enemy/<enemy_name>/`. Behaviour extends `Enemy` or `MovingEnemy`.
 2. **Actions & Intents**: Update `EnemyAction` resources or `update_intent()` overrides. Ensure telegraphed intent matches actual effect.
 3. **Stats**: Adjust `resources/stats/enemy_stats_*.tres` or script exported values.

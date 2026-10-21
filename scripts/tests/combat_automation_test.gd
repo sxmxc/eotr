@@ -479,6 +479,37 @@ func _observe_card_play(card_ui: CardUI, result: Dictionary) -> void:
 	await card_ui.play()
 	result.completed = true
 
+func _test_ruin_feedback(world: GameWorld) -> void:
+	var board := world.tilemap
+	var cell := board.player_position
+	var old_type := board.tile_map_data[cell].type
+	var old_effects := board.ruin_tile_effects.duplicate()
+	var old_block := world.player_stats.block
+	var messages: Array[String] = []
+	var on_message := func(data: WorldMessageData): messages.append(data.message)
+	Events.world_message_requested.connect(on_message)
+	board.tile_map_data[cell].type = Enums.TileType.ANCIENT_RUIN
+	board.ruin_tile_effects.assign([load("res://resources/data/tile_effects/block_tile_effect.tres")])
+	board.apply_tile_effects()
+	board.apply_tile_effects()
+	check(world.player_stats.block == old_block + 20, "Repeated ruin entry preserves both block grants")
+	check(messages.size() == 2 and messages[0].begins_with("Ancient Ruin: "), "Each ruin activation identifies its outcome")
+	var echoes: Array[WeakRef] = []
+	for child in board.target_highlight_layer.get_children():
+		if child.scene_file_path == "res://ui/world_ui/ruin_activation.tscn":
+			echoes.append(weakref(child))
+	check(echoes.size() == 2, "Overlapping ruin activations own separate presentation instances")
+	board.ruin_tile_effects.assign([load("res://resources/data/tile_effects/empty_tile_effect.tres")])
+	board.apply_tile_effects()
+	check(world.player_stats.block == old_block + 20 and messages.back().contains("nothing happens"), "Empty ruins report activation without granting a reward")
+	await get_tree().create_timer(0.65).timeout
+	for echo: WeakRef in echoes:
+		check(echo.get_ref() == null, "Ruin echo releases after playback")
+	Events.world_message_requested.disconnect(on_message)
+	board.tile_map_data[cell].type = old_type
+	board.ruin_tile_effects.assign(old_effects)
+	world.player_stats.block = old_block
+
 func _test_lethal_ruin_move(world: GameWorld) -> void:
 	var hand := world.player_handler.player_hand
 	var move_card := load("res://resources/data/cards/riftwalker/phase_step.tres").duplicate(true) as Card
@@ -814,6 +845,7 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		await _test_ruin_feedback(world)
 		await _test_lethal_ruin_move(world)
 		world.queue_free()
 		relics.queue_free()

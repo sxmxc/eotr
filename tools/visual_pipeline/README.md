@@ -21,3 +21,12 @@ Start with ai/visual/workflows/discover.md and follow direct, implement, critiqu
 For another event copy scenarios/arcane-bolt.json, set event, real encounter resource, seed, policy (greedy/random/stress), duration (up to 120s), fps (1..60), and optionally expect_card (exact display name). Pass its name or JSON path. Optional replay is an absolute or repository-relative AutoWalker simulation report; the runner loads its seed, encounter, policy and real action trace, with checkpoint divergence checks. Use a scenario long enough for the desired event and examine timing.json to confirm it happened. New abilities use their real registered card/config/executor; make them available through actual starting resources or a replay, not a second spell implementation. Non-card events omit expect_card and require agent confirmation in the trace/frames. Extend fixture signal metadata for precise phases when available; current offsets are samples, not asserted impact times.
 
 Deterministic gameplay seed does not guarantee pixel-identical GPU particles, camera noise or wall-clock watchdogs. Comparison reports action identity, boundary drift and final observation equality; it cannot prove all mechanics unchanged or grade artistic quality. A time-limited capture may end during an action and cause native exit resource warnings; inspect script errors separately. Sparse stills miss brief impulses and continuous motion. The demonstration does not establish every shared effect or collapse regression. No network telemetry or provider-specific inference runs.
+
+The `ruin` scenario accepts the optional `fixture: "ruin"` field (other fixture
+names are rejected). It pauses policy decisions, sets the occupied tile to a
+ruin, restricts its effect pool to block and then empty, and calls the real
+`apply_tile_effects` API twice. Startup effects still run. This tests repeatable
+tile feedback, not a natural movement replay. `ruin_activation` and `ruin_frame`
+events record timing; six phase PNGs are saved alongside the native movie without
+FFmpeg. This fallback does not provide video extraction or continuous-motion
+review. Use matching fixture settings for baseline and revised captures.

@@ -204,15 +204,15 @@ backlog:
   - id: BKL-016
     title: "Enhance ruin tile feedback"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Ruins currently provide limited feedback when triggered/looted."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+      - "Added scene-authored local column echo and ruin-attributed outcome text; repeatability and mechanics preserved. Native before/after phase review and focused headless/native lifecycle checks pass. See ai/state/journal-bkl-016.md."
     next_steps:
-      - "Audit ruin tile scripts for feedback hooks."
-      - "Add visuals/audio/tooltips clarifying activation state and rewards."
+      - "Optional continuous-motion/audio review; investigate startup message competition separately."
 
   - id: BKL-017
     title: "Boost enemy death feedback"
@@ -300,15 +300,14 @@ backlog:
   - id: BKL-023
     title: "Clarify obelisk type definitions and naming"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Ensure obelisk variants have consistent terminology; verify they remain core objectives alongside new boss ladder."
+      - "Obelisks are stationary attacking/summoning enemies, not instant-victory objectives in current encounters. Remaining hostiles must be defeated."
+      - "Canonical terminology and existing base/strengthened variants documented in ai/docs/obelisks.md. Future boss decisions remain with BKL-031; historical rush-the-pillar backlog wording is not current guidance."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
-    next_steps:
-      - "Review current obelisk encounters and confirm future role."
-      - "Update design docs/nomenclature or retire task if obelisks are being sunset."
+    next_steps: []
 
   - id: BKL-024
     title: "Evaluate card upgrade system for v0.0.8.0"
