@@ -15,17 +15,19 @@ var detail_text := ""
 func get_description() -> String:
 	var description := detail_text if not detail_text.is_empty() else tooltip_text
 	if description.contains("%s"):
-		description = description % current_text
+		# Actions briefly restore their format template while resolving. Never
+		# expose that template as a combat number or invent an unresolved amount.
+		description = description % ("…" if current_text.contains("%s") else current_text)
 	return description.trim_prefix("Plans to ").capitalize()
 
 
 func get_display_text() -> String:
-	if not secondary_text.is_empty():
+	if not secondary_text.is_empty() and not current_text.contains("%s"):
 		return current_text.get_slice("/", 0)
 	var description := tooltip_text.to_lower()
 	if "raise" in description or "spawn" in description or "summon" in description:
 		return "Summon"
-	if not current_text.strip_edges().is_empty():
+	if not current_text.strip_edges().is_empty() and not current_text.contains("%s"):
 		return current_text.strip_edges().get_slice("\n", 0)
 	if "move" in description or "reposition" in description:
 		return "Move"

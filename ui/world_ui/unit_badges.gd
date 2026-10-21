@@ -45,6 +45,11 @@ func _sync_intent() -> void:
 		return
 	intent_icon.texture = plan.get_display_icon()
 	intent_label.text = plan.get_display_text()
+	# Movement/wait already have distinct glyphs; keep their words in the rail
+	# and tooltip while reserving board labels for amounts and consequential plans.
+	var quiet := intent_label.text in ["Move", "Wait", "Prepare"]
+	intent_label.visible = not quiet
+	intent_panel.theme_type_variation = &"BoardQuietIntentChip" if quiet else &"BoardIntentChip"
 	%SecondaryIcon.visible = not plan.secondary_text.is_empty()
 	%SecondaryLabel.visible = not plan.secondary_text.is_empty()
 	%SecondaryIcon.texture = plan.secondary_icon

@@ -25,6 +25,7 @@ mouse_filter = 2
 
 [node name="Surface" type="PanelContainer" parent="Center"]
 layout_mode = 2
+theme_type_variation = &"DiscoverySurface"
 
 [node name="Padding" type="MarginContainer" parent="Center/Surface"]
 layout_mode = 2
@@ -37,13 +38,13 @@ theme_type_variation = &"ContentStack"
 [node name="Heading" type="Label" parent="Center/Surface/Padding/Content"]
 layout_mode = 2
 theme_type_variation = &"Title"
-text = "Choose a card"
+text = "Shape your next battle"
 horizontal_alignment = 1
 
 [node name="Prompt" type="Label" parent="Center/Surface/Padding/Content"]
 layout_mode = 2
 theme_type_variation = &"Muted"
-text = "Inspect a card, then take it or return to your choices."
+text = "Choose one spell for your deck. Inspect a card to discover its power."
 horizontal_alignment = 1
 
 [node name="Cards" type="HBoxContainer" parent="Center/Surface/Padding/Content"]

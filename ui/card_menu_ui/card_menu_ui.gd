@@ -9,14 +9,18 @@ signal hover_ended(card: Card)
 @export var card: Card : set = set_card
 @export var selectable := false
 @export var tooltip_on_right_click := false
+@export_range(1.0, 1.5, 0.05) var presentation_scale := 1.0
 
-@onready var visuals: CardVisuals = $Visuals
+@onready var visuals: CardVisuals = $Frame/Visuals
 
 var _selected := false
 var _is_hovered := false
 
 
 func _ready() -> void:
+	# The measuring frame reserves the scaled artwork's real bounds for containers.
+	$Frame.custom_minimum_size = visuals.get_combined_minimum_size() * presentation_scale
+	visuals.scale = Vector2.ONE * presentation_scale
 	focus_entered.connect(_update_panel_style)
 	focus_exited.connect(_update_panel_style)
 	_update_panel_style()

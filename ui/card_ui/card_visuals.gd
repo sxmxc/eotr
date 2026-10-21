@@ -21,11 +21,24 @@ var player_modifiers: ModifierHandler
 var _is_hovered := false
 var _is_modified := false
 var _authored_face: StringName
+var _rules_text := ""
 
 
 func _ready() -> void:
 	_authored_face = background_texture.theme_type_variation
 	_update_face_style()
+
+func _process(_delta: float) -> void:
+	if card_text_label.text != _rules_text:
+		_rules_text = card_text_label.text
+		_fit_rules.call_deferred()
+
+func _fit_rules() -> void:
+	# Actual shaped text chooses shared typography roles, including modified rules.
+	for role: StringName in [&"CardRules", &"CardRulesCompact", &"CardRulesDense"]:
+		card_text_label.theme_type_variation = role
+		if card_text_label.get_content_height() <= card_text_label.size.y:
+			break
 
 
 func set_card(value: Card) -> void:

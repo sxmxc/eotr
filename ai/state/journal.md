@@ -2,6 +2,40 @@
 
 Record notable work here. Use reverse chronological order (newest at top).
 
+**2026-10-20 - Final six-screen UI art direction**
+- Continued the cohesion pass: calm serif pause and native focus, stronger The
+  Rift title/navigation with separate workshop footer, stone route crossings with
+  longer look-ahead and keyboard activation, larger shared shop/discovery cards,
+  compact purchase actions, differentiated rewards, quieter combat labels/help.
+- Fixed preview-pivot overlap and long rules clipping; shared typography roles
+  preserve rule information. Corroding Shot copy is shorter; effects/values,
+  TileMap, PhantomCamera and combat choreography are unchanged.
+- Native before/final presentation suites and final transactions/route checks pass.
+  Headless card-flow/style/rules-fit and full combat checks pass. Existing visual
+  pipeline: ten matching actions, no start drift, matching final state. Inspected
+  six screens plus reward/disabled/progressed states and three timestamped frames.
+- Evidence: .qa-tmp/art-direction/{before,final,route-check} and visual pipeline
+  art-direction-final; prototype screenshots removed. No new assets/dependencies.
+  Continuous audio/motion, exports, ultrawide, campaign and hardware QA remain
+  unverified. See ai/docs/final-ui-art-direction.md and its evidence links.
+
+
+**2026-10-20 - Visual cohesion and presentation**
+- Refined shared themes/scenes, terrain pigment and synchronized boundary strata;
+  retained TileMap, PhantomCamera, artwork and existing combat juice. Improved
+  framing, menu, consent/route proportions, room backgrounds, rewards, purchase
+  confirmation and name/plan wrap. Preserved hidden Echoes per user correction.
+- Fixed obsolete gate visuals and resolving intent placeholders; regressions pass.
+- Full headless combat, native battlefield/29 signatures, two real shrinks,
+  room/event/consent and shop/reward checks pass. Broad UI before/after retain
+  two existing hidden map-emitter assertions. Seed-42 AutoWalker: normal loss,
+  10 turns/30 plays, no failures/invalid card actions/softlocks/timeouts; two AI
+  fallbacks. Incremental videos match all 10 actions and final state.
+- Evidence in .qa-tmp/cohesion/ and .qa-tmp/visual/cohesion-{combat,final}.
+  Sparse frame review only; continuous motion/audio, campaign/export and hardware
+  QA not established. See ai/docs/presentation-cohesion.md.
+
+
 **2026-10-20 - Cancel enemy lunges; remove duplicate test projects**
 - Seven lunge actions now own cancellable tweens; cancellation restores sprite/idle and stops pending hits/completion/residue. Six baseline failures; focused headless/native real-project checks pass, including Horror cancellation between hits. Full headless combat passed before runner changes.
 - Removed project/junction construction from validation, AutoWalker, visual capture and telemetry tools. Use the original project and auto-cleaned system-temp user data; captures no longer write into res://. Removed this session's .qa-tmp and obsolete operating guidance. Duplicate test projects are prohibited per user instruction.
@@ -481,3 +515,15 @@ Record notable work here. Use reverse chronological order (newest at top).
 **2026-10-20 - Codex: queued enemy status cancellation**
 - StatusHandler owns and cancels pending application tweens; enemy turn cancellation stops queued effects and completion while preserving applied effects and duration changes. Fresh batches work afterward. Context7 Godot 4.7 docs consulted.
 - Focused headless/native D3D12 and full headless combat checks pass with existing lunge/movement cases. Native checks are offscreen assertions; no human visual/campaign/export QA. See ai/docs/continuous-improvement.md for limits and follow-ups.
+
+
+## 2026-10-20 - Route legend and resource icon correction
+- Resource rewards now use resource.svg, matching the HUD, gathering feedback and shop; corrosion.svg remains a status icon.
+- Removed oversized route sidebar backing, tightened title/status/legend spacing, removed nested legend surfaces and reduced row icons. Disclosure stays quiet when expanded.
+- Native map/expanded-legend/resource capture and focused compatibility checks pass (0 failures); scene resource guard passes. Evidence: .qa-tmp/art-direction/legend-resource-fix/.
+
+
+## 2026-10-20 - Correct detached terrain edge regression
+- Sidewalls previously ignored fog visibility, exposing detached bright strips around hidden tile tops. Cull walls by owning tile visibility and rebuild on existing presentation events.
+- Reduced wall depth/contrast and removed repeated horizontal striation and seams. TileMap remains authoritative.
+- Native terrain-only suite: 0 failures, including fully fogged wall culling, real successive shrink boundary checks, fragment cleanup and RNG preservation. Inspected terrain-fog.png, terrain-stable.png and terrain-shrunk.png under .qa-tmp/art-direction/terrain-edge-fix/. Shrink screenshot uses a disposable fixture that intentionally bypasses entity consequences.

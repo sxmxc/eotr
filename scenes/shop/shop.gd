@@ -145,6 +145,7 @@ func _on_leave_button_pressed() -> void:
 
 func _on_shop_card_bought(card: Card, gold_cost: int) -> void:
 	item_bought = true
+	%Hint.text = "%s added to your deck." % card.name
 	var stat_props := {
 		"card" : card.name,
 		"cost" : gold_cost
@@ -158,6 +159,7 @@ func _on_shop_card_bought(card: Card, gold_cost: int) -> void:
 
 func _on_shop_relic_bought(relic: Relic, resource_cost: int) -> void:
 	item_bought = true
+	%Hint.text = "%s acquired." % relic.relic_name
 	var stat_props := {
 		"relic" : relic.relic_name,
 		"cost" : resource_cost

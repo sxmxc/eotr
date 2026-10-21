@@ -169,11 +169,10 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 
 func _test_terrain_breakup(world: GameWorld) -> void:
 	var board := world.tilemap
+	check(not board.has_node("TerrainDepth"), "Terrain uses illustrated tile silhouettes without procedural sidewalls")
 	board.hide_fog()
 	board.target_highlight_layer._collapse_changed(1)
 	await get_tree().process_frame
-	var depth := board.get_node("TerrainDepth")
-	check(not depth.faces.is_empty(), "Exposed terrain has cached cosmetic boundary geometry")
 	var rng_before := RNG.instance.state
 	var cells_before := board.base_layer.get_used_cells().size()
 	# Sample actual artwork on an unoccupied visible cell. This fixture simulates
@@ -207,25 +206,19 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 	board.presentation_changed.emit()
 	await get_tree().process_frame
 	await _capture_battle("user://terrain-stable.png")
-	# Real successive shrinks must invalidate every cached edge during erasure.
+	# Real successive shrinks must erase cells without leaving extra geometry.
 	# Clear entities only in this disposable fixture so collapse cannot end the run.
 	for enemy in world.enemy_handler.get_children():
 		enemy.remove_from_group("enemy")
 	board.player_position = Vector2i(-999, -999)
 	for shrink in 2:
+		var previous_cells := board.base_layer.get_used_cells()
 		await board.shrink_map(1)
 		await get_tree().process_frame
-		var expected := 0
-		for tile: Vector2i in board.base_layer.get_used_cells():
-			for neighbor: Vector2i in board.base_layer.get_surrounding_cells(tile):
-				if board.base_layer.get_cell_source_id(neighbor) == -1:
-					expected += 1
-		check(depth.rims.size() == expected, "Shrink %s rebuilds precisely the surviving terrain boundary" % (shrink + 1))
-		for rim: PackedVector2Array in depth.rims:
-			var middle := (rim[0] + rim[1]) * 0.5
-			var a := board.base_layer.local_to_map(middle + (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
-			var b := board.base_layer.local_to_map(middle - (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
-			check((board.base_layer.get_cell_source_id(a) == -1) != (board.base_layer.get_cell_source_id(b) == -1), "Cached rim separates surviving terrain from void")
+		check(board.base_layer.get_used_cells().size() < previous_cells.size(), "Shrink %s removes terrain cells" % (shrink + 1))
+		for tile: Vector2i in previous_cells:
+			if not board.tile_map_data.has(tile):
+				check(board.base_layer.get_cell_source_id(tile) == -1, "Collapsed terrain has no remaining tile artwork")
 	await get_tree().create_timer(0.9).timeout
 	await _capture_battle("user://terrain-shrunk.png")
 
@@ -289,6 +282,12 @@ func check(value: bool, message: String) -> void:
 		printerr("FAIL: " + message)
 
 func _test_battlefield_presentation(world: GameWorld) -> void:
+	var resolving_intent := Intent.new()
+	resolving_intent.tooltip_text = "Attack for %s"
+	resolving_intent.current_text = "%s"
+	check(resolving_intent.get_display_text() == "Attack" and not resolving_intent.get_description().contains("%s"), "Resolving intent never exposes a formatting placeholder")
+	resolving_intent.current_text = "6"
+	check(resolving_intent.get_display_text() == "6" and resolving_intent.get_description().contains("6"), "Resolved intent preserves its actual amount")
 	var board := world.tilemap
 	check(board.base_layer.tile_set.tile_size == Vector2i(64, 64), "Battle uses 64px hex geometry")
 	check(board.fog_layer.tile_set.tile_size == board.base_layer.tile_set.tile_size, "Fog shares board geometry")
@@ -657,6 +656,15 @@ func _test_gate_presentation(world: GameWorld) -> void:
 	await get_tree().create_timer(0.3).timeout
 	for cell: Vector2i in board.target_highlight_layer.gates:
 		check(board.target_highlight_layer.gates[cell].visible == not board.is_tile_behind_fog(cell), "Rift gate effects respect fog visibility")
+	var overlay := board.target_highlight_layer
+	if not overlay.gates.is_empty():
+		var gate_cell: Vector2i = overlay.gates.keys()[0]
+		board.tile_map_data[gate_cell].type = Enums.TileType.RESOURCE
+		board.presentation_changed.emit()
+		await get_tree().process_frame
+		check(not overlay.gates.has(gate_cell), "Changing a surviving gate tile removes its obsolete visual")
+		board.tile_map_data[gate_cell].type = Enums.TileType.RIFT_GATE
+		board.presentation_changed.emit()
 
 func _review_utility_motion(world: GameWorld) -> void:
 	var board := world.tilemap
@@ -811,6 +819,9 @@ func run() -> void:
 		await Utils.stop_audio_for_shutdown()
 		get_tree().quit(1 if failures else 0)
 		return
+	if OS.get_cmdline_user_args().has("--terrain-only"):
+		await get_tree().create_timer(1.0).timeout
+		await _capture_battle("user://terrain-fog.png")
 	await _test_battlefield_presentation(world)
 	if OS.get_cmdline_user_args().has("--terrain-only"):
 		await _test_terrain_breakup(world)

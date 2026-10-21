@@ -10,15 +10,18 @@ const CASTLE_LOOP = preload("res://assets/audio/music/castle_loop.wav")
 @export var run_bootstrap: RunBootstrap
 
 @onready var continue_button: Button = %ContinueButton
+@onready var new_game_button: Button = %NewGameButton
 
 
 func _ready() -> void:
 	get_tree().paused = false
 	continue_button.disabled = SaveGame.load_data() == null
+	continue_button.theme_type_variation = &"MainMenuButton" if continue_button.disabled else &"MenuPrimary"
+	new_game_button.theme_type_variation = &"MenuPrimary" if continue_button.disabled else &"MainMenuButton"
 	if not continue_button.disabled:
 		continue_button.grab_focus()
 	else:
-		$UILayer/Control/Buttons/VBoxContainer/NewGameButton.grab_focus()
+		new_game_button.grab_focus()
 	if !SoundManager.is_music_playing(CASTLE_LOOP):
 		SoundManager.play_music(CASTLE_LOOP,1)
 

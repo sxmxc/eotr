@@ -20,6 +20,18 @@ func _run() -> void:
 		get_tree().quit(1)
 		return
 	RNG.instance.seed = 472001
+	if OS.get_cmdline_user_args().has("--ui-layout-only"):
+		await _test_ui_composition()
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--presentation-review"):
+		await _review_presentation()
+		print("Compatibility smoke test: %d failures" % failures)
+		await Utils.stop_audio_for_shutdown()
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--map-only"):
 		GameSettings.show_tutorial = false
 		var run_scene: Run = load("res://scenes/run/run.tscn").instantiate()
@@ -49,6 +61,21 @@ func _run() -> void:
 		run_scene.map.center_camera_on_current_floor()
 		await get_tree().create_timer(1.1).timeout
 		await _capture("map")
+		var legend := run_scene.map_legend.get_node("MapLegend")
+		legend.toggle.button_pressed = true
+		await _capture("legend")
+		legend.toggle.button_pressed = false
+		var rewards: BattleRewards = load("res://scenes/battle_rewards/battle_rewards.tscn").instantiate()
+		run_scene.map.hide_map()
+		run_scene.map_legend.hide()
+		rewards.run_stats = run_scene.run_stats
+		rewards.player_stats = run_scene.player_stats
+		get_tree().root.add_child(rewards)
+		rewards.add_resource_reward(3)
+		await _settle_ui()
+		_check(rewards.rewards.get_child(0).reward_icon == load("res://assets/rift/ui/resource.svg"), "Resource reward uses the same crystal as the HUD and shop")
+		await _capture("resource-reward")
+		rewards.queue_free()
 		run_scene.queue_free()
 		await get_tree().process_frame
 		print("Compatibility smoke test: %d failures" % failures)
@@ -281,6 +308,9 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 	run_scene._show_regular_rewards()
 	await _settle_ui()
 	var rewards := run_scene.current_view.get_child(0) as BattleRewards
+	if OS.get_cmdline_user_args().has("--capture-ui"):
+		await get_tree().create_timer(0.3).timeout
+		await _capture("rewards")
 	var deck_size := run_scene.player_stats.deck.cards.size()
 	rewards._show_card_rewards()
 	await _settle_ui()
@@ -290,6 +320,8 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		return
 	var option := choices.cards.get_child(0) as CardMenuUI
 	_check(option.visuals.get_global_rect().end.y <= choices.skip_button.global_position.y, "Reward cards do not overlap Skip")
+	for entry: CardMenuUI in choices.cards.get_children():
+		_check(entry.visuals.card_text_label.get_content_height() <= entry.visuals.card_text_label.size.y, "Reward card rules remain inside the face")
 	await _capture("reward-selection")
 	await _click_control(option)
 	_check(choices.card_popup.visible and choices.selected_card == option.card, "Clicking a reward card opens confirmation")
@@ -397,6 +429,24 @@ func _test_route_and_icon_feedback(run_scene: Run) -> void:
 	_check(not node.select_route(), "Entering route rejects duplicate selection")
 	node.queue_free()
 	await get_tree().process_frame
+	var keyboard_node := preload("res://scenes/map/map_node_ui.tscn").instantiate() as MapNodeUI
+	add_child(keyboard_node)
+	keyboard_node.map_node = MapNode.new()
+	keyboard_node.available = true
+	keyboard_node.get_node("KeyboardFocus").grab_focus()
+	var accept := InputEventAction.new()
+	accept.action = &"ui_accept"
+	accept.pressed = true
+	Input.parse_input_event(accept)
+	await get_tree().process_frame
+	accept = InputEventAction.new()
+	accept.action = &"ui_accept"
+	accept.pressed = false
+	Input.parse_input_event(accept)
+	await get_tree().process_frame
+	_check(keyboard_node.map_node.selected, "Keyboard activation enters an available route node")
+	keyboard_node.queue_free()
+	await get_tree().process_frame
 
 
 func _capture_production_deck() -> void:
@@ -485,6 +535,9 @@ func _test_ui_composition() -> void:
 	authored.set_hover_outline(true)
 	authored.set_hover_outline(false)
 	_check(authored.background_texture.theme_type_variation == &"CardFaceModified", "Returning from hover preserves the face style authored in the scene")
+	authored.card = load("res://resources/data/cards/riftwalker/corroding_shot.tres")
+	await _settle_ui()
+	_check(authored.card_text_label.get_content_height() <= authored.card_text_label.size.y, "Long card rules fit without clipping mechanics (%s / %s, %s)" % [authored.card_text_label.get_content_height(), authored.card_text_label.size.y, authored.card_text_label.theme_type_variation])
 	fixture.queue_free()
 	await get_tree().process_frame
 
@@ -967,6 +1020,54 @@ func _check(condition: bool, message: String) -> void:
 		failures += 1
 		push_error(message)
 
+
+func _review_presentation() -> void:
+	GameSettings.show_tutorial = false
+	var menu: Control = load("res://scenes/menus/main_menu.tscn").instantiate()
+	add_child(menu)
+	await get_tree().create_timer(1.1).timeout
+	await _capture("menu")
+	menu.queue_free()
+	await get_tree().process_frame
+	var run_scene: Run = load("res://scenes/run/run.tscn").instantiate()
+	run_scene.run_bootstrap = RunBootstrap.new()
+	run_scene.run_bootstrap.type = RunBootstrap.Type.NEW_RUN
+	run_scene.run_bootstrap.selected_player_class = load("res://resources/data/stats/player/riftwalker_starting_stats.tres")
+	get_tree().root.add_child(run_scene)
+	await get_tree().create_timer(1.2).timeout
+	await _capture("map")
+	for entry: MapNodeUI in run_scene.map.map_nodes.get_children():
+		if entry.available:
+			var focus_button := entry.get_node("KeyboardFocus") as Button
+			focus_button.grab_focus()
+			_check(focus_button.has_focus() and entry.get_node("RouteLabel").visible, "Available route choices expose keyboard focus and encounter text")
+			focus_button.release_focus()
+			break
+	await _press_escape()
+	_check(get_tree().paused and run_scene.pause_menu.visible, "Pause opens from the route")
+	_check(run_scene.pause_menu.back_to_game_button.has_focus(), "Pause puts keyboard focus on Resume")
+	await get_tree().create_timer(0.2, true).timeout
+	await _capture("pause")
+	await _click_control(run_scene.pause_menu.back_to_game_button)
+	_check(not get_tree().paused, "Resume returns to gameplay")
+	var encounter := MapNode.new()
+	encounter.battle_stats = load("res://resources/data/battles/tier_1_channelers_bulwark.tres").duplicate(true)
+	await _test_reward_and_shop(run_scene, encounter)
+	run_scene._on_game_world_entered(encounter)
+	await get_tree().create_timer(1.4).timeout
+	var world := run_scene.current_view.get_child(0) as GameWorld
+	await _capture("combat-fog")
+	world.tilemap.hide_fog()
+	world.world_camera.frame_battle()
+	await get_tree().create_timer(0.5).timeout
+	await _capture("combat")
+	var help_button := world.game_world_ui.get_node("CameraHint") as Button
+	await _click_control(help_button)
+	_check(world.game_world_ui.get_node("CameraHelp").visible, "Camera guidance opens on demand")
+	await _click_control(help_button)
+	_check(not world.game_world_ui.get_node("CameraHelp").visible, "Camera guidance closes without intercepting gameplay")
+	run_scene.queue_free()
+	await get_tree().process_frame
 
 func _capture(screen: String) -> void:
 	if not OS.get_cmdline_user_args().has("--capture-ui"):

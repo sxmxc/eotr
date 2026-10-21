@@ -4,6 +4,7 @@ class_name CardRewards
 signal card_reward_selected(card: Card)
 
 const CARD_MENU_UI_SCENE = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
+@export_range(1.0, 1.5, 0.05) var card_presentation_scale := 1.3
 
 @export var rewards: Array[Card]:
 	set = set_rewards
@@ -59,6 +60,7 @@ func set_rewards(new_cards: Array[Card]) -> void:
 	_clear_rewards()
 	for card: Card in rewards:
 		var new_card := CARD_MENU_UI_SCENE.instantiate() as CardMenuUI
+		new_card.presentation_scale = card_presentation_scale
 		cards.add_child(new_card)
 		new_card.card = card
 		new_card.visuals.card_text_label.text = card.get_default_description()

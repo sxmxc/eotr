@@ -64,18 +64,31 @@ offset_bottom = 292.0
 theme = ExtResource("rift_theme")
 theme_type_variation = &"ActionHint"
 text = "YOUR TURN - Inspect a card, then drag to play"
+tooltip_text = "Inspect a card, then drag it to a legal target to play. Right click cancels targeting."
 autowrap_mode = 2
 
-[node name="CameraHint" type="Label" parent="."]
+[node name="CameraHint" type="Button" parent="."]
 offset_left = 40.0
-offset_top = 560.0
+offset_top = 568.0
 offset_right = 300.0
-offset_bottom = 644.0
-mouse_filter = 2
+offset_bottom = 608.0
 theme = ExtResource("rift_theme")
-theme_type_variation = &"BodySmall"
-text = "Wheel to zoom\nMiddle mouse to pan\nHome: reset  /  F: overview"
-autowrap_mode = 2
+theme_type_variation = &"QuietButton"
+text = "Camera controls  ?"
+toggle_mode = true
+tooltip_text = "Wheel · Zoom\nMiddle mouse drag · Pan\nHome · Reset tactical view\nF · Show the whole battlefield"
+mouse_default_cursor_shape = 16
+
+[node name="CameraHelp" type="Label" parent="."]
+visible = false
+offset_left = 40.0
+offset_top = 472.0
+offset_right = 300.0
+offset_bottom = 560.0
+theme = ExtResource("rift_theme")
+theme_type_variation = &"Microcopy"
+text = "Wheel · Zoom\nMiddle drag · Pan\nHome · Reset tactical view\nF · Whole battlefield"
+mouse_filter = 2
 
 [node name="DebugUI" type="Control" parent="." unique_id=1634729797]
 layout_mode = 3
@@ -186,6 +199,7 @@ offset_right = 290.0
 offset_bottom = 188.0
 
 [node name="BountyUI" type="Panel" parent="PlayerUI" unique_id=1164363591]
+theme_type_variation = &"EmptyPanel"
 layout_mode = 0
 offset_left = 40.0
 offset_top = 804.0
@@ -202,7 +216,7 @@ offset_top = 8.0
 offset_right = 248.0
 offset_bottom = 30.0
 theme_type_variation = &"Eyebrow"
-text = "BOUNTY THIS BATTLE"
+text = "BATTLE SPOILS"
 
 [node name="BountyGoldLabel" type="Label" parent="PlayerUI/BountyUI" unique_id=1083185002]
 unique_name_in_owner = true

@@ -66,10 +66,10 @@ theme = ExtResource("5_ng0o5")
 [node name="Title" type="Control" parent="UILayer/Control" unique_id=1333165821]
 layout_mode = 1
 anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_left = 0.234375
+anchor_top = 0.22
+anchor_right = 0.234375
+anchor_bottom = 0.22
 offset_left = -365.5
 offset_top = -251.5
 offset_right = 365.5
@@ -130,18 +130,18 @@ metadata/_custom_type_script = "uid://cxwnehr2avcec"
 [node name="Buttons" type="MarginContainer" parent="UILayer/Control" unique_id=1319771817]
 layout_mode = 1
 anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 273.0
+anchor_top = 0.52
+anchor_bottom = 0.52
+offset_left = 240.0
 offset_top = -241.0
-offset_right = 593.0
+offset_right = 660.0
 offset_bottom = 257.0
 grow_vertical = 2
 theme_type_variation = &"MenuButtonInset"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Control/Buttons" unique_id=2073974763]
 layout_mode = 2
-theme_type_variation = &"StatusTooltipStack"
+theme_type_variation = &"MainMenuActions"
 alignment = 1
 
 [node name="ContinueButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1788880217]
@@ -155,10 +155,10 @@ text = "Continue"
 
 [node name="NewGameButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=346328372]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(200, 66)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
-theme_type_variation = &"MainMenuButton"
+theme_type_variation = &"MenuPrimary"
 text = "New Run"
 
 [node name="SettingsButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1813833348]
@@ -167,23 +167,35 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
-text = "Settings
-"
+text = "Settings"
 
-[node name="SandboxButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1012888355]
+[node name="DeveloperTools" type="HBoxContainer" parent="UILayer/Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 290.0
+offset_right = 700.0
+offset_top = -96.0
+offset_bottom = -48.0
+theme_type_variation = &"ContentRow"
+[node name="Caption" type="Label" parent="UILayer/Control/DeveloperTools"]
+layout_mode = 2
+theme_type_variation = &"Microcopy"
+text = "WORKSHOP"
+vertical_alignment = 1
+[node name="SandboxButton" type="Button" parent="UILayer/Control/DeveloperTools" unique_id=1012888355]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
-theme_type_variation = &"MainMenuButton"
+theme_type_variation = &"QuietButton"
 text = "Sandbox"
 
-[node name="DataEditorButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=48162659]
+[node name="DataEditorButton" type="Button" parent="UILayer/Control/DeveloperTools" unique_id=48162659]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("5_ng0o5")
-theme_type_variation = &"MainMenuButton"
+theme_type_variation = &"QuietButton"
 text = "Data Editor"
 
 [node name="ExitButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1896684852]
@@ -205,10 +217,14 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = -114.0
-offset_right = 264.0
-offset_bottom = -72.0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_top = -74.0
+offset_right = -32.0
+offset_bottom = -24.0
+theme_type_variation = &"Microcopy"
+horizontal_alignment = 2
 grow_vertical = 0
 text = "vX.X.X.X-build"
 script = ExtResource("4_6bivr")
@@ -219,6 +235,6 @@ environment = SubResource("Environment_bre17")
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/SandboxButton" to="." method="_on_sandbox_button_pressed"]
-[connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/DataEditorButton" to="." method="_on_data_editor_button_pressed"]
+[connection signal="pressed" from="UILayer/Control/DeveloperTools/SandboxButton" to="." method="_on_sandbox_button_pressed"]
+[connection signal="pressed" from="UILayer/Control/DeveloperTools/DataEditorButton" to="." method="_on_data_editor_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

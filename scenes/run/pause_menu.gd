@@ -5,6 +5,7 @@ signal save_and_quit
 
 @onready var back_to_game_button: Button = %BackToGameButton
 @onready var save_and_quit_button: Button = %SaveAndQuitButton
+var previous_focus: WeakRef
 
 
 func _ready() -> void:
@@ -23,13 +24,20 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _pause() -> void:
+	var focused := get_viewport().gui_get_focus_owner()
+	previous_focus = weakref(focused) if focused else null
 	show()
 	get_tree().paused = true
+	back_to_game_button.grab_focus()
+	$AnimationPlayer.play("open")
 
 
 func _unpause() -> void:
 	hide()
 	get_tree().paused = false
+	var focused := previous_focus.get_ref() as Control if previous_focus else null
+	if is_instance_valid(focused) and focused.is_visible_in_tree():
+		focused.grab_focus()
 
 
 func _on_save_and_quit_button_pressed() -> void:
