@@ -91,7 +91,8 @@ func _release_status(status: Status) -> void:
 		status.status_changed.disconnect(changed_callback)
 	if status.status_applied.is_connected(_on_status_applied):
 		status.status_applied.disconnect(_on_status_applied)
-	status.remove_status(status_owner)
+	# A freed Node cannot cross a typed Node argument, even if the callee guards it.
+	status.remove_status(status_owner if is_instance_valid(status_owner) else null)
 
 
 func _on_status_changed(status: Status) -> void:
@@ -100,6 +101,9 @@ func _on_status_changed(status: Status) -> void:
 
 
 func _apply_status(status: Status) -> void:
+	if not is_instance_valid(status_owner):
+		cancel_application()
+		return
 	if _get_status(status.id) == status:
 		status.apply_status(status_owner)
 

@@ -21,6 +21,7 @@ def run_validation(temporary: Path) -> int:
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--combat-automation", action="store_true")
     parser.add_argument("--status-lifecycle", action="store_true", help="Focused status expiration and modifier cleanup checks")
+    parser.add_argument("--board-queries", action="store_true", help="Profile real encounter occupancy and movement queries")
     parser.add_argument("--attack-cancellation-only", action="store_true", help="Focused lunge cancellation checks; requires --combat-automation")
     parser.add_argument("--card-lifecycle-only", action="store_true", help="Lethal movement card teardown regression")
     parser.add_argument("--mana-wells-only", action="store_true", help="Focused mana well visibility and native visual review")
@@ -81,7 +82,9 @@ def run_validation(temporary: Path) -> int:
         user_args.append("--map-only")
     if args.autowalker_telemetry:
         user_args.append("--telemetry-only")
-    if args.status_lifecycle:
+    if args.board_queries:
+        test_scene, success_marker = "board_queries_test", "Board query tests: 0 failures"
+    elif args.status_lifecycle:
         test_scene, success_marker = "status_lifecycle_test", "Status lifecycle tests: 0 failures"
     elif args.autowalker_telemetry:
         test_scene, success_marker = "autowalker_controls_test", "AutoWalker telemetry tests: 0 failures"

@@ -82,7 +82,7 @@ def run(temporary, argv=None):
     parser.add_argument("--timeout", type=float, default=120)
     parser.add_argument("--encounter", default="res://resources/data/battles/tier_1_channelers_bulwark.tres")
     parser.add_argument("--all-encounters", action="store_true", help="Run every encounter with the same seed range; write separate encounter folders and a suite summary")
-    parser.add_argument("--output", default="qa/autowalker")
+    parser.add_argument("--output", default=".qa-tmp/autowalker")
     args = parser.parse_args(argv)
     root = Path(__file__).resolve().parents[1]
     if not 1 <= args.health_percent <= 100:
@@ -97,8 +97,8 @@ def run(temporary, argv=None):
         if args.mode != 'encounter' or args.watch or args.verify_watch or args.replay:
             parser.error('--all-encounters requires headless encounter mode without replay')
         suite_output = (root / args.output).resolve()
-        if root / 'qa' not in suite_output.parents:
-            parser.error('--output must be inside the repository qa/ directory')
+        if root / '.qa-tmp' not in suite_output.parents:
+            parser.error('--output must be inside the repository .qa-tmp/ directory')
         paths = encounter_paths(root)
         if not paths:
             parser.error('No encounter resources found')
@@ -148,8 +148,8 @@ def run(temporary, argv=None):
     for name in ("APPDATA", "LOCALAPPDATA", "XDG_DATA_HOME", "XDG_CONFIG_HOME", "XDG_CACHE_HOME"):
         env[name] = str(userdata)
     output = (root / args.output).resolve()
-    if root / 'qa' not in output.parents and output != root / 'qa':
-        parser.error('--output must be inside the repository qa/ directory for bounded retention')
+    if root / '.qa-tmp' not in output.parents:
+        parser.error('--output must be inside a repository .qa-tmp/ subdirectory for bounded retention')
     output.mkdir(parents=True, exist_ok=True)
     stop_file = output / f".stop-{uuid.uuid4().hex}"
     storage_stop_at = None
@@ -157,7 +157,7 @@ def run(temporary, argv=None):
     def maintenance(active=True):
         nonlocal storage_stop_at
         # Never truncate a file while Godot's writer still owns its seek offset.
-        maintain_qa(root / 'qa', output, args.replay, trim_log=not active)
+        maintain_qa(output, output, args.replay, trim_log=not active)
         log = output / 'godot.log'
         if active and log.exists() and log.stat().st_size > MAX_LOG_BYTES:
             if storage_stop_at is None:

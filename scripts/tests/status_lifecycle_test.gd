@@ -127,5 +127,43 @@ func run() -> void:
 	check(dealt.get_value("strength") == null, "Handler teardown disconnects resource updates")
 	owner.queue_free()
 	await get_tree().process_frame
+	await _test_owner_first_teardown()
 	print("Status lifecycle tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+
+func _test_owner_first_teardown() -> void:
+	var owner := StatusOwner.new()
+	owner.modifier_handler = ModifierHandler.new()
+	owner.add_child(owner.modifier_handler)
+	for type: Enums.ModifierType in [Enums.ModifierType.DMG_DEALT, Enums.ModifierType.DMG_TAKEN]:
+		var modifier := Modifier.new()
+		modifier.type = type
+		owner.modifier_handler.add_child(modifier)
+	add_child(owner)
+	# Combat's status UI can outlive the player/enemy it represents.
+	var handler := StatusHandler.new()
+	handler.status_owner = owner
+	add_child(handler)
+	var retained: Array[Status] = []
+	for path: String in ["strength", "attunement", "armored", "weakened"]:
+		var status: Status = load("res://resources/data/statuses/%s.tres" % path).duplicate()
+		handler.add_status(status)
+		retained.append(status)
+	var pending := CountingStatus.new()
+	pending.id = "owner_first_pending"
+	handler.add_status(pending)
+	handler.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	owner.free()
+	handler._apply_status(pending)
+	check(pending.applications == 0, "Queued application cannot target a freed owner")
+	check(handler._application_tween == null, "Freed owner cancels remaining status application")
+	handler.remove_status("strength")
+	check(not handler._has_status("strength"), "Explicit removal accepts an already freed owner")
+	handler.queue_free()
+	await get_tree().process_frame
+	for status: Status in retained:
+		check(status.status_changed.get_connections().is_empty(), status.id + " releases callbacks after owner-first destruction")
+		status.stacks = 7
+		status.duration = 7
+	check(pending.applications == 0, "Teardown cannot resume cancelled status work")
