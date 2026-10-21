@@ -12,8 +12,7 @@ Implementation details and past test results are in the
 ## 1. Watch your first battle
 
 You need Python available as `python` and Godot 4.7.2. Open this project in the
-Godot editor once and let its import finish before using the launcher. The launcher
-copies the generated import and script caches; it cannot start from an unimported checkout.
+Godot editor once and let its import finish before using the launcher. The launcher runs the original project and uses its existing import caches; it cannot start from an unimported checkout.
 
 Open PowerShell **in the repository root** (the folder containing `project.godot`).
 Set the path to your Godot executable, replacing this example with your installation:
@@ -25,7 +24,7 @@ $godot = 'D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe'
 Run one visible battle against the tier-0 blobs:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --watch --encounter res://resources/data/battles/tier_0_blobs.tres --output qa/qa-first
+python tools/run_autowalker.py --godot "$godot" --watch --encounter res://resources/data/battles/tier_0_blobs.tres --output .qa-tmp/qa-first
 ```
 
 The game window opens and the bot starts playing automatically with the `greedy`
@@ -38,7 +37,7 @@ to stop at an action boundary and flush telemetry, waiting up to 20 seconds befo
 forcing termination. It returns exit code `130` without a Python traceback and
 preserves completed reports. An unfinished battle does not get a completed report.
 
-After the battle completes, open `qa/qa-first/simulation-1.json` to see the
+After the battle completes, open `.qa-tmp/qa-first/simulation-1.json` to see the
 outcome and recorded actions. The same folder contains `godot.log` and local
 telemetry in `events.jsonl`. Regular Watch mode does **not** write `summary.json`.
 Stopping or closing an unfinished battle does not produce a completed simulation report.
@@ -51,31 +50,31 @@ The launcher runs the original project directly and does not start backend servi
 Disposable saves use automatically cleaned system temp storage, separate from
 normal game saves. Never create duplicate project trees or junction workspaces.
 
-QA files now live under `qa/`. Existing result folders keep their names: for
-example, the former `build/qa-baseline/` is now `qa/qa-baseline/`. Update any saved
-commands and replay paths accordingly. `build/` holds packaged game exports.
+Keep generated QA files under the existing `.qa-tmp/` directory. Do not create a
+separate `qa/` directory. `build/` holds packaged game exports.
 
 | Location | Contents |
 | --- | --- |
-| `qa/autowalker/` | Reports, telemetry and logs when you omit `--output`. |
+| `.qa-tmp/autowalker/` | Reports, telemetry and logs when you omit `--output`. |
 | System temp directory | Disposable saves/settings, automatically removed after execution. |
 | Your `--output` directory | `simulation-<seed>.json`, `events.jsonl`, `godot.log`, and, for headless/rendered checks, `summary.json`. |
 
-Generated files under `qa/` are ignored by Git and Godot imports and excluded from
-release exports. The launcher requires custom output directories to be under `qa/`
-so automatic retention covers them.
+Generated files under `.qa-tmp/` are ignored by Git and Godot imports and excluded from
+release exports. The launcher requires custom output directories to be under `.qa-tmp/`
+and refuses `.qa-tmp/` itself as an output. Retention covers only the selected
+output directory; sibling captures and investigations are left alone.
 
 Local data is temporary: each launch starts a fresh `events.jsonl` session (capped
 at 8 MiB), keeps at most 32 simulation reports per directory, and limits a replay
 trace to 16 MiB. Watch also caps report storage at 64 MiB per output directory.
 The Python QA tools prune generated artifacts older than 14 days and trim the
-oldest artifacts to a 256 MiB total budget. During an AutoWalker launch this runs
+oldest artifacts to a 256 MiB budget within the selected output directory. During an AutoWalker launch this runs
 every five seconds, with active files and the replay input protected; the active
 Godot log reaching 8 MiB ends the launch with exit code 2 and a
 `launcher_storage_limit` artifact; the file is trimmed only after Godot closes.
 Small temporary overshoots between checks are
 possible. Scratch caches, game saves, linked source assets and unrelated files are
-excluded from pruning. Copy evidence you want to keep outside `qa/`.
+excluded from pruning. Copy evidence you want to keep outside `.qa-tmp/`.
 
 ## 2. Inspect decisions in Watch mode
 
@@ -111,13 +110,13 @@ Omit `--watch` to run headlessly. This example plays seeds **1, 2, and 3**, one 
 another, then exits:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --seed 1 --count 3 --policy greedy --encounter res://resources/data/battles/tier_0_blobs.tres --output qa/qa-baseline
+python tools/run_autowalker.py --godot "$godot" --seed 1 --count 3 --policy greedy --encounter res://resources/data/battles/tier_0_blobs.tres --output .qa-tmp/qa-baseline
 ```
 
 Read the batch totals:
 
 ```powershell
-Get-Content qa/qa-baseline/summary.json
+Get-Content .qa-tmp/qa-baseline/summary.json
 ```
 
 Start with `failures`, `timeouts`, and `softlocks`, then inspect `wins`, `losses`,
@@ -147,10 +146,10 @@ Use `--all-encounters` to discover every encounter resource and run the same see
 range against each one, in filename order:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --all-encounters --policy greedy --seed 1 --count 100 --telemetry-upload --output qa/all-greedy
+python tools/run_autowalker.py --godot "$godot" --all-encounters --policy greedy --seed 1 --count 100 --telemetry-upload --output .qa-tmp/all-greedy
 ```
 
-Repeat with `--policy stress --output qa/all-stress` for matched coverage.
+Repeat with `--policy stress --output .qa-tmp/all-stress` for matched coverage.
 `--count` is the number of seeds **per encounter**. This is headless encounter
 mode only; it cannot be combined with Watch, rendered verification, run mode or replay.
 Each encounter gets its own subfolder, reports and session; the root `summary.json`
@@ -176,8 +175,8 @@ full unless `--health-percent 75` (or another integer 1–100) is selected. A he
 sweep can expose attrition sensitivity without claiming to model actual arrival HP.
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --all-encounters --policy greedy --count 100 --loadout tier --telemetry-upload --output qa/tier-greedy
-python tools/run_autowalker.py --godot "$godot" --all-encounters --policy stress --count 100 --loadout tier --telemetry-upload --output qa/tier-stress
+python tools/run_autowalker.py --godot "$godot" --all-encounters --policy greedy --count 100 --loadout tier --telemetry-upload --output .qa-tmp/tier-greedy
+python tools/run_autowalker.py --godot "$godot" --all-encounters --policy stress --count 100 --loadout tier --telemetry-upload --output .qa-tmp/tier-stress
 ```
 
 Use a new output folder. Reports, summaries and start/completion event metadata
@@ -206,7 +205,7 @@ Abort reason codes are `turn_limit`, `action_limit`, `per_turn_action_limit`, an
 An explicit upload launch might look like:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --mode run --policy stress --seed 33 --max-turns 200 --max-actions 2000 --max-actions-per-turn 300 --timeout 300 --telemetry-upload --output qa/retry-stress-33
+python tools/run_autowalker.py --godot "$godot" --mode run --policy stress --seed 33 --max-turns 200 --max-actions 2000 --max-actions-per-turn 300 --timeout 300 --telemetry-upload --output .qa-tmp/retry-stress-33
 ```
 
 ## 4. Replay a recorded battle
@@ -215,7 +214,7 @@ Pass a `simulation-<seed>.json` report, rather than a summary or telemetry file.
 Use a different output folder so you keep the original recording:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --watch --replay qa/qa-baseline/simulation-1.json --output qa/qa-replay
+python tools/run_autowalker.py --godot "$godot" --watch --replay .qa-tmp/qa-baseline/simulation-1.json --output .qa-tmp/qa-replay
 ```
 
 The report supplies the seed, policy, encounter, and mode. Replay follows its
@@ -234,7 +233,7 @@ batches require headless mode.
 through combat, rewards, card drafts, rest, treasure, and events:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --mode run --policy greedy --max-actions 1000 --timeout 300 --output qa/qa-run
+python tools/run_autowalker.py --godot "$godot" --mode run --policy greedy --max-actions 1000 --timeout 300 --output .qa-tmp/qa-run
 ```
 
 Add `--watch` to see it play. The encounter selection is unused in run mode. The
@@ -244,13 +243,13 @@ with those limits in mind.
 
 ## 6. Compare before and after a change
 
-1. Run the headless batch from section 3 into `qa/qa-baseline` before the change.
+1. Run the headless batch from section 3 into `.qa-tmp/qa-baseline` before the change.
 2. Make the gameplay change, then run the same command with
-   `--output qa/qa-candidate`. Keep the seed range, encounter, policy, and mode the same.
+   `--output .qa-tmp/qa-candidate`. Keep the seed range, encounter, policy, and mode the same.
 3. Compare the reports:
 
 ```powershell
-python tools/compare_autowalker.py qa/qa-baseline qa/qa-candidate --output qa/qa-comparison.json
+python tools/compare_autowalker.py .qa-tmp/qa-baseline .qa-tmp/qa-candidate --output .qa-tmp/qa-comparison.json
 ```
 
 The comparison matches seed, encounter, policy, policy version, mode and metrics version. Check
@@ -291,7 +290,7 @@ launcher’s own option list with `python tools/run_autowalker.py --help`.
 | `--all-encounters` | Off | Run the seed range for every encounter in separate subfolders. |
 | `--telemetry-upload` | Off | Explicitly consent to QA uploads for this launch. Mutually exclusive with `--telemetry-local`. |
 | `--timeout SECONDS` | `120` | Simulation time limit. Longer visible runs may need a larger value. |
-| `--output PATH` | `qa/autowalker` | Report directory inside `qa/`, relative to the repository root or absolute. |
+| `--output PATH` | `.qa-tmp/autowalker` | Report directory inside `.qa-tmp/`, relative to the repository root or absolute. |
 | `--replay PATH` | None | Simulation JSON to replay; use a separate output directory. |
 
 ## When something goes wrong

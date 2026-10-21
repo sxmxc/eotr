@@ -19,13 +19,12 @@ func initialize_status(target: Node) -> void:
 	weakened_modifier_value.percent_value = MODIFIER
 	dmg_taken_modifier.add_new_value(weakened_modifier_value)
 
-	if not status_changed.is_connected(_on_status_changed):
-		status_changed.connect(_on_status_changed.bind(dmg_taken_modifier))
 
-
-func _on_status_changed(dmg_taken_modifier: Modifier) -> void:
-	if duration <= 0 and dmg_taken_modifier:
-		dmg_taken_modifier.remove_value("weakened")
+func remove_status(target: Node) -> void:
+	if is_instance_valid(target) and is_instance_valid(target.modifier_handler):
+		var modifier: Modifier = target.modifier_handler.get_modifier(Enums.ModifierType.DMG_TAKEN)
+		if modifier:
+			modifier.remove_value("weakened")
 
 
 func get_tooltip() -> String:

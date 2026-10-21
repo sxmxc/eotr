@@ -26,7 +26,11 @@ const DEATH_FADE_DURATION := 0.35
 
 var enemy_action_picker: EnemyActionPicker
 var current_action: EnemyAction : set = set_current_action
-var current_tile_position : Vector2i
+var current_tile_position: Vector2i:
+	set(value):
+		current_tile_position = value
+		if is_instance_valid(tilemap):
+			tilemap.update_occupant(self, value)
 var turn_ticker : int = 0
 var hovered: bool = false
 var queue_button: Button = null
@@ -193,6 +197,8 @@ func _begin_death_sequence() -> bool:
 	if is_dying:
 		return false
 	is_dying = true
+	if is_instance_valid(tilemap):
+		tilemap.remove_occupant(self)
 	_play_death_feedback()
 	return true
 

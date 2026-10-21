@@ -70,12 +70,31 @@ class LauncherLifecycleTests(unittest.TestCase):
 
 
 class EncounterSuiteTests(unittest.TestCase):
+    def test_output_stays_under_qa_tmp_and_retention_stays_in_selected_output(self):
+        root = Path(launcher.__file__).resolve().parents[1]
+        (root / '.qa-tmp').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root / '.qa-tmp') as output, tempfile.TemporaryDirectory() as temporary:
+            def launch(command, env, timeout, stop_file, maintenance):
+                directory = Path(next(arg.split('=', 1)[1] for arg in command if arg.startswith('--output=')))
+                (directory / 'godot.log').write_text('')
+                (directory / 'summary.json').write_text(json.dumps({'simulations': 1, 'failures': 0}))
+                return 0
+            with patch.object(launcher, 'run_godot', side_effect=launch), patch.object(launcher, 'maintain_qa') as retention:
+                self.assertEqual(launcher.run(Path(temporary), ['--godot', 'fake', '--output', output]), 0)
+                for call in retention.call_args_list:
+                    self.assertEqual(call.args[0], Path(output).resolve())
+
+    def test_output_rejects_qa_root_and_paths_outside_qa_tmp(self):
+        for output in ('.qa-tmp', 'qa/new-output', '.qa-tmp/../outside'):
+            with tempfile.TemporaryDirectory() as temporary, self.assertRaises(SystemExit):
+                launcher.run(Path(temporary), ['--godot', 'fake', '--output', output])
+
     def test_suite_keeps_encounter_reports_separate_and_aggregates(self):
         root = Path(launcher.__file__).resolve().parents[1]
         paths = launcher.encounter_paths(root)[:2]
         self.assertEqual(len(paths), 2)
-        (root / 'qa').mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(dir=root / 'qa') as output, tempfile.TemporaryDirectory() as temporary:
+        (root / '.qa-tmp').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root / '.qa-tmp') as output, tempfile.TemporaryDirectory() as temporary:
             def launch(command, env, timeout, stop_file, maintenance):
                 directory = Path(next(arg.split('=', 1)[1] for arg in command if arg.startswith('--output=')))
                 encounter = next(arg.split('=', 1)[1] for arg in command if arg.startswith('--encounter='))

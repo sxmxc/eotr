@@ -32,6 +32,13 @@ func _ready() -> void:
 	_apply_facing()
 
 
+func _begin_death_sequence() -> bool:
+	if not super._begin_death_sequence():
+		return false
+	cancel_movement()
+	return true
+
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 
@@ -144,6 +151,7 @@ func set_movement_target(movement_target: Vector2i) -> bool:
 	face_tile(movement_target)
 
 	cancel_movement()
+	tilemap.reserve_movement(self, current_tile_position, movement_target)
 	is_moving = true
 	movement_resting_scale = sprite_2d.scale
 	var generation := movement_generation
@@ -194,6 +202,7 @@ func cancel_movement() -> void:
 	if not is_moving:
 		return
 	is_moving = false
+	tilemap.update_occupant(self, current_tile_position)
 	sprite_2d.scale = movement_resting_scale
 	position = tilemap.base_layer.map_to_local(current_tile_position) + Vector2(0, 1)
 	# Release waiters; their action generation rejects this cancelled move.

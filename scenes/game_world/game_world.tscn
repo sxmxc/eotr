@@ -17,7 +17,7 @@
 [ext_resource type="Resource" uid="uid://yp6oi15t4x0" path="res://resources/data/tile_effects/damage_tile_effect.tres" id="14_u6b8t"]
 [ext_resource type="Resource" uid="uid://dooia6pfkqp46" path="res://resources/data/tile_effects/draw_card_tile_effect.tres" id="15_g77xe"]
 [ext_resource type="Resource" uid="uid://cncwxv041kjkn" path="res://resources/data/tile_effects/empty_tile_effect.tres" id="16_p5igc"]
-[ext_resource type="Script" path="res://scenes/game_world/world_camera.gd" id="16_qc6v1"]
+[ext_resource type="Script" uid="uid://v27aa30lnj25" path="res://scenes/game_world/world_camera.gd" id="16_qc6v1"]
 [ext_resource type="Resource" uid="uid://j7vb2jjk48vl" path="res://resources/data/tile_effects/energy_tile_effect.tres" id="17_3u2ga"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="17_lorak"]
 [ext_resource type="Resource" uid="uid://cw30y55ftjw7y" path="res://resources/data/tile_effects/resource_tile_effect.tres" id="18_dc582"]
@@ -30,18 +30,12 @@
 [ext_resource type="Script" uid="uid://dp7odwuufuohn" path="res://ui/world_ui/board_overlay.gd" id="46_overlay"]
 [ext_resource type="PackedScene" path="res://ui/world_ui/game_world_ui.tscn" id="battle_hud"]
 [ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
+[ext_resource type="Shader" uid="uid://bimabwshpl6m0" path="res://scripts/shaders/tile_target_highlight.gdshader" id="movement_shader"]
 [ext_resource type="PackedScene" uid="uid://cqdnmgot1dc0c" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
-[ext_resource type="Shader" path="res://scripts/shaders/terrain_surface.gdshader" id="terrain_shader"]
-[ext_resource type="Script" path="res://ui/world_ui/terrain_depth.gd" id="terrain_depth"]
-[ext_resource type="Shader" path="res://scripts/shaders/tile_target_highlight.gdshader" id="movement_shader"]
-[ext_resource type="Texture2D" path="res://assets/rift/environment/rift_void.webp" id="void_plate"]
-[ext_resource type="Shader" path="res://scripts/shaders/rift_void.gdshader" id="void_shader"]
-
-[sub_resource type="ShaderMaterial" id="void_material"]
-shader = ExtResource("void_shader")
-
-[sub_resource type="ShaderMaterial" id="terrain_surface"]
-shader = ExtResource("terrain_shader")
+[ext_resource type="Script" uid="uid://bdxipsqp5unld" path="res://ui/world_ui/terrain_depth.gd" id="terrain_depth"]
+[ext_resource type="Shader" uid="uid://cvnt8ohnuv01u" path="res://scripts/shaders/terrain_surface.gdshader" id="terrain_shader"]
+[ext_resource type="Texture2D" uid="uid://c51wnrmyfkmo3" path="res://assets/rift/environment/rift_void.webp" id="void_plate"]
+[ext_resource type="Shader" uid="uid://drwo7wg0pm0we" path="res://scripts/shaders/rift_void.gdshader" id="void_shader"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -52,25 +46,20 @@ stream_1 = ExtResource("4_lorak")
 [sub_resource type="Resource" id="Resource_bumdp"]
 script = ExtResource("17_lorak")
 
-[sub_resource type="Gradient" id="Gradient_lorak"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.366197, 1)
-colors = PackedColorArray(0.025, 0.038, 0.065, 1, 0.035, 0.095, 0.11, 1)
+[sub_resource type="ShaderMaterial" id="void_material"]
+shader = ExtResource("void_shader")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ht6dc"]
-gradient = SubResource("Gradient_lorak")
-width = 1280
-height = 1280
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.985437, 0.490291)
-repeat = 2
+[sub_resource type="ShaderMaterial" id="terrain_surface"]
+shader = ExtResource("terrain_shader")
 
 [sub_resource type="ShaderMaterial" id="movement_material"]
 shader = ExtResource("movement_shader")
 shader_parameter/HighlightColor = Color(0.29, 0.75, 0.67, 1)
+shader_parameter/PulseSpeed = 1.35
 shader_parameter/MinAlpha = 0.08
 shader_parameter/MaxAlpha = 0.14
 shader_parameter/OutlineWidth = 0.022
+shader_parameter/HexSize = 64.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udifo"]
 texture = ExtResource("42_0am1i")
@@ -136,8 +125,8 @@ mouse_filter = 2
 texture = ExtResource("void_plate")
 
 [node name="ParallaxMidground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1907417246]
-visible = false
 physics_interpolation_mode = 1
+visible = false
 scroll_scale = Vector2(0.25, 0.25)
 repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(-0.6, 0.6)
@@ -150,8 +139,8 @@ mouse_filter = 2
 texture = ExtResource("39_lorak")
 
 [node name="ParallaxForeground" type="Parallax2D" parent="ParallaxBackgroundNode" unique_id=1050922327]
-visible = false
 physics_interpolation_mode = 1
+visible = false
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(2560, 2560)
 autoscroll = Vector2(0.9, -0.9)
@@ -180,18 +169,16 @@ mana_weight = 1
 warp_weight = 1
 ruin_tile_effects = Array[ExtResource("12_3lu4o")]([ExtResource("13_wc6i6"), ExtResource("14_u6b8t"), ExtResource("15_g77xe"), ExtResource("16_p5igc"), ExtResource("17_3u2ga"), ExtResource("18_dc582"), ExtResource("19_dpyoc")])
 
-[node name="TerrainDepth" type="Node2D" parent="Tilemap"]
+[node name="TerrainDepth" type="Node2D" parent="Tilemap" unique_id=226483777]
 z_index = -1
 script = ExtResource("terrain_depth")
-depth_pixels = 10
 
 [node name="BaseLayer" type="TileMapLayer" parent="Tilemap" unique_id=1805553683]
-material = SubResource("terrain_surface")
 modulate = Color(0.78, 0.85, 0.88, 1)
+material = SubResource("terrain_surface")
 tile_set = ExtResource("1_tqoos")
 
 [node name="FogLayer" type="TileMapLayer" parent="Tilemap" unique_id=148479914]
-modulate = Color(1, 1, 1, 1)
 z_index = 3
 tile_set = ExtResource("3_0jtfi")
 
@@ -205,6 +192,7 @@ script = ExtResource("46_overlay")
 [node name="CenterMarker" type="Marker2D" parent="Tilemap" unique_id=744458310]
 
 [node name="EnemyHandler" type="Node2D" parent="." unique_id=1880603161]
+y_sort_enabled = true
 script = ExtResource("12_lsh46")
 
 [node name="BattleState" type="Node" parent="." unique_id=1068612990 node_paths=PackedStringArray("game_world", "player_handler", "enemy_handler")]

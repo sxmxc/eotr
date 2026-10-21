@@ -101,14 +101,15 @@ backlog:
   - id: BKL-008
     title: "Rebalance relic reward rarity"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: in_progress
+    owner: Codex
     blockers: []
     context:
       - "Players reported relics feeling too common; needs confirmation post-energy economy changes."
+      - "Baseline audited 2026-10-20: 24 human-labelled development runs, 8 shop purchases, 1 treasure claim; bot policy cannot buy. Exact floor attribution and resumed identity gaps prevent reliable acquisition curves. See ai/docs/relic-acquisition-baseline.md. No balance change justified yet."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Review drop tables and telemetry for relic frequency."
+      - "Add complete room/floor attribution and persisted run identity in a separately scoped telemetry change, then collect representative human run histories."
       - "If rewards remain too frequent, adjust `resources/data/rewards` weights and verify run pacing."
 
   - id: BKL-009
@@ -589,30 +590,28 @@ backlog:
   - id: BKL-044
     title: "Normalize status lifecycle and modifier cleanup"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Strength/Weakened modify modifiers but rely on UI node removal for cleanup; risk of lingering modifier values."
       - "StatusHandler decrements durations but doesn’t enforce modifier removal centrally."
     next_steps:
-      - "Add a lifecycle hook in StatusHandler to remove modifier values when duration/stacks hit zero."
-      - "Audit status scripts under resources/data/statuses for consistent add/remove logic."
-      - "Write a lightweight test or sandbox repro to confirm modifiers clear after expiration."
+      - "Manually confirm status expiration/reapplication in battle and the enemy inspection view."
+      - "Focused lifecycle and combat tests pass; broader smoke retains two documented map emitter failures. See ai/state/journal-bkl-044.md (main journal has invalid UTF-8)."
 
   - id: BKL-045
     title: "Add board occupancy cache and improve enemy pathfinding"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "ProcGenTilemap.is_tile_free scans groups each call; MovingEnemy pathing rebuilds paths without caching."
-      - "Scaling enemy counts/map size will spike per-frame queries."
+      - "Board-owned logical occupancy replaces group scans; movement reserves both ends and lifecycle cleanup is explicit."
+      - "Direct terrain-cell lookups avoid allocating used-cell arrays during BFS. Existing BFS retained after profiling; A* and persistent path caching deferred."
+      - "Telemetry evidence, benchmark results and validation limits: ai/state/journal-bkl-045.md."
     next_steps:
-      - "Maintain an occupancy map updated on spawn/move/death for player/enemies/obelisk."
-      - "Refactor MovingEnemy._find_path to use cached occupancy and an A* helper shared across enemies."
-      - "Add simple perf guardrails in shrink_map to handle occupancy updates before tile removal."
+      - "Monitor larger-board movement costs before introducing shared A* or persistent path caches."
 
   - id: BKL-046
     title: "Expose shared hex range/LOS helpers for cards and AI"
@@ -690,6 +689,18 @@ backlog:
       - "Audit remaining cards for bespoke projectile handling; rewrite to build CardEffectConfig entries and call CardResolver.resolve."
       - "Ensure pre-hit FX uses CardFxRunner and camera impact uses ImpactProfile/config values."
       - "Delete bespoke projectile/timeouts after migration."
+
+  - id: BKL-052
+    title: "Guard status teardown when the status owner has already been freed"
+    priority: P1
+    status: complete
+    owner: Codex
+    blockers: []
+    context:
+      - "StatusHandler normalizes freed owners to null before typed cleanup calls and cancels pending application after owner destruction."
+      - "Strength/Attunement retain the exact callback for removal after owner destruction; focused regression and six affected seeded battles pass without script errors. See ai/state/journal-bkl-045.md."
+    next_steps:
+      - "Keep owner-first and handler-first destruction coverage when adding statuses."
 
 in_progress: []
 in_review: []

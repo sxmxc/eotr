@@ -3,6 +3,30 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "BKL-008",
+      "status": "in_progress",
+      "summary": "Completed read-only live relic baseline: 24 human-labelled development runs with 8 purchases and 1 claim; 236 eligible run-mode bot identities kept separate. Bot shops permit leaving only. Missing acquisition floors, incomplete room coverage and resumed run identity prevent reliable floor curves. Balance unchanged; evidence and follow-ups: ai/docs/relic-acquisition-baseline.md.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "BKL-045",
+      "status": "done",
+      "summary": "Profiled live Grafana QA telemetry and real encounter queries; cached logical occupancy and replaced terrain-array scans with direct cell lookups. Kept BFS and presentation. Focused headless/native lifecycle and full headless combat suites pass. Status teardown errors also fixed under BKL-052; six affected seeded battles rerun with clean launcher exits. QA outputs use existing .qa-tmp. Evidence: ai/state/journal-bkl-045.md; main journal has invalid UTF-8.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "BKL-052",
+      "status": "done",
+      "summary": "Fixed typed cleanup calls after owner destruction, exact callback disconnection for Strength/Attunement and queued application cancellation. Owner-first and handler-first lifecycle tests pass. Channeler/spectre seeds 1-3 exit cleanly with zero script errors under .qa-tmp; launcher storage defaults and retention are scoped there.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "BKL-044",
+      "status": "done",
+      "summary": "StatusHandler owns expiration/removal and cleanup; Strength, Attunement, Weakened and Armored release modifiers/callbacks. Source-specific modifier removal detaches immediately. Focused lifecycle and headless combat tests pass; broader smoke retains two documented map emitter failures. Manual battle/inspection QA remains. Journal: ai/state/journal-bkl-044.md; main journal cannot be patched due to invalid UTF-8.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "ARTWORK-TERRAIN-DEPTH-001",
       "status": "done",
       "summary": "Required edge feature retained: cached stone skirts trace atlas alpha and use painted stone texture with underside shading. Native/headless terrain checks and resource guard pass; fog/revealed/shrink captures inspected. Supersedes edge removal.",

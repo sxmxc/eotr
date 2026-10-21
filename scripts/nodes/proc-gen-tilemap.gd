@@ -39,7 +39,11 @@ var base_layer: TileMapLayer
 var fog_layer: TileMapLayer
 var highlight_layer : TileMapLayer
 @onready var target_highlight_layer: Node2D = $CardTargetHighlights
-var player_position: Vector2i
+var player_position: Vector2i:
+	set(value):
+		player_position = value
+		if is_instance_valid(player):
+			update_occupant(player, value)
 var obelisk_position: Vector2
 var fog_state = {}  # Stores which tiles are cleared
 var tile_map_data: Dictionary[Vector2i, HexTileData] = {}  # Stores generated tile types
@@ -58,6 +62,39 @@ var obelisk: Enemy
 
 var is_resource_count_visible : bool = false : set = set_is_resource_count_visible
 var start_tile_effects_pending := false
+
+# Logical cells stay stable while sprites tween. Moving enemies reserve both ends.
+var _occupied_cells: Dictionary[Vector2i, Array] = {}
+var _occupant_cells: Dictionary[Node2D, Array] = {}
+
+func register_occupant(actor: Node2D, cell: Vector2i) -> void:
+	_set_occupant_cells(actor, [cell])
+	var cleanup := remove_occupant.bind(actor)
+	if not actor.tree_exiting.is_connected(cleanup):
+		actor.tree_exiting.connect(cleanup)
+
+func update_occupant(actor: Node2D, cell: Vector2i) -> void:
+	if _occupant_cells.has(actor):
+		_set_occupant_cells(actor, [cell])
+
+func reserve_movement(actor: Node2D, origin: Vector2i, destination: Vector2i) -> void:
+	if _occupant_cells.has(actor):
+		_set_occupant_cells(actor, [origin, destination])
+
+func remove_occupant(actor: Node2D) -> void:
+	for cell: Vector2i in _occupant_cells.get(actor, []):
+		_occupied_cells[cell].erase(actor)
+		if _occupied_cells[cell].is_empty():
+			_occupied_cells.erase(cell)
+	_occupant_cells.erase(actor)
+
+func _set_occupant_cells(actor: Node2D, cells: Array) -> void:
+	remove_occupant(actor)
+	_occupant_cells[actor] = cells
+	for cell: Vector2i in cells:
+		if not _occupied_cells.has(cell):
+			_occupied_cells[cell] = []
+		_occupied_cells[cell].append(actor)
 
 func cell_to_world(cell: Vector2i) -> Vector2:
 	return base_layer.to_global(base_layer.map_to_local(cell))
@@ -98,6 +135,8 @@ func weighted_random_tile() -> Enums.TileType:
 
 
 func generate_tilemap(battle_stats: EncounterDefinition):
+	_occupied_cells.clear()
+	_occupant_cells.clear()
 	base_layer.clear()
 	fog_layer.clear()
 	clear_target_highlights()
@@ -244,6 +283,7 @@ func move_player(tile_pos, apply_effects: bool = true) -> void:
 	if is_within_bounds(tile_pos):
 		clear_fog_around(tile_pos, fog_clear_radius)
 		player_position = tile_pos
+		register_occupant(player, player_position)
 		var tile_data : HexTileData = tile_map_data.get(tile_pos, null)
 		Events.tile_selected.emit(tile_data)
 		player_position_updated.emit(base_layer.map_to_local(player_position))
@@ -303,6 +343,7 @@ func teleport_player(tile_pos) -> void:
 		target_highlight_layer.play_gate_burst(tile_pos)
 		clear_fog_around(tile_pos, fog_clear_radius)
 		player_position = tile_pos
+		register_occupant(player, player_position)
 		var tile_data : HexTileData = tile_map_data.get(tile_pos, null)
 		Events.tile_selected.emit(tile_data)
 		player_teleported.emit(base_layer.map_to_local(player_position))
@@ -313,25 +354,11 @@ func place_obelisk(obelisk_to_place: Obelisk) -> void:
 	obelisk_position = base_layer.map_to_local(center_tile)
 	obelisk.position = obelisk_position
 	obelisk.current_tile_position = center_tile
+	register_occupant(obelisk, center_tile)
 	clear_fog_around(center_tile, 1)
 	
 func is_tile_free(tile_pos: Vector2i) -> bool:
-	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
-		var enemy_tile = world_to_cell(enemy.global_position)
-		if enemy_tile == tile_pos:
-			return false
-
-	if is_instance_valid(obelisk):
-		var obelisk_tile = world_to_cell(obelisk.global_position)
-		if obelisk_tile == tile_pos:
-			return false
-
-	if player != null:
-		var player_tile = world_to_cell(player.global_position)
-		if player_tile == tile_pos:
-			return false
-
-	return true
+	return not _occupied_cells.has(tile_pos)
 
 func is_tile_mana_well(tile: Vector2i) -> bool:
 	if !is_within_bounds(tile):
@@ -371,7 +398,7 @@ func is_tile_in_shape(pos: Vector2i) -> bool:
 
 func is_within_bounds(pos: Vector2i) -> bool:
 	return (
-		base_layer.get_used_cells().has(pos) and
+		base_layer.get_cell_source_id(pos) != -1 and
 		is_tile_in_shape(pos)
 	)
 	
@@ -599,10 +626,15 @@ func shrink_map(amount) -> void:
 		var to_destroy: Array[Vector2i] = get_battlemap_edge_clockwise()
 		for cell in to_destroy:
 			# Damage enemies on this tile
-			for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
+			for enemy: Node2D in _occupied_cells.get(cell, []).duplicate():
+				if not enemy is Enemy:
+					continue
+				if enemy is MovingEnemy:
+					(enemy as MovingEnemy).cancel_movement()
 				if enemy.current_tile_position == cell:
 					var death_damage = enemy.stats.health
 					enemy.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
+					remove_occupant(enemy)
 
 			# Damage player if on this tile
 			if player_position == cell:

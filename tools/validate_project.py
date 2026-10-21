@@ -20,6 +20,8 @@ def run_validation(temporary: Path) -> int:
     parser.add_argument("--godot", default=shutil.which("godot"))
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--combat-automation", action="store_true")
+    parser.add_argument("--status-lifecycle", action="store_true", help="Focused status expiration and modifier cleanup checks")
+    parser.add_argument("--board-queries", action="store_true", help="Profile real encounter occupancy and movement queries")
     parser.add_argument("--attack-cancellation-only", action="store_true", help="Focused lunge cancellation checks; requires --combat-automation")
     parser.add_argument("--card-lifecycle-only", action="store_true", help="Lethal movement card teardown regression")
     parser.add_argument("--mana-wells-only", action="store_true", help="Focused mana well visibility and native visual review")
@@ -80,15 +82,27 @@ def run_validation(temporary: Path) -> int:
         user_args.append("--map-only")
     if args.autowalker_telemetry:
         user_args.append("--telemetry-only")
+    if args.board_queries:
+        test_scene, success_marker = "board_queries_test", "Board query tests: 0 failures"
+    elif args.status_lifecycle:
+        test_scene, success_marker = "status_lifecycle_test", "Status lifecycle tests: 0 failures"
+    elif args.autowalker_telemetry:
+        test_scene, success_marker = "autowalker_controls_test", "AutoWalker telemetry tests: 0 failures"
+    elif args.autowalker_controls:
+        test_scene, success_marker = "autowalker_controls_test", "AutoWalker controls tests: 0 failures"
+    elif args.combat_automation:
+        test_scene, success_marker = "combat_automation_test", "Combat automation tests: 0 failures"
+    else:
+        test_scene, success_marker = "compatibility_smoke", "Compatibility smoke test: 0 failures"
     result = subprocess.run([
         args.godot, *display_args, "--path", str(root),
-        "res://scripts/tests/autowalker_controls_test.tscn" if args.autowalker_controls or args.autowalker_telemetry else ("res://scripts/tests/combat_automation_test.tscn" if args.combat_automation else "res://scripts/tests/compatibility_smoke.tscn"), "--quit-after", "20000",
+        f"res://scripts/tests/{test_scene}.tscn", "--quit-after", "20000",
         "--log-file", str(log_path),
     ] + (["--verbose"] if args.verbose else []) + ["--", "--validation-local", *user_args], env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180)
     output = result.stdout + result.stderr
     print(output)
     # Godot can report a script failure and still return exit code zero.
-    success = ("AutoWalker telemetry tests: 0 failures" if args.autowalker_telemetry else ("AutoWalker controls tests: 0 failures" if args.autowalker_controls else ("Combat automation tests: 0 failures" if args.combat_automation else "Compatibility smoke test: 0 failures"))) in output
+    success = success_marker in output
     allowed_errors = (
         'Condition "!actions.custom_samplers.has(function->arguments[j].tex_builtin)" is true.',
         "Failed to read the root certificate store.",

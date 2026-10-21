@@ -37,6 +37,7 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i, summoned: bool = false) -> void
 	enemy.tilemap = tilemap
 	enemy.position = tilemap.base_layer.map_to_local(tile_pos)
 	enemy.current_tile_position = tile_pos
+	tilemap.register_occupant(enemy, tile_pos)
 	if enemy_rail:
 		var entry := QUEUE_ENTRY.instantiate()
 		enemy_rail.queue.add_child(entry)
