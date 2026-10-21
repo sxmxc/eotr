@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "BKL-044",
+      "status": "done",
+      "summary": "StatusHandler owns expiration/removal and cleanup; Strength, Attunement, Weakened and Armored release modifiers/callbacks. Source-specific modifier removal detaches immediately. Focused lifecycle and headless combat tests pass; broader smoke retains two documented map emitter failures. Manual battle/inspection QA remains. Journal: ai/state/journal-bkl-044.md; main journal cannot be patched due to invalid UTF-8.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "ARTWORK-TERRAIN-DEPTH-001",
       "status": "done",
       "summary": "Required edge feature retained: cached stone skirts trace atlas alpha and use painted stone texture with underside shading. Native/headless terrain checks and resource guard pass; fog/revealed/shrink captures inspected. Supersedes edge removal.",

@@ -10,6 +10,8 @@ class_name StatusUI
 func set_status(new_status: Status) -> void:
 	if not is_node_ready():
 		await ready
+	if status and status.status_changed.is_connected(_on_status_changed):
+		status.status_changed.disconnect(_on_status_changed)
 	status = new_status
 	icon.texture = new_status.icon
 	duration.visible = status.stack_type == Enums.StatusStackType.DURATION
@@ -23,12 +25,12 @@ func _on_status_changed() -> void:
 	if not status:
 		return
 		
-	if status.can_expire and status.duration <= 0:
-		queue_free()
-		
-	if status.stack_type == Enums.StatusStackType.INTENSITY and status.stacks == 0:
-		queue_free()
-		
+	visible = not status.is_expired()
 	tooltip_text = status.get_display_tooltip()
 	duration.text = str(status.duration)
 	stacks.text = str(status.stacks)
+
+
+func _exit_tree() -> void:
+	if status and status.status_changed.is_connected(_on_status_changed):
+		status.status_changed.disconnect(_on_status_changed)

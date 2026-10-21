@@ -18,6 +18,14 @@ signal status_changed
 
 func initialize_status(_target: Node) -> void:
 	pass
+
+
+func remove_status(_target: Node) -> void:
+	pass
+
+
+func is_expired() -> bool:
+	return (can_expire and duration <= 0) or (stack_type == Enums.StatusStackType.INTENSITY and stacks <= 0)
 	
 func apply_status(_target: Node) -> void:
 	status_applied.emit(self)

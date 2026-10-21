@@ -5,6 +5,11 @@ func initialize_status(target: Node) -> void:
 	if not target.damage_taken.is_connected(_on_target_damage_taken):
 		target.damage_taken.connect(_on_target_damage_taken)
 
+
+func remove_status(target: Node) -> void:
+	if is_instance_valid(target) and target.damage_taken.is_connected(_on_target_damage_taken):
+		target.damage_taken.disconnect(_on_target_damage_taken)
+
 func apply_status(target: Node) -> void:
 	if stacks <= 0:
 		return

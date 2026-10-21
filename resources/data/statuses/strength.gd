@@ -3,9 +3,18 @@ extends Status
 
 
 func initialize_status(target: Node) -> void:
-	if not status_changed.is_connected(_on_status_changed):
+	if not status_changed.is_connected(_on_status_changed.bind(target)):
 		status_changed.connect(_on_status_changed.bind(target))
 	_on_status_changed(target)
+
+
+func remove_status(target: Node) -> void:
+	if status_changed.is_connected(_on_status_changed.bind(target)):
+		status_changed.disconnect(_on_status_changed.bind(target))
+	if is_instance_valid(target) and is_instance_valid(target.modifier_handler):
+		var modifier: Modifier = target.modifier_handler.get_modifier(Enums.ModifierType.DMG_DEALT)
+		if modifier:
+			modifier.remove_value("strength")
 
 
 func _on_status_changed(target: Node) -> void:

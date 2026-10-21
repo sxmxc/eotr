@@ -589,16 +589,15 @@ backlog:
   - id: BKL-044
     title: "Normalize status lifecycle and modifier cleanup"
     priority: P1
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
       - "Strength/Weakened modify modifiers but rely on UI node removal for cleanup; risk of lingering modifier values."
       - "StatusHandler decrements durations but doesn’t enforce modifier removal centrally."
     next_steps:
-      - "Add a lifecycle hook in StatusHandler to remove modifier values when duration/stacks hit zero."
-      - "Audit status scripts under resources/data/statuses for consistent add/remove logic."
-      - "Write a lightweight test or sandbox repro to confirm modifiers clear after expiration."
+      - "Manually confirm status expiration/reapplication in battle and the enemy inspection view."
+      - "Focused lifecycle and combat tests pass; broader smoke retains two documented map emitter failures. See ai/state/journal-bkl-044.md (main journal has invalid UTF-8)."
 
   - id: BKL-045
     title: "Add board occupancy cache and improve enemy pathfinding"
