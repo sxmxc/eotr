@@ -101,14 +101,15 @@ backlog:
   - id: BKL-008
     title: "Rebalance relic reward rarity"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: in_progress
+    owner: Codex
     blockers: []
     context:
       - "Players reported relics feeling too common; needs confirmation post-energy economy changes."
+      - "Baseline audited 2026-10-20: 24 human-labelled development runs, 8 shop purchases, 1 treasure claim; bot policy cannot buy. Exact floor attribution and resumed identity gaps prevent reliable acquisition curves. See ai/docs/relic-acquisition-baseline.md. No balance change justified yet."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
-      - "Review drop tables and telemetry for relic frequency."
+      - "Add complete room/floor attribution and persisted run identity in a separately scoped telemetry change, then collect representative human run histories."
       - "If rewards remain too frequent, adjust `resources/data/rewards` weights and verify run pacing."
 
   - id: BKL-009

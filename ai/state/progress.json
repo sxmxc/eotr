@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "BKL-008",
+      "status": "in_progress",
+      "summary": "Completed read-only live relic baseline: 24 human-labelled development runs with 8 purchases and 1 claim; 236 eligible run-mode bot identities kept separate. Bot shops permit leaving only. Missing acquisition floors, incomplete room coverage and resumed run identity prevent reliable floor curves. Balance unchanged; evidence and follow-ups: ai/docs/relic-acquisition-baseline.md.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "BKL-045",
       "status": "done",
       "summary": "Profiled live Grafana QA telemetry and real encounter queries; cached logical occupancy and replaced terrain-array scans with direct cell lookups. Kept BFS and presentation. Focused headless/native lifecycle and full headless combat suites pass. Status teardown errors also fixed under BKL-052; six affected seeded battles rerun with clean launcher exits. QA outputs use existing .qa-tmp. Evidence: ai/state/journal-bkl-045.md; main journal has invalid UTF-8.",
