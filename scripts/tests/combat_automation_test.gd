@@ -169,7 +169,12 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 
 func _test_terrain_breakup(world: GameWorld) -> void:
 	var board := world.tilemap
-	check(not board.has_node("TerrainDepth"), "Terrain uses illustrated tile silhouettes without procedural sidewalls")
+	var depth := board.get_node("TerrainDepth")
+	var revealed: Dictionary = board.fog_state.duplicate()
+	board.fog_state.clear()
+	depth._rebuild()
+	check(depth.cells.is_empty(), "Fog hides skirts belonging to unrevealed terrain")
+	board.fog_state.assign(revealed)
 	board.hide_fog()
 	board.target_highlight_layer._collapse_changed(1)
 	await get_tree().process_frame
@@ -193,11 +198,14 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 	var reference: WeakRef = weakref(fragment)
 	fragment.swirl_out()
 	check(board.base_layer.get_used_cells().size() == cells_before, "Breakup cannot invalidate a gameplay tile")
-	check(fragment.has_node("Shard4") and not fragment.has_node("Shard5"), "Terrain separates into five irregular textured pieces")
+	if DisplayServer.get_name() != "headless":
+		check(fragment.has_node("Shard4") and not fragment.has_node("Shard5"), "Terrain separates into five irregular textured pieces")
 	board.base_layer.erase_cell(cell)
 	board.presentation_changed.emit()
 	await get_tree().create_timer(0.22).timeout
-	check(board.base_layer.get_cell_source_id(cell) == -1 and reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
+	check(board.base_layer.get_cell_source_id(cell) == -1, "Cell invalidation removes its artwork immediately")
+	if DisplayServer.get_name() != "headless":
+		check(reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
 	await _capture_battle("user://terrain-collapse.png")
 	await get_tree().create_timer(0.6).timeout
 	check(reference.get_ref() == null, "All breakup geometry releases within 0.82 seconds")
@@ -216,6 +224,8 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 		await board.shrink_map(1)
 		await get_tree().process_frame
 		check(board.base_layer.get_used_cells().size() < previous_cells.size(), "Shrink %s removes terrain cells" % (shrink + 1))
+		for owner_cell: Vector2i in depth.cells:
+			check(board.base_layer.get_cell_source_id(owner_cell) != -1, "Every stone skirt belongs to a surviving tile")
 		for tile: Vector2i in previous_cells:
 			if not board.tile_map_data.has(tile):
 				check(board.base_layer.get_cell_source_id(tile) == -1, "Collapsed terrain has no remaining tile artwork")
@@ -363,6 +373,8 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 		shot.save_png("user://battlefield.png")
 
 func _capture_battle(path: String) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	await RenderingServer.frame_post_draw
 	var shot := get_viewport().get_texture().get_image()
 	if get_viewport().use_hdr_2d:

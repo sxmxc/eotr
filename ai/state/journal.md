@@ -527,3 +527,15 @@ Record notable work here. Use reverse chronological order (newest at top).
 - Sidewalls previously ignored fog visibility, exposing detached bright strips around hidden tile tops. Cull walls by owning tile visibility and rebuild on existing presentation events.
 - Reduced wall depth/contrast and removed repeated horizontal striation and seams. TileMap remains authoritative.
 - Native terrain-only suite: 0 failures, including fully fogged wall culling, real successive shrink boundary checks, fragment cleanup and RNG preservation. Inspected terrain-fog.png, terrain-stable.png and terrain-shrunk.png under .qa-tmp/art-direction/terrain-edge-fix/. Shrink screenshot uses a disposable fixture that intentionally bypasses entity consequences.
+
+
+## 2026-10-20 - Remove unsuccessful procedural tile extrusion
+- Removed TerrainDepth node/resource and renderer entirely following visual rejection. Illustrated TileMap artwork now defines the battlefield silhouette; no added wall polygons, rims or offset shadows.
+- Preserved TileMap, fog, targeting and collapse animation. Updated terrain regression checks to verify successive cell removal and existing debris cleanup.
+- Native terrain-only suite passes with 0 failures; scene resource guard passes. Inspected fog and revealed captures in .qa-tmp/art-direction/tile-silhouette-restore/. This supersedes earlier edge-treatment claims.
+
+
+## 2026-10-20 - Retain terrain depth using artwork silhouettes
+- Corrected mistaken removal of required edge feature. Replaced idealized polygon extrusion with cached raster stone skirts traced from the actual atlas alpha and shaded from its painted stone band. No assumed hex corner coordinates, detached outlines or offset shadow geometry. Depth is an authored scene property.
+- Existing TileMap change/generation/presentation signals refresh visible owners; draw checks guard against erased or hidden tiles. Atlas variants share cached textures, not individual scene nodes.
+- Native terrain-only suite: 0 failures; fog, revealed and successive-shrink frames inspected under .qa-tmp/art-direction/artwork-edges/. Headless terrain suite and scene resource guard pass. No gameplay or camera changes. This supersedes the previous edge removal.

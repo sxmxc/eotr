@@ -3,6 +3,18 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "ARTWORK-TERRAIN-DEPTH-001",
+      "status": "done",
+      "summary": "Required edge feature retained: cached stone skirts trace atlas alpha and use painted stone texture with underside shading. Native/headless terrain checks and resource guard pass; fog/revealed/shrink captures inspected. Supersedes edge removal.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "REMOVE-TERRAIN-EXTRUSION-001",
+      "status": "done",
+      "summary": "Removed unsuccessful procedural sidewalls and renderer entirely; restored illustrated tile silhouettes. Native terrain suite 0 failures; fog/revealed screenshots inspected. Supersedes prior edge corrections.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "TERRAIN-EDGE-REGRESSION-001",
       "status": "done",
       "summary": "Culled walls belonging to fogged tiles; reduced depth/contrast and removed masonry stripes. Native fog/stable/shrink captures inspected; terrain regression checks pass (0 failures).",
