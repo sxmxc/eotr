@@ -35,4 +35,4 @@ Accept the screen composition and information-hierarchy pass. Native focused
 checks pass; comparison reports matching setup, all ten actions with zero start
 drift, and matching final state. No mechanics, terrain/camera system or combat
 choreography changed. Full campaign, exports, continuous motion/audio and hardware
-profiling remain outside the evidence. See ai/docs/final-ui-art-direction.md.
+profiling remain outside the evidence. See docs/ui-authoring.md.

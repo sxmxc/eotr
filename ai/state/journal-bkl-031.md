@@ -2,7 +2,7 @@
 
 Implemented 0.3.0.0: three acts, 45 floors, 40 campaign encounters, distinct
 bosses, checkpointed transitions, rewards/refinement, boss HUD, persistent
-telemetry context and corrected Void art. See ai/docs/three-act-progression.md.
+telemetry context and corrected Void art. See docs/campaign.md.
 The main journal's existing invalid UTF-8 was preserved; this entry is separate.
 
 ## Verification

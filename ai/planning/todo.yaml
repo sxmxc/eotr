@@ -106,7 +106,7 @@ backlog:
     blockers: []
     context:
       - "Players reported relics feeling too common; needs confirmation post-energy economy changes."
-      - "Baseline audited 2026-10-20: 24 human-labelled development runs, 8 shop purchases, 1 treasure claim; bot policy cannot buy. Exact floor attribution and resumed identity gaps prevent reliable acquisition curves. See ai/docs/relic-acquisition-baseline.md. No balance change justified yet."
+      - "Baseline audited 2026-10-20: 24 human-labelled development runs, 8 shop purchases, 1 treasure claim; bot policy cannot buy. Exact floor attribution and resumed identity gaps prevent reliable acquisition curves. See ai/planning/relic-acquisition-baseline.md. No balance change justified yet."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps:
       - "Add complete room/floor attribution and persisted run identity in a separately scoped telemetry change, then collect representative human run histories."
@@ -249,7 +249,7 @@ backlog:
     owner: Codex
     blockers: []
     context:
-      - "Aggregate hostile health meter integrated with all three act bosses; historical pillar ladder is superseded. See ai/docs/three-act-progression.md."
+      - "Aggregate hostile health meter integrated with all three act bosses; historical pillar ladder is superseded. See docs/campaign.md."
     next_steps:
       - "Follow up on continuous presentation review; native boss stills inspected."
 
@@ -302,7 +302,7 @@ backlog:
     blockers: []
     context:
       - "Obelisks are stationary attacking/summoning enemies, not instant-victory objectives in current encounters. Remaining hostiles must be defeated."
-      - "Canonical terminology and existing base/strengthened variants documented in ai/docs/obelisks.md. Future boss decisions remain with BKL-031; historical rush-the-pillar backlog wording is not current guidance."
+      - "Canonical terminology and existing base/strengthened variants documented in docs/combat.md. Future boss decisions remain with BKL-031; historical rush-the-pillar backlog wording is not current guidance."
       - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
     next_steps: []
 

@@ -4,7 +4,7 @@
   then record measurement gaps before balance changes.
 - Read-only Grafana audit completed against telemetry.events_deduplicated with a
   fixed event/ingestion cutoff. Evidence, extraction SQL, cohort criteria, outcome
-  tables and floor coverage: ai/docs/relic-acquisition-baseline.md and .sql.
+  tables and floor coverage: ai/planning/relic-acquisition-baseline.md and .sql.
 - Eligible cohort has 24 human-labelled development runs and 236 run-mode bot
   identities; all 30 claims and 8 purchases reconcile. Bots cannot buy at shops.
 - Exact floor curves and purchases per shop visit are unavailable; resumed run

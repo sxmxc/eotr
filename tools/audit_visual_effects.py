@@ -9,8 +9,8 @@ from pathlib import Path
 from collections import Counter
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / 'ai/docs/battlefield-vfx-inventory.json'
-ABILITY_ART = json.loads((ROOT / 'ai/docs/battlefield-ability-direction.json').read_text(encoding='utf-8'))
+OUTPUT = ROOT / 'ai/visual/reference/battlefield-vfx-inventory.json'
+ABILITY_ART = json.loads((ROOT / 'ai/visual/reference/battlefield-ability-direction.json').read_text(encoding='utf-8'))
 EXTENSIONS = {'.gd', '.tscn', '.tres', '.gdshader', '.gdshaderinc'}
 SIGNALS = re.compile(r'create_tween|tween_property|visual_fx|projectile_fx|Utils\.shake|apply_hitstop|\.instantiate\(|\.play\(|draw_|shader_parameter|set_shader_parameter|AnimationPlayer|AnimatedSprite|Particles2D|modulate|\.show\(|\.hide\(|\.emitting\s*=|(?:Effect|FX)\.new\(|\.execute\(|stats\.heal\(')
 SHADERS = {

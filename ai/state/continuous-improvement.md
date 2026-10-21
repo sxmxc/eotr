@@ -54,7 +54,7 @@
 
 - Consolidated typed encounter definitions/registry; removed the pool selector and migrated map, sandbox, tools and bounties. Preserved tier two and all original compositions. Added eight enemy roles, twelve behavioral variants and twenty encounters using existing rules.
 - Replaced battlefield, 29 card illustrations, UI/map symbols, terrain, main menu and all three class backgrounds. Fixed class masters preserve costume identity. Removed rejected alternatives, 88 obsolete sources and 438 old import cache files; final image sources total about 5.5 MB.
-- Offline combat/native compatibility and asset/alpha/hex/reference checks pass. 27 headless battles plus a rendered elite and run-mode progression executed with no runtime failures or softlocks. Full report and limits are in [rift-overhaul.md](rift-overhaul.md). Full human balance/campaign and release export remain future validation.
+- Offline combat/native compatibility and asset/alpha/hex/reference checks pass. 27 headless battles plus a rendered elite and run-mode progression executed with no runtime failures or softlocks. Full report and limits are in [rift-overhaul.md](../../docs/content-authoring.md). Full human balance/campaign and release export remain future validation.
 
 ## 2026-10-18 — Event choices preserve player agency
 

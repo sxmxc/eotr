@@ -6,8 +6,9 @@ check several seeds after a gameplay change. It uses the real combat and run sce
 Start with [your first battle](#1-watch-your-first-battle). Once that works, try
 [headless batches](#3-test-several-seeds-without-a-window),
 [replays](#4-replay-a-recorded-battle), or [run mode](#5-test-run-progression).
-Implementation details and past test results are in the
-[architecture notes](autowalker-architecture.md).
+Implementation details are in [the internals guide](autowalker-internals.md).
+For choosing between automation, focused assertions and visual captures, see
+[testing](testing.md) and [visual QA](visual-production.md).
 
 ## 1. Watch your first battle
 
@@ -24,7 +25,7 @@ $godot = 'D:/Godot-Editors/current/Godot_v4.7.2-stable_win64.exe'
 Run one visible battle against the tier-0 blobs:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --watch --encounter res://resources/data/battles/tier_0_blobs.tres --output .qa-tmp/qa-first
+python tools/run_autowalker.py --godot "$godot" --watch --encounter res://resources/data/battles/tier_0_blobs.tres --telemetry-local --output .qa-tmp/qa-first
 ```
 
 The game window opens and the bot starts playing automatically with the `greedy`
@@ -42,10 +43,10 @@ outcome and recorded actions. The same folder contains `godot.log` and local
 telemetry in `events.jsonl`. Regular Watch mode does **not** write `summary.json`.
 Stopping or closing an unfinished battle does not produce a completed simulation report.
 
-The examples upload bot telemetry by default when the project's HTTP transport is
-enabled and consent permits it. Add `--telemetry-local` only for an offline run.
-Disposable saves default to consent off. Add `--telemetry-upload` to explicitly
-enable QA uploads for this launch without changing your normal player settings.
+The examples use `--telemetry-local` for offline QA. To exercise configured HTTP
+delivery, replace it with `--telemetry-upload` for explicit per-launch consent.
+Disposable saves default to consent off; this upload choice does not change
+normal player settings.
 The launcher runs the original project directly and does not start backend services.
 Disposable saves use automatically cleaned system temp storage, separate from
 normal game saves. Never create duplicate project trees or junction workspaces.
@@ -91,7 +92,7 @@ the pause takes effect.
 | Step one turn | Allows decisions until the turn number advances, then pauses. |
 | Stop | Stops the current simulation. Use Start or Restart to begin again. |
 | Restart simulation | Restarts the current settings, or the loaded replay. Use Start to apply edited fields. |
-| Speed | Changes supported animation timing and the delay between decisions (0.5x–4x). |
+| Speed | Changes supported animation timing and the delay between decisions (0.5xâ€“4x). |
 | Load replay path below | Loads the JSON report at the replay path and starts replaying it. |
 
 An action can be a card play, a movement, ending a turn, or a run-progression choice.
@@ -110,7 +111,7 @@ Omit `--watch` to run headlessly. This example plays seeds **1, 2, and 3**, one 
 another, then exits:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --seed 1 --count 3 --policy greedy --encounter res://resources/data/battles/tier_0_blobs.tres --output .qa-tmp/qa-baseline
+python tools/run_autowalker.py --godot "$godot" --seed 1 --count 3 --policy greedy --encounter res://resources/data/battles/tier_0_blobs.tres --telemetry-local --output .qa-tmp/qa-baseline
 ```
 
 Read the batch totals:
@@ -142,7 +143,8 @@ overwrite reports too.
 
 ### Run every encounter
 
-Use `--all-encounters` to discover every encounter resource and run the same seed
+Use `--all-encounters` to discover every encounter resource (including legacy and
+non-campaign definitions, not only active act pools) and run the same seed
 range against each one, in filename order:
 
 ```powershell
@@ -159,7 +161,8 @@ matching encounter subfolders with the comparison tool.
 ### Choose encounter loadouts
 
 Encounter mode now defaults to `--loadout tier`, selected from the encounter's
-`battle_tier`. These are fixed, attainable Riftwalker test builds, **not measured
+`battle_tier`, clamped to 0–2: tiers 3–8 currently use `tier_2`. It does not
+provide distinct Act II/III arrival builds. These are fixed, attainable Riftwalker test builds, **not measured
 player averages or a substitute for full-run balance tests**:
 
 | Preset | Deck | Relics |
@@ -171,7 +174,7 @@ player averages or a substitute for full-run balance tests**:
 
 All additions are existing draftable cards/reward relics. Presets keep normal
 maximum HP, energy and draw; they do not invent card upgrades. Starting health is
-full unless `--health-percent 75` (or another integer 1–100) is selected. A health
+full unless `--health-percent 75` (or another integer 1â€“100) is selected. A health
 sweep can expose attrition sensitivity without claiming to model actual arrival HP.
 
 ```powershell
@@ -197,7 +200,7 @@ Its `metadata` contains `reason_code`, `reason`, encounter identity, policy vers
 action counts, configured turn/action/per-turn/time limits, final health, last action,
 and validation/warning counts. This uses the backend's existing metadata contract;
 no schema or table migration is required. The AutoWalker QA dashboard's
-**Aborts and technical failures — reasons and limits** table exposes the details
+**Aborts and technical failures â€” reasons and limits** table exposes the details
 after the updated dashboard source is provisioned. Older events show `legacy_unknown`.
 
 Abort reason codes are `turn_limit`, `action_limit`, `per_turn_action_limit`, and
@@ -215,7 +218,7 @@ Pass a `simulation-<seed>.json` report, rather than a summary or telemetry file.
 Use a different output folder so you keep the original recording:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --watch --replay .qa-tmp/qa-baseline/simulation-1.json --output .qa-tmp/qa-replay
+python tools/run_autowalker.py --godot "$godot" --watch --replay .qa-tmp/qa-baseline/simulation-1.json --telemetry-local --output .qa-tmp/qa-replay
 ```
 
 The report supplies the seed, policy, encounter, and mode. Replay follows its
@@ -234,14 +237,13 @@ batches require headless mode.
 through combat, rewards, card drafts, rest, treasure, and events:
 
 ```powershell
-python tools/run_autowalker.py --godot "$godot" --mode run --policy greedy --max-actions 1000 --timeout 300 --output .qa-tmp/qa-run
+python tools/run_autowalker.py --godot "$godot" --mode run --policy greedy --max-turns 500 --max-actions 2000 --timeout 300 --telemetry-local --output .qa-tmp/qa-run
 ```
 
 Add `--watch` to see it play. The encounter selection is unused in run mode. The
-campaign now spans three 15-floor acts. A real seed-2 policy-2.1.0 run completed
-all 45 floors with zero simulation failures; this does not cover every branch
-or establish human balance. Allow 500 cumulative turns and a 300-second timeout
-for campaign QA. See ai/state/journal-bkl-031.md for evidence and limitations.
+campaign spans three 15-floor acts. Allow 500 cumulative turns and a 300-second
+timeout for campaign QA. See [campaign progression](campaign.md) for room selection,
+transitions and checkpoint behavior.
 
 ## 6. Compare before and after a change
 
@@ -271,7 +273,7 @@ matching the latest summary's session, excluding stale seeds from earlier launch
 ## Command options
 
 All examples assume `$godot` is set in the current PowerShell session. See the
-launcher’s own option list with `python tools/run_autowalker.py --help`.
+launcherâ€™s own option list with `python tools/run_autowalker.py --help`.
 
 | Option | Default | Use |
 | --- | --- | --- |
@@ -282,7 +284,7 @@ launcher’s own option list with `python tools/run_autowalker.py --help`.
 | `--mode encounter\|run` | `encounter` | One battle or run progression. |
 | `--loadout tier\|starter\|tier_0\|tier_1\|tier_2\|legacy` | `tier` | Encounter build. `tier` selects the preset matching the encounter's tier; `starter` is equivalent to `tier_0`; `legacy` uses the old starter deck without relics. Explicit overrides require encounter mode. See [Choose encounter loadouts](#choose-encounter-loadouts) for preset contents. |
 | `--health-percent N` | `100` | Starting encounter health as an integer percentage of maximum, from 1 to 100. Overrides require encounter mode. |
-| `--encounter PATH` | `res://resources/data/battles/tier_1_channelers_bulwark.tres` | BattleStats resource for encounter mode. The introductory examples use the easier tier-0 blobs instead. |
+| `--encounter PATH` | `res://resources/data/battles/tier_1_channelers_bulwark.tres` | EncounterDefinition resource for encounter mode. The introductory examples use the easier tier-0 blobs instead. |
 | `--policy greedy\|random\|stress` | `greedy` | Greedy scores useful actions; random ranks legal actions randomly; stress favors movement and board edges. |
 | `--seed N` | `1` | Starting simulation seed. |
 | `--count N` | `1` | Number of sequential simulations in headless mode, incrementing the seed each time. With `--all-encounters`, this is the number of seeds per encounter. |
@@ -315,8 +317,8 @@ batches and closing Watch wait up to 15 seconds for queued uploads. Delivery is 
 effort; pending uploads and errors appear in telemetry health.
 
 For automated control and telemetry checks, recorded validation evidence, and known
-engine diagnostics, see [architecture and validation](autowalker-architecture.md#validation-evidence--2026-10-17).
+engine diagnostics, see [testing](testing.md) and [internals](autowalker-internals.md).
 
-For read-only dashboard/query access from Codex, see [Grafana access](grafana-access.md).
+For read-only dashboard/query access from Codex, see [telemetry querying and access](telemetry.md#query-gameplay-and-qa-evidence).
 Deploy the backend's updated schemas before using the v2 metric events with uploads;
 the backend continues to accept legacy v1 events. Automated regression tests remain offline.

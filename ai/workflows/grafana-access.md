@@ -1,9 +1,8 @@
 # Give Codex read-only Grafana access
 
 Use the official Grafana MCP server on the same machine as Codex. It connects to
-your Grafana over your local network, so Grafana does not need to be public. Plugin
-discovery did not find a Grafana connector in this session; more integrations may
-be available in the [plugin directory](https://chatgpt.com/plugins).
+your Grafana over your local network, so Grafana does not need to be public. Discover the available Grafana tools in the current agent session first; this
+recorded setup is only needed when that connection is absent.
 
 1. In Grafana, create a dedicated service account with the **Viewer** role and a
    token with an expiry. Keep the ClickHouse datasource on its existing read-only
@@ -38,5 +37,6 @@ References: [Grafana authentication](https://grafana.com/docs/grafana/latest/dev
 [Grafana read-only/query controls](https://grafana.com/docs/grafana/latest/developer-resources/mcp/configure/enable-and-disable-tools/),
 and [Codex MCP configuration](https://developers.openai.com/codex/mcp).
 
-This guide prepares access; no MCP server, token or live Grafana connection was
-installed or verified by the repository changes.
+This is a recorded setup procedure, not a claim about the current agent
+connection. Earlier task evidence includes live read-only queries. Query semantics
+and operator procedures are maintained in [telemetry](../../docs/telemetry.md).

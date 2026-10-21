@@ -27,16 +27,16 @@ energy. Teal primary actions have distinct hover/pressed states; rewards use a
 brass collection edge and localized type accents. Keep illustrated backdrops
 subdued behind readable content. Consent choices receive equal visual weight.
 Preserve the developer's experimental “The Rift” title with Echoes hidden.
-See `ai/docs/presentation-cohesion.md` for implementation and native evidence.
+See [visual production](../../docs/visual-production.md) for current integration contracts.
 
 Screens share materials, not identical compositions: calm directional pause shade,
-an inviting title/navigation column, stone route crossings, open merchandise
+an inviting title/navigation column, subdued opaque route nodes, open merchandise
 shelves and a distinct card-discovery stage. Static collectible previews use the
 shared CardMenuUI measuring frame; gameplay CardUI retains its authored pivot.
 Keep routine currency collection compact. Full numerical intentions remain on
 the board; movement/wait glyphs defer wording to the rail. Use shared compact
 rules typography only when actual shaped content requires it. See
-`ai/docs/final-ui-art-direction.md` for the six-screen follow-up and evidence.
+[UI authoring](../../docs/ui-authoring.md) for layout ownership.
 
 ## Art direction decisions
 Record event-specific intent in specs/: what the player must understand, shape, motion, material, relative timing, focal point, references inspected and acceptance evidence. Prefer a small purposeful change to indiscriminate glow, scale or particle inflation. A clean build establishes technical validity only.

@@ -1,5 +1,10 @@
 # BKL-008 relic acquisition baseline - 2026-10-20
 
+This is a historical snapshot, not current runtime documentation. Current policy
+2.1.0 supports purchases and current RunStats persists run identity; those later
+changes do not repair attribution in this old dataset. Keep its cutoff, SQL and
+cohort limits when assessing BKL-008. See [current telemetry](../../docs/telemetry.md).
+
 ## Decision
 
 Keep relic balance unchanged. Confidence: 9/10 that the present data does not

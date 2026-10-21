@@ -481,7 +481,7 @@
       "assets/rift/cards/arcane_bolt.webp",
       "assets/rift/source/riftwalker.webp"
     ],
-    "sources": "ai/docs/illustrated-fx-sources.json",
+    "sources": "ai/visual/reference/illustrated-fx-sources.json",
     "sheets": 8,
     "frames": 64,
     "particle_frame_extracts": 4,

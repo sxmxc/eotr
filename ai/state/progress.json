@@ -11,7 +11,7 @@
     {
       "id": "BKL-023",
       "status": "done",
-      "summary": "Documented Obelisk base/strengthened variants and current elimination victory rules in ai/docs/obelisks.md; linked encounter workflow. No gameplay changes. Future boss design remains BKL-031. Evidence: ai/state/journal-bkl-023.md.",
+      "summary": "Documented Obelisk base/strengthened variants and current elimination victory rules in docs/combat.md; linked encounter workflow. No gameplay changes. Future boss design remains BKL-031. Evidence: ai/state/journal-bkl-023.md.",
       "updated": "2026-10-20"
     },
     {
@@ -23,7 +23,7 @@
     {
       "id": "BKL-008",
       "status": "in_progress",
-      "summary": "Completed read-only live relic baseline: 24 human-labelled development runs with 8 purchases and 1 claim; 236 eligible run-mode bot identities kept separate. Bot shops permit leaving only. Missing acquisition floors, incomplete room coverage and resumed run identity prevent reliable floor curves. Balance unchanged; evidence and follow-ups: ai/docs/relic-acquisition-baseline.md.",
+      "summary": "Completed read-only live relic baseline: 24 human-labelled development runs with 8 purchases and 1 claim; 236 eligible run-mode bot identities kept separate. Bot shops permit leaving only. Missing acquisition floors, incomplete room coverage and resumed run identity prevent reliable floor curves. Balance unchanged; evidence and follow-ups: ai/planning/relic-acquisition-baseline.md.",
       "updated": "2026-10-20"
     },
     {
@@ -71,13 +71,13 @@
     {
       "id": "FINAL-UI-ART-DIRECTION-001",
       "status": "done",
-      "summary": "Six distinct compositions: directional serif pause with native focus; stronger The Rift navigation and separate workshop/footer; painted stone route with current/reachable states, longer look-ahead and keyboard activation; larger measured shared card previews and subordinate shop controls; compact currency versus larger discovery; quieter combat glyphs/help and reclaimed inspection space. Fixed preview pivot overlap and clipped long rules without changing mechanics. Native before/final suites, focused transactions/route and headless layout/combat pass; seeded pipeline matches all ten actions/final state. Evidence and limits: ai/docs/final-ui-art-direction.md.",
+      "summary": "Six distinct compositions: directional serif pause with native focus; stronger The Rift navigation and separate workshop/footer; painted stone route with current/reachable states, longer look-ahead and keyboard activation; larger measured shared card previews and subordinate shop controls; compact currency versus larger discovery; quieter combat glyphs/help and reclaimed inspection space. Fixed preview pivot overlap and clipped long rules without changing mechanics. Native before/final suites, focused transactions/route and headless layout/combat pass; seeded pipeline matches all ten actions/final state. Evidence and limits: docs/ui-authoring.md.",
       "updated": "2026-10-20"
     },
     {
       "id": "PRESENTATION-COHESION-001",
       "status": "done",
-      "summary": "Shared slate/ivory/brass direction; quieter terrain, synchronized strata, PhantomCamera fit, compact consent/route, menu composition, illustrated rooms/rewards/shop, distinct primary/reward states, complete card/plan text and purchase confirmation. Preserved The Rift experiment. Fixed obsolete gate visuals and intent placeholders. Focused native/headless checks and 29 signatures pass; AutoWalker zero failures; incremental captures match 10 actions/final state. Two baseline emitter assertions persist. Sparse-frame review; no continuous audio/motion, campaign/export/hardware proof. See ai/docs/presentation-cohesion.md.",
+      "summary": "Shared slate/ivory/brass direction; quieter terrain, synchronized strata, PhantomCamera fit, compact consent/route, menu composition, illustrated rooms/rewards/shop, distinct primary/reward states, complete card/plan text and purchase confirmation. Preserved The Rift experiment. Fixed obsolete gate visuals and intent placeholders. Focused native/headless checks and 29 signatures pass; AutoWalker zero failures; incremental captures match 10 actions/final state. Two baseline emitter assertions persist. Sparse-frame review; no continuous audio/motion, campaign/export/hardware proof. See docs/visual-production.md.",
       "updated": "2026-10-20"
     },
     {
@@ -107,49 +107,49 @@
     {
       "id": "BATTLEFIELD-VFX-OVERHAUL-004",
       "status": "in_review",
-      "summary": "Corrective presentation pass, including actual player phase-out/in with cancellation-safe opacity and translucent shields (40-42%): synchronized surviving TileMap edge depth, alpha-aligned highlights, five-piece actual-art collapse and illustrated void atmosphere. Restored original impact/camera feedback, stronger number pop and dense card trail. New painted fast energy bolts and individually authored ability compositions follow actual behavior. Native 60 fps temporal review, two real shrinks, target/flight/29-signature checks, 640-resource shader/lunge regression, full headless combat, seed-42 AutoWalker (7 turns/27 actions, zero failures), art/resource checks pass. Preserve existing gameplay and unrelated work. See ai/docs/battlefield-vfx-overhaul.md; representative coverage and native/headless trace-parity limitation documented.",
+      "summary": "Corrective presentation pass, including actual player phase-out/in with cancellation-safe opacity and translucent shields (40-42%): synchronized surviving TileMap edge depth, alpha-aligned highlights, five-piece actual-art collapse and illustrated void atmosphere. Restored original impact/camera feedback, stronger number pop and dense card trail. New painted fast energy bolts and individually authored ability compositions follow actual behavior. Native 60 fps temporal review, two real shrinks, target/flight/29-signature checks, 640-resource shader/lunge regression, full headless combat, seed-42 AutoWalker (7 turns/27 actions, zero failures), art/resource checks pass. Preserve existing gameplay and unrelated work. See docs/visual-production.md; representative coverage and native/headless trace-parity limitation documented.",
       "updated": "2026-10-18"
     },
     {
       "id": "ANCHORS-ROUTE-SPELLS-006",
       "status": "done",
-      "summary": "Centered feet, ground/hover/gate markers using cached artwork contact offsets; preserved scale and occupancy. Improved route contrast, opaque faces, labels/sidebar and trimmed connections. Added 25 card-specific signature scenes across six geometric/motion families with illustrated layers; distinct Overload/Sever/Void Shard projectiles and configured energy/cast feedback. Full combat, focused native anchor/map/FX tests, AutoWalker and art/resource checks pass. Temporary QA workspace absent. See ai/docs/battlefield-presentation.md.",
+      "summary": "Centered feet, ground/hover/gate markers using cached artwork contact offsets; preserved scale and occupancy. Improved route contrast, opaque faces, labels/sidebar and trimmed connections. Added 25 card-specific signature scenes across six geometric/motion families with illustrated layers; distinct Overload/Sever/Void Shard projectiles and configured energy/cast feedback. Full combat, focused native anchor/map/FX tests, AutoWalker and art/resource checks pass. Temporary QA workspace absent. See docs/visual-production.md.",
       "updated": "2026-10-18"
     },
     {
       "id": "BATTLEFIELD-POLISH-005",
       "status": "done",
-      "summary": "Preserved tile art; added persistent per-unit ink/rim shader, ground presence, taller readable character scales and body picking, fixed half-size flying idle. Reworked fog/reveal, visible anchored spell strokes/projectiles/impacts, animated rift gates and teleport bursts. Fixed Echo Harvest zero payout, non-depletion and logical/world feedback coordinates. Full headless combat and focused native fog/HUD/harvest/teleport/picking checks pass; one seven-turn AutoWalker encounter has zero runtime failures. See ai/docs/battlefield-presentation.md.",
+      "summary": "Preserved tile art; added persistent per-unit ink/rim shader, ground presence, taller readable character scales and body picking, fixed half-size flying idle. Reworked fog/reveal, visible anchored spell strokes/projectiles/impacts, animated rift gates and teleport bursts. Fixed Echo Harvest zero payout, non-depletion and logical/world feedback coordinates. Full headless combat and focused native fog/HUD/harvest/teleport/picking checks pass; one seven-turn AutoWalker encounter has zero runtime failures. See docs/visual-production.md.",
       "updated": "2026-10-18"
     },
     {
       "id": "BATTLEFIELD-PRESENTATION-004",
       "status": "done",
-      "summary": "64px TileSet/fog/overlays and proportional original characters; replaced eight-cell terrain atlas. Existing Phantom Camera owns HUD-aware tactical/overview/inspection framing; detached competing production Camera2D script and guarded inactive spotlight waits. Updated shader/VFX scale and ignored QA defaults. Focused native checks, art/resources, launcher tests and one headless AutoWalker encounter pass. See ai/docs/battlefield-presentation.md for validation limits and existing cube-distance discrepancy.",
+      "summary": "64px TileSet/fog/overlays and proportional original characters; replaced eight-cell terrain atlas. Existing Phantom Camera owns HUD-aware tactical/overview/inspection framing; detached competing production Camera2D script and guarded inactive spotlight waits. Updated shader/VFX scale and ignored QA defaults. Focused native checks, art/resources, launcher tests and one headless AutoWalker encounter pass. See docs/visual-production.md for validation limits and existing cube-distance discrepancy.",
       "updated": "2026-10-18"
     },
     {
       "id": "ICON-FX-FOLLOWUP-003",
       "status": "done",
-      "summary": "Theme-consistent illustrated FX: 8 sheets/64 frames, 4 particle extracts and illustrated target marker; revised arc shader/fade and projectile lifecycle, bounded feedback. Fixed legend mapping, hover duplication, HUD crystal/clock and Entering route label. Removed 67 superseded files/sidecars and rejected SVG. Native UI/combat, headless combat, asset/resource checks and offline/rendered battles pass. See ai/docs/icon-fx-followup.md.",
+      "summary": "Theme-consistent illustrated FX: 8 sheets/64 frames, 4 particle extracts and illustrated target marker; revised arc shader/fade and projectile lifecycle, bounded feedback. Fixed legend mapping, hover duplication, HUD crystal/clock and Entering route label. Removed 67 superseded files/sidecars and rejected SVG. Native UI/combat, headless combat, asset/resource checks and offline/rendered battles pass. See docs/visual-production.md.",
       "updated": "2026-10-18"
     },
     {
       "id": "VISUAL-PRODUCTION-002",
       "status": "done",
-      "summary": "29 original card illustrations in the user-approved stylized direction; exact-geometry environmental atlas; shader/alpha/ownership/lifetime fixes and bounded movement/summon feedback. Native card/terrain/targeting captures reviewed; actual offline combat/AutoWalker, art and resource checks pass. Removed collage pipeline, six shaders and legacy assets/card frame dependencies; one scene/theme renderer respects editor styling. Broad hardware/full campaign/export validation remains a limit. See ai/docs/visual-production.md.",
+      "summary": "29 original card illustrations in the user-approved stylized direction; exact-geometry environmental atlas; shader/alpha/ownership/lifetime fixes and bounded movement/summon feedback. Native card/terrain/targeting captures reviewed; actual offline combat/AutoWalker, art and resource checks pass. Removed collage pipeline, six shaders and legacy assets/card frame dependencies; one scene/theme renderer respects editor styling. Broad hardware/full campaign/export validation remains a limit. See docs/visual-production.md.",
       "updated": "2026-10-18"
     },
     {
       "id": "RIFT-COMBAT-CONTENT-ART-001",
       "status": "done",
-      "summary": "Consolidated EncounterDefinition/EncounterRegistry, removed pool selector; preserved seven encounters and tier two. Added eight bases, twelve behavioral variants and twenty authored encounters. Integrated fixed illustrated masters across 29 cards, 32 unit/class sprites, 32 icons, terrain, main menu and all three class screens. Removed 88 old sources and 438 obsolete cache files; rejected art passes removed. Asset, combat and native compatibility checks pass; 27 headless encounters, one rendered elite and run startup/progression exercised without runtime failures. Full campaign, human balance and export QA remain limits. See ai/docs/rift-overhaul.md.",
+      "summary": "Consolidated EncounterDefinition/EncounterRegistry, removed pool selector; preserved seven encounters and tier two. Added eight bases, twelve behavioral variants and twenty authored encounters. Integrated fixed illustrated masters across 29 cards, 32 unit/class sprites, 32 icons, terrain, main menu and all three class screens. Removed 88 old sources and 438 obsolete cache files; rejected art passes removed. Asset, combat and native compatibility checks pass; 27 headless encounters, one rendered elite and run startup/progression exercised without runtime failures. Full campaign, human balance and export QA remain limits. See docs/content-authoring.md.",
       "updated": "2026-10-18"
     },
     {
       "id": "EVENT-CHOICE-AFFORDABILITY-001",
       "status": "done",
-      "summary": "Fixed unsuccessful caravan trades consuming both event choices and repeat callbacks granting extra rewards. Existing costs are checked and charged once; currency signals refresh disabled buttons with requirement text, and completion focuses Leave. Regression baseline reproduced eleven failures; targeted offline headless/native and compatibility checks pass. Native event states inspected; no campaign/export QA. See ai/docs/continuous-improvement.md.",
+      "summary": "Fixed unsuccessful caravan trades consuming both event choices and repeat callbacks granting extra rewards. Existing costs are checked and charged once; currency signals refresh disabled buttons with requirement text, and completion focuses Leave. Regression baseline reproduced eleven failures; targeted offline headless/native and compatibility checks pass. Native event states inspected; no campaign/export QA. See ai/state/continuous-improvement.md.",
       "updated": "2026-10-18"
     },
     {
@@ -221,13 +221,13 @@
     {
       "id": "COMBAT-AUTOWALKER-TELEMETRY-001",
       "status": "done",
-      "summary": "Implemented combat victory/AI fixes, real-scene AutoWalker Watch/headless/policies/replay/run progression, standalone schema-aware telemetry addon, Talo event migration, and ingestion/ClickHouse/Grafana deployment source package. Local runtime and mocked/static backend evidence plus explicit shutdown/integration limits are recorded in ai/docs/implementation-checklist.md. No backend services started or deployed.",
+      "summary": "Implemented combat victory/AI fixes, real-scene AutoWalker Watch/headless/policies/replay/run progression, standalone schema-aware telemetry addon, Talo event migration, and ingestion/ClickHouse/Grafana deployment source package. Local runtime and mocked/static backend evidence plus explicit shutdown/integration limits are recorded in docs/testing.md. No backend services started or deployed.",
       "updated": "2026-10-17"
     },
     {
       "id": "UI-COMPOSITION-001",
       "status": "done",
-      "summary": "Migrated first-party UI to the shared Rift theme and named variations, authored fixed visuals as native scenes, repaired reward/shop layout and activation, and split run/battle HUDs, tutorials, pause, legend and sandbox panel into owned components. Removed private child injection and UI group discovery. Native scene save/reload ownership and interaction checks pass; see ai/docs/continuous-improvement.md for validation and shutdown limits.",
+      "summary": "Migrated first-party UI to the shared Rift theme and named variations, authored fixed visuals as native scenes, repaired reward/shop layout and activation, and split run/battle HUDs, tutorials, pause, legend and sandbox panel into owned components. Removed private child injection and UI group discovery. Native scene save/reload ownership and interaction checks pass; see ai/state/continuous-improvement.md for validation and shutdown limits.",
       "updated": "2026-10-17"
     },
     {
@@ -239,7 +239,7 @@
     {
       "id": "HAND-CYCLE-001",
       "status": "done",
-      "summary": "Fixed null-card draws from exhausted decks and animation-dependent discard state. Added runtime regression checks for phase ordering, interrupted/completed discard animations, immediate reshuffle, overdraw, zero-card draws, and standalone cleanup. See ai/docs/continuous-improvement.md for validation and limits.",
+      "summary": "Fixed null-card draws from exhausted decks and animation-dependent discard state. Added runtime regression checks for phase ordering, interrupted/completed discard animations, immediate reshuffle, overdraw, zero-card draws, and standalone cleanup. See ai/state/continuous-improvement.md for validation and limits.",
       "updated": "2026-10-17"
     },
     {
@@ -257,13 +257,13 @@
     {
       "id": "GODOT-ARCH-001",
       "status": "done",
-      "summary": "First architecture cleanup: externalized identical emission image data, shared ambient particle scene, removed first-party text-resource cache dependencies, authored battle presentation as a scene, added resource/overlay checks, and documented prioritized remaining work in ai/docs/godot-architecture-audit.md. Full-project cleanup remains open.",
+      "summary": "First architecture cleanup: externalized identical emission image data, shared ambient particle scene, removed first-party text-resource cache dependencies, authored battle presentation as a scene, added resource/overlay checks, and documented prioritized remaining work in docs/architecture.md. Full-project cleanup remains open.",
       "updated": "2026-10-17"
     },
     {
       "id": "GODOT-472",
       "status": "done",
-      "summary": "Reviewed Godot 4.7.2 and Talo 1.2.0 compatibility; migrated telemetry, repaired resource references and scene cleanup, updated CI/docs, and verified offline headless and D3D12 gameplay smoke tests. Remaining live-service/release validation and shutdown diagnostics are documented in ai/docs/godot-4.7.2-upgrade.md.",
+      "summary": "Reviewed Godot 4.7.2 and Talo 1.2.0 compatibility; migrated telemetry, repaired resource references and scene cleanup, updated CI/docs, and verified offline headless and D3D12 gameplay smoke tests. Remaining live-service/release validation and shutdown diagnostics are documented in docs/development.md.",
       "updated": "2026-10-17"
     },
     {
