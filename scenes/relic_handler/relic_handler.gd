@@ -6,6 +6,8 @@ signal relics_activated(type: Enums.RelicType)
 const RELIC_APPLY_INTERVAL := 0.5
 const RELIC_UI = preload("res://scenes/relic_handler/relic_ui.tscn")
 
+var _activation_tween: Tween
+
 @onready var relics_control: RelicsControl = $RelicsControl
 @onready var relics: HBoxContainer = %Relics
 
@@ -14,9 +16,21 @@ func _ready() -> void:
 	relics.child_exiting_tree.connect(_on_relics_child_exiting_tree)
 
 
+func cancel_activation() -> void:
+	if _activation_tween and _activation_tween.is_valid():
+		_activation_tween.kill()
+	_activation_tween = null
+
+
+func _exit_tree() -> void:
+	cancel_activation()
+
+
 func activate_relics_by_type(type: Enums.RelicType) -> void:
 	if type == Enums.RelicType.EVENT_BASED:
 		return
+
+	cancel_activation()
 
 	var relic_queue: Array[RelicUI] = _get_all_relic_ui_nodes().filter(
 		func(relic_ui: RelicUI): return relic_ui.relic.type == type
@@ -25,14 +39,14 @@ func activate_relics_by_type(type: Enums.RelicType) -> void:
 		relics_activated.emit(type)
 		return
 
-	var tween := create_tween()
+	_activation_tween = create_tween()
 	for relic_ui: RelicUI in relic_queue:
-		var relic = relic_ui.relic as Relic
+		_activation_tween.tween_callback(relic_ui.relic.activate_relic.bind(relic_ui))
+		_activation_tween.tween_interval(Utils.presentation_duration(RELIC_APPLY_INTERVAL))
 
-		tween.tween_callback(relic_ui.relic.activate_relic.bind(relic_ui))
-		tween.tween_interval(Utils.presentation_duration(RELIC_APPLY_INTERVAL))
-
-	tween.finished.connect(func(): relics_activated.emit(type))
+	_activation_tween.finished.connect(func():
+		_activation_tween = null
+		relics_activated.emit(type))
 
 
 func add_relics(relics_array: Array[Relic]) -> void:

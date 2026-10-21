@@ -76,6 +76,12 @@ func _inspect(value: bool) -> void:
 	inspecting = value
 	update_route_state(is_current_position)
 
+func _on_keyboard_focus_entered() -> void:
+	_inspect(true)
+
+func _on_keyboard_focus_exited() -> void:
+	_inspect(false)
+
 func update_route_state(current: bool) -> void:
 	is_current_position = current
 	if not is_node_ready() or not map_node:
@@ -90,12 +96,16 @@ func update_route_state(current: bool) -> void:
 	elif available:
 		state = "Available"
 	var kind: String = Enums.MapNodeType.keys()[map_node.type].capitalize()
+	$KeyboardFocus.disabled = not available or map_node.selected
 	if kind == "Monster":
 		kind = "Battle"
 	elif kind == "Elite":
 		kind = "Elite battle"
+	$KeyboardFocus.tooltip_text = "%s · %s" % [kind, state]
 	$RouteLabel.text = "%s\n%s" % [kind, state] if inspecting else (kind if available else state)
-	$RouteLabel.visible = inspecting or available or map_node.selected
+	# Encounter glyphs identify ordinary choices; labels describe focus/progress.
+	$RouteLabel.visible = inspecting or current or map_node.selected or (available and map_node.type == Enums.MapNodeType.BOSS)
+	$Visuals/CurrentMark.visible = current
 	z_index = 5 if inspecting else 0
 	line_2d.modulate = Color.WHITE
 	line_2d.default_color = presentation_theme.get_color(&"cleared", &"MapNode") if map_node.selected else presentation_theme.get_color(&"available" if available or inspecting else &"locked", &"MapNode")
@@ -104,3 +114,7 @@ func update_route_state(current: bool) -> void:
 	var accent := Color("d9b76f") if map_node.selected else Color("66d9c7")
 	$RouteLabel.modulate = accent if available or map_node.selected else presentation_theme.get_color(&"text", &"MapNode")
 	sprite_2d.modulate = Color.WHITE if available or map_node.selected or inspecting else presentation_theme.get_color(&"inactive_icon", &"MapNode")
+	if available or inspecting or map_node.selected:
+		var kind_key: StringName = Enums.MapNodeType.keys()[map_node.type]
+		if presentation_theme.has_color(kind_key, &"RouteEncounter"):
+			sprite_2d.modulate = presentation_theme.get_color(kind_key, &"RouteEncounter")

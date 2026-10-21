@@ -3,9 +3,19 @@ class_name RewardButton
 
 @export var reward_icon: Texture : set = set_reward_icon
 @export var reward_text: String : set = set_reward_text
+@export var reward_style: StringName = &"RewardGold"
+@export var action_text := "Collect  +"
+@export var detail_text := ""
 
 @onready var custom_icon: TextureRect = %CustomIcon
 @onready var custom_text: Label = %CustomText
+
+func _ready() -> void:
+	theme_type_variation = reward_style
+	custom_icon.modulate = get_theme_color("accent", reward_style)
+	$Margin/Row/Action.text = action_text
+	%Detail.text = detail_text
+	%Detail.visible = not detail_text.is_empty()
 
 func set_reward_icon(new_icon: Texture) -> void:
 	reward_icon = new_icon

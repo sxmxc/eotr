@@ -37,6 +37,8 @@ func start_battle() -> void:
 
 func end_battle() -> void:
 	battle_active = false
+	if is_instance_valid(player_handler):
+		player_handler.cancel_turn()
 	if is_instance_valid(enemy_handler):
 		enemy_handler.cancel_turn()
 	_set_phase(Phase.IDLE)

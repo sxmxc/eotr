@@ -71,7 +71,7 @@ func create_map() -> void:
 
 	var map_width_pixels := MapGenerator.X_DIST * (MapGenerator.MAP_WIDTH - 1)
 	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
-	visuals.position.y = get_viewport_rect().size.y / 2
+	visuals.position.y = get_viewport_rect().size.y * 0.67
 	_update_bounty_board()
 
 
@@ -180,6 +180,7 @@ func _update_bounty_board() -> void:
 		route.default_color = Color("d9b76f") if start.selected and destination.selected else Color(0.25, 0.33, 0.4, 0.65)
 		if start == last_map_node:
 			route.default_color = Color("66d9c7")
+		route.width = 2.4 if start == last_map_node or (start.selected and destination.selected) else 1.3
 	if not bounty_board or not is_instance_valid(bounty_board):
 		return
 	if not run_stats:

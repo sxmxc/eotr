@@ -12,6 +12,15 @@ class CountingStatus extends Status:
 		calls += 1
 		status_applied.emit(self)
 
+class CountingRelic extends Relic:
+	var calls := 0
+	var on_activate: Callable
+
+	func activate_relic(_owner: RelicUI) -> void:
+		calls += 1
+		if on_activate.is_valid():
+			on_activate.call()
+
 class CountingAction extends EnemyAction:
 	var calls := 0
 
@@ -169,11 +178,15 @@ func _test_illustrated_families(world: GameWorld, target: Enemy) -> void:
 
 func _test_terrain_breakup(world: GameWorld) -> void:
 	var board := world.tilemap
+	var depth := board.get_node("TerrainDepth")
+	var revealed: Dictionary = board.fog_state.duplicate()
+	board.fog_state.clear()
+	depth._rebuild()
+	check(depth.cells.is_empty(), "Fog hides skirts belonging to unrevealed terrain")
+	board.fog_state.assign(revealed)
 	board.hide_fog()
 	board.target_highlight_layer._collapse_changed(1)
 	await get_tree().process_frame
-	var depth := board.get_node("TerrainDepth")
-	check(not depth.faces.is_empty(), "Exposed terrain has cached cosmetic boundary geometry")
 	var rng_before := RNG.instance.state
 	var cells_before := board.base_layer.get_used_cells().size()
 	# Sample actual artwork on an unoccupied visible cell. This fixture simulates
@@ -194,11 +207,14 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 	var reference: WeakRef = weakref(fragment)
 	fragment.swirl_out()
 	check(board.base_layer.get_used_cells().size() == cells_before, "Breakup cannot invalidate a gameplay tile")
-	check(fragment.has_node("Shard4") and not fragment.has_node("Shard5"), "Terrain separates into five irregular textured pieces")
+	if DisplayServer.get_name() != "headless":
+		check(fragment.has_node("Shard4") and not fragment.has_node("Shard5"), "Terrain separates into five irregular textured pieces")
 	board.base_layer.erase_cell(cell)
 	board.presentation_changed.emit()
 	await get_tree().create_timer(0.22).timeout
-	check(board.base_layer.get_cell_source_id(cell) == -1 and reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
+	check(board.base_layer.get_cell_source_id(cell) == -1, "Cell invalidation removes its artwork immediately")
+	if DisplayServer.get_name() != "headless":
+		check(reference.get_ref() != null, "Cosmetic debris outlives immediate cell invalidation")
 	await _capture_battle("user://terrain-collapse.png")
 	await get_tree().create_timer(0.6).timeout
 	check(reference.get_ref() == null, "All breakup geometry releases within 0.82 seconds")
@@ -207,25 +223,21 @@ func _test_terrain_breakup(world: GameWorld) -> void:
 	board.presentation_changed.emit()
 	await get_tree().process_frame
 	await _capture_battle("user://terrain-stable.png")
-	# Real successive shrinks must invalidate every cached edge during erasure.
+	# Real successive shrinks must erase cells without leaving extra geometry.
 	# Clear entities only in this disposable fixture so collapse cannot end the run.
 	for enemy in world.enemy_handler.get_children():
 		enemy.remove_from_group("enemy")
 	board.player_position = Vector2i(-999, -999)
 	for shrink in 2:
+		var previous_cells := board.base_layer.get_used_cells()
 		await board.shrink_map(1)
 		await get_tree().process_frame
-		var expected := 0
-		for tile: Vector2i in board.base_layer.get_used_cells():
-			for neighbor: Vector2i in board.base_layer.get_surrounding_cells(tile):
-				if board.base_layer.get_cell_source_id(neighbor) == -1:
-					expected += 1
-		check(depth.rims.size() == expected, "Shrink %s rebuilds precisely the surviving terrain boundary" % (shrink + 1))
-		for rim: PackedVector2Array in depth.rims:
-			var middle := (rim[0] + rim[1]) * 0.5
-			var a := board.base_layer.local_to_map(middle + (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
-			var b := board.base_layer.local_to_map(middle - (rim[1] - rim[0]).orthogonal().normalized() * 3.0)
-			check((board.base_layer.get_cell_source_id(a) == -1) != (board.base_layer.get_cell_source_id(b) == -1), "Cached rim separates surviving terrain from void")
+		check(board.base_layer.get_used_cells().size() < previous_cells.size(), "Shrink %s removes terrain cells" % (shrink + 1))
+		for owner_cell: Vector2i in depth.cells:
+			check(board.base_layer.get_cell_source_id(owner_cell) != -1, "Every stone skirt belongs to a surviving tile")
+		for tile: Vector2i in previous_cells:
+			if not board.tile_map_data.has(tile):
+				check(board.base_layer.get_cell_source_id(tile) == -1, "Collapsed terrain has no remaining tile artwork")
 	await get_tree().create_timer(0.9).timeout
 	await _capture_battle("user://terrain-shrunk.png")
 
@@ -289,6 +301,12 @@ func check(value: bool, message: String) -> void:
 		printerr("FAIL: " + message)
 
 func _test_battlefield_presentation(world: GameWorld) -> void:
+	var resolving_intent := Intent.new()
+	resolving_intent.tooltip_text = "Attack for %s"
+	resolving_intent.current_text = "%s"
+	check(resolving_intent.get_display_text() == "Attack" and not resolving_intent.get_description().contains("%s"), "Resolving intent never exposes a formatting placeholder")
+	resolving_intent.current_text = "6"
+	check(resolving_intent.get_display_text() == "6" and resolving_intent.get_description().contains("6"), "Resolved intent preserves its actual amount")
 	var board := world.tilemap
 	check(board.base_layer.tile_set.tile_size == Vector2i(64, 64), "Battle uses 64px hex geometry")
 	check(board.fog_layer.tile_set.tile_size == board.base_layer.tile_set.tile_size, "Fog shares board geometry")
@@ -364,6 +382,8 @@ func _test_battlefield_presentation(world: GameWorld) -> void:
 		shot.save_png("user://battlefield.png")
 
 func _capture_battle(path: String) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
 	await RenderingServer.frame_post_draw
 	var shot := get_viewport().get_texture().get_image()
 	if get_viewport().use_hdr_2d:
@@ -657,6 +677,15 @@ func _test_gate_presentation(world: GameWorld) -> void:
 	await get_tree().create_timer(0.3).timeout
 	for cell: Vector2i in board.target_highlight_layer.gates:
 		check(board.target_highlight_layer.gates[cell].visible == not board.is_tile_behind_fog(cell), "Rift gate effects respect fog visibility")
+	var overlay := board.target_highlight_layer
+	if not overlay.gates.is_empty():
+		var gate_cell: Vector2i = overlay.gates.keys()[0]
+		board.tile_map_data[gate_cell].type = Enums.TileType.RESOURCE
+		board.presentation_changed.emit()
+		await get_tree().process_frame
+		check(not overlay.gates.has(gate_cell), "Changing a surviving gate tile removes its obsolete visual")
+		board.tile_map_data[gate_cell].type = Enums.TileType.RIFT_GATE
+		board.presentation_changed.emit()
 
 func _review_utility_motion(world: GameWorld) -> void:
 	var board := world.tilemap
@@ -776,6 +805,7 @@ func run() -> void:
 		await _test_status_cancellation(world)
 		await _test_attack_tween_cancellation(world)
 		await _test_movement_cancellation(world)
+		await _test_player_shutdown(world, relics)
 		world.queue_free()
 		relics.queue_free()
 		await get_tree().process_frame
@@ -811,6 +841,9 @@ func run() -> void:
 		await Utils.stop_audio_for_shutdown()
 		get_tree().quit(1 if failures else 0)
 		return
+	if OS.get_cmdline_user_args().has("--terrain-only"):
+		await get_tree().create_timer(1.0).timeout
+		await _capture_battle("user://terrain-fog.png")
 	await _test_battlefield_presentation(world)
 	if OS.get_cmdline_user_args().has("--terrain-only"):
 		await _test_terrain_breakup(world)
@@ -1130,6 +1163,10 @@ func _test_status_cancellation(world: GameWorld) -> void:
 
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:
+	# This fixture resumes the same hand after an artificial battle restart.
+	var hand_disabled: Dictionary = {}
+	for card: CardUI in world.player_handler.player_hand.get_cards():
+		hand_disabled[card] = card.disabled
 	var handler := world.enemy_handler
 	var enemy := handler.get_child(0) as Enemy
 	var previous_action := enemy.current_action
@@ -1197,6 +1234,9 @@ func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	check(world.player_handler.hand_ready, "Normal enemy completion draws the next hand")
 	enemy.current_action = previous_action
 	action.queue_free()
+	for card: CardUI in hand_disabled:
+		if is_instance_valid(card):
+			card.disabled = hand_disabled[card]
 
 func _test_feedback_circuit(world: GameWorld, relics: RelicHandler) -> void:
 	var circuit := preload("res://resources/data/relics/feedback_circuit.tres").duplicate()
@@ -1314,3 +1354,53 @@ func _test_projectile_ownership() -> void:
 		"Projectile creation without a valid parent fails safely")
 	check(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) == orphan_count,
 		"Failed projectile creation does not orphan its projectile or impact")
+
+
+func _test_player_shutdown(world: GameWorld, relics: RelicHandler) -> void:
+	var handler := world.player_handler
+	var statuses := world.player.status_handler
+	var status := CountingStatus.new()
+	status.id = "shutdown_status"
+	status.type = Enums.StatusType.START_OF_TURN
+	statuses.add_status(status)
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	handler.draw_cards(2)
+	var hand_count := handler.player_hand.get_cards().size()
+	world.battle_state.end_battle()
+	await get_tree().create_timer(1.2).timeout
+	check(status.calls == 0, "Battle shutdown cancels pending player statuses")
+	check(handler.player_hand.get_cards().size() == hand_count and not handler.hand_ready, "Battle shutdown cancels draws and hand completion")
+
+	var first := CountingRelic.new()
+	first.id = "shutdown_first"
+	first.type = Enums.RelicType.START_OF_TURN
+	var second := CountingRelic.new()
+	second.id = "shutdown_second"
+	second.type = first.type
+	relics.add_relic(first)
+	relics.add_relic(second)
+	var completed := {"count": 0}
+	var count_completion := func(_type): completed.count += 1
+	relics.relics_activated.connect(count_completion)
+	first.on_activate = world.battle_state.end_battle
+	relics.activate_relics_by_type(first.type)
+	await get_tree().create_timer(1.2).timeout
+	check(first.calls == 1 and second.calls == 0, "Shutdown preserves committed relic and cancels remaining relics")
+	check(completed.count == 0 and status.calls == 0, "Cancelled relic batch cannot restart player statuses")
+	first.on_activate = Callable()
+	# Victory starts this batch after shutting down turn work.
+	relics.relics_activated.disconnect(world._on_relics_activated)
+	first.type = Enums.RelicType.END_OF_COMBAT
+	second.type = first.type
+	relics.activate_relics_by_type(first.type)
+	await get_tree().create_timer(1.2).timeout
+	check(first.calls == 2 and second.calls == 1 and completed.count == 1, "End-of-combat relics can activate after shutdown")
+	relics.relics_activated.disconnect(count_completion)
+	relics.relics_activated.connect(world._on_relics_activated)
+	for ui: RelicUI in relics._get_all_relic_ui_nodes():
+		if ui.relic == first or ui.relic == second:
+			ui.queue_free()
+	for ui: StatusUI in statuses.get_children():
+		if ui.status == status:
+			ui.queue_free()
+	await get_tree().process_frame

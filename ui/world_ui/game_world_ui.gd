@@ -42,6 +42,7 @@ func bind_world(player: Player, tilemap: ProcGenTilemap, camera: Camera2D) -> vo
 	debug_ui.map_camera = camera
 
 func _ready() -> void:
+	$CameraHint.toggled.connect($CameraHelp.set_visible)
 	Events.player_hand_drawn.connect(_on_player_hand_drawn)
 	Events.card_aim_started.connect(_show_aim_hint)
 	Events.card_drag_started.connect(_show_aim_hint)
@@ -95,7 +96,7 @@ func _on_end_turn_button_pressed() -> void:
 	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
 	end_turn_button.disabled = true
 	end_turn_button.text = "Enemy turn..."
-	$ActionHint.text = "ENEMY TURN - Watch their actions"
+	$ActionHint.text = "ENEMY TURN\nResolving their plans"
 	Events.player_turn_ended.emit()
 
 
@@ -104,11 +105,11 @@ var _turn_active := false
 
 func _show_aim_hint(card_ui: CardUI) -> void:
 	end_turn_button.disabled = true
-	$ActionHint.text = "%s - Aim at a highlighted target - Right click to cancel" % card_ui.card.name
+	$ActionHint.text = "%s\nChoose a highlighted target\nRight click · Cancel" % card_ui.card.name
 
 func _restore_hint(_card: CardUI = null) -> void:
 	end_turn_button.disabled = not _turn_active
-	$ActionHint.text = "YOUR TURN - Inspect a card, then drag to play"
+	$ActionHint.text = "YOUR TURN\nChoose a card"
 	_refresh_collapse_hint()
 
 func _collapse_hint(rounds: int) -> void:
@@ -122,5 +123,5 @@ func _refresh_collapse_hint() -> void:
 			$ActionHint.theme_type_variation = &"ActionHintDanger"
 			return
 	if $ActionHint.text.begins_with("COLLAPSE IMMINENT"):
-		$ActionHint.text = "YOUR TURN - Inspect a card, then drag to play"
+		$ActionHint.text = "YOUR TURN\nChoose a card"
 	$ActionHint.theme_type_variation = &"ActionHint"

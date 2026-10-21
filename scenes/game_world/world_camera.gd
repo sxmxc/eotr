@@ -9,7 +9,7 @@ var manual := false
 var aiming := false
 var dragging := false
 var tactical_zoom := 1.5
-const TACTICAL_MIN := 1.9
+const TACTICAL_MIN := 1.1
 const TACTICAL_MAX := 2.15
 
 func _ready() -> void:
@@ -55,6 +55,9 @@ func board_bounds(revealed_only := false) -> Rect2:
 		var tile_rect := Rect2(world.tilemap.cell_to_world(cell) - half, half * 2.0)
 		bounds = tile_rect if first else bounds.merge(tile_rect)
 		first = false
+	# Reserve space above tile origins for tall actors and their intention badges.
+	bounds.position.y -= 40.0
+	bounds.size.y += 52.0
 	return bounds.grow(12.0)
 
 func fit_zoom() -> float:

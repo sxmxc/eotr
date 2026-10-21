@@ -47,6 +47,19 @@ func _cancel_draw() -> void:
 	hand_ready = false
 
 
+func cancel_turn() -> void:
+	_cancel_draw()
+	if is_instance_valid(player_hand):
+		player_hand.disable_hand()
+	if is_instance_valid(player):
+		if is_instance_valid(player.status_handler):
+			player.status_handler.cancel_application()
+		if is_instance_valid(player.phantom_camera_2d):
+			player.phantom_camera_2d.priority = 0
+	if is_instance_valid(relics):
+		relics.cancel_activation()
+
+
 func _can_draw() -> bool:
 	return is_inside_tree() and not is_queued_for_deletion() \
 		and is_instance_valid(player) and not player.is_queued_for_deletion() \

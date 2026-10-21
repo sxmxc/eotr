@@ -46,9 +46,11 @@ color = Color(0.015, 0.025, 0.04, 0.55)
 [node name="DisclaimerPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 anchor_left = 0.18
-anchor_top = 0.13
+anchor_top = 0.5
 anchor_right = 0.82
-anchor_bottom = 0.87
+anchor_bottom = 0.5
+offset_top = -290.0
+offset_bottom = 290.0
 theme_type_variation = &"ConsentSurface"
 [node name="Content" type="VBoxContainer" parent="DisclaimerPanel"]
 layout_mode = 2
@@ -70,7 +72,7 @@ text = "Share optional gameplay data to help us understand balance and improve t
 layout_mode = 2
 [node name="Details" type="VBoxContainer" parent="DisclaimerPanel/Content"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 theme_type_variation = &"ConsentDetails"
 [node name="CollectedHeading" type="Label" parent="DisclaimerPanel/Content/Details"]
 layout_mode = 2

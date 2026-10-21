@@ -4,10 +4,10 @@ extends Control
 const REWARD_BUTTON := preload("res://scenes/battle_rewards/reward_button.tscn")
 const GOLD_ICON := preload("res://assets/rift/ui/coin.svg")
 const GOLD_TEXT := "%s gold"
-const RESOURCE_ICON := preload("res://assets/rift/ui/corrosion.svg")
+const RESOURCE_ICON := preload("res://assets/rift/ui/resource.svg")
 const RESOURCE_TEXT := "%s resources"
-const CARD_ICON = preload("res://assets/rift/ui/shuffle.svg")
-const CARD_TEXT = "New Card"
+const CARD_ICON = preload("res://assets/rift/ui/draw.svg")
+const CARD_TEXT = "Discover a new card"
 const CARD_REWARD_SCENE = preload("res://scenes/battle_rewards/card_rewards.tscn")
 
 @export var run_stats: RunStats
@@ -60,6 +60,7 @@ func add_enemy_gold_reward(amount: int) -> void:
 
 func add_resource_reward(amount: int) -> void:
 	var resource_reward := REWARD_BUTTON.instantiate() as RewardButton
+	resource_reward.reward_style = &"RewardResource"
 	resource_reward.reward_icon = RESOURCE_ICON
 	if amount > 1:
 		resource_reward.reward_text = RESOURCE_TEXT % amount
@@ -72,6 +73,7 @@ func add_enemy_resource_reward(amount: int) -> void:
 	if amount <= 0:
 		return
 	var resource_reward := REWARD_BUTTON.instantiate() as RewardButton
+	resource_reward.reward_style = &"RewardResource"
 	resource_reward.reward_icon = RESOURCE_ICON
 	if amount > 1:
 		resource_reward.reward_text = RESOURCE_TEXT % amount
@@ -83,6 +85,9 @@ func add_enemy_resource_reward(amount: int) -> void:
 
 func add_card_reward() -> void:
 	var card_reward := REWARD_BUTTON.instantiate() as RewardButton
+	card_reward.reward_style = &"RewardCard"
+	card_reward.action_text = "Discover  →"
+	card_reward.detail_text = "A new spell. A different path through the rift."
 	card_reward.reward_icon = CARD_ICON
 	card_reward.reward_text = CARD_TEXT
 	card_reward.pressed.connect(_show_card_rewards)
@@ -94,6 +99,9 @@ func add_relic_reward(relic: Relic) -> void:
 		return
 
 	var relic_reward := REWARD_BUTTON.instantiate() as RewardButton
+	relic_reward.reward_style = &"RewardRelic"
+	relic_reward.action_text = "Claim  →"
+	relic_reward.detail_text = "An artifact for the journey ahead."
 	relic_reward.reward_icon = relic.icon
 	relic_reward.reward_text = relic.relic_name
 	relic_reward.pressed.connect(_on_relic_reward_taken.bind(relic))

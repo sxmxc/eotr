@@ -31,8 +31,8 @@
 [ext_resource type="PackedScene" path="res://ui/world_ui/game_world_ui.tscn" id="battle_hud"]
 [ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
 [ext_resource type="PackedScene" uid="uid://cqdnmgot1dc0c" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
-[ext_resource type="Script" path="res://ui/world_ui/terrain_depth.gd" id="terrain_depth"]
 [ext_resource type="Shader" path="res://scripts/shaders/terrain_surface.gdshader" id="terrain_shader"]
+[ext_resource type="Script" path="res://ui/world_ui/terrain_depth.gd" id="terrain_depth"]
 [ext_resource type="Shader" path="res://scripts/shaders/tile_target_highlight.gdshader" id="movement_shader"]
 [ext_resource type="Texture2D" path="res://assets/rift/environment/rift_void.webp" id="void_plate"]
 [ext_resource type="Shader" path="res://scripts/shaders/rift_void.gdshader" id="void_shader"]
@@ -183,6 +183,7 @@ ruin_tile_effects = Array[ExtResource("12_3lu4o")]([ExtResource("13_wc6i6"), Ext
 [node name="TerrainDepth" type="Node2D" parent="Tilemap"]
 z_index = -1
 script = ExtResource("terrain_depth")
+depth_pixels = 10
 
 [node name="BaseLayer" type="TileMapLayer" parent="Tilemap" unique_id=1805553683]
 material = SubResource("terrain_surface")

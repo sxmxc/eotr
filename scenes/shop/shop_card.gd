@@ -2,6 +2,7 @@ class_name ShopCard
 extends VBoxContainer
 
 const CARD_MENU_UI = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
+@export_range(1.0, 1.5, 0.05) var card_presentation_scale := 1.25
 
 @export var card: Card:
 	set = set_card
@@ -39,6 +40,7 @@ func set_card(new_card: Card) -> void:
 		card_menu_ui.queue_free()
 
 	var new_card_menu_ui := CARD_MENU_UI.instantiate() as CardMenuUI
+	new_card_menu_ui.presentation_scale = card_presentation_scale
 	card_container.add_child(new_card_menu_ui)
 	new_card_menu_ui.card = card
 	new_card_menu_ui.visuals.card_text_label.text = card.get_default_description()

@@ -73,6 +73,7 @@ stretch_mode = 6
 [node name="BuyButton" type="Button" parent="Panel/Row/Purchase"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"ShopPurchase"
 text = "Buy relic"
 
 [connection signal="pressed" from="Panel/Row/Purchase/BuyButton" to="." method="_on_buy_button_pressed"]

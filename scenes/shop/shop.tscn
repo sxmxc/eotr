@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cs1i5d3k8wpeo"]
 
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
+[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
 [ext_resource type="Script" uid="uid://ce1trfycndk5j" path="res://scenes/shop/shop.gd" id="1_100s2"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_ctpgp"]
 [ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="2_7lxhl"]
@@ -37,12 +38,21 @@ card_registry = ExtResource("17_card_registry")
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = 0
 
+[node name="Illustration" type="TextureRect" parent="BackgroundLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("world_illustration")
+expand_mode = 1
+stretch_mode = 6
+modulate = Color(0.32, 0.35, 0.38, 1)
+mouse_filter = 2
+
 [node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-modulate = Color(0.13, 0.19, 0.24, 1)
+modulate = Color(0.13, 0.19, 0.24, 0.68)
 texture = ExtResource("2_7lxhl")
 
 [node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
@@ -169,6 +179,7 @@ theme_type_variation = &"ShopFooter"
 layout_mode = 2
 
 [node name="Hint" type="Label" parent="UILayer/Layout/Footer"]
+unique_name_in_owner = true
 theme_type_variation = &"ShopHint"
 layout_mode = 2
 text = "Inspect a card or relic to learn more before buying."

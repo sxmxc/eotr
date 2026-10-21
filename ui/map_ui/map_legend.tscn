@@ -47,11 +47,11 @@ script = ExtResource("48_legend")
 [node name="Panel" type="Panel" parent="MapLegend" unique_id=17359803]
 layout_mode = 1
 offset_left = 40.0
-offset_top = 368.0
-offset_right = 290.0
-offset_bottom = 420.0
+offset_top = 280.0
+offset_right = 310.0
+offset_bottom = 320.0
 grow_vertical = 2
-theme_type_variation = &"HudPanelBackground"
+theme_type_variation = &"EmptyPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="MapLegend/Panel" unique_id=1315799063]
 layout_mode = 1
@@ -60,11 +60,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"LegendInset"
+theme_type_variation = &"InsetNone"
 
 [node name="Panel" type="Panel" parent="MapLegend/Panel/MarginContainer" unique_id=125281407]
 layout_mode = 2
-theme_type_variation = &"HudPanelMain"
+theme_type_variation = &"EmptyPanel"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MapLegend/Panel/MarginContainer/Panel" unique_id=345283348]
 layout_mode = 1
@@ -81,20 +81,21 @@ size_flags_horizontal = 3
 theme_type_variation = &"LegendToggle"
 toggle_mode = true
 text = "Encounter legend  +"
+alignment = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="MapLegend" unique_id=1777050983]
-custom_minimum_size = Vector2(250, 316)
+custom_minimum_size = Vector2(270, 276)
 layout_mode = 1
 offset_left = 40.0
-offset_top = 420.0
-offset_right = 290.0
-offset_bottom = 736.0
+offset_top = 328.0
+offset_right = 310.0
+offset_bottom = 604.0
 grow_vertical = 2
 
 [node name="LegendContent" type="Control" parent="MapLegend/MarginContainer" unique_id=1609341400]
 unique_name_in_owner = true
 process_mode = 3
-custom_minimum_size = Vector2(250, 316)
+custom_minimum_size = Vector2(270, 276)
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,11 +117,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"LegendInset"
+theme_type_variation = &"InsetMedium"
 
 [node name="Panel" type="Panel" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer" unique_id=1895757837]
 layout_mode = 2
-theme_type_variation = &"HudPanelMain"
+theme_type_variation = &"EmptyPanel"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel" unique_id=718704237]
 unique_name_in_owner = true
@@ -136,7 +137,7 @@ metadata/map_node_type = &"MONSTER"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1469875195]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("18_yj3lc")
 expand_mode = 1
@@ -152,7 +153,7 @@ metadata/map_node_type = &"ELITE"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer6" unique_id=718875884]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("19_4aki2")
 expand_mode = 1
@@ -168,7 +169,7 @@ metadata/map_node_type = &"SHOP"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer2" unique_id=1533296682]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("20_8fhq7")
 expand_mode = 1
@@ -184,7 +185,7 @@ metadata/map_node_type = &"REST"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer3" unique_id=1659825555]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("21_x3nam")
 expand_mode = 1
@@ -200,7 +201,7 @@ metadata/map_node_type = &"TREASURE"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer4" unique_id=707544995]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("22_0rx4c")
 expand_mode = 1
@@ -216,7 +217,7 @@ metadata/map_node_type = &"BOSS"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/HBoxContainer5" unique_id=286953981]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("23_ixteu")
 expand_mode = 1
@@ -232,7 +233,7 @@ layout_mode = 2
 metadata/map_node_type = &"EVENT"
 
 [node name="TextureRect" type="TextureRect" parent="MapLegend/MarginContainer/LegendContent/Panel2/MarginContainer/Panel/VBoxContainer/EventRow"]
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("event")
 expand_mode = 1

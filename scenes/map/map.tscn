@@ -65,12 +65,13 @@ zoom = Vector2(1.65, 1.65)
 layer = 2
 
 [node name="Sidebar" type="Panel" parent="MapChrome" unique_id=334436964]
+visible = false
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = 108.0
 offset_right = 334.0
-offset_bottom = -40.0
+offset_bottom = -600.0
 mouse_filter = 2
 theme = ExtResource("rift_theme")
 theme_type_variation = &"MapSidebar"
@@ -79,19 +80,20 @@ theme_type_variation = &"MapSidebar"
 offset_left = 40.0
 offset_top = 120.0
 offset_right = 310.0
-offset_bottom = 214.0
+offset_bottom = 164.0
 theme = ExtResource("rift_theme")
-theme_type_variation = &"MapTitle"
+theme_type_variation = &"RouteTitle"
 text = "RIFT ROUTE"
 
 [node name="Progress" type="Label" parent="MapChrome" unique_id=1464779533]
 offset_left = 40.0
-offset_top = 188.0
+offset_top = 180.0
 offset_right = 310.0
-offset_bottom = 332.0
+offset_bottom = 266.0
 theme = ExtResource("rift_theme")
 theme_type_variation = &"BountyProgress"
-text = "Choose your next rift · Scroll to explore the route between the rfits"
+text = "Choose your next encounter
+Scroll to explore the route"
 
 [node name="ParticlesLayer" parent="." unique_id=1329872539 instance=ExtResource("ambient_particles")]
 layer = -1

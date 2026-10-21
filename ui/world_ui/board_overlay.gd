@@ -56,25 +56,24 @@ func _draw() -> void:
 		if board.is_tile_behind_fog(cell):
 			continue
 		var type := board.tile_map_data[cell].type
-		if type == Enums.TileType.CORRUPTED:
+		if type != Enums.TileType.ANCIENT_RUIN:
 			continue
 		var center := board.base_layer.map_to_local(cell)
 		var ruin := type == Enums.TileType.ANCIENT_RUIN
 		var rim := Color("d9ad66") if ruin else Color("819eaa")
-		var face := Color(0.65, 0.42, 0.18, 0.22) if ruin else Color(0.38, 0.57, 0.62, 0.12)
+		var face := Color(0.65, 0.42, 0.18, 0.08)
 		var outline := PackedVector2Array()
 		for point: Vector2 in [Vector2(0, -29), Vector2(29, -14), Vector2(29, 14), Vector2(0, 29), Vector2(-29, 14), Vector2(-29, -14)]:
 			outline.append(center + point)
 		draw_colored_polygon(outline, face)
 		outline.append(outline[0])
-		draw_polyline(outline, Color(rim, 0.75), 1.2, true)
+		# Landmark pigment stays local; ordinary stone retains its illustrated edges.
 		if ruin:
 			# Broken columns on a stepped foundation remain legible without color.
 			for x: float in [-12.0, 10.0]:
-				draw_rect(Rect2(center + Vector2(x, -12), Vector2(4, 22)), rim)
-			draw_line(center + Vector2(-16, -15), center + Vector2(15, -15), rim, 3.0, true)
-			draw_line(center + Vector2(-18, 14), center + Vector2(18, 14), rim, 3.0, true)
-			draw_line(center + Vector2(-21, 19), center + Vector2(21, 19), rim, 2.0, true)
+				draw_rect(Rect2(center + Vector2(x, -10), Vector2(3, 18)), Color(rim, 0.65))
+			draw_line(center + Vector2(-15, -13), center + Vector2(14, -13), Color(rim, 0.65), 2.0, true)
+			draw_line(center + Vector2(-18, 13), center + Vector2(18, 13), Color(rim, 0.65), 2.0, true)
 	# Warm, thin fracture branches communicate danger; cyan filled cells are targets.
 	for cell in edge:
 		if board.is_tile_behind_fog(cell) or not board.tile_map_data.has(cell):
@@ -87,7 +86,7 @@ func _draw() -> void:
 
 func _refresh_gates() -> void:
 	for cell: Vector2i in gates.keys():
-		if not board.tile_map_data.has(cell):
+		if not board.tile_map_data.has(cell) or board.tile_map_data[cell].type != Enums.TileType.RIFT_GATE:
 			gates[cell].queue_free()
 			gates.erase(cell)
 	for cell: Vector2i in board.tile_map_data:

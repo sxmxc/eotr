@@ -3,6 +3,42 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "ARTWORK-TERRAIN-DEPTH-001",
+      "status": "done",
+      "summary": "Required edge feature retained: cached stone skirts trace atlas alpha and use painted stone texture with underside shading. Native/headless terrain checks and resource guard pass; fog/revealed/shrink captures inspected. Supersedes edge removal.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "REMOVE-TERRAIN-EXTRUSION-001",
+      "status": "done",
+      "summary": "Removed unsuccessful procedural sidewalls and renderer entirely; restored illustrated tile silhouettes. Native terrain suite 0 failures; fog/revealed screenshots inspected. Supersedes prior edge corrections.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "TERRAIN-EDGE-REGRESSION-001",
+      "status": "done",
+      "summary": "Culled walls belonging to fogged tiles; reduced depth/contrast and removed masonry stripes. Native fog/stable/shrink captures inspected; terrain regression checks pass (0 failures).",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "ROUTE-RESOURCE-CORRECTION-001",
+      "status": "done",
+      "summary": "Corrected currency reward crystal icon; compact aligned route legend without oversized backing or selected teal slab. Native captures and focused checks pass.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "FINAL-UI-ART-DIRECTION-001",
+      "status": "done",
+      "summary": "Six distinct compositions: directional serif pause with native focus; stronger The Rift navigation and separate workshop/footer; painted stone route with current/reachable states, longer look-ahead and keyboard activation; larger measured shared card previews and subordinate shop controls; compact currency versus larger discovery; quieter combat glyphs/help and reclaimed inspection space. Fixed preview pivot overlap and clipped long rules without changing mechanics. Native before/final suites, focused transactions/route and headless layout/combat pass; seeded pipeline matches all ten actions/final state. Evidence and limits: ai/docs/final-ui-art-direction.md.",
+      "updated": "2026-10-20"
+    },
+    {
+      "id": "PRESENTATION-COHESION-001",
+      "status": "done",
+      "summary": "Shared slate/ivory/brass direction; quieter terrain, synchronized strata, PhantomCamera fit, compact consent/route, menu composition, illustrated rooms/rewards/shop, distinct primary/reward states, complete card/plan text and purchase confirmation. Preserved The Rift experiment. Fixed obsolete gate visuals and intent placeholders. Focused native/headless checks and 29 signatures pass; AutoWalker zero failures; incremental captures match 10 actions/final state. Two baseline emitter assertions persist. Sparse-frame review; no continuous audio/motion, campaign/export/hardware proof. See ai/docs/presentation-cohesion.md.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "ENEMY-STATUS-CANCEL-001",
       "status": "done",
       "summary": "Cancel pending enemy status application on turn cancellation; preserve resolved effects and unapplied duration. Focused headless/native D3D12 checks pass, including reuse and existing lunge/movement cases. Player status/relic shutdown, enemy death during status resolution and campaign save/resume remain.",
