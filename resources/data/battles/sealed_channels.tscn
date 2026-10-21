@@ -1,0 +1,12 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/corruption_weaver.tres" id="e0"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_needle.tres" id="e1"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper_anchor.tres" id="e2"]
+[node name="sealed_channels" type="Node2D"]
+[node name="Unit0" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e0")
+[node name="Unit1" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e1")
+[node name="Unit2" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e2")

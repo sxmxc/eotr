@@ -73,6 +73,10 @@ func refresh() -> void:
 		if intent.begins_with(title + " "):
 			intent = intent.trim_prefix(title + " ")
 	text = "%s%s  ·  %d/%d%s\n%s" % [prefix, title, bound_stats.health, bound_stats.max_health, block, intent.replace(" For ", " ")]
+	if enemy.has_meta("encounter_health"):
+		if enemy is RiftBoss:
+			intent = enemy.current_action.intent.get_display_text() if enemy.current_action else "Preparing"
+		text = "%s%s%s\n%s" % [prefix, title, block, intent]
 	tooltip_text = intent + "\nCurrent plan; may change with position and conditions.\nSelect to inspect statuses and details."
 	theme_type_variation = &"ObjectiveQueueEntry" if enemy is Obelisk else &"EnemyQueueEntry"
 

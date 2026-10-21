@@ -1,4 +1,5 @@
 [gd_scene format=3 uid="uid://cs1i5d3k8wpeo"]
+[ext_resource type="PackedScene" path="res://ui/card_selection/deck_refinement.tscn" id="refinement"]
 
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 [ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
@@ -191,6 +192,10 @@ unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(240, 54)
 text = "Return to the path"
+
+[node name="RefineDeck" parent="UILayer/Layout/Footer" instance=ExtResource("refinement")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="CardPopup" parent="UILayer" instance=ExtResource("7_xcdpw")]
 unique_name_in_owner = true

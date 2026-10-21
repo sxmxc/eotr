@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ActDefinition" format=3]
+[ext_resource type="Script" path="res://scripts/resources/act_definition.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/data/registries/encounter_registry_corruption.tres" id="pool"]
+[ext_resource type="Resource" path="res://resources/data/relics/memory_sieve.tres" id="relic"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/davina_horror.wav" id="music"]
+[ext_resource type="Texture2D" path="res://resources/data/acts/corruption_background.tres" id="background"]
+[resource]
+script = ExtResource("script")
+background = ExtResource("background")
+act_id = "corruption"
+title = "Act II - The Corruption"
+description = "Living roots close the routes. Contest the Weaver's claims and quiet the memories that feed the Spectre."
+encounters = ExtResource("pool")
+early_tier = 3
+late_tier = 4
+boss_tier = 5
+music = ExtResource("music")
+boss_relic = ExtResource("relic")

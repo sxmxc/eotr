@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+[ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="script"]
+[ext_resource type="PackedScene" path="res://resources/data/battles/empty_treasury.tscn" id="composition"]
+[resource]
+script = ExtResource("script")
+encounter_id = "empty_treasury"
+encounter_name = "Empty Treasury"
+battle_tier = 7
+category = 0
+weight = 1.0
+tags = Array[String](["act3"])
+gold_reward_min = 30
+gold_reward_max = 45
+resource_reward_min = 1
+resource_reward_max = 3
+enemies = ExtResource("composition")
+battle_field_width = 9
+battle_field_height = 9
+collapse_frequency = 4
+corruption_weight = 10
+minimum_player_distance = 3
+arena_shape = 1

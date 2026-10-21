@@ -92,6 +92,27 @@ func add_card_reward() -> void:
 	card_reward.reward_text = CARD_TEXT
 	card_reward.pressed.connect(_show_card_rewards)
 	rewards.add_child.call_deferred(card_reward)
+	var recovery := REWARD_BUTTON.instantiate() as RewardButton
+	var amount := 6 + run_stats.act_index
+	recovery.reward_text = "Recover %d HP instead of discovering a card" % amount
+	recovery.reward_icon = preload("res://assets/rift/ui/health.svg")
+	recovery.pressed.connect(func():
+		player_stats.heal(amount)
+		if is_instance_valid(card_reward): card_reward.queue_free())
+	card_reward.pressed.connect(func():
+		if is_instance_valid(recovery): recovery.queue_free())
+	rewards.add_child.call_deferred(recovery)
+
+func add_elite_relic_reward() -> void:
+	var pool: Array[Relic] = []
+	for path in ["riftglass_prism", "feedback_circuit", "prospector_helmet", "instability_emulator", "unstable_core", "energy_condenser"]:
+		var relic := load("res://resources/data/relics/%s.tres" % path) as Relic
+		if relic.can_appear_as_reward(player_stats) and not relic_handler.has_relic(relic.id):
+			pool.append(relic)
+	if not pool.is_empty():
+		add_relic_reward(RNG.array_pick_random(pool))
+	else:
+		add_gold_reward(35)
 
 
 func add_relic_reward(relic: Relic) -> void:

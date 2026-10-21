@@ -245,16 +245,13 @@ backlog:
   - id: BKL-019
     title: "Implement boss health meter"
     priority: P1
-    status: blocked
-    owner: unassigned
-    blockers:
-      - "Awaiting boss redesign; health meter layout depends on the new boss spec."
+    status: complete
+    owner: Codex
+    blockers: []
     context:
-      - "Upcoming boss ladder (see Boss Pillars note) needs dedicated health UI."
-      - "Originated from Obsidian TODO sync (Tasks/TODOs.md)."
+      - "Aggregate hostile health meter integrated with all three act bosses; historical pillar ladder is superseded. See ai/docs/three-act-progression.md."
     next_steps:
-      - "Design a multi-phase boss health bar that can represent pillar stages."
-      - "Integrate with boss encounters and test visibility/readability."
+      - "Follow up on continuous presentation review; native boss stills inspected."
 
   - id: BKL-020
     title: "Add map event nodes"
@@ -401,18 +398,16 @@ backlog:
       - "Check readability on wide and narrow viewports and keep shader/lightweight for low-spec targets."
   
   - id: BKL-031
-    title: "Redesign boss battles to be unique boards and make them stand out from normal battles"
+    title: "Implement three-act progression and distinctive Rift bosses"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Boss battles currently use standard battle boards; need unique layouts and mechanics."
-      - "Will need unique boss arenas and environmental hazards and boss ai or state machines."
+      - "Implemented 45-floor campaign, 40 encounters, three distinct bosses, transitions, persistence, rewards, telemetry and corrected Void art. See ai/state/journal-bkl-031.md."
+      - "Final focused tests pass; real 45-floor AutoWalker victory recorded. Two pre-existing map emitter smoke failures remain."
     next_steps:
-      - "Design unique board layouts for each boss battle with thematic elements."
-      - "Implement environmental hazards that interact with boss mechanics."
-      - "Develop specialized AI or state machines for bosses to create distinct challenges."
+      - "Human playtest balance and review continuous audio/animation and release exports."
   
   - id: BKL-032
     title: "Create enemy bounty board on the map to show available bounties and their rewards for v0.0.6.1"

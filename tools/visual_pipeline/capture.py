@@ -25,6 +25,10 @@ def _capture(scenario, output, godot, temporary):
                "--log-file", str(output / "godot.log"),
                "res://scenes/developer/visual_test/visual_test.tscn", "--", "--telemetry-local", "--validation-local",
                f"--output={output.as_posix()}"]
+    if scenario.get("stills_only"):
+        movie_at = command.index("--write-movie")
+        del command[movie_at:movie_at + 4]
+        command.extend(["--capture-frames"])
     for key in ("seed", "encounter", "policy", "duration"):
         command.append(f"--{key}={scenario[key]}")
     if scenario.get("replay"):

@@ -1,0 +1,12 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_hexer_corrosive.tres" id="e0"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/echo_mender.tres" id="e1"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound.tres" id="e2"]
+[node name="corrosive_procession" type="Node2D"]
+[node name="Unit0" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e0")
+[node name="Unit1" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e1")
+[node name="Unit2" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e2")

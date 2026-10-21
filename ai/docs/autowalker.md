@@ -186,8 +186,9 @@ dashboard source adds an **Encounter outcomes by loadout** table; historical
 events display `legacy_unspecified`. Provision the source to expose that panel.
 Old replay reports select the legacy setup automatically; newer replays reject
 a changed preset fingerprint. Run mode continues to acquire its build through
-normal progression and rejects encounter loadout/health overrides. Its shop policy
-still skips purchases, so full-run balance conclusions retain that limitation.
+normal progression and rejects encounter loadout/health overrides. Policy 2.1.0
+supports actual shop purchases and act transitions. Bot results remain distinct
+from human balance evidence.
 
 ### Completion diagnostics
 
@@ -237,9 +238,10 @@ python tools/run_autowalker.py --godot "$godot" --mode run --policy greedy --max
 ```
 
 Add `--watch` to see it play. The encounter selection is unused in run mode. The
-shop policy currently leaves without buying anything. A complete 15-floor victory
-and every optional branch have not been verified, so use this as progression QA
-with those limits in mind.
+campaign now spans three 15-floor acts. A real seed-2 policy-2.1.0 run completed
+all 45 floors with zero simulation failures; this does not cover every branch
+or establish human balance. Allow 500 cumulative turns and a 300-second timeout
+for campaign QA. See ai/state/journal-bkl-031.md for evidence and limitations.
 
 ## 6. Compare before and after a change
 

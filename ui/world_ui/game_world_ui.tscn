@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://ccjhbbs2j2mdk" path="res://ui/card_selection/card_cost_selection.tscn" id="43_ccsel"]
 
 [ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
+[ext_resource type="PackedScene" path="res://ui/world_ui/boss_health.tscn" id="boss_health"]
 
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
 
@@ -55,6 +56,8 @@ size = Vector2(1924, 699)
 [node name="GameWorldUI" type="CanvasLayer" unique_id=313298749 groups=["ui_layer"]]
 layer = 4
 script = ExtResource("13_y5rsn")
+
+[node name="BossHealth" parent="." instance=ExtResource("boss_health")]
 
 [node name="ActionHint" type="Label" parent="." unique_id=62900808]
 offset_left = 40.0

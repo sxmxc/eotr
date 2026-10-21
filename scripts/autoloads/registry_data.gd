@@ -7,7 +7,10 @@ extends Node
 	"res://resources/data/registries/card_registry_riftwalker.tres"
 ]
 @export var encounter_registry_paths: Array[String] = [
-	"res://resources/data/registries/encounter_registry_act1.tres"
+	"res://resources/data/registries/encounter_registry_act1.tres",
+	"res://resources/data/registries/encounter_registry_legacy.tres",
+	"res://resources/data/registries/encounter_registry_corruption.tres",
+	"res://resources/data/registries/encounter_registry_unmaking.tres",
 ]
 @export var enemy_catalog_paths: Array[String] = [
 	"res://resources/data/catalogs/enemy_catalog.tres"
@@ -33,11 +36,13 @@ func _ensure_card_registry() -> void:
 func _ensure_encounter_registry() -> void:
 	if encounter_registry:
 		return
+	encounter_registry = EncounterRegistry.new()
 	for path: String in encounter_registry_paths:
 		var res := load(path)
 		if res is EncounterRegistry:
-			encounter_registry = res
-			return
+			for entry: EncounterDefinition in res.encounters:
+				if not encounter_registry.find(entry.encounter_id):
+					encounter_registry.encounters.append(entry)
 
 
 func _ensure_enemy_catalog() -> void:

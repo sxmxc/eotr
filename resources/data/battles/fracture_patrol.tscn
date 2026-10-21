@@ -1,0 +1,9 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper.tres" id="e0"]
+[ext_resource type="Resource" path="res://scenes/enemy/horror/horror_enemy.tres" id="e1"]
+[node name="fracture_patrol" type="Node2D"]
+[node name="Unit0" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e0")
+[node name="Unit1" parent="." instance=ExtResource("moving")]
+stats = ExtResource("e1")

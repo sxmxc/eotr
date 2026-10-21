@@ -14,6 +14,7 @@ var is_elite: bool:
 @export var resource_reward_min: int
 @export var resource_reward_max: int
 @export var enemies: PackedScene
+@export var boss_music: AudioStream
 @export var battle_field_width: int
 @export var battle_field_height: int
 @export var enforce_start_tile_type: bool = false
@@ -32,6 +33,13 @@ enum Category { NORMAL, ELITE, BOSS, SPECIAL }
 # -1 keeps the existing constrained random shape selection.
 @export_range(-1, 2) var arena_shape := -1
 @export_range(0, 100) var corruption_weight := 20
+
+# Optional authored stages. Empty values preserve procedural encounter behavior.
+@export var player_start_cell := Vector2i(-1, -1)
+@export var enemy_start_cells: Array[Vector2i] = []
+@export_range(-1, 4) var arena_floor := -1
+@export var terrain_cells: Dictionary[Vector2i, int] = {}
+@export var reveal_arena := false
 
 
 func get_encounter_id() -> String:

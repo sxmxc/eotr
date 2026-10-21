@@ -10,6 +10,9 @@ var done := false
 var ruin_fixture := false
 var ruin_stage := 0
 var ruin_time := 0.0
+var capture_frames := false
+var frame_index := 0
+const FRAME_TIMES := [1.5, 4.0, 8.0]
 
 func _ready() -> void:
 	if not OS.is_debug_build() or DisplayServer.get_name() == "headless":
@@ -17,6 +20,7 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	for arg in OS.get_cmdline_user_args():
+		if arg == "--capture-frames": capture_frames = true
 		if arg == "--fixture=ruin": ruin_fixture = true
 		if arg.begins_with("--duration="): duration = float(arg.get_slice("=", 1))
 		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
@@ -32,6 +36,9 @@ func mark(kind: String, details: Dictionary) -> void:
 func _process(delta: float) -> void:
 	if done: return
 	elapsed += delta
+	if capture_frames and frame_index < FRAME_TIMES.size() and elapsed >= FRAME_TIMES[frame_index]:
+		frame_index += 1
+		_capture_environment_frame(frame_index)
 	if ruin_fixture and is_instance_valid(runner.world):
 		runner.paused = true
 		if runner.world.tilemap.has_start_tile_effects_pending():
@@ -56,6 +63,12 @@ func _process(delta: float) -> void:
 	file.store_string(JSON.stringify(data, "  "))
 	file.close()
 	get_tree().quit()
+
+func _capture_environment_frame(index: int) -> void:
+	await RenderingServer.frame_post_draw
+	var name := "frame-%02d.png" % index
+	get_viewport().get_texture().get_image().save_png(output.path_join(name))
+	mark("rendered_frame", {"file": name, "time": elapsed})
 
 func _activate_ruin(effect_id: String) -> void:
 	# Explicit fixture setup: repeat activation on the occupied tile through real gameplay.

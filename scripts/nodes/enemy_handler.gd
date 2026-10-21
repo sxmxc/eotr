@@ -91,6 +91,7 @@ func setup_enemies(battle_stats: EncounterDefinition, reserved_tiles: Array[Vect
 			if not reserved.has(cell):
 				reserved.append(cell)
 
+	var spawn_index := 0
 	for new_enemy: Node2D in all_new_enemies.get_children():
 		if not (new_enemy is Enemy):
 			continue
@@ -99,6 +100,11 @@ func setup_enemies(battle_stats: EncounterDefinition, reserved_tiles: Array[Vect
 		new_enemy.owner = null
 		var instance := new_enemy as Enemy
 		var spawn := tilemap.get_center_tile_coord() if instance is Obelisk else tilemap.get_random_valid_tile(reserved)
+		if spawn_index < battle_stats.enemy_start_cells.size():
+			var authored := battle_stats.enemy_start_cells[spawn_index]
+			if tilemap.is_tile_valid(authored) and not reserved_tiles.has(authored) and tilemap.is_tile_free(authored):
+				spawn = authored
+		spawn_index += 1
 		add_enemy(instance, spawn)
 		reserved.append(spawn)
 
@@ -111,6 +117,11 @@ func reset_enemy_actions(_args = null) -> void:
 			continue
 		enemy.current_action = null
 		enemy.update_action()
+
+func refresh_enemy_intents() -> void:
+	for enemy: Enemy in get_children():
+		if not enemy.is_dying:
+			enemy.update_intent()
 
 
 func start_turn() -> void:

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyStats" format=3]
+[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/rift/entities/spectre.webp" id="art"]
+[resource]
+script = ExtResource("script")
+enemy_name = "Void Spectre"
+board_icon = ExtResource("art")
+flying = true
+max_health = 95
+gold_value = 80
+resource_value_max = 10

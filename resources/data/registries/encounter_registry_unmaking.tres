@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EncounterRegistry" format=3]
+[ext_resource type="Script" path="res://scripts/resources/registry/encounter_registry.gd" id="script"]
+[ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="definition"]
+[ext_resource type="Resource" path="res://resources/data/battles/last_coin.tres" id="e0"]
+[ext_resource type="Resource" path="res://resources/data/battles/broken_oaths.tres" id="e1"]
+[ext_resource type="Resource" path="res://resources/data/battles/unwoven_path.tres" id="e2"]
+[ext_resource type="Resource" path="res://resources/data/battles/empty_treasury.tres" id="e3"]
+[ext_resource type="Resource" path="res://resources/data/battles/shattered_mirrors.tres" id="e4"]
+[ext_resource type="Resource" path="res://resources/data/battles/last_refuge.tres" id="e5"]
+[ext_resource type="Resource" path="res://resources/data/battles/closing_jaws.tres" id="e6"]
+[ext_resource type="Resource" path="res://resources/data/battles/unmaking_choir.tres" id="e7"]
+[ext_resource type="Resource" path="res://resources/data/battles/the_collectors.tres" id="e8"]
+[ext_resource type="Resource" path="res://resources/data/battles/sealed_verdict.tres" id="e9"]
+[ext_resource type="Resource" path="res://resources/data/battles/prismatic_siege.tres" id="e10"]
+[resource]
+script = ExtResource("script")
+encounters = Array[ExtResource("definition")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("e4"), ExtResource("e5"), ExtResource("e6"), ExtResource("e7"), ExtResource("e8"), ExtResource("e9"), ExtResource("e10")])

@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "tasks": [
+    {
+      "id": "BKL-031",
+      "status": "done",
+      "summary": "Implemented three-act 45-floor campaign, 40 encounters, distinct bosses, persistent transitions, rewards, telemetry and corrected Void artwork. Campaign tests pass; real AutoWalker victory recorded. Evidence and limits: ai/state/journal-bkl-031.md.",
+      "updated": "2026-10-21"
+    },
     {
       "id": "BKL-023",
       "status": "done",
@@ -298,9 +304,9 @@
     },
     {
       "id": "BKL-019",
-      "status": "blocked",
-      "summary": "Boss health meter deferred until the boss redesign lands to avoid rework.",
-      "updated": "2025-11-28T11:29:43.1622705-06:00"
+      "status": "done",
+      "summary": "Implemented aggregate hostile health meter, boss context and counterplay captions; native stills reviewed. See ai/state/journal-bkl-031.md.",
+      "updated": "2026-10-21"
     },
     {
       "id": "BKL-021",

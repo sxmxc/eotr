@@ -31,6 +31,8 @@ func combat_rect() -> Rect2:
 	var left := maxf($ActionHint.get_rect().end.x, tile_info.get_rect().end.x) + 24.0
 	var right: float = enemy_rail.get_rect().position.x - 24.0
 	var top: float = enemy_rail.get_rect().position.y
+	if $BossHealth.visible:
+		top = maxf(top, $BossHealth.get_rect().end.y + 12.0)
 	var bottom := minf(hand.get_rect().position.y, stats_ui.get_rect().position.y) - 20.0
 	return Rect2(Vector2(left, top), Vector2(maxf(right - left, 1.0), maxf(minf(bottom, viewport_size.y) - top, 1.0)))
 

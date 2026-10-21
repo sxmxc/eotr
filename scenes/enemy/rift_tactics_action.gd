@@ -96,7 +96,8 @@ func perform_action() -> void:
 				if not is_instance_valid(target) or target.stats.health <= 0:
 					break
 				var damage := DamageEffect.new()
-				damage.amount = enemy.modifier_handler.get_modified_value(p.damage, Enums.ModifierType.DMG_DEALT)
+				var debt := mini(target.stats.energy, 3) * 2 if p.role == EnemyTactics.Role.DEBT_EATER else 0
+				damage.amount = enemy.modifier_handler.get_modified_value(p.damage + debt, Enums.ModifierType.DMG_DEALT)
 				damage.visual_fx = CUT_FX if p.preferred_range <= 1 else RANGED_FX
 				damage.execute([target])
 				# Resolve each hit separately so block and death are authoritative.
@@ -133,6 +134,8 @@ func update_intent_text() -> void:
 	intent.icon = ATTACK_ICON if plan == "Strike" else (MOVE_ICON if plan in ["Advance", "Retreat"] else WARD_ICON)
 	if plan == "Strike":
 		var amount := enemy.modifier_handler.get_modified_value(p.damage, Enums.ModifierType.DMG_DEALT)
+		if p.role == EnemyTactics.Role.DEBT_EATER:
+			amount += mini(target.stats.energy, 3) * 2
 		amount = target.modifier_handler.get_modified_value(amount, Enums.ModifierType.DMG_TAKEN)
 		intent.current_text = "%d × %d" % [amount, p.hits]
 		intent.tooltip_text = "%s: %d hit(s), range %d. %s" % [enemy.stats.enemy_name, p.hits, p.preferred_range, _role_note()]

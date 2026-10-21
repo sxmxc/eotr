@@ -40,6 +40,7 @@ func _input(event: InputEvent) -> void:
 
 
 func populate_shop() -> void:
+	%RefineDeck.configure(player_stats, run_stats, 60)
 	_generate_shop_cards()
 	_generate_shop_relics()
 	_update_balance()

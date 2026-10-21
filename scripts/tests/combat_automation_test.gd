@@ -979,7 +979,7 @@ func _test_authored_encounters() -> void:
 				check(card.card_art != null and card.card_art.resource_path == "res://assets/rift/cards/%s.webp" % filename.get_basename(), "Every loaded card binds its own illustration after its script")
 				if card.card_art:
 					check(card.card_art.get_width() == 592 and card.card_art.get_height() == 396, "Cards use a high resolution 3:2 illustration")
-	var registry: EncounterRegistry = load("res://resources/data/registries/encounter_registry_act1.tres")
+	var registry: EncounterRegistry = load("res://resources/data/registries/encounter_registry_legacy.tres")
 	check(registry.encounters.size() == 27, "All existing and twenty new authored encounters are registered")
 	var ids: Array[String] = []
 	var new_profiles: Dictionary = {}
@@ -989,12 +989,12 @@ func _test_authored_encounters() -> void:
 		var composition := definition.enemies.instantiate()
 		var obelisks := 0
 		for child in composition.get_children():
-			check(child is Enemy and child.stats != null and child.stats.ai != null, "Authored enemy has stats and AI")
+			check(child is Enemy and child.stats != null and (child.stats.ai != null or child is RiftBoss), "Authored enemy has stats and standard or signature AI")
 			if child is Obelisk:
 				obelisks += 1
 			if child is Enemy and child.stats.tactics:
 				new_profiles[child.stats.enemy_name] = true
-		check(obelisks == 1, "Every encounter retains one active Obelisk")
+		check(obelisks == 1 or (definition.category == EncounterDefinition.Category.BOSS and obelisks == 0), "Legacy normal encounters retain their Obelisk; bosses may replace it")
 		check(definition.victory_objective == EncounterDefinition.VictoryObjective.ELIMINATE_HOSTILES, "Default victory requires every hostile")
 		composition.free()
 	check(new_profiles.size() == 20, "Eight new bases and twelve variants appear in playable compositions")
