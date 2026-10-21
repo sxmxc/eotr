@@ -12,6 +12,15 @@ class CountingStatus extends Status:
 		calls += 1
 		status_applied.emit(self)
 
+class CountingRelic extends Relic:
+	var calls := 0
+	var on_activate: Callable
+
+	func activate_relic(_owner: RelicUI) -> void:
+		calls += 1
+		if on_activate.is_valid():
+			on_activate.call()
+
 class CountingAction extends EnemyAction:
 	var calls := 0
 
@@ -796,6 +805,7 @@ func run() -> void:
 		await _test_status_cancellation(world)
 		await _test_attack_tween_cancellation(world)
 		await _test_movement_cancellation(world)
+		await _test_player_shutdown(world, relics)
 		world.queue_free()
 		relics.queue_free()
 		await get_tree().process_frame
@@ -1153,6 +1163,10 @@ func _test_status_cancellation(world: GameWorld) -> void:
 
 
 func _test_enemy_turn_cancellation(world: GameWorld) -> void:
+	# This fixture resumes the same hand after an artificial battle restart.
+	var hand_disabled: Dictionary = {}
+	for card: CardUI in world.player_handler.player_hand.get_cards():
+		hand_disabled[card] = card.disabled
 	var handler := world.enemy_handler
 	var enemy := handler.get_child(0) as Enemy
 	var previous_action := enemy.current_action
@@ -1220,6 +1234,9 @@ func _test_enemy_turn_cancellation(world: GameWorld) -> void:
 	check(world.player_handler.hand_ready, "Normal enemy completion draws the next hand")
 	enemy.current_action = previous_action
 	action.queue_free()
+	for card: CardUI in hand_disabled:
+		if is_instance_valid(card):
+			card.disabled = hand_disabled[card]
 
 func _test_feedback_circuit(world: GameWorld, relics: RelicHandler) -> void:
 	var circuit := preload("res://resources/data/relics/feedback_circuit.tres").duplicate()
@@ -1337,3 +1354,53 @@ func _test_projectile_ownership() -> void:
 		"Projectile creation without a valid parent fails safely")
 	check(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT) == orphan_count,
 		"Failed projectile creation does not orphan its projectile or impact")
+
+
+func _test_player_shutdown(world: GameWorld, relics: RelicHandler) -> void:
+	var handler := world.player_handler
+	var statuses := world.player.status_handler
+	var status := CountingStatus.new()
+	status.id = "shutdown_status"
+	status.type = Enums.StatusType.START_OF_TURN
+	statuses.add_status(status)
+	statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+	handler.draw_cards(2)
+	var hand_count := handler.player_hand.get_cards().size()
+	world.battle_state.end_battle()
+	await get_tree().create_timer(1.2).timeout
+	check(status.calls == 0, "Battle shutdown cancels pending player statuses")
+	check(handler.player_hand.get_cards().size() == hand_count and not handler.hand_ready, "Battle shutdown cancels draws and hand completion")
+
+	var first := CountingRelic.new()
+	first.id = "shutdown_first"
+	first.type = Enums.RelicType.START_OF_TURN
+	var second := CountingRelic.new()
+	second.id = "shutdown_second"
+	second.type = first.type
+	relics.add_relic(first)
+	relics.add_relic(second)
+	var completed := {"count": 0}
+	var count_completion := func(_type): completed.count += 1
+	relics.relics_activated.connect(count_completion)
+	first.on_activate = world.battle_state.end_battle
+	relics.activate_relics_by_type(first.type)
+	await get_tree().create_timer(1.2).timeout
+	check(first.calls == 1 and second.calls == 0, "Shutdown preserves committed relic and cancels remaining relics")
+	check(completed.count == 0 and status.calls == 0, "Cancelled relic batch cannot restart player statuses")
+	first.on_activate = Callable()
+	# Victory starts this batch after shutting down turn work.
+	relics.relics_activated.disconnect(world._on_relics_activated)
+	first.type = Enums.RelicType.END_OF_COMBAT
+	second.type = first.type
+	relics.activate_relics_by_type(first.type)
+	await get_tree().create_timer(1.2).timeout
+	check(first.calls == 2 and second.calls == 1 and completed.count == 1, "End-of-combat relics can activate after shutdown")
+	relics.relics_activated.disconnect(count_completion)
+	relics.relics_activated.connect(world._on_relics_activated)
+	for ui: RelicUI in relics._get_all_relic_ui_nodes():
+		if ui.relic == first or ui.relic == second:
+			ui.queue_free()
+	for ui: StatusUI in statuses.get_children():
+		if ui.status == status:
+			ui.queue_free()
+	await get_tree().process_frame

@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-20 - Stop player turn work at battle shutdown
+
+- Battle shutdown now cancels pending player draws, statuses and relic activation, disables the hand and releases player camera priority. RelicHandler owns/cancels its activation tween on replacement and tree exit. Applied effects remain committed; victory can start its normal end-of-combat relic batch after cancellation.
+- Regression checks reproduced player status/draw work surviving shutdown and relic completion restarting statuses. Focused headless and native D3D12 checks pass, including partial relic application, no stale completion, and a fresh end-of-combat batch. Full headless combat, resource reference and whitespace checks pass.
+- Limits: native checks use offscreen assertions, not human visual review; no campaign/export QA. Existing Windows certificate-store diagnostic remains. Cancellation stops queued handler callbacks, not asynchronous effects already dispatched by a relic.
+- Next: multi-floor save/resume; enemy death during status resolution; inspect asynchronous relic-owned effects if a concrete shutdown failure is observed.
+
 ## 2026-10-20 - Cancel queued enemy statuses
 
 - Enemy turn cancellation now kills its active status application tween before releasing action/movement work. Pending effects, duration consumption and completion signals stop; effects already applied remain committed. StatusHandler owns its tween, replaces pending batches and cancels on tree exit.
