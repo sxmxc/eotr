@@ -3,6 +3,12 @@
   "updated": "2026-10-20",
   "tasks": [
     {
+      "id": "BKL-023",
+      "status": "done",
+      "summary": "Documented Obelisk base/strengthened variants and current elimination victory rules in ai/docs/obelisks.md; linked encounter workflow. No gameplay changes. Future boss design remains BKL-031. Evidence: ai/state/journal-bkl-023.md.",
+      "updated": "2026-10-20"
+    },
+    {
       "id": "BKL-016",
       "status": "done",
       "summary": "Added bounded scene-authored ruin column echo and attributed outcome messages without changing mechanics. Matching native phase captures preserve final observation and events. Focused headless/native repeat, empty, overlap cleanup and lethal movement checks pass. Sparse visual review only; FFmpeg unavailable. Evidence: ai/state/journal-bkl-016.md.",
