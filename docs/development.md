@@ -87,6 +87,60 @@ matching Godot export templates before local export. After creating
 & $godot --headless --path . --export-release 'Windows Desktop' build/windows/eotr.exe
 ```
 
+### Bumping export versions
+
+Use the standard-library Python tool to synchronize `export_presets.cfg` and
+the displayed version in `project.godot`:
+
+```powershell
+python tools/bump_version.py patch --dry-run
+python tools/bump_version.py patch
+# Another build of the same patch:
+python tools/bump_version.py revision
+```
+
+Choose `patch` for Conventional Commit `fix:` changes, `minor` for `feat:`,
+and `major` for breaking changes (`type!:` or a `BREAKING CHANGE:` footer).
+Choose the highest applicable level across the changes being released. Other
+commit types do not require a bump by themselves. The tool takes an explicit
+level; it does not infer releases from Git history. Use `revision` for another
+build of the same patch.
+
+Versions use the project's four-number convention, `MAJOR.MINOR.PATCH.REVISION`,
+with SemVer-style bump rules (this is not strict three-component SemVer). Each
+invocation increments the selected component and resets every lower component:
+
+| Command | Starting at `0.3.1.2` |
+| --- | --- |
+| `major` | `1.0.0.0` |
+| `minor` | `0.4.0.0` |
+| `patch` | `0.3.2.0` |
+| `revision` | `0.3.1.3` |
+
+The current numeric version comes from Windows `application/file_version`.
+All three export filenames are synchronized, including stale Linux/macOS presets.
+The existing Windows filename suffix (for example `alpha`) is preserved by
+default. Use `--prerelease alpha.1` to set a label or `--stable` to remove it.
+Labels follow SemVer prerelease identifier syntax and are not incremented
+automatically. For example, a patch bump from `0.3.0.1-alpha` produces
+`0.3.1.0-alpha` and suggests release tag `v0.3.1.0-alpha`.
+
+Windows file/product metadata and `project.godot`'s `config/version` use the full
+four-number numeric version. AutoExportVersion reads the first nonempty preset
+version (currently Windows file version), so its generated game version matches
+that project setting. The addon continues to manage the Git build hash separately.
+macOS native short/build metadata uses `MAJOR.MINOR.PATCH`; its filename retains
+the full revision. Prerelease labels appear in filenames and suggested tags only,
+keeping native metadata and the displayed game version numeric. Other settings
+and each file's line endings are preserved. Close the Godot editor before
+applying a bump, or reload changed files before saving them in the editor.
+
+The command prints a suggested Conventional Commit and release tag. `--dry-run`
+validates both configuration updates without writing either file. Review the diff
+before committing. It does not commit, tag, publish or
+change release workflow triggers. Run its offline checks with
+`python -m unittest discover -s tools -p test_bump_version.py`.
+
 The release workflow `.github/workflows/build_release.yml` runs on four-component
 version tags (`v*.*.*.*` and suffixed variants), exports all three platforms and
 uploads their build artifacts. Publishing/tagging is a separate release action.
