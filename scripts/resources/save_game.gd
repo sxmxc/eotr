@@ -77,6 +77,11 @@ func _has_valid_map_graph() -> bool:
 				return false
 	for floor_nodes: Array in map_data:
 		for node: MapNode in floor_nodes:
+			# Only connected rooms and the final center boss are rendered/selectable.
+			# Unused grid cells intentionally have no encounter resource.
+			var is_room := not node.next_nodes.is_empty() or (node.row == map_data.size() - 1 and node.column == floori(MapGenerator.MAP_WIDTH * 0.5))
+			if is_room and node.type in [Enums.MapNodeType.MONSTER, Enums.MapNodeType.ELITE, Enums.MapNodeType.BOSS] and node.battle_stats == null:
+				return false
 			for edge: Resource in node.next_nodes:
 				var destination := edge as MapNode
 				if destination == null or destination.row != node.row + 1 or destination.row >= map_data.size():

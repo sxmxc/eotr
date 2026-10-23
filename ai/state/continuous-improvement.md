@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-22 — Reject missing checkpoint encounters
+
+- SaveGame rejects selectable monster, Elite and boss rooms missing their encounter resource before battle startup dereferences it. Unused grid cells remain supported; rejection shows recovery guidance and retains checkpoint bytes.
+- Three serialized fixtures reproduced six failed assertions before the fix. Focused offline Godot 4.7.2 `--save-validation-only` passes afterward (zero errors/failures, exit 0), including existing current/legacy map and deck cases. Resource guard and whitespace checks pass.
+- Limits: controlled headless fixtures; no rendered, natural gameplay or export validation.
+- Next: repeated multi-floor save/resume through AutoWalker; investigate disconnected saved routes before expanding validation.
+
 ## 2026-10-22 â€” Reject malformed checkpoint map graphs
 
 - SaveGame now validates grid widths, node coordinates, next-floor route membership and the recorded last node before Run restores the map. Invalid graphs show recovery guidance and retain the checkpoint bytes instead of reaching unchecked map dereferences.

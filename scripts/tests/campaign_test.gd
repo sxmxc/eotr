@@ -207,6 +207,24 @@ func _test_saved_deck_validation() -> void:
 		check(dialog != null and dialog.visible, "Invalid map presents recovery instructions")
 		if dialog:
 			dialog.hide()
+	for kind: int in [Enums.MapNodeType.MONSTER, Enums.MapNodeType.ELITE, Enums.MapNodeType.BOSS]:
+		var invalid := saved.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+		var node := invalid.map_data[-1][floori(MapGenerator.MAP_WIDTH * 0.5)] as MapNode
+		if kind != Enums.MapNodeType.BOSS:
+			for candidate: MapNode in invalid.map_data[0]:
+				if not candidate.next_nodes.is_empty():
+					node = candidate
+					break
+		node.type = kind
+		node.battle_stats = null
+		check(ResourceSaver.save(invalid, SaveGame.SAVE_PATH) == OK, "Write missing encounter fixture")
+		var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+		check(SaveGame.load_data() == null, "Reject missing encounter for combat room %d" % kind)
+		check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Missing encounter retains checkpoint bytes")
+		var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+		check(dialog != null and dialog.visible, "Missing encounter presents recovery instructions")
+		if dialog:
+			dialog.hide()
 	for version: int in [0, 1, SaveGame.CURRENT_VERSION]:
 		saved.progression_version = version
 		check(ResourceSaver.save(saved, SaveGame.SAVE_PATH) == OK, "Write supported map version")

@@ -100,7 +100,8 @@ with recovery guidance and the original file retained. Empty decks remain valid.
 Map validation also rejects incomplete grid rows, missing or misplaced nodes,
 route targets outside the next stored floor, and a last node outside the recorded
 completed floor. Current and legacy maps use the same structural checks; loading
-does not regenerate or repair a rejected graph.
+does not regenerate or repair a rejected graph. Selectable monster, Elite and boss
+rooms must retain their encounter resource; unused grid cells do not require one.
 
 Writes go to sibling `savegame.pending.res`, then rename over the destination.
 Failure shows a recoverable dialog and retains the previous save. Failed
