@@ -11,7 +11,7 @@ script = ExtResource("4_4kclu")
 amount = 6
 projectile_fx = ExtResource("1_f12lp")
 projectile_visual_fx = ExtResource("signature")
-visual_fx = ExtResource("signature")
+attach_visual_to_effect = false
 camera_shake_strength = 16.0
 camera_shake_duration = 0.15
 

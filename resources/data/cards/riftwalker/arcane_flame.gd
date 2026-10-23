@@ -8,14 +8,12 @@ var burn_duration := 2
 func _init() -> void:
 	var damage_effect := CardEffectConfig.for_damage(base_damage)
 	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
-	damage_effect.sound_fx = sound_fx
-	damage_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, true)
 
 	var burned := BURNED_STATUS.duplicate()
 	burned.duration = burn_duration
 	var status_effect := CardEffectConfig.for_status(burned)
-	status_effect.sound_fx = sound_fx
-	status_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, status_effect, true)
 
 	effect_configs = [damage_effect, status_effect]
 

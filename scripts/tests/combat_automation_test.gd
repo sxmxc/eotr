@@ -1161,6 +1161,7 @@ func _review_combat_motion(world: GameWorld) -> void:
 func run() -> void:
 	_test_authored_encounters()
 	_test_projectile_ownership()
+	_test_card_visual_defaults()
 	RNG.instance.seed = 42
 	var relics := RELICS.instantiate() as RelicHandler
 	add_child(relics)
@@ -1196,6 +1197,7 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		await _test_projectile_card_contacts(world)
 		await _test_card_authorization(world)
 		await _test_interaction_lifetime(world)
 		await _test_mouse_card_commits(world)
@@ -1255,6 +1257,7 @@ func run() -> void:
 	await _test_combatant_wards(world)
 	await _test_visual_lifetimes(world)
 	await _test_projectile_cancellation(world)
+	await _test_projectile_card_contacts(world)
 	await _test_enemy_turn_cancellation(world)
 	await _test_status_death_cancellation(world)
 	await _test_status_cancellation(world)
@@ -1758,6 +1761,83 @@ func _test_instability_costs(world: GameWorld, relics: RelicHandler) -> void:
 		card_ui.card.energy_cost = costs[card_ui]
 	world.player_stats.energy = energy
 	RNG.instance.state = rng_state
+
+func _test_projectile_card_contacts(world: GameWorld) -> void:
+	var target := world.tilemap.obelisk
+	var original_health := target.stats.health
+	var original_max := target.stats.max_health
+	var original_block := target.stats.block
+	target.stats.max_health = 1000
+	for id: String in ["arcane_bolt", "arcane_blast", "void_shard", "sever_anchor", "overload_shot"]:
+		var card := load("res://resources/data/cards/riftwalker/%s.tres" % id).duplicate(true) as Card
+		card._sync_effect_configs()
+		card.last_energy_cost = 3
+		target.stats.health = 1000
+		target.stats.block = 0
+		var contacts: Array[Node] = []
+		var on_contact := func(child: Node) -> void:
+			if child.scene_file_path == card.visual_fx.resource_path:
+				contacts.append(child)
+		target.child_entered_tree.connect(on_contact)
+		await card.resolve_effects([target], world.player_stats, null)
+		var deadline := Time.get_ticks_msec() + 2000
+		while target.pending_damage > 0 and Time.get_ticks_msec() < deadline:
+			await get_tree().process_frame
+		target.child_entered_tree.disconnect(on_contact)
+		check(target.pending_damage == 0, "%s completes pending damage within the fixture budget" % id)
+		var expected_damage: int = 3 if id == "overload_shot" else card.base_damage
+		if id == "sever_anchor":
+			expected_damage += card.obelisk_bonus
+		check(target.stats.health == 1000 - expected_damage,
+			"%s commits damage exactly once through its existing resolver path" % id)
+		if DisplayServer.get_name() != "headless":
+			check(contacts.size() == 1, "%s spawns one contact visual across projectile and effect" % id)
+		else:
+			check(contacts.is_empty(), "%s keeps headless pre-effect visuals disabled" % id)
+	target.stats.max_health = original_max
+	target.stats.health = original_health
+	target.stats.block = original_block
+
+
+func _test_card_visual_defaults() -> void:
+	var card := Card.new()
+	card.sound_fx = preload("res://assets/audio/launches/flaunch.wav")
+	card.visual_fx = preload("res://ui/fx/spark_fx.tscn")
+	card.projectile_fx = preload("res://ui/fx/fireball_projectile_fx.tscn")
+	var config := CardEffectConfig.for_damage(9)
+	var override_visual := preload("res://ui/fx/explosion_fx.tscn")
+	var override_sound := preload("res://assets/audio/launches/rlaunch.wav")
+	config.projectile_visual_fx = override_visual
+	config.visual_fx = override_visual
+	config.sound_fx = override_sound
+	CardEffectConfigHelper.apply_card_defaults(card, config, false)
+	check(not config.attach_visual_to_effect and config.visual_fx == null,
+		"Projectile defaults clear the unused effect contact visual")
+	check(config.projectile_visual_fx == override_visual and config.sound_fx == override_sound,
+		"Card defaults preserve explicit contact and sound overrides")
+	check(config.amount == 9 and config.projectile_fx == card.projectile_fx,
+		"Visual defaults retain gameplay values and inherit the projectile")
+	config.visual_fx = override_visual
+	CardEffectConfigHelper.apply_card_defaults(card, config, true)
+	check(config.visual_fx == override_visual and config.projectile_visual_fx == null,
+		"Effect defaults select one contact owner while preserving its override")
+	for id: String in ["arcane_bolt", "arcane_blast", "void_shard", "sever_anchor"]:
+		var loaded := load("res://resources/data/cards/riftwalker/%s.tres" % id).duplicate(true) as Card
+		loaded._sync_effect_configs()
+		var damage := loaded.effect_configs[0]
+		check(not damage.attach_visual_to_effect and damage.visual_fx == null
+			and damage.projectile_visual_fx == loaded.visual_fx and damage.projectile_fx == loaded.projectile_fx,
+			"Loaded %s selects projectile contact ownership after serialized exports" % id)
+		check(damage.amount == loaded.base_damage, "Loaded %s preserves damage" % id)
+	var jab := load("res://resources/data/cards/riftwalker/chrono_jab.tres").duplicate(true) as Card
+	jab._sync_effect_configs()
+	check(jab.effect_configs[0].hits == 2 and is_equal_approx(jab.effect_configs[0].hit_interval, 0.3)
+		and jab.effect_configs[1].status.duration == jab.weakened_duration,
+		"Chrono Jab keeps its hit cadence and status duration")
+	for effect: CardEffectConfig in jab.effect_configs:
+		check(effect.attach_visual_to_effect and effect.visual_fx == jab.visual_fx and effect.projectile_visual_fx == null,
+			"Chrono Jab retains effect-owned feedback for each existing effect")
+
 
 func _test_projectile_ownership() -> void:
 	var projectile := ProjectileFX.new()

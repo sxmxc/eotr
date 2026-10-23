@@ -16,8 +16,7 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 
 	var damage_effect := CardEffectConfig.for_damage(missing_health)
 	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
-	damage_effect.sound_fx = sound_fx
-	damage_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, true)
 
 	var resolver := CardResolver.new()
 	await resolver.resolve(self, targets, player.stats, modifiers, [damage_effect])

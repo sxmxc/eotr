@@ -44,6 +44,5 @@ func apply_effects(_targets: Array[Node], _modifiers: ModifierHandler) -> void:
 func _sync_effect_configs() -> void:
 	var damage_effect := CardEffectConfig.for_multi_damage(base_damage, 2, 0.3)
 	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
-	damage_effect.sound_fx = sound_fx
-	damage_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, true)
 	effect_configs = [damage_effect]

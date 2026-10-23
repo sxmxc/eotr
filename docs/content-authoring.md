@@ -30,11 +30,20 @@ integration. [Architecture](architecture.md) explains those owners.
    exclude a card from drafts. Shop/reward scenes can build empty registries from
    draftable piles; verify the actual consumer rather than relying on one list.
 
-Use `CardEffectConfigHelper.apply_card_defaults` where appropriate to inherit
-sound/projectile/visual defaults. Choose one contact visual owner: projectile
-visuals with `attach_visual_to_effect=false`, or effect-owned visuals. Configured
+Use `CardEffectConfigHelper.apply_card_defaults(self, config, false)` for
+projectile-owned contact visuals and pass `true` for effect-owned contact visuals.
+The helper fills missing sound, projectile and selected contact visual fields;
+explicit overrides on that owner survive. It clears the other owner's contact
+visual field. Call it after loading serialized exports (normally in
+`_sync_effect_configs`), including when reusing an existing config. Keep serialized
+configs consistent with that ownership: Void Shard and Arcane Bolt attach their
+contact visual only through the projectile. An effect-owned config may still
+inherit a projectile for travel, with no projectile contact visual. Configured
 projectiles run before their effects; do not add a second gameplay damage callback
 on arrival. Existing custom utility `cast_fx` is cosmetic, not another resolver.
+Keep per-effect overrides, such as Nano Shield's separate energy feedback,
+explicit. The helper accepts CardEffectConfig, not legacy Effect nodes; it does
+not choose damage, hit count, status, target, projectile mode or camera values.
 
 Add the card to hand in the sandbox and inspect cost, target highlights and modified
 description. Play it through CardUI, inspect energy and resulting state, then end

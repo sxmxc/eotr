@@ -3,6 +3,12 @@
   "updated": "2026-10-22",
   "tasks": [
     {
+      "id": "BKL-050",
+      "status": "done",
+      "summary": "Consolidated Riftwalker config visual/sound/projectile defaults, preserved per-effect overrides and fixed serialized Void Shard dual contact ownership. Five projectile cards pass native one-contact/one-damage checks; full headless combat and bounded offline AutoWalker pass. Evidence and limits: ai/state/journal-bkl-050.md.",
+      "updated": "2026-10-22"
+    },
+    {
       "id": "BKL-048",
       "status": "done",
       "summary": "Completed battle-owned click/drag/aim/play coordination: exclusive gesture and resolution ownership, phase/card/world cancellation, shared selector/highlight/tooltip context, authored drop-area support and spotlight handoff. Full combat and focused headless/native checks pass; bounded offline bot victory in 8 turns/28 actions. Evidence and validation limits: ai/state/journal-bkl-048.md.",

@@ -43,7 +43,6 @@ func _sync_effect_configs() -> void:
 	damage_config.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 	damage_config.camera_shake_strength = 18.0
 	damage_config.camera_shake_duration = 0.18
-	damage_config.attach_visual_to_effect = false
 	CardEffectConfigHelper.apply_card_defaults(self, damage_config, false)
 
 	effect_configs = [damage_config]

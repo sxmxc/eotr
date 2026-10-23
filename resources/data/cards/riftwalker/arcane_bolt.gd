@@ -57,18 +57,11 @@ func _sync_effect_configs() -> void:
 	if effect_configs.is_empty():
 		var damage_effect := CardEffectConfig.for_damage(base_damage)
 		effect_configs = [damage_effect]
-	_assign_visuals(effect_configs[0])
+	var damage_effect := effect_configs[0]
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, false)
+	damage_effect.camera_shake_strength = 16.0
+	damage_effect.camera_shake_duration = 0.15
+	damage_effect.amount = base_damage
 	for config in effect_configs:
 		config.effect_type = CardEffectConfig.EffectType.DAMAGE
 		config.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
-
-
-func _assign_visuals(effect: CardEffectConfig) -> void:
-	if not effect:
-		return
-	effect.attach_visual_to_effect = false
-	effect.projectile_fx = projectile_fx
-	effect.projectile_visual_fx = visual_fx
-	effect.camera_shake_strength = 16.0
-	effect.camera_shake_duration = 0.15
-	effect.amount = base_damage

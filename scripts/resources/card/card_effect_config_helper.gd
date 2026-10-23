@@ -22,8 +22,7 @@ static func apply_card_defaults(
 	else:
 		if not config.projectile_visual_fx:
 			config.projectile_visual_fx = card.visual_fx
-		if not config.visual_fx:
-			config.visual_fx = null
+		config.visual_fx = null
 
 	if not config.projectile_fx:
 		config.projectile_fx = card.projectile_fx
