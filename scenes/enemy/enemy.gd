@@ -200,6 +200,8 @@ func _begin_death_sequence() -> bool:
 	if is_dying:
 		return false
 	is_dying = true
+	if is_instance_valid(status_handler):
+		status_handler.cancel_application()
 	if is_instance_valid(tilemap):
 		tilemap.remove_occupant(self)
 	_play_death_feedback()

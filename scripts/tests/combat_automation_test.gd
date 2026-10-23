@@ -833,6 +833,7 @@ func run() -> void:
 		await get_tree().process_frame
 	check(api.ready_for_action(), "Hand/turn resolves to a legal action boundary")
 	if OS.get_cmdline_user_args().has("--attack-cancellation-only"):
+		await _test_status_death_cancellation(world)
 		await _test_status_cancellation(world)
 		await _test_attack_tween_cancellation(world)
 		await _test_movement_cancellation(world)
@@ -900,6 +901,7 @@ func run() -> void:
 	await _test_visual_lifetimes(world)
 	await _test_projectile_cancellation(world)
 	await _test_enemy_turn_cancellation(world)
+	await _test_status_death_cancellation(world)
 	await _test_status_cancellation(world)
 	await _test_attack_tween_cancellation(world)
 	await _test_movement_cancellation(world)
@@ -1146,6 +1148,40 @@ func _test_movement_cancellation(world: GameWorld) -> void:
 	check(completions.count == 0, "Cancelled movement pacing cannot emit a stale completion")
 	waiting.queue_free()
 	Events.enemy_action_completed.disconnect(on_completed)
+
+
+func _test_status_death_cancellation(world: GameWorld) -> void:
+	for scene_path: String in ["res://scenes/enemy/moving_enemy.tscn", "res://scenes/enemy/obelisk/obelisk_enemy.tscn"]:
+		for partial: bool in [false, true]:
+			var enemy := (load(scene_path) as PackedScene).instantiate() as Enemy
+			enemy.stats = (world.enemy_handler.get_child(0) as Enemy).stats
+			add_child(enemy)
+			var statuses := StatusHandler.new()
+			enemy.add_child(statuses)
+			statuses.status_owner = enemy
+			enemy.status_handler = statuses
+			var first := CountingStatus.new()
+			first.id = "death_first"
+			first.type = Enums.StatusType.START_OF_TURN
+			first.can_expire = true
+			first.duration = 5
+			var second := first.duplicate() as CountingStatus
+			second.id = "death_second"
+			statuses.add_status(first)
+			statuses.add_status(second)
+			var completed := {"count": 0}
+			statuses.statuses_applied.connect(func(_type): completed.count += 1)
+			if partial:
+				first.status_applied.connect(func(_status): enemy.do_death(), CONNECT_ONE_SHOT)
+			statuses.apply_statuses_by_type(Enums.StatusType.START_OF_TURN)
+			if not partial:
+				enemy.do_death()
+			await get_tree().create_timer(0.8).timeout
+			check(first.calls == (1 if partial else 0), "Death preserves only committed first status: %s partial=%s" % [scene_path, partial])
+			check(first.duration == (4 if partial else 5), "Death preserves committed status duration: %s partial=%s" % [scene_path, partial])
+			check(second.calls == 0 and second.duration == 5, "Death cancels later status effects and duration use: %s partial=%s" % [scene_path, partial])
+			check(completed.count == 0, "Death cancels status batch completion: %s partial=%s" % [scene_path, partial])
+			check(not is_instance_valid(enemy), "Status cancellation preserves death cleanup: %s" % scene_path)
 
 
 func _test_status_cancellation(world: GameWorld) -> void:
