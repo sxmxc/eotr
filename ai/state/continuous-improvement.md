@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-22 - Stop detached event callbacks
+
+- EventRoom ignores choice/exit callbacks after leaving the tree and stops control updates when a lethal choice replaces it. A detached Leave callback previously replaced defeat with the map and recreated the deleted checkpoint. Costs/rewards and lethal-cost rules remain unchanged.
+- Button-signal fixtures reproduced four failed assertions before the fix. Focused offline Godot 4.7.2 --event-defeat-only checks pass headlessly and with native D3D12 Forward+ (zero failures, exit 0): 2/4-HP defeat, 5-HP survival and resumable map, and detached choice/exit callbacks after leaving without choosing. Existing --event-room-only, resource guard and whitespace checks pass.
+- Limits: controlled lifecycle fixtures and offscreen native assertions; no rendered visual review, natural gameplay, full campaign or export validation. Existing certificate-store diagnostic and Void Spectre UID fallback warning remain.
+- Next: repeated multi-floor save/resume through AutoWalker; inspect other room-exit callbacks only against concrete lifecycle failures.
+
 ## 2026-10-22 — Reject missing checkpoint encounters
 
 - SaveGame rejects selectable monster, Elite and boss rooms missing their encounter resource before battle startup dereferences it. Unused grid cells remain supported; rejection shows recovery guidance and retains checkpoint bytes.

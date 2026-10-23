@@ -76,6 +76,8 @@ health or offers deck refinement; shop refinement costs 60 gold. Removal through
 the shared refinement control preserves a minimum deck size of eight. Treasure
 opens through its own scene and hands its rolled relic to the reward interface.
 Events use actual affordability/choice handlers and can cause noncombat defeat.
+Lethal event costs end the run and remove its checkpoint. Once the room is
+detached, pending choice/exit callbacks cannot reopen the map or save that run.
 
 Beating either of the first two act bosses opens the transition view. Advancing
 awards the act's exclusive relic if unowned, 35 gold, and either 40% max-health

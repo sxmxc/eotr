@@ -116,7 +116,7 @@ func _on_option_b_pressed() -> void:
 
 
 func _run_option_by_index(idx: int) -> void:
-	if _choice_made:
+	if _choice_made or not is_inside_tree():
 		return
 	var options: Array = _current_event.get("options", [])
 	if idx < 0 or idx >= options.size():
@@ -133,6 +133,9 @@ func _run_option_by_index(idx: int) -> void:
 	run_stats.gold -= int(option.get("gold_cost", 0))
 	run_stats.resources -= int(option.get("resource_cost", 0))
 	call(action_name)
+	# A lethal HP cost synchronously replaces this room with the defeat panel.
+	if not is_inside_tree():
+		return
 	_refresh_options()
 	%OutcomeLabel.text = "CHOICE RESOLVED"
 	%Hint.text = "Your choice is complete. Continue when you are ready."
@@ -142,6 +145,8 @@ func _run_option_by_index(idx: int) -> void:
 
 
 func _leave_event() -> void:
+	if not is_inside_tree():
+		return
 	Events.event_exited.emit()
 
 

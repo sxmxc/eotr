@@ -64,6 +64,8 @@ python tools/validate_campaign.py --godot "$godot"
 python tools/validate_campaign.py --godot "$godot" --bosses-only
 # Save-and-quit I/O failure recovery and successful return to menu:
 python tools/validate_campaign.py --godot "$godot" --save-quit-only
+# Lethal event buttons, detached callbacks and surviving return-to-map saves:
+python tools/validate_campaign.py --godot "$godot" --event-defeat-only
 # Reject missing deck/card resources without modifying the checkpoint:
 python tools/validate_campaign.py --godot "$godot" --save-validation-only
 # Require non-boss Obelisks and resume an old incomplete encounter composition:
