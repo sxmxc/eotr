@@ -11,6 +11,7 @@ def main():
     parser.add_argument('--godot', required=True)
     parser.add_argument('--capture', action='store_true')
     parser.add_argument('--bosses-only', action='store_true')
+    parser.add_argument('--save-quit-only', action='store_true')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     output = root / '.qa-tmp/bkl-031/campaign'
@@ -26,6 +27,8 @@ def main():
             command.append('--captures=' + output.as_posix())
         if args.bosses_only:
             command.append('--bosses-only')
+        if args.save_quit_only:
+            command.append('--save-quit-only')
         result = subprocess.run(command, env=env, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=180)
         text = result.stdout + result.stderr
         (output / 'console.log').write_text(text, encoding='utf-8')

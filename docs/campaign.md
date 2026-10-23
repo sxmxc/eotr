@@ -97,7 +97,9 @@ joining the next authored act. Unsupported newer versions and invalid progressio
 are rejected while retaining the file for recovery.
 
 Writes go to sibling `savegame.pending.res`, then rename over the destination.
-Failure shows a recoverable dialog and retains the previous save. Loading uses
+Failure shows a recoverable dialog and retains the previous save. Failed
+Save and Quit keeps gameplay paused with the pause menu available for recovery;
+successful saving returns to an unpaused main menu. Loading uses
 fresh save/subresource data and deep duplication for mutable dependencies. This
 is not a guarantee of power-loss durability on every filesystem. The timer counts
 active unpaused time, including transitions/hit-stop, excluding paused/offline time.

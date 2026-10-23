@@ -353,7 +353,9 @@ func _on_save_and_quit() -> void:
 		return
 	checkpoint.elapsed_run_time = run_time_ui.elapsed_time
 	if checkpoint.save_data():
-		get_tree().change_scene_to_file(MAIN_MENU_PATH)
+		var tree := get_tree()
+		if tree.change_scene_to_file(MAIN_MENU_PATH) == OK:
+			tree.paused = false
 
 func _on_abandon_run() -> void:
 	player_stats.is_running = false

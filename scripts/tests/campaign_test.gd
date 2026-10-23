@@ -41,6 +41,12 @@ func current_view(run: Run) -> Node:
 
 func run_tests() -> void:
 	RNG.instance.seed = 31
+	if OS.get_cmdline_user_args().has("--save-quit-only"):
+		await _test_failed_save_quit()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
 	_test_telemetry_attribution()
 	_test_content()
 	await _test_bosses()
@@ -146,10 +152,48 @@ func run_tests() -> void:
 	await get_tree().process_frame
 	get_tree().paused = false
 	await _test_legacy_and_failure()
+	await _test_failed_save_quit()
 	await _test_shop_and_refinement()
 	await Utils.stop_audio_for_shutdown()
 	print("Campaign tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func _test_failed_save_quit() -> void:
+	var run := new_run()
+	await get_tree().process_frame
+	var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+	const PENDING := "user://savegame.pending.res"
+	check(DirAccess.make_dir_absolute(PENDING) == OK, "Create isolated save failure fixture")
+	run.pause_menu._pause()
+	run.pause_menu.save_and_quit_button.pressed.emit()
+	check(get_tree().paused, "Failed Save and Quit keeps gameplay paused")
+	check(run.pause_menu.visible, "Failed Save and Quit retains the pause menu")
+	check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Failed Save and Quit preserves checkpoint bytes")
+	var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+	check(dialog != null and dialog.visible, "Failed Save and Quit presents recovery instructions")
+	if dialog:
+		dialog.hide()
+	DirAccess.remove_absolute(PENDING)
+	check(run.save_data.save_data(), "Checkpoint can be saved after the I/O obstruction is removed")
+	run.pause_menu.back_to_game_button.pressed.emit()
+	check(not get_tree().paused and not run.pause_menu.visible, "Player can explicitly resume after failed Save and Quit")
+	# Let the production success path replace a real current scene while this
+	# test coordinator survives as a separate root child.
+	var coordinator := get_tree().current_scene
+	run.reparent(get_tree().root)
+	get_tree().current_scene = run
+	run.pause_menu._pause()
+	run.pause_menu.save_and_quit_button.pressed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var menu := get_tree().current_scene
+	check(menu != null and menu.scene_file_path == Run.MAIN_MENU_PATH, "Successful Save and Quit opens the main menu")
+	check(not get_tree().paused, "Successful Save and Quit releases pause")
+	check(SaveGame.load_data() != null, "Successful Save and Quit leaves a resumable checkpoint")
+	get_tree().current_scene = coordinator
+	if menu != null and menu != coordinator:
+		menu.queue_free()
+	await get_tree().process_frame
 
 func _test_content() -> void:
 	for act in ActDefinition.campaign():

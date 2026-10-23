@@ -49,6 +49,8 @@ Campaign checks have a separate launcher:
 python tools/validate_campaign.py --godot "$godot"
 # Narrow the same suite to boss checks:
 python tools/validate_campaign.py --godot "$godot" --bosses-only
+# Save-and-quit I/O failure recovery and successful return to menu:
+python tools/validate_campaign.py --godot "$godot" --save-quit-only
 ```
 
 `--capture` renders natively; logs/captures go to `.qa-tmp/bkl-031/campaign/`.
