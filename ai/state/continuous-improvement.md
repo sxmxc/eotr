@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-22 - Stop queued statuses at enemy death
+
+- The shared Enemy death boundary now cancels its status batch before occupancy removal and death feedback. Ordinary enemies and Obelisks preserve already applied effects/duration changes; queued effects and batch completion stop without changing death presentation.
+- Regression fixtures reproduced 12 failed assertions before the fix. Focused `--combat-automation --attack-cancellation-only` checks pass headlessly and with native D3D12 rendering (zero failures, exit 0), covering death before playback and at the first applied status, unchanged pending durations and eventual node cleanup. Full headless combat automation also passes (zero failures, exit 0). Resource reference and whitespace checks pass.
+- Limits: native checks are offscreen assertions, not visual inspection; no campaign/export QA. Existing certificate-store diagnostic and Void Spectre resource UID fallback warning remain. Independently dispatched asynchronous effects are not rolled back.
+- Next: multi-floor save/resume; investigate independently dispatched effects only if a concrete lifecycle failure is observed.
+
 ## 2026-10-20 - Stop player turn work at battle shutdown
 
 - Battle shutdown now cancels pending player draws, statuses and relic activation, disables the hand and releases player camera priority. RelicHandler owns/cancels its activation tween on replacement and tree exit. Applied effects remain committed; victory can start its normal end-of-combat relic batch after cancellation.

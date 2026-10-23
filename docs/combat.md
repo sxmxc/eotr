@@ -47,6 +47,10 @@ Card.play pays energy, emits the committed play event, and resolves configured
 effects or the custom hook. CardFxRunner sequences configured projectiles before
 effects. Keep impact visual ownership clear to avoid duplicated effects/sounds.
 StatusHandler manages durations/stacks; ModifierHandler applies scaling hooks.
+Entering an enemy's death sequence cancels its queued status applications and
+batch completion. Effects and duration changes already committed remain; pending
+statuses do not apply during death feedback. Ordinary enemies and Obelisks share
+this death boundary.
 [Authoring](content-authoring.md) explains how to extend these paths.
 
 Enemy AI uses conditional/weighted actions with performability checks and fallback
