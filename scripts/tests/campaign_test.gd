@@ -188,6 +188,29 @@ func _test_saved_deck_validation() -> void:
 		check(dialog != null and dialog.visible, "Invalid deck presents recovery instructions")
 		if dialog:
 			dialog.hide()
+	for corruption: String in ["short row", "null node", "wrong coordinates", "null edge", "foreign edge", "foreign last node"]:
+		var invalid := saved.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+		match corruption:
+			"short row": invalid.map_data[0].pop_back()
+			"null node": invalid.map_data[0][0] = null
+			"wrong coordinates": invalid.map_data[0][0].row = 9
+			"null edge": invalid.map_data[0][0].next_nodes.append(null)
+			"foreign edge": invalid.map_data[0][0].next_nodes.append(MapNode.new())
+			"foreign last node":
+				invalid.floors_climbed = 1
+				invalid.last_map_node = MapNode.new()
+		check(ResourceSaver.save(invalid, SaveGame.SAVE_PATH) == OK, "Write invalid map fixture: " + corruption)
+		var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+		check(SaveGame.load_data() == null, "Reject invalid map: " + corruption)
+		check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Rejected map retains checkpoint bytes")
+		var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+		check(dialog != null and dialog.visible, "Invalid map presents recovery instructions")
+		if dialog:
+			dialog.hide()
+	for version: int in [0, 1, SaveGame.CURRENT_VERSION]:
+		saved.progression_version = version
+		check(ResourceSaver.save(saved, SaveGame.SAVE_PATH) == OK, "Write supported map version")
+		check(SaveGame.load_data() != null, "Current and legacy generated maps remain loadable")
 	saved.current_deck.cards.clear()
 	check(saved.save_data(), "Save valid empty deck fixture")
 	var empty := SaveGame.load_data()

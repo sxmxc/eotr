@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-22 — Reject malformed checkpoint map graphs
+
+- SaveGame now validates grid widths, node coordinates, next-floor route membership and the recorded last node before Run restores the map. Invalid graphs show recovery guidance and retain the checkpoint bytes instead of reaching unchecked map dereferences.
+- Six serialized corruption fixtures reproduced 12 failed assertions before the fix. Focused offline Godot 4.7.2 save validation passes afterward, including recovery dialogs, unchanged files and current/legacy generated maps. Full bounded campaign lifecycle suite also passes (zero failures, exit 0); resource guard and whitespace checks pass.
+- Limits: headless controlled fixtures, not human gameplay, rendered QA or export validation. The campaign suite intentionally emits a failed-write engine error; existing certificate-store/UID diagnostics and shutdown retention remain outside this change.
+- Next: exercise repeated multi-floor save/resume through actual AutoWalker gameplay; inspect missing room encounter resources and disconnected routes before adding further checkpoint rejection rules.
+
 ## 2026-10-22 — Reject incomplete saved decks safely
 
 - SaveGame now rejects missing deck resources and null card entries before Run restores them. Previously these passed validation, then failed in combat's deck/card duplication. Recovery guidance retains the original file; empty decks remain supported.

@@ -52,6 +52,9 @@ static func load_data() -> SaveGame:
 		if data and (data.current_deck == null or data.current_deck.cards.has(null)):
 			Utils.show_save_error("This run has missing deck or card data. The save has been retained so it can be recovered.")
 			return null
+		if data and not data._has_valid_map_graph():
+			Utils.show_save_error("This run has invalid map data. The save has been retained so it can be recovered.")
+			return null
 		# Version 0/1 maps continue as Act I, retaining the selected encounters.
 		# Their first new act uses the authored Act II pool, never a regenerated map.
 		if data and data.run_stats and data.progression_version < CURRENT_VERSION:
@@ -60,6 +63,32 @@ static func load_data() -> SaveGame:
 		return data.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame if data else null
 
 	return null
+
+
+func _has_valid_map_graph() -> bool:
+	# Map renders every stored node and follows resource references directly.
+	# Validate the grid before any route or camera code can consume it.
+	for row: int in map_data.size():
+		if map_data[row].size() != MapGenerator.MAP_WIDTH:
+			return false
+		for column: int in map_data[row].size():
+			var node := map_data[row][column] as MapNode
+			if node == null or node.row != row or node.column != column:
+				return false
+	for floor_nodes: Array in map_data:
+		for node: MapNode in floor_nodes:
+			for edge: Resource in node.next_nodes:
+				var destination := edge as MapNode
+				if destination == null or destination.row != node.row + 1 or destination.row >= map_data.size():
+					return false
+				if not map_data[destination.row].has(destination):
+					return false
+	if last_map_node:
+		if floors_climbed == 0 or last_map_node.row != floors_climbed - 1:
+			return false
+		if not map_data[floors_climbed - 1].has(last_map_node):
+			return false
+	return true
 
 
 static func delete_data() -> void:
