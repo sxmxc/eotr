@@ -371,7 +371,7 @@ Use existing plans and previous findings to maintain continuity.
 
 At the end of each session, update a concise improvement log at:
 
-`ai/docs/continuous-improvement.md`
+`ai/state/continuous-improvement.md`
 
 Record:
 
