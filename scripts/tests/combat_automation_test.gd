@@ -475,6 +475,53 @@ func _test_spell_identities(world: GameWorld) -> void:
 		await card.resolve_effects([world.tilemap.obelisk], world.player_stats, world.player.modifier_handler)
 		await get_tree().create_timer(0.6).timeout
 
+func _test_card_authorization(world: GameWorld) -> void:
+	var hand := world.player_handler.player_hand
+	hand.add_card(load("res://resources/data/cards/riftwalker/phase_step.tres").duplicate(true))
+	var ui := hand.get_cards().back() as CardUI
+	await get_tree().process_frame
+	var cells := ui.card.get_valid_targets(ui, ui.player_modifiers)
+	check(not cells.is_empty(), "Controller regression has a legal movement target")
+	if cells.is_empty():
+		return
+	var target := TilemapTarget.new(cells[0], world.tilemap)
+	for cell: Vector2i in cells:
+		if world.tilemap.is_tile_valid(cell) and not world.tilemap.is_tile_corrupt(cell) and not world.tilemap.is_tile_behind_fog(cell):
+			target.tile_position = cell
+			break
+	world.add_child(target)
+	var selected: Array[Node] = [target]
+	var energy := world.player_stats.energy
+	check(ui.can_execute(selected), "Hand injects the battle controller for live authorization")
+	var phase := world.battle_state.phase
+	world.battle_state.phase = BattleStateController.Phase.ENEMY_TURN
+	check(not ui.can_execute(selected), "Controller rejects a target preview after the player phase ends")
+	world.battle_state.phase = phase
+	world.player_stats.energy = 0
+	check(not ui.can_execute(selected), "Controller rejects stale affordability")
+	world.player_stats.energy = energy
+	var foreign_board := ProcGenTilemap.new()
+	target.tilemap = foreign_board
+	check(not ui.can_execute(selected), "Controller rejects a target from another board")
+	target.tilemap = world.tilemap
+	foreign_board.free()
+	check(world.card_interaction.begin_play(ui, selected), "Controller atomically accepts and locks a valid play")
+	check(not ui.can_execute(selected), "A second request cannot enter during resolution")
+	world.card_interaction.finish_play(hand.get_cards()[0])
+	check(world.player_handler.resolving_action, "Another card cannot release the action owner lock")
+	world.card_interaction.finish_play(ui)
+	check(not world.player_handler.resolving_action, "The action owner releases the lock")
+	ui.disabled = false
+	target.free()
+	check(not ui.can_execute(selected), "Freed targets are rejected before dereferencing")
+	ui.targets.assign(selected)
+	ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.RELEASED)
+	check(ui.card_state_machine.current_state.state == CardState.State.BASE, "Releasing a freed target returns to hand safely")
+	check(world.player_stats.energy == energy, "Rejected release does not spend energy")
+	hand.discard_card(ui)
+	await get_tree().process_frame
+
+
 func _observe_card_play(card_ui: CardUI, result: Dictionary) -> void:
 	await card_ui.play()
 	result.completed = true
@@ -887,6 +934,7 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		await _test_card_authorization(world)
 		await _test_ruin_feedback(world)
 		await _test_lethal_ruin_move(world)
 		world.queue_free()
@@ -947,6 +995,7 @@ func run() -> void:
 	await _test_status_cancellation(world)
 	await _test_attack_tween_cancellation(world)
 	await _test_movement_cancellation(world)
+	await _test_card_authorization(world)
 	await _test_instability_costs(world, relics)
 	await _test_feedback_circuit(world, relics)
 	var actions: Array[Dictionary] = api.legal_actions()

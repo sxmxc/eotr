@@ -635,13 +635,14 @@ backlog:
   - id: BKL-048
     title: "Add a single CardInteractionController to own drag/aim/play"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: in_progress
+    owner: Codex
     blockers: []
     context:
       - "CardStateMachine + EventBus + target selectors spread interaction logic across multiple nodes."
+      - "2026-10-22: battle-owned CardInteractionController centralizes live play authorization and resolving-card lock; normal/spotlight draws inject it, release and AutoWalker share it, and freed/foreign targets are rejected. See ai/state/journal-bkl-048.md."
     next_steps:
-      - "Centralize card drag/aim/release handling and emit a validated play request to the battle controller."
+      - "Move remaining drag/aim input ownership and cancellation into the controller; retain scene-authored presentation and existing effect/phase paths."
       - "Ensure selector highlights and tooltips derive from the same interaction context."
 
   - id: BKL-049

@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "tasks": [
+    {
+      "id": "BKL-048",
+      "status": "in_progress",
+      "summary": "Centralized live card-play authorization and resolving-card lock in an injected battle controller; normal/spotlight draws, mouse release and AutoWalker share validation. Focused/full combat checks and one bounded bot battle pass. Drag/aim input ownership remains. See ai/state/journal-bkl-048.md.",
+      "updated": "2026-10-22"
+    },
     {
       "id": "BKL-031",
       "status": "done",

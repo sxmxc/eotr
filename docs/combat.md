@@ -4,7 +4,10 @@ A battle combines a card hand with positional choices on a shrinking board.
 Energy pays for attacks, defense, movement and utility. Block absorbs ordinary
 damage; health, statuses and modifiers determine the resulting effects. Card
 costs and targets can change during a turn, so a preview is not authorization to
-execute a stale action. The normal interaction/automation paths validate live state.
+execute a stale action. The normal interaction/automation paths share live
+authorization through the battle-owned CardInteractionController. PlayerHand injects it into normal and
+spotlight draws. Release rechecks phase, cost, pending work, fog and target
+ownership before taking the action lock; freed targets safely return to hand.
 
 GameWorld composes the battle. BattleStateController advances player and enemy
 phases; PlayerHandler resolves draw/status/relic work, and EnemyHandler sequences

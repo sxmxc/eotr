@@ -36,7 +36,11 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Native terrain/collapse breakup | `--combat-automation --terrain-only --capture-ui` |
 | Native combat/collapse movie fixture | `--combat-automation --motion-review --capture-ui` |
 
-Other targeted flags include `--card-lifecycle-only`, `--mana-wells-only`,
+`--combat-automation --card-lifecycle-only` covers shared card authorization
+(stale phase/cost, foreign/freed targets, lock ownership and invalid release),
+repeatable ruin feedback and lethal movement teardown.
+
+Other targeted flags include `--mana-wells-only`,
 `--utility-review` and `--vfx-only`; inspect their owning test-scene branch before
 using them as evidence. `--capture-ui` switches from headless to native offscreen
 rendering. Its captures/logs live in the launcher's temporary directory and are
