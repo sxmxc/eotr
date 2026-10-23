@@ -29,7 +29,7 @@ flowchart LR
 | EncounterDefinition | `scripts/resources/encounter_definition.gd`: content identity, tier/category, composition, arena settings and reward ranges. |
 | EncounterRegistry | `scripts/resources/registry/encounter_registry.gd`: eligible weighted selection; no second encounter pool. |
 | GameWorld | `scenes/game_world/game_world.gd`: battle setup, completion and board/handler/presentation coordination. |
-| CardInteractionController | `scenes/game_world/card_interaction_controller.gd`: live card-play authorization and ownership of the resolving-card lock; injected into normal and spotlight draws through PlayerHand. |
+| CardInteractionController | `scenes/game_world/card_interaction_controller.gd`: click/drag/aim ownership, cancellation, selector/tooltip context and live play authorization/resolution lock; injected into normal and spotlight draws through PlayerHand. |
 | BattleStateController | `scenes/game_world/battle_state_controller.gd`: player/enemy phases, rounds, collapse and stable victory checks. |
 | PlayerHandler | `scenes/player/player_handler.gd`: hand/draw/discard, turn status/relic sequencing and cancellation. |
 | EnemyHandler | `scripts/nodes/enemy_handler.gd`: living enemy setup, serial actions, intent rail and turn cancellation. |
@@ -50,7 +50,21 @@ Do not mutate a loaded definition to accumulate selection weights or runtime sta
 SaveGame explicitly reloads and deeply duplicates mutable save data while retaining
 the saved graph's relationships. [Campaign](campaign.md) covers checkpoints.
 
-CardUI retains drag/aim presentation and asks the battle-owned
+CardUI and its states retain scene-authored drag/aim presentation and animations.
+CardStateMachine routes transitions through CardInteractionController, which owns
+one active gesture, motion/confirm/cancel decisions and sibling-card locking.
+Phase changes return the active card to the hand before turn cleanup. Unavailable
+hands, removed cards and world teardown release gesture/selector/tooltip state;
+deferred reparenting cannot unlock a card outside a playable phase. Spotlight
+cards acquire logical hand ownership before interaction is allowed.
+
+The controller binds the battle's selector directly. Selector picking, visible
+highlight cells and tooltip enemy modifiers use the same active-card context and
+target predicate. Board/fog, enemy and player-stat changes invalidate previews;
+an empty target set never grants unrestricted selection. Global drag/aim signals
+are feedback notifications for camera, hints and inspection, not interaction
+authority. A committed tile target survives cache invalidation until resolution
+finishes, then is released. CardUI asks the battle-owned
 CardInteractionController to authorize and lock each play before using Card's
 normal cost/effect path. CardUI.can_execute delegates to the same live checks
 for mouse release and AutoWalker; target previews never authorize a play. The

@@ -38,17 +38,26 @@ var playable := true:
 	set = _set_playable
 var values_modified := false :
 	set = _set_values_modified
-var disabled := false
+var _disabled := false
+var disabled: bool:
+	get:
+		return _disabled or (is_instance_valid(interaction_controller) and interaction_controller.is_locked_for(self))
+	set(value):
+		_disabled = value
+		_refresh_interaction_visuals()
 var _hovering := false
 
 
 func _ready() -> void:
-	Events.card_drag_started.connect(_on_card_drag_or_aiming_started)
-	Events.card_drag_ended.connect(_on_card_drag_or_aiming_ended)
-	Events.card_aim_started.connect(_on_card_drag_or_aiming_started)
-	Events.card_aim_ended.connect(_on_card_drag_or_aiming_ended)
+	if is_instance_valid(interaction_controller):
+		interaction_controller.register_card(self)
 	card_state_machine.init(self)
 	_refresh_interaction_visuals()
+
+
+func _exit_tree() -> void:
+	if is_instance_valid(interaction_controller):
+		interaction_controller.card_exiting(self)
 
 
 func _input(event):
@@ -111,6 +120,8 @@ func can_execute(selected_targets: Array[Node]) -> bool:
 
 
 func get_active_enemy_modifiers() -> ModifierHandler:
+	if is_instance_valid(interaction_controller):
+		return interaction_controller.enemy_modifiers(self)
 	if targets.is_empty():
 		return null
 	if not is_instance_valid(targets[0]):
@@ -230,26 +241,13 @@ func _set_player_stats(value: PlayerStats) -> void:
 
 
 func _on_drop_point_detector_area_entered(area: Area2D) -> void:
-	if not targets.has(area):
-		targets.append(area)
+	if is_instance_valid(interaction_controller):
+		interaction_controller.update_drop_target(self, area, true)
 
 
-func _on_drop_point_detector_area_exited(area):
-	targets.erase(area)
-
-
-func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
-	if used_card == self:
-		return
-	disabled = true
-	_refresh_interaction_visuals()
-
-
-func _on_card_drag_or_aiming_ended(_card: CardUI) -> void:
-	disabled = false
-	self.playable = player_stats.can_play_card(card)
-	_update_cost_label()
-	_refresh_interaction_visuals()
+func _on_drop_point_detector_area_exited(area: Area2D) -> void:
+	if is_instance_valid(interaction_controller):
+		interaction_controller.update_drop_target(self, area, false)
 
 
 func _on_char_stats_changed() -> void:

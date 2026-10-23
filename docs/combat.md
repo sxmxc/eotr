@@ -8,6 +8,15 @@ execute a stale action. The normal interaction/automation paths share live
 authorization through the battle-owned CardInteractionController. PlayerHand injects it into normal and
 spotlight draws. Release rechecks phase, cost, pending work, fog and target
 ownership before taking the action lock; freed targets safely return to hand.
+The same controller routes click/drag/aim input. Right click cancels selection;
+moving an aimed card's cursor into the bottom cancel zone returns it to hand.
+Cancellation clears targets without spending energy. The controller owns the
+active gesture and sibling locks, restores dragged cards before phase cleanup,
+and clears selectors/tooltips when a card or battle exits. States retain their
+presentation hooks. Picking, highlights and tooltip enemy modifiers share the
+owning battle's context and invalidate together when targets die or enter fog.
+Self/area cards still use the scene-authored drop area; automation uses the same
+live authorization. Committed tile targets remain alive until effects complete.
 
 GameWorld composes the battle. BattleStateController advances player and enemy
 phases; PlayerHandler resolves draw/status/relic work, and EnemyHandler sequences

@@ -21,6 +21,7 @@ var player_stats: PlayerStats: set = _set_player_stats
 @onready var enemy_inspection_container: Container = $EnemyRail.inspection
 @export var tutorial_ui: TutorialUI
 @onready var card_spotlight: HBoxContainer = %CardSpotlight
+@onready var card_drop_area: Area2D = $CardDropArea
 @onready var debug_ui = $DebugUI
 
 var board: ProcGenTilemap

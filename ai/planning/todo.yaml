@@ -635,15 +635,14 @@ backlog:
   - id: BKL-048
     title: "Add a single CardInteractionController to own drag/aim/play"
     priority: P2
-    status: in_progress
+    status: complete
     owner: Codex
     blockers: []
     context:
-      - "CardStateMachine + EventBus + target selectors spread interaction logic across multiple nodes."
-      - "2026-10-22: battle-owned CardInteractionController centralizes live play authorization and resolving-card lock; normal/spotlight draws inject it, release and AutoWalker share it, and freed/foreign targets are rejected. See ai/state/journal-bkl-048.md."
-    next_steps:
-      - "Move remaining drag/aim input ownership and cancellation into the controller; retain scene-authored presentation and existing effect/phase paths."
-      - "Ensure selector highlights and tooltips derive from the same interaction context."
+      - "Battle-owned controller owns exclusive click/drag/aim gestures, cancellation, sibling locks, selector/tooltip context and live play authorization/resolution lock; normal and spotlight draws share it."
+      - "Phase/hand-readiness changes restore active cards before cleanup; card/world teardown releases locks and feedback. Selector picking/highlights/tooltips invalidate together on fog, death and stats changes. Existing scene presentation, authored drop area and effect paths remain."
+      - "Focused headless/native lifecycle and full combat suites pass, including actual mouse block/gather commits, spotlight handoff and world teardown. Bounded offline AutoWalker victory: 8 turns/28 actions. Evidence and limits: ai/state/journal-bkl-048.md."
+    next_steps: []
 
   - id: BKL-049
     title: "Reduce get_tree() coupling in card/effect/selector scripts"
@@ -701,4 +700,4 @@ backlog:
 in_progress: []
 in_review: []
 
-ideas_icebox: []
+ideas_icebox: [BKL-034]

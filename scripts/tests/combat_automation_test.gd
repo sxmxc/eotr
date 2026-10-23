@@ -500,6 +500,8 @@ func _test_card_authorization(world: GameWorld) -> void:
 	world.player_stats.energy = 0
 	check(not ui.can_execute(selected), "Controller rejects stale affordability")
 	world.player_stats.energy = energy
+	await _test_card_gestures(world, ui)
+	await get_tree().process_frame
 	var foreign_board := ProcGenTilemap.new()
 	target.tilemap = foreign_board
 	check(not ui.can_execute(selected), "Controller rejects a target from another board")
@@ -518,6 +520,266 @@ func _test_card_authorization(world: GameWorld) -> void:
 	ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.RELEASED)
 	check(ui.card_state_machine.current_state.state == CardState.State.BASE, "Releasing a freed target returns to hand safely")
 	check(world.player_stats.energy == energy, "Rejected release does not spend energy")
+	hand.discard_card(ui)
+	await get_tree().process_frame
+
+
+func _test_card_gestures(world: GameWorld, ui: CardUI) -> void:
+	var machine := ui.card_state_machine
+	var sibling := world.player_handler.player_hand.get_cards()[0] as CardUI
+	var cancel := InputEventMouseButton.new()
+	cancel.button_index = MOUSE_BUTTON_RIGHT
+	cancel.pressed = true
+	var motion := InputEventMouseMotion.new()
+	var energy := world.player_stats.energy
+	var origin_index := ui.get_index()
+	await get_tree().process_frame
+	machine._on_transition_requested(machine.current_state, CardState.State.CLICKED)
+	ui._input(cancel)
+	check(machine.current_state.state == CardState.State.BASE, "Controller cancels a clicked card")
+	await get_tree().process_frame
+	machine._on_transition_requested(machine.current_state, CardState.State.CLICKED)
+	ui._input(motion)
+	check(machine.current_state.state == CardState.State.DRAGGING and ui.get_parent() == world.game_world_ui,
+		"Controller routes click motion into drag on its own battle UI")
+	check(sibling.disabled, "Dragging disables sibling card interaction")
+	ui.targets.assign([world.player])
+	ui._input(cancel)
+	check(machine.current_state.state == CardState.State.BASE and ui.targets.is_empty(), "Drag cancellation clears targets and returns to base")
+	check(ui.get_parent() == world.player_handler.player_hand and ui.get_index() == origin_index and not sibling.disabled,
+		"Cancelled drag restores hand order and sibling interaction")
+	await get_tree().process_frame
+	machine._on_transition_requested(machine.current_state, CardState.State.CLICKED)
+	ui._input(motion)
+	ui._input(motion)
+	check(machine.current_state.state == CardState.State.AIMING and world.target_selector.current_card == ui,
+		"Single-target drag enters the owning battle selector")
+	check(world.target_selector.targeting and sibling.disabled, "Drag-to-aim keeps selector and sibling lock active")
+	ui.targets.assign([world.player])
+	ui._input(cancel)
+	check(machine.current_state.state == CardState.State.BASE and ui.targets.is_empty() and not world.target_selector.targeting,
+		"Aim cancellation clears selected targets and stops the selector")
+	var margin := ui.aim_cancel_margin
+	await get_tree().process_frame
+	machine._on_transition_requested(machine.current_state, CardState.State.AIMING)
+	# Put the boundary just above the current cursor, including headless coordinates.
+	ui.aim_cancel_margin = ui.get_viewport_rect().size.y - ui.get_global_mouse_position().y + 1.0
+	ui._input(motion)
+	check(machine.current_state.state == CardState.State.BASE, "Motion into the configured bottom zone cancels aim")
+	ui.aim_cancel_margin = margin
+	for pressed: bool in [true, false]:
+		var confirm := InputEventMouseButton.new()
+		confirm.button_index = MOUSE_BUTTON_LEFT
+		confirm.pressed = pressed
+		await get_tree().process_frame
+		machine._on_transition_requested(machine.current_state, CardState.State.AIMING)
+		ui._input(confirm)
+		check(machine.current_state.state == CardState.State.BASE and not world.target_selector.targeting,
+			"Aim confirmation with no target safely returns to hand")
+	var target_type := ui.card.target_type
+	await get_tree().process_frame
+	ui.card.target_type = Enums.TargetType.SELF
+	machine._on_transition_requested(machine.current_state, CardState.State.DRAGGING)
+	ui._input(motion)
+	check(machine.current_state.state == CardState.State.DRAGGING, "Non-single-target cards remain draggable")
+	ui._input(cancel)
+	ui.card.target_type = target_type
+	check(world.player_stats.energy == energy and not world.player_handler.resolving_action,
+		"Cancelled and rejected gestures do not spend energy or retain an action lock")
+
+
+func _test_mouse_card_commits(world: GameWorld) -> void:
+	var hand := world.player_handler.player_hand
+	var energy := world.player_stats.energy
+	var block := world.player_stats.block
+	var resources := world.run_stats.resources
+	var cell := world.tilemap.player_position
+	var tile_type := world.tilemap.tile_map_data[cell].type
+	var deposit := world.tilemap.get_resource_count(cell)
+	var atlas := world.tilemap.base_layer.get_cell_atlas_coords(cell)
+	var source := world.tilemap.base_layer.get_cell_source_id(cell)
+	world.tilemap.tile_map_data[cell].type = Enums.TileType.RESOURCE
+	world.tilemap.set_resource_count(cell, 3)
+	for id: String in ["eldritch_barrier", "echo_harvest"]:
+		var card: Card = load("res://resources/data/cards/riftwalker/%s.tres" % id).duplicate(true)
+		hand.add_card(card)
+		var ui := hand.get_cards().back() as CardUI
+		await get_tree().process_frame
+		var committed := {"count": 0}
+		var on_play := func(played: Card):
+			if played == card:
+				committed.count += 1
+		Events.card_played.connect(on_play)
+		ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.DRAGGING)
+		var token: TilemapTarget
+		if card.is_single_targeted():
+			ui._input(InputEventMouseMotion.new())
+			token = TilemapTarget.new(cell, world.tilemap)
+			world.target_selector.add_child(token)
+			world.target_selector.current_tile_target = token
+			world.card_interaction.select_target(ui, token)
+		else:
+			ui._on_drop_point_detector_area_entered(world.game_world_ui.card_drop_area)
+			check(ui.targets == [world.game_world_ui.card_drop_area], "Self-card mouse play uses the authored drop area")
+		var before_energy := world.player_stats.energy
+		var cost := card.get_energy_cost(world.player_stats)
+		var release := InputEventMouseButton.new()
+		release.button_index = MOUSE_BUTTON_LEFT
+		ui._input(release)
+		ui._input(release)
+		check(committed.count == 1 and world.player_stats.energy == before_energy - cost,
+			"Mouse release commits each self/tile card exactly once and pays its live cost")
+		check(world.card_interaction.active_card == null and world.player_handler.resolving_action,
+			"Mouse release transfers the gesture into the resolving-card lock")
+		world.target_selector._reset_cache()
+		if token:
+			check(is_instance_valid(token) and not token.is_queued_for_deletion(), "Cache invalidation retains a committed tile target until effects complete")
+		var deadline := Time.get_ticks_msec() + 2500
+		while world.player_handler.resolving_action and Time.get_ticks_msec() < deadline:
+			await get_tree().process_frame
+		check(not world.player_handler.resolving_action and world.card_interaction.resolving_card == null,
+			"Successful mouse play releases its resolution lock")
+		await get_tree().process_frame
+		if token:
+			check(not is_instance_valid(token), "Completed mouse play releases its temporary tile target")
+		Events.card_played.disconnect(on_play)
+	check(world.player_stats.block > block and world.run_stats.resources == resources + 3,
+		"Mouse commits execute real block and finite resource-gather effects")
+	world.player_stats.energy = energy
+	world.player_stats.block = block
+	world.run_stats.resources = resources
+	world.tilemap.tile_map_data[cell].type = tile_type
+	world.tilemap.set_resource_count(cell, deposit)
+	world.tilemap.base_layer.set_cell(cell, source, atlas)
+	await get_tree().create_timer(0.7).timeout
+
+
+func _test_interaction_world_teardown() -> void:
+	var relics := RELICS.instantiate() as RelicHandler
+	add_child(relics)
+	var world := WORLD.instantiate() as GameWorld
+	add_child(world)
+	world.player_stats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+	world.run_stats = RunStats.new()
+	world.battle_stats = load("res://resources/data/battles/tier_0_blobs.tres")
+	world.relics = relics
+	world.start_world()
+	var api := Interface.new()
+	api.world = world
+	var deadline := Time.get_ticks_msec() + 2500
+	while not api.ready_for_action() and Time.get_ticks_msec() < deadline:
+		await get_tree().process_frame
+	var card: Card = load("res://resources/data/cards/riftwalker/phase_step.tres").duplicate(true)
+	card.energy_cost = 0
+	world.player_handler.player_hand.add_card(card)
+	var ui := world.player_handler.player_hand.get_cards().back() as CardUI
+	await get_tree().process_frame
+	ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.DRAGGING)
+	check(world.card_interaction.active_card == ui, "World teardown fixture has a live dragged card")
+	var ended := {"count": 0}
+	var on_end := func(_ui: CardUI): ended.count += 1
+	Events.card_drag_ended.connect(on_end)
+	var card_reference: WeakRef = weakref(ui)
+	world.queue_free()
+	relics.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	check(card_reference.get_ref() == null and ended.count == 1, "World teardown releases its dragged card and balances feedback once")
+	Events.card_drag_ended.disconnect(on_end)
+
+
+func _test_interaction_lifetime(world: GameWorld) -> void:
+	var hand := world.player_handler.player_hand
+	var controller := world.card_interaction
+	var selector := world.target_selector
+	var energy := world.player_stats.energy
+	var card: Card = load("res://resources/data/cards/riftwalker/arcane_bolt.tres").duplicate(true)
+	card.energy_cost = 0
+	hand.add_card(card)
+	var ui := hand.get_cards().back() as CardUI
+	await get_tree().process_frame
+	for state: CardState.State in [CardState.State.CLICKED, CardState.State.DRAGGING, CardState.State.AIMING]:
+		ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, state)
+		check(controller.active_card == ui, "Controller owns each selected/dragged/aimed card")
+		var sibling := hand.get_cards()[0] as CardUI
+		sibling.card_state_machine._on_transition_requested(sibling.card_state_machine.current_state, CardState.State.CLICKED)
+		check(controller.active_card == ui and sibling.card_state_machine.current_state.state == CardState.State.BASE,
+			"Another card cannot steal the active gesture")
+		world.battle_state._set_phase(BattleStateController.Phase.PLAYER_CLEANUP)
+		check(controller.active_card == null and ui.card_state_machine.current_state.state == CardState.State.BASE and ui.get_parent() == hand,
+			"Phase changes return every active gesture to the logical hand before cleanup")
+		check(not selector.targeting and selector.current_card == null and not world.world_camera.aiming,
+			"Phase cancellation clears selector and camera feedback")
+		await get_tree().process_frame
+		check(ui.disabled and sibling.disabled, "Deferred hand restoration cannot unlock cards outside the player phase")
+		world.battle_state._set_phase(BattleStateController.Phase.PLAYER_TURN)
+		await get_tree().process_frame
+		check(not ui.disabled and not sibling.disabled, "The next available player phase restores interaction")
+	ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.AIMING)
+	world.player_handler.hand_ready = false
+	controller._process(0.0)
+	check(controller.active_card == null and ui.get_parent() == hand and not selector.targeting, "Interrupted hand readiness cancels the gesture")
+	world.player_handler.hand_ready = true
+	await get_tree().process_frame
+	var enemy := world.enemy_handler.get_child(0) as Enemy
+	var cell := enemy.current_tile_position
+	var had_fog := world.tilemap.fog_state.has(cell)
+	var fog: Variant = world.tilemap.fog_state.get(cell)
+	world.tilemap.fog_state[cell] = false
+	world.tilemap.presentation_changed.emit()
+	ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.AIMING)
+	controller.select_target(ui, enemy)
+	check(ui.targets == [enemy] and ui.get_active_enemy_modifiers() == enemy.modifier_handler,
+		"Selector selection and tooltip modifiers share the active context")
+	check(ui.get_description() == ui.card.get_modified_description(ui.player_modifiers, enemy.modifier_handler),
+		"Aimed description uses the selected enemy modifiers")
+	world.tilemap.fog_state.erase(cell)
+	world.tilemap.presentation_changed.emit()
+	check(ui.targets.is_empty() and ui.get_active_enemy_modifiers() == null and not ui.can_execute([enemy]),
+		"Fog invalidation clears selection, tooltip modifiers and live play permission together")
+	check(not controller.valid_cells(ui).has(cell), "Fog invalidation also removes the target highlight cell")
+	world.tilemap.fog_state[cell] = false
+	world.tilemap.presentation_changed.emit()
+	controller.select_target(ui, enemy)
+	enemy.is_dying = true
+	Events.enemy_updated.emit(enemy)
+	check(ui.targets.is_empty() and ui.get_active_enemy_modifiers() == null, "Dying target invalidation clears the shared preview context")
+	enemy.is_dying = false
+	Events.enemy_updated.emit(enemy)
+	controller.select_target(ui, enemy)
+	controller.cancel_active()
+	check(ui.targets.is_empty() and ui.get_active_enemy_modifiers() == null and selector.cached_targets.is_empty(),
+		"Cancellation discards selected target, tooltip context and selector cache")
+	if had_fog:
+		world.tilemap.fog_state[cell] = fog
+	else:
+		world.tilemap.fog_state.erase(cell)
+	world.tilemap.presentation_changed.emit()
+	hand.discard_card(ui)
+	await get_tree().process_frame
+	for state: CardState.State in [CardState.State.CLICKED, CardState.State.DRAGGING, CardState.State.AIMING]:
+		hand.add_card(card.duplicate(true))
+		ui = hand.get_cards().back()
+		await get_tree().process_frame
+		ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, state)
+		ui.queue_free()
+		await get_tree().process_frame
+		await get_tree().process_frame
+		check(not is_instance_valid(controller.active_card) and not selector.targeting and not world.world_camera.aiming,
+			"Destroyed gesture owners release selector, camera and sibling locks")
+		check(not (hand.get_cards()[0] as CardUI).disabled, "Destroyed gesture owner cannot leave its siblings locked")
+	check(world.player_stats.energy == energy and not world.player_handler.resolving_action,
+		"Phase and owner cancellation preserve energy and action completion")
+	hand.add_card_spotlight(card.duplicate(true))
+	var slot := hand.card_spotlight.get_child(hand.card_spotlight.get_child_count() - 1)
+	ui = slot.get_child(0) as CardUI
+	check(ui.interaction_controller == controller and not controller.can_interact(ui),
+		"Spotlight draws share the controller and wait for logical hand ownership")
+	await get_tree().create_timer(1.5).timeout
+	check(ui.parent == hand and controller.can_interact(ui), "Completed spotlight draw becomes interactable through the same controller")
+	ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.AIMING)
+	controller.cancel_active()
+	check(ui.get_parent() == hand and controller.active_card == null, "Spotlight draw cancellation restores the normal hand")
 	hand.discard_card(ui)
 	await get_tree().process_frame
 
@@ -935,11 +1197,14 @@ func run() -> void:
 		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
 		await _test_card_authorization(world)
+		await _test_interaction_lifetime(world)
+		await _test_mouse_card_commits(world)
 		await _test_ruin_feedback(world)
 		await _test_lethal_ruin_move(world)
 		world.queue_free()
 		relics.queue_free()
 		await get_tree().process_frame
+		await _test_interaction_world_teardown()
 		print("Combat automation tests: %d failures" % failures)
 		await Utils.stop_audio_for_shutdown()
 		get_tree().quit(1 if failures else 0)
@@ -996,6 +1261,8 @@ func run() -> void:
 	await _test_attack_tween_cancellation(world)
 	await _test_movement_cancellation(world)
 	await _test_card_authorization(world)
+	await _test_interaction_lifetime(world)
+	await _test_mouse_card_commits(world)
 	await _test_instability_costs(world, relics)
 	await _test_feedback_circuit(world, relics)
 	var actions: Array[Dictionary] = api.legal_actions()
@@ -1055,6 +1322,7 @@ func run() -> void:
 	relics.queue_free()
 	await get_tree().process_frame
 	get_tree().paused = false
+	await _test_interaction_world_teardown()
 	await Utils.stop_audio_for_shutdown()
 	for audio: Node in get_tree().root.find_children("*", "AudioStreamPlayer", true, false):
 		check(not (audio as AudioStreamPlayer).playing and (audio as AudioStreamPlayer).stream == null,

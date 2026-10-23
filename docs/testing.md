@@ -39,6 +39,15 @@ than combining every flag into a larger suite. `--help` lists all current option
 `--combat-automation --card-lifecycle-only` covers shared card authorization
 (stale phase/cost, foreign/freed targets, lock ownership and invalid release),
 repeatable ruin feedback and lethal movement teardown.
+It also exercises clicked/drag/aim cancellation, drag-to-aim selector activation,
+hand order and sibling-card restoration, bottom-zone cancellation, both aim
+confirmation edges without a target, and non-single-target dragging. These are
+synthetic input lifecycle assertions; they do not establish visual quality.
+The same suite covers exclusive gesture ownership, phase/hand-readiness
+cancellation, freed owners, world teardown, spotlight-to-hand ownership, and
+fog/death invalidation of both selection and tooltip modifiers. Successful mouse
+release checks use the authored drop area and real block/gather effects, verify
+one cost/commit, and retain temporary tile targets until effect completion.
 
 Other targeted flags include `--mana-wells-only`,
 `--utility-review` and `--vfx-only`; inspect their owning test-scene branch before
