@@ -41,6 +41,12 @@ func current_view(run: Run) -> Node:
 
 func run_tests() -> void:
 	RNG.instance.seed = 31
+	if OS.get_cmdline_user_args().has("--event-defeat-only"):
+		await _test_event_defeat()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--obelisk-encounters-only"):
 		_test_content()
 		await _test_obelisk_resume()
@@ -165,6 +171,7 @@ func run_tests() -> void:
 	await get_tree().process_frame
 	get_tree().paused = false
 	await _test_legacy_and_failure()
+	await _test_event_defeat()
 	await _test_saved_deck_validation()
 	await _test_failed_save_quit()
 	await _test_shop_and_refinement()
@@ -462,6 +469,51 @@ func _test_new_enemy_rules() -> void:
 	world.queue_free()
 	relics.queue_free()
 	await get_tree().process_frame
+
+func _test_event_defeat() -> void:
+	for health: int in [2, 4, 5, 10]:
+		var run := new_run()
+		await get_tree().process_frame
+		run.player_stats.health = health
+		var room: MapNode
+		for candidate: MapNode in run.map.map_data[0]:
+			if not candidate.next_nodes.is_empty():
+				room = candidate
+				break
+		room.type = Enums.MapNodeType.EVENT
+		run.map._on_map_node_ui_selected(room)
+		var event := current_view(run) as EventRoom
+		event._current_event = EventRoom.EVENTS[0]
+		event._populate_event()
+		if health == 10:
+			var gold := run.run_stats.gold
+			var resources := run.run_stats.resources
+			event.leave_button.pressed.emit()
+			var checkpoint := FileAccess.get_file_as_bytes(SaveGame.SAVE_PATH)
+			event.option_a_button.pressed.emit()
+			event.option_b_button.pressed.emit()
+			event.leave_button.pressed.emit()
+			check(run.player_stats.health == health and run.run_stats.gold == gold and run.run_stats.resources == resources, "Leaving without a choice prevents detached costs and rewards")
+			check(FileAccess.get_file_as_bytes(SaveGame.SAVE_PATH) == checkpoint, "Detached callbacks leave the map checkpoint unchanged")
+			run.queue_free()
+			await get_tree().process_frame
+			continue
+		event.option_a_button.pressed.emit()
+		check(run.player_stats.health == maxi(0, health - 4), "Event button pays its HP cost at %d HP" % health)
+		if health <= 4:
+			check(current_view(run) is BattleOverPanel, "Lethal event button opens defeat")
+			check(not event.is_inside_tree(), "Defeat detaches the resolved event")
+			# A second queued activation must not replace defeat or recreate a save.
+			event.leave_button.pressed.emit()
+			check(current_view(run) is BattleOverPanel, "Detached event cannot return a defeated run to the map")
+			check(not FileAccess.file_exists(SaveGame.SAVE_PATH), "Defeated event cannot recreate its checkpoint")
+		else:
+			check(current_view(run) == event and run.player_stats.is_running, "Surviving HP cost keeps the event active")
+			event.leave_button.pressed.emit()
+			check(run.map.visible and SaveGame.load_data().current_health == 1, "Surviving event returns to a resumable map")
+		run.queue_free()
+		await get_tree().process_frame
+		get_tree().paused = false
 
 func _test_legacy_and_failure() -> void:
 	var run := new_run()

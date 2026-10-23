@@ -12,6 +12,7 @@ def main():
     parser.add_argument('--capture', action='store_true')
     parser.add_argument('--bosses-only', action='store_true')
     parser.add_argument('--save-quit-only', action='store_true')
+    parser.add_argument('--event-defeat-only', action='store_true')
     parser.add_argument('--save-validation-only', action='store_true')
     parser.add_argument('--obelisk-encounters-only', action='store_true')
     args = parser.parse_args()
@@ -31,6 +32,8 @@ def main():
             command.append('--bosses-only')
         if args.save_quit_only:
             command.append('--save-quit-only')
+        if args.event_defeat_only:
+            command.append('--event-defeat-only')
         if args.obelisk_encounters_only:
             command.append('--obelisk-encounters-only')
         if args.save_validation_only:
