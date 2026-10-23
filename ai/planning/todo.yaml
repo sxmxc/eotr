@@ -622,14 +622,14 @@ backlog:
   - id: BKL-047
     title: "Consolidate enemy intent/stats UI (queue vs floating panels)"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "EnemyHandler attaches both queue buttons and per-enemy EnemyStatsUI clones; keeping both in sync is fragile."
+      - "Verified the existing screen-space rail supersedes the old floating-panel premise; standalone previews remain supported."
+      - "Inspection follows live Enemy updates for stats and intent, removes stale resource callbacks, and closes/unpins behind fog. Queue and details retain the same authoritative Enemy/status state. See ai/state/journal-bkl-047.md."
     next_steps:
-      - "Pick an authoritative enemy stats/intent surface and mirror data to the other view via binding, or retire one."
-      - "Ensure fog/selection rules still hide intents for unseen enemies."
+      - "Human interaction/readability review and export validation remain outside focused binding checks."
 
   - id: BKL-048
     title: "Add a single CardInteractionController to own drag/aim/play"

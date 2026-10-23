@@ -118,7 +118,6 @@ func update_enemy() -> void:
 func update_stats():
 	if not stats_ui or not stats:
 		return
-	stats_ui.update_stats(stats)
 	Events.enemy_updated.emit(self)
 
 func update_intent() -> void:

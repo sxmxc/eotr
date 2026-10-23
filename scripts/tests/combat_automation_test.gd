@@ -632,6 +632,47 @@ func _test_board_badges(world: GameWorld) -> void:
 	check(not enemy.visible and not badges.is_visible_in_tree(), "Fog hides unit badges with the enemy")
 	board.hide_fog()
 
+func _test_enemy_inspection_binding(world: GameWorld) -> void:
+	var board := world.tilemap
+	board.hide_fog()
+	var enemy := world.enemy_handler.get_child(0) as Enemy
+	var inspector := enemy.stats_ui
+	Events.enemy_selected.emit(enemy)
+	check(inspector.visible and inspector.inspection_pinned, "Visible enemy can pin inspection")
+	board.fog_state.erase(enemy.current_tile_position)
+	board.presentation_changed.emit()
+	check(not inspector.visible and not inspector.inspection_pinned, "Fog closes pinned enemy inspection")
+	Events.enemy_selected.emit(enemy)
+	check(not inspector.visible, "Selection cannot inspect fogged enemy")
+	inspector.show()
+	check(not inspector.visible, "Direct hover cannot reopen fogged inspection")
+	board.hide_fog()
+	var original := enemy.stats
+	var original_health := original.health
+	var replacement := original.create_instance() as EnemyStats
+	replacement.enemy_name = "Binding regression"
+	replacement.max_health = 99
+	replacement.health = 67
+	# Replace the live instance without rebuilding AI; exercise the presentation notification.
+	enemy.set("stats", replacement)
+	Events.enemy_updated.emit(enemy)
+	check(inspector.enemy_stats == enemy.stats, "Inspection follows replaced live stats")
+	check(inspector.enemy_name_label.text == "Binding regression" and inspector.health_bar.max_value == 99, "Inspection refreshes name and maximum health")
+	var current_text := inspector.health_label.text
+	original.health = maxi(1, original.health - 1)
+	check(inspector.health_label.text == current_text, "Replaced stats cannot overwrite current inspection")
+	check(enemy.queue_button.text.contains("Binding regression"), "Queue and inspection follow the same enemy update")
+	Events.enemy_selected.emit(enemy)
+	inspector._suspend(null)
+	inspector.show()
+	check(not inspector.visible and not inspector.inspection_pinned, "Aiming still suspends inspection")
+	inspector._resume_inspection(null)
+	original.health = original_health
+	enemy.stats = original
+	Events.enemy_updated.emit(enemy)
+	inspector.close_inspection()
+
+
 func _test_camera_follow(world: GameWorld) -> void:
 	var camera = world.world_camera
 	var board := world.tilemap
@@ -887,6 +928,7 @@ func run() -> void:
 	await _test_harvest_state(world)
 	await _test_camera_follow(world)
 	await _test_board_badges(world)
+	await _test_enemy_inspection_binding(world)
 	if OS.get_cmdline_user_args().has("--battlefield-only"):
 		await _test_gate_presentation(world)
 		if DisplayServer.get_name() != "headless":
