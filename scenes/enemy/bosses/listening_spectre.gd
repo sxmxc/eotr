@@ -42,9 +42,9 @@ func perform_boss_turn(action: EnemyAction, generation: int) -> void:
 	if not action_is_live(action, generation):
 		return
 	if listening:
-		var anchor := get_tree().get_first_node_in_group("obelisk") as Obelisk
-		if is_instance_valid(anchor) and not anchor.is_dying:
-			anchor.stats.heal(4)
+		var obelisk := get_tree().get_first_node_in_group("obelisk") as Obelisk
+		if is_instance_valid(obelisk) and not obelisk.is_dying:
+			obelisk.stats.heal(4)
 		var next := calculate_next_tile_move(1)
 		if next != INVALID_TILE and set_movement_target(next):
 			await movement_finished

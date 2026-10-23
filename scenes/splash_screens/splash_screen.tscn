@@ -8,43 +8,85 @@
 [sub_resource type="Animation" id="splash_reset"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Splash:modulate")
-tracks/0/keys = {"times": PackedFloat32Array(0), "transitions": PackedFloat32Array(1), "update": 0, "values": [Color(1, 1, 1, 1)]}
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="splash_fade"]
 resource_name = "fade_splash_out"
 length = 0.65
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Splash:modulate")
-tracks/0/keys = {"times": PackedFloat32Array(0, 0.65), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.65),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="disclaimer_fade"]
 resource_name = "fade_telemetry_out"
 length = 0.2
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("DisclaimerPanel:modulate")
-tracks/0/keys = {"times": PackedFloat32Array(0, 0.2), "transitions": PackedFloat32Array(1, 1), "update": 0, "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]}
-[sub_resource type="AnimationLibrary" id="animations"]
-_data = {&"RESET": SubResource("splash_reset"), &"fade_splash_out": SubResource("splash_fade"), &"fade_telemetry_out": SubResource("disclaimer_fade")}
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
-[node name="SplashScreen" type="Control"]
+[sub_resource type="AnimationLibrary" id="animations"]
+_data = {
+&"RESET": SubResource("splash_reset"),
+&"fade_splash_out": SubResource("splash_fade"),
+&"fade_telemetry_out": SubResource("disclaimer_fade")
+}
+
+[node name="SplashScreen" type="Control" unique_id=1736615115]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("1_c8ln4")
 script = ExtResource("2_ttpkl")
-[node name="Background" type="TextureRect" parent="."]
+
+[node name="Background" type="TextureRect" parent="." unique_id=1489375642]
+modulate = Color(0.45, 0.5, 0.55, 1)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("2_iju21")
 expand_mode = 1
 stretch_mode = 6
-mouse_filter = 2
-modulate = Color(0.45, 0.50, 0.55, 1)
-[node name="Shade" type="ColorRect" parent="."]
+
+[node name="Shade" type="ColorRect" parent="." unique_id=817620876]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0.015, 0.025, 0.04, 0.55)
-[node name="DisclaimerPanel" type="PanelContainer" parent="."]
+
+[node name="DisclaimerPanel" type="PanelContainer" parent="." unique_id=359589784]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 0.18
 anchor_top = 0.5
 anchor_right = 0.82
@@ -52,76 +94,93 @@ anchor_bottom = 0.5
 offset_top = -290.0
 offset_bottom = 290.0
 theme_type_variation = &"ConsentSurface"
-[node name="Content" type="VBoxContainer" parent="DisclaimerPanel"]
+
+[node name="Content" type="VBoxContainer" parent="DisclaimerPanel" unique_id=2050244213]
 layout_mode = 2
 theme_type_variation = &"ConsentStack"
-[node name="Eyebrow" type="Label" parent="DisclaimerPanel/Content"]
+
+[node name="Eyebrow" type="Label" parent="DisclaimerPanel/Content" unique_id=947741949]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "ECHOES OF THE RIFT  /  YOUR CHOICE"
-[node name="Title" type="Label" parent="DisclaimerPanel/Content"]
+
+[node name="Title" type="Label" parent="DisclaimerPanel/Content" unique_id=334554327]
 layout_mode = 2
 theme_type_variation = &"RoomTitle"
 text = "Help shape the rift"
-[node name="Intro" type="Label" parent="DisclaimerPanel/Content"]
+
+[node name="Intro" type="Label" parent="DisclaimerPanel/Content" unique_id=1032323534]
 layout_mode = 2
 theme_type_variation = &"RoomBody"
-autowrap_mode = 3
 text = "Share optional gameplay data to help us understand balance and improve the game. You can play either way."
-[node name="Rule" type="HSeparator" parent="DisclaimerPanel/Content"]
+autowrap_mode = 3
+
+[node name="Rule" type="HSeparator" parent="DisclaimerPanel/Content" unique_id=1444533075]
 layout_mode = 2
-[node name="Details" type="VBoxContainer" parent="DisclaimerPanel/Content"]
+
+[node name="Details" type="VBoxContainer" parent="DisclaimerPanel/Content" unique_id=1799901727]
 layout_mode = 2
-size_flags_vertical = 1
 theme_type_variation = &"ConsentDetails"
-[node name="CollectedHeading" type="Label" parent="DisclaimerPanel/Content/Details"]
+
+[node name="CollectedHeading" type="Label" parent="DisclaimerPanel/Content/Details" unique_id=1134284418]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "WHAT IS SHARED"
-[node name="Collected" type="Label" parent="DisclaimerPanel/Content/Details"]
+
+[node name="Collected" type="Label" parent="DisclaimerPanel/Content/Details" unique_id=1620116493]
 layout_mode = 2
 theme_type_variation = &"RoomBody"
-autowrap_mode = 3
 text = "Card plays, class and relic choices, rewards, combat events, run duration and outcomes."
-[node name="ContextHeading" type="Label" parent="DisclaimerPanel/Content/Details"]
+autowrap_mode = 3
+
+[node name="ContextHeading" type="Label" parent="DisclaimerPanel/Content/Details" unique_id=840114453]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "HOW EVENTS ARE GROUPED"
-[node name="Context" type="Label" parent="DisclaimerPanel/Content/Details"]
+
+[node name="Context" type="Label" parent="DisclaimerPanel/Content/Details" unique_id=727995005]
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
-autowrap_mode = 3
 text = "Events include timestamps, the game version, and randomly generated session and run identifiers. No name, email, or account is required."
-[node name="SettingsNote" type="Label" parent="DisclaimerPanel/Content"]
+autowrap_mode = 3
+
+[node name="SettingsNote" type="Label" parent="DisclaimerPanel/Content" unique_id=57780339]
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
-autowrap_mode = 3
 text = "Your choice is saved. You can change it at any time in Settings."
-[node name="Actions" type="HBoxContainer" parent="DisclaimerPanel/Content"]
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="DisclaimerPanel/Content" unique_id=1227719699]
 layout_mode = 2
 theme_type_variation = &"ConsentActions"
-[node name="DeclineButton" type="Button" parent="DisclaimerPanel/Content/Actions"]
+
+[node name="DeclineButton" type="Button" parent="DisclaimerPanel/Content/Actions" unique_id=581665222]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"RoomButton"
 text = "Play without sharing"
-[node name="AcceptButton" type="Button" parent="DisclaimerPanel/Content/Actions"]
+
+[node name="AcceptButton" type="Button" parent="DisclaimerPanel/Content/Actions" unique_id=871311042]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"RoomButton"
 text = "Share gameplay data"
-[node name="Splash" type="TextureRect" parent="."]
+
+[node name="Splash" type="TextureRect" parent="." unique_id=1688896645]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("4_iju21")
 expand_mode = 1
 stretch_mode = 6
-mouse_filter = 2
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=391621729]
 libraries/ = SubResource("animations")
-[connection signal="pressed" from="DisclaimerPanel/Content/Actions/AcceptButton" to="." method="_on_accept_button_pressed"]
+
 [connection signal="pressed" from="DisclaimerPanel/Content/Actions/DeclineButton" to="." method="_on_decline_button_pressed"]
+[connection signal="pressed" from="DisclaimerPanel/Content/Actions/AcceptButton" to="." method="_on_accept_button_pressed"]
