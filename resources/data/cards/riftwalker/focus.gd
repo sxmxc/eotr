@@ -22,7 +22,6 @@ func _sync_effect_configs() -> void:
 	var attunement := ATTUNEMENT.duplicate()
 	attunement.stacks = base_amount
 	var status_effect := CardEffectConfig.for_status(attunement)
-	status_effect.sound_fx = sound_fx
-	status_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, status_effect, true)
 	status_effect.target = CardEffectConfig.Targeting.PLAYER
 	effect_configs = [status_effect]

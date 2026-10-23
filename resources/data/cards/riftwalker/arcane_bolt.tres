@@ -13,7 +13,6 @@ amount = 6
 projectile_fx = ExtResource("1_kaer2")
 projectile_visual_fx = ExtResource("3_cuu6x")
 sound_fx = ExtResource("2_cuu6x")
-visual_fx = ExtResource("3_cuu6x")
 attach_visual_to_effect = false
 camera_shake_strength = 16.0
 camera_shake_duration = 0.15

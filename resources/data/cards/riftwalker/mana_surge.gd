@@ -5,7 +5,7 @@ var base_amount := 1
 
 func _init() -> void:
 	var energy_effect := CardEffectConfig.for_energy(base_amount)
-	energy_effect.sound_fx = sound_fx
+	CardEffectConfigHelper.apply_card_defaults(self, energy_effect, true)
 	energy_effect.target = CardEffectConfig.Targeting.PLAYER
 	effect_configs = [energy_effect]
 

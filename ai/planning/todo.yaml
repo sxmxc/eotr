@@ -660,16 +660,13 @@ backlog:
   - id: BKL-050
     title: "Consolidate card visuals/projectile sourcing into shared helpers"
     priority: P2
-    status: in_review
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Cards copy projectile/visual configs per script, risking drift and double-spawned FX."
-      - "No shared helper to apply card-level VFX fields to CardEffectConfig in a consistent way."
-    next_steps:
-      - "Adopt CardEffectConfigHelper.apply_card_defaults across cards to remove local VFX wiring."
-      - "Refactor Riftwalker cards to use the helper and remove duplicated _sync_effect_configs boilerplate."
-      - "Document the visual surface rule (projectile vs effect, not both)."
+      - "Shared defaults now replace repeated config visual/sound/projectile wiring across Riftwalker cards. Explicit per-effect overrides and existing gameplay/camera/timing settings remain. Legacy Effect nodes retain their separate API."
+      - "Normalized reused/serialized contact ownership, fixing Void Shard's dual contact path. Focused native checks cover one contact and one damage application for all five projectile cards. See ai/state/journal-bkl-050.md for evidence and limits."
+    next_steps: []
 
   - id: BKL-051
     title: "Migrate bespoke projectile cards to CardResolver + CardFxRunner"

@@ -37,12 +37,10 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 func _sync_effect_configs() -> void:
 	if effect_configs.is_empty():
 		var damage_effect := CardEffectConfig.for_damage(base_damage)
-		damage_effect.visual_fx = visual_fx
-		damage_effect.sound_fx = sound_fx
 		damage_effect.camera_shake_strength = 16.0
 		damage_effect.camera_shake_duration = 0.15
 		damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 		effect_configs = [damage_effect]
-	else:
-		# Keep runtime damage in sync if modified externally.
-		effect_configs[0].amount = base_damage
+	var damage_effect := effect_configs[0]
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, true)
+	damage_effect.amount = base_damage

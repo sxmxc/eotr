@@ -9,8 +9,7 @@ var energy_gain := 3
 
 func _init() -> void:
 	var block_effect := CardEffectConfig.for_block(base_block)
-	block_effect.sound_fx = sound_fx
-	block_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, block_effect, true)
 	block_effect.target = CardEffectConfig.Targeting.PLAYER
 
 	var energy_effect := CardEffectConfig.for_energy(energy_gain)

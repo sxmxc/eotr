@@ -9,8 +9,7 @@ var energy_gained := 2
 func _init() -> void:
 	var weakened := WEAKENED.duplicate()
 	var status_effect := CardEffectConfig.for_status(weakened)
-	status_effect.sound_fx = sound_fx
-	status_effect.visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, status_effect, true)
 
 	var energy_effect := CardEffectConfig.for_energy(energy_gained)
 	energy_effect.sound_fx = ENERGY_SOUND_FX

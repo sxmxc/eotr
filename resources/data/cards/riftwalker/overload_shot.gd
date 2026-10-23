@@ -16,10 +16,7 @@ func apply_effects(targets: Array[Node], modifiers: ModifierHandler) -> void:
 
 	var damage_config := CardEffectConfig.for_damage(base_damage)
 	damage_config.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
-	damage_config.projectile_fx = projectile_fx
-	damage_config.projectile_visual_fx = visual_fx
-	damage_config.attach_visual_to_effect = false
-	damage_config.sound_fx = sound_fx
+	CardEffectConfigHelper.apply_card_defaults(self, damage_config, false)
 	damage_config.camera_shake_strength = 16.0
 	damage_config.camera_shake_duration = 0.15
 

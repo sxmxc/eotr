@@ -48,6 +48,12 @@ cancellation, freed owners, world teardown, spotlight-to-hand ownership, and
 fog/death invalidation of both selection and tooltip modifiers. Successful mouse
 release checks use the authored drop area and real block/gather effects, verify
 one cost/commit, and retain temporary tile targets until effect completion.
+It also checks visual default ownership and overrides after resource loading.
+Five projectile cards exercise their actual resolution paths: damage completes
+once (including Sever Anchor's Obelisk bonus and Overload Shot's energy amount).
+With `--capture-ui`, each must attach exactly one contact visual across the
+projectile and effect paths. These are native node-count assertions, not an
+artistic or continuous-motion review.
 
 Other targeted flags include `--mana-wells-only`,
 `--utility-review` and `--vfx-only`; inspect their owning test-scene branch before

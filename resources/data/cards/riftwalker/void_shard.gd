@@ -36,13 +36,10 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 func _sync_effect_configs() -> void:
 	if effect_configs.is_empty():
 		var damage_effect := CardEffectConfig.for_damage(base_damage)
-		# Show visuals on the projectile only to avoid double-spawning FX.
-		damage_effect.attach_visual_to_effect = false
-		damage_effect.projectile_fx = projectile_fx
-		damage_effect.projectile_visual_fx = visual_fx
 		damage_effect.camera_shake_strength = 16.0
 		damage_effect.camera_shake_duration = 0.15
 		damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
 		effect_configs = [damage_effect]
-	else:
-		effect_configs[0].amount = base_damage
+	var damage_effect := effect_configs[0]
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, false)
+	damage_effect.amount = base_damage

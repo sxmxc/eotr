@@ -33,9 +33,7 @@ func _sync_effect_configs() -> void:
 		damage_effect = effect_configs[0]
 
 	damage_effect.amount = base_damage
-	damage_effect.attach_visual_to_effect = false
-	damage_effect.projectile_fx = projectile_fx
-	damage_effect.projectile_visual_fx = visual_fx
+	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, false)
 	damage_effect.projectile_mode = CardEffectConfig.ProjectileMode.FIRST_TARGET_ONLY
 	damage_effect.camera_shake_strength = 16.0
 	damage_effect.camera_shake_duration = 0.15
