@@ -1,5 +1,13 @@
 # Continuous improvement
 
+## 2026-10-22 — Reject incomplete saved decks safely
+
+- SaveGame now rejects missing deck resources and null card entries before Run restores them. Previously these passed validation, then failed in combat's deck/card duplication. Recovery guidance retains the original file; empty decks remain supported.
+- Focused offline Godot 4.7.2 regression reproduced four failed assertions before the fix and passes afterward (zero failures, exit 0), covering both invalid forms, unchanged checkpoint bytes, visible recovery dialog and valid empty decks.
+- Existing Save and Quit recovery checks also pass (zero failures, exit 0); resource guard and whitespace checks pass. Existing certificate-store diagnostic and Void Spectre UID fallback warning remain.
+- Limits: controlled checkpoint fixtures, headless assertions; no rendered inspection, full campaign or packaged export. Save and Quit emits its intentional write error and shutdown reports 10 leaked objects/five retained resources despite exit 0; this is not a clean-shutdown claim. Map graph corruption and broader checkpoint validation remain future candidates.
+- Next: exercise repeated multi-floor save/resume through actual AutoWalker gameplay; validate malformed map graphs against current and legacy checkpoint fixtures.
+
 ## 2026-10-22 — Keep failed Save and Quit paused
 
 - Removed premature unpausing from the pause menu. Run releases pause only after a successful save and scene change, so failed saves cannot resume combat behind the recovery dialog.

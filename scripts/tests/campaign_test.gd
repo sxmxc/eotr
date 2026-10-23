@@ -41,6 +41,12 @@ func current_view(run: Run) -> Node:
 
 func run_tests() -> void:
 	RNG.instance.seed = 31
+	if OS.get_cmdline_user_args().has("--save-validation-only"):
+		await _test_saved_deck_validation()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--save-quit-only"):
 		await _test_failed_save_quit()
 		await Utils.stop_audio_for_shutdown()
@@ -152,11 +158,42 @@ func run_tests() -> void:
 	await get_tree().process_frame
 	get_tree().paused = false
 	await _test_legacy_and_failure()
+	await _test_saved_deck_validation()
 	await _test_failed_save_quit()
 	await _test_shop_and_refinement()
 	await Utils.stop_audio_for_shutdown()
 	print("Campaign tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func _test_saved_deck_validation() -> void:
+	var run := new_run()
+	await get_tree().process_frame
+	var saved := SaveGame.load_data()
+	check(saved != null, "Valid checkpoint loads before deck corruption")
+	if saved == null:
+		run.queue_free()
+		await get_tree().process_frame
+		return
+	for missing_deck: bool in [true, false]:
+		var invalid := saved.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+		if missing_deck:
+			invalid.current_deck = null
+		else:
+			invalid.current_deck.cards.append(null)
+		check(ResourceSaver.save(invalid, SaveGame.SAVE_PATH) == OK, "Write isolated invalid deck fixture")
+		var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+		check(SaveGame.load_data() == null, "Reject missing deck or null card before run startup")
+		check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Rejected deck checkpoint retains original bytes")
+		var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+		check(dialog != null and dialog.visible, "Invalid deck presents recovery instructions")
+		if dialog:
+			dialog.hide()
+	saved.current_deck.cards.clear()
+	check(saved.save_data(), "Save valid empty deck fixture")
+	var empty := SaveGame.load_data()
+	check(empty != null and empty.current_deck.cards.is_empty(), "Empty decks remain loadable")
+	run.queue_free()
+	await get_tree().process_frame
 
 func _test_failed_save_quit() -> void:
 	var run := new_run()

@@ -95,6 +95,8 @@ half-resolved fight. Resuming re-enters the room. Pending transitions restore
 their view. Legacy version 0/1 saves keep their original map as Act I before
 joining the next authored act. Unsupported newer versions and invalid progression
 are rejected while retaining the file for recovery.
+Missing deck resources and null card entries are also rejected before run startup,
+with recovery guidance and the original file retained. Empty decks remain valid.
 
 Writes go to sibling `savegame.pending.res`, then rename over the destination.
 Failure shows a recoverable dialog and retains the previous save. Failed
