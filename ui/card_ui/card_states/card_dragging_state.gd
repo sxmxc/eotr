@@ -1,52 +1,15 @@
 extends CardState
 
-const DRAG_MINIMUM_THRESHOLD := 0.05
-
-var minimum_drag_time_elapsed := false
-
 func enter() -> void:
-	var ui_layer := get_tree().get_first_node_in_group("ui_layer")
-	if ui_layer:
-		card_ui.reparent(ui_layer)
+	if is_instance_valid(card_ui.interaction_controller):
+		card_ui.reparent(card_ui.interaction_controller.world.game_world_ui)
 	card_ui.visuals.set_hover_outline(false)
 	card_ui.visuals.set_interactable(false)
-	Events.card_drag_started.emit(card_ui)
 	card_ui.rotation_degrees = 0
-	minimum_drag_time_elapsed = false
-	var threshold_timer := get_tree().create_timer(DRAG_MINIMUM_THRESHOLD, false)
-	threshold_timer.timeout.connect(func(): minimum_drag_time_elapsed = true)
 	
 func on_input(event: InputEvent) -> void:
-	var single_targeted := card_ui.card.is_single_targeted()
-	var mouse_motion := event is InputEventMouseMotion
-	var cancel = event.is_action_pressed("right_mouse")
-	var confirm = event.is_action_released("left_mouse") or event.is_action_pressed("left_mouse")
-	var player = get_tree().get_first_node_in_group("player")
-	var tilemap = get_tree().get_first_node_in_group("map_layer")
-	
-	var target_selector := get_tree().get_first_node_in_group("target_selector") as TargetSelector
-	var valid_targets: Array[Vector2i] = []
-	if target_selector:
-		valid_targets = target_selector.get_cached_targets(card_ui)
-	elif player:
-		valid_targets = card_ui.card.get_valid_targets(card_ui, player.modifier_handler)
-	tilemap.show_target_highlights(valid_targets)
-	
-	if single_targeted and mouse_motion:
-		transition_requested.emit(self, CardState.State.AIMING)
-		return
-	
-	if mouse_motion:
-		card_ui.global_position = card_ui.get_global_mouse_position() - card_ui.pivot_offset
-	
-	if cancel:
-		transition_requested.emit(self, CardState.State.BASE)
-	elif confirm:
-		get_viewport().set_input_as_handled()
-		transition_requested.emit(self,CardState.State.RELEASED)
+	if is_instance_valid(card_ui.interaction_controller):
+		card_ui.interaction_controller.handle_input(self, event)
 
 func exit() -> void:
-	var tilemap: ProcGenTilemap = get_tree().get_first_node_in_group("map_layer")
-	tilemap.clear_target_highlights()
-	Events.card_drag_ended.emit(card_ui)
 	card_ui.visuals.set_interactable(card_ui.playable and not card_ui.disabled)

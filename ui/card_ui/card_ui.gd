@@ -28,6 +28,8 @@ const KEYWORD_TOOLTIP_HELPER = preload("res://ui/tool_tip_ui/keyword_tooltip_hel
 @onready var targets: Array[Node] = []
 @onready var visuals: CardVisuals = %Visuals
 
+var interaction_controller: CardInteractionController
+
 var hover_tween: Tween
 var original_index := 0
 var parent: Control
@@ -36,17 +38,26 @@ var playable := true:
 	set = _set_playable
 var values_modified := false :
 	set = _set_values_modified
-var disabled := false
+var _disabled := false
+var disabled: bool:
+	get:
+		return _disabled or (is_instance_valid(interaction_controller) and interaction_controller.is_locked_for(self))
+	set(value):
+		_disabled = value
+		_refresh_interaction_visuals()
 var _hovering := false
 
 
 func _ready() -> void:
-	Events.card_drag_started.connect(_on_card_drag_or_aiming_started)
-	Events.card_drag_ended.connect(_on_card_drag_or_aiming_ended)
-	Events.card_aim_started.connect(_on_card_drag_or_aiming_started)
-	Events.card_aim_ended.connect(_on_card_drag_or_aiming_ended)
+	if is_instance_valid(interaction_controller):
+		interaction_controller.register_card(self)
 	card_state_machine.init(self)
 	_refresh_interaction_visuals()
+
+
+func _exit_tree() -> void:
+	if is_instance_valid(interaction_controller):
+		interaction_controller.card_exiting(self)
 
 
 func _input(event):
@@ -61,24 +72,23 @@ func animate_to_position(pos: Vector2, duration: float):
 
 
 func play() -> void:
-	if not can_execute(targets):
+	if not is_instance_valid(interaction_controller) or not interaction_controller.begin_play(self, targets):
 		return
+	var controller := interaction_controller
+	var committed_targets: Array[Node] = targets.duplicate()
 	var tree := get_tree()
-	var handler := tree.get_first_node_in_group("player_handler") as PlayerHandler
-	if handler:
-		handler.resolving_action = true
-	disabled = true
+	var handler := controller.world.player_handler
 	if parent is PlayerHand:
 		parent.release_played_card(self)
-	await card.play(targets, player_stats, player_modifiers)
+	await card.play(committed_targets, player_stats, player_modifiers)
 	# Tile damage can end combat and detach this UI during any suspension.
 	# Keep the original tree's frame signal, and recheck ownership after each wait.
 	while _play_context_active():
 		await tree.process_frame
 		if not _play_context_active() or not _has_pending_effects(handler):
 			break
-	if is_instance_valid(handler):
-		handler.resolving_action = false
+	if is_instance_valid(controller):
+		controller.finish_play(self)
 	if not _play_context_active():
 		return
 	var board := tree.get_first_node_in_group("map_layer")
@@ -106,39 +116,12 @@ func _has_pending_effects(handler: PlayerHandler) -> bool:
 
 
 func can_execute(selected_targets: Array[Node]) -> bool:
-	if not _play_context_active() or not card or disabled or not player_stats.can_play_card(card):
-		return false
-	var handler := get_tree().get_first_node_in_group("player_handler") as PlayerHandler
-	if handler and (handler.resolving_action or not handler.hand_ready):
-		return false
-	if handler and is_instance_valid(handler.player) and handler.player.pending_effects > 0:
-		return false
-	var board := get_tree().get_first_node_in_group("map_layer") as ProcGenTilemap
-	if board:
-		var owner_world := board.get_parent() as GameWorld
-		if owner_world and (owner_world.battle_over_handled or owner_world.battle_state.phase != BattleStateController.Phase.PLAYER_TURN):
-			return false
-	if selected_targets.is_empty():
-		return false
-	if card.is_single_targeted():
-		var target := selected_targets[0]
-		if not is_instance_valid(target):
-			return false
-		var cell: Vector2i
-		if target is Enemy:
-			if target.is_dying or target.stats.health <= 0:
-				return false
-			cell = target.current_tile_position
-		elif target is TilemapTarget:
-			cell = target.tile_position
-		else:
-			return false
-		if not card.get_valid_targets(self, player_modifiers).has(cell) or board.is_tile_behind_fog(cell):
-			return false
-	return card.is_valid_target(selected_targets, player_modifiers)
+	return is_instance_valid(interaction_controller) and interaction_controller.can_execute(self, selected_targets)
 
 
 func get_active_enemy_modifiers() -> ModifierHandler:
+	if is_instance_valid(interaction_controller):
+		return interaction_controller.enemy_modifiers(self)
 	if targets.is_empty():
 		return null
 	if not is_instance_valid(targets[0]):
@@ -258,26 +241,13 @@ func _set_player_stats(value: PlayerStats) -> void:
 
 
 func _on_drop_point_detector_area_entered(area: Area2D) -> void:
-	if not targets.has(area):
-		targets.append(area)
+	if is_instance_valid(interaction_controller):
+		interaction_controller.update_drop_target(self, area, true)
 
 
-func _on_drop_point_detector_area_exited(area):
-	targets.erase(area)
-
-
-func _on_card_drag_or_aiming_started(used_card: CardUI) -> void:
-	if used_card == self:
-		return
-	disabled = true
-	_refresh_interaction_visuals()
-
-
-func _on_card_drag_or_aiming_ended(_card: CardUI) -> void:
-	disabled = false
-	self.playable = player_stats.can_play_card(card)
-	_update_cost_label()
-	_refresh_interaction_visuals()
+func _on_drop_point_detector_area_exited(area: Area2D) -> void:
+	if is_instance_valid(interaction_controller):
+		interaction_controller.update_drop_target(self, area, false)
 
 
 func _on_char_stats_changed() -> void:

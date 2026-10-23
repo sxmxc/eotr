@@ -56,7 +56,6 @@ func add_enemy(enemy: Enemy, tile_pos: Vector2i, summoned: bool = false) -> void
 		inspector.setup_enemy_ui(enemy)
 		enemy.stats_ui = inspector
 	if enemy.stats_ui and enemy.stats:
-		enemy.stats_ui.update_stats(enemy.stats)
 		enemy.stats_ui.hide()
 	add_child(enemy)
 	Events.enemy_spawned.emit(enemy, summoned)

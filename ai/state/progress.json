@@ -1,7 +1,13 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "tasks": [
+    {
+      "id": "BKL-048",
+      "status": "done",
+      "summary": "Completed battle-owned click/drag/aim/play coordination: exclusive gesture and resolution ownership, phase/card/world cancellation, shared selector/highlight/tooltip context, authored drop-area support and spotlight handoff. Full combat and focused headless/native checks pass; bounded offline bot victory in 8 turns/28 actions. Evidence and validation limits: ai/state/journal-bkl-048.md.",
+      "updated": "2026-10-22"
+    },
     {
       "id": "BKL-031",
       "status": "done",

@@ -74,6 +74,16 @@ visibility. Movement/wait glyphs can defer wording to the rail; consequential
 numeric intentions must remain readable. Phantom Camera uses the actual HUD safe
 area; avoid solving a layout issue with a competing camera controller.
 
+Enemy queue entries and inspection details bind to the live Enemy and its current
+intent; `Events.enemy_updated` refreshes inspection stats and plan together. Do
+not add a second inspection subscription bound to an old EnemyStats resource.
+The detail panel owns the enemy's StatusHandler; the queue summarizes the same
+combat state. Combat details live in the screen-space rail, with the authored
+preview scene retained for standalone enemies. Fog changes close and unpin
+inspection, and selection/hover cannot reopen it while hidden or dying. Card
+aiming continues to dismiss inspection. Board and enemy-exit subscriptions are
+released when the detail panel is rebound or removed.
+
 ## Validate the interaction
 
 Run the [scene/resource guard](testing.md) after editing scenes/themes. It rejects

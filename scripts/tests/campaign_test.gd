@@ -41,6 +41,25 @@ func current_view(run: Run) -> Node:
 
 func run_tests() -> void:
 	RNG.instance.seed = 31
+	if OS.get_cmdline_user_args().has("--obelisk-encounters-only"):
+		_test_content()
+		await _test_obelisk_resume()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--save-validation-only"):
+		await _test_saved_deck_validation()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
+	if OS.get_cmdline_user_args().has("--save-quit-only"):
+		await _test_failed_save_quit()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
 	_test_telemetry_attribution()
 	_test_content()
 	await _test_bosses()
@@ -146,10 +165,168 @@ func run_tests() -> void:
 	await get_tree().process_frame
 	get_tree().paused = false
 	await _test_legacy_and_failure()
+	await _test_saved_deck_validation()
+	await _test_failed_save_quit()
 	await _test_shop_and_refinement()
 	await Utils.stop_audio_for_shutdown()
 	print("Campaign tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func _test_obelisk_resume() -> void:
+	var run := new_run()
+	await get_tree().process_frame
+	var chosen: MapNode
+	for candidate: MapNode in run.map.map_data[0]:
+		if not candidate.next_nodes.is_empty():
+			chosen = candidate
+			break
+	check(chosen != null, "Resume fixture has a connected opening room")
+	if not chosen:
+		return
+	chosen.battle_stats = load("res://resources/data/battles/measured_advance.tres")
+	run.map._on_map_node_ui_selected(chosen)
+	await get_tree().process_frame
+	var world := current_view(run) as GameWorld
+	await wait_until(func(): return world.player_handler.hand_ready, "Measured Advance initializes before saving")
+	# Reproduce an older checkpoint embedding the incomplete composition.
+	var checkpoint := SaveGame.load_data()
+	checkpoint.last_map_node.battle_stats.enemies = load("res://scripts/tests/fixtures/measured_advance_without_obelisk.tscn")
+	checkpoint.last_map_node.battle_stats.gold_reward_min = 123
+	check(checkpoint.save_data(), "Serialize old embedded encounter checkpoint")
+	var checkpoint_hash := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+	check(SaveGame.load_data() != null and FileAccess.get_sha256(SaveGame.SAVE_PATH) == checkpoint_hash, "Composition recovery leaves checkpoint bytes unchanged")
+	run.queue_free()
+	await get_tree().process_frame
+	run = new_run(true)
+	await get_tree().process_frame
+	world = current_view(run) as GameWorld
+	check(world != null, "Continued checkpoint restores Measured Advance combat")
+	if world:
+		await wait_until(func(): return world.player_handler.hand_ready, "Continued combat reaches the first hand")
+		await get_tree().physics_frame
+		check(world.battle_stats.encounter_id == "measured_advance", "Resume retains selected encounter")
+		check(world.battle_stats.gold_reward_min == 123, "Composition recovery retains saved encounter rewards")
+		var obelisk := world.tilemap.obelisk as Obelisk
+		check(is_instance_valid(obelisk), "Continued non-boss encounter contains an Obelisk")
+		if is_instance_valid(obelisk):
+			check(obelisk.current_tile_position == world.tilemap.get_center_tile_coord(), "Resumed Obelisk occupies board center")
+			check(not world.tilemap.is_tile_behind_fog(obelisk.current_tile_position) and obelisk.is_visible_in_tree(), "Resumed Obelisk is revealed without clearing all fog")
+			check(obelisk.spawn_pool.size() == 2 and obelisk.has_viable_spawn_tile(), "Restored Obelisk has its encounter roster and viable summon tiles")
+		if not captures.is_empty() and DisplayServer.get_name() != "headless":
+			await get_tree().create_timer(0.5).timeout
+			await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png(captures.path_join("measured-advance-resumed.png"))
+	run.queue_free()
+	await get_tree().process_frame
+
+
+func _test_saved_deck_validation() -> void:
+	var run := new_run()
+	await get_tree().process_frame
+	var saved := SaveGame.load_data()
+	check(saved != null, "Valid checkpoint loads before deck corruption")
+	if saved == null:
+		run.queue_free()
+		await get_tree().process_frame
+		return
+	for missing_deck: bool in [true, false]:
+		var invalid := saved.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+		if missing_deck:
+			invalid.current_deck = null
+		else:
+			invalid.current_deck.cards.append(null)
+		check(ResourceSaver.save(invalid, SaveGame.SAVE_PATH) == OK, "Write isolated invalid deck fixture")
+		var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+		check(SaveGame.load_data() == null, "Reject missing deck or null card before run startup")
+		check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Rejected deck checkpoint retains original bytes")
+		var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+		check(dialog != null and dialog.visible, "Invalid deck presents recovery instructions")
+		if dialog:
+			dialog.hide()
+	for corruption: String in ["short row", "null node", "wrong coordinates", "null edge", "foreign edge", "foreign last node"]:
+		var invalid := saved.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+		match corruption:
+			"short row": invalid.map_data[0].pop_back()
+			"null node": invalid.map_data[0][0] = null
+			"wrong coordinates": invalid.map_data[0][0].row = 9
+			"null edge": invalid.map_data[0][0].next_nodes.append(null)
+			"foreign edge": invalid.map_data[0][0].next_nodes.append(MapNode.new())
+			"foreign last node":
+				invalid.floors_climbed = 1
+				invalid.last_map_node = MapNode.new()
+		check(ResourceSaver.save(invalid, SaveGame.SAVE_PATH) == OK, "Write invalid map fixture: " + corruption)
+		var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+		check(SaveGame.load_data() == null, "Reject invalid map: " + corruption)
+		check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Rejected map retains checkpoint bytes")
+		var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+		check(dialog != null and dialog.visible, "Invalid map presents recovery instructions")
+		if dialog:
+			dialog.hide()
+	for kind: int in [Enums.MapNodeType.MONSTER, Enums.MapNodeType.ELITE, Enums.MapNodeType.BOSS]:
+		var invalid := saved.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+		var node := invalid.map_data[-1][floori(MapGenerator.MAP_WIDTH * 0.5)] as MapNode
+		if kind != Enums.MapNodeType.BOSS:
+			for candidate: MapNode in invalid.map_data[0]:
+				if not candidate.next_nodes.is_empty():
+					node = candidate
+					break
+		node.type = kind
+		node.battle_stats = null
+		check(ResourceSaver.save(invalid, SaveGame.SAVE_PATH) == OK, "Write missing encounter fixture")
+		var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+		check(SaveGame.load_data() == null, "Reject missing encounter for combat room %d" % kind)
+		check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Missing encounter retains checkpoint bytes")
+		var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+		check(dialog != null and dialog.visible, "Missing encounter presents recovery instructions")
+		if dialog:
+			dialog.hide()
+	for version: int in [0, 1, SaveGame.CURRENT_VERSION]:
+		saved.progression_version = version
+		check(ResourceSaver.save(saved, SaveGame.SAVE_PATH) == OK, "Write supported map version")
+		check(SaveGame.load_data() != null, "Current and legacy generated maps remain loadable")
+	saved.current_deck.cards.clear()
+	check(saved.save_data(), "Save valid empty deck fixture")
+	var empty := SaveGame.load_data()
+	check(empty != null and empty.current_deck.cards.is_empty(), "Empty decks remain loadable")
+	run.queue_free()
+	await get_tree().process_frame
+
+func _test_failed_save_quit() -> void:
+	var run := new_run()
+	await get_tree().process_frame
+	var previous := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+	const PENDING := "user://savegame.pending.res"
+	check(DirAccess.make_dir_absolute(PENDING) == OK, "Create isolated save failure fixture")
+	run.pause_menu._pause()
+	run.pause_menu.save_and_quit_button.pressed.emit()
+	check(get_tree().paused, "Failed Save and Quit keeps gameplay paused")
+	check(run.pause_menu.visible, "Failed Save and Quit retains the pause menu")
+	check(FileAccess.get_sha256(SaveGame.SAVE_PATH) == previous, "Failed Save and Quit preserves checkpoint bytes")
+	var dialog := Utils.get_node_or_null("SaveError") as AcceptDialog
+	check(dialog != null and dialog.visible, "Failed Save and Quit presents recovery instructions")
+	if dialog:
+		dialog.hide()
+	DirAccess.remove_absolute(PENDING)
+	check(run.save_data.save_data(), "Checkpoint can be saved after the I/O obstruction is removed")
+	run.pause_menu.back_to_game_button.pressed.emit()
+	check(not get_tree().paused and not run.pause_menu.visible, "Player can explicitly resume after failed Save and Quit")
+	# Let the production success path replace a real current scene while this
+	# test coordinator survives as a separate root child.
+	var coordinator := get_tree().current_scene
+	run.reparent(get_tree().root)
+	get_tree().current_scene = run
+	run.pause_menu._pause()
+	run.pause_menu.save_and_quit_button.pressed.emit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var menu := get_tree().current_scene
+	check(menu != null and menu.scene_file_path == Run.MAIN_MENU_PATH, "Successful Save and Quit opens the main menu")
+	check(not get_tree().paused, "Successful Save and Quit releases pause")
+	check(SaveGame.load_data() != null, "Successful Save and Quit leaves a resumable checkpoint")
+	get_tree().current_scene = coordinator
+	if menu != null and menu != coordinator:
+		menu.queue_free()
+	await get_tree().process_frame
 
 func _test_content() -> void:
 	for act in ActDefinition.campaign():
@@ -161,6 +338,12 @@ func _test_content() -> void:
 			ids.append(definition.encounter_id)
 			categories[definition.category] = true
 			var composition := definition.enemies.instantiate()
+			var obelisk_count := 0
+			for enemy: Enemy in composition.get_children():
+				if enemy is Obelisk:
+					obelisk_count += 1
+			if definition.category != EncounterDefinition.Category.BOSS:
+				check(obelisk_count == 1, "Non-boss encounter contains exactly one Obelisk: " + definition.encounter_id)
 			for enemy: Enemy in composition.get_children():
 				check(enemy.stats != null and enemy.stats.board_icon is Texture2D, "Every campaign combatant has a real illustration")
 				check(enemy.stats.ai != null or enemy is RiftBoss, "Every combatant has an executable AI")
@@ -251,7 +434,7 @@ func _test_new_enemy_rules() -> void:
 	world.start_world()
 	await wait_until(func(): return world.player_handler.hand_ready, "New enemy rules initialize in real combat")
 	var board := world.tilemap
-	var weaver := world.enemy_handler.get_child(0) as Enemy
+	var weaver := world.enemy_handler.get_node("Unit0") as Enemy
 	var action := weaver.current_action
 	var candidate := Vector2i(-1, -1)
 	for cell in board.base_layer.get_surrounding_cells(board.player_position):
@@ -269,7 +452,7 @@ func _test_new_enemy_rules() -> void:
 	# Restore room for an actual movement and a live energy-sensitive intention.
 	for cell in board.base_layer.get_surrounding_cells(board.player_position):
 		if board.is_within_bounds(cell): board.change_terrain(cell, Enums.TileType.RESOURCE)
-	var debt := world.enemy_handler.get_child(1) as MovingEnemy
+	var debt := world.enemy_handler.get_node("Unit1") as MovingEnemy
 	if debt.set_movement_target(candidate): await debt.movement_finished
 	world.player_stats.energy = 3
 	debt.update_intent()

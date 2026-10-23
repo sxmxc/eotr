@@ -406,6 +406,7 @@ backlog:
     context:
       - "Implemented 45-floor campaign, 40 encounters, three distinct bosses, transitions, persistence, rewards, telemetry and corrected Void art. See ai/state/journal-bkl-031.md."
       - "Final focused tests pass; real 45-floor AutoWalker victory recorded. Two pre-existing map emitter smoke failures remain."
+      - "2026-10-22 user correction: normal and Elite encounters require one Obelisk; act bosses are exempt. Restored 26 compositions and added load-time repair for old embedded non-boss compositions. See ai/state/journal-obelisk-restoration.md."
     next_steps:
       - "Human playtest balance and review continuous audio/animation and release exports."
   
@@ -622,26 +623,26 @@ backlog:
   - id: BKL-047
     title: "Consolidate enemy intent/stats UI (queue vs floating panels)"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "EnemyHandler attaches both queue buttons and per-enemy EnemyStatsUI clones; keeping both in sync is fragile."
+      - "Verified the existing screen-space rail supersedes the old floating-panel premise; standalone previews remain supported."
+      - "Inspection follows live Enemy updates for stats and intent, removes stale resource callbacks, and closes/unpins behind fog. Queue and details retain the same authoritative Enemy/status state. See ai/state/journal-bkl-047.md."
     next_steps:
-      - "Pick an authoritative enemy stats/intent surface and mirror data to the other view via binding, or retire one."
-      - "Ensure fog/selection rules still hide intents for unseen enemies."
+      - "Human interaction/readability review and export validation remain outside focused binding checks."
 
   - id: BKL-048
     title: "Add a single CardInteractionController to own drag/aim/play"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "CardStateMachine + EventBus + target selectors spread interaction logic across multiple nodes."
-    next_steps:
-      - "Centralize card drag/aim/release handling and emit a validated play request to the battle controller."
-      - "Ensure selector highlights and tooltips derive from the same interaction context."
+      - "Battle-owned controller owns exclusive click/drag/aim gestures, cancellation, sibling locks, selector/tooltip context and live play authorization/resolution lock; normal and spotlight draws share it."
+      - "Phase/hand-readiness changes restore active cards before cleanup; card/world teardown releases locks and feedback. Selector picking/highlights/tooltips invalidate together on fog, death and stats changes. Existing scene presentation, authored drop area and effect paths remain."
+      - "Focused headless/native lifecycle and full combat suites pass, including actual mouse block/gather commits, spotlight handoff and world teardown. Bounded offline AutoWalker victory: 8 turns/28 actions. Evidence and limits: ai/state/journal-bkl-048.md."
+    next_steps: []
 
   - id: BKL-049
     title: "Reduce get_tree() coupling in card/effect/selector scripts"
@@ -699,4 +700,4 @@ backlog:
 in_progress: []
 in_review: []
 
-ideas_icebox: []
+ideas_icebox: [BKL-034]

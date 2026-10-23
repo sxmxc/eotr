@@ -37,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://c51wnrmyfkmo3" path="res://assets/rift/environment/rift_void.webp" id="void_plate"]
 [ext_resource type="Shader" uid="uid://drwo7wg0pm0we" path="res://scripts/shaders/rift_void.gdshader" id="void_shader"]
 
+[ext_resource type="Script" path="res://scenes/game_world/card_interaction_controller.gd" id="card_interaction"]
+
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
 stream_count = 2
@@ -253,3 +255,6 @@ grow_horizontal = 2
 [node name="TutorialUI" parent="." unique_id=1198475512 instance=ExtResource("battle_tutorial")]
 
 [node name="BattlePresentation" parent="." unique_id=274044338 instance=ExtResource("presentation_scene")]
+
+[node name="CardInteractionController" type="Node" parent="."]
+script = ExtResource("card_interaction")

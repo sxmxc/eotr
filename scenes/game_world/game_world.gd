@@ -15,6 +15,8 @@ extends Node2D
 @onready var debug_ui = game_world_ui.debug_ui
 @onready var player_handler: PlayerHandler = $PlayerHandler
 @onready var enemy_handler: EnemyHandler = $EnemyHandler
+@onready var card_interaction: CardInteractionController = $CardInteractionController
+@onready var target_selector: TargetSelector = $CardTargetSelector
 @onready var battle_state: BattleStateController = $BattleState
 @onready var map_camera : Camera2D = $MapCamera
 @onready var world_camera = %WorldCamera
@@ -34,6 +36,8 @@ var initial_healing := 0
 var encounter_started_ms := 0
 
 func _ready():
+	card_interaction.bind_world(self)
+	game_world_ui.hand.interaction_controller = card_interaction
 	game_world_ui.bind_world(player, tilemap, map_camera)
 	player_handler.player_hand = game_world_ui.hand
 	player.stats_ui = game_world_ui.stats_ui
@@ -83,6 +87,8 @@ func start_world() -> void:
 
 	game_world_ui.player_stats = player_stats
 	player.stats = player_stats
+	if not player_stats.stats_changed.is_connected(target_selector._reset_cache):
+		player_stats.stats_changed.connect(target_selector._reset_cache)
 	if not player_stats.stats_changed.is_connected(enemy_handler.refresh_enemy_intents):
 		player_stats.stats_changed.connect(enemy_handler.refresh_enemy_intents)
 	player_handler.relics = relics

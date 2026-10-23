@@ -72,6 +72,11 @@ An encounter consists of:
 
 - A composition `.tscn` under `resources/data/battles/`, instancing enemy scenes
   with their intended stats/AI. Obelisk spawn pools remain authored on instances.
+  Every normal and Elite composition must include exactly one Obelisk. Act bosses
+  are exempt; keep their authored signature actors (including Memory Anchor).
+  Use an explicit spawn pool drawn from the encounter roster. Restored compositions
+  use the base Obelisk for normals and the existing strengthened profile for Elites;
+  previously authored profiles remain unchanged.
 - An EncounterDefinition `.tres` containing stable ID/name, tier, category, tags,
   unlock, positive weight, enemy composition, battlefield dimensions, rewards and
   terrain/spawn/collapse settings.

@@ -6,7 +6,9 @@ supersede the requirement. This documentation overhaul changes no task statuses.
 
 Established direction: three distinct acts, optional Elites with alternatives,
 one mechanically distinct boss per act, persistent act transitions and meaningful
-rewards. The current behavior is documented in [campaign](../../docs/campaign.md).
+rewards. User clarification (2026-10-22): every normal and Elite encounter must
+include an Obelisk; act bosses are exempt. The current behavior is documented in
+[campaign](../../docs/campaign.md).
 Historical Triune/Core Nexus ladder proposals do not describe the current bosses.
 
 Remaining acceptance work includes human counterplay/pacing and difficulty,

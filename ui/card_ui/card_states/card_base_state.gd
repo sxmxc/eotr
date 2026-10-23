@@ -14,6 +14,7 @@ func enter() -> void:
 	card_ui.reparent_requested.emit(card_ui)
 	card_ui.state.text = "BASE"
 	card_ui.pivot_offset = Vector2.ZERO
+	card_ui.drop_point_detector.set_deferred("monitoring", false)
 	card_ui.scale = Vector2.ONE
 	card_ui.set_inspected(false, true)
 	Events.tooltip_hide_requested.emit()
@@ -24,6 +25,8 @@ func exit() -> void:
 
 func on_gui_input(event: InputEvent) -> void:
 	if not card_ui.playable or card_ui.disabled:
+		return
+	if not is_instance_valid(card_ui.interaction_controller) or not card_ui.interaction_controller.can_interact(card_ui):
 		return
 
 	if mouse_over_card and event.is_action_pressed("left_mouse"):

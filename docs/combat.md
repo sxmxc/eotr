@@ -4,7 +4,19 @@ A battle combines a card hand with positional choices on a shrinking board.
 Energy pays for attacks, defense, movement and utility. Block absorbs ordinary
 damage; health, statuses and modifiers determine the resulting effects. Card
 costs and targets can change during a turn, so a preview is not authorization to
-execute a stale action. The normal interaction/automation paths validate live state.
+execute a stale action. The normal interaction/automation paths share live
+authorization through the battle-owned CardInteractionController. PlayerHand injects it into normal and
+spotlight draws. Release rechecks phase, cost, pending work, fog and target
+ownership before taking the action lock; freed targets safely return to hand.
+The same controller routes click/drag/aim input. Right click cancels selection;
+moving an aimed card's cursor into the bottom cancel zone returns it to hand.
+Cancellation clears targets without spending energy. The controller owns the
+active gesture and sibling locks, restores dragged cards before phase cleanup,
+and clears selectors/tooltips when a card or battle exits. States retain their
+presentation hooks. Picking, highlights and tooltip enemy modifiers share the
+owning battle's context and invalidate together when targets die or enter fog.
+Self/area cards still use the scene-authored drop area; automation uses the same
+live authorization. Committed tile targets remain alive until effects complete.
 
 GameWorld composes the battle. BattleStateController advances player and enemy
 phases; PlayerHandler resolves draw/status/relic work, and EnemyHandler sequences
@@ -62,6 +74,7 @@ the actual turn trace when a displayed intent differs from execution.
 Current encounter resources use **ELIMINATE_HOSTILES**: every remaining hostile
 must die. An **Obelisk** is a stationary enemy with attacks and bounded summons.
 Killing it prevents future actions/summons but leaves already spawned enemies.
+Every normal and Elite encounter includes one Obelisk; act bosses are exempt.
 The base and strengthened resources under `scenes/enemy/obelisk/` share the
 player-facing name. They have 20 and 60 maximum HP respectively; their authored
 AI differs, including block on the strengthened variant. Spawn actions enforce

@@ -19,6 +19,8 @@ class_name PlayerHand
 @onready var card_ui_scene = preload("res://ui/card_ui/card_ui.tscn")
 const SPOTLIGHT_SLOT = preload("res://ui/player_ui/card_spotlight_slot.tscn")
 
+var interaction_controller: CardInteractionController
+
 var cards_played_this_turn := 0
 var layout_tween: Tween
 
@@ -30,6 +32,7 @@ func _ready() -> void:
 
 func add_card(card: Card) -> void:
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
+	new_card_ui.interaction_controller = interaction_controller
 	new_card_ui.original_index = get_child_count()
 
 	add_child(new_card_ui)
@@ -48,6 +51,7 @@ func add_card_spotlight(card: Card) -> void:
 		add_card(card)
 		return
 	var new_card_ui := card_ui_scene.instantiate() as CardUI
+	new_card_ui.interaction_controller = interaction_controller
 	var spotlight_slot: Control = SPOTLIGHT_SLOT.instantiate()
 	card_spotlight.add_child(spotlight_slot)
 

@@ -36,7 +36,20 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Native terrain/collapse breakup | `--combat-automation --terrain-only --capture-ui` |
 | Native combat/collapse movie fixture | `--combat-automation --motion-review --capture-ui` |
 
-Other targeted flags include `--card-lifecycle-only`, `--mana-wells-only`,
+`--combat-automation --card-lifecycle-only` covers shared card authorization
+(stale phase/cost, foreign/freed targets, lock ownership and invalid release),
+repeatable ruin feedback and lethal movement teardown.
+It also exercises clicked/drag/aim cancellation, drag-to-aim selector activation,
+hand order and sibling-card restoration, bottom-zone cancellation, both aim
+confirmation edges without a target, and non-single-target dragging. These are
+synthetic input lifecycle assertions; they do not establish visual quality.
+The same suite covers exclusive gesture ownership, phase/hand-readiness
+cancellation, freed owners, world teardown, spotlight-to-hand ownership, and
+fog/death invalidation of both selection and tooltip modifiers. Successful mouse
+release checks use the authored drop area and real block/gather effects, verify
+one cost/commit, and retain temporary tile targets until effect completion.
+
+Other targeted flags include `--mana-wells-only`,
 `--utility-review` and `--vfx-only`; inspect their owning test-scene branch before
 using them as evidence. `--capture-ui` switches from headless to native offscreen
 rendering. Its captures/logs live in the launcher's temporary directory and are
@@ -49,6 +62,12 @@ Campaign checks have a separate launcher:
 python tools/validate_campaign.py --godot "$godot"
 # Narrow the same suite to boss checks:
 python tools/validate_campaign.py --godot "$godot" --bosses-only
+# Save-and-quit I/O failure recovery and successful return to menu:
+python tools/validate_campaign.py --godot "$godot" --save-quit-only
+# Reject missing deck/card resources without modifying the checkpoint:
+python tools/validate_campaign.py --godot "$godot" --save-validation-only
+# Require non-boss Obelisks and resume an old incomplete encounter composition:
+python tools/validate_campaign.py --godot "$godot" --obelisk-encounters-only
 ```
 
 `--capture` renders natively; logs/captures go to `.qa-tmp/bkl-031/campaign/`.

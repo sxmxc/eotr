@@ -3,7 +3,13 @@
 [ext_resource type="Resource" path="res://resources/data/enemies/rift/corruption_weaver.tres" id="e0"]
 [ext_resource type="Resource" path="res://resources/data/enemies/rift/debt_eater.tres" id="e1"]
 [ext_resource type="Resource" path="res://resources/data/enemies/rift/glass_reaver_patient.tres" id="e2"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
+[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
 [node name="sealed_verdict" type="Node2D"]
+[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
+stats = ExtResource("obelisk_stats")
+spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2")])
 [node name="Unit0" parent="." instance=ExtResource("moving")]
 stats = ExtResource("e0")
 [node name="Unit1" parent="." instance=ExtResource("moving")]

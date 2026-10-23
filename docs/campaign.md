@@ -31,6 +31,8 @@ alternatives exist. The active registries contain 40 definitions
 (18/11/11: 30 normal, seven Elite and three bosses). AutoWalker
 `--all-encounters` also discovers resources outside these pools. To check campaign
 availability, inspect membership in the act registry rather than the sweep result.
+Every normal and Elite encounter contains exactly one Obelisk. Act boss compositions
+retain their distinct mechanics and are exempt from that requirement.
 
 ## Boss mechanics
 
@@ -95,9 +97,24 @@ half-resolved fight. Resuming re-enters the room. Pending transitions restore
 their view. Legacy version 0/1 saves keep their original map as Act I before
 joining the next authored act. Unsupported newer versions and invalid progression
 are rejected while retaining the file for recovery.
+Missing deck resources and null card entries are also rejected before run startup,
+with recovery guidance and the original file retained. Empty decks remain valid.
+Map validation also rejects incomplete grid rows, missing or misplaced nodes,
+route targets outside the next stored floor, and a last node outside the recorded
+completed floor. Current and legacy maps use the same structural checks; loading
+does not regenerate or repair a rejected graph. Selectable monster, Elite and boss
+rooms must retain their encounter resource; unused grid cells do not require one.
+
+Older checkpoints can embed a non-boss composition missing its Obelisk. For a known
+normal/Elite encounter, loading restores the current registered composition only
+when the saved scene has no Obelisk and the registered scene does. This retains
+the saved route, encounter ID/settings/rewards, player state and boss compositions.
+The repair is in memory; loading itself does not rewrite the checkpoint.
 
 Writes go to sibling `savegame.pending.res`, then rename over the destination.
-Failure shows a recoverable dialog and retains the previous save. Loading uses
+Failure shows a recoverable dialog and retains the previous save. Failed
+Save and Quit keeps gameplay paused with the pause menu available for recovery;
+successful saving returns to an unpaused main menu. Loading uses
 fresh save/subresource data and deep duplication for mutable dependencies. This
 is not a guarantee of power-loss durability on every filesystem. The timer counts
 active unpaused time, including transitions/hit-stop, excluding paused/offline time.
