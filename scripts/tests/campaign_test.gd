@@ -41,6 +41,13 @@ func current_view(run: Run) -> Node:
 
 func run_tests() -> void:
 	RNG.instance.seed = 31
+	if OS.get_cmdline_user_args().has("--obelisk-encounters-only"):
+		_test_content()
+		await _test_obelisk_resume()
+		await Utils.stop_audio_for_shutdown()
+		print("Campaign tests: %d failures" % failures)
+		get_tree().quit(1 if failures else 0)
+		return
 	if OS.get_cmdline_user_args().has("--save-validation-only"):
 		await _test_saved_deck_validation()
 		await Utils.stop_audio_for_shutdown()
@@ -165,6 +172,54 @@ func run_tests() -> void:
 	print("Campaign tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
 
+func _test_obelisk_resume() -> void:
+	var run := new_run()
+	await get_tree().process_frame
+	var chosen: MapNode
+	for candidate: MapNode in run.map.map_data[0]:
+		if not candidate.next_nodes.is_empty():
+			chosen = candidate
+			break
+	check(chosen != null, "Resume fixture has a connected opening room")
+	if not chosen:
+		return
+	chosen.battle_stats = load("res://resources/data/battles/measured_advance.tres")
+	run.map._on_map_node_ui_selected(chosen)
+	await get_tree().process_frame
+	var world := current_view(run) as GameWorld
+	await wait_until(func(): return world.player_handler.hand_ready, "Measured Advance initializes before saving")
+	# Reproduce an older checkpoint embedding the incomplete composition.
+	var checkpoint := SaveGame.load_data()
+	checkpoint.last_map_node.battle_stats.enemies = load("res://scripts/tests/fixtures/measured_advance_without_obelisk.tscn")
+	checkpoint.last_map_node.battle_stats.gold_reward_min = 123
+	check(checkpoint.save_data(), "Serialize old embedded encounter checkpoint")
+	var checkpoint_hash := FileAccess.get_sha256(SaveGame.SAVE_PATH)
+	check(SaveGame.load_data() != null and FileAccess.get_sha256(SaveGame.SAVE_PATH) == checkpoint_hash, "Composition recovery leaves checkpoint bytes unchanged")
+	run.queue_free()
+	await get_tree().process_frame
+	run = new_run(true)
+	await get_tree().process_frame
+	world = current_view(run) as GameWorld
+	check(world != null, "Continued checkpoint restores Measured Advance combat")
+	if world:
+		await wait_until(func(): return world.player_handler.hand_ready, "Continued combat reaches the first hand")
+		await get_tree().physics_frame
+		check(world.battle_stats.encounter_id == "measured_advance", "Resume retains selected encounter")
+		check(world.battle_stats.gold_reward_min == 123, "Composition recovery retains saved encounter rewards")
+		var obelisk := world.tilemap.obelisk as Obelisk
+		check(is_instance_valid(obelisk), "Continued non-boss encounter contains an Obelisk")
+		if is_instance_valid(obelisk):
+			check(obelisk.current_tile_position == world.tilemap.get_center_tile_coord(), "Resumed Obelisk occupies board center")
+			check(not world.tilemap.is_tile_behind_fog(obelisk.current_tile_position) and obelisk.is_visible_in_tree(), "Resumed Obelisk is revealed without clearing all fog")
+			check(obelisk.spawn_pool.size() == 2 and obelisk.has_viable_spawn_tile(), "Restored Obelisk has its encounter roster and viable summon tiles")
+		if not captures.is_empty() and DisplayServer.get_name() != "headless":
+			await get_tree().create_timer(0.5).timeout
+			await RenderingServer.frame_post_draw
+			get_viewport().get_texture().get_image().save_png(captures.path_join("measured-advance-resumed.png"))
+	run.queue_free()
+	await get_tree().process_frame
+
+
 func _test_saved_deck_validation() -> void:
 	var run := new_run()
 	await get_tree().process_frame
@@ -283,6 +338,12 @@ func _test_content() -> void:
 			ids.append(definition.encounter_id)
 			categories[definition.category] = true
 			var composition := definition.enemies.instantiate()
+			var obelisk_count := 0
+			for enemy: Enemy in composition.get_children():
+				if enemy is Obelisk:
+					obelisk_count += 1
+			if definition.category != EncounterDefinition.Category.BOSS:
+				check(obelisk_count == 1, "Non-boss encounter contains exactly one Obelisk: " + definition.encounter_id)
 			for enemy: Enemy in composition.get_children():
 				check(enemy.stats != null and enemy.stats.board_icon is Texture2D, "Every campaign combatant has a real illustration")
 				check(enemy.stats.ai != null or enemy is RiftBoss, "Every combatant has an executable AI")
@@ -373,7 +434,7 @@ func _test_new_enemy_rules() -> void:
 	world.start_world()
 	await wait_until(func(): return world.player_handler.hand_ready, "New enemy rules initialize in real combat")
 	var board := world.tilemap
-	var weaver := world.enemy_handler.get_child(0) as Enemy
+	var weaver := world.enemy_handler.get_node("Unit0") as Enemy
 	var action := weaver.current_action
 	var candidate := Vector2i(-1, -1)
 	for cell in board.base_layer.get_surrounding_cells(board.player_position):
@@ -391,7 +452,7 @@ func _test_new_enemy_rules() -> void:
 	# Restore room for an actual movement and a live energy-sensitive intention.
 	for cell in board.base_layer.get_surrounding_cells(board.player_position):
 		if board.is_within_bounds(cell): board.change_terrain(cell, Enums.TileType.RESOURCE)
-	var debt := world.enemy_handler.get_child(1) as MovingEnemy
+	var debt := world.enemy_handler.get_node("Unit1") as MovingEnemy
 	if debt.set_movement_target(candidate): await debt.movement_finished
 	world.player_stats.energy = 3
 	debt.update_intent()

@@ -53,6 +53,8 @@ python tools/validate_campaign.py --godot "$godot" --bosses-only
 python tools/validate_campaign.py --godot "$godot" --save-quit-only
 # Reject missing deck/card resources without modifying the checkpoint:
 python tools/validate_campaign.py --godot "$godot" --save-validation-only
+# Require non-boss Obelisks and resume an old incomplete encounter composition:
+python tools/validate_campaign.py --godot "$godot" --obelisk-encounters-only
 ```
 
 `--capture` renders natively; logs/captures go to `.qa-tmp/bkl-031/campaign/`.

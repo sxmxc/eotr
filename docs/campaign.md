@@ -31,6 +31,8 @@ alternatives exist. The active registries contain 40 definitions
 (18/11/11: 30 normal, seven Elite and three bosses). AutoWalker
 `--all-encounters` also discovers resources outside these pools. To check campaign
 availability, inspect membership in the act registry rather than the sweep result.
+Every normal and Elite encounter contains exactly one Obelisk. Act boss compositions
+retain their distinct mechanics and are exempt from that requirement.
 
 ## Boss mechanics
 
@@ -102,6 +104,12 @@ route targets outside the next stored floor, and a last node outside the recorde
 completed floor. Current and legacy maps use the same structural checks; loading
 does not regenerate or repair a rejected graph. Selectable monster, Elite and boss
 rooms must retain their encounter resource; unused grid cells do not require one.
+
+Older checkpoints can embed a non-boss composition missing its Obelisk. For a known
+normal/Elite encounter, loading restores the current registered composition only
+when the saved scene has no Obelisk and the registered scene does. This retains
+the saved route, encounter ID/settings/rewards, player state and boss compositions.
+The repair is in memory; loading itself does not rewrite the checkpoint.
 
 Writes go to sibling `savegame.pending.res`, then rename over the destination.
 Failure shows a recoverable dialog and retains the previous save. Failed

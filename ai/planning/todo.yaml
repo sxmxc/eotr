@@ -406,6 +406,7 @@ backlog:
     context:
       - "Implemented 45-floor campaign, 40 encounters, three distinct bosses, transitions, persistence, rewards, telemetry and corrected Void art. See ai/state/journal-bkl-031.md."
       - "Final focused tests pass; real 45-floor AutoWalker victory recorded. Two pre-existing map emitter smoke failures remain."
+      - "2026-10-22 user correction: normal and Elite encounters require one Obelisk; act bosses are exempt. Restored 26 compositions and added load-time repair for old embedded non-boss compositions. See ai/state/journal-obelisk-restoration.md."
     next_steps:
       - "Human playtest balance and review continuous audio/animation and release exports."
   

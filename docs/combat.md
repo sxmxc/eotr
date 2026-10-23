@@ -62,6 +62,7 @@ the actual turn trace when a displayed intent differs from execution.
 Current encounter resources use **ELIMINATE_HOSTILES**: every remaining hostile
 must die. An **Obelisk** is a stationary enemy with attacks and bounded summons.
 Killing it prevents future actions/summons but leaves already spawned enemies.
+Every normal and Elite encounter includes one Obelisk; act bosses are exempt.
 The base and strengthened resources under `scenes/enemy/obelisk/` share the
 player-facing name. They have 20 and 60 maximum HP respectively; their authored
 AI differs, including block on the strengthened variant. Spawn actions enforce

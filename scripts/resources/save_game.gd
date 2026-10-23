@@ -60,7 +60,11 @@ static func load_data() -> SaveGame:
 		if data and data.run_stats and data.progression_version < CURRENT_VERSION:
 			data.run_stats.act_index = 0
 			data.run_stats.completed_floors = 0
-		return data.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame if data else null
+		if data:
+			var restored := data.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+			restored._restore_missing_obelisk_compositions()
+			return restored
+		return null
 
 	return null
 
@@ -94,6 +98,40 @@ func _has_valid_map_graph() -> bool:
 		if not map_data[floors_climbed - 1].has(last_map_node):
 			return false
 	return true
+
+
+func _restore_missing_obelisk_compositions() -> void:
+	# Older checkpoints embed incomplete scenes. Restore only the composition of
+	# known non-boss rooms; keep the saved map, rewards and other encounter fields.
+	var registry := RegistryData.encounter_registry
+	if not registry:
+		return
+	var replacements: Dictionary[PackedScene, PackedScene] = {}
+	for floor_nodes: Array in map_data:
+		for node: MapNode in floor_nodes:
+			var definition := node.battle_stats
+			if not definition or definition.category not in [EncounterDefinition.Category.NORMAL, EncounterDefinition.Category.ELITE] or not definition.enemies:
+				continue
+			var authored := registry.find(definition.encounter_id)
+			if not authored or authored.category != definition.category or not authored.enemies:
+				continue
+			if not replacements.has(definition.enemies):
+				var replacement := definition.enemies
+				if not _scene_has_obelisk(replacement) and _scene_has_obelisk(authored.enemies):
+					replacement = authored.enemies
+				replacements[definition.enemies] = replacement
+			definition.enemies = replacements[definition.enemies]
+
+
+static func _scene_has_obelisk(scene: PackedScene) -> bool:
+	var composition := scene.instantiate()
+	var found := false
+	for enemy: Node in composition.get_children():
+		if enemy is Obelisk:
+			found = true
+			break
+	composition.free()
+	return found
 
 
 static func delete_data() -> void:
