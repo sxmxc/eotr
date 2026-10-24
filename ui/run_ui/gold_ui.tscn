@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b0lurds536bhp"]
 
 [ext_resource type="Script" uid="uid://b6jcn6e1jmm2w" path="res://ui/run_ui/gold_ui.gd" id="1_8lwrt"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="1_o41h1"]
+[ext_resource type="Texture2D" uid="uid://cihh4qs65srfy" path="res://assets/rift/ui/coin.svg" id="1_o41h1"]
 
 [node name="GoldUI" type="HBoxContainer" unique_id=1859791873]
 offset_right = 40.0

@@ -1,16 +1,11 @@
 [gd_scene format=3 uid="uid://dk3m00a8m3h4"]
 
 [ext_resource type="Script" uid="uid://bycpdl3aolr2j" path="res://scenes/sandbox/dev_game_world_ui.gd" id="1_script"]
-
 [ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="2_pile_button"]
-
 [ext_resource type="PackedScene" path="res://ui/player_ui/stats_ui_sandbox.tscn" id="3_stats"]
-
 [ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="5_hand_script"]
-
-[ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
-
 [ext_resource type="PackedScene" path="res://scenes/sandbox/dev_sandbox_panel.tscn" id="dev_panel_scene"]
+[ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
 
 [sub_resource type="Curve" id="Curve_hand"]
 _data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.75), -2.0, 0.0, 0, 0]
@@ -33,9 +28,9 @@ discard_pile_button = NodePath("DiscardPileButton")
 exhaust_pile_button = NodePath("ExhaustPileButton")
 dev_panel = NodePath("DevPanel")
 
-[node name="DevPanel" parent="." instance=ExtResource("dev_panel_scene")]
+[node name="DevPanel" parent="." unique_id=429723822 instance=ExtResource("dev_panel_scene")]
 
-[node name="EnemyRail" parent="." instance=ExtResource("enemy_rail")]
+[node name="EnemyRail" parent="." unique_id=1027284995 instance=ExtResource("enemy_rail")]
 
 [node name="CardSpotlight" type="HBoxContainer" parent="." unique_id=1766627346]
 anchors_preset = 8
@@ -83,7 +78,6 @@ offset_top = 880.0
 offset_right = 160.0
 offset_bottom = 1008.0
 
-
 [node name="DiscardPileButton" parent="." unique_id=1487224827 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 200.0
@@ -91,14 +85,12 @@ offset_top = 880.0
 offset_right = 328.0
 offset_bottom = 1008.0
 
-
 [node name="ExhaustPileButton" parent="." unique_id=287794363 instance=ExtResource("2_pile_button")]
 unique_name_in_owner = true
 offset_left = 368.0
 offset_top = 880.0
 offset_right = 496.0
 offset_bottom = 1008.0
-
 
 [node name="CardDropArea" type="Area2D" parent="." unique_id=1784851812]
 collision_layer = 4

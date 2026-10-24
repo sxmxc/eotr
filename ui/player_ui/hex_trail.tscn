@@ -19,7 +19,6 @@ curve = SubResource("Curve_7j1up")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a3crw"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(0, 0, 0)
 direction = Vector3(0, 0, 0)
 spread = 3.0
 gravity = Vector3(0, 0, 0)
@@ -38,7 +37,6 @@ script = ExtResource("1_qeteu")
 amount = 28
 texture = ExtResource("2_qeteu")
 lifetime = 0.28
-speed_scale = 1.0
 visibility_rect = Rect2(-96, -96, 192, 192)
 draw_order = 0
 process_material = SubResource("ParticleProcessMaterial_a3crw")

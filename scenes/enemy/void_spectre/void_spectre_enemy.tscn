@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bti2nexuunus2"]
 
 [ext_resource type="Script" uid="uid://dab3xatiqgpbv" path="res://scenes/enemy/void_spectre/void_spectre_enemy.gd" id="1_hic4f"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/spectre.webp" id="2_t7gmi"]
+[ext_resource type="Texture2D" uid="uid://ca2now88n8aul" path="res://assets/rift/entities/spectre.webp" id="2_t7gmi"]
 [ext_resource type="Resource" uid="uid://bxamo508a0hwr" path="res://scenes/enemy/void_spectre/void_spectre.tres" id="2_yqir2"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/blob.webp" id="3_pg2hs"]
+[ext_resource type="Texture2D" uid="uid://cbqx0ui4o1is1" path="res://assets/rift/entities/blob.webp" id="3_pg2hs"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="4_3ryel"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="9_vyw7r"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="10_7j6fb"]
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="12_3ryel"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="13_r7loo"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_w8bnk"]
-
 [ext_resource type="Material" path="res://resources/materials/unit_outline.tres" id="outline"]
 [ext_resource type="PackedScene" path="res://ui/world_ui/unit_presence.tscn" id="presence"]
 
@@ -105,6 +105,11 @@ _data = {
 &"fly_idle": SubResource("Animation_4omhe")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hic4f"]
+resource_local_to_scene = true
+shader = ExtResource("12_3ryel")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
 [node name="VoidSpectreEnemy" type="Node2D" unique_id=1368376352 groups=["enemy"]]
 script = ExtResource("1_hic4f")
 flying = true
@@ -114,7 +119,7 @@ stats = ExtResource("2_yqir2")
 self_modulate = Color(0, 0, 0, 0.627451)
 show_behind_parent = true
 y_sort_enabled = true
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_pg2hs")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824242920]
@@ -157,10 +162,11 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1887857036]
 libraries/ = SubResource("AnimationLibrary_4851w")
 
-[node name="GroundPresence" parent="." instance=ExtResource("presence")]
+[node name="GroundPresence" parent="." unique_id=1441700908 instance=ExtResource("presence")]
+material = SubResource("ShaderMaterial_hic4f")
 
-[node name="SpellOrigin" type="Marker2D" parent="."]
+[node name="SpellOrigin" type="Marker2D" parent="." unique_id=1233431301]
 position = Vector2(10, -34)
 
-[node name="ImpactAnchor" type="Marker2D" parent="."]
+[node name="ImpactAnchor" type="Marker2D" parent="." unique_id=1662392364]
 position = Vector2(0, -34)

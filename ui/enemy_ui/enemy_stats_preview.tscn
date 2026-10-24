@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://na3efn8vmdhx"]
 
-[ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="inspector"]
+[ext_resource type="PackedScene" uid="uid://wxhnk5epbwkh" path="res://ui/enemy_ui/enemy_stats_ui.tscn" id="inspector"]
 
-[node name="EnemyStatsPreview" instance=ExtResource("inspector")]
+[node name="EnemyStatsPreview" unique_id=549687635 instance=ExtResource("inspector")]
 offset_top = -42.0
 offset_bottom = 210.0
 scale = Vector2(0.75, 0.75)

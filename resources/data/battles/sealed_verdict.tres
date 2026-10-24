@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
-[ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="script"]
-[ext_resource type="PackedScene" path="res://resources/data/battles/sealed_verdict.tscn" id="composition"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://bs1kqfoewobxs"]
+
+[ext_resource type="PackedScene" uid="uid://bmxx2vmquihkb" path="res://resources/data/battles/sealed_verdict.tscn" id="composition"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
-encounter_id = "sealed_verdict"
-encounter_name = "Sealed Verdict"
 battle_tier = 7
-category = 1
 weight = 1.0
-tags = Array[String](["act3"])
 gold_reward_min = 65
 gold_reward_max = 85
 resource_reward_min = 3
@@ -16,7 +14,11 @@ resource_reward_max = 5
 enemies = ExtResource("composition")
 battle_field_width = 10
 battle_field_height = 10
-collapse_frequency = 4
-corruption_weight = 15
+encounter_id = "sealed_verdict"
+encounter_name = "Sealed Verdict"
+category = 1
+tags = Array[String](["act3"])
 minimum_player_distance = 3
+collapse_frequency = 4
 arena_shape = 1
+corruption_weight = 15

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" format=3 uid="uid://ccb73q3n7qlfb"]
 
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_k721c"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/fire_command.tscn" id="fx"]
+[ext_resource type="PackedScene" uid="uid://bkpdqr3uxuvb4" path="res://ui/fx/synthforged/fire_command.tscn" id="fx"]
 [ext_resource type="Texture2D" uid="uid://d4egna1bvfes3" path="res://assets/rift/cards/relay_orders.webp" id="rift_art"]
 [ext_resource type="Script" uid="uid://bfucic102mcxy" path="res://resources/data/cards/synthforged/relay_orders.gd" id="script"]
 

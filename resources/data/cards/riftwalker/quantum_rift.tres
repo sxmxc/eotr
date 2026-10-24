@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://v61gwou6s1g3" path="res://resources/data/cards/riftwalker/quantum_rift.gd" id="1_1o7qc"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_f7r3j"]
 [ext_resource type="Texture2D" uid="uid://do1celdngrnu5" path="res://assets/rift/cards/quantum_rift.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/quantum_rift_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://dn05agdirfxd7" path="res://ui/fx/quantum_rift_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_1o7qc")

@@ -1,94 +1,92 @@
 [gd_scene format=3 uid="uid://wxhnk5epbwkh"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="script"]
-[ext_resource type="PackedScene" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
-[ext_resource type="Script" path="res://addons/uiJuicer/Bouncer.gd" id="bounce"]
-
+[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="bounce"]
+[ext_resource type="Script" uid="uid://ua48e5l40efp" path="res://ui/enemy_ui/enemy_stats_ui.gd" id="script"]
+[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
 [ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_enemy.tscn" id="status_widget"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
 
-[node name="EnemyStatsUI" type="PanelContainer"]
+[node name="EnemyStatsUI" type="PanelContainer" unique_id=637854762]
 custom_minimum_size = Vector2(280, 252)
 offset_right = 280.0
 offset_bottom = 252.0
+focus_mode = 2
 theme = ExtResource("theme")
 script = ExtResource("script")
-focus_mode = 2
 
-[node name="ContentMargin" type="MarginContainer" parent="."]
+[node name="ContentMargin" type="MarginContainer" parent="." unique_id=1103896179]
 layout_mode = 2
 theme_type_variation = &"InspectionMargin"
 
-[node name="Content" type="VBoxContainer" parent="ContentMargin"]
+[node name="Content" type="VBoxContainer" parent="ContentMargin" unique_id=308147849]
 layout_mode = 2
 theme_type_variation = &"InspectionStack"
 
-[node name="Caption" type="Label" parent="ContentMargin/Content"]
+[node name="Caption" type="Label" parent="ContentMargin/Content" unique_id=1201107456]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "INSPECTED ENEMY"
 
-[node name="EnemyNameLabel" type="Label" parent="ContentMargin/Content"]
+[node name="EnemyNameLabel" type="Label" parent="ContentMargin/Content" unique_id=330504674]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"InspectionName"
 text = "Enemy"
 text_overrun_behavior = 3
 
-[node name="Vitals" type="HBoxContainer" parent="ContentMargin/Content"]
+[node name="Vitals" type="HBoxContainer" parent="ContentMargin/Content" unique_id=733819732]
 layout_mode = 2
 
-[node name="HealthLabel" type="Label" parent="ContentMargin/Content/Vitals"]
+[node name="HealthLabel" type="Label" parent="ContentMargin/Content/Vitals" unique_id=1373508094]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"InspectionHealth"
 text = "16 / 16 HP"
 
-[node name="Shield" type="HBoxContainer" parent="ContentMargin/Content/Vitals"]
+[node name="Shield" type="HBoxContainer" parent="ContentMargin/Content/Vitals" unique_id=450006837]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ShieldLabel" type="Label" parent="ContentMargin/Content/Vitals/Shield"]
+[node name="ShieldLabel" type="Label" parent="ContentMargin/Content/Vitals/Shield" unique_id=1336059491]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "Block 0"
 
-[node name="HealthBar" type="ProgressBar" parent="ContentMargin/Content"]
-theme_type_variation = &"EnemyHealthBar"
+[node name="HealthBar" type="ProgressBar" parent="ContentMargin/Content" unique_id=1109664423]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
+theme_type_variation = &"EnemyHealthBar"
 show_percentage = false
 
-[node name="Statuses" type="ScrollContainer" parent="ContentMargin/Content"]
+[node name="Statuses" type="ScrollContainer" parent="ContentMargin/Content" unique_id=1438641768]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="StatusHandler" parent="ContentMargin/Content/Statuses" instance=ExtResource("statuses")]
+[node name="StatusHandler" parent="ContentMargin/Content/Statuses" unique_id=478667192 instance=ExtResource("statuses")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 7
 status_ui_scene = ExtResource("status_widget")
 
-[node name="Plan" type="Label" parent="ContentMargin/Content"]
+[node name="Plan" type="Label" parent="ContentMargin/Content" unique_id=2013229012]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"InspectionPlan"
-autowrap_mode = 2
-mouse_filter = 2
 text = "Considering…"
+autowrap_mode = 2
 
-[node name="FocusIndicator" type="TextureRect" parent="."]
+[node name="FocusIndicator" type="TextureRect" parent="." unique_id=1681378738]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Bouncer" type="Node" parent="."]
+[node name="Bouncer" type="Node" parent="." unique_id=521558046]
 unique_name_in_owner = true
 script = ExtResource("bounce")
 AutoStart = false

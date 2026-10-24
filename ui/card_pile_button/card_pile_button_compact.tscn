@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dwo8hgw7ipxf0"]
 
-[ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button.tscn" id="base"]
+[ext_resource type="PackedScene" uid="uid://c7uwlaelexcv8" path="res://ui/card_pile_button/card_pile_button.tscn" id="base"]
 
-[node name="CardPileButton" instance=ExtResource("base")]
+[node name="CardPileButton" unique_id=1858124880 instance=ExtResource("base")]
 custom_minimum_size = Vector2(64, 64)
 
-[node name="Counter" parent="." index="0"]
+[node name="Counter" parent="." index="0" unique_id=1503322397]
 theme_type_variation = &"PileCountCompact"

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dudciwr18rxs1" path="res://ui/status_ui/status_handler.gd" id="1_isq1a"]
 
 [node name="StatusHandler" type="GridContainer" unique_id=901378234]
-theme_type_variation = &"FlushGrid"
 mouse_filter = 0
+theme_type_variation = &"FlushGrid"
 columns = 4
 script = ExtResource("1_isq1a")
 

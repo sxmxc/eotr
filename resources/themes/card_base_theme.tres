@@ -1,7 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://cyuh7amffcqvg"]
 
 [ext_resource type="StyleBox" uid="uid://evc7medpha5u" path="res://resources/themes/card_panel_base.tres" id="1_6jsml"]
-[ext_resource type="SystemFont" path="res://resources/themes/body_font.tres" id="5_njx5o"]
+[ext_resource type="SystemFont" uid="uid://bh2lp6h1inb5r" path="res://resources/themes/body_font.tres" id="5_njx5o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6jsml"]
 bg_color = Color(0.729412, 0.568627, 0.345098, 1)

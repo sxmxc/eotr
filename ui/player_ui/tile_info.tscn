@@ -1,29 +1,39 @@
 [gd_scene format=3 uid="uid://dg8i01hcrxwwd"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/player_ui/tile_info.gd" id="script"]
-[node name="TileInfoUI" type="Panel"]
-theme_type_variation = &"EmptyPanel"
+
+[ext_resource type="Script" uid="uid://cr37wlf4w8jrs" path="res://ui/player_ui/tile_info.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="TileInfoUI" type="Panel" unique_id=2035781491]
 offset_right = 260.0
 offset_bottom = 100.0
 theme = ExtResource("theme")
+theme_type_variation = &"EmptyPanel"
 script = ExtResource("script")
-[node name="Caption" type="Label" parent="."]
+
+[node name="Caption" type="Label" parent="." unique_id=476139079]
+layout_mode = 0
 offset_right = 260.0
 offset_bottom = 24.0
 theme_type_variation = &"Eyebrow"
 text = "CURRENT TILE"
-[node name="TypeLabel" type="Label" parent="."]
-theme_type_variation = &"BodyText"
+
+[node name="TypeLabel" type="Label" parent="." unique_id=1532367773]
 unique_name_in_owner = true
+layout_mode = 0
 offset_top = 30.0
 offset_right = 260.0
 offset_bottom = 60.0
+theme_type_variation = &"BodyText"
 text = "Terrain"
-[node name="LocLabel" type="Label" parent="."]
+
+[node name="LocLabel" type="Label" parent="." unique_id=1055597405]
 unique_name_in_owner = true
 visible = false
-[node name="ResourceLabel" type="Label" parent="."]
+layout_mode = 0
+
+[node name="ResourceLabel" type="Label" parent="." unique_id=717854814]
 unique_name_in_owner = true
+layout_mode = 0
 offset_top = 68.0
 offset_right = 260.0
 offset_bottom = 98.0

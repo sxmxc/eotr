@@ -1,44 +1,25 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dcrw57s3yefha"]
 
 [ext_resource type="Script" uid="uid://c5kyjbsoeaeq1" path="res://ui/debug_ui.gd" id="5_cmh4g"]
-
 [ext_resource type="Script" uid="uid://bg86wd36pp63f" path="res://ui/player_ui/player_hand_ui.gd" id="7_pdbwf"]
-
 [ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="12_odt01"]
-
 [ext_resource type="Script" uid="uid://bj3gfx8l4ra88" path="res://ui/world_ui/game_world_ui.gd" id="13_y5rsn"]
-
 [ext_resource type="PackedScene" uid="uid://dg8i01hcrxwwd" path="res://ui/player_ui/tile_info.tscn" id="19_mf52o"]
-
-[ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="20_g06lf"]
-
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/burn.svg" id="21_0br8l"]
-
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/draw.svg" id="21_7fs1y"]
-
+[ext_resource type="PackedScene" uid="uid://dwo8hgw7ipxf0" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="20_g06lf"]
+[ext_resource type="Texture2D" uid="uid://dessmk5mtfiwp" path="res://assets/rift/ui/burn.svg" id="21_0br8l"]
+[ext_resource type="Texture2D" uid="uid://cjcxrt6ax1awk" path="res://assets/rift/ui/draw.svg" id="21_7fs1y"]
 [ext_resource type="PackedScene" uid="uid://8ojfyictvua2" path="res://ui/world_ui/battle_over_panel.tscn" id="24_vophv"]
-
 [ext_resource type="PackedScene" uid="uid://xug262m8e12y" path="res://ui/tool_tip_ui/tool_tip.tscn" id="25_5nmku"]
-
 [ext_resource type="PackedScene" uid="uid://bb5iwy5af4ic7" path="res://ui/world_ui/world_message.tscn" id="25_g06lf"]
-
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="29_lsh46"]
-
 [ext_resource type="Script" uid="uid://dmno7vawfhle0" path="res://ui/player_ui/bounty_ui.gd" id="29_qnbvx"]
-
 [ext_resource type="PackedScene" uid="uid://cp0delpgghq1k" path="res://ui/world_ui/world_message_container.tscn" id="30_xw31r"]
-
 [ext_resource type="PackedScene" uid="uid://bxte0jljomebr" path="res://ui/player_ui/round_info.tscn" id="31_jwlkc"]
-
 [ext_resource type="PackedScene" uid="uid://cugan5jsmxbwp" path="res://ui/card_pile_button/exhaust_pile_button.tscn" id="32_udifo"]
-
 [ext_resource type="PackedScene" uid="uid://b653npq2sy2pg" path="res://ui/tool_tip_ui/status_view.tscn" id="33_csgag"]
-
 [ext_resource type="PackedScene" uid="uid://ccjhbbs2j2mdk" path="res://ui/card_selection/card_cost_selection.tscn" id="43_ccsel"]
-
-[ext_resource type="PackedScene" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
-[ext_resource type="PackedScene" path="res://ui/world_ui/boss_health.tscn" id="boss_health"]
-
+[ext_resource type="PackedScene" uid="uid://biqf70n2xjtqk" path="res://ui/world_ui/boss_health.tscn" id="boss_health"]
+[ext_resource type="PackedScene" uid="uid://bjfpkoqgri8iy" path="res://ui/enemy_ui/enemy_rail.tscn" id="enemy_rail"]
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="rift_theme"]
 
 [sub_resource type="Curve" id="Curve_udifo"]
@@ -57,32 +38,35 @@ size = Vector2(1924, 699)
 layer = 4
 script = ExtResource("13_y5rsn")
 
-[node name="BossHealth" parent="." instance=ExtResource("boss_health")]
+[node name="BossHealth" parent="." unique_id=2143653156 instance=ExtResource("boss_health")]
 
 [node name="ActionHint" type="Label" parent="." unique_id=62900808]
 offset_left = 40.0
 offset_top = 208.0
 offset_right = 300.0
 offset_bottom = 292.0
+tooltip_text = "Inspect a card, then drag it to a legal target to play. Right click cancels targeting."
 theme = ExtResource("rift_theme")
 theme_type_variation = &"ActionHint"
 text = "YOUR TURN - Inspect a card, then drag to play"
-tooltip_text = "Inspect a card, then drag it to a legal target to play. Right click cancels targeting."
 autowrap_mode = 2
 
-[node name="CameraHint" type="Button" parent="."]
+[node name="CameraHint" type="Button" parent="." unique_id=1170648089]
 offset_left = 40.0
 offset_top = 568.0
 offset_right = 300.0
 offset_bottom = 608.0
+tooltip_text = "Wheel · Zoom
+Middle mouse drag · Pan
+Home · Reset tactical view
+F · Show the whole battlefield"
+mouse_default_cursor_shape = 16
 theme = ExtResource("rift_theme")
 theme_type_variation = &"QuietButton"
-text = "Camera controls  ?"
 toggle_mode = true
-tooltip_text = "Wheel · Zoom\nMiddle mouse drag · Pan\nHome · Reset tactical view\nF · Show the whole battlefield"
-mouse_default_cursor_shape = 16
+text = "Camera controls  ?"
 
-[node name="CameraHelp" type="Label" parent="."]
+[node name="CameraHelp" type="Label" parent="." unique_id=2103503267]
 visible = false
 offset_left = 40.0
 offset_top = 472.0
@@ -90,8 +74,10 @@ offset_right = 300.0
 offset_bottom = 560.0
 theme = ExtResource("rift_theme")
 theme_type_variation = &"Microcopy"
-text = "Wheel · Zoom\nMiddle drag · Pan\nHome · Reset tactical view\nF · Whole battlefield"
-mouse_filter = 2
+text = "Wheel · Zoom
+Middle drag · Pan
+Home · Reset tactical view
+F · Whole battlefield"
 
 [node name="DebugUI" type="Control" parent="." unique_id=1634729797]
 layout_mode = 3
@@ -202,7 +188,6 @@ offset_right = 290.0
 offset_bottom = 188.0
 
 [node name="BountyUI" type="Panel" parent="PlayerUI" unique_id=1164363591]
-theme_type_variation = &"EmptyPanel"
 layout_mode = 0
 offset_left = 40.0
 offset_top = 804.0
@@ -210,6 +195,7 @@ offset_right = 300.0
 offset_bottom = 884.0
 mouse_filter = 2
 theme = ExtResource("rift_theme")
+theme_type_variation = &"EmptyPanel"
 script = ExtResource("29_qnbvx")
 
 [node name="Caption" type="Label" parent="PlayerUI/BountyUI" unique_id=1556085579]
@@ -261,7 +247,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DrawPileButton" parent="PlayerUI" unique_id=1060374144 instance=ExtResource("20_g06lf")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -273,10 +258,8 @@ offset_bottom = -40.0
 grow_vertical = 0
 texture_normal = ExtResource("21_7fs1y")
 
-
 [node name="DiscardPileButton" parent="PlayerUI" unique_id=374560706 instance=ExtResource("20_g06lf")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -287,7 +270,6 @@ offset_right = 200.0
 offset_bottom = -40.0
 grow_vertical = 0
 texture_normal = ExtResource("21_0br8l")
-
 
 [node name="ExhaustPileButton" parent="PlayerUI" unique_id=1075889834 instance=ExtResource("32_udifo")]
 unique_name_in_owner = true
@@ -300,7 +282,6 @@ offset_top = -104.0
 offset_right = 296.0
 offset_bottom = -40.0
 grow_vertical = 0
-
 
 [node name="CardDropArea" type="Area2D" parent="." unique_id=98062103]
 collision_layer = 4
@@ -343,8 +324,6 @@ layout_mode = 2
 layer = 5
 
 [node name="BattleOverPanel" parent="BattleOverLayer" unique_id=1775944455 instance=ExtResource("24_vophv")]
-visible = false
-anchors_preset = 15
 mouse_filter = 2
 
 [node name="CardPileViews" type="CanvasLayer" parent="." unique_id=827823127]

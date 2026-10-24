@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_6gpyb"]
 [ext_resource type="AudioStream" uid="uid://bstmllcvr5syu" path="res://assets/audio/spells/warp2.ogg" id="2_pcpth"]
 [ext_resource type="Texture2D" uid="uid://c4l2xuv47hxt6" path="res://assets/rift/cards/phase_step.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/phase_step_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://bpx3xe83ep4sy" path="res://ui/fx/phase_step_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_5tytu")

@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dmxq5n5pt6w4g"]
 
 [ext_resource type="Script" uid="uid://bckyguvb8v833" path="res://ui/fx/electric_arc_projectile_fx.gd" id="1_pehen"]
 [ext_resource type="Material" uid="uid://dkx4hqcolxkg8" path="res://resources/materials/electric_arc_v2.tres" id="2_pehen"]

@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://bcl5etedpnoss"]
 
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="1_ak0t1"]
-[ext_resource type="PackedScene" uid="uid://dnpltte715j68" path="res://resources/data/battles/tier_2_void_spectre.tscn" id="1_tnbkk"]
+[ext_resource type="PackedScene" uid="uid://h33xsrp8vxv7" path="res://resources/data/battles/tier_2_void_spectre.tscn" id="1_tnbkk"]
+[ext_resource type="AudioStream" uid="uid://bqa3nl0ajdjgh" path="res://assets/audio/music/gustavo_horror.mp3" id="boss_music"]
 
-[ext_resource type="AudioStream" path="res://assets/audio/music/gustavo_horror.mp3" id="boss_music"]
 [resource]
 script = ExtResource("1_ak0t1")
-boss_music = ExtResource("boss_music")
 battle_tier = 5
 weight = 10.0
 gold_reward_min = 20
@@ -14,16 +13,22 @@ gold_reward_max = 40
 resource_reward_min = 10
 resource_reward_max = 20
 enemies = ExtResource("1_tnbkk")
+boss_music = ExtResource("boss_music")
 battle_field_width = 10
 battle_field_height = 10
 encounter_id = "tier_2_void_spectre"
 encounter_name = "The Listening Spectre"
 category = 2
+collapse_frequency = 4
+arena_shape = 0
 player_start_cell = Vector2i(4, 6)
 enemy_start_cells = Array[Vector2i]([Vector2i(4, 3)])
 arena_floor = 0
-terrain_cells = Dictionary[Vector2i, int]({Vector2i(3, 5): 3, Vector2i(6, 5): 3, Vector2i(2, 4): 1, Vector2i(7, 4): 1})
+terrain_cells = Dictionary[Vector2i, int]({
+Vector2i(2, 4): 1,
+Vector2i(3, 5): 3,
+Vector2i(6, 5): 3,
+Vector2i(7, 4): 1
+})
 reveal_arena = true
-arena_shape = 0
-collapse_frequency = 4
 metadata/_custom_type_script = "uid://dypkpglsm47yj"

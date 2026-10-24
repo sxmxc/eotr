@@ -1,13 +1,17 @@
-[gd_scene format=3]
-[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="picker"]
-[ext_resource type="Script" path="res://scenes/enemy/rift_weaver_action.gd" id="action"]
-[ext_resource type="Script" path="res://scripts/resources/intent.gd" id="intent"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/weakened.svg" id="icon"]
+[gd_scene format=3 uid="uid://b648eq0rf3ecu"]
+
+[ext_resource type="Script" uid="uid://dykxl7twmgwa6" path="res://scenes/enemy/rift_weaver_action.gd" id="action"]
+[ext_resource type="Texture2D" uid="uid://b0tp5sktl811" path="res://assets/rift/ui/weakened.svg" id="icon"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="intent"]
+[ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="picker"]
+
 [sub_resource type="Resource" id="plan"]
 script = ExtResource("intent")
 icon = ExtResource("icon")
-[node name="WeaverAI" type="Node"]
+
+[node name="WeaverAI" type="Node" unique_id=117030393]
 script = ExtResource("picker")
-[node name="Seal" type="Node" parent="."]
+
+[node name="Seal" type="Node" parent="." unique_id=1178426173]
 script = ExtResource("action")
 intent = SubResource("plan")

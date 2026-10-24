@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_63470"]
 [ext_resource type="AudioStream" uid="uid://calkn7sdjqxuw" path="res://assets/audio/spells/blessing2.wav" id="2_dmm1o"]
 [ext_resource type="Texture2D" uid="uid://ct1eff3re7a65" path="res://assets/rift/cards/rift_knowledge.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/rift_knowledge_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://cjm57las65mxh" path="res://ui/fx/rift_knowledge_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_1g81e")

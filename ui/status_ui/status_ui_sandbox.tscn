@@ -1,14 +1,14 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cwrc6sl02c3ex"]
 
-[ext_resource type="PackedScene" path="res://ui/status_ui/status_ui.tscn" id="base"]
+[ext_resource type="PackedScene" uid="uid://idysccphut6h" path="res://ui/status_ui/status_ui.tscn" id="base"]
 
-[node name="StatusUI" instance=ExtResource("base")]
+[node name="StatusUI" unique_id=1597132603 instance=ExtResource("base")]
 custom_minimum_size = Vector2(48, 48)
 offset_right = 48.0
 offset_bottom = 48.0
 
-[node name="Duration" parent="." index="1"]
+[node name="Duration" parent="." index="1" unique_id=1900001690]
 theme_type_variation = &"CompactStatusCount"
 
-[node name="Stacks" parent="." index="2"]
+[node name="Stacks" parent="." index="2" unique_id=445400280]
 theme_type_variation = &"CompactStatusCount"

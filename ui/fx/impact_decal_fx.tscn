@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bsnwwomk305qy"]
 
-[ext_resource type="Script" path="res://ui/fx/impact_decal_fx.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/arcane_spark.webp" id="stamp"]
+[ext_resource type="Script" uid="uid://pshr0wrolvvo" path="res://ui/fx/impact_decal_fx.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://dvrbm11xfc0k7" path="res://assets/rift/fx/arcane_spark.webp" id="stamp"]
 
-[node name="ImpactDecalFX" type="Node2D"]
+[node name="ImpactDecalFX" type="Node2D" unique_id=1446800682]
 z_index = 8
 script = ExtResource("script")
 lifetime = 0.2
 fade_delay = 0.0
 
-[node name="Stamp" type="Sprite2D" parent="."]
+[node name="Stamp" type="Sprite2D" parent="." unique_id=504920736]
 texture_filter = 2
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("stamp")

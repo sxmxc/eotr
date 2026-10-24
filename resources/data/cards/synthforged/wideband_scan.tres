@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="3_p70gg"]
 [ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="4_yycbb"]
 [ext_resource type="Texture2D" uid="uid://coqq2nqqyeop1" path="res://assets/rift/cards/wideband_scan.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/wideband_scan.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://blcvrbubq6arf" path="res://ui/fx/synthforged/wideband_scan.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_hyw7q"]
 script = ExtResource("4_yycbb")

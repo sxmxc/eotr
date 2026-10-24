@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://bn20v4c3khchm"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/player_ui/stats_ui.gd" id="script"]
-[ext_resource type="PackedScene" path="res://ui/health_ui/health_ui.tscn" id="health"]
-[ext_resource type="PackedScene" path="res://ui/fx/arrow_up_fx.tscn" id="fx"]
-[ext_resource type="PackedScene" path="res://ui/fx/text_fx.tscn" id="text"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/energy.svg" id="energy"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/block.svg" id="block"]
-[ext_resource type="PackedScene" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
-[ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_combat.tscn" id="status_widget"]
 
-[node name="StatsUI" type="PanelContainer"]
+[ext_resource type="Texture2D" uid="uid://cuv07k3baqws3" path="res://assets/rift/ui/block.svg" id="block"]
+[ext_resource type="Texture2D" uid="uid://da6xawy723cws" path="res://assets/rift/ui/energy.svg" id="energy"]
+[ext_resource type="PackedScene" uid="uid://q8rgdk6ij87e" path="res://ui/fx/arrow_up_fx.tscn" id="fx"]
+[ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="health"]
+[ext_resource type="Script" uid="uid://c674jiftgbg05" path="res://ui/player_ui/stats_ui.gd" id="script"]
+[ext_resource type="PackedScene" uid="uid://cl0l31t03ehb0" path="res://ui/status_ui/status_handler.tscn" id="statuses"]
+[ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_combat.tscn" id="status_widget"]
+[ext_resource type="PackedScene" uid="uid://ch1i8t2vqxven" path="res://ui/fx/text_fx.tscn" id="text"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="StatsUI" type="PanelContainer" unique_id=1170680816]
 offset_right = 248.0
 offset_bottom = 152.0
 theme = ExtResource("theme")
@@ -18,64 +19,64 @@ script = ExtResource("script")
 stat_change_fx = ExtResource("fx")
 stat_change_txt_fx = ExtResource("text")
 
-[node name="Content" type="VBoxContainer" parent="."]
+[node name="Content" type="VBoxContainer" parent="." unique_id=2017104908]
 layout_mode = 2
 theme_type_variation = &"SmallStack"
 
-[node name="StatusSlot" type="MarginContainer" parent="Content"]
+[node name="StatusSlot" type="MarginContainer" parent="Content" unique_id=374163138]
 layout_mode = 2
 
-[node name="StatusHandler" parent="Content/StatusSlot" instance=ExtResource("statuses")]
+[node name="StatusHandler" parent="Content/StatusSlot" unique_id=2129784347 instance=ExtResource("statuses")]
 unique_name_in_owner = true
 layout_mode = 2
 status_ui_scene = ExtResource("status_widget")
 
-[node name="Caption" type="Label" parent="Content"]
+[node name="Caption" type="Label" parent="Content" unique_id=613006706]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "ENERGY"
 
-[node name="Energy" type="HBoxContainer" parent="Content"]
+[node name="Energy" type="HBoxContainer" parent="Content" unique_id=1149950837]
 layout_mode = 2
 theme_type_variation = &"ContentRow"
 
-[node name="EnergyIcon" type="TextureRect" parent="Content/Energy"]
+[node name="EnergyIcon" type="TextureRect" parent="Content/Energy" unique_id=543288668]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(28, 34)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("energy")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
-[node name="EnergyLabel" type="Label" parent="Content/Energy"]
+[node name="EnergyLabel" type="Label" parent="Content/Energy" unique_id=1516515657]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"EnergyValue"
 text = "3 / 3"
 
-[node name="Block" type="HBoxContainer" parent="Content"]
+[node name="Block" type="HBoxContainer" parent="Content" unique_id=414976488]
 layout_mode = 2
 theme_type_variation = &"ContentRow"
 
-[node name="BlockIcon" type="TextureRect" parent="Content/Block"]
+[node name="BlockIcon" type="TextureRect" parent="Content/Block" unique_id=1989331286]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 26)
 layout_mode = 2
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("block")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
-[node name="BlockLabel" type="Label" parent="Content/Block"]
+[node name="BlockLabel" type="Label" parent="Content/Block" unique_id=1488456284]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 
-[node name="HealthUI" parent="Content" instance=ExtResource("health")]
+[node name="HealthUI" parent="Content" unique_id=2098639135 instance=ExtResource("health")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

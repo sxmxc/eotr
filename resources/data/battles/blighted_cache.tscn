@@ -1,18 +1,22 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/ruin_scavenger_grazer.tres" id="e0"]
+[gd_scene format=3 uid="uid://duxuwbopwb6o6"]
+
+[ext_resource type="Resource" uid="uid://pl3msknw6fic" path="res://resources/data/enemies/rift/ruin_scavenger_grazer.tres" id="e0"]
 [ext_resource type="Resource" path="res://resources/data/enemies/rift/corruption_weaver.tres" id="e1"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/hollow_siphon.tres" id="e2"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[node name="blighted_cache" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
+[ext_resource type="Resource" uid="uid://6edkxp25bs30" path="res://resources/data/enemies/rift/hollow_siphon.tres" id="e2"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+
+[node name="blighted_cache" type="Node2D" unique_id=490413585]
+
+[node name="Obelisk" parent="." unique_id=759239481 instance=ExtResource("obelisk")]
 spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2")])
-[node name="Unit0" parent="." instance=ExtResource("moving")]
+
+[node name="Unit0" parent="." unique_id=575779473 instance=ExtResource("moving")]
 stats = ExtResource("e0")
-[node name="Unit1" parent="." instance=ExtResource("moving")]
+
+[node name="Unit1" parent="." unique_id=334823272 instance=ExtResource("moving")]
 stats = ExtResource("e1")
-[node name="Unit2" parent="." instance=ExtResource("moving")]
+
+[node name="Unit2" parent="." unique_id=1764874068 instance=ExtResource("moving")]
 stats = ExtResource("e2")

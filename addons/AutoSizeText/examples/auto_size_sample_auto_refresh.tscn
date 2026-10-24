@@ -10,7 +10,7 @@
 [node name="AutoSizeLabel" type="Label" parent="CanvasLayer" unique_id=1665314997]
 offset_right = 410.0
 offset_bottom = 165.0
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 31
 text = "Change This Text To see Auto-Refresh
 
 https://spielmannspiel.com/"
@@ -25,11 +25,11 @@ metadata/_custom_type_script = "uid://d11kfgsd6jgt"
 offset_left = 410.0
 offset_right = 820.0
 offset_bottom = 165.0
-theme_override_font_sizes/normal_font_size = 22
-theme_override_font_sizes/bold_font_size = 22
-theme_override_font_sizes/bold_italics_font_size = 22
-theme_override_font_sizes/italics_font_size = 22
-theme_override_font_sizes/mono_font_size = 22
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
 text = "[wave amp=150.0 freq=5.0 connected=0]Change This Text To see Auto-Refresh[/wave] 
 [b]Change This Text To see Auto-Refresh[/b]

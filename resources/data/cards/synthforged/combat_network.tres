@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="3_jw7le"]
 [ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="4_k8poh"]
 [ext_resource type="Texture2D" uid="uid://gxpkxdlcekjx" path="res://assets/rift/cards/combat_network.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/combat_network.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://cexaolo66j5fd" path="res://ui/fx/synthforged/combat_network.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_8ahot"]
 script = ExtResource("4_k8poh")

@@ -166,7 +166,7 @@ _data = {
 &"fly_idle": SubResource("Animation_4omhe")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xaxy3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m8tji"]
 resource_local_to_scene = true
 shader = ExtResource("11_m8tji")
 shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
@@ -231,7 +231,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 libraries/ = SubResource("AnimationLibrary_4851w")
 
 [node name="GroundPresence" parent="." unique_id=1800979518 instance=ExtResource("presence")]
-material = SubResource("ShaderMaterial_xaxy3")
+material = SubResource("ShaderMaterial_m8tji")
 
 [node name="SpellOrigin" type="Marker2D" parent="." unique_id=359503352]
 position = Vector2(10, -40)

@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="EnemyStats" format=3]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/listening_spectre.webp" id="art"]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://dfdcwj6qyjlp8"]
+
+[ext_resource type="Texture2D" uid="uid://bg36hqw6ih8kc" path="res://assets/rift/entities/listening_spectre.webp" id="art"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
 enemy_name = "Void Spectre"
 board_icon = ExtResource("art")
 flying = true
-max_health = 95
 gold_value = 80
 resource_value_max = 10
+max_health = 95

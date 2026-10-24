@@ -1,5 +1,7 @@
-[gd_scene format=3]
-[ext_resource type="Script" path="res://ui/world_ui/weave_warning.gd" id="script"]
-[node name="WeaveWarning" type="Node2D"]
+[gd_scene format=3 uid="uid://dkwtvqnud2fpv"]
+
+[ext_resource type="Script" uid="uid://bqjfm2qdgf51s" path="res://ui/world_ui/weave_warning.gd" id="script"]
+
+[node name="WeaveWarning" type="Node2D" unique_id=943092001]
 visible = false
 script = ExtResource("script")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" format=3 uid="uid://7a20icoma78i"]
 
 [ext_resource type="Script" uid="uid://dj38evtbreuvb" path="res://resources/data/relics/instability_emulator.gd" id="1_4sajg"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/mechanism.svg" id="1_ow626"]
+[ext_resource type="Texture2D" uid="uid://c7mkqu8puhycd" path="res://assets/rift/ui/mechanism.svg" id="1_ow626"]
 
 [resource]
 script = ExtResource("1_4sajg")

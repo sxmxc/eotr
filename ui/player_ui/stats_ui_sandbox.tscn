@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bdfh8jj8tydty"]
 
-[ext_resource type="PackedScene" path="res://ui/player_ui/stats_ui.tscn" id="base"]
+[ext_resource type="PackedScene" uid="uid://bn20v4c3khchm" path="res://ui/player_ui/stats_ui.tscn" id="base"]
 [ext_resource type="PackedScene" path="res://ui/status_ui/status_ui_sandbox.tscn" id="status_widget"]
 
-[node name="StatsUI" instance=ExtResource("base")]
+[node name="StatsUI" unique_id=1044470719 instance=ExtResource("base")]
 
-[node name="StatusHandler" parent="Content/StatusSlot" index="0"]
+[node name="StatusHandler" parent="Content/StatusSlot" parent_id_path=PackedInt32Array(374163138) index="0" unique_id=2129784347]
 status_ui_scene = ExtResource("status_widget")

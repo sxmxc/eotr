@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3]
-[ext_resource type="Script" path="res://ui/fx/synthforged_fx.gd" id="1"]
-[node name="SynthforgedFX" type="Node2D"]
+[gd_scene format=3 uid="uid://dn33p8tlnf85l"]
+
+[ext_resource type="Script" uid="uid://bh8p2nkcvxhfy" path="res://ui/fx/synthforged_fx.gd" id="1"]
+
+[node name="SynthforgedFX" type="Node2D" unique_id=1534246361]
 z_index = 8
 script = ExtResource("1")
 mode = "deploy_sentry"

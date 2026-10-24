@@ -1,33 +1,37 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://hb5f5rqci0d8"]
 
-[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
-[ext_resource type="Shader" path="res://scripts/shaders/spell_void.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/rift_implosion_frames.tres" id="illustration"]
+[ext_resource type="SpriteFrames" uid="uid://c5e06t1kfojwi" path="res://resources/vfx/rift_implosion_frames.tres" id="illustration"]
+[ext_resource type="Script" uid="uid://c52rkf1sy48td" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" uid="uid://cqll5sg5apxw1" path="res://scripts/shaders/spell_void.gdshader" id="shader"]
+
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/progress = 0.0
+shader_parameter/variant = 0
+shader_parameter/accent = Color(0.7, 0.3, 0.9, 1)
+
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [sub_resource type="GradientTexture2D" id="canvas"]
 gradient = SubResource("white")
 width = 128
 height = 128
-[sub_resource type="ShaderMaterial" id="material"]
-resource_local_to_scene = true
-shader = ExtResource("shader")
-shader_parameter/variant = 0
-shader_parameter/accent = Color(0.7, 0.3, 0.9, 1)
-[node name="VoidReleaseFX" type="Node2D"]
+
+[node name="VoidReleaseFX" type="Node2D" unique_id=306846345]
 z_index = 8
 script = ExtResource("script")
 duration = 0.2
-grounded = false
-[node name="Surface" type="Sprite2D" parent="."]
+
+[node name="Surface" type="Sprite2D" parent="." unique_id=1020152569]
+self_modulate = Color(1, 1, 1, 0.14)
 texture_filter = 2
-texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.28, 0.28)
-self_modulate = Color(1, 1, 1, 0.14)
+texture = SubResource("canvas")
 
-[node name="Illustration" type="AnimatedSprite2D" parent="."]
+[node name="Illustration" type="AnimatedSprite2D" parent="." unique_id=1537380680]
 texture_filter = 2
-scale = Vector2(0.092356257, 0.092356257)
+scale = Vector2(0.09235626, 0.09235626)
 sprite_frames = ExtResource("illustration")
-animation = &"default"

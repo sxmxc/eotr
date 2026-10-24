@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StrengthStatus" format=3 uid="uid://b5k886aut8cq7"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/strength.svg" id="1_xkb5y"]
+[ext_resource type="Texture2D" uid="uid://c0a8bnjj0as0g" path="res://assets/rift/ui/strength.svg" id="1_xkb5y"]
 [ext_resource type="Script" uid="uid://g6a10bf4s0dd" path="res://resources/data/statuses/strength.gd" id="2_ooibm"]
 
 [resource]

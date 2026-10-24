@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bs4jvbi4j7p43"]
 
 [ext_resource type="Script" uid="uid://c16u2xa1behyv" path="res://ui/fx/resource_gather_fx.gd" id="1_bme1k"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/resource.svg" id="2_bpocl"]
+[ext_resource type="Texture2D" uid="uid://dds3f61nigdk1" path="res://assets/rift/ui/resource.svg" id="2_bpocl"]
 
 [sub_resource type="Animation" id="Animation_cxr0g"]
 length = 0.001
@@ -146,17 +146,17 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_bpocl")
 
 [node name="QuantityLabel" type="Label" parent="." unique_id=1792822583]
-theme_type_variation = &"GatherGain"
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 2.0
-offset_right = 8.0
+offset_right = 9.0
 offset_bottom = 22.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_type_variation = &"GatherGain"
 text = "1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=769483638]

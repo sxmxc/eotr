@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://bxamo508a0hwr"]
 
 [ext_resource type="PackedScene" uid="uid://b3nci3u4bowom" path="res://scenes/enemy/void_spectre/void_spectre_ai.tscn" id="1_hcnfm"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/spectre.webp" id="1_ikufh"]
+[ext_resource type="Texture2D" uid="uid://ca2now88n8aul" path="res://assets/rift/entities/spectre.webp" id="1_ikufh"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_vpbmh"]
 [ext_resource type="AudioStream" uid="uid://bg35vann4lwj2" path="res://assets/audio/Monster Sounds/Ghost/Ghost_Emerge.ogg" id="3_n1ug0"]
 

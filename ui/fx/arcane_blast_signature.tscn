@@ -1,44 +1,42 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cfd7t3k0riadj"]
 
-[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
-[ext_resource type="Shader" path="res://scripts/shaders/spell_blast.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/arcane_impact_frames.tres" id="illustration"]
-[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/arcane_impact_frames.tres" id="art_arcane_impact"]
+[ext_resource type="SpriteFrames" uid="uid://dgmymy2swiw01" path="res://resources/vfx/arcane_impact_frames.tres" id="art_arcane_impact"]
+[ext_resource type="Script" uid="uid://cy4k0c4g6cjke" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="Script" uid="uid://c52rkf1sy48td" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" uid="uid://bpxbbfjj7ns1w" path="res://scripts/shaders/spell_blast.gdshader" id="shader"]
+
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/progress = 0.0
+shader_parameter/variant = 2
+shader_parameter/accent = Color(0.25, 0.8, 1, 1)
+
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [sub_resource type="GradientTexture2D" id="canvas"]
 gradient = SubResource("white")
 width = 128
 height = 128
-[sub_resource type="ShaderMaterial" id="material"]
-resource_local_to_scene = true
-shader = ExtResource("shader")
-shader_parameter/variant = 2
-shader_parameter/accent = Color(0.25, 0.8, 1, 1)
-[node name="ArcaneBlastFX" type="Node2D"]
+
+[node name="ArcaneBlastFX" type="Node2D" unique_id=158894642]
 z_index = 8
 script = ExtResource("script")
 duration = 0.5
-grounded = false
-[node name="Surface" type="Sprite2D" parent="."]
+
+[node name="Surface" type="Sprite2D" parent="." unique_id=24339966]
+self_modulate = Color(1, 1, 1, 0.14)
 texture_filter = 2
-texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.703125, 0.703125)
-self_modulate = Color(1, 1, 1, 0.14)
+texture = SubResource("canvas")
 
-[node name="Illustration" type="AnimatedSprite2D" parent="."]
+[node name="Illustration" type="AnimatedSprite2D" parent="." unique_id=1890083277]
 texture_filter = 2
-position = Vector2(0, 0)
 rotation = 0.12
-scale = Vector2(0.27706877, 0.23089064)
+scale = Vector2(0.27706876, 0.23089065)
 sprite_frames = ExtResource("art_arcane_impact")
-animation = &"default"
 script = ExtResource("layer_script")
-begins = 0
-ends = 1
 drift = Vector2(0, -4)
 final_scale = Vector2(1.15, 1.15)
-first_frame = 0
-last_frame = 7

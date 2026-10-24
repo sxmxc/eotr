@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://clemke10r3mhf" path="res://ui/fx/flash_fx.tscn" id="2_p6rxa"]
 [ext_resource type="AudioStream" uid="uid://bonkarcwaqe1g" path="res://assets/audio/spells/explode1.wav" id="4_32n7f"]
 [ext_resource type="Texture2D" uid="uid://u7rpj3o4k2p7" path="res://assets/rift/cards/fracture_pulse.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/fracture_pulse_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://j2507xcacqwj" path="res://ui/fx/fracture_pulse_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_5imcf")

@@ -1,16 +1,21 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/listening_spectre.tscn" id="boss"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="anchor"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+[gd_scene format=3 uid="uid://h33xsrp8vxv7"]
+
 [ext_resource type="PackedScene" path="res://scenes/enemy/bosses/relay_ai.tscn" id="ai"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/obelisk.webp" id="art"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="anchor"]
+[ext_resource type="Texture2D" uid="uid://cq5tfrjyy033q" path="res://assets/rift/entities/obelisk.webp" id="art"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/listening_spectre.tscn" id="boss"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+
 [sub_resource type="Resource" id="anchor_stats"]
 script = ExtResource("stats")
 enemy_name = "Memory Anchor"
 board_icon = ExtResource("art")
 ai = ExtResource("ai")
 max_health = 24
-[node name="tier_2_void_spectre" type="Node2D"]
-[node name="Boss" parent="." instance=ExtResource("boss")]
-[node name="MemoryAnchor" parent="." instance=ExtResource("anchor")]
+
+[node name="tier_2_void_spectre" type="Node2D" unique_id=435205833]
+
+[node name="Boss" parent="." unique_id=2093874000 instance=ExtResource("boss")]
+
+[node name="MemoryAnchor" parent="." unique_id=1461114998 instance=ExtResource("anchor")]
 stats = SubResource("anchor_stats")

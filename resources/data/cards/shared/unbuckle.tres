@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://docl8aveuqcxa"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_rs6xg"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/unbuckle.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/adrenaline_rush_signature.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/shared/unbuckle.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_rs6xg"]
+[ext_resource type="PackedScene" uid="uid://eycw4reckcp1" path="res://ui/fx/adrenaline_rush_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://cosk80kbxyjxi" path="res://assets/rift/cards/unbuckle.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://cvryjxob154aa" path="res://resources/data/cards/shared/unbuckle.gd" id="script"]
 
 [sub_resource type="Resource" id="Resource_rs6xg"]
 script = ExtResource("2_rs6xg")

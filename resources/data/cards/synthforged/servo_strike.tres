@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_msali"]
 [ext_resource type="Texture2D" uid="uid://bcf2ackv2sr3j" path="res://assets/rift/cards/servo_strike.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/servo_strike.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://1uthf2wfga2n" path="res://ui/fx/synthforged/servo_strike.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_msali"]
 script = ExtResource("2_msali")

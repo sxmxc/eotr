@@ -326,6 +326,7 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 	await _capture("reward-selection")
 	await _click_control(option)
 	_check(choices.card_popup.visible and choices.selected_card == option.card, "Clicking a reward card opens confirmation")
+	_check_card_popup_layout(choices.card_popup)
 	await _capture("reward-confirm")
 	await _test_inspection_cancel(run_scene, choices.card_popup)
 	await _click_control(option)
@@ -354,6 +355,7 @@ func _test_reward_and_shop(run_scene: Run, encounter: MapNode) -> void:
 		var item := shop.cards.get_child(0) as ShopCard
 		await _click_control(item.current_card_ui)
 		_check(shop.card_popup.visible, "Shop cards open inspection on click")
+		_check_card_popup_layout(shop.card_popup)
 		await _capture("shop-inspect")
 		await _test_inspection_cancel(run_scene, shop.card_popup)
 		await _click_control(item.current_card_ui)
@@ -389,6 +391,21 @@ func _press_escape() -> void:
 	event.pressed = false
 	Input.parse_input_event(event)
 	await get_tree().process_frame
+
+
+func _check_card_popup_layout(popup: CardPopup) -> void:
+	var viewport_rect := popup.get_viewport_rect()
+	var scrim := popup.get_node("Background") as Control
+	var center := popup.get_node("Center") as Control
+	var surface := popup.get_node("Center/Surface") as Control
+	_check(popup.get_global_rect().is_equal_approx(viewport_rect), "Card popup fills the viewport")
+	_check(scrim.get_global_rect().is_equal_approx(viewport_rect), "Card popup scrim fills the viewport")
+	_check(center.get_global_rect().is_equal_approx(viewport_rect), "Card popup centering region fills the viewport")
+	_check(surface.get_global_rect().get_center().distance_to(viewport_rect.get_center()) < 2.0,
+		"Card popup surface is centered")
+	_check(viewport_rect.encloses(surface.get_global_rect()), "Card popup surface stays within the viewport")
+	_check(popup.popup_card.get_global_rect().end.y <= popup.close_button.global_position.y,
+		"Card popup preview stays above its actions")
 
 
 func _test_inspection_cancel(run_scene: Run, popup: CardPopup) -> void:

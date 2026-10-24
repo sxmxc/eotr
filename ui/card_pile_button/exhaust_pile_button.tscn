@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://cugan5jsmxbwp"]
 
-[ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="base"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/portal.svg" id="icon"]
-[ext_resource type="Script" path="res://ui/card_pile_button/exhaust_pile_button.gd" id="script"]
+[ext_resource type="PackedScene" uid="uid://dwo8hgw7ipxf0" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="base"]
+[ext_resource type="Texture2D" uid="uid://d10ektx0g5ym7" path="res://assets/rift/ui/portal.svg" id="icon"]
+[ext_resource type="Script" uid="uid://dspnsd7o6d0sf" path="res://ui/card_pile_button/exhaust_pile_button.gd" id="script"]
 
-[node name="ExhaustPileButton" instance=ExtResource("base")]
-custom_minimum_size = Vector2(64, 64)
+[node name="ExhaustPileButton" unique_id=952287808 instance=ExtResource("base")]
 texture_normal = ExtResource("icon")
 script = ExtResource("script")

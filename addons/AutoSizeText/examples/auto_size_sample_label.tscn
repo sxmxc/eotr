@@ -26,7 +26,7 @@ offset_left = 56.0
 offset_top = 64.0
 offset_right = 504.0
 offset_bottom = 256.0
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 23
 text = "WORD SMART
 Play alone, with friends in private rooms or join a faction and play online with the whole world in this epic MMORPG.
 https://spielmannspiel.com/light-switch-simulator"
@@ -42,7 +42,7 @@ offset_left = 504.0
 offset_top = 64.0
 offset_right = 968.0
 offset_bottom = 256.0
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 23
 text = "ARBITRARY
 Play alone, with friends in private rooms or join a faction and play online with the whole world in this epic MMORPG.
 https://spielmannspiel.com/light-switch-simulator"
@@ -58,7 +58,7 @@ offset_left = 56.0
 offset_top = 256.0
 offset_right = 504.0
 offset_bottom = 448.0
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 23
 text = "WORD
 Play alone, with friends in private rooms or join a faction and play online with the whole world in this epic MMORPG.
 https://spielmannspiel.com/light-switch-simulator"
@@ -74,7 +74,7 @@ offset_left = 504.0
 offset_top = 256.0
 offset_right = 1152.0
 offset_bottom = 640.0
-theme_override_font_sizes/font_size = 37
+theme_override_font_sizes/font_size = 38
 text = "WORD SMART
 Play alone, with friends in private rooms or join a faction and play online with the whole world in this epic MMORPG.
 https://spielmannspiel.com/light-switch-simulator"

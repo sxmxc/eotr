@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3]
-[ext_resource type="PackedScene" path="res://ui/fx/discharge_projectile_fx.tscn" id="base"]
-[node name="SeverProjectileFX" instance=ExtResource("base")]
-[node name="ElectricArcFX" parent="." index="0"]
+[gd_scene format=3 uid="uid://bhfa5co4kbfnw"]
+
+[ext_resource type="PackedScene" uid="uid://dmxq5n5pt6w4g" path="res://ui/fx/discharge_projectile_fx.tscn" id="base"]
+
+[node name="SeverProjectileFX" unique_id=598442116 instance=ExtResource("base")]
+
+[node name="ElectricArcFX" parent="." index="0" unique_id=1233003033]
 width = 14.0
 default_color = Color(1, 0.77, 0.28, 1)
 strike_style = 2

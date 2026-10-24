@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bxcq8uqksynw8" path="res://scripts/resources/stats/player_stats.gd" id="1_im602"]
 [ext_resource type="Resource" uid="uid://dtslrfsyrt0oq" path="res://resources/data/card_piles/synthforged_starting_dec.tres" id="3_nfhtv"]
 [ext_resource type="Resource" uid="uid://c8fub7qvdioft" path="res://resources/data/relics/overclock_core.tres" id="4_l10xa"]
-[ext_resource type="Resource" path="res://resources/data/card_piles/synthforged_draftable_cards.tres" id="draft"]
+[ext_resource type="Resource" uid="uid://byt83t3ifgh7k" path="res://resources/data/card_piles/synthforged_draftable_cards.tres" id="draft"]
 
 [resource]
 script = ExtResource("1_im602")

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://ciw7obfe2grl8"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_x6cq5"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/second_thought.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/echo_signature.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/riftwalker/second_thought.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_x6cq5"]
+[ext_resource type="PackedScene" uid="uid://nejg1ris67mu" path="res://ui/fx/echo_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://fpyett66jbqm" path="res://assets/rift/cards/second_thought.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://mme3p22571as" path="res://resources/data/cards/riftwalker/second_thought.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

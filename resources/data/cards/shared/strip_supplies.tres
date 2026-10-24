@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://f5d0x10578gb"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_0nmdb"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/strip_supplies.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/shared/strip_supplies.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_0nmdb"]
+[ext_resource type="PackedScene" uid="uid://yl2a6cdv5qja" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://cskkhlcmf3kuj" path="res://assets/rift/cards/strip_supplies.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://daeouhrhglqh5" path="res://resources/data/cards/shared/strip_supplies.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

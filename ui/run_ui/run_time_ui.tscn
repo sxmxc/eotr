@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck2xa3ld451by"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/time.svg" id="1_8mou2"]
+[ext_resource type="Texture2D" uid="uid://btjn3fthyckks" path="res://assets/rift/ui/time.svg" id="1_8mou2"]
 [ext_resource type="Script" uid="uid://1cq7o50otbcr" path="res://ui/run_ui/run_time_ui.gd" id="1_ufay1"]
 
 [node name="RunTimeUI" type="HBoxContainer" unique_id=721921390]
@@ -15,10 +15,10 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="." unique_id=1846059398]
-theme_type_variation = &"RunClockText"
 layout_mode = 2
+theme_type_variation = &"RunClockText"
 text = "00:00:00"
 
-[node name="UpdateTimer" type="Timer" parent="."]
+[node name="UpdateTimer" type="Timer" parent="." unique_id=564634179]
 wait_time = 0.25
 ignore_time_scale = true

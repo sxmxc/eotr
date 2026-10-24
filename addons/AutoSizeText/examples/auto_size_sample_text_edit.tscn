@@ -39,7 +39,7 @@ layout_mode = 0
 offset_top = 49.0
 offset_right = 576.0
 offset_bottom = 169.0
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 11
 script = ExtResource("1_43qmb")
 _text = "WORD SMART
 Play alone, with friends in private rooms or join a faction and play online with the whole world in this epic MMORPG.
@@ -51,7 +51,7 @@ layout_mode = 0
 offset_top = 184.0
 offset_right = 576.0
 offset_bottom = 323.0
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 9
 script = ExtResource("1_43qmb")
 _text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet justo ac metus ultrices, malesuada commodo purus faucibus.
 Nunc finibus, sem et hendrerit congue, mi risus sollicitudin diam, a elementum leo quam sit amet nibh. Nunc ut ullamcorper ligula. Etiam
@@ -68,7 +68,7 @@ layout_mode = 0
 offset_top = 386.0
 offset_right = 576.0
 offset_bottom = 599.0
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 9
 placeholder_text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet justo ac metus ultrices, malesuada commodo purus faucibus.
 Nunc finibus, sem et hendrerit congue, mi risus sollicitudin diam, a elementum leo quam sit amet nibh. Nunc ut ullamcorper ligula. Etiam
 finibus, neque et venenatis efficitur, nulla velit condimentum nunc, non iaculis lectus dolor ut nunc. Phasellus feugiat tortor dolor, non
@@ -85,7 +85,7 @@ offset_left = 751.0
 offset_top = 49.0
 offset_right = 1145.0
 offset_bottom = 394.0
-theme_override_font_sizes/font_size = 27
+theme_override_font_sizes/font_size = 28
 script = ExtResource("1_43qmb")
 _text = "X X X X X X X X X X X X X X X 
 X

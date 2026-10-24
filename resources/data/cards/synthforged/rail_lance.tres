@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_8ngd6"]
 [ext_resource type="Texture2D" uid="uid://dqspe2nsmd6ey" path="res://assets/rift/cards/rail_lance.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/rail_lance.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://dewl37d24tgd" path="res://ui/fx/synthforged/rail_lance.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_8ngd6"]
 script = ExtResource("2_8ngd6")

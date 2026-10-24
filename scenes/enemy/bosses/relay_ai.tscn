@@ -1,13 +1,17 @@
-[gd_scene format=3]
-[ext_resource type="Script" path="res://scenes/enemy/enemy_action_picker.gd" id="picker"]
-[ext_resource type="Script" path="res://scenes/enemy/bosses/relay_action.gd" id="action"]
-[ext_resource type="Script" path="res://scripts/resources/intent.gd" id="intent"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/block.svg" id="icon"]
+[gd_scene format=3 uid="uid://brt5jyaae0yo8"]
+
+[ext_resource type="Script" uid="uid://reeb0w5lvfba" path="res://scenes/enemy/bosses/relay_action.gd" id="action"]
+[ext_resource type="Texture2D" uid="uid://cuv07k3baqws3" path="res://assets/rift/ui/block.svg" id="icon"]
+[ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="intent"]
+[ext_resource type="Script" uid="uid://dikfxustmcrhj" path="res://scenes/enemy/enemy_action_picker.gd" id="picker"]
+
 [sub_resource type="Resource" id="plan"]
 script = ExtResource("intent")
 icon = ExtResource("icon")
-[node name="RelayAI" type="Node"]
+
+[node name="RelayAI" type="Node" unique_id=1277020305]
 script = ExtResource("picker")
-[node name="HoldCircuit" type="Node" parent="."]
+
+[node name="HoldCircuit" type="Node" parent="." unique_id=1072833679]
 script = ExtResource("action")
 intent = SubResource("plan")

@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
-[ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="script"]
-[ext_resource type="PackedScene" path="res://resources/data/battles/menders_retreat.tscn" id="composition"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://dfohmhmfkw6r0"]
+
+[ext_resource type="PackedScene" uid="uid://cnmasqmrolx6s" path="res://resources/data/battles/menders_retreat.tscn" id="composition"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
-encounter_id = "menders_retreat"
-encounter_name = "Menders Retreat"
 battle_tier = 1
-category = 0
 weight = 1.0
 gold_reward_min = 70
 gold_reward_max = 90
@@ -15,7 +14,9 @@ resource_reward_max = 6
 enemies = ExtResource("composition")
 battle_field_width = 10
 battle_field_height = 11
-collapse_frequency = 4
-corruption_weight = 15
+encounter_id = "menders_retreat"
+encounter_name = "Menders Retreat"
 minimum_player_distance = 3
+collapse_frequency = 4
 arena_shape = 0
+corruption_weight = 15

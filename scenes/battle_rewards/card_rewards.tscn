@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://5l1cn6kun873"]
 
-[ext_resource type="Script" path="res://scenes/battle_rewards/card_rewards.gd" id="script"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="PackedScene" path="res://ui/card_popup/card_popup.tscn" id="popup"]
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="illustration"]
+[ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="popup"]
+[ext_resource type="Script" uid="uid://cglgd5qjx4r17" path="res://scenes/battle_rewards/card_rewards.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
 
-[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="illustration"]
-
-[node name="CardRewards" type="Control"]
+[node name="CardRewards" type="Control" unique_id=1321563757]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,66 +14,68 @@ theme = ExtResource("theme")
 script = ExtResource("script")
 card_presentation_scale = 1.5
 
-[node name="Background" type="Panel" parent="."]
-anchors_preset = 15
+[node name="Background" type="Panel" parent="." unique_id=1368360559]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_type_variation = &"DiscoveryBackdrop"
 
-[node name="Illustration" type="TextureRect" parent="Background"]
+[node name="Illustration" type="TextureRect" parent="Background" unique_id=1740274980]
+modulate = Color(0.16, 0.2, 0.24, 1)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("illustration")
 expand_mode = 1
 stretch_mode = 6
-modulate = Color(0.16, 0.20, 0.24, 1)
-mouse_filter = 2
 
-[node name="Center" type="CenterContainer" parent="."]
-anchors_preset = 15
+[node name="Center" type="CenterContainer" parent="." unique_id=817154455]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Surface" type="PanelContainer" parent="Center"]
-layout_mode = 2
+[node name="Surface" type="PanelContainer" parent="Center" unique_id=2009182834]
 custom_minimum_size = Vector2(1120, 0)
+layout_mode = 2
 theme_type_variation = &"OpenStage"
 
-[node name="Padding" type="MarginContainer" parent="Center/Surface"]
+[node name="Padding" type="MarginContainer" parent="Center/Surface" unique_id=1014916940]
 layout_mode = 2
 theme_type_variation = &"ModalContentMargin"
 
-[node name="Content" type="VBoxContainer" parent="Center/Surface/Padding"]
+[node name="Content" type="VBoxContainer" parent="Center/Surface/Padding" unique_id=106861360]
 layout_mode = 2
 theme_type_variation = &"DiscoveryStack"
 
-[node name="Heading" type="Label" parent="Center/Surface/Padding/Content"]
+[node name="Heading" type="Label" parent="Center/Surface/Padding/Content" unique_id=620063158]
 layout_mode = 2
 theme_type_variation = &"EncounterTitle"
 text = "Choose a card"
 horizontal_alignment = 1
 
-[node name="Prompt" type="Label" parent="Center/Surface/Padding/Content"]
+[node name="Prompt" type="Label" parent="Center/Surface/Padding/Content" unique_id=1340786709]
 layout_mode = 2
 theme_type_variation = &"Muted"
 text = "Add one card to your deck. Select a card to inspect it before choosing."
 horizontal_alignment = 1
 
-[node name="Cards" type="HBoxContainer" parent="Center/Surface/Padding/Content"]
+[node name="Cards" type="HBoxContainer" parent="Center/Surface/Padding/Content" unique_id=1033436475]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 480)
+layout_mode = 2
 theme_type_variation = &"DiscoveryCards"
 alignment = 1
 
-[node name="SkipButton" type="Button" parent="Center/Surface/Padding/Content"]
+[node name="SkipButton" type="Button" parent="Center/Surface/Padding/Content" unique_id=179984701]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"QuietButton"
 text = "Skip card reward"
 
-[node name="CardPopup" parent="." instance=ExtResource("popup")]
+[node name="CardPopup" parent="." unique_id=1960597125 instance=ExtResource("popup")]
 visible = false
+anchors_preset = 0
 confirmation_enabled = true

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://bg1ivem3bbr5v"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_2e08h"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/cash_out.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/riftwalker/cash_out.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_2e08h"]
+[ext_resource type="PackedScene" uid="uid://yl2a6cdv5qja" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://c0lsrpc58gdh6" path="res://assets/rift/cards/cash_out.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://5l3ewcnk674a" path="res://resources/data/cards/riftwalker/cash_out.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

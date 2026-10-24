@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://dq4nntds66bix"]
+[gd_resource type="Theme" format=3 uid="uid://dq4nntds66bix"]
 
 [ext_resource type="FontFile" uid="uid://dbbw833hg2v7o" path="res://addons/limbo_console/res/fonts/monaspace_argon_bold.otf" id="1_cry2i"]
 [ext_resource type="FontFile" uid="uid://dmeyp84repfbw" path="res://addons/limbo_console/res/fonts/monaspace_argon_bold_italic.otf" id="2_h3f73"]

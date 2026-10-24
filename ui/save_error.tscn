@@ -1,10 +1,10 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://pe6tsbif5s5r"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
 
-[node name="SaveError" type="AcceptDialog"]
+[node name="SaveError" type="AcceptDialog" unique_id=1255861228]
 process_mode = 3
 title = "Save unavailable"
 size = Vector2i(680, 200)
-dialog_autowrap = true
 theme = ExtResource("theme")
+dialog_autowrap = true

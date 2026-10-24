@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://5jb217mo7kta"]
 
 [ext_resource type="Script" uid="uid://bdqmkh35suft4" path="res://scenes/map/map_node_ui.gd" id="1_0vh7f"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/portal.svg" id="1_ajjoh"]
-
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="3_theme"]
+[ext_resource type="Texture2D" uid="uid://d10ektx0g5ym7" path="res://assets/rift/ui/portal.svg" id="1_ajjoh"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="3_theme"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0vh7f"]
 radius = 22.0227
@@ -96,12 +95,11 @@ presentation_theme = ExtResource("3_theme")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1945395455]
 
-[node name="Face" type="Polygon2D" parent="Visuals"]
-polygon = PackedVector2Array(-16, -26, -31, 0, -16, 26, 16, 26, 31, 0, 16, -26)
+[node name="Face" type="Polygon2D" parent="Visuals" unique_id=348970629]
 color = Color(0.025, 0.045, 0.065, 1)
+polygon = PackedVector2Array(-16, -26, -31, 0, -16, 26, 16, 26, 31, 0, 16, -26)
 
 [node name="Line2D" type="Line2D" parent="Visuals" unique_id=1023250477]
-modulate = Color(1, 1, 1, 0)
 points = PackedVector2Array(-16, -26, -31, 0, -16, 26, 16, 26, 31, 0, 16, -26)
 closed = true
 width = 1.2
@@ -111,40 +109,39 @@ default_color = Color(0.823529, 0.788235, 0.647059, 1)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_ajjoh")
 
-[node name="CurrentMark" type="Polygon2D" parent="Visuals"]
+[node name="CurrentMark" type="Polygon2D" parent="Visuals" unique_id=787825150]
 visible = false
 position = Vector2(0, 21)
-polygon = PackedVector2Array(-5, 0, 0, -4, 5, 0, 0, 4)
 color = Color(0.9, 0.75, 0.45, 1)
+polygon = PackedVector2Array(-5, 0, 0, -4, 5, 0, 0, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1399792423]
 show_behind_parent = true
 shape = SubResource("CircleShape2D_0vh7f")
 
-[node name="KeyboardFocus" type="Button" parent="."]
+[node name="KeyboardFocus" type="Button" parent="." unique_id=229181164]
 offset_left = -31.0
 offset_top = -26.0
 offset_right = 31.0
 offset_bottom = 26.0
 mouse_filter = 2
-disabled = true
 theme = ExtResource("3_theme")
 theme_type_variation = &"RouteFocus"
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1200716269]
 libraries/ = SubResource("AnimationLibrary_j1x36")
 
-[node name="RouteLabel" type="Label" parent="."]
-theme_type_variation = &"RouteText"
+[node name="RouteLabel" type="Label" parent="." unique_id=869013129]
 offset_left = -40.0
-offset_right = 40.0
 offset_top = 30.0
+offset_right = 40.0
 offset_bottom = 50.0
-mouse_filter = 2
 theme = ExtResource("3_theme")
+theme_type_variation = &"RouteText"
 horizontal_alignment = 1
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="pressed" from="KeyboardFocus" to="." method="select_route"]
 [connection signal="focus_entered" from="KeyboardFocus" to="." method="_on_keyboard_focus_entered"]
 [connection signal="focus_exited" from="KeyboardFocus" to="." method="_on_keyboard_focus_exited"]
+[connection signal="pressed" from="KeyboardFocus" to="." method="select_route"]

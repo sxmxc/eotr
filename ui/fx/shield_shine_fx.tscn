@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://buel4oh7tn55r"]
 
-[ext_resource type="Script" path="res://ui/fx/illustrated_fx.gd" id="script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/ward_shell_frames.tres" id="frames"]
+[ext_resource type="SpriteFrames" uid="uid://b2wg41lg780kf" path="res://resources/vfx/ward_shell_frames.tres" id="frames"]
+[ext_resource type="Script" uid="uid://6i0px1xn7bwq" path="res://ui/fx/illustrated_fx.gd" id="script"]
 
-[node name="ShieldShineFX" type="Node2D"]
+[node name="ShieldShineFX" type="Node2D" unique_id=208744052]
 z_index = 2
 script = ExtResource("script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1223195148]
 self_modulate = Color(1, 1, 1, 0.42)
 texture_filter = 2
 scale = Vector2(0.19625705, 0.19625705)
 sprite_frames = ExtResource("frames")
-animation = &"default"

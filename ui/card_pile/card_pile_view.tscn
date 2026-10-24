@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://c2xcucb5g14wh"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/card_pile/card_pile_view.gd" id="script"]
-[ext_resource type="PackedScene" path="res://ui/card_popup/card_popup.tscn" id="popup"]
+[ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="popup"]
+[ext_resource type="Script" uid="uid://ccdklbq64m7o" path="res://ui/card_pile/card_pile_view.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
 
-[node name="CardPileView" type="Control"]
+[node name="CardPileView" type="Control" unique_id=1256222397]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,59 +14,63 @@ grow_vertical = 2
 theme = ExtResource("theme")
 script = ExtResource("script")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=1822142867]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_type_variation = &"ModalScrim"
 
-[node name="Inset" type="MarginContainer" parent="."]
+[node name="Inset" type="MarginContainer" parent="." unique_id=443658506]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_type_variation = &"PileViewInset"
 
-[node name="Surface" type="PanelContainer" parent="Inset"]
+[node name="Surface" type="PanelContainer" parent="Inset" unique_id=424688464]
 layout_mode = 2
 
-[node name="Padding" type="MarginContainer" parent="Inset/Surface"]
+[node name="Padding" type="MarginContainer" parent="Inset/Surface" unique_id=335002167]
 layout_mode = 2
 theme_type_variation = &"ModalContentMargin"
 
-[node name="Content" type="VBoxContainer" parent="Inset/Surface/Padding"]
+[node name="Content" type="VBoxContainer" parent="Inset/Surface/Padding" unique_id=1890145114]
 layout_mode = 2
 theme_type_variation = &"ContentStack"
 
-[node name="Header" type="HBoxContainer" parent="Inset/Surface/Padding/Content"]
+[node name="Header" type="HBoxContainer" parent="Inset/Surface/Padding/Content" unique_id=1514105852]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Inset/Surface/Padding/Content/Header"]
+[node name="Title" type="Label" parent="Inset/Surface/Padding/Content/Header" unique_id=611889750]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"Title"
 text = "Discard Pile"
 
-[node name="BackButton" type="Button" parent="Inset/Surface/Padding/Content/Header"]
+[node name="BackButton" type="Button" parent="Inset/Surface/Padding/Content/Header" unique_id=281975406]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
 
-[node name="Scroll" type="ScrollContainer" parent="Inset/Surface/Padding/Content"]
+[node name="Scroll" type="ScrollContainer" parent="Inset/Surface/Padding/Content" unique_id=1998977753]
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
 follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="CardContainer" type="HFlowContainer" parent="Inset/Surface/Padding/Content/Scroll"]
+[node name="CardContainer" type="HFlowContainer" parent="Inset/Surface/Padding/Content/Scroll" unique_id=73427920]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"CardCollection"
 
-[node name="CardPopup" parent="." instance=ExtResource("popup")]
+[node name="CardPopup" parent="." unique_id=75703342 instance=ExtResource("popup")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

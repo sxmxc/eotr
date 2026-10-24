@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://bmbqvjsqltboe"]
 
 [ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="1_vtuqt"]
-[ext_resource type="PackedScene" path="res://resources/data/battles/tier_2_bulwark_channelers.tscn" id="2_fhs5m"]
+[ext_resource type="PackedScene" uid="uid://daahb18kiyrq2" path="res://resources/data/battles/tier_2_bulwark_channelers.tscn" id="2_fhs5m"]
 [ext_resource type="AudioStream" uid="uid://de1rwh51sktk6" path="res://assets/audio/music/universal_dark.mp3" id="boss_music"]
 
 [resource]

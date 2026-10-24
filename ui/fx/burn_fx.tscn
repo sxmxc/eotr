@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://dl3cgeeoktnii"]
 
-[ext_resource type="Script" path="res://ui/fx/illustrated_fx.gd" id="script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/ember_flame_frames.tres" id="frames"]
+[ext_resource type="SpriteFrames" uid="uid://058rhj12ym2a" path="res://resources/vfx/ember_flame_frames.tres" id="frames"]
+[ext_resource type="Script" uid="uid://6i0px1xn7bwq" path="res://ui/fx/illustrated_fx.gd" id="script"]
 
-[node name="BurnFX" type="Node2D"]
+[node name="BurnFX" type="Node2D" unique_id=491960789]
 z_index = 2
 script = ExtResource("script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1734275533]
 texture_filter = 2
 scale = Vector2(0.16162345, 0.16162345)
 sprite_frames = ExtResource("frames")
-animation = &"default"

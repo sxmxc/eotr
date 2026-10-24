@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="EnemyStats" format=3]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/prismatic_core.webp" id="art"]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://dy8kokenqyxvj"]
+
+[ext_resource type="Texture2D" uid="uid://cf57d58wgb751" path="res://assets/rift/entities/prismatic_core.webp" id="art"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
 enemy_name = "Prismatic Core"
 board_icon = ExtResource("art")
-flying = false
-max_health = 72
 gold_value = 80
 resource_value_max = 10
+max_health = 72

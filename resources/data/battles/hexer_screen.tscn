@@ -1,18 +1,20 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_hexer.tres" id="e0"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper.tres" id="e1"]
+[gd_scene format=3 uid="uid://fuqq5nnkhxut"]
 
-[node name="hexer_screen" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
+[ext_resource type="Resource" uid="uid://bhfhyupvpyf20" path="res://resources/data/enemies/rift/rift_hexer.tres" id="e0"]
+[ext_resource type="Resource" uid="uid://b6r65fw776u1s" path="res://resources/data/enemies/rift/ward_keeper.tres" id="e1"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Resource" uid="uid://c8h36iwvcmede" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+
+[node name="hexer_screen" type="Node2D" unique_id=1125850223]
+
+[node name="Obelisk" parent="." unique_id=293096959 instance=ExtResource("obelisk")]
 spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1")])
+stats = ExtResource("obelisk_stats")
 
-[node name="Unit0" parent="." instance=ExtResource("moving")]
+[node name="Unit0" parent="." unique_id=1886232215 instance=ExtResource("moving")]
 stats = ExtResource("e0")
 
-[node name="Unit1" parent="." instance=ExtResource("moving")]
+[node name="Unit1" parent="." unique_id=424389247 instance=ExtResource("moving")]
 stats = ExtResource("e1")

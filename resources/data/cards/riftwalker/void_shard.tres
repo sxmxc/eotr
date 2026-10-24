@@ -1,10 +1,10 @@
 [gd_resource type="Resource" format=3 uid="uid://br5m0y8n8mifq"]
 
-[ext_resource type="PackedScene" path="res://ui/fx/void_shard_projectile_fx.tscn" id="1_f12lp"]
+[ext_resource type="PackedScene" uid="uid://b35383vvx81hw" path="res://ui/fx/void_shard_projectile_fx.tscn" id="1_f12lp"]
 [ext_resource type="Script" uid="uid://cwhligtwa7g5s" path="res://resources/data/cards/riftwalker/void_shard.gd" id="2_yaxaw"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="4_4kclu"]
 [ext_resource type="Texture2D" uid="uid://cq87revgewtfb" path="res://assets/rift/cards/void_shard.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/void_shard_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://6suwy84kh16c" path="res://ui/fx/void_shard_signature.tscn" id="signature"]
 
 [sub_resource type="Resource" id="Resource_36wtw"]
 script = ExtResource("4_4kclu")

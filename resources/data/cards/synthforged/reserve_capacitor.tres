@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_dpl00"]
 [ext_resource type="Texture2D" uid="uid://jo3dcc20ncro" path="res://assets/rift/cards/reserve_capacitor.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reserve_capacitor.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://dd1x7vul5cs8m" path="res://ui/fx/synthforged/reserve_capacitor.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_dpl00"]
 script = ExtResource("2_dpl00")

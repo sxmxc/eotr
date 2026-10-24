@@ -1,34 +1,43 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/prismatic_core.tscn" id="core"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/enemy.tscn" id="relay"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+[gd_scene format=3 uid="uid://c5wsnc3dp1vri"]
+
 [ext_resource type="PackedScene" path="res://scenes/enemy/bosses/relay_ai.tscn" id="ai"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/rift_needle.webp" id="art0"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/ward_keeper_anchor.webp" id="art1"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/glass_reaver_patient.webp" id="art2"]
+[ext_resource type="Texture2D" uid="uid://c3elc73jcxgqn" path="res://assets/rift/entities/rift_needle.webp" id="art0"]
+[ext_resource type="Texture2D" uid="uid://bs6awu0ygypis" path="res://assets/rift/entities/ward_keeper_anchor.webp" id="art1"]
+[ext_resource type="Texture2D" uid="uid://c46m3elkothac" path="res://assets/rift/entities/glass_reaver_patient.webp" id="art2"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/prismatic_core.tscn" id="core"]
+[ext_resource type="PackedScene" uid="uid://cdknlta1672ly" path="res://scenes/enemy/enemy.tscn" id="relay"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+
 [sub_resource type="Resource" id="relay0"]
 script = ExtResource("stats")
 enemy_name = "Needle Relay"
 board_icon = ExtResource("art0")
 ai = ExtResource("ai")
 max_health = 12
+
 [sub_resource type="Resource" id="relay1"]
 script = ExtResource("stats")
 enemy_name = "Anchor Relay"
 board_icon = ExtResource("art1")
 ai = ExtResource("ai")
 max_health = 12
+
 [sub_resource type="Resource" id="relay2"]
 script = ExtResource("stats")
 enemy_name = "Glass Relay"
 board_icon = ExtResource("art2")
 ai = ExtResource("ai")
 max_health = 12
-[node name="PrismaticSiege" type="Node2D"]
-[node name="Core" parent="." instance=ExtResource("core")]
-[node name="Relay0" parent="." instance=ExtResource("relay")]
+
+[node name="PrismaticSiege" type="Node2D" unique_id=570551546]
+
+[node name="Core" parent="." unique_id=47431358 instance=ExtResource("core")]
+
+[node name="Relay0" parent="." unique_id=1352852063 instance=ExtResource("relay")]
 stats = SubResource("relay0")
-[node name="Relay1" parent="." instance=ExtResource("relay")]
+
+[node name="Relay1" parent="." unique_id=2100590104 instance=ExtResource("relay")]
 stats = SubResource("relay1")
-[node name="Relay2" parent="." instance=ExtResource("relay")]
+
+[node name="Relay2" parent="." unique_id=243262572 instance=ExtResource("relay")]
 stats = SubResource("relay2")

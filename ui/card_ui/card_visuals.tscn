@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b3x0n5j034cie"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_theme"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_theme"]
 [ext_resource type="Script" uid="uid://brmd8fs0wgn3o" path="res://ui/card_ui/card_visuals.gd" id="2_script"]
-[ext_resource type="Texture2D"  path="res://assets/rift/cards/arcane_bolt.webp" id="4_1bfbl"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="6_flare"]
+[ext_resource type="Texture2D" uid="uid://crt7gtgbwsq2n" path="res://assets/rift/cards/arcane_bolt.webp" id="4_1bfbl"]
+[ext_resource type="Texture2D" uid="uid://ch4e1k8xqtr7e" path="res://assets/rift/fx/energy_mote.webp" id="6_flare"]
 [ext_resource type="Script" uid="uid://d11kfgsd6jgt" path="res://addons/AutoSizeText/ui/AutoSizeLabel.gd" id="7_autolabel"]
 
 [sub_resource type="Curve" id="Curve_si0b1"]
@@ -115,109 +115,128 @@ _data = {
 &"swirl_out": SubResource("Animation_ky3w4")
 }
 
-
-[node name="Visuals" type="Control"]
+[node name="Visuals" type="Control" unique_id=837272825]
 custom_minimum_size = Vector2(180, 280)
-pivot_offset = Vector2(90, 280)
+layout_mode = 3
+anchors_preset = 0
 offset_right = 180.0
 offset_bottom = 280.0
+pivot_offset = Vector2(90, 280)
 mouse_filter = 2
 theme = ExtResource("1_theme")
 script = ExtResource("2_script")
-[node name="CardBackgroundTexture" type="Panel" parent="."]
-theme_type_variation = &"CardFace"
+
+[node name="CardBackgroundTexture" type="Panel" parent="." unique_id=1645383006]
 unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 0
 offset_right = 180.0
 offset_bottom = 280.0
 mouse_filter = 2
-use_parent_material = true
-[node name="ArtWell" type="ColorRect" parent="."]
+theme_type_variation = &"CardFace"
+
+[node name="ArtWell" type="ColorRect" parent="." unique_id=370158664]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 42.0
 offset_right = 170.0
 offset_bottom = 146.0
-color = Color(0.018, 0.033, 0.055, 1)
 mouse_filter = 2
-[node name="CardArt" type="TextureRect" parent="."]
+color = Color(0.018, 0.033, 0.055, 1)
+
+[node name="CardArt" type="TextureRect" parent="." unique_id=798569767]
 unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 0
 offset_left = 16.0
 offset_top = 44.0
 offset_right = 164.0
 offset_bottom = 143.0
 mouse_filter = 2
-use_parent_material = true
 texture = ExtResource("4_1bfbl")
 expand_mode = 1
 stretch_mode = 5
-[node name="CardTextBackground" type="Control" parent="."]
+
+[node name="CardTextBackground" type="Control" parent="." unique_id=813736409]
+anchors_preset = 0
 offset_left = 12.0
 offset_top = 172.0
 offset_right = 168.0
 offset_bottom = 274.0
 mouse_filter = 2
-[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground"]
-anchors_preset = 15
+
+[node name="MarginContainer" type="MarginContainer" parent="CardTextBackground" unique_id=663753918]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer"]
-theme_type_variation = &"CardRules"
+
+[node name="CardTextLabel" type="RichTextLabel" parent="CardTextBackground/MarginContainer" unique_id=654598424]
 unique_name_in_owner = true
+use_parent_material = true
 layout_mode = 2
 mouse_filter = 2
-use_parent_material = true
+theme_type_variation = &"CardRules"
 bbcode_enabled = true
-scroll_active = false
 text = "Card effect"
+scroll_active = false
 vertical_alignment = 1
-[node name="Rarity" type="Panel" parent="."]
-theme_type_variation = &"CardRarityMark"
+
+[node name="Rarity" type="Panel" parent="." unique_id=474365358]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 12.0
 offset_top = 158.0
 offset_right = 18.0
 offset_bottom = 164.0
 mouse_filter = 2
-[node name="CardTypeLabel" type="Label" parent="."]
-theme_type_variation = &"CardType"
+theme_type_variation = &"CardRarityMark"
+
+[node name="CardTypeLabel" type="Label" parent="." unique_id=1922307009]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 25.0
 offset_top = 150.0
 offset_right = 170.0
 offset_bottom = 172.0
-mouse_filter = 2
+theme_type_variation = &"CardType"
 text = "ATTACK"
-[node name="CardCost" type="Panel" parent="."]
-theme_type_variation = &"CardCostPanel"
+
+[node name="CardCost" type="Panel" parent="." unique_id=1079168118]
+layout_mode = 0
 offset_right = 34.0
 offset_bottom = 34.0
 mouse_filter = 2
-[node name="CardCostLabel" type="Label" parent="CardCost"]
-theme_type_variation = &"CardCost"
+theme_type_variation = &"CardCostPanel"
+
+[node name="CardCostLabel" type="Label" parent="CardCost" unique_id=600481564]
 unique_name_in_owner = true
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
+theme_type_variation = &"CardCost"
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
-[node name="CardNameLabel" type="Label" parent="."]
-theme_type_variation = &"CardName"
+
+[node name="CardNameLabel" type="Label" parent="." unique_id=383043490]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 42.0
 offset_top = 2.0
 offset_right = 172.0
 offset_bottom = 40.0
-mouse_filter = 2
+theme_type_variation = &"CardName"
+theme_override_font_sizes/font_size = 18
 text = "Card name"
-autowrap_mode = 3
 vertical_alignment = 1
+autowrap_mode = 3
 text_overrun_behavior = 3
 script = ExtResource("7_autolabel")
 watch_text_change = true
 max_font_size = 18
 step_sizes = Array[int]([14, 16, 18])
+
 [node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1357946861]
 unique_name_in_owner = true
 process_mode = 3

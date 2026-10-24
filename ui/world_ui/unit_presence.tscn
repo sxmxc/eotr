@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Shader" path="res://scripts/shaders/ground_presence.gdshader" id="shader"]
-[sub_resource type="Gradient" id="gradient"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-[sub_resource type="GradientTexture2D" id="texture"]
-gradient = SubResource("gradient")
-width = 64
-height = 64
+[gd_scene format=3 uid="uid://c7u2fmloid5wb"]
+
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="shader"]
+
 [sub_resource type="ShaderMaterial" id="material"]
 resource_local_to_scene = true
 shader = ExtResource("shader")
-[node name="GroundPresence" type="Sprite2D"]
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
+[sub_resource type="Gradient" id="gradient"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="texture"]
+gradient = SubResource("gradient")
+
+[node name="GroundPresence" type="Sprite2D" unique_id=425590765]
 show_behind_parent = true
-texture = SubResource("texture")
 material = SubResource("material")
+texture = SubResource("texture")

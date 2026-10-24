@@ -1,18 +1,41 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
-[ext_resource type="Script" path="res://scenes/enemy/bosses/prismatic_core.gd" id="behavior"]
+[gd_scene format=3 uid="uid://bmu0s0ckmitpv"]
+
+[ext_resource type="Shader" uid="uid://g1va22cfhxve" path="res://scripts/shaders/unit_outline.gdshader" id="4_gb4dc"]
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="5_05133"]
+[ext_resource type="Script" uid="uid://c1inj0hbffwhj" path="res://scenes/enemy/bosses/prismatic_core.gd" id="behavior"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
+[ext_resource type="PackedScene" uid="uid://cdldmx2kcjkc1" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
 [ext_resource type="Resource" path="res://scenes/enemy/bosses/prismatic_core.tres" id="stats"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
-[node name="prismatic_core" instance=ExtResource("body")]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_on50m"]
+resource_local_to_scene = true
+shader = ExtResource("4_gb4dc")
+shader_parameter/outline_color = Color(0.025, 0.045, 0.065, 1)
+shader_parameter/rim_color = Color(0.48, 0.85, 0.84, 0.65)
+shader_parameter/outline_pixels = 7.0
+shader_parameter/hit_flash = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1buuw"]
+resource_local_to_scene = true
+shader = ExtResource("5_05133")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
+[node name="prismatic_core" unique_id=1024566098 instance=ExtResource("body")]
 script = ExtResource("behavior")
-stats = ExtResource("stats")
 body_scale = Vector2(0.34, 0.34)
+stats = ExtResource("stats")
 footprint = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(1, 0, -1), Vector3i(0, 1, -1)])
 
-[node name="Sprite2D" parent="." index="1"]
-scale = Vector2(0.34, 0.34)
-[node name="ImpactAnchor" parent="." index="9"]
-position = Vector2(0, -65)
-[node name="SpellOrigin" parent="." index="8"]
+[node name="Sprite2D" parent="." index="1" unique_id=1491918895]
+material = SubResource("ShaderMaterial_on50m")
+
+[node name="GroundPresence" parent="." index="6" unique_id=1800979518]
+material = SubResource("ShaderMaterial_1buuw")
+
+[node name="SpellOrigin" parent="." index="7" unique_id=359503352]
 position = Vector2(18, -65)
-[node name="BossMotion" parent="." instance=ExtResource("presentation")]
+
+[node name="ImpactAnchor" parent="." index="8" unique_id=2107920890]
+position = Vector2(0, -65)
+
+[node name="BossMotion" parent="." index="9" unique_id=572042419 instance=ExtResource("presentation")]

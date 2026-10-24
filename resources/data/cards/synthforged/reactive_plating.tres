@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_tgxo8"]
 [ext_resource type="Texture2D" uid="uid://bq7cdml6hm12c" path="res://assets/rift/cards/reactive_plating.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reactive_plating.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://bifrjosi00iu6" path="res://ui/fx/synthforged/reactive_plating.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_tgxo8"]
 script = ExtResource("2_tgxo8")

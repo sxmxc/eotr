@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_01oje"]
 [ext_resource type="Texture2D" uid="uid://wbfoscca5t78" path="res://assets/rift/cards/saturation_fire.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/saturation_fire.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://cd5jromvk5qg1" path="res://ui/fx/synthforged/saturation_fire.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_01oje"]
 script = ExtResource("2_01oje")

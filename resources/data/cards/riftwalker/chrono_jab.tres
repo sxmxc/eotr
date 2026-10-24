@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://db8murq58snrm" path="res://resources/data/cards/riftwalker/chrono_jab.gd" id="1_00n2m"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_i5kju"]
 [ext_resource type="Texture2D" uid="uid://b3fxotmol3f2t" path="res://assets/rift/cards/chrono_jab.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/chrono_jab_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://22t6rooisutx" path="res://ui/fx/chrono_jab_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_00n2m")

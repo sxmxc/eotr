@@ -1,51 +1,59 @@
 [gd_scene format=3 uid="uid://ko52uvwssq1l"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://scenes/battle_rewards/reward_button.gd" id="script"]
-[node name="RewardButton" type="Button"]
+
+[ext_resource type="Script" uid="uid://vqf0c7p4d21r" path="res://scenes/battle_rewards/reward_button.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="RewardButton" type="Button" unique_id=1799518113]
 custom_minimum_size = Vector2(400, 64)
-theme_type_variation = &"RewardButton"
 theme = ExtResource("theme")
+theme_type_variation = &"RewardButton"
 script = ExtResource("script")
-[node name="Margin" type="MarginContainer" parent="."]
-theme_type_variation = &"RewardContentInset"
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=78851193]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-[node name="Row" type="HBoxContainer" parent="Margin"]
-theme_type_variation = &"RewardContentRow"
+theme_type_variation = &"RewardContentInset"
+
+[node name="Row" type="HBoxContainer" parent="Margin" unique_id=1212862609]
 layout_mode = 2
 mouse_filter = 2
-[node name="CustomIcon" type="TextureRect" parent="Margin/Row"]
+theme_type_variation = &"RewardContentRow"
+
+[node name="CustomIcon" type="TextureRect" parent="Margin/Row" unique_id=53498536]
 unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(44, 44)
 modulate = Color(0.87, 0.77, 0.55, 1)
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
-[node name="Copy" type="VBoxContainer" parent="Margin/Row"]
+
+[node name="Copy" type="VBoxContainer" parent="Margin/Row" unique_id=713990834]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
-theme_type_variation = &"SmallStack"
 mouse_filter = 2
-[node name="CustomText" type="Label" parent="Margin/Row/Copy"]
+theme_type_variation = &"SmallStack"
+alignment = 1
+
+[node name="CustomText" type="Label" parent="Margin/Row/Copy" unique_id=1560779148]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-vertical_alignment = 1
 text = "Reward"
-mouse_filter = 2
-[node name="Detail" type="Label" parent="Margin/Row/Copy"]
+vertical_alignment = 1
+
+[node name="Detail" type="Label" parent="Margin/Row/Copy" unique_id=684978733]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ActionHint"
 autowrap_mode = 3
-mouse_filter = 2
-[node name="Action" type="Label" parent="Margin/Row"]
+
+[node name="Action" type="Label" parent="Margin/Row" unique_id=2001719732]
 layout_mode = 2
 theme_type_variation = &"Muted"
-vertical_alignment = 1
 text = "Collect  +"
-mouse_filter = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]

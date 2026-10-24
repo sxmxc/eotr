@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_sgo6m"]
 [ext_resource type="PackedScene" uid="uid://dbbu8r744tq8k" path="res://scenes/enemy/blob/blob_enemy_ai.tscn" id="1_tp0wp"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/blob.webp" id="2_arlgc"]
+[ext_resource type="Texture2D" uid="uid://cbqx0ui4o1is1" path="res://assets/rift/entities/blob.webp" id="2_arlgc"]
 [ext_resource type="AudioStream" uid="uid://kych7v3n0ql1" path="res://assets/audio/Monster Sounds/Slime/Slime_Emerge.wav" id="3_n0fda"]
 
 [resource]

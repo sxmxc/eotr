@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://bf61do8j56a3t"]
 
-[ext_resource type="Script" path="res://ui/fx/illustrated_fx.gd" id="script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/claw_slash_frames.tres" id="frames"]
+[ext_resource type="SpriteFrames" uid="uid://b1c1y463d18qa" path="res://resources/vfx/claw_slash_frames.tres" id="frames"]
+[ext_resource type="Script" uid="uid://6i0px1xn7bwq" path="res://ui/fx/illustrated_fx.gd" id="script"]
 
-[node name="ClawSlashFX" type="Node2D"]
+[node name="ClawSlashFX" type="Node2D" unique_id=994819146]
 z_index = 8
 script = ExtResource("script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1362058379]
 texture_filter = 2
 scale = Vector2(0.15007892, 0.15007892)
 sprite_frames = ExtResource("frames")
-animation = &"default"

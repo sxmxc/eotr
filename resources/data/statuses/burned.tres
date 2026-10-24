@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BurnedStatus" format=3 uid="uid://cuon7y1frs16g"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/fire.svg" id="1_x4oih"]
+[ext_resource type="Texture2D" uid="uid://koblu5ee3bwv" path="res://assets/rift/ui/fire.svg" id="1_x4oih"]
 [ext_resource type="Script" uid="uid://dee2wvnljc3bd" path="res://resources/data/statuses/burned.gd" id="2_x4oih"]
 
 [resource]

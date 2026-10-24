@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://ccjhbbs2j2mdk"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/card_selection/card_cost_selection.gd" id="script"]
-[ext_resource type="PackedScene" path="res://ui/card_popup/card_popup.tscn" id="popup"]
+[ext_resource type="PackedScene" uid="uid://dxrlbs4ir0thk" path="res://ui/card_popup/card_popup.tscn" id="popup"]
+[ext_resource type="Script" uid="uid://nlgoxvipiyex" path="res://ui/card_selection/card_cost_selection.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
 
-[node name="CardCostSelection" type="Control"]
+[node name="CardCostSelection" type="Control" unique_id=2135828273]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -15,46 +15,50 @@ grow_vertical = 2
 theme = ExtResource("theme")
 script = ExtResource("script")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=669874516]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_type_variation = &"ModalScrim"
 
-[node name="Inset" type="MarginContainer" parent="."]
+[node name="Inset" type="MarginContainer" parent="." unique_id=1709346488]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_type_variation = &"ScreenInset"
 
-[node name="Surface" type="PanelContainer" parent="Inset"]
+[node name="Surface" type="PanelContainer" parent="Inset" unique_id=86627259]
 layout_mode = 2
 
-[node name="Padding" type="MarginContainer" parent="Inset/Surface"]
+[node name="Padding" type="MarginContainer" parent="Inset/Surface" unique_id=383753108]
 layout_mode = 2
 theme_type_variation = &"ModalContentMargin"
 
-[node name="Content" type="VBoxContainer" parent="Inset/Surface/Padding"]
+[node name="Content" type="VBoxContainer" parent="Inset/Surface/Padding" unique_id=695095971]
 layout_mode = 2
 theme_type_variation = &"ContentStack"
 
-[node name="TitleLabel" type="Label" parent="Inset/Surface/Padding/Content"]
+[node name="TitleLabel" type="Label" parent="Inset/Surface/Padding/Content" unique_id=1925970355]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Title"
 text = "Select cards"
 
-[node name="BodyLabel" type="RichTextLabel" parent="Inset/Surface/Padding/Content"]
+[node name="BodyLabel" type="RichTextLabel" parent="Inset/Surface/Padding/Content" unique_id=829423154]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
+text = "Choose cards to pay this cost."
 fit_content = true
 scroll_active = false
-text = "Choose cards to pay this cost."
 
-[node name="HoverLabel" type="RichTextLabel" parent="Inset/Surface/Padding/Content"]
+[node name="HoverLabel" type="RichTextLabel" parent="Inset/Surface/Padding/Content" unique_id=1941567233]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"WorldMessageText"
@@ -62,41 +66,43 @@ bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="Scroll" type="ScrollContainer" parent="Inset/Surface/Padding/Content"]
+[node name="Scroll" type="ScrollContainer" parent="Inset/Surface/Padding/Content" unique_id=947893755]
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
 follow_focus = true
+horizontal_scroll_mode = 0
 
-[node name="CardContainer" type="HFlowContainer" parent="Inset/Surface/Padding/Content/Scroll"]
+[node name="CardContainer" type="HFlowContainer" parent="Inset/Surface/Padding/Content/Scroll" unique_id=1393509077]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"CardCollection"
 
-[node name="Actions" type="HBoxContainer" parent="Inset/Surface/Padding/Content"]
+[node name="Actions" type="HBoxContainer" parent="Inset/Surface/Padding/Content" unique_id=1471957656]
 layout_mode = 2
 theme_type_variation = &"ChoiceRow"
 
-[node name="SelectionLabel" type="Label" parent="Inset/Surface/Padding/Content/Actions"]
+[node name="SelectionLabel" type="Label" parent="Inset/Surface/Padding/Content/Actions" unique_id=640111527]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0 / 1 selected"
 
-[node name="CancelButton" type="Button" parent="Inset/Surface/Padding/Content/Actions"]
+[node name="CancelButton" type="Button" parent="Inset/Surface/Padding/Content/Actions" unique_id=1479862477]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Cancel"
 
-[node name="ConfirmButton" type="Button" parent="Inset/Surface/Padding/Content/Actions"]
+[node name="ConfirmButton" type="Button" parent="Inset/Surface/Padding/Content/Actions" unique_id=1138144754]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 disabled = true
 text = "Confirm"
 
-[node name="CardPopup" parent="." instance=ExtResource("popup")]
+[node name="CardPopup" parent="." unique_id=1902323329 instance=ExtResource("popup")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,5 +1,7 @@
-[gd_scene load_steps=2 format=3]
-[ext_resource type="Script" path="res://ui/fx/arcane_bolt_beam_fx.gd" id="1"]
-[node name="ArcaneBoltBeamFX" type="Node2D"]
+[gd_scene format=3 uid="uid://b302bd7dvs5hh"]
+
+[ext_resource type="Script" uid="uid://dcnqbsa7kecva" path="res://ui/fx/arcane_bolt_beam_fx.gd" id="1"]
+
+[node name="ArcaneBoltBeamFX" type="Node2D" unique_id=259123425]
 z_index = 8
 script = ExtResource("1")

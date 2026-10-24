@@ -2,5 +2,5 @@
 
 [node name="MapNodeLine" type="Line2D" unique_id=677444439]
 width = 3.0
-antialiased = true
 default_color = Color(0.670588, 0.607843, 0.556863, 1)
+antialiased = true

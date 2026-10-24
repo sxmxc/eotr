@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://dkkgouxh43dvc"]
-[ext_resource type="PackedScene" path="res://ui/card_selection/deck_refinement.tscn" id="refinement"]
-[ext_resource type="Script" path="res://scenes/rest/rest.gd" id="script"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Texture2D" path="res://scenes/rest/rest.tres" id="background"]
+
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/camp.svg" id="emblem"]
+[ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="background"]
+[ext_resource type="Texture2D" uid="uid://ebcf10akfm5v" path="res://assets/rift/ui/camp.svg" id="emblem"]
+[ext_resource type="PackedScene" path="res://ui/card_selection/deck_refinement.tscn" id="refinement"]
+[ext_resource type="Script" uid="uid://b1jqhouqnh5b5" path="res://scenes/rest/rest.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
 
 [sub_resource type="Animation" id="Animation_j8u1v"]
 length = 0.001
@@ -105,8 +106,8 @@ _data = {
 &"fade_out": SubResource("Animation_x1a1d")
 }
 
-
-[node name="Rest" type="Control"]
+[node name="Rest" type="Control" unique_id=481273589]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -114,168 +115,168 @@ mouse_filter = 2
 theme = ExtResource("theme")
 script = ExtResource("script")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=739651902]
 layer = 0
 
-[node name="Illustration" type="TextureRect" parent="BackgroundLayer"]
+[node name="Illustration" type="TextureRect" parent="BackgroundLayer" unique_id=979116263]
+modulate = Color(0.32, 0.35, 0.38, 1)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("world_illustration")
 expand_mode = 1
 stretch_mode = 6
-modulate = Color(0.32, 0.35, 0.38, 1)
-mouse_filter = 2
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=422277981]
+modulate = Color(0.13, 0.19, 0.24, 0.68)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-modulate = Color(0.13, 0.19, 0.24, 0.68)
 texture = ExtResource("background")
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
-layer = 1
+[node name="ParticlesLayer" parent="." unique_id=1727484254 instance=ExtResource("ambient_particles")]
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=834256781]
 layer = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UILayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer" unique_id=1096216366]
 unique_name_in_owner = true
+anchors_preset = -1
 anchor_left = 0.14
 anchor_top = 0.17
 anchor_right = 0.86
-anchor_bottom = 0.90
+anchor_bottom = 0.9
 theme = ExtResource("theme")
 theme_type_variation = &"RoomStack"
 
-[node name="Eyebrow" type="Label" parent="UILayer/VBoxContainer"]
+[node name="Eyebrow" type="Label" parent="UILayer/VBoxContainer" unique_id=1837157602]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "REST"
 autowrap_mode = 3
 
-[node name="Title" type="Label" parent="UILayer/VBoxContainer"]
+[node name="Title" type="Label" parent="UILayer/VBoxContainer" unique_id=468073598]
 layout_mode = 2
 theme_type_variation = &"RoomTitle"
 text = "Campfire"
 autowrap_mode = 3
 
-[node name="Subtitle" type="Label" parent="UILayer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="UILayer/VBoxContainer" unique_id=1694561446]
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
 text = "Rest to recover HP, or remove one card from your deck."
 autowrap_mode = 3
 
-[node name="Choices" type="HBoxContainer" parent="UILayer/VBoxContainer"]
+[node name="Choices" type="HBoxContainer" parent="UILayer/VBoxContainer" unique_id=1152265303]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"RoomRow"
 
-[node name="Hearth" type="PanelContainer" parent="UILayer/VBoxContainer/Choices"]
+[node name="Hearth" type="PanelContainer" parent="UILayer/VBoxContainer/Choices" unique_id=186717261]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"RoomEmblem"
 
-[node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Hearth"]
+[node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Hearth" unique_id=427886394]
 layout_mode = 2
 theme_type_variation = &"RoomStack"
 
-[node name="EmblemCenter" type="CenterContainer" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
+[node name="EmblemCenter" type="CenterContainer" parent="UILayer/VBoxContainer/Choices/Hearth/Content" unique_id=640233255]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Emblem" type="TextureRect" parent="UILayer/VBoxContainer/Choices/Hearth/Content/EmblemCenter"]
+[node name="Emblem" type="TextureRect" parent="UILayer/VBoxContainer/Choices/Hearth/Content/EmblemCenter" unique_id=1093874058]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("emblem")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
-
-[node name="Story" type="Label" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
+[node name="Story" type="Label" parent="UILayer/VBoxContainer/Choices/Hearth/Content" unique_id=1422930931]
 layout_mode = 2
 theme_type_variation = &"RoomBody"
 text = "Warmth returns to your hands."
 autowrap_mode = 3
 
-[node name="Recovery" type="PanelContainer" parent="UILayer/VBoxContainer/Choices"]
+[node name="Recovery" type="PanelContainer" parent="UILayer/VBoxContainer/Choices" unique_id=580737885]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"RoomSurface"
 
-[node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Recovery"]
+[node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Recovery" unique_id=785149715]
 layout_mode = 2
 theme_type_variation = &"RoomStack"
 
-[node name="Caption" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+[node name="Caption" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=169333342]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "RECOVER"
 autowrap_mode = 3
 
-[node name="Heading" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+[node name="Heading" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=373272944]
 layout_mode = 2
 theme_type_variation = &"RoomHeading"
 text = "Rest by the embers"
 autowrap_mode = 3
 
-[node name="RecoveryAmount" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
-layout_mode = 2
+[node name="RecoveryAmount" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=1204540153]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"RoomValue"
 text = "Restore 30% of maximum HP"
 autowrap_mode = 3
 
-[node name="HealthPreview" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
-layout_mode = 2
+[node name="HealthPreview" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=1883194296]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"RoomMuted"
-text = ""
 autowrap_mode = 3
 
-[node name="Spacer" type="Control" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+[node name="Spacer" type="Control" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=816929076]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Description" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+[node name="Description" type="Label" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=1760088227]
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
 text = "Healing cannot exceed your maximum health."
 autowrap_mode = 3
 
-[node name="RestButton" type="Button" parent="UILayer/VBoxContainer/Choices/Recovery/Content"]
+[node name="RestButton" type="Button" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=13099947]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
 theme_type_variation = &"RoomPrimaryButton"
 text = "Rest"
 
-[node name="RefineDeck" parent="UILayer/VBoxContainer/Choices/Recovery/Content" instance=ExtResource("refinement")]
+[node name="RefineDeck" parent="UILayer/VBoxContainer/Choices/Recovery/Content" unique_id=91162549 instance=ExtResource("refinement")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Footer" type="HBoxContainer" parent="UILayer/VBoxContainer"]
+[node name="Footer" type="HBoxContainer" parent="UILayer/VBoxContainer" unique_id=870335970]
 layout_mode = 2
 
-[node name="Hint" type="Label" parent="UILayer/VBoxContainer/Footer"]
+[node name="Hint" type="Label" parent="UILayer/VBoxContainer/Footer" unique_id=574152611]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"RoomMuted"
 text = "You can also move on without resting."
 autowrap_mode = 3
-size_flags_horizontal = 3
 
-[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer/Footer"]
+[node name="SkipButton" type="Button" parent="UILayer/VBoxContainer/Footer" unique_id=25576409]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
 theme_type_variation = &"RoomButton"
 text = "Continue without resting"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=808574165]
 libraries/ = SubResource("AnimationLibrary_7w0af")
 
 [connection signal="pressed" from="UILayer/VBoxContainer/Choices/Recovery/Content/RestButton" to="." method="_on_rest_button_pressed"]

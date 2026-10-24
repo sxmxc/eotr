@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
-[ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="script"]
-[ext_resource type="PackedScene" path="res://resources/data/battles/blighted_cache.tscn" id="composition"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://d0r0fs7er3x8u"]
+
+[ext_resource type="PackedScene" uid="uid://duxuwbopwb6o6" path="res://resources/data/battles/blighted_cache.tscn" id="composition"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
-encounter_id = "blighted_cache"
-encounter_name = "Blighted Cache"
 battle_tier = 4
-category = 0
 weight = 1.0
-tags = Array[String](["act2"])
 gold_reward_min = 30
 gold_reward_max = 45
 resource_reward_min = 1
@@ -16,7 +14,9 @@ resource_reward_max = 3
 enemies = ExtResource("composition")
 battle_field_width = 9
 battle_field_height = 9
-collapse_frequency = 4
-corruption_weight = 20
+encounter_id = "blighted_cache"
+encounter_name = "Blighted Cache"
+tags = Array[String](["act2"])
 minimum_player_distance = 3
+collapse_frequency = 4
 arena_shape = 2

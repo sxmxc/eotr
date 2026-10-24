@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://g2mmol0sikk"]
 
-[ext_resource type="Texture2D" path="res://assets/rift/terrain/hex_atlas.png" id="1_fn1wp"]
+[ext_resource type="Texture2D" uid="uid://dvo2nfctmljxl" path="res://assets/rift/terrain/hex_atlas.png" id="1_fn1wp"]
 [ext_resource type="Script" uid="uid://d3u6mkx5ekuwa" path="res://scenes/game_world/tile_sprite.gd" id="2_kponn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kponn"]

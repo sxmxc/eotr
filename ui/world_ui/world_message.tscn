@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bb5iwy5af4ic7"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1"]
-[ext_resource type="Script" path="res://ui/world_ui/world_message.gd" id="2"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1"]
+[ext_resource type="Script" uid="uid://cuu74bywb8e76" path="res://ui/world_ui/world_message.gd" id="2"]
 
-[node name="WorldMessage" type="PanelContainer"]
+[node name="WorldMessage" type="PanelContainer" unique_id=1910749090]
 mouse_filter = 2
 theme = ExtResource("1")
 theme_type_variation = &"CombatEvent"
 script = ExtResource("2")
 
-[node name="MessageTextLabel" type="RichTextLabel" parent="."]
+[node name="MessageTextLabel" type="RichTextLabel" parent="." unique_id=97829811]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2

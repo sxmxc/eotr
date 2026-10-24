@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_6v3b8"]
 [ext_resource type="Texture2D" uid="uid://b0tp5sktl811" path="res://assets/rift/ui/weakened.svg" id="3_lowpw"]
 [ext_resource type="Script" uid="uid://c3jderjdibqnc" path="res://resources/data/statuses/weakened.gd" id="4_d2m4s"]
-[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
+[ext_resource type="PackedScene" uid="uid://yl2a6cdv5qja" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
 [ext_resource type="Texture2D" uid="uid://5ncnl5b03q5d" path="res://assets/rift/cards/borrowed_spark.webp" id="rift_art"]
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="script"]
 

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://csh0tnnaa06gl" path="res://resources/data/cards/riftwalker/corroding_shot.gd" id="1_script"]
 [ext_resource type="AudioStream" uid="uid://b1vge246lfhtt" path="res://assets/audio/spells/disenchant2.wav" id="2_sound"]
 [ext_resource type="Texture2D" uid="uid://cff6st4fkgmxn" path="res://assets/rift/cards/corroding_shot.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/corroding_shot_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://cn4qnd01ve7ao" path="res://ui/fx/corroding_shot_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_script")
@@ -12,7 +12,8 @@ target_type = 1
 id = "corroding_shot"
 name = "Corroding Shot"
 card_rarity = 1
-description = "One enemy: [b]%s[/b] damage, [b]%s[/b] Corroded.\nCorroded: true damage + block shred at turn end."
+description = "One enemy: [b]%s[/b] damage, [b]%s[/b] Corroded.
+Corroded: true damage + block shred at turn end."
 energy_cost = 2
 card_art = ExtResource("rift_art")
 sound_fx = ExtResource("2_sound")

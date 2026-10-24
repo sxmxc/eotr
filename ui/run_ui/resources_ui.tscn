@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dr3yt337ubpq"]
 
 [ext_resource type="Script" uid="uid://b1fx6tpowmgy0" path="res://ui/run_ui/resources_ui.gd" id="1_3re35"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/resource.svg" id="1_gg252"]
+[ext_resource type="Texture2D" uid="uid://dds3f61nigdk1" path="res://assets/rift/ui/resource.svg" id="1_gg252"]
 
 [node name="ResourcesUI" type="HBoxContainer" unique_id=1317421700]
 offset_right = 40.0

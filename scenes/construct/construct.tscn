@@ -1,32 +1,41 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://cqgc1udwuovd2"]
 
-[ext_resource type="Script" path="res://scenes/construct/construct.gd" id="1"]
-[ext_resource type="Script" path="res://scenes/modifier_handler/modifier_handler.gd" id="2"]
-[ext_resource type="Script" path="res://ui/status_ui/status_handler.gd" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/modifier_handler/modifier.tscn" id="4"]
+[ext_resource type="Script" uid="uid://dh6rynyey1y6s" path="res://scenes/construct/construct.gd" id="1"]
+[ext_resource type="Script" uid="uid://cigq3utpkitt5" path="res://scenes/modifier_handler/modifier_handler.gd" id="2"]
+[ext_resource type="Script" uid="uid://dudciwr18rxs1" path="res://ui/status_ui/status_handler.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="4"]
+
 [sub_resource type="CircleShape2D" id="shape"]
 radius = 22.0
 
-[node name="Construct" type="Node2D" node_paths=PackedStringArray("status_handler")]
+[node name="Construct" type="Node2D" unique_id=709187346 node_paths=PackedStringArray("status_handler")]
 script = ExtResource("1")
 status_handler = NodePath("StatusHandler")
-[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=814278123]
 scale = Vector2(0.12, 0.12)
-[node name="ModifierHandler" type="Node" parent="."]
+
+[node name="ModifierHandler" type="Node" parent="." unique_id=172349136]
 script = ExtResource("2")
-[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("4")]
-[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("4")]
+
+[node name="DamageDealtModifier" parent="ModifierHandler" unique_id=1321647301 instance=ExtResource("4")]
+
+[node name="DamageTakenModifier" parent="ModifierHandler" unique_id=936984754 instance=ExtResource("4")]
 type = 1
-[node name="StatusHandler" type="GridContainer" parent="."]
+
+[node name="StatusHandler" type="GridContainer" parent="." unique_id=1212412242]
 visible = false
 script = ExtResource("3")
-[node name="ImpactAnchor" type="Marker2D" parent="."]
+
+[node name="ImpactAnchor" type="Marker2D" parent="." unique_id=121241207]
 position = Vector2(0, -20)
-[node name="SpellOrigin" type="Marker2D" parent="."]
+
+[node name="SpellOrigin" type="Marker2D" parent="." unique_id=359848369]
 position = Vector2(0, -24)
-[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1227458858]
 collision_layer = 8
 collision_mask = 0
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("shape")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1886340402]
+shape = SubResource("shape")

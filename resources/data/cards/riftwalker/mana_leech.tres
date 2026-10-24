@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://tj64vk8r7j25" path="res://resources/data/cards/riftwalker/mana_leech.gd" id="1_jlex2"]
 [ext_resource type="AudioStream" uid="uid://b1vge246lfhtt" path="res://assets/audio/spells/disenchant2.wav" id="2_0xxly"]
 [ext_resource type="Texture2D" uid="uid://drfju3bmem86u" path="res://assets/rift/cards/mana_leech.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/mana_leech_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://coldkj1ct44mv" path="res://ui/fx/mana_leech_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_jlex2")

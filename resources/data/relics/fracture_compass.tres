@@ -1,11 +1,12 @@
-[gd_resource type="Resource" format=3]
-[ext_resource type="Script" path="res://resources/data/relics/journey_relic.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/move.svg" id="icon"]
+[gd_resource type="Resource" format=3 uid="uid://dhod44vhiagei"]
+
+[ext_resource type="Texture2D" uid="uid://3np3bqrgf08w" path="res://assets/rift/ui/move.svg" id="icon"]
+[ext_resource type="Script" uid="uid://dgfhrfofbrovp" path="res://resources/data/relics/journey_relic.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
-id = "fracture_compass"
 relic_name = "Fracture Compass"
+id = "fracture_compass"
 type = 4
-gift = 0
 icon = ExtResource("icon")
 description = "The first Movement card each turn grants 3 block."
