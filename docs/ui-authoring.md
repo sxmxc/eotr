@@ -61,6 +61,19 @@ shelves and a distinct card-discovery view. Route nodes use subdued opaque fills
 with encounter/state accents. Keep routine currency rewards compact and consent
 choices equally weighted.
 
+Rest illustration columns use the borderless `RoomEmblem` role. Events group the
+actual event name, narrative and wrapping choices in one left column, with a
+directional veil leaving the environment visible on the right. `EncounterChoice`
+uses a restrained resting surface and an accented hover edge; native focus and
+disabled states remain visible. Treasure uses a centered, unframed cache stage
+and a bounded collection action rather than the event layout.
+
+Reward collection separates its large title column from the scrollable claims.
+Card discovery has an opaque illustrated backdrop and an open three-card stage;
+the collection screen must not show through behind card text. Author preview
+scale on the reward/shop scenes and keep CardMenuUI's measuring frame intact.
+Shop cards carry the visual emphasis; relics retain compact comparison rows.
+
 Author shader parameters in material resources; give animated per-instance
 uniforms local material state. Fullscreen effects must multiply incoming COLOR so
 CanvasItem modulation actually fades them. Keep fullscreen geometry stationary

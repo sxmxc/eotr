@@ -90,7 +90,7 @@ size_flags_horizontal = 3
 [node name="Eyebrow" type="Label" parent="UILayer/Layout/Header/Titles"]
 theme_type_variation = &"ShopEyebrow"
 layout_mode = 2
-text = "THE WAYFARER’S EXCHANGE"
+text = "THE WAYFARERâ€™S EXCHANGE"
 
 [node name="Title" type="Label" parent="UILayer/Layout/Header/Titles"]
 theme_type_variation = &"ShopTitle"
@@ -118,7 +118,7 @@ size_flags_vertical = 3
 theme_type_variation = &"ShopCardShelf"
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.6
+size_flags_stretch_ratio = 1.9
 
 [node name="Content" type="VBoxContainer" parent="UILayer/Layout/Inventory/CardShelf"]
 theme_type_variation = &"ShopContent"
@@ -127,21 +127,20 @@ layout_mode = 2
 [node name="Caption" type="Label" parent="UILayer/Layout/Inventory/CardShelf/Content"]
 theme_type_variation = &"ShopCaption"
 layout_mode = 2
-text = "CARDS · GOLD"
+text = "CARDS Â· GOLD"
 
 [node name="Heading" type="Label" parent="UILayer/Layout/Inventory/CardShelf/Content"]
 theme_type_variation = &"ShopHeading"
 layout_mode = 2
 text = "Spellcraft"
 
-[node name="Rule" type="HSeparator" parent="UILayer/Layout/Inventory/CardShelf/Content"]
-layout_mode = 2
 
 [node name="Cards" type="HBoxContainer" parent="UILayer/Layout/Inventory/CardShelf/Content"]
 theme_type_variation = &"ShopCards"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_horizontal = 4
 alignment = 1
 
 [node name="RelicShelf" type="PanelContainer" parent="UILayer/Layout/Inventory"]
@@ -157,15 +156,13 @@ layout_mode = 2
 [node name="Caption" type="Label" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
 theme_type_variation = &"ShopCaption"
 layout_mode = 2
-text = "ARTIFACTS · RESOURCES"
+text = "ARTIFACTS Â· RESOURCES"
 
 [node name="Heading" type="Label" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
 theme_type_variation = &"ShopHeading"
 layout_mode = 2
 text = "Relics"
 
-[node name="Rule" type="HSeparator" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
-layout_mode = 2
 
 [node name="Relics" type="VBoxContainer" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
 theme_type_variation = &"ShopRelics"

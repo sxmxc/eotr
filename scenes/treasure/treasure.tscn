@@ -50,76 +50,66 @@ layer = 3
 
 [node name="RoomLayout" type="VBoxContainer" parent="UILayer"]
 unique_name_in_owner = true
-anchor_left = 0.14
-anchor_top = 0.17
-anchor_right = 0.86
-anchor_bottom = 0.90
+anchor_left = 0.30
+anchor_top = 0.23
+anchor_right = 0.70
+anchor_bottom = 0.86
 theme = ExtResource("theme")
-theme_type_variation = &"RoomStack"
-
-[node name="Eyebrow" type="Label" parent="UILayer/RoomLayout"]
-layout_mode = 2
-theme_type_variation = &"RoomEyebrow"
-text = "SOMETHING LEFT BEHIND"
-autowrap_mode = 3
+theme_type_variation = &"TreasureStack"
+alignment = 1
 
 [node name="Title" type="Label" parent="UILayer/RoomLayout"]
 layout_mode = 2
-theme_type_variation = &"RoomTitle"
-text = "Treasure"
-autowrap_mode = 3
-
-[node name="Subtitle" type="Label" parent="UILayer/RoomLayout"]
-layout_mode = 2
-theme_type_variation = &"RoomMuted"
-text = "A sealed cache rests where the old road ends."
-autowrap_mode = 3
+theme_type_variation = &"RoomEyebrow"
+text = "TREASURE"
+horizontal_alignment = 1
 
 [node name="Cache" type="PanelContainer" parent="UILayer/RoomLayout"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_type_variation = &"RoomSurface"
+theme_type_variation = &"OpenStage"
 
 [node name="Content" type="VBoxContainer" parent="UILayer/RoomLayout/Cache"]
 layout_mode = 2
-theme_type_variation = &"RoomStack"
+theme_type_variation = &"TreasureStack"
 
 [node name="EmblemCenter" type="CenterContainer" parent="UILayer/RoomLayout/Cache/Content"]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/Cache/Content/EmblemCenter"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(160, 160)
+custom_minimum_size = Vector2(240, 240)
 texture = ExtResource("emblem")
 expand_mode = 1
 stretch_mode = 5
 mouse_filter = 2
 
-[node name="Caption" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
-layout_mode = 2
-theme_type_variation = &"RoomEyebrow"
-text = "AN UNCLAIMED RELIC"
-autowrap_mode = 3
-
 [node name="Heading" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
 layout_mode = 2
-theme_type_variation = &"RoomHeading"
-text = "Break the seal"
+theme_type_variation = &"EncounterTitle"
+text = "Sealed cache"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Subtitle" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+layout_mode = 2
+theme_type_variation = &"RoomMuted"
+text = "A sealed cache rests where the old road ends."
+horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="Story" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
 layout_mode = 2
 theme_type_variation = &"RoomBody"
-text = "A relic waits within. Open the cache to discover what the rift has kept."
+text = "Open the cache to claim a relic."
+horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="OpenButton" type="Button" parent="UILayer/RoomLayout/Cache/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-custom_minimum_size = Vector2(240, 60)
+custom_minimum_size = Vector2(320, 64)
+size_flags_horizontal = 4
 theme_type_variation = &"RoomPrimaryButton"
 text = "Open the cache"
 

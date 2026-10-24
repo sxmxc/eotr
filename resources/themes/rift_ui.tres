@@ -365,6 +365,25 @@ bg_color = Color(0.045, 0.065, 0.086, 1)
 border_width_left = 2
 border_color = Color(0.65, 0.55, 0.35, 0.85)
 
+[sub_resource type="StyleBoxFlat" id="discovery_backdrop"]
+bg_color = Color(0.008, 0.014, 0.022, 1)
+
+[sub_resource type="StyleBoxFlat" id="encounter_choice"]
+content_margin_left = 22.0
+content_margin_top = 14.0
+content_margin_right = 22.0
+content_margin_bottom = 14.0
+bg_color = Color(0.055, 0.075, 0.09, 0.78)
+
+[sub_resource type="StyleBoxFlat" id="encounter_choice_hover"]
+content_margin_left = 22.0
+content_margin_top = 14.0
+content_margin_right = 22.0
+content_margin_bottom = 14.0
+bg_color = Color(0.09, 0.17, 0.18, 0.96)
+border_width_left = 3
+border_color = Color(0.65, 0.79, 0.73, 1)
+
 [resource]
 default_font = ExtResource("body")
 default_font_size = 24
@@ -1012,3 +1031,27 @@ WorldMessageStack/base_type = &"VBoxContainer"
 WorldMessageStack/constants/separation = 15
 WorldMessageText/base_type = &"RichTextLabel"
 WorldMessageText/font_sizes/normal_font_size = 20
+DiscoveryBackdrop/base_type = &"Panel"
+DiscoveryBackdrop/styles/panel = SubResource("discovery_backdrop")
+DiscoveryCards/base_type = &"HBoxContainer"
+DiscoveryCards/constants/separation = 64
+DiscoveryStack/base_type = &"VBoxContainer"
+DiscoveryStack/constants/separation = 30
+EncounterChoice/base_type = &"RoomButton"
+EncounterChoice/styles/disabled = SubResource("encounter_choice")
+EncounterChoice/styles/hover = SubResource("encounter_choice_hover")
+EncounterChoice/styles/normal = SubResource("encounter_choice")
+EncounterNarrative/base_type = &"RoomNarrative"
+EncounterNarrative/font_sizes/normal_font_size = 28
+EncounterStack/base_type = &"VBoxContainer"
+EncounterStack/constants/separation = 22
+EncounterTitle/base_type = &"Title"
+EncounterTitle/font_sizes/font_size = 60
+OpenStage/base_type = &"PanelContainer"
+OpenStage/styles/panel = SubResource("ui_style_0")
+SpoilsRow/base_type = &"HBoxContainer"
+SpoilsRow/constants/separation = 100
+SpoilsTitle/base_type = &"Title"
+SpoilsTitle/font_sizes/font_size = 64
+TreasureStack/base_type = &"VBoxContainer"
+TreasureStack/constants/separation = 28
