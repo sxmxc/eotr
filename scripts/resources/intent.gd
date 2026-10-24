@@ -18,7 +18,8 @@ func get_description() -> String:
 		# Actions briefly restore their format template while resolving. Never
 		# expose that template as a combat number or invent an unresolved amount.
 		description = description % ("…" if current_text.contains("%s") else current_text)
-	return description.trim_prefix("Plans to ").capitalize()
+	var sentence := description.trim_prefix("Plans to ")
+	return sentence.left(1).to_upper() + sentence.substr(1)
 
 
 func get_display_text() -> String:

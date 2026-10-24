@@ -72,7 +72,7 @@ theme = ExtResource("5_6ojrk")
 theme_type_variation = &"HudPanelBackground"
 
 [node name="MarginContainer" type="MarginContainer" parent="UILayer/Panel" unique_id=980178122]
-theme_type_variation = &"InsetCompact"
+theme_type_variation = &"VictoryInset"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,7 +82,7 @@ grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="UILayer/Panel/MarginContainer" unique_id=1183723452]
 layout_mode = 2
-theme_type_variation = &"HudPanelMain"
+theme_type_variation = &"EmptyPanel"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UILayer/Panel/MarginContainer/Panel" unique_id=533427958]
 layout_mode = 1
@@ -116,18 +116,12 @@ metadata/_custom_type_script = "uid://c7wfd2um7frkt"
 
 [node name="Message" type="Label" parent="UILayer/Panel/MarginContainer/Panel/VBoxContainer/MarginContainer/VBoxContainer" unique_id=2108282481]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1320, 447)
+custom_minimum_size = Vector2(1220, 280)
 layout_mode = 2
-text = "The last obelisk crumbles into stardust, its scream lost in the collapsing void. 
-With the final echo silenced, the Rift begins to close — not with fury, but relief. 
-You’ve severed the anchors that tethered this fractured dimension to chaos. 
-The Rift’s song grows quiet.
+text = "The Prismatic Core is broken. Its relays have fallen silent.
 
-The Void Spectre — that twisted echo of forgotten timelines — lies broken, 
-unraveling into fading threads of possibility. 
-You have not only survived the echoes...
-
-You have rewritten them."
+You crossed the Fracture, the Corruption, and the Unmaking.
+The run is complete."
 autowrap_mode = 2
 script = ExtResource("5_1gpf6")
 Auto_Start = true

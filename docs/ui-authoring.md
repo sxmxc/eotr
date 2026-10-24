@@ -61,6 +61,23 @@ shelves and a distinct card-discovery view. Route nodes use subdued opaque fills
 with encounter/state accents. Keep routine currency rewards compact and consent
 choices equally weighted.
 
+Rest illustration columns use the borderless `RoomEmblem` role. Events group the
+actual event name, narrative and wrapping choices in one left column, with a
+directional veil leaving the environment visible on the right. `EncounterChoice`
+uses a restrained resting surface and an accented hover edge; native focus and
+disabled states remain visible. Treasure uses a centered, unframed cache stage
+and a bounded collection action rather than the event layout.
+
+Reward collection separates its large title column from the scrollable claims.
+Card discovery has an opaque illustrated backdrop and an open three-card stage;
+the collection screen must not show through behind card text. Author preview
+scale on the reward/shop scenes and keep CardMenuUI's measuring frame intact.
+Shop cards carry the visual emphasis; relics retain compact comparison rows.
+Keep instructional copy tied to current victory,
+fog and campaign rules. Intent descriptions preserve sentence case and proper
+names; compact queue summaries may differ from full inspection text. Victory
+copy names the current final encounter, with its own readable `VictoryTitle` role.
+
 Author shader parameters in material resources; give animated per-instance
 uniforms local material state. Fullscreen effects must multiply incoming COLOR so
 CanvasItem modulation actually fades them. Keep fullscreen geometry stationary
@@ -70,7 +87,10 @@ Detach an outgoing view before attaching its replacement.
 
 Combat composition leaves the field, hand, intentions and turn/collapse information
 readable together. Enemy details belong in the screen-space rail and follow fog
-visibility. Movement/wait glyphs can defer wording to the rail; consequential
+visibility. Each living fogged enemy has an anonymous, disabled "Unknown enemy"
+row; it exposes presence but no identity, health, block, intent or world highlight.
+Revealing it restores live details and selection. Returning fog clears cached
+details, and dying enemies disappear. Movement/wait glyphs can defer wording to the rail; consequential
 numeric intentions must remain readable. Phantom Camera uses the actual HUD safe
 area; avoid solving a layout issue with a competing camera controller.
 
@@ -83,6 +103,31 @@ preview scene retained for standalone enemies. Fog changes close and unpin
 inspection, and selection/hover cannot reopen it while hidden or dying. Card
 aiming continues to dismiss inspection. Board and enemy-exit subscriptions are
 released when the detail panel is rebound or removed.
+
+Queue rows separate the name, health bar with exact HP, current block and intent.
+`EnemyAction.get_queue_summary()` supplies the compact plan; tactical attacks
+include damage × hits and range, with Siphon's healing cue. Full descriptions
+remain in tooltips and inspection. Row height follows the authored content's
+minimum size; intent text is capped at two lines and the rail scrolls for crowds.
+
+## Settings
+
+The same authored settings scene opens from the main menu and inside pause.
+Closing it inside pause keeps the run paused and returns focus to Settings;
+Escape cancels. Audio sliders preview immediately, show percentages and restore
+saved values on Cancel or removal. Music scales its authored bus mix.
+Interface clicks use SoundManager's UI playback methods so the UI slider controls
+them independently of combat effects. Apply saves
+Master, Music, SFX and UI volumes, fullscreen, window size, VSync, tutorials and
+optional telemetry. Telemetry consent changes only on Apply. Restore defaults
+stages changes for Apply; failed saves keep the panel open with an error.
+
+Fullscreen uses the display's native resolution. Window size IDs are stable
+(1920×1080, 1600×900, 1280×720, 2560×1440); windowed sizes fit the usable screen
+with their aspect ratio preserved. Unrelated saves preserve a manually resized
+or moved window. Missing or invalid stored values fall back to defaults; numeric
+volumes are clamped. Offline validation skips automatic display changes and
+exercises the windowed display API explicitly in the native focused suite.
 
 ## Validate the interaction
 

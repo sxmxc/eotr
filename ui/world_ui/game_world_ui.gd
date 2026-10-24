@@ -96,7 +96,7 @@ func _on_player_hand_drawn() -> void:
 
 func _on_end_turn_button_pressed() -> void:
 	_turn_active = false
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	end_turn_button.disabled = true
 	end_turn_button.text = "Enemy turn..."
 	$ActionHint.text = "ENEMY TURN\nResolving their plans"

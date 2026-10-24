@@ -2,18 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_2m76p"]
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1_x0751"]
-
-
-[ext_resource type="Texture2D" path="res://assets/rift/cards/void_residue.webp" id="rift_art"]
+[ext_resource type="Texture2D" uid="uid://d6xnhcdkun32" path="res://assets/rift/cards/void_residue.webp" id="rift_art"]
 
 [resource]
 script = ExtResource("1_x0751")
-card_art = ExtResource("rift_art")
 card_type = 2
 id = "void_residue"
 name = "Void Residue"
-description = "Worthless absolute.
+description = "No effect.
 [b]Exhaust[/b]"
 energy_cost = 1
 exhaust = true
+card_art = ExtResource("rift_art")
 metadata/_custom_type_script = "uid://cre5wuy8yysso"

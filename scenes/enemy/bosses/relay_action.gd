@@ -12,3 +12,6 @@ func update_intent_text() -> void:
 	if enemy and enemy.stats.enemy_name == "Memory Anchor":
 		intent.current_text = "Memory"
 		intent.detail_text = "The Spectre heals this Anchor while listening. Destroy it to stop Void Residue from entering your deck."
+
+func get_queue_summary() -> String:
+	return "Destroy to stop Void Residue" if enemy.stats.enemy_name == "Memory Anchor" else "When lit: damages the core"

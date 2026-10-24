@@ -61,6 +61,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 72)
 theme_type_variation = &"PrimaryButton"
 text = "Resume expedition"
+[node name="SettingsButton" type="Button" parent="PauseControl/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
+text = "Settings"
 [node name="SaveAndQuitButton" type="Button" parent="PauseControl/Content"]
 unique_name_in_owner = true
 layout_mode = 2

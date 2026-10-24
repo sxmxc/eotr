@@ -14,7 +14,7 @@ const CARD_MENU_UI_SCENE = preload("res://ui/card_menu_ui/card_menu_ui.tscn")
 func _ready() -> void:
 	back_button.pressed.connect(
 		func():
-			SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+			SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 			hide()
 	)
 	for card: Node in card_container.get_children():
@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 
 
 func show_current_view(new_title: String, randomized: bool = false) -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	for card: Node in card_container.get_children():
 		card.queue_free()
 	card_popup.hide_popup()

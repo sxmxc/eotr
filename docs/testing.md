@@ -33,9 +33,16 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Reward/shop transactions | `--ui-transactions-only` |
 | Event choices and affordability | `--event-room-only` |
 | Map focus, routes and readability constraints | `--map-only` |
+| Settings save/cancel/defaults, pause access, fog placeholders and enemy rail | `--settings-rail-only` |
 | Battlefield framing and grid | `--combat-automation --battlefield-only` |
 | Native terrain/collapse breakup | `--combat-automation --terrain-only --capture-ui` |
 | Native combat/collapse movie fixture | `--combat-automation --motion-review --capture-ui` |
+
+`--settings-rail-only --capture-ui` also checks native window sizing and VSync,
+and retains reviewed settings/rail PNGs under `.qa-tmp/settings-rail/`. It uses
+controlled fog, health and positioning states in the real battle scene, not a
+natural combat sequence. Fullscreen switching and multi-monitor behavior still
+need a manual display check.
 
 `--combat-automation --card-lifecycle-only` covers shared card authorization
 (stale phase/cost, foreign/freed targets, lock ownership and invalid release),

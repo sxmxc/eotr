@@ -27,33 +27,33 @@ func _ready() -> void:
 
 
 func _on_continue_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	run_bootstrap.type = RunBootstrap.Type.CONTINUED_RUN
 	get_tree().change_scene_to_packed(RUN_SCENE)
 
 
 func _on_new_game_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().change_scene_to_packed(CLASS_SELECTOR_SCENE)
 
 
 func _on_sandbox_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().change_scene_to_packed(SANDBOX_SCENE)
 
 
 func _on_data_editor_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().change_scene_to_packed(DATA_EDITOR_SCENE)
 
 
 func _on_exit_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	TelemetryManager.request_quit()
 	pass  # Replace with function body.
 
 
 func _on_settings_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().change_scene_to_packed(SETTINGS_MENU)
 	pass # Replace with function body.

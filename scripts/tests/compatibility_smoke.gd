@@ -1134,7 +1134,7 @@ func _test_card_interaction(world: GameWorld) -> void:
 	for enemy: Enemy in world.enemy_handler.get_children():
 		if world.tilemap.is_tile_behind_fog(enemy.current_tile_position):
 			hidden_cells.append(enemy.current_tile_position)
-			_check(not enemy.queue_button.visible, "Queue does not expose enemies through fog")
+			_check(enemy.queue_button.visible and enemy.queue_button.disabled and enemy.queue_button.get_node("%EnemyName").text == "Unknown enemy", "Queue shows anonymous, noninteractive placeholders through fog")
 	world.tilemap.show_target_highlights(hidden_cells)
 	_check(world.tilemap.target_highlight_layer.active_target_highlights.is_empty(), "Target overlay does not expose hidden hexes")
 	world.tilemap.clear_target_highlights()

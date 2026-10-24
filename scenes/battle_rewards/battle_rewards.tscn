@@ -44,53 +44,67 @@ anchor_bottom = 1.0
 offset_top = 100.0
 offset_bottom = -40.0
 theme = ExtResource("theme")
-[node name="Content" type="VBoxContainer" parent="UILayer/Center"]
-theme_type_variation = &"PageStack"
+[node name="Content" type="HBoxContainer" parent="UILayer/Center"]
+theme_type_variation = &"SpoilsRow"
 layout_mode = 2
-custom_minimum_size = Vector2(720, 0)
-[node name="Eyebrow" type="Label" parent="UILayer/Center/Content"]
+custom_minimum_size = Vector2(1400, 0)
+
+[node name="Titles" type="VBoxContainer" parent="UILayer/Center/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(480, 0)
+size_flags_vertical = 4
+theme_type_variation = &"PageStack"
+
+[node name="Eyebrow" type="Label" parent="UILayer/Center/Content/Titles"]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "ENCOUNTER COMPLETE"
-[node name="Title" type="Label" parent="UILayer/Center/Content"]
+[node name="Title" type="Label" parent="UILayer/Center/Content/Titles"]
 layout_mode = 2
-theme_type_variation = &"Title"
-text = "Spoils of the Rift"
-[node name="Prompt" type="Label" parent="UILayer/Center/Content"]
+theme_type_variation = &"SpoilsTitle"
+text = "Spoils of\nthe Rift"
+autowrap_mode = 3
+[node name="Prompt" type="Label" parent="UILayer/Center/Content/Titles"]
 layout_mode = 2
 theme_type_variation = &"Muted"
 text = "Collect your rewards before returning to the route."
-[node name="RewardScroll" type="ScrollContainer" parent="UILayer/Center/Content"]
+autowrap_mode = 3
+[node name="Collection" type="VBoxContainer" parent="UILayer/Center/Content"]
+layout_mode = 2
+custom_minimum_size = Vector2(820, 0)
+size_flags_horizontal = 3
+theme_type_variation = &"PageStack"
+[node name="RewardScroll" type="ScrollContainer" parent="UILayer/Center/Content/Collection"]
 unique_name_in_owner = true
 layout_mode = 2
 horizontal_scroll_mode = 0
-[node name="List" type="VBoxContainer" parent="UILayer/Center/Content/RewardScroll"]
+[node name="List" type="VBoxContainer" parent="UILayer/Center/Content/Collection/RewardScroll"]
 theme_type_variation = &"ListStack"
 layout_mode = 2
 size_flags_horizontal = 3
-[node name="RewardLabel" type="Label" parent="UILayer/Center/Content/RewardScroll/List"]
+[node name="RewardLabel" type="Label" parent="UILayer/Center/Content/Collection/RewardScroll/List"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "BATTLE REWARDS"
-[node name="Rewards" type="VBoxContainer" parent="UILayer/Center/Content/RewardScroll/List"]
+[node name="Rewards" type="VBoxContainer" parent="UILayer/Center/Content/Collection/RewardScroll/List"]
 theme_type_variation = &"CompactStack"
 unique_name_in_owner = true
 layout_mode = 2
-[node name="EnemyRewardLabel" type="Label" parent="UILayer/Center/Content/RewardScroll/List"]
+[node name="EnemyRewardLabel" type="Label" parent="UILayer/Center/Content/Collection/RewardScroll/List"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "ENEMY BOUNTIES"
-[node name="EnemyRewards" type="VBoxContainer" parent="UILayer/Center/Content/RewardScroll/List"]
+[node name="EnemyRewards" type="VBoxContainer" parent="UILayer/Center/Content/Collection/RewardScroll/List"]
 theme_type_variation = &"CompactStack"
 unique_name_in_owner = true
 layout_mode = 2
-[node name="EmptyLabel" type="Label" parent="UILayer/Center/Content/RewardScroll/List"]
+[node name="EmptyLabel" type="Label" parent="UILayer/Center/Content/Collection/RewardScroll/List"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "All rewards collected."
-[node name="BackButton" type="Button" parent="UILayer/Center/Content"]
+[node name="BackButton" type="Button" parent="UILayer/Center/Content/Collection"]
 layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
 theme_type_variation = &"PrimaryButton"
@@ -98,4 +112,4 @@ text = "Continue expedition  →"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("reveal_library")
 autoplay = "reveal"
-[connection signal="pressed" from="UILayer/Center/Content/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="UILayer/Center/Content/Collection/BackButton" to="." method="_on_back_button_pressed"]

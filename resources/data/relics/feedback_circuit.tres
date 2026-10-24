@@ -1,6 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://cd45n3jrdgucm"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/circuit.svg" id="1_ui7ic"]
+[ext_resource type="Texture2D" uid="uid://bygbsvtsoqcql" path="res://assets/rift/ui/circuit.svg" id="1_ui7ic"]
 [ext_resource type="Script" uid="uid://cx2phnwcooft1" path="res://resources/data/relics/feedback_circuit.gd" id="1_uuf6b"]
 
 [resource]
@@ -9,5 +9,5 @@ relic_name = "Feedback Circuit"
 id = "feedback_circuit"
 type = 4
 icon = ExtResource("1_ui7ic")
-description = "Whenver you play [b]3[/b] skills during your turn, deal [b]5[/b] damage to all enemies"
+description = "After every [b]3[/b] Skill cards played in a turn, deal [b]5[/b] damage to all enemies."
 metadata/_custom_type_script = "uid://bub7h53ncapx2"

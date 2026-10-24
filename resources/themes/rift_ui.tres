@@ -203,6 +203,9 @@ corner_radius_bottom_left = 8
 shadow_color = Color(0, 0, 0, 0.65)
 shadow_size = 16
 
+[sub_resource type="StyleBoxFlat" id="discovery_backdrop"]
+bg_color = Color(0.008, 0.014, 0.022, 1)
+
 [sub_resource type="StyleBoxFlat" id="discovery_surface"]
 content_margin_left = 24.0
 content_margin_top = 24.0
@@ -214,6 +217,22 @@ border_color = Color(0.54, 0.46, 0.32, 0.7)
 shadow_size = 20
 
 [sub_resource type="StyleBoxEmpty" id="ui_style_0"]
+
+[sub_resource type="StyleBoxFlat" id="encounter_choice"]
+content_margin_left = 22.0
+content_margin_top = 14.0
+content_margin_right = 22.0
+content_margin_bottom = 14.0
+bg_color = Color(0.055, 0.075, 0.09, 0.78)
+
+[sub_resource type="StyleBoxFlat" id="encounter_choice_hover"]
+content_margin_left = 22.0
+content_margin_top = 14.0
+content_margin_right = 22.0
+content_margin_bottom = 14.0
+bg_color = Color(0.09, 0.17, 0.18, 0.96)
+border_width_left = 3
+border_color = Color(0.65, 0.79, 0.73, 1)
 
 [sub_resource type="StyleBoxFlat" id="ui_style_3"]
 bg_color = Color(0.65, 0.31, 0.29, 1)
@@ -295,6 +314,20 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="queue_health_bg"]
+bg_color = Color(0.025, 0.04, 0.055, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="queue_health_fill"]
+bg_color = Color(0.65, 0.31, 0.29, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="reward"]
 content_margin_left = 20.0
 content_margin_top = 14.0
@@ -318,6 +351,12 @@ border_width_bottom = 1
 border_color = Color(0.52, 0.43, 0.63, 0.8)
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxEmpty" id="room_emblem"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxFlat" id="shop_shelf"]
 content_margin_left = 28.0
@@ -343,6 +382,15 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="settings_panel"]
+content_margin_left = 36.0
+content_margin_top = 28.0
+content_margin_right = 36.0
+content_margin_bottom = 28.0
+bg_color = Color(0.038, 0.057, 0.085, 0.99)
+border_width_top = 2
+border_color = Color(0.54, 0.46, 0.32, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="ui_style_1"]
 bg_color = Color(0.670588, 0.607843, 0.556863, 1)
@@ -537,6 +585,12 @@ DebugCoordinate/base_type = &"Label"
 DebugCoordinate/colors/font_color = Color(1, 0.028, 0, 1)
 DebugCoordinate/font_sizes/font_size = 16
 DebugCoordinate/fonts/font = ExtResource("pixel_font")
+DiscoveryBackdrop/base_type = &"Panel"
+DiscoveryBackdrop/styles/panel = SubResource("discovery_backdrop")
+DiscoveryCards/base_type = &"HBoxContainer"
+DiscoveryCards/constants/separation = 64
+DiscoveryStack/base_type = &"VBoxContainer"
+DiscoveryStack/constants/separation = 30
 DiscoverySurface/base_type = &"PanelContainer"
 DiscoverySurface/styles/panel = SubResource("discovery_surface")
 EditorDetailInset/base_type = &"MarginContainer"
@@ -559,6 +613,16 @@ EditorUnsaved/base_type = &"Label"
 EditorUnsaved/colors/font_color = Color(1, 0.85, 0.5, 1)
 EmptyPanel/base_type = &"Panel"
 EmptyPanel/styles/panel = SubResource("ui_style_0")
+EncounterChoice/base_type = &"RoomButton"
+EncounterChoice/styles/disabled = SubResource("encounter_choice")
+EncounterChoice/styles/hover = SubResource("encounter_choice_hover")
+EncounterChoice/styles/normal = SubResource("encounter_choice")
+EncounterNarrative/base_type = &"RoomNarrative"
+EncounterNarrative/font_sizes/normal_font_size = 28
+EncounterStack/base_type = &"VBoxContainer"
+EncounterStack/constants/separation = 22
+EncounterTitle/base_type = &"Title"
+EncounterTitle/font_sizes/font_size = 60
 EnemyHealthBar/base_type = &"ProgressBar"
 EnemyHealthBar/styles/background = SubResource("ui_style_2")
 EnemyHealthBar/styles/fill = SubResource("ui_style_3")
@@ -569,6 +633,7 @@ EnemyQueueEntry/base_type = &"Button"
 EnemyQueueEntry/constants/h_separation = 10
 EnemyQueueEntry/constants/icon_max_width = 28
 EnemyQueueEntry/font_sizes/font_size = 19
+EnemyQueueEntry/styles/disabled = SubResource("enemy_row")
 EnemyQueueEntry/styles/normal = SubResource("enemy_row")
 EnemyRail/base_type = &"VBoxContainer"
 EnemyRail/constants/separation = 32
@@ -742,6 +807,8 @@ Muted/colors/font_color = Color(0.52, 0.61, 0.67, 1)
 Muted/font_sizes/font_size = 20
 ObjectiveQueueEntry/base_type = &"EnemyQueueEntry"
 ObjectiveQueueEntry/colors/font_color = Color(0.851, 0.718, 0.435, 1)
+OpenStage/base_type = &"PanelContainer"
+OpenStage/styles/panel = SubResource("ui_style_0")
 OutcomeTitle/base_type = &"Title"
 OutcomeTitle/font_sizes/font_size = 64
 PageStack/base_type = &"VBoxContainer"
@@ -783,6 +850,25 @@ PrimaryButton/styles/focus = SubResource("focus")
 PrimaryButton/styles/hover = SubResource("primary_hover")
 PrimaryButton/styles/normal = SubResource("primary")
 PrimaryButton/styles/pressed = SubResource("primary_pressed")
+QueueBlock/base_type = &"Label"
+QueueBlock/colors/font_color = Color(0.6, 0.8, 0.88, 1)
+QueueBlock/font_sizes/font_size = 16
+QueueHealthBar/base_type = &"ProgressBar"
+QueueHealthBar/styles/background = SubResource("queue_health_bg")
+QueueHealthBar/styles/fill = SubResource("queue_health_fill")
+QueueHealthValue/base_type = &"Label"
+QueueHealthValue/colors/font_color = Color(0.7, 0.76, 0.77, 1)
+QueueHealthValue/font_sizes/font_size = 16
+QueueIntentRow/base_type = &"HBoxContainer"
+QueueIntentRow/constants/separation = 8
+QueueName/base_type = &"Label"
+QueueName/font_sizes/font_size = 19
+QueueObjectiveName/base_type = &"QueueName"
+QueueObjectiveName/colors/font_color = Color(0.851, 0.718, 0.435, 1)
+QueuePlan/base_type = &"Label"
+QueuePlan/font_sizes/font_size = 18
+QueueStack/base_type = &"VBoxContainer"
+QueueStack/constants/separation = 3
 QuietButton/base_type = &"Button"
 QuietButton/font_sizes/font_size = 17
 QuietButton/styles/normal = SubResource("quiet_action")
@@ -835,6 +921,8 @@ RoomBody/base_type = &"Label"
 RoomBody/font_sizes/font_size = 23
 RoomButton/base_type = &"Button"
 RoomButton/font_sizes/font_size = 22
+RoomEmblem/base_type = &"PanelContainer"
+RoomEmblem/styles/panel = SubResource("room_emblem")
 RoomEyebrow/base_type = &"Label"
 RoomEyebrow/colors/font_color = Color(0.72, 0.63, 0.44, 1)
 RoomEyebrow/font_sizes/font_size = 16
@@ -909,17 +997,27 @@ SelectedClassButton/font_sizes/font_size = 19
 SelectionGrid/base_type = &"GridContainer"
 SelectionGrid/constants/h_separation = 12
 SelectionGrid/constants/v_separation = 24
+SettingsColumns/base_type = &"HBoxContainer"
+SettingsColumns/constants/separation = 56
 SettingsContentInset/base_type = &"MarginContainer"
 SettingsContentInset/constants/margin_left = 100
 SettingsContentInset/constants/margin_right = 100
+SettingsError/base_type = &"Label"
+SettingsError/colors/font_color = Color(1, 0.55, 0.45, 1)
+SettingsFooter/base_type = &"HBoxContainer"
+SettingsFooter/constants/separation = 16
 SettingsOption/base_type = &"OptionButton"
 SettingsOption/font_sizes/font_size = 24
+SettingsPanel/base_type = &"PanelContainer"
+SettingsPanel/styles/panel = SubResource("settings_panel")
 SettingsSectionInset/base_type = &"MarginContainer"
 SettingsSectionInset/constants/margin_left = 40
 SettingsSectionInset/constants/margin_right = 40
 SettingsSeparator/base_type = &"HSeparator"
 SettingsSeparator/constants/separation = 20
 SettingsSeparator/styles/separator = SubResource("ui_style_1")
+SettingsStack/base_type = &"VBoxContainer"
+SettingsStack/constants/separation = 16
 ShopBalance/base_type = &"Label"
 ShopBalance/colors/font_color = Color(0.81, 0.74, 0.57, 1)
 ShopBalance/font_sizes/font_size = 22
@@ -985,6 +1083,10 @@ SmallStack/base_type = &"VBoxContainer"
 SmallStack/constants/separation = 8
 SpaciousStack/base_type = &"VBoxContainer"
 SpaciousStack/constants/separation = 30
+SpoilsRow/base_type = &"HBoxContainer"
+SpoilsRow/constants/separation = 100
+SpoilsTitle/base_type = &"Title"
+SpoilsTitle/font_sizes/font_size = 64
 StatusCount/base_type = &"Label"
 StatusCount/colors/font_color = Color(0.93, 0.9, 0.84, 1)
 StatusCount/font_sizes/font_size = 32
@@ -1003,11 +1105,18 @@ TooltipContentInset/constants/margin_left = 10
 TooltipContentInset/constants/margin_right = 10
 TooltipPanel/base_type = &"Panel"
 TooltipPanel/styles/panel = SubResource("surface")
+TreasureStack/base_type = &"VBoxContainer"
+TreasureStack/constants/separation = 28
 TutorialMarker/base_type = &"Label"
 TutorialMarker/colors/font_color = Color(0.701961, 0.647059, 0.333333, 1)
 TutorialMarker/font_sizes/font_size = 75
+VictoryInset/base_type = &"MarginContainer"
+VictoryInset/constants/margin_bottom = 24
+VictoryInset/constants/margin_left = 48
+VictoryInset/constants/margin_right = 48
+VictoryInset/constants/margin_top = 24
 VictoryTitle/base_type = &"MediumLabel"
-VictoryTitle/colors/font_color = Color(0.294118, 0.239216, 0.266667, 1)
+VictoryTitle/colors/font_color = Color(0.88, 0.86, 0.77, 1)
 WorldMessageStack/base_type = &"VBoxContainer"
 WorldMessageStack/constants/separation = 15
 WorldMessageText/base_type = &"RichTextLabel"

@@ -89,7 +89,7 @@ func add_card_reward() -> void:
 	var card_reward := REWARD_BUTTON.instantiate() as RewardButton
 	card_reward.reward_style = &"RewardCard"
 	card_reward.action_text = "Discover  →"
-	card_reward.detail_text = "A new spell. A different path through the rift."
+	card_reward.detail_text = "Choose one card for your deck."
 	card_reward.reward_icon = CARD_ICON
 	card_reward.reward_text = CARD_TEXT
 	card_reward.pressed.connect(_show_card_rewards)
@@ -124,7 +124,7 @@ func add_relic_reward(relic: Relic) -> void:
 	var relic_reward := REWARD_BUTTON.instantiate() as RewardButton
 	relic_reward.reward_style = &"RewardRelic"
 	relic_reward.action_text = "Claim  →"
-	relic_reward.detail_text = "An artifact for the journey ahead."
+	relic_reward.detail_text = "Keep this relic for the rest of the run."
 	relic_reward.reward_icon = relic.icon
 	relic_reward.reward_text = relic.relic_name
 	relic_reward.pressed.connect(_on_relic_reward_taken.bind(relic))
