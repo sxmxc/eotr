@@ -73,7 +73,9 @@ an eligible unowned relic, with 35 gold fallback when their relic pool is exhaus
 Shops offer cards for gold and relics for resources, filter already-owned or
 ineligible relics, and apply shop-cost modifiers. Rest restores 30% of maximum
 health or offers deck refinement; shop refinement costs 60 gold. Removal through
-the shared refinement control preserves a minimum deck size of eight. Treasure
+the shared refinement control preserves a minimum deck size of eight. A campfire
+commits one choice: resting, refining or continuing locks the remaining actions
+during its exit fade and cancels any pending refinement selection. Treasure
 opens through its own scene and hands its rolled relic to the reward interface.
 Events use actual affordability/choice handlers and can cause noncombat defeat.
 Lethal event costs end the run and remove its checkpoint. Once the room is

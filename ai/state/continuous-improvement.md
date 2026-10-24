@@ -1,5 +1,12 @@
 # Continuous improvement
 
+## 2026-10-24 - Commit one campfire choice
+
+- Rest now deactivates deck refinement when resting, refining or continuing starts its exit fade. This closes a pending selection and rejects later completion/reopening, preventing healing plus removal or removal after skipping. Healing, prices and minimum deck size remain unchanged.
+- Reproduced deck removal after Rest/Continue before the fix. Focused offline Godot 4.7.2 event-room checks pass headlessly and with native D3D12 Forward+ (zero failures, exit 0), covering choices, stale completion and repeated activation. Native checks also cover cancellation before resting. Shared shop/reward transaction checks and resource/whitespace guards pass.
+- Limits: controlled button-signal fixtures and native offscreen assertions; no rendered visual review, natural gameplay or export validation. Existing certificate-store diagnostic and Void Spectre UID fallback warning remain.
+- Next: repeated multi-floor save/resume through AutoWalker remains the highest-value integration check; investigate other room races only against concrete failures.
+
 ## 2026-10-22 - Stop detached event callbacks
 
 - EventRoom ignores choice/exit callbacks after leaving the tree and stops control updates when a lethal choice replaces it. A detached Leave callback previously replaced defeat with the map and recreated the deleted checkpoint. Costs/rewards and lethal-cost rules remain unchanged.

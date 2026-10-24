@@ -30,6 +30,7 @@ func _begin_leaving() -> bool:
 	leaving = true
 	rest_button.disabled = true
 	%SkipButton.disabled = true
+	%RefineDeck.deactivate()
 	return true
 
 
