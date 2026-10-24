@@ -6,6 +6,15 @@ var run_stats: RunStats
 var price := 0
 var used := false
 var pending := false
+var inactive := false
+
+func deactivate() -> void:
+	inactive = true
+	var was_pending := pending
+	pending = false
+	_refresh()
+	if was_pending:
+		($SelectionLayer/Selection as CardCostSelection)._on_cancel_pressed()
 
 func _ready() -> void:
 	pressed.connect(_choose)
@@ -23,10 +32,10 @@ func configure(stats: PlayerStats, currency: RunStats = null, gold_cost: int = 0
 
 func _refresh() -> void:
 	text = "Refine deck - remove one card" + (" (%d gold)" % price if price else " instead of resting")
-	disabled = used or player_stats == null or player_stats.deck.cards.size() <= 8 or (price > 0 and (run_stats == null or run_stats.gold < price))
+	disabled = inactive or used or player_stats == null or player_stats.deck.cards.size() <= 8 or (price > 0 and (run_stats == null or run_stats.gold < price))
 
 func _choose() -> void:
-	if pending or disabled: return
+	if not is_inside_tree() or inactive or pending or disabled: return
 	pending = true
 	var request := CardCostSelectionRequest.new()
 	request.source = self
@@ -36,7 +45,7 @@ func _choose() -> void:
 	Events.card_cost_selection_requested.emit(request)
 
 func _confirm(cards: Array[Card], request: CardCostSelectionRequest) -> void:
-	if request.source != self or not pending: return
+	if not is_inside_tree() or inactive or request.source != self or not pending: return
 	pending = false
 	if cards.size() != 1 or used or player_stats.deck.cards.size() <= 8 or not player_stats.deck.cards.has(cards[0]): return
 	if price > 0 and (run_stats == null or run_stats.gold < price): return

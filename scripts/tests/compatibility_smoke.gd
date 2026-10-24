@@ -656,7 +656,44 @@ func _test_telemetry_disclaimer() -> void:
 	GameSettings.save_settings(original)
 
 
+func _test_rest_choice_lock() -> void:
+	for choice: String in ["rest", "skip", "refine", "rest_after_cancel"]:
+		var stats: PlayerStats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+		stats.health = 10
+		var room: Rest = load("res://scenes/rest/rest.tscn").instantiate()
+		room.player_stats = stats
+		add_child(room)
+		var refine: Button = room.get_node("%RefineDeck")
+		var selection: CardCostSelection = refine.get_node("SelectionLayer/Selection")
+		var count := stats.deck.cards.size()
+		refine.pressed.emit()
+		var request := selection._request
+		_check(request != null, "Campfire refinement opens before a choice: %s" % choice)
+		if choice == "rest_after_cancel":
+			selection._on_cancel_pressed()
+		if choice == "refine":
+			selection._selected_cards.assign([stats.deck.cards[0]])
+			selection._on_confirm_pressed()
+		elif choice in ["rest", "rest_after_cancel"]:
+			room.rest_button.pressed.emit()
+		else:
+			room.get_node("%SkipButton").pressed.emit()
+		var health := stats.health
+		var committed_count := stats.deck.cards.size()
+		_check(committed_count == count - (1 if choice == "refine" else 0), "Campfire applies only the selected deck change: %s" % choice)
+		_check(health == (mini(stats.max_health, 10 + ceili(stats.max_health * 0.3)) if choice in ["rest", "rest_after_cancel"] else 10), "Campfire heals only for Rest: %s" % choice)
+		_check(refine.disabled and not selection.visible, "Campfire closes and disables refinement during exit: %s" % choice)
+		Events.card_cost_selection_completed.emit([stats.deck.cards[0]] as Array[Card], request)
+		refine.pressed.emit()
+		room.rest_button.pressed.emit()
+		_check(stats.deck.cards.size() == committed_count and stats.health == health, "Campfire rejects pending and repeated choices: %s" % choice)
+		_check(not selection.visible, "Campfire cannot reopen refinement during exit: %s" % choice)
+		room.queue_free()
+		await get_tree().process_frame
+
+
 func _test_supporting_rooms() -> void:
+	await _test_rest_choice_lock()
 	var stats: PlayerStats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
 	stats.health = 10
 	var run_stats := RunStats.new()
