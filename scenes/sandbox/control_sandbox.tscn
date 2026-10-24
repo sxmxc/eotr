@@ -114,7 +114,6 @@ anchors_preset = 0
 
 [node name="CardNameLabel" parent="CardUI/Visuals" index="7"]
 layout_mode = 0
-theme_override_font_sizes/font_size = 18
 
 [node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1831339361]
 visible = false

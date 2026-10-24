@@ -7,4 +7,5 @@ extends Resource
 @export var damage: int
 @export var attack_range: int
 @export var texture: Texture2D
+@export var attack_fx: PackedScene
 

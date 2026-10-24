@@ -238,8 +238,6 @@ func _resolve_move(config: CardEffectConfig, context: ResolveContext) -> void:
 	)
 	await _maybe_play_pre_fx(config, context, targets)
 	effect.execute(targets)
-	if context.card.tags.has("synthforged"):
-		SynthforgedFX.play_on(context.player, _select_visual(config, context.card))
 
 
 func _resolve_gather(config: CardEffectConfig, context: ResolveContext) -> void:
@@ -290,7 +288,7 @@ func _resolve_draw(config: CardEffectConfig, context: ResolveContext) -> void:
 	await _maybe_play_pre_fx(config, context, targets)
 	effect.execute(targets)
 	if config.visual_fx and config.attach_visual_to_effect:
-		SynthforgedFX.play_on(context.player, _select_visual(config, context.card))
+		VisualFX.play_on(context.player, _select_visual(config, context.card))
 
 
 func _resolve_status(config: CardEffectConfig, context: ResolveContext) -> void:
@@ -420,22 +418,22 @@ func _resolve_construct(config: CardEffectConfig, context: ResolveContext) -> vo
 			var tile := _find_tile_target(context.targets)
 			if tile:
 				var unit := world.summons.deploy(config.construct, tile.tile_position)
-				if unit: SynthforgedFX.play_on(unit, _select_visual(config, context.card))
+				if unit: VisualFX.play_on(unit, _select_visual(config, context.card))
 		CardEffectConfig.EffectType.FABRICATE:
 			context.player_stats.fabrication_discount = true
 		CardEffectConfig.EffectType.RELOCATE:
 			var tile := _find_tile_target(context.targets)
 			if tile and context.targets[0] is Construct:
 				world.summons.relocate(context.targets[0], tile.tile_position)
-				SynthforgedFX.play_on(context.targets[0], _select_visual(config, context.card))
+				VisualFX.play_on(context.targets[0], _select_visual(config, context.card))
 		_:
 			for target: Node in targets:
 				if not is_instance_valid(target) or not target is Construct or target.is_dying: continue
 				match config.effect_type:
 					CardEffectConfig.EffectType.REPAIR:
 						target.stats.heal(config.amount)
-						SynthforgedFX.play_on(target, _select_visual(config, context.card))
+						VisualFX.play_on(target, _select_visual(config, context.card))
 					CardEffectConfig.EffectType.COMMAND:
-						SynthforgedFX.play_on(target, _select_visual(config, context.card))
+						VisualFX.play_on(target, _select_visual(config, context.card))
 						await target.activate()
 					CardEffectConfig.EffectType.DISMANTLE: target.destroy()

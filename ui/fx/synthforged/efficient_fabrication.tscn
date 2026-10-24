@@ -1,9 +1,175 @@
 [gd_scene format=3 uid="uid://bvdye1xiy4ldf"]
 
-[ext_resource type="Script" uid="uid://bh8p2nkcvxhfy" path="res://ui/fx/synthforged_fx.gd" id="1"]
+[ext_resource type="Script" path="res://ui/fx/animated_visual_fx.gd" id="script"]
 
-[node name="SynthforgedFX" type="Node2D" unique_id=1282071741]
+[sub_resource type="Animation" id="Animation_play"]
+resource_name = "play"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/path = NodePath("LeftArm:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-30, 20, -30, 8, -5, -6), PackedVector2Array(-30, 20, -27, 8, -5, -6), PackedVector2Array(-30, 20, -24, 8, -5, -6), PackedVector2Array(-30, 20, -21, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6), PackedVector2Array(-30, 20, -18, 8, -5, -6)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RightArm:points")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(30, 20, 30, 8, 5, -6), PackedVector2Array(30, 20, 27, 8, 5, -6), PackedVector2Array(30, 20, 24, 8, 5, -6), PackedVector2Array(30, 20, 21, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6), PackedVector2Array(30, 20, 18, 8, 5, -6)]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Spark1:points")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 4, 0), PackedVector2Array(1.83333, 0.0555556, 5.83333, 0.0555556), PackedVector2Array(3.66667, 0.222222, 7.66667, 0.222222), PackedVector2Array(5.5, 0.5, 9.5, 0.5), PackedVector2Array(7.33333, 0.888889, 11.3333, 0.888889), PackedVector2Array(9.16667, 1.38889, 13.1667, 1.38889), PackedVector2Array(11, 2, 15, 2), PackedVector2Array(12.8333, 2.72222, 16.8333, 2.72222), PackedVector2Array(14.6667, 3.55556, 18.6667, 3.55556), PackedVector2Array(16.5, 4.5, 20.5, 4.5), PackedVector2Array(18.3333, 5.55556, 22.3333, 5.55556), PackedVector2Array(20.1667, 6.72222, 24.1667, 6.72222), PackedVector2Array(22, 8, 26, 8)]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Spark2:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 2.45498, 3.15801), PackedVector2Array(1.1252, 1.50298, 3.58018, 4.66099), PackedVector2Array(2.2504, 3.11707, 4.70538, 6.27508), PackedVector2Array(3.3756, 4.84227, 5.83058, 8.00029), PackedVector2Array(4.5008, 6.67858, 6.95579, 9.8366), PackedVector2Array(5.626, 8.62601, 8.08099, 11.784), PackedVector2Array(6.7512, 10.6845, 9.20619, 13.8426), PackedVector2Array(7.8764, 12.8542, 10.3314, 16.0122), PackedVector2Array(9.0016, 15.1349, 11.4566, 18.293), PackedVector2Array(10.1268, 17.5268, 12.5818, 20.6848), PackedVector2Array(11.252, 20.0298, 13.707, 23.1878), PackedVector2Array(12.3772, 22.6439, 14.8322, 25.8019), PackedVector2Array(13.5024, 25.3691, 15.9574, 28.5271)]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Spark3:points")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-0, 0, -0.986529, 3.87644), PackedVector2Array(-0.452159, 1.83226, -1.43869, 5.70869), PackedVector2Array(-0.904318, 3.77562, -1.89085, 7.65206), PackedVector2Array(-1.35648, 5.8301, -2.34301, 9.70654), PackedVector2Array(-1.80864, 7.99569, -2.79517, 11.8721), PackedVector2Array(-2.2608, 10.2724, -3.24733, 14.1488), PackedVector2Array(-2.71296, 12.6602, -3.69948, 16.5366), PackedVector2Array(-3.16511, 15.1591, -4.15164, 19.0356), PackedVector2Array(-3.61727, 17.7692, -4.6038, 21.6456), PackedVector2Array(-4.06943, 20.4903, -5.05596, 24.3667), PackedVector2Array(-4.52159, 23.3226, -5.50812, 27.199), PackedVector2Array(-4.97375, 26.2659, -5.96028, 30.1424), PackedVector2Array(-5.42591, 29.3204, -6.41244, 33.1968)]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Spark4:points")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-0, 0, -3.66594, 1.60028), PackedVector2Array(-1.68022, 0.789016, -5.34616, 2.38929), PackedVector2Array(-3.36044, 1.68914, -7.02638, 3.28942), PackedVector2Array(-5.04067, 2.70038, -8.70661, 4.30066), PackedVector2Array(-6.72089, 3.82273, -10.3868, 5.42301), PackedVector2Array(-8.40111, 5.05619, -12.0671, 6.65647), PackedVector2Array(-10.0813, 6.40076, -13.7473, 8.00104), PackedVector2Array(-11.7616, 7.85645, -15.4275, 9.45673), PackedVector2Array(-13.4418, 9.42324, -17.1077, 11.0235), PackedVector2Array(-15.122, 11.1011, -18.7879, 12.7014), PackedVector2Array(-16.8022, 12.8902, -20.4682, 14.4904), PackedVector2Array(-18.4824, 14.7903, -22.1484, 16.3906), PackedVector2Array(-20.1627, 16.8015, -23.8286, 18.4018)]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Spark5:points")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-0, 0, -3.51338, -1.91211), PackedVector2Array(-1.6103, -0.820828, -5.12368, -2.73294), PackedVector2Array(-3.2206, -1.53054, -6.73398, -3.44265), PackedVector2Array(-4.8309, -2.12915, -8.34428, -4.04126), PackedVector2Array(-6.4412, -2.61664, -9.95458, -4.52875), PackedVector2Array(-8.0515, -2.99303, -11.5649, -4.90514), PackedVector2Array(-9.6618, -3.2583, -13.1752, -5.17041), PackedVector2Array(-11.2721, -3.41246, -14.7855, -5.32457), PackedVector2Array(-12.8824, -3.45551, -16.3958, -5.36762), PackedVector2Array(-14.4927, -3.38745, -18.0061, -5.29956), PackedVector2Array(-16.103, -3.20828, -19.6164, -5.12039), PackedVector2Array(-17.7133, -2.91799, -21.2267, -4.8301), PackedVector2Array(-19.3236, -2.5166, -22.837, -4.42871)]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Spark6:points")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-0, 0, -0.646705, -3.94738), PackedVector2Array(-0.296406, -1.75366, -0.943111, -5.70103), PackedVector2Array(-0.592813, -3.39621, -1.23952, -7.34358), PackedVector2Array(-0.889219, -4.92764, -1.53592, -8.87502), PackedVector2Array(-1.18563, -6.34797, -1.83233, -10.2953), PackedVector2Array(-1.48203, -7.65718, -2.12874, -11.6046), PackedVector2Array(-1.77844, -8.85528, -2.42514, -12.8027), PackedVector2Array(-2.07484, -9.94227, -2.72155, -13.8896), PackedVector2Array(-2.37125, -10.9182, -3.01796, -14.8655), PackedVector2Array(-2.66766, -11.7829, -3.31436, -15.7303), PackedVector2Array(-2.96406, -12.5366, -3.61077, -16.484), PackedVector2Array(-3.26047, -13.1791, -3.90718, -17.1265), PackedVector2Array(-3.55688, -13.7106, -4.20358, -17.6579)]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Spark7:points")
+tracks/8/interp = 1
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 2.71956, -2.93326), PackedVector2Array(1.24646, -1.28886, 3.96602, -4.22212), PackedVector2Array(2.49293, -2.4666, 5.21248, -5.39986), PackedVector2Array(3.73939, -3.53323, 6.45894, -6.46649), PackedVector2Array(4.98585, -4.48876, 7.70541, -7.42202), PackedVector2Array(6.23231, -5.33317, 8.95187, -8.26643), PackedVector2Array(7.47878, -6.06647, 10.1983, -8.99973), PackedVector2Array(8.72524, -6.68866, 11.4448, -9.62192), PackedVector2Array(9.9717, -7.19973, 12.6913, -10.133), PackedVector2Array(11.2182, -7.5997, 13.9377, -10.533), PackedVector2Array(12.4646, -7.88856, 15.1842, -10.8218), PackedVector2Array(13.7111, -8.0663, 16.4306, -10.9996), PackedVector2Array(14.9576, -8.13293, 17.6771, -11.0662)]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath(".:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.258819), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.707107), Color(1, 1, 1, 0.866025), Color(1, 1, 1, 0.965926), Color(1, 1, 1, 1), Color(1, 1, 1, 0.965926), Color(1, 1, 1, 0.866025), Color(1, 1, 1, 0.707107), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.258819), Color(1, 1, 1, 1.22465e-16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_main"]
+_data = {
+&"play": SubResource("Animation_play")
+}
+
+[node name="EfficientFabricationFX" type="Node2D"]
 z_index = 8
-script = ExtResource("1")
-mode = "efficient_fabrication"
-duration = 0.32
+script = ExtResource("script")
+
+[node name="LeftArm" type="Line2D" parent="."]
+points = PackedVector2Array(-30, 20, -18, 8, -5, -6)
+width = 2
+default_color = Color(0.96, 0.9, 0.72, 1)
+antialiased = true
+
+[node name="RightArm" type="Line2D" parent="."]
+points = PackedVector2Array(30, 20, 18, 8, 5, -6)
+width = 2
+default_color = Color(0.96, 0.9, 0.72, 1)
+antialiased = true
+
+[node name="Spark1" type="Line2D" parent="."]
+points = PackedVector2Array(11, 2, 15, 2)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Spark2" type="Line2D" parent="."]
+points = PackedVector2Array(6.7512, 10.6845, 9.20619, 13.8426)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Spark3" type="Line2D" parent="."]
+points = PackedVector2Array(-2.71296, 12.6602, -3.69948, 16.5366)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Spark4" type="Line2D" parent="."]
+points = PackedVector2Array(-10.0813, 6.40076, -13.7473, 8.00104)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Spark5" type="Line2D" parent="."]
+points = PackedVector2Array(-9.6618, -3.2583, -13.1752, -5.17041)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Spark6" type="Line2D" parent="."]
+points = PackedVector2Array(-1.77844, -8.85528, -2.42514, -12.8027)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Spark7" type="Line2D" parent="."]
+points = PackedVector2Array(7.47878, -6.06647, 10.1983, -8.99973)
+width = 1
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_main")
+}

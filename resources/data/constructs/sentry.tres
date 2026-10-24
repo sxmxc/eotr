@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://t5s3nefxtn6n" path="res://assets/rift/entities/synthforged_sentry.webp" id="2"]
+[ext_resource type="PackedScene" uid="uid://bpiaok1b210fs" path="res://ui/fx/synthforged/sentry_attack.tscn" id="attack_fx"]
 
 [resource]
 script = ExtResource("1")
@@ -11,3 +12,4 @@ max_health = 12
 damage = 3
 attack_range = 3
 texture = ExtResource("2")
+attack_fx = ExtResource("attack_fx")

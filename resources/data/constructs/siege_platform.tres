@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://ca7htxd5ru74q" path="res://assets/rift/entities/synthforged_siege_platform.webp" id="2"]
+[ext_resource type="PackedScene" uid="uid://f6m1so2242rj" path="res://ui/fx/synthforged/siege_attack.tscn" id="attack_fx"]
 
 [resource]
 script = ExtResource("1")
@@ -11,3 +12,4 @@ max_health = 16
 damage = 8
 attack_range = 4
 texture = ExtResource("2")
+attack_fx = ExtResource("attack_fx")

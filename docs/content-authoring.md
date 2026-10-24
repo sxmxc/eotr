@@ -72,6 +72,15 @@ cards own their behavior beside their resource. There is no card-ID dispatcher.
 See [card pool expansion](card-pool-expansion.md) for eligibility, all 22 additions
 and saved-card recovery. Each card resource supplies its illustration and VFX.
 
+Synthforged VFX are standalone scenes under `ui/fx/synthforged/`: edit their
+Line2D/Polygon2D children and AnimationPlayer tracks in the editor. The shared
+`animated_visual_fx.gd` only aligns ImpactAnchor/SpellOrigin, applies presentation
+speed and releases the completed scene; it does not draw or dispatch by card ID.
+Assign contact scenes through `visual_fx` and movement feedback through `cast_fx`,
+as with Phase Step. ConstructDefinition's `attack_fx` assigns each construct's
+attack scene explicitly. Shared resolution uses VisualFX without class-specific
+presentation branches.
+
 ConstructDefinition authors identity, HP, attack damage/range and texture.
 ConstructSummonCard owns the selected profile and binds it to its SUMMON effect;
 do not author a second profile choice inside that effect. Add

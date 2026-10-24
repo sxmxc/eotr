@@ -111,7 +111,7 @@ func start_turn() -> void:
 		world.summons.start_turn()
 	if player_stats.player_class_name == "Synthforged" and player_turn_count % 4 == 0:
 		_grant_energy_bonus(2, "Overclock")
-		SynthforgedFX.play_on(player, preload("res://ui/fx/synthforged/overclock.tscn"))
+		VisualFX.play_on(player, preload("res://ui/fx/synthforged/overclock.tscn"))
 	var pending_start_tile_effects := tilemap and tilemap.has_start_tile_effects_pending()
 	if tilemap.is_tile_mana_well(tilemap.player_position) and not pending_start_tile_effects:
 		_grant_energy_bonus(1, MANA_WELL_LABEL)
