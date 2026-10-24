@@ -384,6 +384,29 @@ bg_color = Color(0.09, 0.17, 0.18, 0.96)
 border_width_left = 3
 border_color = Color(0.65, 0.79, 0.73, 1)
 
+[sub_resource type="StyleBoxFlat" id="queue_health_bg"]
+bg_color = Color(0.025, 0.04, 0.055, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="queue_health_fill"]
+bg_color = Color(0.65, 0.31, 0.29, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="settings_panel"]
+content_margin_left = 36.0
+content_margin_top = 28.0
+content_margin_right = 36.0
+content_margin_bottom = 28.0
+bg_color = Color(0.038, 0.057, 0.085, 0.99)
+border_width_top = 2
+border_color = Color(0.54, 0.46, 0.32, 0.7)
+
 [resource]
 default_font = ExtResource("body")
 default_font_size = 24
@@ -1055,3 +1078,33 @@ SpoilsTitle/base_type = &"Title"
 SpoilsTitle/font_sizes/font_size = 64
 TreasureStack/base_type = &"VBoxContainer"
 TreasureStack/constants/separation = 28
+EnemyQueueEntry/styles/disabled = SubResource("enemy_row")
+QueueBlock/base_type = &"Label"
+QueueBlock/colors/font_color = Color(0.6, 0.8, 0.88, 1)
+QueueBlock/font_sizes/font_size = 16
+QueueHealthBar/base_type = &"ProgressBar"
+QueueHealthBar/styles/background = SubResource("queue_health_bg")
+QueueHealthBar/styles/fill = SubResource("queue_health_fill")
+QueueHealthValue/base_type = &"Label"
+QueueHealthValue/colors/font_color = Color(0.7, 0.76, 0.77, 1)
+QueueHealthValue/font_sizes/font_size = 16
+QueueIntentRow/base_type = &"HBoxContainer"
+QueueIntentRow/constants/separation = 8
+QueueName/base_type = &"Label"
+QueueName/font_sizes/font_size = 19
+QueueObjectiveName/base_type = &"QueueName"
+QueueObjectiveName/colors/font_color = Color(0.851, 0.718, 0.435, 1)
+QueuePlan/base_type = &"Label"
+QueuePlan/font_sizes/font_size = 18
+QueueStack/base_type = &"VBoxContainer"
+QueueStack/constants/separation = 3
+SettingsColumns/base_type = &"HBoxContainer"
+SettingsColumns/constants/separation = 56
+SettingsError/base_type = &"Label"
+SettingsError/colors/font_color = Color(1, 0.55, 0.45, 1)
+SettingsFooter/base_type = &"HBoxContainer"
+SettingsFooter/constants/separation = 16
+SettingsPanel/base_type = &"PanelContainer"
+SettingsPanel/styles/panel = SubResource("settings_panel")
+SettingsStack/base_type = &"VBoxContainer"
+SettingsStack/constants/separation = 16

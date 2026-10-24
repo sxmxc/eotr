@@ -248,7 +248,7 @@ func _on_obelisk_destroyed() -> void:
 		WorldMessageData.Priority.CRITICAL
 	)
 	Events.world_message_requested.emit(msg)
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_rollover)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_rollover)
 	if battle_stats.victory_objective == EncounterDefinition.VictoryObjective.DESTROY_OBELISK:
 		_commit_victory()
 	else:

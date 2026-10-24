@@ -970,7 +970,7 @@ func _test_enemy_inspection_binding(world: GameWorld) -> void:
 	var current_text := inspector.health_label.text
 	original.health = maxi(1, original.health - 1)
 	check(inspector.health_label.text == current_text, "Replaced stats cannot overwrite current inspection")
-	check(enemy.queue_button.text.contains("Binding regression"), "Queue and inspection follow the same enemy update")
+	check(enemy.queue_button.get_node("%EnemyName").text.contains("Binding regression"), "Queue and inspection follow the same enemy update")
 	Events.enemy_selected.emit(enemy)
 	inspector._suspend(null)
 	inspector.show()

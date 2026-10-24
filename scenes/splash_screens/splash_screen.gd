@@ -29,7 +29,7 @@ func _choose_telemetry(enabled: bool) -> void:
 	var settings := GameSettings.get_current_settings()
 	settings.telemetry_enabled = enabled
 	GameSettings.save_settings(settings)
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	animation_player.play("fade_telemetry_out")
 	await animation_player.animation_finished
 	_continue_to_menu()

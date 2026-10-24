@@ -757,7 +757,7 @@ func _save_deck() -> void:
 
 func _on_back_pressed() -> void:
 	if Engine.has_singleton("SoundManager") and Engine.has_singleton("AudioLibrary"):
-		SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+		SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	get_tree().change_scene_to_file(MAIN_MENU_PATH)
 
 

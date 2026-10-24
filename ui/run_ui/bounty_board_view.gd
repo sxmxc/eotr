@@ -10,7 +10,7 @@ var _last_next_refresh: int = 0
 func _ready() -> void:
 	back_button.pressed.connect(
 		func():
-			SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+			SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 			hide()
 	)
 	hide()

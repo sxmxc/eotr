@@ -35,6 +35,7 @@ def run_validation(temporary: Path) -> int:
     parser.add_argument("--autowalker-controls", action="store_true")
     parser.add_argument("--autowalker-telemetry", action="store_true", help="Test bot upload/local routing with a fake transport; no backend access")
     parser.add_argument("--capture-ui", action="store_true", help="Run the native renderer offscreen and save UI captures")
+    parser.add_argument("--settings-rail-only", action="store_true", help="Settings persistence, pause access, fog placeholders and enemy rail checks")
     parser.add_argument("--ui-transactions-only", action="store_true", help="Run only reward and shop interaction checks")
     parser.add_argument("--event-room-only", action="store_true", help="Run only event choice and affordability checks")
     args = parser.parse_args()
@@ -83,7 +84,9 @@ def run_validation(temporary: Path) -> int:
         user_args.append("--map-only")
     if args.autowalker_telemetry:
         user_args.append("--telemetry-only")
-    if args.synthforged:
+    if args.settings_rail_only:
+        test_scene, success_marker = "settings_rail_test", "Settings and rail tests: 0 failures"
+    elif args.synthforged:
         test_scene, success_marker = "synthforged_test", "Synthforged tests: 0 failures"
     elif args.board_queries:
         test_scene, success_marker = "board_queries_test", "Board query tests: 0 failures"

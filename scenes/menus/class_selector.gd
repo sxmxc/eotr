@@ -64,14 +64,14 @@ func _on_start_button_pressed() -> void:
 		"class_name" : "%s" % current_stats.player_class_name
 	}
 	TelemetryManager.track_event("class_chosen", stats_props)
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	run_bootstrap.type = RunBootstrap.Type.NEW_RUN
 	run_bootstrap.selected_player_class = current_stats
 	get_tree().change_scene_to_packed(RUN_SCENE)
 
 
 func _on_riftwalker_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	current_background = riftwalker_background
 	current_stats = RIFTWALKER_STATS
 	if bouncer.get_parent() != riftwalker_button:
@@ -80,7 +80,7 @@ func _on_riftwalker_button_pressed() -> void:
 
 
 func _on_synthforge_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	current_background = synthforged_background
 	current_stats = SYNTHFORGED_STATS
 	if bouncer.get_parent() != synthforge_button:
@@ -88,7 +88,7 @@ func _on_synthforge_button_pressed() -> void:
 	
 
 func _on_voidbinder_button_pressed() -> void:
-	SoundManager.play_sound_random_pitch(AudioLibrary.ui_click)
+	SoundManager.play_ui_sound_random_pitch(AudioLibrary.ui_click)
 	current_background = voidbinder_background
 	current_stats = VOIDBINDER_STATS
 	if bouncer.get_parent() != voidbinder_button:

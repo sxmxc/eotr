@@ -7,3 +7,7 @@ extends RefCounted
 @export var sfx_volume : float = 1.0
 @export var telemetry_enabled : bool = false
 @export var tutorial_enabled : bool = true
+
+@export var music_volume: float = 1.0
+@export var ui_volume: float = 1.0
+@export var vsync_enabled: bool = true

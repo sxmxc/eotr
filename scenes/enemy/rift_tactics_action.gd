@@ -155,3 +155,12 @@ func _role_note() -> String:
 		EnemyTactics.Role.SCAVENGER: return "Consumes a resource on its tile to heal and block."
 		EnemyTactics.Role.HEXER: return "Applies Corroded with multi-hit attacks, otherwise Weakened."
 	return "Closes quickly; use terrain and block."
+
+
+func get_queue_summary() -> String:
+	var plan := intent.get_display_text()
+	if intent.current_text.contains("×"):
+		plan = "Attack " + intent.current_text + " · Range %d" % _profile().preferred_range
+	if _profile().role == EnemyTactics.Role.SIPHON and intent.current_text.contains("×"):
+		plan += "\nHeals after striking"
+	return plan

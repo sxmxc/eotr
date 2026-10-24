@@ -1,304 +1,242 @@
-[gd_scene format=3 uid="uid://caroyj14p8w02"]
-
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_muhwa"]
-[ext_resource type="Script" uid="uid://cnou8fh6bmgbl" path="res://scenes/menus/settings_menu.gd" id="2_s2d1y"]
-[ext_resource type="Texture2D"  path="res://assets/rift/menus/main_menu.webp" id="3_s2d1y"]
-
-[sub_resource type="Gradient" id="Gradient_vn8vg"]
-colors = PackedColorArray(0.294118, 0.239216, 0.266667, 1, 0.294118, 0.447059, 0.431373, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xqga4"]
-gradient = SubResource("Gradient_vn8vg")
-
-[node name="SettingsMenu" type="Control" unique_id=620276990]
-layout_mode = 3
-anchors_preset = 15
+[gd_scene format=3]
+[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Script" path="res://scenes/menus/settings_menu.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="background"]
+[node name="SettingsMenu" type="Control"]
+process_mode = 3
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_muhwa")
-script = ExtResource("2_s2d1y")
-
-[node name="Background" type="TextureRect" parent="." unique_id=879831247]
-layout_mode = 1
-anchors_preset = 15
+theme = ExtResource("theme")
+script = ExtResource("script")
+[node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_s2d1y")
-
-[node name="Gradient" type="TextureRect" parent="." unique_id=1398625210]
-modulate = Color(1, 1, 1, 0.647059)
-layout_mode = 1
-anchors_preset = 15
+texture = ExtResource("background")
+expand_mode = 1
+stretch_mode = 6
+mouse_filter = 2
+[node name="Shade" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture1D_xqga4")
-
-[node name="Panel" type="Panel" parent="." unique_id=427057277]
-layout_mode = 1
-anchors_preset = 8
+color = Color(0.008, 0.014, 0.022, 0.85)
+mouse_filter = 2
+[node name="Panel" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -680.0
-offset_top = -490.5
-offset_right = 680.0
-offset_bottom = 490.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"HudPanelBackground"
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=455705952]
-theme_type_variation = &"InsetCompact"
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="Panel/MarginContainer" unique_id=1555838814]
+offset_left = -580.0
+offset_top = -454.0
+offset_right = 580.0
+offset_bottom = 454.0
+theme_type_variation = &"SettingsPanel"
+[node name="Content" type="VBoxContainer" parent="Panel"]
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel" unique_id=1497854631]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer" unique_id=1069758841]
-theme_type_variation = &"BottomContentInset"
+theme_type_variation = &"SettingsStack"
+[node name="Eyebrow" type="Label" parent="Panel/Content"]
 layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=2091454603]
+theme_type_variation = &"RoomEyebrow"
+text = "THE RIFT / PREFERENCES"
+[node name="Title" type="Label" parent="Panel/Content"]
 layout_mode = 2
-theme_type_variation = &"TitleLabel"
+theme_type_variation = &"RoomHeading"
 text = "Settings"
-horizontal_alignment = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer" unique_id=2122376161]
-theme_type_variation = &"SettingsContentInset"
+[node name="Hint" type="Label" parent="Panel/Content"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_type_variation = &"Muted"
+text = "Preview audio as you adjust. Apply to save your changes."
+[node name="Scroll" type="ScrollContainer" parent="Panel/Content"]
+layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2" unique_id=73529162]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1427580597]
-layout_mode = 2
-text = "Graphics"
-
-[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1695385907]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="FullScreen" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=997602239]
-layout_mode = 2
-
-[node name="FullscreenLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen" unique_id=1415323517]
+horizontal_scroll_mode = 0
+follow_focus = true
+[node name="Sections" type="VBoxContainer" parent="Panel/Content/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.28
+theme_type_variation = &"SettingsStack"
+[node name="Columns" type="HBoxContainer" parent="Panel/Content/Scroll/Sections"]
+layout_mode = 2
+theme_type_variation = &"SettingsColumns"
+[node name="Graphics" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SettingsStack"
+[node name="Heading" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "DISPLAY"
+[node name="Audio" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SettingsStack"
+[node name="Heading" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "AUDIO"
+[node name="FullscreenButton" type="CheckButton" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+layout_mode = 2
+unique_name_in_owner = true
 text = "Fullscreen"
-
-[node name="FullscreenButton" type="CheckButton" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen" unique_id=1383805798]
+[node name="ResolutionLabel" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+layout_mode = 2
+theme_type_variation = &"BodySmall"
+text = "Window size"
+[node name="OptionButton" type="OptionButton" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+layout_mode = 2
 unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 48)
+[node name="ResolutionHint" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
 layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="Resolution" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=567663848]
+unique_name_in_owner = true
+theme_type_variation = &"Muted"
+text = "Window size is fitted to your display."
+autowrap_mode = 3
+[node name="VSyncButton" type="CheckBox" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+layout_mode = 2
+unique_name_in_owner = true
+text = "VSync"
+[node name="VSyncHint" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+layout_mode = 2
+theme_type_variation = &"Muted"
+text = "Synchronize frames to reduce screen tearing."
+autowrap_mode = 3
+[node name="Master" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
 layout_mode = 2
 
-[node name="ResolutionLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution" unique_id=703989317]
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master/Heading"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.28
-text = "Resolution"
-
-[node name="OptionButton" type="OptionButton" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution" unique_id=2032319349]
-theme_type_variation = &"SettingsOption"
+theme_type_variation = &"BodySmall"
+text = "Master volume"
+[node name="MasterValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master/Heading"]
+layout_mode = 2
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+theme_type_variation = &"BodySmall"
+text = "100%"
+[node name="MasterVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master"]
 layout_mode = 2
-size_flags_horizontal = 2
-selected = 0
-item_count = 1
-popup/item_0/text = "1920x1080"
-popup/item_0/id = 0
-
-[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=982640218]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label2" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1546046461]
-layout_mode = 2
-text = "Audio"
-
-[node name="HSeparator3" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=388233750]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="MasterVolume" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=904175831]
-layout_mode = 2
-
-[node name="MasterVolumeLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume" unique_id=1694863467]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.28
-text = "Master Volume"
-
-[node name="MasterVolumeSlider" type="HSlider" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume" unique_id=1620195444]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-size_flags_horizontal = 2
+custom_minimum_size = Vector2(320, 28)
 max_value = 1.0
-step = 0.1
+step = 0.01
 value = 1.0
-
-[node name="SFXVolume" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1575514947]
+[node name="Music" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
 layout_mode = 2
 
-[node name="SFXVolumeLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume" unique_id=1482552590]
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music/Heading"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.28
-text = "SFX Volume"
-
-[node name="SFXVolumeSlider" type="HSlider" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume" unique_id=737123628]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
+theme_type_variation = &"BodySmall"
+text = "Music"
+[node name="MusicValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music/Heading"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
+unique_name_in_owner = true
+theme_type_variation = &"BodySmall"
+text = "100%"
+[node name="MusicVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music"]
+layout_mode = 2
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 28)
 max_value = 1.0
-step = 0.1
+step = 0.01
 value = 1.0
-
-[node name="HSeparator5" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1224894052]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label3" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1500542795]
-layout_mode = 2
-text = "Telemetry"
-
-[node name="HSeparator6" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1132600866]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Telemetry" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=672021148]
+[node name="SFX" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
 layout_mode = 2
 
-[node name="TelemetryLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry" unique_id=101351747]
-visible = false
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX/Heading"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.28
-text = "Enabled"
-
-[node name="TelemetryCheckBox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry" unique_id=310984040]
+theme_type_variation = &"BodySmall"
+text = "Sound effects"
+[node name="SFXValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX/Heading"]
+layout_mode = 2
 unique_name_in_owner = true
+theme_type_variation = &"BodySmall"
+text = "100%"
+[node name="SFXVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-button_pressed = true
-text = "Enabled"
-
-[node name="HSeparator9" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=1607107033]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label4" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=82563279]
-layout_mode = 2
-text = "GamePlay"
-
-[node name="HSeparator7" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=283683254]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Tutorials" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=818880392]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 28)
+max_value = 1.0
+step = 0.01
+value = 1.0
+[node name="UI" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
 layout_mode = 2
 
-[node name="TutorialLabel" type="Label" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials" unique_id=209941933]
-visible = false
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI/Heading"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.28
-text = "Show Tutorials"
-
-[node name="TutorialCheckbox" type="CheckBox" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials" unique_id=707771416]
+theme_type_variation = &"BodySmall"
+text = "Interface sounds"
+[node name="UIValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI/Heading"]
+layout_mode = 2
 unique_name_in_owner = true
+theme_type_variation = &"BodySmall"
+text = "100%"
+[node name="UIVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-button_pressed = true
-text = "Show Tutorials"
-
-[node name="HSeparator8" type="HSeparator" parent="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer" unique_id=2138586345]
-theme_type_variation = &"SettingsSeparator"
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/Panel/VBoxContainer" unique_id=689787629]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 2
-
-[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=1528315303]
-theme_type_variation = &"SettingsSectionInset"
-layout_mode = 2
-
-[node name="SaveButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3" unique_id=1154586324]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-disabled = true
-text = "Save"
-
-[node name="MarginContainer4" type="MarginContainer" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer" unique_id=613571409]
-theme_type_variation = &"SettingsSectionInset"
+custom_minimum_size = Vector2(320, 28)
+max_value = 1.0
+step = 0.01
+value = 1.0
+[node name="Separator" type="HSeparator" parent="Panel/Content/Scroll/Sections"]
 layout_mode = 2
 
-[node name="CancelButton" type="Button" parent="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer4" unique_id=1768503708]
+[node name="GameplayHeading" type="Label" parent="Panel/Content/Scroll/Sections"]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "GAMEPLAY & PRIVACY"
+[node name="TutorialCheckbox" type="CheckBox" parent="Panel/Content/Scroll/Sections"]
+layout_mode = 2
 unique_name_in_owner = true
+text = "Show tutorials"
+[node name="TelemetryCheckBox" type="CheckBox" parent="Panel/Content/Scroll/Sections"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+unique_name_in_owner = true
+text = "Share optional gameplay telemetry"
+[node name="PrivacyHint" type="Label" parent="Panel/Content/Scroll/Sections"]
+layout_mode = 2
+theme_type_variation = &"Muted"
+text = "Optional gameplay data helps improve the game. You can turn it off at any time."
+autowrap_mode = 3
+[node name="SaveError" type="Label" parent="Panel/Content"]
+layout_mode = 2
+unique_name_in_owner = true
+visible = false
+theme_type_variation = &"SettingsError"
+text = "Could not save settings. Your changes are still here; try again."
+autowrap_mode = 3
+[node name="Footer" type="HBoxContainer" parent="Panel/Content"]
+layout_mode = 2
+theme_type_variation = &"SettingsFooter"
+[node name="DefaultsButton" type="Button" parent="Panel/Content/Footer"]
+layout_mode = 2
+unique_name_in_owner = true
+text = "Restore defaults"
+[node name="Space" type="Control" parent="Panel/Content/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+[node name="CancelButton" type="Button" parent="Panel/Content/Footer"]
+layout_mode = 2
+unique_name_in_owner = true
 text = "Cancel"
-
-[connection signal="toggled" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/FullScreen/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]
-[connection signal="item_selected" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Resolution/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="value_changed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/MasterVolume/MasterVolumeSlider" to="." method="_on_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/SFXVolume/SFXVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]
-[connection signal="toggled" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Telemetry/TelemetryCheckBox" to="." method="_on_telemetry_check_box_toggled"]
-[connection signal="toggled" from="Panel/MarginContainer/Panel/VBoxContainer/MarginContainer2/VBoxContainer/Tutorials/TutorialCheckbox" to="." method="_on_tutorial_checkbox_toggled"]
-[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer3/SaveButton" to="." method="_on_save_button_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/Panel/VBoxContainer/HBoxContainer/MarginContainer4/CancelButton" to="." method="_on_cancel_button_pressed"]
+[node name="SaveButton" type="Button" parent="Panel/Content/Footer"]
+layout_mode = 2
+unique_name_in_owner = true
+theme_type_variation = &"PrimaryButton"
+text = "Apply"
+disabled = true
