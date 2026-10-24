@@ -688,6 +688,33 @@ func _test_interaction_world_teardown() -> void:
 	Events.card_drag_ended.disconnect(on_end)
 
 
+func _test_card_battle_binding(world: GameWorld) -> void:
+	var paths: Array[String] = [
+		"res://resources/data/cards/riftwalker/arcane_bolt.tres",
+		"res://resources/data/cards/riftwalker/phase_step.tres",
+		"res://resources/data/cards/synthforged/deploy_sentry.tres",
+		"res://resources/data/cards/synthforged/redeployment.tres",
+		"res://resources/data/cards/synthforged/salvage_probe.tres",
+	]
+	var ui := CardUI.new()
+	for path: String in paths:
+		var card := load(path) as Card
+		check(card.get_valid_targets(ui, world.player.modifier_handler).is_empty(),
+			"Unbound card preview fails closed: " + card.id)
+	ui.interaction_controller = world.card_interaction
+	check(ui.get_battle_world() == world, "Card preview accepts injected battle without tree membership")
+	for path: String in paths:
+		var card := load(path) as Card
+		var expected := card.get_valid_targets(ui, world.player.modifier_handler)
+		world.tilemap.remove_from_group("map_layer")
+		world.player.remove_from_group("player")
+		var actual := card.get_valid_targets(ui, world.player.modifier_handler)
+		world.tilemap.add_to_group("map_layer")
+		world.player.add_to_group("player")
+		check(actual == expected, "Card preview does not require global board/player groups: " + card.id)
+	ui.free()
+
+
 func _test_target_predicate_parity(world: GameWorld) -> void:
 	var board := world.tilemap
 	board.hide_fog()
@@ -1261,6 +1288,7 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		_test_card_battle_binding(world)
 		await _test_target_predicate_parity(world)
 		await _test_projectile_card_contacts(world)
 		await _test_card_authorization(world)
@@ -1329,6 +1357,7 @@ func run() -> void:
 	await _test_attack_tween_cancellation(world)
 	await _test_movement_cancellation(world)
 	await _test_card_authorization(world)
+	_test_card_battle_binding(world)
 	await _test_target_predicate_parity(world)
 	await _test_interaction_lifetime(world)
 	await _test_mouse_card_commits(world)

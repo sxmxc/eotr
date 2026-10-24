@@ -137,22 +137,19 @@ func get_energy_cost(_player_stats: PlayerStats) -> int:
 
 
 func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
-	var tree := card_ui.get_tree() as SceneTree
-	var tilemap := tree.get_first_node_in_group("map_layer") as ProcGenTilemap
-	if not tilemap:
+	var world := card_ui.get_battle_world()
+	if not world:
 		return []
+	var tilemap := world.tilemap
 	var enemies: Array[Enemy] = []
-	for node in tree.get_nodes_in_group("enemy"):
-		var enemy := node as Enemy
-		if enemy:
-			enemies.append(enemy)
-	
+	for node in world.enemy_handler.get_children():
+		if node is Enemy:
+			enemies.append(node)
+
 	match target_type:
 		Enums.TargetType.ALLY:
 			var cells: Array[Vector2i] = []
-			var world := tilemap.get_parent() as GameWorld
-			if world:
-				for unit in world.summons.living(): cells.append(unit.current_tile_position)
+			for unit in world.summons.living(): cells.append(unit.current_tile_position)
 			return cells
 		Enums.TargetType.SINGLE_TILE:
 			return tilemap.base_layer.get_used_cells()

@@ -76,6 +76,16 @@ and CardFxRunner; legacy custom cards can override effect hooks. Effects update 
 than a separate UI model. Async damage, movement and status completion matter:
 awaiting a single card method is not always the whole action boundary.
 
+CardUI.get_battle_world exposes the live GameWorld supplied by its interaction
+controller. Card target queries (including movement, deployment, salvage and
+relocation) use that battle's board, player, enemy handler and summons; an unbound
+or disposed battle returns no candidate cells. Preview queries do not require
+CardUI tree membership or global board/player groups. CardUI also uses the bound
+battle for pending-effect checks, victory checks and discard/exhaust destinations.
+This binding belongs on the UI/controller, not on shared Card resources. Legacy
+resolution hooks and CardResolver's standalone context discovery still use scene
+groups; this is not a replacement for the effect context API.
+
 TargetSelector implements both ordinary and movement aiming; the movement scene
 only enables its electric arc. It caches each CardUI's broad candidate cells until
 movement, enemy/tile/board changes, player stats, construct stats or relocation

@@ -72,6 +72,11 @@ With `--capture-ui`, each must attach exactly one contact visual across the
 projectile and effect paths. These are native node-count assertions, not an
 artistic or continuous-motion review.
 
+Battle-binding assertions query ordinary, movement, deployment, relocation and
+salvage candidates from a detached CardUI through its injected controller, with
+global board/player groups temporarily removed. Unbound previews must return no
+cells. These run in the card lifecycle and full combat suites.
+
 Target predicate parity checks deploy a real construct and exercise Service Cycle
 and Power Tap before/after health and block changes: highlights, picking and play
 must agree, and becoming ineligible clears the selection immediately. Quantum

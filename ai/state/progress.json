@@ -3,6 +3,12 @@
   "updated": "2026-10-24",
   "tasks": [
     {
+      "id": "BKL-049",
+      "status": "done",
+      "summary": "Removed global scene discovery from all card candidate queries and CardUI completion/feedback via existing battle-controller injection. Unbound previews fail closed; standalone legacy effect discovery remains supported. Evidence and limits: ai/state/journal-bkl-049.md.",
+      "updated": "2026-10-24"
+    },
+    {
       "id": "BKL-051",
       "status": "done",
       "summary": "Verified existing resolver/FX runner migration across all projectile cards; added offline authoring guard against bespoke projectile instancing and completion wiring. Native focused lifecycle and full combat checks pass. Evidence and limits: ai/state/journal-bkl-051.md.",

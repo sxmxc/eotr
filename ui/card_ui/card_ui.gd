@@ -71,6 +71,15 @@ func animate_to_position(pos: Vector2, duration: float):
 	tween.tween_property(self, "global_position", pos, duration)
 
 
+func get_battle_world() -> GameWorld:
+	if not is_instance_valid(interaction_controller):
+		return null
+	var world := interaction_controller.world
+	if not is_instance_valid(world) or not world.is_inside_tree() or world.is_queued_for_deletion():
+		return null
+	return world
+
+
 func play() -> void:
 	if not is_instance_valid(interaction_controller) or not interaction_controller.begin_play(self, targets):
 		return
@@ -91,9 +100,9 @@ func play() -> void:
 		controller.finish_play(self)
 	if not _play_context_active():
 		return
-	var board := tree.get_first_node_in_group("map_layer")
-	if board and board.get_parent() is GameWorld:
-		board.get_parent().check_victory()
+	var world := get_battle_world()
+	if world:
+		world.check_victory()
 	if _play_context_active():
 		burn_card()
 
@@ -108,10 +117,13 @@ func _has_pending_effects(handler: PlayerHandler) -> bool:
 		return false
 	if is_instance_valid(handler) and not handler.hand_ready:
 		return true
-	for enemy: Enemy in get_tree().get_nodes_in_group("enemy"):
+	var world := get_battle_world()
+	if not world:
+		return false
+	for enemy: Enemy in world.enemy_handler.get_children():
 		if enemy.pending_damage > 0:
 			return true
-	var player := get_tree().get_first_node_in_group("player") as Player
+	var player := world.player
 	return player != null and player.pending_effects > 0
 
 
@@ -156,7 +168,8 @@ func get_description() -> String:
 
 
 func burn_card() -> void:
-	var world_ui := get_tree().get_first_node_in_group("ui_layer") as CanvasLayer
+	var world := get_battle_world()
+	var world_ui: CanvasLayer = world.game_world_ui if world else null
 	var discard_pile_position := Vector2.ZERO
 	if world_ui:
 		var pile_button: Control = world_ui.exhaust_pile_button if card.exhaust else world_ui.discard_pile_button

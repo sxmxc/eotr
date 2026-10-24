@@ -1,7 +1,10 @@
 extends Card
 
 func get_valid_targets(ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
-	var board := ui.get_tree().get_first_node_in_group("map_layer") as ProcGenTilemap
+	var world := ui.get_battle_world()
+	if not world:
+		return []
+	var board := world.tilemap
 	var cells: Array[Vector2i] = []
 	if board.get_resource_count(board.player_position) > 0: cells.append(board.player_position)
 	return cells
