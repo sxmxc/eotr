@@ -160,6 +160,15 @@ matching encounter subfolders with the comparison tool.
 
 ### Choose encounter loadouts
 
+Use `--class synthforged` for Synthforged encounter or run mode. The default
+remains `--class riftwalker`; existing Riftwalker preset fingerprints and replay
+defaults are preserved. Synthforged starter uses its 11 cards and Overclock Core.
+Its tier_1 adds Deploy Pike, Precision Shot, Wideband Scan and Field Repairs;
+tier_2 also adds Rail Lance, Fire Command, Deploy Siege Platform and Combat Network.
+These are controlled test builds, not balance claims. Class identity is recorded
+in Synthforged reports/replays. Observations include constructs, Analyze and the
+Overclock cycle; legal actions include ally support and both Redeployment targets.
+
 Encounter mode now defaults to `--loadout tier`, selected from the encounter's
 `battle_tier`, clamped to 0–2: tiers 3–8 currently use `tier_2`. It does not
 provide distinct Act II/III arrival builds. These are fixed, attainable Riftwalker test builds, **not measured

@@ -10,6 +10,7 @@ const RELICS = preload("res://scenes/relic_handler/relic_handler.tscn")
 const Progression = preload("res://scripts/autowalker/core/progression_interface.gd")
 const Watchdog = preload("res://scripts/autowalker/core/watchdog.gd")
 const Loadouts = preload("res://scripts/autowalker/core/loadouts.gd")
+var player_class := "riftwalker"
 var loadout_selection := "tier"
 var health_percent := 100
 var loadout_snapshot: Dictionary = {}
@@ -80,6 +81,7 @@ func _ready() -> void:
 			continue
 		match parts[0]:
 			"mode": run_mode = parts[1] == "run"
+			"class": player_class = parts[1]
 			"loadout": loadout_selection = parts[1]
 			"health-percent": health_percent = int(parts[1])
 			"seed": simulation_seed = int(parts[1])
@@ -95,6 +97,8 @@ func _ready() -> void:
 			"replay":
 				if not load_replay(parts[1]):
 					startup_error = "Cannot load replay: " + parts[1]
+	if player_class not in ["riftwalker", "synthforged"]:
+		startup_error = "Invalid player class"
 	if loadout_selection not in ["tier", "starter", "tier_0", "tier_1", "tier_2", "legacy"] or health_percent < 1 or health_percent > 100:
 		startup_error = "Invalid loadout or health percent"
 	if run_mode and (loadout_selection != "tier" or health_percent != 100):
@@ -124,6 +128,7 @@ func load_replay(path: String) -> bool:
 	simulation_seed = int(value.seed)
 	encounter = value.encounter
 	policy_name = value.policy
+	player_class = value.get("player_class", "riftwalker")
 	run_mode = value.get("mode", "encounter") == "run"
 	loadout_selection = value.get("loadout_selection", "tier" if run_mode else "legacy")
 	health_percent = int(value.get("health_percent", 100))
@@ -178,7 +183,7 @@ func start() -> void:
 		run_node = load("res://scenes/run/run.tscn").instantiate()
 		run_node.run_bootstrap = RunBootstrap.new()
 		run_node.run_bootstrap.type = RunBootstrap.Type.NEW_RUN
-		run_node.run_bootstrap.selected_player_class = load("res://resources/data/stats/player/riftwalker_starting_stats.tres")
+		run_node.run_bootstrap.selected_player_class = load("res://resources/data/stats/player/%s_starting_stats.tres" % player_class)
 		add_child(run_node)
 		interface.progression = Progression.new()
 		interface.progression.run_node = run_node
@@ -188,7 +193,7 @@ func start() -> void:
 		relics = RELICS.instantiate()
 		add_child(relics)
 		add_child(world)
-		world.player_stats = load("res://resources/data/stats/player/riftwalker_starting_stats.tres").create_instance()
+		world.player_stats = load("res://resources/data/stats/player/%s_starting_stats.tres" % player_class).create_instance()
 		world.run_stats = RunStats.new()
 		world.battle_stats = load(encounter).duplicate(true)
 		var campaign := ActDefinition.campaign()
@@ -213,6 +218,7 @@ func start() -> void:
 		"engine": Engine.get_version_info().string, "source_type": "bot", "mode": "run" if run_mode else "encounter",
 		"initial_health": run_node.player_stats.health if run_mode else world.player_stats.health,
 		"metrics_version": 2, "session_id": TelemetryManager.client.session_id, "run_id": simulation_run_id}
+	if player_class != "riftwalker": report["player_class"] = player_class
 	report.merge(loadout_snapshot, true)
 	TelemetryManager.track_event("simulation_started", {"seed": simulation_seed, "policy": policy_name, "encounter": "run" if run_mode else encounter}, 1, loadout_snapshot)
 

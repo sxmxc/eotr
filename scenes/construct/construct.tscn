@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scenes/construct/construct.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/modifier_handler/modifier_handler.gd" id="2"]
+[ext_resource type="Script" path="res://ui/status_ui/status_handler.gd" id="3"]
+[sub_resource type="CircleShape2D" id="shape"]
+radius = 22.0
+
+[node name="Construct" type="Node2D" node_paths=PackedStringArray("status_handler")]
+script = ExtResource("1")
+status_handler = NodePath("StatusHandler")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+[node name="ModifierHandler" type="Node" parent="."]
+script = ExtResource("2")
+[node name="StatusHandler" type="GridContainer" parent="."]
+visible = false
+script = ExtResource("3")
+[node name="ImpactAnchor" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+[node name="SpellOrigin" type="Marker2D" parent="."]
+position = Vector2(0, -24)
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("shape")
+

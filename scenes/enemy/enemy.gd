@@ -123,9 +123,17 @@ func update_stats():
 func update_intent() -> void:
 	if current_action:
 		current_action.update_intent_text()
+		var recipient := current_action.get_intent_target()
+		if recipient is Construct:
+			var intent := current_action.intent
+			var details := intent.detail_text.get_slice("\nTarget:", 0)
+			intent.detail_text = (details if not details.is_empty() else intent.tooltip_text) + "\nTarget: " + recipient.definition.display_name
+		elif current_action.intent:
+			current_action.intent.detail_text = current_action.intent.detail_text.get_slice("\nTarget:", 0)
 	Events.enemy_updated.emit(self)
 
 func do_turn() -> void:
+	enemy_action_picker.refresh_target()
 	var evaluation_start := Time.get_ticks_usec()
 	#stats.block = 0
 	if is_dying or stats.health <= 0:
@@ -248,6 +256,8 @@ func do_death() -> void:
 	_fade_out_and_queue_free()
 
 func get_player_tile_position() -> Vector2i:
+	if is_instance_valid(enemy_action_picker) and is_instance_valid(enemy_action_picker.target) and enemy_action_picker.target is Construct:
+		return enemy_action_picker.target.current_tile_position
 	if tilemap:
 		return tilemap.player_position
 	var player = get_tree().get_first_node_in_group("player")

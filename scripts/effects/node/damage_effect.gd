@@ -4,6 +4,9 @@ class_name DamageEffect
 const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
 
 var amount := 0
+# Explicit provenance; DoT, terrain, and enemy effects leave this false.
+var player_side_attack := false
+var source_actor: Node2D
 var receiver_modifier_type := Enums.ModifierType.DMG_TAKEN
 var direct := false
 var impact_profile: ImpactProfile
@@ -17,7 +20,7 @@ func execute(targets: Array[Node]) -> void:
 	for target in targets:
 		if not target:
 			continue
-		if target is Enemy or target is Player:
+		if target is Enemy or target is Player or target is Construct:
 			var pre_health : int = target.stats.health if target and target.stats else null
 			var pre_block : int = target.stats.block if target and target.stats else null
 
@@ -25,8 +28,10 @@ func execute(targets: Array[Node]) -> void:
 			if visual_fx != null:
 				var visual_effect : VisualFX = visual_fx.instantiate()
 				target.add_child(visual_effect)
+				if visual_effect is SynthforgedFX: visual_effect.caster = source_actor
 				visual_effect.execute()
-			target.take_damage(amount, receiver_modifier_type, direct, resolved_profile)
+			var attack_bonus := AnalyzedStatus.count(target) if player_side_attack else 0
+			target.take_damage(amount + attack_bonus, receiver_modifier_type, direct, resolved_profile)
 			if pre_health != null:
 				print(
 					"[DamageEffect] %s took %s (mod type %s, direct=%s) | health %s -> %s, block %s -> %s"

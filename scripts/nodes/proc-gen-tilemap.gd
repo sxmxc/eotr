@@ -645,6 +645,9 @@ func shrink_map(amount) -> void:
 		for cell in to_destroy:
 			# Damage enemies on this tile
 			for enemy: Node2D in _occupied_cells.get(cell, []).duplicate():
+				if enemy is Construct:
+					enemy.destroy()
+					continue
 				if not enemy is Enemy:
 					continue
 				if enemy is MovingEnemy:

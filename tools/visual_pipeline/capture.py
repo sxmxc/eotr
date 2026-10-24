@@ -29,15 +29,23 @@ def _capture(scenario, output, godot, temporary):
         movie_at = command.index("--write-movie")
         del command[movie_at:movie_at + 4]
         command.extend(["--capture-frames"])
+    if scenario.get("player_class"):
+        if scenario["player_class"] not in ("riftwalker", "synthforged"):
+            raise ValueError("Unknown visual player class")
+        command.append(f"--class={scenario['player_class']}")
+    if scenario.get("loadout"):
+        if scenario["loadout"] not in ("tier", "starter", "tier_0", "tier_1", "tier_2", "legacy"):
+            raise ValueError("Unknown visual loadout")
+        command.append(f"--loadout={scenario['loadout']}")
     for key in ("seed", "encounter", "policy", "duration"):
         command.append(f"--{key}={scenario[key]}")
     if scenario.get("replay"):
         replay = Path(scenario["replay"]).resolve()
         command.append(f"--replay={replay.as_posix()}")
     if scenario.get("fixture"):
-        if scenario["fixture"] != "ruin":
+        if scenario["fixture"] not in ("ruin", "synthforged"):
             raise ValueError("Unknown visual fixture")
-        command.append("--fixture=ruin")
+        command.append(f"--fixture={scenario['fixture']}")
     (output / "command.json").write_text(json.dumps(command, indent=2))
     with (output / "console.log").open("w") as log:
         subprocess.run(command, env=env, stdout=log, stderr=subprocess.STDOUT,
@@ -49,7 +57,7 @@ def _capture(scenario, output, godot, temporary):
     data["fps"] = scenario["fps"]
     data["scenario"] = scenario
     data["source_hashes"] = {str(p.relative_to(ROOT)).replace("\\", "/"): hashlib.sha256(p.read_bytes()).hexdigest()
-                             for base in ("ui/fx", "scripts/shaders") for p in (ROOT / base).glob("*") if p.is_file()}
+                             for base in ("ui/fx", "scripts/shaders") for p in (ROOT / base).rglob("*") if p.is_file()}
     data["git_commit"] = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     (output / "timing.json").write_text(json.dumps(data, indent=2))
     return data

@@ -61,10 +61,10 @@ func perform_action() -> void:
 func update_intent_text() -> void:
 	if !is_instance_valid(target):
 		return
-	var player := target as Player
+	var player: Node2D = target
 	if not player:
 		return
 
-	var modified_dmg := player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
+	var modified_dmg: int = player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
 	modified_dmg = enemy.modifier_handler.get_modified_value(modified_dmg, Enums.ModifierType.DMG_DEALT)
 	intent.current_text = intent.base_text % str(modified_dmg)

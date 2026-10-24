@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ConstructDefinition" format=3 uid="uid://jhkowfvpvb0"]
+
+[ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ca7htxd5ru74q" path="res://assets/rift/entities/synthforged_siege_platform.webp" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "siege_platform"
+display_name = "Siege Platform"
+max_health = 16
+damage = 8
+attack_range = 4
+texture = ExtResource("2")

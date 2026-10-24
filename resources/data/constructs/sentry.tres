@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ConstructDefinition" format=3 uid="uid://cpj1nphh5x86f"]
+
+[ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://t5s3nefxtn6n" path="res://assets/rift/entities/synthforged_sentry.webp" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "sentry"
+display_name = "Sentry Turret"
+max_health = 12
+damage = 3
+attack_range = 3
+texture = ExtResource("2")

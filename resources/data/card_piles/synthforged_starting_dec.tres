@@ -1,8 +1,13 @@
 [gd_resource type="Resource" script_class="CardPile" format=3 uid="uid://dtslrfsyrt0oq"]
-
-[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1_xcbcj"]
-[ext_resource type="Script" uid="uid://dkmgiky2ttex" path="res://scripts/resources/card/card_pile.gd" id="2_7issi"]
-
+[ext_resource type="Script" path="res://scripts/resources/card/card_pile.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/card/card.gd" id="2"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/pulse_rifle.tres" id="3"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/servo_strike.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/reactive_plating.tres" id="5"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/vector_boost.tres" id="6"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/salvage_probe.tres" id="7"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/target_scan.tres" id="8"]
+[ext_resource type="Resource" path="res://resources/data/cards/synthforged/deploy_sentry.tres" id="9"]
 [resource]
-script = ExtResource("2_7issi")
-metadata/_custom_type_script = "uid://dkmgiky2ttex"
+script = ExtResource("1")
+cards = Array[ExtResource("2")]([ExtResource("3"), ExtResource("3"), ExtResource("4"), ExtResource("4"), ExtResource("5"), ExtResource("5"), ExtResource("6"), ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9")])

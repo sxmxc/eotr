@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://b7vm1yxou2rhm"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Resource" uid="uid://jhkowfvpvb0" path="res://resources/data/constructs/siege_platform.tres" id="3"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="3_muxeg"]
+[ext_resource type="Texture2D" uid="uid://8gblvhoois6q" path="res://assets/rift/cards/deploy_siege_platform.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/deploy_siege_platform.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+construct = ExtResource("3")
+card_type = 5
+target_type = 5
+id = "deploy_siege_platform"
+name = "Deploy Siege Platform"
+card_rarity = 2
+description = "Deploy a Siege Platform: 16 HP, 8 damage, range 4. Attacks at turn end. Maximum 3 constructs."
+energy_cost = 3
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/fx/synthforged_fx.gd" id="1"]
+[node name="SynthforgedFX" type="Node2D"]
+z_index = 8
+script = ExtResource("1")
+mode = "pulse_rifle"
+duration = 0.32

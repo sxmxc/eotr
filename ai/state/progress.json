@@ -399,6 +399,12 @@
       "updated": "2025-12-15T00:00:00.0000000-06:00"
     },
     {
+      "id": "BKL-034",
+      "status": "done",
+      "summary": "Implemented Synthforged with 28 illustrated cards, Overclock, Analyze, four allied constructs, class progression and AutoWalker support. Focused suites pass; native stills reviewed. Human balance and continuous motion/audio remain playtest work; see journal-synthforged.md.",
+      "updated": "2026-10-23T21:00:00-05:00"
+    },
+    {
       "id": "BKL-043",
       "status": "in_review",
       "summary": "Centralized card/movement targeting with a shared TargetSelector that caches valid cells and reuses validators for drag/aim flows.",

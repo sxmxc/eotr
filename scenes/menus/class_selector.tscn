@@ -112,13 +112,11 @@ unique_name_in_owner = true
 script = ExtResource("bouncer")
 AutoStart = false
 [node name="SynthforgeButton" type="Button" parent="ClassPanel/Classes"]
-theme_type_variation = &"LockedClassButton"
+theme_type_variation = &"SelectedClassButton"
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
-disabled = true
-text = "Synthforged
-Locked"
+text = "Synthforged"
 icon = ExtResource("icon2")
 expand_icon = true
 [node name="VoidbinderButton" type="Button" parent="ClassPanel/Classes"]
@@ -153,3 +151,5 @@ text = "Back"
 [connection signal="pressed" from="ClassPanel/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="ClassPanel/Classes/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+
+[connection signal="pressed" from="ClassPanel/Classes/SynthforgeButton" to="." method="_on_synthforge_button_pressed"]

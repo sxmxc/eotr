@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://4tj7ya0hrvol"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Resource" uid="uid://bbxso8n8dg4go" path="res://resources/data/constructs/bastion.tres" id="3"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="3_pyftb"]
+[ext_resource type="Texture2D" uid="uid://clieufgvaxd32" path="res://assets/rift/cards/deploy_bastion.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/deploy_bastion.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+construct = ExtResource("3")
+card_type = 5
+target_type = 5
+id = "deploy_bastion"
+name = "Deploy Bastion"
+card_rarity = 1
+description = "Deploy a Bastion Automaton: 30 HP, 4 damage, range 1. Attacks at turn end. Maximum 3 constructs."
+energy_cost = 2
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

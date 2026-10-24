@@ -24,7 +24,7 @@ var current_background: TextureRect : set = set_background, get = get_background
 var active_tween: Tween
 
 func _ready() -> void:
-	synthforge_button.tooltip_text = "Synthforged - Locked"
+	synthforge_button.tooltip_text = "Synthforged — Overclock and allied constructs"
 	voidbinder_button.tooltip_text = "Voidbinder - Locked"
 	current_stats = RIFTWALKER_STATS
 	current_background = riftwalker_background

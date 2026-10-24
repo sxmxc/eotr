@@ -596,5 +596,48 @@
     "standalone_markers": [
       "assets/rift/fx/target_ring.webp"
     ]
+  },
+  "synthforged": {
+    "date": "2026-10-23",
+    "implementation": "ui/fx/synthforged_fx.gd",
+    "scenes": [
+      "ui/fx/synthforged/pulse_rifle.tscn",
+      "ui/fx/synthforged/servo_strike.tscn",
+      "ui/fx/synthforged/reactive_plating.tscn",
+      "ui/fx/synthforged/vector_boost.tscn",
+      "ui/fx/synthforged/salvage_probe.tscn",
+      "ui/fx/synthforged/target_scan.tscn",
+      "ui/fx/synthforged/deploy_sentry.tscn",
+      "ui/fx/synthforged/deploy_pike.tscn",
+      "ui/fx/synthforged/precision_shot.tscn",
+      "ui/fx/synthforged/tactical_cache.tscn",
+      "ui/fx/synthforged/reserve_capacitor.tscn",
+      "ui/fx/synthforged/threat_assessment.tscn",
+      "ui/fx/synthforged/rail_lance.tscn",
+      "ui/fx/synthforged/burst_protocol.tscn",
+      "ui/fx/synthforged/ablative_array.tscn",
+      "ui/fx/synthforged/wideband_scan.tscn",
+      "ui/fx/synthforged/field_repairs.tscn",
+      "ui/fx/synthforged/fire_command.tscn",
+      "ui/fx/synthforged/thruster_assault.tscn",
+      "ui/fx/synthforged/redeployment.tscn",
+      "ui/fx/synthforged/efficient_fabrication.tscn",
+      "ui/fx/synthforged/deploy_bastion.tscn",
+      "ui/fx/synthforged/deploy_siege_platform.tscn",
+      "ui/fx/synthforged/saturation_fire.tscn",
+      "ui/fx/synthforged/reactor_release.tscn",
+      "ui/fx/synthforged/fortress_protocol.tscn",
+      "ui/fx/synthforged/execution_algorithm.tscn",
+      "ui/fx/synthforged/combat_network.tscn",
+      "ui/fx/synthforged/overclock.tscn",
+      "ui/fx/synthforged/sentry_attack.tscn",
+      "ui/fx/synthforged/pike_attack.tscn",
+      "ui/fx/synthforged/bastion_attack.tscn",
+      "ui/fx/synthforged/siege_attack.tscn",
+      "ui/fx/synthforged/construct_death.tscn"
+    ],
+    "technique": "Bounded per-instance native drawing/Tween; explicit source/contact anchors; no gameplay callbacks or gameplay RNG",
+    "review": "ai/visual/reviews/synthforged-reviewed.md",
+    "limits": "Native phase stills; continuous motion/audio and human balance unverified"
   }
 }

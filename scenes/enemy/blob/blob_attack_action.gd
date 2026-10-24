@@ -10,7 +10,7 @@ const VOID_SLIME = preload("res://resources/data/cards/common/void_slime.tres")
 func perform_action() -> void:
 	if not enemy or not target:
 		return
-	var player := target as Player
+	var player: Node2D = target
 	if not player:
 		return
 	
@@ -34,7 +34,8 @@ func perform_action() -> void:
 	
 	tween.tween_property(enemy.sprite_2d, "position", end, Utils.presentation_duration(0.4)).set_ease(Tween.EASE_IN)
 	tween.tween_callback(damage_effect.execute.bind(target_array))
-	tween.tween_callback(player.stats.draw_pile.add_card.bind(VOID_SLIME.duplicate()))
+	if player is Player:
+		tween.tween_callback(player.stats.draw_pile.add_card.bind(VOID_SLIME.duplicate()))
 	tween.tween_interval(Utils.presentation_duration(0.25))
 	tween.tween_property(enemy.sprite_2d, "position", start, Utils.presentation_duration(0.4)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
@@ -50,11 +51,11 @@ func perform_action() -> void:
 func update_intent_text() -> void:
 	if !is_instance_valid(target):
 		return
-	var player := target as Player
+	var player: Node2D = target
 	if not player:
 		return
 	
-	var modified_dmg := player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
+	var modified_dmg: int = player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
 	intent.current_text = intent.base_text % modified_dmg
 
 

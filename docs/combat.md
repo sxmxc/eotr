@@ -52,7 +52,49 @@ and entity checks. Warnings follow visible endangered cells. Falling artwork is
 cosmetic evidence of an authoritative erase, not the event that decides whether
 a cell exists. Collapse is lethal terrain loss, not an ordinary blockable attack.
 
-## Cards, enemies and victory
+## Synthforged and allied constructs
+
+Synthforged starts with 35 HP, three energy, four cards per turn and view range
+one. **Overclock** adds two energy after the normal reset on player turns 4, 8,
+12 and every fourth turn thereafter; the count restarts each battle. Overclock
+Core represents this passive and displays the cycle without granting a second
+activation. Riftwalker's Adaptive Surge, movement refund and Obelisk bonus remain
+class-specific.
+
+**Analyze** is a battle-local enemy status, capped at three stacks. Each stack
+adds one damage to each direct player/construct hit before target mitigation;
+block absorbs it normally. DamageEffect requires explicit player-side provenance,
+so enemy attacks, terrain and damage-over-time effects receive no Analyze bonus.
+Consuming attacks remove and snapshot the stacks first and apply their authored
+bonus without adding the consumed stacks again. Ordinary attacks and previews
+share these rules.
+
+**Summon** cards deploy stationary allied constructs onto visible, free resource
+cells within two hexes. Corrupted/special terrain and occupied cells are illegal.
+Three constructs may coexist; deployment at the cap is unavailable. They block
+movement through the shared occupancy map, have independent HP/block/modifiers,
+and do not count as hostiles, rewards or victory requirements. Sentry/Pike/Bastion/
+Siege profiles are respectively 12/18/30/16 HP, 3/5/4/8 damage and 3/1/1/4 range.
+
+After player cleanup, BattleStateController awaits an allied phase before enemy
+actions. Constructs act in deployment order, including their deployment turn.
+Each selects the nearest visible hostile in range, then lowest HP, then spawn
+order. Fire Command adds an activation. Constructs turn their sprites toward
+the attack recipient before firing, retaining their facing for vertically aligned
+targets. Ally support uses the same cursor-pickable collision layer as other units.
+Construct block clears at player turn
+start; repairs clamp to maximum HP. Enemy ordinary attacks choose the nearest
+reachable player-side unit, preferring the player on ties. Boss signatures,
+rooted rift seals and player-energy-specific attacks retain their authored focus.
+Intent descriptions identify attacks aimed at constructs.
+
+Redeployment selects a construct and then an adjacent legal resource cell. Either
+stage may be cancelled without spending energy. Source and destination are both
+revalidated at commitment. Death, collapse and battle shutdown release occupancy
+and cancel future allied work; collapse bypasses block. Constructs and Analyze
+are discarded with the battle and are not added to room-checkpoint saves.
+
+## Card resolution and hostiles
 
 Cards expose cost, target type, valid cells and optional custom validation.
 Card.play pays energy, emits the committed play event, and resolves configured

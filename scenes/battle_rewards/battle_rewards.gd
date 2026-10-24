@@ -30,6 +30,8 @@ var card_rarity_weights := {
 
 
 func _ready() -> void:
+	if not card_registry:
+		card_registry = RegistryData.card_registry
 	for node: Node in rewards.get_children():
 		node.queue_free()
 	for node: Node in enemy_rewards.get_children():

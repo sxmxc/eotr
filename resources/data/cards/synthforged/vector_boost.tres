@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://dhkywbcf8j8rj"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_3s4gv"]
+[ext_resource type="Texture2D" uid="uid://dsp6vn8d4s8m6" path="res://assets/rift/cards/vector_boost.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/vector_boost.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 7
+target_type = 5
+id = "vector_boost"
+name = "Vector Boost"
+description = "Move to a free cell within 2 hexes."
+energy_cost = 1
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

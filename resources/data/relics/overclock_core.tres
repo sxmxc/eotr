@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OverclockCore" format=3 uid="uid://c8fub7qvdioft"]
+
+[ext_resource type="Script" uid="uid://cea1gtjwtniod" path="res://resources/data/relics/overclock_core.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dxhn04rgwh45d" path="res://assets/rift/ui/overclock_core.svg" id="2"]
+
+[resource]
+script = ExtResource("1")
+relic_name = "Overclock Core"
+id = "overclock_core"
+type = 4
+character_type = 2
+starter_relic = true
+icon = ExtResource("2")
+description = "Overclock: gain 2 extra energy on turns 4, 8, 12 and every fourth turn thereafter. Resets each battle."

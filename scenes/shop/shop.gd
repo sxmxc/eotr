@@ -21,6 +21,8 @@ var item_bought : bool = false
 
 
 func _ready() -> void:
+	if not card_registry:
+		card_registry = RegistryData.card_registry
 	for shop_card: ShopCard in cards.get_children():
 		shop_card.queue_free()
 

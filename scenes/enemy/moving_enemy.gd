@@ -343,6 +343,8 @@ func _movement_score(
 
 
 func get_player_tile_position() -> Vector2i:
+	if is_instance_valid(enemy_action_picker) and is_instance_valid(enemy_action_picker.target) and enemy_action_picker.target is Construct:
+		return enemy_action_picker.target.current_tile_position
 	if tilemap:
 		return tilemap.player_position
 

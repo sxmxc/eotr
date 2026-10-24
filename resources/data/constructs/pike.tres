@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ConstructDefinition" format=3 uid="uid://o2oyx5wo3auh"]
+
+[ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://d1g2wu88coosp" path="res://assets/rift/entities/synthforged_pike.webp" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "pike"
+display_name = "Pike Emplacement"
+max_health = 18
+damage = 5
+attack_range = 1
+texture = ExtResource("2")
