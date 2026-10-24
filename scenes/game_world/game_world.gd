@@ -150,7 +150,7 @@ func start_world() -> void:
 		world_camera.frame_battle()
 	
 	var message = WorldMessageData.new(
-		"The World has awakened!",
+		battle_stats.encounter_name if not battle_stats.encounter_name.is_empty() else "Battle started",
 		WorldMessageData.Priority.IMPORTANT
 	)
 	Events.world_message_requested.emit(message)
@@ -164,7 +164,7 @@ func start_world() -> void:
 				return
 			Events.world_message_requested.emit(
 				WorldMessageData.new(
-					"The Obelisk has revealed itself",
+					"Obelisk revealed",
 					WorldMessageData.Priority.CRITICAL
 				)
 			)
@@ -200,7 +200,7 @@ func shrink_game_board(amount: int = 1) -> void:
 		Utils.shake(map_camera, 12.0, 0.2)
 	Events.world_message_requested.emit(
 		WorldMessageData.new(
-			"The void consumes",
+			"The outer ring collapses",
 			WorldMessageData.Priority.CRITICAL
 		)
 	)

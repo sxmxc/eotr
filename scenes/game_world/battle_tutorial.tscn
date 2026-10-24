@@ -534,11 +534,11 @@ offset_top = 320.0
 offset_right = 1026.0
 offset_bottom = 656.0
 bbcode_enabled = true
-text = "Objective: Destroy the Obelisk; when it falls the battle ends even if minions remain.
-Turn Start: Draw your hand; energy resets; block clears. Riftwalker perk: first movement card each turn refunds its cost, and the first Obelisk hit each turn grants +1 energy.
-Turn Flow: Play cards in any order; right-click cancels aiming. End turn to let enemies act.
-Board Pressure: Obelisks spawn reinforcements on a timer, and every 3 enemy rounds the outer ring is consumed—anything on those tiles dies.
-Tips: Mana Wells grant +1 energy on entry; resource tiles feed relic costs; corrupted tiles are off-limits."
+text = "Objective: Defeat every hostile. Destroying the Obelisk stops its attacks and summons; surviving enemies still need to be defeated.
+Turn start: Draw cards, reset energy, and clear block. Class and relic effects can add bonuses.
+Your turn: Play cards, then end your turn. Right click cancels aiming without spending energy.
+Collapse: Watch the round counter and highlighted edge. Collapse kills anything on removed tiles; move inward.
+Fog: Reveal enemies to see their health and plans. Unknown rows show enemies still hidden."
 fit_content = true
 
 [node name="Control" type="Control" parent="BattleTutorial" unique_id=529183450]

@@ -51,13 +51,13 @@ theme_type_variation = &"DiscoveryStack"
 [node name="Heading" type="Label" parent="Center/Surface/Padding/Content"]
 layout_mode = 2
 theme_type_variation = &"EncounterTitle"
-text = "Shape your next battle"
+text = "Choose a card"
 horizontal_alignment = 1
 
 [node name="Prompt" type="Label" parent="Center/Surface/Padding/Content"]
 layout_mode = 2
 theme_type_variation = &"Muted"
-text = "Choose one spell for your deck. Inspect a card to discover its power."
+text = "Add one card to your deck. Select a card to inspect it before choosing."
 horizontal_alignment = 1
 
 [node name="Cards" type="HBoxContainer" parent="Center/Surface/Padding/Content"]

@@ -108,7 +108,7 @@ text = "All rewards collected."
 layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
 theme_type_variation = &"PrimaryButton"
-text = "Continue expedition  â†’"
+text = "Continue expedition  →"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries/ = SubResource("reveal_library")
 autoplay = "reveal"

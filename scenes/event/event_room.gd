@@ -12,10 +12,10 @@ const EVENTS := [
 	},
 	{
 		"title": "Drifter Caravan",
-		"body": "Nomads wave you over to trade. Their wares are worn, but their salves still sting with life.",
+		"body": "Nomads wave you over to trade. Their packs hold worn supplies and jars of salve.",
 		"options": [
 			{"label": "Trade 10 gold for a salve (+6 HP)", "action": "_option_caravan_heal", "gold_cost": 10},
-			{"label": "Trade 1 resource for intel (+card reward odds)", "action": "_option_caravan_intel", "resource_cost": 1}
+			{"label": "Trade 1 resource for intel (better uncommon and rare card odds)", "action": "_option_caravan_intel", "resource_cost": 1}
 		]
 	},
 	{
@@ -71,7 +71,7 @@ func _roll_event() -> void:
 
 func _populate_event() -> void:
 	_choice_made = false
-	%OutcomeLabel.text = "THE CHOICE IS YOURS"
+	%OutcomeLabel.text = ""
 	%Hint.text = "You may leave without making a choice."
 	leave_button.text = "Return to the path"
 	title_label.text = _current_event.get("title", "Unknown Event")
@@ -137,8 +137,8 @@ func _run_option_by_index(idx: int) -> void:
 	if not is_inside_tree():
 		return
 	_refresh_options()
-	%OutcomeLabel.text = "CHOICE RESOLVED"
-	%Hint.text = "Your choice is complete. Continue when you are ready."
+	%OutcomeLabel.text = "Choice complete"
+	%Hint.text = "Return to the route when you are ready."
 	leave_button.text = "Continue the journey"
 	leave_button.disabled = false
 	leave_button.grab_focus()
@@ -168,7 +168,7 @@ func _option_caravan_heal() -> void:
 
 func _option_caravan_intel() -> void:
 	_boost_card_weights()
-	body_label.text = "Their intel sharpens your draft instincts. (-1 resource, improved card reward odds)"
+	body_label.text = "You buy their intel. (-1 resource, better uncommon and rare card odds)"
 
 
 func _option_scout_claim() -> void:

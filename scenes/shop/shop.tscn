@@ -90,7 +90,7 @@ size_flags_horizontal = 3
 [node name="Eyebrow" type="Label" parent="UILayer/Layout/Header/Titles"]
 theme_type_variation = &"ShopEyebrow"
 layout_mode = 2
-text = "THE WAYFARERâ€™S EXCHANGE"
+text = "THE WAYFARER’S EXCHANGE"
 
 [node name="Title" type="Label" parent="UILayer/Layout/Header/Titles"]
 theme_type_variation = &"ShopTitle"
@@ -127,7 +127,7 @@ layout_mode = 2
 [node name="Caption" type="Label" parent="UILayer/Layout/Inventory/CardShelf/Content"]
 theme_type_variation = &"ShopCaption"
 layout_mode = 2
-text = "CARDS Â· GOLD"
+text = "CARDS · GOLD"
 
 [node name="Heading" type="Label" parent="UILayer/Layout/Inventory/CardShelf/Content"]
 theme_type_variation = &"ShopHeading"
@@ -156,7 +156,7 @@ layout_mode = 2
 [node name="Caption" type="Label" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
 theme_type_variation = &"ShopCaption"
 layout_mode = 2
-text = "ARTIFACTS Â· RESOURCES"
+text = "ARTIFACTS · RESOURCES"
 
 [node name="Heading" type="Label" parent="UILayer/Layout/Inventory/RelicShelf/Content"]
 theme_type_variation = &"ShopHeading"

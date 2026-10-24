@@ -151,7 +151,7 @@ theme_type_variation = &"RoomStack"
 [node name="Eyebrow" type="Label" parent="UILayer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
-text = "A MOMENT OF RESPITE"
+text = "REST"
 autowrap_mode = 3
 
 [node name="Title" type="Label" parent="UILayer/VBoxContainer"]
@@ -163,7 +163,7 @@ autowrap_mode = 3
 [node name="Subtitle" type="Label" parent="UILayer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
-text = "Beyond the firelight, the rift waits. Take a breath before you continue."
+text = "Rest to recover HP, or remove one card from your deck."
 autowrap_mode = 3
 
 [node name="Choices" type="HBoxContainer" parent="UILayer/VBoxContainer"]
@@ -175,7 +175,7 @@ theme_type_variation = &"RoomRow"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_type_variation = &"RoomSurface"
+theme_type_variation = &"RoomEmblem"
 
 [node name="Content" type="VBoxContainer" parent="UILayer/VBoxContainer/Choices/Hearth"]
 layout_mode = 2
@@ -194,16 +194,11 @@ expand_mode = 1
 stretch_mode = 5
 mouse_filter = 2
 
-[node name="Caption" type="Label" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
-layout_mode = 2
-theme_type_variation = &"RoomEyebrow"
-text = "A QUIET FIRE"
-autowrap_mode = 3
 
 [node name="Story" type="Label" parent="UILayer/VBoxContainer/Choices/Hearth/Content"]
 layout_mode = 2
 theme_type_variation = &"RoomBody"
-text = "Warmth settles into tired limbs. For a little while, nothing asks you to fight."
+text = "Warmth returns to your hands."
 autowrap_mode = 3
 
 [node name="Recovery" type="PanelContainer" parent="UILayer/VBoxContainer/Choices"]

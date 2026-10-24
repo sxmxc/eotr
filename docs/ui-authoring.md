@@ -73,6 +73,10 @@ Card discovery has an opaque illustrated backdrop and an open three-card stage;
 the collection screen must not show through behind card text. Author preview
 scale on the reward/shop scenes and keep CardMenuUI's measuring frame intact.
 Shop cards carry the visual emphasis; relics retain compact comparison rows.
+Keep instructional copy tied to current victory,
+fog and campaign rules. Intent descriptions preserve sentence case and proper
+names; compact queue summaries may differ from full inspection text. Victory
+copy names the current final encounter, with its own readable `VictoryTitle` role.
 
 Author shader parameters in material resources; give animated per-instance
 uniforms local material state. Fullscreen effects must multiply incoming COLOR so
