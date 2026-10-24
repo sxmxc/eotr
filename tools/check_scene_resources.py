@@ -1,4 +1,4 @@
-"""Check first-party resources and keep UI styling in scenes and the shared theme."""
+"""Check first-party resources, UI authoring and shared card projectile ownership."""
 
 from pathlib import Path
 import re
@@ -35,6 +35,26 @@ def check_resources(root: Path) -> list[str]:
                 if re.search(r"\b(Control|Label|RichTextLabel|Button|Panel|PanelContainer|AcceptDialog)\.new\(|\.add_theme_", line):
                     relative = path.relative_to(root).as_posix()
                     problems.append(f"{relative}:{line_number}: instantiate an authored UI scene or select a theme variation")
+    problems.extend(check_card_projectiles(root))
+    return problems
+
+
+def check_card_projectiles(root: Path) -> list[str]:
+    """Cards configure travel; CardFxRunner owns projectile instances and completion."""
+    problems = []
+    for path in sorted((root / "resources/data/cards").rglob("*.gd")):
+        # Ignore comments so documentation can name the shared projectile type.
+        source = "\n".join(line.split("#", 1)[0] for line in path.read_text(encoding="utf-8").splitlines())
+        for pattern in (
+            r"\bProjectileFX\b",
+            r"\bprojectile_fx\s*\.\s*instantiate\s*\(",
+            r"\bforce_complete(?:_deferred)?\b",
+            r"[\"']res://[^\"']*projectile[^\"']*\.tscn[\"']\s*\)\s*\.\s*instantiate\s*\(",
+        ):
+            if re.search(pattern, source):
+                relative = path.relative_to(root).as_posix()
+                problems.append(f"{relative}: configure projectiles through CardEffectConfig; CardFxRunner owns instancing and completion")
+                break
     return problems
 
 

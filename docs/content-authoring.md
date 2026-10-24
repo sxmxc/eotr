@@ -43,6 +43,14 @@ contact visual only through the projectile. An effect-owned config may still
 inherit a projectile for travel, with no projectile contact visual. Configured
 projectiles run before their effects; do not add a second gameplay damage callback
 on arrival. Existing custom utility `cast_fx` is cosmetic, not another resolver.
+Card scripts configure travel through CardEffectConfig; CardFxRunner owns
+projectile instancing, completion and timeout wiring. This includes conditional
+cards such as Sever Anchor and Overload Shot: compute their amount before calling
+CardResolver, retaining their normal cost/event path. The offline resource guard
+rejects direct ProjectileFX use, `projectile_fx.instantiate()`, direct projectile
+scene load-and-instance expressions and force-completion wiring in card scripts.
+It is a source-pattern guard, not a full GDScript parser; runtime lifecycle checks
+remain necessary when introducing another projectile path.
 Keep per-effect overrides, such as Nano Shield's separate energy feedback,
 explicit. The helper accepts CardEffectConfig, not legacy Effect nodes; it does
 not choose damage, hit count, status, target, projectile mode or camera values.

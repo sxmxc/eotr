@@ -12,6 +12,9 @@ python tools/validate_project.py --godot "$godot"
 ```
 
 The resource guard checks cache references, embedded data and UI authoring rules.
+It also rejects known bespoke projectile lifecycle patterns in card scripts;
+`python tools/test_card_projectile_authoring.py` checks its allowed configuration
+and rejected instancing/completion fixtures without Godot or network access.
 The default runtime scene loads first-party resources and exercises telemetry,
 menu/sandbox, save/load, new-run and combat startup. It is a broad smoke check,
 not proof of a complete campaign or good visual presentation.

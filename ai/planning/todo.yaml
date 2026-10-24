@@ -670,16 +670,13 @@ backlog:
   - id: BKL-051
     title: "Migrate bespoke projectile cards to CardResolver + CardFxRunner"
     priority: P2
-    status: in_review
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Cards like sever_anchor.gd still hand-roll projectile instancing, timeouts, and camera shake outside the resolver."
-      - "Sever Anchor has been migrated; verify if any other cards still bypass the resolver."
-    next_steps:
-      - "Audit remaining cards for bespoke projectile handling; rewrite to build CardEffectConfig entries and call CardResolver.resolve."
-      - "Ensure pre-hit FX uses CardFxRunner and camera impact uses ImpactProfile/config values."
-      - "Delete bespoke projectile/timeouts after migration."
+      - "2026-10-24 audit confirms migration already implemented: no card scripts instance projectiles or own timeout/completion wiring. Conditional Sever Anchor/Overload Shot use CardResolver; CardFxRunner owns pre-hit travel and resolver owns camera impact."
+      - "Added offline authoring guard and fixtures; focused native projectile checks and full combat validation pass. Evidence and limits: ai/state/journal-bkl-051.md."
+    next_steps: []
 
   - id: BKL-052
     title: "Guard status teardown when the status owner has already been freed"
