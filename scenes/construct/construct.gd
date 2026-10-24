@@ -68,7 +68,7 @@ func destroy() -> void:
 	if DisplayServer.get_name() == "headless":
 		queue_free()
 	else:
-		SynthforgedFX.play_on(self, preload("res://ui/fx/synthforged/construct_death.tscn"))
+		VisualFX.play_on(self, preload("res://ui/fx/synthforged/construct_death.tscn"))
 		var duration := Utils.presentation_duration(0.24)
 		var death := create_tween()
 		death.tween_property(sprite_2d, "modulate:a", 0.0, duration)
@@ -104,8 +104,7 @@ func activate() -> void:
 	effect.player_side_attack = true
 	effect.source_actor = self
 	if DisplayServer.get_name() != "headless":
-		var attack := "siege_attack" if definition.id == "siege_platform" else definition.id + "_attack"
-		effect.visual_fx = load("res://ui/fx/synthforged/%s.tscn" % attack)
+		effect.visual_fx = definition.attack_fx
 	effect.execute([target])
 	while is_instance_valid(target) and target.pending_damage > 0 and is_inside_tree():
 		await get_tree().process_frame

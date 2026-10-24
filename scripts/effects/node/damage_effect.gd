@@ -29,7 +29,7 @@ func execute(targets: Array[Node]) -> void:
 			if visual_fx != null:
 				var visual_effect : VisualFX = visual_fx.instantiate()
 				target.add_child(visual_effect)
-				if visual_effect is SynthforgedFX: visual_effect.caster = source_actor
+				visual_effect.source_actor = source_actor
 				visual_effect.execute()
 			var attack_bonus := AnalyzedStatus.count(target) if player_side_attack else 0
 			if target is Player:

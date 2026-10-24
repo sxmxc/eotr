@@ -1,9 +1,79 @@
 [gd_scene format=3 uid="uid://bkpdqr3uxuvb4"]
 
-[ext_resource type="Script" uid="uid://bh8p2nkcvxhfy" path="res://ui/fx/synthforged_fx.gd" id="1"]
+[ext_resource type="Script" path="res://ui/fx/animated_visual_fx.gd" id="script"]
 
-[node name="SynthforgedFX" type="Node2D" unique_id=1697126514]
+[sub_resource type="Animation" id="Animation_play"]
+resource_name = "play"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/path = NodePath("Chevron1:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-12, 13, 0, 8, 12, 13), PackedVector2Array(-12, 12.1667, 0, 7.16667, 12, 12.1667), PackedVector2Array(-12, 11.3333, 0, 6.33333, 12, 11.3333), PackedVector2Array(-12, 10.5, 0, 5.5, 12, 10.5), PackedVector2Array(-12, 9.66667, 0, 4.66667, 12, 9.66667), PackedVector2Array(-12, 8.83333, 0, 3.83333, 12, 8.83333), PackedVector2Array(-12, 8, 0, 3, 12, 8), PackedVector2Array(-12, 7.16667, 0, 2.16667, 12, 7.16667), PackedVector2Array(-12, 6.33333, 0, 1.33333, 12, 6.33333), PackedVector2Array(-12, 5.5, 0, 0.5, 12, 5.5), PackedVector2Array(-12, 4.66667, 0, -0.333333, 12, 4.66667), PackedVector2Array(-12, 3.83333, 0, -1.16667, 12, 3.83333), PackedVector2Array(-12, 3, 0, -2, 12, 3)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Chevron2:points")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-12, 2, 0, -3, 12, 2), PackedVector2Array(-12, 1.16667, 0, -3.83333, 12, 1.16667), PackedVector2Array(-12, 0.333333, 0, -4.66667, 12, 0.333333), PackedVector2Array(-12, -0.5, 0, -5.5, 12, -0.5), PackedVector2Array(-12, -1.33333, 0, -6.33333, 12, -1.33333), PackedVector2Array(-12, -2.16667, 0, -7.16667, 12, -2.16667), PackedVector2Array(-12, -3, 0, -8, 12, -3), PackedVector2Array(-12, -3.83333, 0, -8.83333, 12, -3.83333), PackedVector2Array(-12, -4.66667, 0, -9.66667, 12, -4.66667), PackedVector2Array(-12, -5.5, 0, -10.5, 12, -5.5), PackedVector2Array(-12, -6.33333, 0, -11.3333, 12, -6.33333), PackedVector2Array(-12, -7.16667, 0, -12.1667, 12, -7.16667), PackedVector2Array(-12, -8, 0, -13, 12, -8)]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Chevron3:points")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-12, -9, 0, -14, 12, -9), PackedVector2Array(-12, -9.83333, 0, -14.8333, 12, -9.83333), PackedVector2Array(-12, -10.6667, 0, -15.6667, 12, -10.6667), PackedVector2Array(-12, -11.5, 0, -16.5, 12, -11.5), PackedVector2Array(-12, -12.3333, 0, -17.3333, 12, -12.3333), PackedVector2Array(-12, -13.1667, 0, -18.1667, 12, -13.1667), PackedVector2Array(-12, -14, 0, -19, 12, -14), PackedVector2Array(-12, -14.8333, 0, -19.8333, 12, -14.8333), PackedVector2Array(-12, -15.6667, 0, -20.6667, 12, -15.6667), PackedVector2Array(-12, -16.5, 0, -21.5, 12, -16.5), PackedVector2Array(-12, -17.3333, 0, -22.3333, 12, -17.3333), PackedVector2Array(-12, -18.1667, 0, -23.1667, 12, -18.1667), PackedVector2Array(-12, -19, 0, -24, 12, -19)]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.258819), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.707107), Color(1, 1, 1, 0.866025), Color(1, 1, 1, 0.965926), Color(1, 1, 1, 1), Color(1, 1, 1, 0.965926), Color(1, 1, 1, 0.866025), Color(1, 1, 1, 0.707107), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.258819), Color(1, 1, 1, 1.22465e-16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_main"]
+_data = {
+&"play": SubResource("Animation_play")
+}
+
+[node name="FireCommandFX" type="Node2D"]
 z_index = 8
-script = ExtResource("1")
-mode = "fire_command"
-duration = 0.32
+script = ExtResource("script")
+
+[node name="Chevron1" type="Line2D" parent="."]
+points = PackedVector2Array(-12, 8, 0, 3, 12, 8)
+width = 2
+default_color = Color(1, 0.25, 0.16, 1)
+antialiased = true
+
+[node name="Chevron2" type="Line2D" parent="."]
+points = PackedVector2Array(-12, -3, 0, -8, 12, -3)
+width = 2
+default_color = Color(1, 0.25, 0.16, 1)
+antialiased = true
+
+[node name="Chevron3" type="Line2D" parent="."]
+points = PackedVector2Array(-12, -14, 0, -19, 12, -14)
+width = 2
+default_color = Color(1, 0.25, 0.16, 1)
+antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_main")
+}

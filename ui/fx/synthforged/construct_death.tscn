@@ -1,9 +1,179 @@
 [gd_scene format=3 uid="uid://ddm1jtjhdi44f"]
 
-[ext_resource type="Script" uid="uid://bh8p2nkcvxhfy" path="res://ui/fx/synthforged_fx.gd" id="1"]
+[ext_resource type="Script" path="res://ui/fx/animated_visual_fx.gd" id="script"]
 
-[node name="SynthforgedFX" type="Node2D" unique_id=1750625613]
+[sub_resource type="Animation" id="Animation_play"]
+resource_name = "play"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fragment1:points")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 0, 0), PackedVector2Array(2, 0, 3.81173, 0), PackedVector2Array(4, 0, 7.5, 0), PackedVector2Array(6, 0, 10.9497, 0), PackedVector2Array(8, 0, 14.0622, 0), PackedVector2Array(10, 0, 16.7615, 0), PackedVector2Array(12, 0, 19, 0), PackedVector2Array(14, 0, 20.7615, 0), PackedVector2Array(16, 0, 22.0622, 0), PackedVector2Array(18, 0, 22.9497, 0), PackedVector2Array(20, 0, 23.5, 0), PackedVector2Array(22, 0, 23.8117, 0), PackedVector2Array(24, 0, 24, 0)]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Fragment2:points")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-0, 0, -0, 0), PackedVector2Array(-1.47344, 1.3524, -2.80817, 2.57749), PackedVector2Array(-2.94687, 2.7048, -5.52538, 5.0715), PackedVector2Array(-4.42031, 4.0572, -8.06687, 7.40422), PackedVector2Array(-5.89374, 5.4096, -10.3599, 9.50885), PackedVector2Array(-7.36718, 6.762, -12.3485, 11.3341), PackedVector2Array(-8.84061, 8.1144, -13.9976, 12.8478), PackedVector2Array(-10.3141, 9.4668, -15.2954, 14.0389), PackedVector2Array(-11.7875, 10.8192, -16.2536, 14.9184), PackedVector2Array(-13.2609, 12.1716, -16.9075, 15.5186), PackedVector2Array(-14.7344, 13.524, -17.3129, 15.8907), PackedVector2Array(-16.2078, 14.8764, -17.5425, 16.1015), PackedVector2Array(-17.6812, 16.2288, -17.6812, 16.2288)]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Fragment3:points")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, -0, 0, -0), PackedVector2Array(0.171013, -1.99268, 0.325928, -3.79777), PackedVector2Array(0.342026, -3.98535, 0.641299, -7.47253), PackedVector2Array(0.513039, -5.97803, 0.936274, -10.9096), PackedVector2Array(0.684052, -7.9707, 1.20241, -14.0107), PackedVector2Array(0.855065, -9.96338, 1.43322, -16.7001), PackedVector2Array(1.02608, -11.9561, 1.62462, -18.9304), PackedVector2Array(1.19709, -13.9487, 1.77524, -20.6854), PackedVector2Array(1.3681, -15.9414, 1.88646, -21.9814), PackedVector2Array(1.53912, -17.9341, 1.96235, -22.8657), PackedVector2Array(1.71013, -19.9268, 2.0094, -23.4139), PackedVector2Array(1.88114, -21.9194, 2.03606, -23.7245), PackedVector2Array(2.05216, -23.9121, 2.05216, -23.9121)]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Fragment4:points")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, 0, 0, 0), PackedVector2Array(1.22146, 1.58368, 2.32794, 3.01828), PackedVector2Array(2.44292, 3.16736, 4.58047, 5.93879), PackedVector2Array(3.66438, 4.75104, 6.68733, 8.67044), PackedVector2Array(4.88584, 6.33471, 8.58819, 11.135), PackedVector2Array(6.1073, 7.91839, 10.2367, 13.2724), PackedVector2Array(7.32875, 9.50207, 11.6039, 15.0449), PackedVector2Array(8.55021, 11.0857, 12.6797, 16.4398), PackedVector2Array(9.77167, 12.6694, 13.474, 17.4697), PackedVector2Array(10.9931, 14.2531, 14.0161, 18.1725), PackedVector2Array(12.2146, 15.8368, 14.3521, 18.6082), PackedVector2Array(13.4361, 17.4205, 14.5425, 18.8551), PackedVector2Array(14.6575, 19.0041, 14.6575, 19.0041)]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Fragment5:points")
+tracks/4/interp = 1
+tracks/4/loop_wrap = false
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-0, -0, -0, -0), PackedVector2Array(-1.97075, -0.340773, -3.756, -0.649468), PackedVector2Array(-3.94151, -0.681547, -7.39033, -1.2779), PackedVector2Array(-5.91226, -1.02232, -10.7896, -1.86569), PackedVector2Array(-7.88302, -1.36309, -13.8566, -2.39601), PackedVector2Array(-9.85377, -1.70387, -16.5164, -2.85593), PackedVector2Array(-11.8245, -2.04464, -18.7222, -3.23735), PackedVector2Array(-13.7953, -2.38541, -20.4579, -3.53748), PackedVector2Array(-15.766, -2.72619, -21.7396, -3.7591), PackedVector2Array(-17.7368, -3.06696, -22.6142, -3.91033), PackedVector2Array(-19.7075, -3.40773, -23.1564, -4.00409), PackedVector2Array(-21.6783, -3.74851, -23.4635, -4.0572), PackedVector2Array(-23.6491, -4.08928, -23.6491, -4.08928)]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Fragment6:points")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(0, -0, 0, -0), PackedVector2Array(1.68232, -1.08157, 3.20628, -2.06133), PackedVector2Array(3.36464, -2.16314, 6.3087, -4.05589), PackedVector2Array(5.04696, -3.24471, 9.2105, -5.92146), PackedVector2Array(6.72928, -4.32628, 11.8285, -7.60462), PackedVector2Array(8.41161, -5.40785, 14.0991, -9.06437), PackedVector2Array(10.0939, -6.48943, 15.9821, -10.2749), PackedVector2Array(11.7762, -7.571, 17.4637, -11.2275), PackedVector2Array(13.4586, -8.65257, 18.5578, -11.9309), PackedVector2Array(15.1409, -9.73414, 19.3044, -12.4109), PackedVector2Array(16.8232, -10.8157, 19.7673, -12.7085), PackedVector2Array(18.5055, -11.8973, 20.0295, -12.877), PackedVector2Array(20.1879, -12.9789, 20.1879, -12.9789)]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("ContactSlash:points")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10), PackedVector2Array(-5, -10, 5, 10)]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("ContactCross:points")
+tracks/7/interp = 1
+tracks/7/loop_wrap = false
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3), PackedVector2Array(-10, 3, 10, -3)]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("ContactSlash:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = false
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.16),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("ContactCross:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = false
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.16),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath(".:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = false
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.0266667, 0.0533333, 0.08, 0.106667, 0.133333, 0.16, 0.186667, 0.213333, 0.24, 0.266667, 0.293333, 0.32),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.258819), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.707107), Color(1, 1, 1, 0.866025), Color(1, 1, 1, 0.965926), Color(1, 1, 1, 1), Color(1, 1, 1, 0.965926), Color(1, 1, 1, 0.866025), Color(1, 1, 1, 0.707107), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.258819), Color(1, 1, 1, 1.22465e-16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_main"]
+_data = {
+&"play": SubResource("Animation_play")
+}
+
+[node name="ConstructDeathFX" type="Node2D"]
 z_index = 8
-script = ExtResource("1")
-mode = "construct_death"
-duration = 0.32
+script = ExtResource("script")
+
+[node name="Fragment1" type="Line2D" parent="."]
+points = PackedVector2Array(12, 0, 19, 0)
+width = 2
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Fragment2" type="Line2D" parent="."]
+points = PackedVector2Array(-8.84061, 8.1144, -13.9976, 12.8478)
+width = 2
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Fragment3" type="Line2D" parent="."]
+points = PackedVector2Array(1.02608, -11.9561, 1.62462, -18.9304)
+width = 2
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Fragment4" type="Line2D" parent="."]
+points = PackedVector2Array(7.32875, 9.50207, 11.6039, 15.0449)
+width = 2
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Fragment5" type="Line2D" parent="."]
+points = PackedVector2Array(-11.8245, -2.04464, -18.7222, -3.23735)
+width = 2
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="Fragment6" type="Line2D" parent="."]
+points = PackedVector2Array(10.0939, -6.48943, 15.9821, -10.2749)
+width = 2
+default_color = Color(1, 0.64, 0.18, 1)
+antialiased = true
+
+[node name="ContactSlash" type="Line2D" parent="."]
+points = PackedVector2Array(-5, -10, 5, 10)
+width = 3
+default_color = Color(0.96, 0.9, 0.72, 1)
+antialiased = true
+
+[node name="ContactCross" type="Line2D" parent="."]
+points = PackedVector2Array(-10, 3, 10, -3)
+width = 2
+default_color = Color(0.96, 0.9, 0.72, 1)
+antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_main")
+}

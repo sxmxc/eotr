@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://d1g2wu88coosp" path="res://assets/rift/entities/synthforged_pike.webp" id="2"]
+[ext_resource type="PackedScene" uid="uid://dlrmfsdt3n1tr" path="res://ui/fx/synthforged/pike_attack.tscn" id="attack_fx"]
 
 [resource]
 script = ExtResource("1")
@@ -11,3 +12,4 @@ max_health = 18
 damage = 5
 attack_range = 1
 texture = ExtResource("2")
+attack_fx = ExtResource("attack_fx")
