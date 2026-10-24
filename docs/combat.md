@@ -29,8 +29,11 @@ Never advance a phase from a visual callback that can outlive its owner.
 ProcGenTilemap owns actual cells, fog and occupancy. The current TileSet uses
 **64 × 64 pointy hexes** and a **256 × 128** four-column/two-row terrain atlas.
 Use its `cell_to_world` / `world_to_cell` conversion for entities and feedback.
-Distance helpers and TileMap adjacency are not interchangeable in every case;
-preserve the relevant movement/targeting API rather than substituting coordinates.
+Shared cell distance and rings match TileMap adjacency in the authored axial
+layout. Bounded neighbor searches still differ from geometric range across holes.
+Player sight requires existing source/target terrain and a revealed destination;
+terrain and actors do not block rays. Enemy AI does not depend on player fog.
+See [geometry contracts](architecture.md#hex-geometry-and-sight-queries).
 
 | Terrain | Current role |
 | --- | --- |

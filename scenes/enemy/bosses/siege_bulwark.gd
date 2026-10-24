@@ -13,14 +13,14 @@ func prepare_signature() -> void:
 		boss_caption = "OPEN PLATING - takes 50% more damage. Recovery: no attack."
 		return
 	var cursor := current_tile_position
-	var target_cube := tilemap.offset_to_cube(tilemap.player_position)
+	var target_cell := tilemap.player_position
 	for step in 4:
 		var next := cursor
-		var distance := tilemap.hex_distance(tilemap.offset_to_cube(cursor), target_cube)
+		var distance := tilemap.cell_distance(cursor, target_cell)
 		for neighbor in tilemap.base_layer.get_surrounding_cells(cursor):
 			if not tilemap.is_within_bounds(neighbor):
 				continue
-			var d := tilemap.hex_distance(tilemap.offset_to_cube(neighbor), target_cube)
+			var d := tilemap.cell_distance(neighbor, target_cell)
 			if d < distance:
 				next = neighbor
 				distance = d
