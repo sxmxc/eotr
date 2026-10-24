@@ -1,4 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://daahb18kiyrq2"]
+
 [ext_resource type="PackedScene" path="res://scenes/enemy/bosses/siege_bulwark.tscn" id="boss"]
-[node name="tier_2_bulwark_channelers" type="Node2D"]
-[node name="Boss" parent="." instance=ExtResource("boss")]
+
+[node name="tier_2_bulwark_channelers" type="Node2D" unique_id=2056138359]
+
+[node name="Boss" parent="." unique_id=1072096009 instance=ExtResource("boss")]

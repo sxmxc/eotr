@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bqa3nl0ajdjgh" path="res://assets/audio/music/gustavo_horror.mp3" id="5_a0b37"]
 [ext_resource type="PackedScene" uid="uid://bj2o5bhx1vq8b" path="res://scenes/map/map.tscn" id="6_2foro"]
 [ext_resource type="PackedScene" path="res://ui/map_ui/map_legend.tscn" id="map_legend"]
-[ext_resource type="PackedScene" path="res://scenes/run/pause_menu.tscn" id="pause_menu"]
+[ext_resource type="PackedScene" uid="uid://bmxtasy1jjxxh" path="res://scenes/run/pause_menu.tscn" id="pause_menu"]
 [ext_resource type="PackedScene" path="res://ui/run_ui/run_hud.tscn" id="run_hud"]
 [ext_resource type="PackedScene" path="res://scenes/run/run_tutorial.tscn" id="run_tutorial"]
 

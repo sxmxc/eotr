@@ -1,14 +1,19 @@
-[gd_scene load_steps=5 format=3]
-[ext_resource type="Shader" path="res://scripts/shaders/rift_gate.gdshader" id="shader"]
-[sub_resource type="Gradient" id="gradient"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-[sub_resource type="GradientTexture2D" id="texture"]
-gradient = SubResource("gradient")
-width = 64
-height = 64
+[gd_scene format=3 uid="uid://4djtp722n2ol"]
+
+[ext_resource type="Shader" uid="uid://ri5b2wfeic2s" path="res://scripts/shaders/rift_gate.gdshader" id="shader"]
+
 [sub_resource type="ShaderMaterial" id="material"]
 resource_local_to_scene = true
 shader = ExtResource("shader")
-[node name="RiftGate" type="Sprite2D"]
-texture = SubResource("texture")
+shader_parameter/burst = 0.0
+shader_parameter/accent = Color(0.25, 0.85, 1, 1)
+
+[sub_resource type="Gradient" id="gradient"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="texture"]
+gradient = SubResource("gradient")
+
+[node name="RiftGate" type="Sprite2D" unique_id=1326961613]
 material = SubResource("material")
+texture = SubResource("texture")

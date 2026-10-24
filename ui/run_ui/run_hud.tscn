@@ -1,30 +1,20 @@
-[gd_scene format=3]
-
-[ext_resource type="Script" path="res://ui/run_ui/run_hud.gd" id="hud_script"]
+[gd_scene format=3 uid="uid://bd0iecmenqtmc"]
 
 [ext_resource type="PackedScene" uid="uid://crny6hpdmf0v7" path="res://ui/health_ui/health_ui.tscn" id="8_ctna3"]
-
 [ext_resource type="PackedScene" uid="uid://b0lurds536bhp" path="res://ui/run_ui/gold_ui.tscn" id="9_axhcw"]
-
 [ext_resource type="PackedScene" uid="uid://dr3yt337ubpq" path="res://ui/run_ui/resources_ui.tscn" id="10_dfo0u"]
-
 [ext_resource type="PackedScene" uid="uid://ck2xa3ld451by" path="res://ui/run_ui/run_time_ui.tscn" id="11_n0yky"]
-
 [ext_resource type="PackedScene" uid="uid://bk80dhbki0i22" path="res://scenes/relic_handler/relic_handler.tscn" id="12_yey0w"]
-
-[ext_resource type="PackedScene" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="13_ev4fb"]
-
+[ext_resource type="PackedScene" uid="uid://dwo8hgw7ipxf0" path="res://ui/card_pile_button/card_pile_button_compact.tscn" id="13_ev4fb"]
 [ext_resource type="PackedScene" uid="uid://c2xcucb5g14wh" path="res://ui/card_pile/card_pile_view.tscn" id="14_ik8qf"]
-
 [ext_resource type="PackedScene" uid="uid://coupj55agy31s" path="res://scenes/relic_handler/relic_tooltip.tscn" id="15_rxc36"]
-
 [ext_resource type="PackedScene" uid="uid://dlbek83rsj3cw" path="res://ui/run_ui/bounty_board_view.tscn" id="16_omd4m"]
-
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="32_djwbl"]
+[ext_resource type="Script" uid="uid://b3gue5pej3cap" path="res://ui/run_ui/run_hud.gd" id="hud_script"]
 
 [node name="RunHUD" type="CanvasLayer" unique_id=1601585805]
-script = ExtResource("hud_script")
 layer = 4
+script = ExtResource("hud_script")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=51867573]
 anchors_preset = 10
@@ -77,9 +67,7 @@ layout_mode = 2
 
 [node name="DeckButton" parent="MarginContainer/BarItems" unique_id=1712386859 instance=ExtResource("13_ev4fb")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-
 
 [node name="TopBarPopupView" type="CanvasLayer" parent="." unique_id=615476148]
 layer = 6
@@ -91,9 +79,11 @@ visible = false
 [node name="RelicTooltip" parent="TopBarPopupView" unique_id=1320692901 instance=ExtResource("15_rxc36")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BountyBoardPopup" parent="TopBarPopupView" unique_id=1926839284 instance=ExtResource("16_omd4m")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 3
+grow_horizontal = 2
+grow_vertical = 2

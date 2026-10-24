@@ -1,22 +1,24 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/ward_keeper_anchor.tres" id="e0"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/rift_needle.tres" id="e1"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound.tres" id="e2"]
+[gd_scene format=3 uid="uid://kgdgda4ddmgb"]
 
-[node name="anchor_guard" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
+[ext_resource type="Resource" uid="uid://c58kppa3omjmy" path="res://resources/data/enemies/rift/ward_keeper_anchor.tres" id="e0"]
+[ext_resource type="Resource" uid="uid://4newt1vqv7lg" path="res://resources/data/enemies/rift/rift_needle.tres" id="e1"]
+[ext_resource type="Resource" uid="uid://dsskhbdr6lgtm" path="res://resources/data/enemies/rift/shard_hound.tres" id="e2"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Resource" uid="uid://c8h36iwvcmede" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+
+[node name="anchor_guard" type="Node2D" unique_id=898373827]
+
+[node name="Obelisk" parent="." unique_id=1985334737 instance=ExtResource("obelisk")]
 spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2")])
+stats = ExtResource("obelisk_stats")
 
-[node name="Unit0" parent="." instance=ExtResource("moving")]
+[node name="Unit0" parent="." unique_id=879111367 instance=ExtResource("moving")]
 stats = ExtResource("e0")
 
-[node name="Unit1" parent="." instance=ExtResource("moving")]
+[node name="Unit1" parent="." unique_id=1667131306 instance=ExtResource("moving")]
 stats = ExtResource("e1")
 
-[node name="Unit2" parent="." instance=ExtResource("moving")]
+[node name="Unit2" parent="." unique_id=950876856 instance=ExtResource("moving")]
 stats = ExtResource("e2")

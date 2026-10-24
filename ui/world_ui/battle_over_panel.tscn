@@ -1,33 +1,41 @@
 [gd_scene format=3 uid="uid://8ojfyictvua2"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/world_ui/battle_over_panel.gd" id="script"]
-[ext_resource type="Material" path="res://resources/materials/battle_over_vignette.tres" id="vignette"]
-[node name="BattleOverPanel" type="Panel"]
-visible = false
-theme_type_variation = &"BattleScrim"
+
+[ext_resource type="Script" uid="uid://psj52cqsemc8" path="res://ui/world_ui/battle_over_panel.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Material" uid="uid://c7cx3i62j4f51" path="res://resources/materials/battle_over_vignette.tres" id="vignette"]
+
+[node name="BattleOverPanel" type="Panel" unique_id=1866136439]
 process_mode = 3
+visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
+theme_type_variation = &"BattleScrim"
 script = ExtResource("script")
-[node name="VignetteRect" type="ColorRect" parent="."]
+
+[node name="VignetteRect" type="ColorRect" parent="." unique_id=499065892]
 unique_name_in_owner = true
 material = ExtResource("vignette")
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(1, 1, 1, 1)
-[node name="Card" type="Panel" parent="."]
-pivot_offset = Vector2(330, 200)
+
+[node name="Card" type="Panel" parent="." unique_id=2047703305]
+layout_mode = 0
 anchor_left = 0.5
-anchor_right = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -330.0
-offset_right = 330.0
 offset_top = -200.0
+offset_right = 330.0
 offset_bottom = 200.0
-[node name="Eyebrow" type="Label" parent="Card"]
+pivot_offset = Vector2(330, 200)
+
+[node name="Eyebrow" type="Label" parent="Card" unique_id=1554321752]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 40.0
 offset_right = 620.0
@@ -35,8 +43,10 @@ offset_bottom = 70.0
 theme_type_variation = &"Eyebrow"
 text = "ECHOES OF THE RIFT"
 horizontal_alignment = 1
-[node name="Label" type="Label" parent="Card"]
+
+[node name="Label" type="Label" parent="Card" unique_id=1568262750]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 40.0
 offset_top = 90.0
 offset_right = 620.0
@@ -44,16 +54,20 @@ offset_bottom = 190.0
 theme_type_variation = &"OutcomeTitle"
 text = "Victory"
 horizontal_alignment = 1
-[node name="ContinueButton" type="Button" parent="Card"]
+
+[node name="ContinueButton" type="Button" parent="Card" unique_id=2097250717]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 120.0
 offset_top = 264.0
 offset_right = 540.0
 offset_bottom = 328.0
 theme_type_variation = &"PrimaryButton"
 text = "Claim your rewards  →"
-[node name="MainMenuButton" type="Button" parent="Card"]
+
+[node name="MainMenuButton" type="Button" parent="Card" unique_id=1342163859]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 120.0
 offset_top = 264.0
 offset_right = 540.0

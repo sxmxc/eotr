@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cbrpici73jf4p" path="res://resources/data/cards/riftwalker/nano_shield.gd" id="1_3masv"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_vmlvs"]
-[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="energy_signature"]
+[ext_resource type="PackedScene" uid="uid://yl2a6cdv5qja" path="res://ui/fx/mana_surge_signature.tscn" id="energy_signature"]
 [ext_resource type="Texture2D" uid="uid://dyl821o8yxmem" path="res://assets/rift/cards/nano_shield.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/nano_shield_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://bskkwbepdvssm" path="res://ui/fx/nano_shield_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_3masv")

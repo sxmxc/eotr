@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://clemke10r3mhf"]
 
-[ext_resource type="Script" path="res://ui/fx/illustrated_fx.gd" id="script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/arcane_projectile_frames.tres" id="frames"]
+[ext_resource type="SpriteFrames" uid="uid://0elumkrrrvj0" path="res://resources/vfx/arcane_projectile_frames.tres" id="frames"]
+[ext_resource type="Script" uid="uid://6i0px1xn7bwq" path="res://ui/fx/illustrated_fx.gd" id="script"]
 
-[node name="FlashFX" type="Node2D"]
+[node name="FlashFX" type="Node2D" unique_id=1462259381]
 z_index = 8
 script = ExtResource("script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1078278466]
 texture_filter = 2
 scale = Vector2(0.15007892, 0.15007892)
 sprite_frames = ExtResource("frames")
-animation = &"default"

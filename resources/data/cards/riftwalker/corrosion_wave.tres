@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cwavedaxna0rw" path="res://resources/data/cards/riftwalker/corrosion_wave.gd" id="1_script"]
 [ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_sound"]
 [ext_resource type="Texture2D" uid="uid://dbjhu7vjfd3vs" path="res://assets/rift/cards/corrosion_wave.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/corrosion_wave_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://dewwwd3j8yb4g" path="res://ui/fx/corrosion_wave_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_script")

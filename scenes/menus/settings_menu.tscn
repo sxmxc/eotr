@@ -1,26 +1,36 @@
-[gd_scene format=3]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://scenes/menus/settings_menu.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="background"]
-[node name="SettingsMenu" type="Control"]
+[gd_scene format=3 uid="uid://1lr8gspc7gsl"]
+
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="background"]
+[ext_resource type="Script" uid="uid://cnou8fh6bmgbl" path="res://scenes/menus/settings_menu.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="SettingsMenu" type="Control" unique_id=1003119841]
 process_mode = 3
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
 script = ExtResource("script")
-[node name="Background" type="TextureRect" parent="."]
+
+[node name="Background" type="TextureRect" parent="." unique_id=348056899]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("background")
 expand_mode = 1
 stretch_mode = 6
-mouse_filter = 2
-[node name="Shade" type="ColorRect" parent="."]
+
+[node name="Shade" type="ColorRect" parent="." unique_id=71675744]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.008, 0.014, 0.022, 0.85)
 mouse_filter = 2
-[node name="Panel" type="PanelContainer" parent="."]
+color = Color(0.008, 0.014, 0.022, 0.85)
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1262657689]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -30,213 +40,252 @@ offset_top = -454.0
 offset_right = 580.0
 offset_bottom = 454.0
 theme_type_variation = &"SettingsPanel"
-[node name="Content" type="VBoxContainer" parent="Panel"]
+
+[node name="Content" type="VBoxContainer" parent="Panel" unique_id=220091643]
 layout_mode = 2
 theme_type_variation = &"SettingsStack"
-[node name="Eyebrow" type="Label" parent="Panel/Content"]
+
+[node name="Eyebrow" type="Label" parent="Panel/Content" unique_id=1252145190]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "THE RIFT / PREFERENCES"
-[node name="Title" type="Label" parent="Panel/Content"]
+
+[node name="Title" type="Label" parent="Panel/Content" unique_id=1569640388]
 layout_mode = 2
 theme_type_variation = &"RoomHeading"
 text = "Settings"
-[node name="Hint" type="Label" parent="Panel/Content"]
+
+[node name="Hint" type="Label" parent="Panel/Content" unique_id=914661203]
 layout_mode = 2
 theme_type_variation = &"Muted"
 text = "Preview audio as you adjust. Apply to save your changes."
-[node name="Scroll" type="ScrollContainer" parent="Panel/Content"]
+
+[node name="Scroll" type="ScrollContainer" parent="Panel/Content" unique_id=1363935412]
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
 follow_focus = true
-[node name="Sections" type="VBoxContainer" parent="Panel/Content/Scroll"]
+horizontal_scroll_mode = 0
+
+[node name="Sections" type="VBoxContainer" parent="Panel/Content/Scroll" unique_id=2058847689]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"SettingsStack"
-[node name="Columns" type="HBoxContainer" parent="Panel/Content/Scroll/Sections"]
+
+[node name="Columns" type="HBoxContainer" parent="Panel/Content/Scroll/Sections" unique_id=760808083]
 layout_mode = 2
 theme_type_variation = &"SettingsColumns"
-[node name="Graphics" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns"]
+
+[node name="Graphics" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns" unique_id=2095120995]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"SettingsStack"
-[node name="Heading" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+
+[node name="Heading" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=500508875]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "DISPLAY"
-[node name="Audio" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"SettingsStack"
-[node name="Heading" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
-layout_mode = 2
-theme_type_variation = &"RoomEyebrow"
-text = "AUDIO"
-[node name="FullscreenButton" type="CheckButton" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
-layout_mode = 2
+
+[node name="FullscreenButton" type="CheckButton" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=197570781]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Fullscreen"
-[node name="ResolutionLabel" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+
+[node name="ResolutionLabel" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=1600928775]
 layout_mode = 2
 theme_type_variation = &"BodySmall"
 text = "Window size"
-[node name="OptionButton" type="OptionButton" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
-layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=1872077036]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 48)
-[node name="ResolutionHint" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
 layout_mode = 2
+
+[node name="ResolutionHint" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=1077013638]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"Muted"
 text = "Window size is fitted to your display."
 autowrap_mode = 3
-[node name="VSyncButton" type="CheckBox" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
-layout_mode = 2
+
+[node name="VSyncButton" type="CheckBox" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=1232768067]
 unique_name_in_owner = true
+layout_mode = 2
 text = "VSync"
-[node name="VSyncHint" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics"]
+
+[node name="VSyncHint" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Graphics" unique_id=108311681]
 layout_mode = 2
 theme_type_variation = &"Muted"
 text = "Synchronize frames to reduce screen tearing."
 autowrap_mode = 3
-[node name="Master" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
+
+[node name="Audio" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns" unique_id=28898985]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SettingsStack"
+
+[node name="Heading" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio" unique_id=1826296671]
+layout_mode = 2
+theme_type_variation = &"RoomEyebrow"
+text = "AUDIO"
+
+[node name="Master" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio" unique_id=214032116]
 layout_mode = 2
 
-[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master"]
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master" unique_id=1540204843]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master/Heading"]
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master/Heading" unique_id=1624439831]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"BodySmall"
 text = "Master volume"
-[node name="MasterValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master/Heading"]
-layout_mode = 2
+
+[node name="MasterValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master/Heading" unique_id=525498707]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"BodySmall"
 text = "100%"
-[node name="MasterVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master"]
-layout_mode = 2
+
+[node name="MasterVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/Master" unique_id=1684651636]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
-[node name="Music" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
+
+[node name="Music" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio" unique_id=623262280]
 layout_mode = 2
 
-[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music"]
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music" unique_id=1005591195]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music/Heading"]
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music/Heading" unique_id=666472577]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"BodySmall"
 text = "Music"
-[node name="MusicValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music/Heading"]
-layout_mode = 2
+
+[node name="MusicValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music/Heading" unique_id=733036464]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"BodySmall"
 text = "100%"
-[node name="MusicVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music"]
-layout_mode = 2
+
+[node name="MusicVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/Music" unique_id=1777924229]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
-[node name="SFX" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
+
+[node name="SFX" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio" unique_id=1419543467]
 layout_mode = 2
 
-[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX"]
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX" unique_id=1959885394]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX/Heading"]
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX/Heading" unique_id=1774934210]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"BodySmall"
 text = "Sound effects"
-[node name="SFXValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX/Heading"]
-layout_mode = 2
+
+[node name="SFXValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX/Heading" unique_id=140268147]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"BodySmall"
 text = "100%"
-[node name="SFXVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX"]
-layout_mode = 2
+
+[node name="SFXVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/SFX" unique_id=1600545693]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
-[node name="UI" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio"]
+
+[node name="UI" type="VBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio" unique_id=1144230324]
 layout_mode = 2
 
-[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI"]
+[node name="Heading" type="HBoxContainer" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI" unique_id=1083140230]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI/Heading"]
+[node name="Label" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI/Heading" unique_id=604737264]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"BodySmall"
 text = "Interface sounds"
-[node name="UIValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI/Heading"]
-layout_mode = 2
+
+[node name="UIValue" type="Label" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI/Heading" unique_id=1517177993]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"BodySmall"
 text = "100%"
-[node name="UIVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI"]
-layout_mode = 2
+
+[node name="UIVolumeSlider" type="HSlider" parent="Panel/Content/Scroll/Sections/Columns/Audio/UI" unique_id=657411559]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
-[node name="Separator" type="HSeparator" parent="Panel/Content/Scroll/Sections"]
+
+[node name="Separator" type="HSeparator" parent="Panel/Content/Scroll/Sections" unique_id=1195669186]
 layout_mode = 2
 
-[node name="GameplayHeading" type="Label" parent="Panel/Content/Scroll/Sections"]
+[node name="GameplayHeading" type="Label" parent="Panel/Content/Scroll/Sections" unique_id=630822892]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "GAMEPLAY & PRIVACY"
-[node name="TutorialCheckbox" type="CheckBox" parent="Panel/Content/Scroll/Sections"]
-layout_mode = 2
+
+[node name="TutorialCheckbox" type="CheckBox" parent="Panel/Content/Scroll/Sections" unique_id=415104166]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Show tutorials"
-[node name="TelemetryCheckBox" type="CheckBox" parent="Panel/Content/Scroll/Sections"]
-layout_mode = 2
+
+[node name="TelemetryCheckBox" type="CheckBox" parent="Panel/Content/Scroll/Sections" unique_id=1552895284]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Share optional gameplay telemetry"
-[node name="PrivacyHint" type="Label" parent="Panel/Content/Scroll/Sections"]
+
+[node name="PrivacyHint" type="Label" parent="Panel/Content/Scroll/Sections" unique_id=193285991]
 layout_mode = 2
 theme_type_variation = &"Muted"
 text = "Optional gameplay data helps improve the game. You can turn it off at any time."
 autowrap_mode = 3
-[node name="SaveError" type="Label" parent="Panel/Content"]
-layout_mode = 2
+
+[node name="SaveError" type="Label" parent="Panel/Content" unique_id=862894596]
 unique_name_in_owner = true
 visible = false
+layout_mode = 2
 theme_type_variation = &"SettingsError"
 text = "Could not save settings. Your changes are still here; try again."
 autowrap_mode = 3
-[node name="Footer" type="HBoxContainer" parent="Panel/Content"]
+
+[node name="Footer" type="HBoxContainer" parent="Panel/Content" unique_id=646612269]
 layout_mode = 2
 theme_type_variation = &"SettingsFooter"
-[node name="DefaultsButton" type="Button" parent="Panel/Content/Footer"]
-layout_mode = 2
+
+[node name="DefaultsButton" type="Button" parent="Panel/Content/Footer" unique_id=210125313]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Restore defaults"
-[node name="Space" type="Control" parent="Panel/Content/Footer"]
+
+[node name="Space" type="Control" parent="Panel/Content/Footer" unique_id=834853742]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-[node name="CancelButton" type="Button" parent="Panel/Content/Footer"]
-layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="Panel/Content/Footer" unique_id=1899329562]
 unique_name_in_owner = true
+layout_mode = 2
 text = "Cancel"
-[node name="SaveButton" type="Button" parent="Panel/Content/Footer"]
-layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="Panel/Content/Footer" unique_id=601136397]
 unique_name_in_owner = true
+layout_mode = 2
 theme_type_variation = &"PrimaryButton"
-text = "Apply"
 disabled = true
+text = "Apply"

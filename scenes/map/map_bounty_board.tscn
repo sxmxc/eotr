@@ -1,24 +1,30 @@
 [gd_scene format=3 uid="uid://cykfdvitncsv8"]
-[ext_resource type="Script" path="res://scenes/map/map_bounty_board.gd" id="script"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[node name="MapBountyBoard" type="Control"]
+
+[ext_resource type="Script" uid="uid://b75mg2k256p5b" path="res://scenes/map/map_bounty_board.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="MapBountyBoard" type="Control" unique_id=1676387364]
 custom_minimum_size = Vector2(360, 180)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
 theme = ExtResource("theme")
 script = ExtResource("script")
-mouse_filter = 2
-[node name="Title" type="Label" parent="."]
+
+[node name="Title" type="Label" parent="." unique_id=593042601]
 unique_name_in_owner = true
-anchors_preset = 10
+layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 34.0
 theme_type_variation = &"Muted"
 text = "Refreshes in 4 floors"
-[node name="Body" type="RichTextLabel" parent="."]
-theme_type_variation = &"BountyDescription"
+
+[node name="Body" type="RichTextLabel" parent="." unique_id=153841478]
 unique_name_in_owner = true
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 52.0
+theme_type_variation = &"BountyDescription"
 bbcode_enabled = true
 text = "No active contracts"

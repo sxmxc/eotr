@@ -29,15 +29,14 @@
 [ext_resource type="Script" uid="uid://ccfhmn0cjs704" path="res://scenes/game_world/battle_state_controller.gd" id="44_btlsf"]
 [ext_resource type="Script" uid="uid://dp7odwuufuohn" path="res://ui/world_ui/board_overlay.gd" id="46_overlay"]
 [ext_resource type="PackedScene" path="res://ui/world_ui/game_world_ui.tscn" id="battle_hud"]
-[ext_resource type="PackedScene" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
+[ext_resource type="PackedScene" uid="uid://b3n70t8s2lk0o" path="res://scenes/game_world/battle_tutorial.tscn" id="battle_tutorial"]
+[ext_resource type="Script" uid="uid://bbdrn22kab62f" path="res://scenes/game_world/card_interaction_controller.gd" id="card_interaction"]
 [ext_resource type="Shader" uid="uid://bimabwshpl6m0" path="res://scripts/shaders/tile_target_highlight.gdshader" id="movement_shader"]
 [ext_resource type="PackedScene" uid="uid://cqdnmgot1dc0c" path="res://ui/world_ui/battle_presentation.tscn" id="presentation_scene"]
 [ext_resource type="Script" uid="uid://bdxipsqp5unld" path="res://ui/world_ui/terrain_depth.gd" id="terrain_depth"]
 [ext_resource type="Shader" uid="uid://cvnt8ohnuv01u" path="res://scripts/shaders/terrain_surface.gdshader" id="terrain_shader"]
 [ext_resource type="Texture2D" uid="uid://c51wnrmyfkmo3" path="res://assets/rift/environment/rift_void.webp" id="void_plate"]
 [ext_resource type="Shader" uid="uid://drwo7wg0pm0we" path="res://scripts/shaders/rift_void.gdshader" id="void_shader"]
-
-[ext_resource type="Script" path="res://scenes/game_world/card_interaction_controller.gd" id="card_interaction"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_ht6dc"]
 shuffle = true
@@ -256,5 +255,5 @@ grow_horizontal = 2
 
 [node name="BattlePresentation" parent="." unique_id=274044338 instance=ExtResource("presentation_scene")]
 
-[node name="CardInteractionController" type="Node" parent="."]
+[node name="CardInteractionController" type="Node" parent="." unique_id=398259780]
 script = ExtResource("card_interaction")

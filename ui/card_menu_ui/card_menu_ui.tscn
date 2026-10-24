@@ -5,21 +5,22 @@
 [ext_resource type="PackedScene" uid="uid://b3x0n5j034cie" path="res://ui/card_ui/card_visuals.tscn" id="2_cmh45"]
 
 [node name="CardMenuUI" type="CenterContainer" unique_id=2099881910]
-mouse_filter = 0
-focus_mode = 2
 offset_right = 180.0
 offset_bottom = 280.0
 pivot_offset = Vector2(90, 140)
 size_flags_horizontal = 3
+focus_mode = 2
+mouse_filter = 0
 script = ExtResource("1_cmh45")
 card = ExtResource("2_aciqu")
 
-[node name="Frame" type="Control" parent="."]
+[node name="Frame" type="Control" parent="." unique_id=1515098014]
 custom_minimum_size = Vector2(180, 280)
 layout_mode = 2
 mouse_filter = 2
+
 [node name="Visuals" parent="Frame" unique_id=1477379440 instance=ExtResource("2_cmh45")]
-layout_mode = 0
+anchors_preset = 0
 pivot_offset = Vector2(0, 0)
 
 [connection signal="gui_input" from="." to="." method="_on_visuals_gui_input"]

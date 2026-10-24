@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://dogjk6mgm1ujd"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_f7evd"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/maintenance_window.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/tactical_cache.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/synthforged/maintenance_window.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_f7evd"]
+[ext_resource type="PackedScene" uid="uid://llb2joe1taws" path="res://ui/fx/synthforged/tactical_cache.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://d3win0lvqfidc" path="res://assets/rift/cards/maintenance_window.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://n7mu47fdr71f" path="res://resources/data/cards/synthforged/maintenance_window.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

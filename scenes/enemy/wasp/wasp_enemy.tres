@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://exmbgiu7r2dv"]
 
 [ext_resource type="PackedScene" uid="uid://db3ay7wd72so0" path="res://scenes/enemy/wasp/wasp_enemy_ai.tscn" id="1_6mu02"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/wasp.webp" id="2_f1pap"]
+[ext_resource type="Texture2D" uid="uid://ce7ksoaspkhus" path="res://assets/rift/entities/wasp.webp" id="2_f1pap"]
 [ext_resource type="AudioStream" uid="uid://bb6jgon2mfh0i" path="res://assets/audio/Monster Sounds/Hornet/Hornet_Emerge.ogg" id="3_4cyao"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="4_nq6sp"]
 

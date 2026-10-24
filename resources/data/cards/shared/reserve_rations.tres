@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://cvcdct7u0s5wo"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_wtm82"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/reserve_rations.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/mend_signature.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/shared/reserve_rations.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_wtm82"]
+[ext_resource type="PackedScene" uid="uid://b6qkbkahfsrun" path="res://ui/fx/mend_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://cb534rjw8w8hh" path="res://assets/rift/cards/reserve_rations.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://c4k06aq6jj2y0" path="res://resources/data/cards/shared/reserve_rations.gd" id="script"]
 
 [resource]
 script = ExtResource("script")

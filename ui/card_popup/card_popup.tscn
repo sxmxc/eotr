@@ -1,45 +1,46 @@
 [gd_scene format=3 uid="uid://dxrlbs4ir0thk"]
 
-[ext_resource type="Script" path="res://ui/card_popup/card_popup.gd" id="script"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Script" uid="uid://qba1o03gqepd" path="res://ui/card_popup/card_popup.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
 
-[node name="CardPopup" type="Control"]
+[node name="CardPopup" type="Control" unique_id=813671470]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
 script = ExtResource("script")
 
-[node name="Background" type="Panel" parent="."]
-anchors_preset = 15
+[node name="Background" type="Panel" parent="." unique_id=1381985748]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 theme_type_variation = &"ModalScrim"
 
-[node name="Center" type="CenterContainer" parent="."]
-anchors_preset = 15
+[node name="Center" type="CenterContainer" parent="." unique_id=212947663]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Surface" type="PanelContainer" parent="Center"]
+[node name="Surface" type="PanelContainer" parent="Center" unique_id=745699101]
 custom_minimum_size = Vector2(540, 0)
 layout_mode = 2
 
-[node name="Padding" type="MarginContainer" parent="Center/Surface"]
+[node name="Padding" type="MarginContainer" parent="Center/Surface" unique_id=1344365808]
 layout_mode = 2
 theme_type_variation = &"ModalContentMargin"
 
-[node name="Content" type="VBoxContainer" parent="Center/Surface/Padding"]
+[node name="Content" type="VBoxContainer" parent="Center/Surface/Padding" unique_id=559157028]
 layout_mode = 2
 theme_type_variation = &"ContentStack"
 
-[node name="PopupCard" type="CenterContainer" parent="Center/Surface/Padding/Content"]
+[node name="PopupCard" type="CenterContainer" parent="Center/Surface/Padding/Content" unique_id=1696807187]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="CardDescription" type="RichTextLabel" parent="Center/Surface/Padding/Content"]
+[node name="CardDescription" type="RichTextLabel" parent="Center/Surface/Padding/Content" unique_id=490220195]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
@@ -49,23 +50,23 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 
-[node name="Actions" type="HBoxContainer" parent="Center/Surface/Padding/Content"]
+[node name="Actions" type="HBoxContainer" parent="Center/Surface/Padding/Content" unique_id=2062942289]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ChoiceRow"
 alignment = 1
 
-[node name="CloseButton" type="Button" parent="Center/Surface/Padding/Content/Actions"]
+[node name="CloseButton" type="Button" parent="Center/Surface/Padding/Content/Actions" unique_id=334854352]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
 
-[node name="ConfirmButton" type="Button" parent="Center/Surface/Padding/Content/Actions"]
+[node name="ConfirmButton" type="Button" parent="Center/Surface/Padding/Content/Actions" unique_id=2111639884]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "Take card"
 
-[connection signal="pressed" from="Center/Surface/Padding/Content/Actions/CloseButton" to="." method="hide_popup"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="Center/Surface/Padding/Content/Actions/CloseButton" to="." method="hide_popup"]

@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://ct8j6u4avyd2y"]
 
 [ext_resource type="Script" uid="uid://bh1tlltfwp154" path="res://scenes/player/player.gd" id="1_dovo2"]
-[ext_resource type="Texture2D"  path="res://assets/rift/entities/riftwalker.webp" id="2_dovo2"]
+[ext_resource type="Texture2D" uid="uid://bglsgt37jfyvs" path="res://assets/rift/entities/riftwalker.webp" id="2_dovo2"]
 [ext_resource type="AudioStream" uid="uid://b78ygjjoapugw" path="res://assets/audio/kenney_casino/chip-lay-1.ogg" id="2_p47bc"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="3_lvxji"]
 [ext_resource type="PackedScene" uid="uid://buel4oh7tn55r" path="res://ui/fx/shield_shine_fx.tscn" id="4_75vfm"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="4_p47bc"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/energy_mote.webp" id="7_0owmy"]
+[ext_resource type="Texture2D" uid="uid://ch4e1k8xqtr7e" path="res://assets/rift/fx/energy_mote.webp" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="8_qc6v1"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="9_5gtgg"]
-
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="12_fm80t"]
 [ext_resource type="Material" path="res://resources/materials/unit_outline.tres" id="outline"]
 [ext_resource type="PackedScene" path="res://ui/world_ui/unit_presence.tscn" id="presence"]
 
@@ -46,15 +46,20 @@ alpha_curve = SubResource("CurveTexture_5gtgg")
 [sub_resource type="Resource" id="Resource_h17s1"]
 script = ExtResource("9_5gtgg")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gx1jg"]
+resource_local_to_scene = true
+shader = ExtResource("12_fm80t")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
 [node name="Player" type="Node2D" unique_id=1963814291 groups=["player"]]
 script = ExtResource("1_dovo2")
 movement_sound = ExtResource("2_p47bc")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1338636701]
 z_index = 4
-material = ExtResource("outline")
-texture_filter = 2
 y_sort_enabled = true
+texture_filter = 2
+material = ExtResource("outline")
 scale = Vector2(0.175, 0.175)
 texture = ExtResource("2_dovo2")
 
@@ -108,10 +113,11 @@ auto_zoom_max = 2.5
 auto_zoom_margin = Vector4(40, 40, 40, 125)
 draw_limits = true
 
-[node name="GroundPresence" parent="." instance=ExtResource("presence")]
+[node name="GroundPresence" parent="." unique_id=1712656980 instance=ExtResource("presence")]
+material = SubResource("ShaderMaterial_gx1jg")
 
-[node name="SpellOrigin" type="Marker2D" parent="."]
+[node name="SpellOrigin" type="Marker2D" parent="." unique_id=291246526]
 position = Vector2(10, -43)
 
-[node name="ImpactAnchor" type="Marker2D" parent="."]
+[node name="ImpactAnchor" type="Marker2D" parent="." unique_id=222669482]
 position = Vector2(0, -43)

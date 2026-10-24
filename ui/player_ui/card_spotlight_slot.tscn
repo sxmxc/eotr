@@ -1,7 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b5gtvdf142uw3"]
 
-[node name="CardSpotlightSlot" type="Control"]
+[node name="CardSpotlightSlot" type="Control" unique_id=212498168]
 custom_minimum_size = Vector2(180, 280)
+layout_mode = 3
+anchors_preset = 0
 offset_right = 180.0
 offset_bottom = 280.0
 mouse_filter = 2

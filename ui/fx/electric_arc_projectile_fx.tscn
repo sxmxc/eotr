@@ -1,3 +1,5 @@
 [gd_scene format=3 uid="uid://wes3rheva03s"]
-[ext_resource type="PackedScene" path="res://ui/fx/fireball_small_projectile_fx.tscn" id="base"]
-[node name="ElectricArcProjectileFX" instance=ExtResource("base")]
+
+[ext_resource type="PackedScene" uid="uid://dawywslw1xm6u" path="res://ui/fx/fireball_small_projectile_fx.tscn" id="base"]
+
+[node name="ElectricArcProjectileFX" unique_id=5575611 instance=ExtResource("base")]

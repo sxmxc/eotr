@@ -1,18 +1,22 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[gd_scene format=3 uid="uid://doju2r4fqttqw"]
+
 [ext_resource type="Resource" path="res://resources/data/enemies/rift/corruption_weaver.tres" id="e0"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound_pouncer.tres" id="e1"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/hollow_siphon_stalker.tres" id="e2"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[node name="roots_and_fangs" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
+[ext_resource type="Resource" uid="uid://bx06uhnnrcty8" path="res://resources/data/enemies/rift/shard_hound_pouncer.tres" id="e1"]
+[ext_resource type="Resource" uid="uid://cs4yagqvktvvf" path="res://resources/data/enemies/rift/hollow_siphon_stalker.tres" id="e2"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+
+[node name="roots_and_fangs" type="Node2D" unique_id=484172910]
+
+[node name="Obelisk" parent="." unique_id=1543800290 instance=ExtResource("obelisk")]
 spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2")])
-[node name="Unit0" parent="." instance=ExtResource("moving")]
+
+[node name="Unit0" parent="." unique_id=1651766484 instance=ExtResource("moving")]
 stats = ExtResource("e0")
-[node name="Unit1" parent="." instance=ExtResource("moving")]
+
+[node name="Unit1" parent="." unique_id=212518647 instance=ExtResource("moving")]
 stats = ExtResource("e1")
-[node name="Unit2" parent="." instance=ExtResource("moving")]
+
+[node name="Unit2" parent="." unique_id=1311833786 instance=ExtResource("moving")]
 stats = ExtResource("e2")

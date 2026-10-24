@@ -1,5 +1,7 @@
-[gd_resource type="AtlasTexture" format=3]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/act_environments.png" id="atlas"]
+[gd_resource type="AtlasTexture" format=3 uid="uid://ddao0cp0uwuvx"]
+
+[ext_resource type="Texture2D" uid="uid://6ey5gwpqella" path="res://assets/rift/menus/act_environments.png" id="atlas"]
+
 [resource]
 atlas = ExtResource("atlas")
 region = Rect2(0, 674, 1536, 350)

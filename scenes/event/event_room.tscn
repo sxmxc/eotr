@@ -1,19 +1,22 @@
 [gd_scene format=3 uid="uid://bqvmg8kciy6th"]
-[ext_resource type="Script" path="res://scenes/event/event_room.gd" id="script"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
+
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/event.svg" id="emblem"]
+[ext_resource type="Texture2D" uid="uid://dfmoeh6e78diw" path="res://assets/rift/ui/event.svg" id="emblem"]
+[ext_resource type="Script" uid="uid://btl3x4ojg4jq7" path="res://scenes/event/event_room.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
 
 [sub_resource type="Gradient" id="story_shade"]
 offsets = PackedFloat32Array(0, 0.46, 0.76, 1)
 colors = PackedColorArray(0.008, 0.014, 0.022, 0.99, 0.008, 0.014, 0.022, 0.96, 0.008, 0.014, 0.022, 0.35, 0.008, 0.014, 0.022, 0.16)
+
 [sub_resource type="GradientTexture2D" id="story_veil"]
 gradient = SubResource("story_shade")
 fill_from = Vector2(0, 0.5)
 fill_to = Vector2(1, 0.5)
 
-[node name="EventRoom" type="Control"]
+[node name="EventRoom" type="Control" unique_id=1768258539]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,32 +24,34 @@ mouse_filter = 2
 theme = ExtResource("theme")
 script = ExtResource("script")
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1896608443]
 layer = 0
 
-[node name="Illustration" type="TextureRect" parent="BackgroundLayer"]
+[node name="Illustration" type="TextureRect" parent="BackgroundLayer" unique_id=1991341032]
+modulate = Color(0.72, 0.76, 0.79, 1)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("world_illustration")
 expand_mode = 1
 stretch_mode = 6
-modulate = Color(0.72, 0.76, 0.79, 1)
-mouse_filter = 2
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=1342213032]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 texture = SubResource("story_veil")
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
-layer = 1
+[node name="ParticlesLayer" parent="." unique_id=1162178582 instance=ExtResource("ambient_particles")]
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=1761498962]
 layer = 3
 
-[node name="RoomLayout" type="VBoxContainer" parent="UILayer"]
+[node name="RoomLayout" type="VBoxContainer" parent="UILayer" unique_id=1761896934]
 unique_name_in_owner = true
+anchors_preset = -1
 anchor_left = 0.08
 anchor_top = 0.22
 anchor_right = 0.57
@@ -54,84 +59,84 @@ anchor_bottom = 0.87
 theme = ExtResource("theme")
 theme_type_variation = &"EncounterStack"
 
-[node name="Header" type="HBoxContainer" parent="UILayer/RoomLayout"]
+[node name="Header" type="HBoxContainer" parent="UILayer/RoomLayout" unique_id=1283840684]
 layout_mode = 2
 theme_type_variation = &"ContentRow"
 
-[node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/Header"]
+[node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/Header" unique_id=913332881]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("emblem")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
-[node name="Eyebrow" type="Label" parent="UILayer/RoomLayout/Header"]
+[node name="Eyebrow" type="Label" parent="UILayer/RoomLayout/Header" unique_id=1584120903]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "EVENT"
 
-[node name="TitleLabel" type="Label" parent="UILayer/RoomLayout"]
+[node name="TitleLabel" type="Label" parent="UILayer/RoomLayout" unique_id=1660230519]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"EncounterTitle"
 text = "Event"
 autowrap_mode = 3
 
-[node name="BodyLabel" type="RichTextLabel" parent="UILayer/RoomLayout"]
+[node name="BodyLabel" type="RichTextLabel" parent="UILayer/RoomLayout" unique_id=1882329379]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+theme_type_variation = &"EncounterNarrative"
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
-theme_type_variation = &"EncounterNarrative"
 
-[node name="OutcomeLabel" type="Label" parent="UILayer/RoomLayout"]
+[node name="OutcomeLabel" type="Label" parent="UILayer/RoomLayout" unique_id=1601376763]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 autowrap_mode = 3
 
-[node name="Buttons" type="VBoxContainer" parent="UILayer/RoomLayout"]
+[node name="Buttons" type="VBoxContainer" parent="UILayer/RoomLayout" unique_id=699314855]
 layout_mode = 2
 theme_type_variation = &"RoomStack"
 
-[node name="OptionAButton" type="Button" parent="UILayer/RoomLayout/Buttons"]
+[node name="OptionAButton" type="Button" parent="UILayer/RoomLayout/Buttons" unique_id=1224095796]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
 theme_type_variation = &"EncounterChoice"
-alignment = 0
-autowrap_mode = 3
 text = "Option A"
-
-[node name="OptionBButton" type="Button" parent="UILayer/RoomLayout/Buttons"]
-unique_name_in_owner = true
-layout_mode = 2
-custom_minimum_size = Vector2(0, 72)
-theme_type_variation = &"EncounterChoice"
 alignment = 0
 autowrap_mode = 3
-text = "Option B"
 
-[node name="Space" type="Control" parent="UILayer/RoomLayout"]
+[node name="OptionBButton" type="Button" parent="UILayer/RoomLayout/Buttons" unique_id=853643879]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_type_variation = &"EncounterChoice"
+text = "Option B"
+alignment = 0
+autowrap_mode = 3
+
+[node name="Space" type="Control" parent="UILayer/RoomLayout" unique_id=1364895514]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Hint" type="Label" parent="UILayer/RoomLayout"]
+[node name="Hint" type="Label" parent="UILayer/RoomLayout" unique_id=33140050]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
 text = "You may leave without making a choice."
 autowrap_mode = 3
 
-[node name="LeaveButton" type="Button" parent="UILayer/RoomLayout"]
+[node name="LeaveButton" type="Button" parent="UILayer/RoomLayout" unique_id=1010456547]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(240, 54)
+layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"QuietButton"
 text = "Return to the path"

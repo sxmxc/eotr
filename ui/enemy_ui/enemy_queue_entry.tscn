@@ -1,13 +1,17 @@
-[gd_scene format=3]
-[ext_resource type="Script" path="res://ui/enemy_ui/enemy_queue_entry.gd" id="1"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="2"]
-[node name="EnemyQueueEntry" type="Button"]
-theme_type_variation = &"EnemyQueueEntry"
+[gd_scene format=3 uid="uid://bwae0lm23qe3x"]
+
+[ext_resource type="Script" uid="uid://bodt02vk7ic2a" path="res://ui/enemy_ui/enemy_queue_entry.gd" id="1"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="2"]
+
+[node name="EnemyQueueEntry" type="Button" unique_id=1645827619]
 custom_minimum_size = Vector2(264, 112)
 size_flags_horizontal = 3
 theme = ExtResource("2")
+theme_type_variation = &"EnemyQueueEntry"
 script = ExtResource("1")
-[node name="Content" type="VBoxContainer" parent="."]
+
+[node name="Content" type="VBoxContainer" parent="." unique_id=1276034500]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 12.0
@@ -16,59 +20,64 @@ offset_right = -12.0
 offset_bottom = -8.0
 mouse_filter = 2
 theme_type_variation = &"QueueStack"
-[node name="Header" type="HBoxContainer" parent="Content"]
+
+[node name="Header" type="HBoxContainer" parent="Content" unique_id=1390743094]
 layout_mode = 2
 mouse_filter = 2
-[node name="EnemyName" type="Label" parent="Content/Header"]
+
+[node name="EnemyName" type="Label" parent="Content/Header" unique_id=1628284761]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
 theme_type_variation = &"QueueName"
 text = "Enemy"
 text_overrun_behavior = 3
-[node name="Block" type="Label" parent="Content/Header"]
+
+[node name="Block" type="Label" parent="Content/Header" unique_id=1924796735]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 2
 theme_type_variation = &"QueueBlock"
-[node name="HealthRow" type="HBoxContainer" parent="Content"]
+
+[node name="HealthRow" type="HBoxContainer" parent="Content" unique_id=209127635]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
-[node name="HealthBar" type="ProgressBar" parent="Content/HealthRow"]
+
+[node name="HealthBar" type="ProgressBar" parent="Content/HealthRow" unique_id=1357857896]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 mouse_filter = 2
 theme_type_variation = &"QueueHealthBar"
 show_percentage = false
-[node name="HealthValue" type="Label" parent="Content/HealthRow"]
+
+[node name="HealthValue" type="Label" parent="Content/HealthRow" unique_id=483424432]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(60, 0)
-horizontal_alignment = 2
-mouse_filter = 2
+layout_mode = 2
 theme_type_variation = &"QueueHealthValue"
-[node name="Intent" type="HBoxContainer" parent="Content"]
+horizontal_alignment = 2
+
+[node name="Intent" type="HBoxContainer" parent="Content" unique_id=341466847]
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"QueueIntentRow"
-[node name="IntentIcon" type="TextureRect" parent="Content/Intent"]
+
+[node name="IntentIcon" type="TextureRect" parent="Content/Intent" unique_id=782350121]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-[node name="Plan" type="Label" parent="Content/Intent"]
+
+[node name="Plan" type="Label" parent="Content/Intent" unique_id=1706810784]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
 theme_type_variation = &"QueuePlan"
 autowrap_mode = 3
 text_overrun_behavior = 3

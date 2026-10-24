@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Card" format=3]
+[gd_resource type="Resource" format=3 uid="uid://3xgs2md5nad3"]
 
-[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_qxsa8"]
-[ext_resource type="Texture2D" path="res://assets/rift/cards/travel_light.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/adrenaline_rush_signature.tscn" id="fx"]
-[ext_resource type="Script" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_qxsa8"]
+[ext_resource type="PackedScene" uid="uid://eycw4reckcp1" path="res://ui/fx/adrenaline_rush_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://cipr4h415qdtg" path="res://assets/rift/cards/travel_light.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
 
 [sub_resource type="Resource" id="Resource_qxsa8"]
 script = ExtResource("2_qxsa8")
@@ -32,4 +32,3 @@ tags = Array[String](["shared", "reward", "shop", "expansion"])
 effect_configs = Array[ExtResource("2_qxsa8")]([SubResource("Resource_qxsa8"), SubResource("Resource_un3ar")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("fx")
-movement_distance = 1

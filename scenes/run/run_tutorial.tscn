@@ -1,9 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://7jwcdjoeiy2q"]
 
 [ext_resource type="Script" uid="uid://bfa4xgv7xsm25" path="res://scenes/run/tutorial_ui.gd" id="31_7uco7"]
-
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="32_djwbl"]
-
 [ext_resource type="Texture2D" uid="uid://lomxh40tuew" path="res://assets/images/arrow.png" id="33_nwf7k"]
 
 [node name="TutorialUI" type="CanvasLayer" unique_id=1275530150]

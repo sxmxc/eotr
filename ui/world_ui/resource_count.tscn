@@ -1,6 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b7o72wklopvvq"]
 
-
-[node name="ResourceCount" type="Label"]
+[node name="ResourceCount" type="Label" unique_id=443059406]
 theme_type_variation = &"ResourceCount"
-mouse_filter = 2

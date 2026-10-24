@@ -1,17 +1,40 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
-[ext_resource type="Script" path="res://scenes/enemy/bosses/listening_spectre.gd" id="behavior"]
-[ext_resource type="Resource" path="res://scenes/enemy/bosses/listening_spectre.tres" id="stats"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
-[node name="listening_spectre" instance=ExtResource("body")]
-script = ExtResource("behavior")
-stats = ExtResource("stats")
-body_scale = Vector2(0.29, 0.29)
+[gd_scene format=3 uid="uid://ch05xtsuieusu"]
 
-[node name="Sprite2D" parent="." index="1"]
-scale = Vector2(0.29, 0.29)
-[node name="ImpactAnchor" parent="." index="9"]
-position = Vector2(0, -65)
-[node name="SpellOrigin" parent="." index="8"]
+[ext_resource type="Shader" uid="uid://g1va22cfhxve" path="res://scripts/shaders/unit_outline.gdshader" id="4_1ulvp"]
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="5_1umgo"]
+[ext_resource type="Script" uid="uid://ckllqp2q0x6sg" path="res://scenes/enemy/bosses/listening_spectre.gd" id="behavior"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
+[ext_resource type="PackedScene" uid="uid://cdldmx2kcjkc1" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
+[ext_resource type="Resource" path="res://scenes/enemy/bosses/listening_spectre.tres" id="stats"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fbgku"]
+resource_local_to_scene = true
+shader = ExtResource("4_1ulvp")
+shader_parameter/outline_color = Color(0.025, 0.045, 0.065, 1)
+shader_parameter/rim_color = Color(0.48, 0.85, 0.84, 0.65)
+shader_parameter/outline_pixels = 7.0
+shader_parameter/hit_flash = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjajl"]
+resource_local_to_scene = true
+shader = ExtResource("5_1umgo")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
+[node name="listening_spectre" unique_id=1291008751 instance=ExtResource("body")]
+script = ExtResource("behavior")
+body_scale = Vector2(0.29, 0.29)
+stats = ExtResource("stats")
+
+[node name="Sprite2D" parent="." index="1" unique_id=1491918895]
+material = SubResource("ShaderMaterial_fbgku")
+
+[node name="GroundPresence" parent="." index="6" unique_id=1800979518]
+material = SubResource("ShaderMaterial_mjajl")
+
+[node name="SpellOrigin" parent="." index="7" unique_id=359503352]
 position = Vector2(18, -65)
-[node name="BossMotion" parent="." instance=ExtResource("presentation")]
+
+[node name="ImpactAnchor" parent="." index="8" unique_id=2107920890]
+position = Vector2(0, -65)
+
+[node name="BossMotion" parent="." index="9" unique_id=1953913656 instance=ExtResource("presentation")]

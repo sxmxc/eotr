@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bn4trrvp2yvx6" path="res://resources/data/cards/synthforged/redeployment.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_illeu"]
 [ext_resource type="Texture2D" uid="uid://wj6glwtk6h6i" path="res://assets/rift/cards/redeployment.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/redeployment.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://g3kx0wyq80s1" path="res://ui/fx/synthforged/redeployment.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_illeu"]
 script = ExtResource("2_illeu")

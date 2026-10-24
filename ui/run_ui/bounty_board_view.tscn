@@ -1,51 +1,64 @@
 [gd_scene format=3 uid="uid://dlbek83rsj3cw"]
-[ext_resource type="PackedScene" path="res://scenes/map/map_bounty_board.tscn" id="board"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://ui/run_ui/bounty_board_view.gd" id="script"]
-[node name="BountyBoardView" type="Control"]
+
+[ext_resource type="PackedScene" uid="uid://cykfdvitncsv8" path="res://scenes/map/map_bounty_board.tscn" id="board"]
+[ext_resource type="Script" uid="uid://bx61r017exiip" path="res://ui/run_ui/bounty_board_view.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="BountyBoardView" type="Control" unique_id=1364498239]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
 script = ExtResource("script")
-[node name="Scrim" type="ColorRect" parent="."]
-anchors_preset = 15
+
+[node name="Scrim" type="ColorRect" parent="." unique_id=1516084176]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.008, 0.014, 0.025, 0.94)
 mouse_filter = 2
-[node name="Card" type="Panel" parent="."]
-anchors_preset = 8
+color = Color(0.008, 0.014, 0.025, 0.94)
+
+[node name="Card" type="Panel" parent="." unique_id=1575828081]
+layout_mode = 0
 anchor_left = 0.5
-anchor_right = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -480.0
-offset_right = 480.0
 offset_top = -330.0
+offset_right = 480.0
 offset_bottom = 330.0
-[node name="Eyebrow" type="Label" parent="Card"]
+
+[node name="Eyebrow" type="Label" parent="Card" unique_id=449826257]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 32.0
 offset_right = 880.0
 offset_bottom = 64.0
 theme_type_variation = &"Eyebrow"
 text = "THE BOUNTY BOARD"
-[node name="Heading" type="Label" parent="Card"]
+
+[node name="Heading" type="Label" parent="Card" unique_id=1085189249]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 74.0
 offset_right = 880.0
 offset_bottom = 140.0
 theme_type_variation = &"Title"
 text = "Hunt across the Rift"
-[node name="BountyBoard" parent="Card" instance=ExtResource("board")]
+
+[node name="BountyBoard" parent="Card" unique_id=253429591 instance=ExtResource("board")]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 40.0
 offset_top = 172.0
 offset_right = 920.0
 offset_bottom = 536.0
-[node name="BackButton" type="Button" parent="Card"]
+
+[node name="BackButton" type="Button" parent="Card" unique_id=1675437663]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 720.0
 offset_top = 568.0
 offset_right = 920.0

@@ -1,69 +1,331 @@
-[gd_resource type="Resource" script_class="CardRegistry" format=3]
-[ext_resource type="Script" path="res://scripts/resources/registry/card_registry.gd" id="1"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/pulse_rifle.tres" id="2"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/servo_strike.tres" id="3"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/reactive_plating.tres" id="4"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/vector_boost.tres" id="5"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/salvage_probe.tres" id="6"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/target_scan.tres" id="7"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/deploy_sentry.tres" id="8"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/deploy_pike.tres" id="9"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/precision_shot.tres" id="10"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/tactical_cache.tres" id="11"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/reserve_capacitor.tres" id="12"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/threat_assessment.tres" id="13"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/rail_lance.tres" id="14"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/burst_protocol.tres" id="15"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/ablative_array.tres" id="16"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/wideband_scan.tres" id="17"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/field_repairs.tres" id="18"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/fire_command.tres" id="19"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/thruster_assault.tres" id="20"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/redeployment.tres" id="21"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/efficient_fabrication.tres" id="22"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/deploy_bastion.tres" id="23"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/deploy_siege_platform.tres" id="24"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/saturation_fire.tres" id="25"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/reactor_release.tres" id="26"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/fortress_protocol.tres" id="27"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/execution_algorithm.tres" id="28"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/combat_network.tres" id="29"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/scrap_order.tres" id="new_scrap_order"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/service_cycle.tres" id="new_service_cycle"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/crossfire.tres" id="new_crossfire"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/spotter.tres" id="new_spotter"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/relay_orders.tres" id="new_relay_orders"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/power_tap.tres" id="new_power_tap"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/flanking_maneuver.tres" id="new_flanking_maneuver"]
-[ext_resource type="Resource" path="res://resources/data/cards/synthforged/maintenance_window.tres" id="new_maintenance_window"]
+[gd_resource type="Resource" script_class="CardRegistry" format=3 uid="uid://ctirykj41usre"]
+
+[ext_resource type="Script" uid="uid://bobotokh0ioa7" path="res://scripts/resources/registry/card_registry.gd" id="1"]
+[ext_resource type="Resource" uid="uid://fq7dwrqtljqd" path="res://resources/data/cards/synthforged/pulse_rifle.tres" id="2"]
+[ext_resource type="Resource" uid="uid://qflupexjeryv" path="res://resources/data/cards/synthforged/servo_strike.tres" id="3"]
+[ext_resource type="Resource" uid="uid://bhfkdg6o0vykg" path="res://resources/data/cards/synthforged/reactive_plating.tres" id="4"]
+[ext_resource type="Resource" uid="uid://dhkywbcf8j8rj" path="res://resources/data/cards/synthforged/vector_boost.tres" id="5"]
+[ext_resource type="Resource" uid="uid://l4k3dhkwqmfh" path="res://resources/data/cards/synthforged/salvage_probe.tres" id="6"]
+[ext_resource type="Resource" uid="uid://u3uq4ch6mu3t" path="res://resources/data/cards/synthforged/target_scan.tres" id="7"]
+[ext_resource type="Resource" uid="uid://ld46cgv7bcuk" path="res://resources/data/cards/synthforged/deploy_sentry.tres" id="8"]
+[ext_resource type="Resource" uid="uid://i76nhd403pw2" path="res://resources/data/cards/synthforged/deploy_pike.tres" id="9"]
+[ext_resource type="Resource" uid="uid://cpe6ild3806ty" path="res://resources/data/cards/synthforged/precision_shot.tres" id="10"]
+[ext_resource type="Resource" uid="uid://cdgs7448rsa74" path="res://resources/data/cards/synthforged/tactical_cache.tres" id="11"]
+[ext_resource type="Resource" uid="uid://d0gw0itvwwt6g" path="res://resources/data/cards/synthforged/reserve_capacitor.tres" id="12"]
+[ext_resource type="Resource" uid="uid://d012rt11a1q0r" path="res://resources/data/cards/synthforged/threat_assessment.tres" id="13"]
+[ext_resource type="Resource" uid="uid://2ixuqgsh6bc4" path="res://resources/data/cards/synthforged/rail_lance.tres" id="14"]
+[ext_resource type="Resource" uid="uid://df44qbihnpmya" path="res://resources/data/cards/synthforged/burst_protocol.tres" id="15"]
+[ext_resource type="Resource" uid="uid://dcsuh5vadha33" path="res://resources/data/cards/synthforged/ablative_array.tres" id="16"]
+[ext_resource type="Resource" uid="uid://bu6hvow23jjcr" path="res://resources/data/cards/synthforged/wideband_scan.tres" id="17"]
+[ext_resource type="Resource" uid="uid://cvia5brdr1d3u" path="res://resources/data/cards/synthforged/field_repairs.tres" id="18"]
+[ext_resource type="Resource" uid="uid://dneo8ce8e5vva" path="res://resources/data/cards/synthforged/fire_command.tres" id="19"]
+[ext_resource type="Resource" uid="uid://bwvuo3ohpx5gc" path="res://resources/data/cards/synthforged/thruster_assault.tres" id="20"]
+[ext_resource type="Resource" uid="uid://x7b3e5bng2na" path="res://resources/data/cards/synthforged/redeployment.tres" id="21"]
+[ext_resource type="Resource" uid="uid://cd5fj24wep3sx" path="res://resources/data/cards/synthforged/efficient_fabrication.tres" id="22"]
+[ext_resource type="Resource" uid="uid://4tj7ya0hrvol" path="res://resources/data/cards/synthforged/deploy_bastion.tres" id="23"]
+[ext_resource type="Resource" uid="uid://b7vm1yxou2rhm" path="res://resources/data/cards/synthforged/deploy_siege_platform.tres" id="24"]
+[ext_resource type="Resource" uid="uid://dlhplrsdkrig8" path="res://resources/data/cards/synthforged/saturation_fire.tres" id="25"]
+[ext_resource type="Resource" uid="uid://bbx57usgn27rd" path="res://resources/data/cards/synthforged/reactor_release.tres" id="26"]
+[ext_resource type="Resource" uid="uid://cuwone7x6gbcv" path="res://resources/data/cards/synthforged/fortress_protocol.tres" id="27"]
+[ext_resource type="Resource" uid="uid://clfmpqi83n704" path="res://resources/data/cards/synthforged/execution_algorithm.tres" id="28"]
+[ext_resource type="Resource" uid="uid://cur627afq1np7" path="res://resources/data/cards/synthforged/combat_network.tres" id="29"]
+[ext_resource type="Resource" uid="uid://gbv2j38ntvcu" path="res://resources/data/cards/synthforged/crossfire.tres" id="new_crossfire"]
+[ext_resource type="Resource" uid="uid://hx3krvumpw0l" path="res://resources/data/cards/synthforged/flanking_maneuver.tres" id="new_flanking_maneuver"]
+[ext_resource type="Resource" uid="uid://dogjk6mgm1ujd" path="res://resources/data/cards/synthforged/maintenance_window.tres" id="new_maintenance_window"]
+[ext_resource type="Resource" uid="uid://bkejp5q2uf4ix" path="res://resources/data/cards/synthforged/power_tap.tres" id="new_power_tap"]
+[ext_resource type="Resource" uid="uid://ccb73q3n7qlfb" path="res://resources/data/cards/synthforged/relay_orders.tres" id="new_relay_orders"]
+[ext_resource type="Resource" uid="uid://dmt8hja47jm05" path="res://resources/data/cards/synthforged/scrap_order.tres" id="new_scrap_order"]
+[ext_resource type="Resource" uid="uid://bjxlsihr2u12q" path="res://resources/data/cards/synthforged/service_cycle.tres" id="new_service_cycle"]
+[ext_resource type="Resource" uid="uid://buqgjs0vkjmj6" path="res://resources/data/cards/synthforged/spotter.tres" id="new_spotter"]
 
 [resource]
 script = ExtResource("1")
-entries = Array[Dictionary]([{"card": ExtResource("2"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("3"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("4"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("5"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("6"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("7"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("8"), "class_id": "Synthforged", "rarity": 0, "allow_draft": false, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("9"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("10"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("11"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("12"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("13"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("14"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("15"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("16"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("17"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("18"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("19"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("20"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("21"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("22"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("23"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("24"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("25"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("26"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("27"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("28"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]},
-{"card": ExtResource("29"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "unlocked": true, "weight": 1.0, "tags": ["synthforged", "reward", "shop"]}, {"card": ExtResource("new_scrap_order"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_service_cycle"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_crossfire"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_spotter"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_relay_orders"), "class_id": "Synthforged", "rarity": 2, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_power_tap"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_flanking_maneuver"), "class_id": "Synthforged", "rarity": 1, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_maintenance_window"), "class_id": "Synthforged", "rarity": 0, "allow_draft": true, "tags": Array[String](["synthforged", "reward", "shop"]), "unlocked": true, "weight": 1.0}])
+entries = Array[Dictionary]([{
+"allow_draft": false,
+"card": ExtResource("2"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("3"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("4"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("5"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("6"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("7"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": false,
+"card": ExtResource("8"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("9"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("10"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("11"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("12"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("13"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("14"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("15"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("16"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("17"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("18"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("19"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("20"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("21"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("22"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("23"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("24"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("25"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("26"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("27"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("28"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("29"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": ["synthforged", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_scrap_order"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_service_cycle"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_crossfire"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_spotter"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_relay_orders"),
+"class_id": "Synthforged",
+"rarity": 2,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_power_tap"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_flanking_maneuver"),
+"class_id": "Synthforged",
+"rarity": 1,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_maintenance_window"),
+"class_id": "Synthforged",
+"rarity": 0,
+"tags": Array[String](["synthforged", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}])

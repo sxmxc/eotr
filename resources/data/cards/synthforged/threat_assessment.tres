@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_wmjg3"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reactive_plating.tscn" id="3_rmtbk"]
+[ext_resource type="PackedScene" uid="uid://bifrjosi00iu6" path="res://ui/fx/synthforged/reactive_plating.tscn" id="3_rmtbk"]
 [ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="4_oeu0p"]
 [ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="5_opamc"]
 [ext_resource type="Texture2D" uid="uid://dgaw1cingptjv" path="res://assets/rift/cards/threat_assessment.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/threat_assessment.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://cde4pgpe6nlqb" path="res://ui/fx/synthforged/threat_assessment.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_n2rm2"]
 script = ExtResource("2_wmjg3")

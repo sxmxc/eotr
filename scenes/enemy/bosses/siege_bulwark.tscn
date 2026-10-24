@@ -1,18 +1,41 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
-[ext_resource type="Script" path="res://scenes/enemy/bosses/siege_bulwark.gd" id="behavior"]
-[ext_resource type="Resource" path="res://scenes/enemy/bosses/siege_bulwark.tres" id="stats"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
-[node name="siege_bulwark" instance=ExtResource("body")]
+[gd_scene format=3 uid="uid://ic7pradttwci"]
+
+[ext_resource type="Shader" uid="uid://g1va22cfhxve" path="res://scripts/shaders/unit_outline.gdshader" id="4_u3tos"]
+[ext_resource type="Shader" uid="uid://bs0w50jv1uf00" path="res://scripts/shaders/ground_presence.gdshader" id="5_cccno"]
+[ext_resource type="Script" uid="uid://bpjw80j5rca1h" path="res://scenes/enemy/bosses/siege_bulwark.gd" id="behavior"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
+[ext_resource type="PackedScene" uid="uid://cdldmx2kcjkc1" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
+[ext_resource type="Resource" uid="uid://ewighbyk3554" path="res://scenes/enemy/bosses/siege_bulwark.tres" id="stats"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etdkp"]
+resource_local_to_scene = true
+shader = ExtResource("4_u3tos")
+shader_parameter/outline_color = Color(0.025, 0.045, 0.065, 1)
+shader_parameter/rim_color = Color(0.48, 0.85, 0.84, 0.65)
+shader_parameter/outline_pixels = 7.0
+shader_parameter/hit_flash = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jdv8a"]
+resource_local_to_scene = true
+shader = ExtResource("5_cccno")
+shader_parameter/accent = Color(0.25, 0.8, 0.78, 1)
+
+[node name="siege_bulwark" unique_id=871428778 instance=ExtResource("body")]
 script = ExtResource("behavior")
-stats = ExtResource("stats")
 body_scale = Vector2(0.34, 0.34)
+stats = ExtResource("stats")
 footprint = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(-1, 0, 1), Vector3i(1, -1, 0)])
 
-[node name="Sprite2D" parent="." index="1"]
-scale = Vector2(0.34, 0.34)
-[node name="ImpactAnchor" parent="." index="9"]
-position = Vector2(0, -65)
-[node name="SpellOrigin" parent="." index="8"]
+[node name="Sprite2D" parent="." index="1" unique_id=1491918895]
+material = SubResource("ShaderMaterial_etdkp")
+
+[node name="GroundPresence" parent="." index="6" unique_id=1800979518]
+material = SubResource("ShaderMaterial_jdv8a")
+
+[node name="SpellOrigin" parent="." index="7" unique_id=359503352]
 position = Vector2(18, -65)
-[node name="BossMotion" parent="." instance=ExtResource("presentation")]
+
+[node name="ImpactAnchor" parent="." index="8" unique_id=2107920890]
+position = Vector2(0, -65)
+
+[node name="BossMotion" parent="." index="9" unique_id=1721802138 instance=ExtResource("presentation")]

@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://bk80dhbki0i22"]
 
 [ext_resource type="Script" uid="uid://cladh1t8cd2um" path="res://scenes/relic_handler/relic_handler.gd" id="1_4mcmm"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/next.svg" id="1_f73p0"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/next.svg" id="2_4mcmm"]
+[ext_resource type="Texture2D" uid="uid://v2qn3i1rwa8s" path="res://assets/rift/ui/next.svg" id="2_4mcmm"]
 [ext_resource type="Script" uid="uid://j77ub6bhhq46" path="res://scenes/relic_handler/relics_control.gd" id="3_dumv5"]
 [ext_resource type="PackedScene" uid="uid://cryppjpfbefjn" path="res://scenes/relic_handler/relic_ui.tscn" id="4_dxoqm"]
 
@@ -16,9 +15,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 disabled = true
-texture_normal = ExtResource("1_f73p0")
-texture_pressed = ExtResource("1_f73p0")
-texture_hover = ExtResource("1_f73p0")
+texture_normal = ExtResource("2_4mcmm")
+texture_pressed = ExtResource("2_4mcmm")
+texture_hover = ExtResource("2_4mcmm")
 texture_disabled = ExtResource("2_4mcmm")
 ignore_texture_size = true
 stretch_mode = 6
@@ -34,12 +33,12 @@ left_button = NodePath("../LeftButton")
 right_button = NodePath("../RightButton")
 
 [node name="Relics" type="HBoxContainer" parent="RelicsControl" unique_id=686676428]
-theme_type_variation = &"RelicRow"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(328, 64)
 layout_mode = 1
 offset_right = 964.0
 offset_bottom = 64.0
+theme_type_variation = &"RelicRow"
 
 [node name="RelicUI" parent="RelicsControl/Relics" unique_id=1875492522 instance=ExtResource("4_dxoqm")]
 layout_mode = 2
@@ -79,9 +78,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 disabled = true
-texture_normal = ExtResource("1_f73p0")
-texture_pressed = ExtResource("1_f73p0")
-texture_hover = ExtResource("1_f73p0")
+texture_normal = ExtResource("2_4mcmm")
+texture_pressed = ExtResource("2_4mcmm")
+texture_hover = ExtResource("2_4mcmm")
 texture_disabled = ExtResource("2_4mcmm")
 ignore_texture_size = true
 stretch_mode = 6

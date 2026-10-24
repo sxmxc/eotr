@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://0fjfpf2ebayo"]
 
-[ext_resource type="PackedScene" path="res://scenes/enemy/rift_tactics_ai.tscn" id="ai"]
+[ext_resource type="PackedScene" uid="uid://deprh4t86m7og" path="res://scenes/enemy/rift_tactics_ai.tscn" id="ai"]
 [ext_resource type="Texture2D" uid="uid://c1mjlsyr760x6" path="res://assets/rift/entities/channeler_medic.webp" id="art"]
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
 [ext_resource type="Script" uid="uid://dyvd2kssxdkb8" path="res://scripts/resources/enemy_tactics.gd" id="tactics"]

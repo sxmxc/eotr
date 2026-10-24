@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_udqqv"]
 [ext_resource type="Texture2D" uid="uid://6bmemoaf2j1r" path="res://assets/rift/cards/fortress_protocol.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/fortress_protocol.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://daek3f3pjnubn" path="res://ui/fx/synthforged/fortress_protocol.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_udqqv"]
 script = ExtResource("2_udqqv")

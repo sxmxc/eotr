@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://0jq70ruwt2li"]
 
-[ext_resource type="Script" path="res://ui/fx/illustrated_fx.gd" id="script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/impact_dust_frames.tres" id="frames"]
+[ext_resource type="SpriteFrames" uid="uid://dhw5v3klnf86s" path="res://resources/vfx/impact_dust_frames.tres" id="frames"]
+[ext_resource type="Script" uid="uid://6i0px1xn7bwq" path="res://ui/fx/illustrated_fx.gd" id="script"]
 
-[node name="SmokeFX" type="Node2D"]
+[node name="SmokeFX" type="Node2D" unique_id=1450444753]
 z_index = 2
 script = ExtResource("script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=638854322]
 texture_filter = 2
-scale = Vector2(0.17316798, 0.17316798)
+scale = Vector2(0.17316797, 0.17316797)
 sprite_frames = ExtResource("frames")
-animation = &"default"

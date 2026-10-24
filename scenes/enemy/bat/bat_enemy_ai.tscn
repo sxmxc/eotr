@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://8itfml3qxi2w" path="res://scenes/enemy/enemy_action_picker.tscn" id="1_7tthe"]
 [ext_resource type="Script" uid="uid://biwyia3xrt6c7" path="res://scenes/enemy/bat/bat_enemy_move_action.gd" id="2_i0oq1"]
 [ext_resource type="Script" uid="uid://ckxvd52j3n2mr" path="res://scenes/enemy/bat/bat_enemy_attack_action.gd" id="3_cvap0"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/move.svg" id="3_r3h3o"]
+[ext_resource type="Texture2D" uid="uid://3np3bqrgf08w" path="res://assets/rift/ui/move.svg" id="3_r3h3o"]
 [ext_resource type="Script" uid="uid://c1qdjf5kl04cb" path="res://scripts/resources/intent.gd" id="4_rfrrq"]
 [ext_resource type="AudioStream" uid="uid://bi62uwrtjhfdc" path="res://assets/audio/kenney_casino/chip-lay-2.ogg" id="5_wdej5"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/attack.svg" id="6_rfrrq"]
+[ext_resource type="Texture2D" uid="uid://bh3h4bie63a18" path="res://assets/rift/ui/attack.svg" id="6_rfrrq"]
 [ext_resource type="AudioStream" uid="uid://dsu7hoc0psteo" path="res://assets/audio/Monster Sounds/Bat/Bat_Attack.wav" id="8_gptsy"]
 [ext_resource type="PackedScene" uid="uid://bf61do8j56a3t" path="res://ui/fx/claw_slash_fx.tscn" id="9_r3h3o"]
 

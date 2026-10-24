@@ -1,59 +1,53 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://eycw4reckcp1"]
 
-[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
-[ext_resource type="Shader" path="res://scripts/shaders/spell_support.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/energy_wisp_frames.tres" id="illustration"]
-[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/energy_wisp_frames.tres" id="art_energy_wisp"]
+[ext_resource type="SpriteFrames" uid="uid://bt3vexrqnl8ye" path="res://resources/vfx/energy_wisp_frames.tres" id="art_energy_wisp"]
+[ext_resource type="Script" uid="uid://cy4k0c4g6cjke" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="Script" uid="uid://c52rkf1sy48td" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" uid="uid://ds3ac0mmtwg6v" path="res://scripts/shaders/spell_support.gdshader" id="shader"]
+
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/progress = 0.0
+shader_parameter/variant = 6
+shader_parameter/accent = Color(1, 0.72, 0.3, 1)
+
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [sub_resource type="GradientTexture2D" id="canvas"]
 gradient = SubResource("white")
 width = 128
 height = 128
-[sub_resource type="ShaderMaterial" id="material"]
-resource_local_to_scene = true
-shader = ExtResource("shader")
-shader_parameter/variant = 6
-shader_parameter/accent = Color(1, 0.72, 0.3, 1)
-[node name="AdrenalineRushFX" type="Node2D"]
+
+[node name="AdrenalineRushFX" type="Node2D" unique_id=370830347]
 z_index = 8
 script = ExtResource("script")
 duration = 0.4
-grounded = false
-[node name="Surface" type="Sprite2D" parent="."]
+
+[node name="Surface" type="Sprite2D" parent="." unique_id=1054846862]
+self_modulate = Color(1, 1, 1, 0.14)
 texture_filter = 2
-texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.734375, 0.734375)
-self_modulate = Color(1, 1, 1, 0.14)
+texture = SubResource("canvas")
 
-[node name="Illustration" type="AnimatedSprite2D" parent="."]
+[node name="Illustration" type="AnimatedSprite2D" parent="." unique_id=1083365460]
 texture_filter = 2
-position = Vector2(0, 0)
 rotation = -0.5
 scale = Vector2(0.11544532, 0.18471251)
 sprite_frames = ExtResource("art_energy_wisp")
-animation = &"default"
 script = ExtResource("layer_script")
-begins = 0
-ends = 1
 drift = Vector2(-14, -24)
 final_scale = Vector2(0.6, 1)
-first_frame = 0
-last_frame = 7
 
-[node name="SecondDraw" type="AnimatedSprite2D" parent="."]
+[node name="SecondDraw" type="AnimatedSprite2D" parent="." unique_id=1174769836]
 texture_filter = 2
 position = Vector2(4, 2)
 rotation = 0.5
 scale = Vector2(0.10390079, 0.16162345)
 sprite_frames = ExtResource("art_energy_wisp")
-animation = &"default"
 script = ExtResource("layer_script")
 begins = 0.12
-ends = 1
 drift = Vector2(17, -22)
 final_scale = Vector2(0.6, 1)
-first_frame = 0
-last_frame = 7

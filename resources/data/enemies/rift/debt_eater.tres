@@ -1,20 +1,22 @@
-[gd_resource type="Resource" script_class="EnemyStats" format=3]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
-[ext_resource type="Script" path="res://scripts/resources/enemy_tactics.gd" id="tactics"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/rift_tactics_ai.tscn" id="ai"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/hollow_siphon_stalker.webp" id="art"]
+[gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://dcm24ckrpfi16"]
+
+[ext_resource type="PackedScene" uid="uid://deprh4t86m7og" path="res://scenes/enemy/rift_tactics_ai.tscn" id="ai"]
+[ext_resource type="Texture2D" uid="uid://dhj0kwln6qjm" path="res://assets/rift/entities/hollow_siphon_stalker.webp" id="art"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats"]
+[ext_resource type="Script" uid="uid://dyvd2kssxdkb8" path="res://scripts/resources/enemy_tactics.gd" id="tactics"]
+
 [sub_resource type="Resource" id="profile"]
 script = ExtResource("tactics")
 role = 8
 preferred_range = 2
 damage = 3
-steps = 1
+
 [resource]
 script = ExtResource("stats")
 enemy_name = "Debt Eater"
 board_icon = ExtResource("art")
 ai = ExtResource("ai")
-tactics = SubResource("profile")
-max_health = 14
 gold_value = 7
 resource_value_max = 3
+tactics = SubResource("profile")
+max_health = 14

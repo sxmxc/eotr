@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AttunedStatus" format=3 uid="uid://vv16q27o2l1o"]
 
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/eye.svg" id="1_v0mk7"]
+[ext_resource type="Texture2D" uid="uid://5dlcnmj4io8h" path="res://assets/rift/ui/eye.svg" id="1_v0mk7"]
 [ext_resource type="Script" uid="uid://bu5u0cpupp2pw" path="res://resources/data/statuses/attuned.gd" id="2_v0mk7"]
 
 [resource]

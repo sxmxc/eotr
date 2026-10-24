@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bb06r68q304st"]
 
-[ext_resource type="Font" path="res://resources/themes/body_font.tres" id="1_7yydw"]
+[ext_resource type="SystemFont" uid="uid://bh2lp6h1inb5r" path="res://resources/themes/body_font.tres" id="1_7yydw"]
 
 [resource]
 default_font = ExtResource("1_7yydw")

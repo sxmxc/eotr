@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ckmy1itlxup01"]
 
-[ext_resource type="Texture2D" path="res://assets/rift/fx/void_mote.webp" id="mote"]
 [ext_resource type="Texture2D" path="res://resources/vfx/menu_emission_points.res" id="emission_points"]
+[ext_resource type="Texture2D" uid="uid://bj8t8htllelqo" path="res://assets/rift/fx/void_mote.webp" id="mote"]
 
 [sub_resource type="Gradient" id="fade"]
 offsets = PackedFloat32Array(0, 0.18, 0.7, 1)
@@ -19,78 +19,71 @@ direction = Vector3(0, -1, 0)
 spread = 35.0
 initial_velocity_min = 1.5
 initial_velocity_max = 4.0
-gravity = Vector3(0, 0, 0)
 angular_velocity_min = -8.0
 angular_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
 scale_min = 0.012
 scale_max = 0.024
 color_ramp = SubResource("ramp")
 
-[node name="ParticlesLayer" type="CanvasLayer"]
+[node name="ParticlesLayer" type="CanvasLayer" unique_id=239554150]
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=690207264]
+texture_filter = 2
 position = Vector2(959, 523)
-amount = 8
+texture = ExtResource("mote")
 lifetime = 12.0
 preprocess = 12.0
 randomness = 0.4
 visibility_rect = Rect2(-1000, -700, 2000, 1400)
-texture_filter = 2
-texture = ExtResource("mote")
 process_material = SubResource("drift")
 
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="." unique_id=1875163424]
+texture_filter = 2
 position = Vector2(959, 523)
-amount = 8
+texture = ExtResource("mote")
 lifetime = 12.0
 preprocess = 12.0
 randomness = 0.4
 visibility_rect = Rect2(-1000, -700, 2000, 1400)
-texture_filter = 2
-texture = ExtResource("mote")
 process_material = SubResource("drift")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="." unique_id=2056851830]
+texture_filter = 2
 position = Vector2(1587, 523)
-amount = 8
+texture = ExtResource("mote")
 lifetime = 12.0
 preprocess = 12.0
 randomness = 0.4
 visibility_rect = Rect2(-1000, -700, 2000, 1400)
-texture_filter = 2
-texture = ExtResource("mote")
 process_material = SubResource("drift")
 
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="." unique_id=1150823316]
+texture_filter = 2
 position = Vector2(1587, 523)
-amount = 8
+texture = ExtResource("mote")
 lifetime = 12.0
 preprocess = 12.0
 randomness = 0.4
 visibility_rect = Rect2(-1000, -700, 2000, 1400)
-texture_filter = 2
-texture = ExtResource("mote")
 process_material = SubResource("drift")
 
-[node name="GPUParticles2D5" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="." unique_id=1271147720]
+texture_filter = 2
 position = Vector2(272, 523)
-amount = 8
+texture = ExtResource("mote")
 lifetime = 12.0
 preprocess = 12.0
 randomness = 0.4
 visibility_rect = Rect2(-1000, -700, 2000, 1400)
-texture_filter = 2
-texture = ExtResource("mote")
 process_material = SubResource("drift")
 
-[node name="GPUParticles2D6" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="." unique_id=1092087838]
+texture_filter = 2
 position = Vector2(272, 523)
-amount = 8
+texture = ExtResource("mote")
 lifetime = 12.0
 preprocess = 12.0
 randomness = 0.4
 visibility_rect = Rect2(-1000, -700, 2000, 1400)
-texture_filter = 2
-texture = ExtResource("mote")
 process_material = SubResource("drift")
-

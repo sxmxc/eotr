@@ -2,7 +2,7 @@
 
 [ext_resource type="SpriteFrames" uid="uid://0elumkrrrvj0" path="res://resources/vfx/arcane_projectile_frames.tres" id="frames"]
 [ext_resource type="Script" uid="uid://c3hmypqawkyoy" path="res://ui/fx/fireball_projectile_fx.gd" id="script"]
-[ext_resource type="Material" path="res://resources/materials/spell_presence.tres" id="spell_material"]
+[ext_resource type="Material" uid="uid://dqnhs4mdd53m1" path="res://resources/materials/spell_presence.tres" id="spell_material"]
 
 [node name="FireballProjectileFX" type="Node2D" unique_id=850811625]
 z_index = 8
@@ -11,6 +11,6 @@ script = ExtResource("script")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1506370869]
 texture_filter = 2
 material = ExtResource("spell_material")
-scale = Vector2(0.21934611, 0.21934611)
+scale = Vector2(0.2193461, 0.2193461)
 sprite_frames = ExtResource("frames")
 animation = &"start"

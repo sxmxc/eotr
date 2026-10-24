@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://reltmlqdjpbr"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_q5376"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_q5376"]
 [ext_resource type="Script" uid="uid://o5nv282ngkyy" path="res://scenes/shop/shop_card.gd" id="2_ve2vk"]
 [ext_resource type="PackedScene" uid="uid://bc3nktjl4vqur" path="res://ui/card_menu_ui/card_menu_ui.tscn" id="2_w7nxn"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/coin.svg" id="3_ve2vk"]
+[ext_resource type="Texture2D" uid="uid://cihh4qs65srfy" path="res://assets/rift/ui/coin.svg" id="3_ve2vk"]
 
 [node name="ShopCard" type="VBoxContainer" unique_id=1855532495]
-theme_type_variation = &"ShopCardListing"
 custom_minimum_size = Vector2(220, 420)
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_horizontal = 3
 theme = ExtResource("1_q5376")
+theme_type_variation = &"ShopCardListing"
 script = ExtResource("2_ve2vk")
 card_presentation_scale = 1.4
-size_flags_horizontal = 3
 
 [node name="CardContainer" type="CenterContainer" parent="." unique_id=39829222]
 unique_name_in_owner = true
@@ -23,9 +23,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Price" type="HBoxContainer" parent="." unique_id=1739171233]
-theme_type_variation = &"FlushRow"
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"FlushRow"
 alignment = 1
 
 [node name="PriceLabel" type="Label" parent="Price" unique_id=3636367]
@@ -43,8 +43,8 @@ stretch_mode = 6
 
 [node name="BuyButton" type="Button" parent="." unique_id=1204341735]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"ShopPurchase"
 text = "Buy card"

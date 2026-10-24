@@ -1,74 +1,66 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cjm57las65mxh"]
 
-[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
-[ext_resource type="Shader" path="res://scripts/shaders/spell_support.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/energy_wisp_frames.tres" id="illustration"]
-[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/energy_wisp_frames.tres" id="art_energy_wisp"]
+[ext_resource type="SpriteFrames" uid="uid://bt3vexrqnl8ye" path="res://resources/vfx/energy_wisp_frames.tres" id="art_energy_wisp"]
+[ext_resource type="Script" uid="uid://cy4k0c4g6cjke" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="Script" uid="uid://c52rkf1sy48td" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" uid="uid://ds3ac0mmtwg6v" path="res://scripts/shaders/spell_support.gdshader" id="shader"]
+
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/progress = 0.0
+shader_parameter/variant = 4
+shader_parameter/accent = Color(0.6, 0.86, 1, 1)
+
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [sub_resource type="GradientTexture2D" id="canvas"]
 gradient = SubResource("white")
 width = 128
 height = 128
-[sub_resource type="ShaderMaterial" id="material"]
-resource_local_to_scene = true
-shader = ExtResource("shader")
-shader_parameter/variant = 4
-shader_parameter/accent = Color(0.6, 0.86, 1, 1)
-[node name="RiftKnowledgeFX" type="Node2D"]
+
+[node name="RiftKnowledgeFX" type="Node2D" unique_id=577672309]
 z_index = 8
 script = ExtResource("script")
 duration = 0.85
-grounded = false
-[node name="Surface" type="Sprite2D" parent="."]
+
+[node name="Surface" type="Sprite2D" parent="." unique_id=1570674756]
+self_modulate = Color(1, 1, 1, 0.14)
 texture_filter = 2
-texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.75, 0.75)
-self_modulate = Color(1, 1, 1, 0.14)
+texture = SubResource("canvas")
 
-[node name="Illustration" type="AnimatedSprite2D" parent="."]
+[node name="Illustration" type="AnimatedSprite2D" parent="." unique_id=2105587789]
 texture_filter = 2
-position = Vector2(0, 0)
 rotation = -0.6
-scale = Vector2(0.10390079, 0.13853439)
+scale = Vector2(0.10390079, 0.1385344)
 sprite_frames = ExtResource("art_energy_wisp")
-animation = &"default"
 script = ExtResource("layer_script")
-begins = 0
-ends = 1
 drift = Vector2(12, -17)
 final_scale = Vector2(0.65, 0.65)
-first_frame = 0
-last_frame = 7
 
-[node name="KnowledgeLeft" type="AnimatedSprite2D" parent="."]
+[node name="KnowledgeLeft" type="AnimatedSprite2D" parent="." unique_id=1492062036]
 texture_filter = 2
 position = Vector2(-16, 3)
 rotation = 0.5
-scale = Vector2(0.080811725, 0.10967306)
+scale = Vector2(0.080811724, 0.10967306)
 sprite_frames = ExtResource("art_energy_wisp")
-animation = &"default"
 script = ExtResource("layer_script")
 begins = 0.1
-ends = 1
 drift = Vector2(7, -24)
 final_scale = Vector2(0.5, 0.5)
 first_frame = 1
-last_frame = 7
 
-[node name="KnowledgeRight" type="AnimatedSprite2D" parent="."]
+[node name="KnowledgeRight" type="AnimatedSprite2D" parent="." unique_id=1262910294]
 texture_filter = 2
 position = Vector2(16, 3)
 rotation = -0.5
-scale = Vector2(0.080811725, 0.10967306)
+scale = Vector2(0.080811724, 0.10967306)
 sprite_frames = ExtResource("art_energy_wisp")
-animation = &"default"
 script = ExtResource("layer_script")
 begins = 0.2
-ends = 1
 drift = Vector2(-7, -24)
 final_scale = Vector2(0.5, 0.5)
 first_frame = 1
-last_frame = 7

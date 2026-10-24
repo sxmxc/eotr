@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://hbafmp6j0m5m" path="res://resources/data/cards/riftwalker/phase_slash.gd" id="1_006to"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_xdlot"]
 [ext_resource type="Texture2D" uid="uid://c8bg4i3omgwm7" path="res://assets/rift/cards/phase_slash.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/phase_slash_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://bf2a0wwdu6ltc" path="res://ui/fx/phase_slash_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_006to")

@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://bv6p0asj3e4yr"]
 
-[ext_resource type="Script" path="res://scripts/tests/autowalker_loadouts_test.gd" id="1"]
+[ext_resource type="Script" uid="uid://b246cipbffnd0" path="res://scripts/tests/autowalker_loadouts_test.gd" id="1"]
 
-[node name="LoadoutTests" type="Node"]
+[node name="LoadoutTests" type="Node" unique_id=530816155]
 script = ExtResource("1")

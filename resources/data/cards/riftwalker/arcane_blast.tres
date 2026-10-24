@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cb50e1rcfvw0r" path="res://ui/fx/fireball_projectile_fx.tscn" id="1_yrhi5"]
 [ext_resource type="AudioStream" uid="uid://bonkarcwaqe1g" path="res://assets/audio/spells/explode1.wav" id="3_yrhi5"]
 [ext_resource type="Texture2D" uid="uid://qw10tx0tjays" path="res://assets/rift/cards/arcane_blast.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/arcane_blast_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://cfd7t3k0riadj" path="res://ui/fx/arcane_blast_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_b3saq")

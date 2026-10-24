@@ -2,13 +2,25 @@
 
 [ext_resource type="Script" uid="uid://pavih4tqan8i" path="res://scenes/game_world/movement_target_selector/movement_target_selector.gd" id="1_6f7n0"]
 [ext_resource type="PackedScene" uid="uid://dly3s0hauqry1" path="res://scenes/game_world/card_target_selector/card_arc.tscn" id="1_ehu6f"]
+[ext_resource type="Shader" uid="uid://bimabwshpl6m0" path="res://scripts/shaders/tile_target_highlight.gdshader" id="3_7qpnv"]
 [ext_resource type="PackedScene" path="res://ui/fx/discharge_projectile_fx.tscn" id="3_vfed1"]
 [ext_resource type="PackedScene" path="res://ui/world_ui/target_highlight.tscn" id="highlight"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_22vge"]
+resource_local_to_scene = true
+shader = ExtResource("3_7qpnv")
+shader_parameter/HighlightColor = Color(0.29, 0.75, 0.67, 1)
+shader_parameter/PulseSpeed = 1.35
+shader_parameter/MinAlpha = 0.1
+shader_parameter/MaxAlpha = 0.22
+shader_parameter/OutlineWidth = 0.025
+shader_parameter/HexSize = 64.0
 
 [node name="MovementTargetSelector" type="Node2D" unique_id=2037679228]
 script = ExtResource("1_6f7n0")
 
-[node name="HexIndicator" parent="." instance=ExtResource("highlight")]
+[node name="HexIndicator" parent="." unique_id=471786789 instance=ExtResource("highlight")]
+material = SubResource("ShaderMaterial_22vge")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=470035443]
 

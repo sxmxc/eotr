@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://o2oyx5wo3auh" path="res://resources/data/constructs/pike.tres" id="3"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="3_h8iwg"]
 [ext_resource type="Texture2D" uid="uid://d1aet1i4jrjge" path="res://assets/rift/cards/deploy_pike.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/deploy_pike.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://dykvob2f1xbhn" path="res://ui/fx/synthforged/deploy_pike.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_h8iwg"]
 script = ExtResource("3_h8iwg")

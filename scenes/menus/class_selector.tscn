@@ -1,146 +1,170 @@
 [gd_scene format=3 uid="uid://d4jvkhe7x27s0"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://scenes/menus/class_selector.gd" id="script"]
-[ext_resource type="Resource" path="res://scenes/run/run_bootstrap.tres" id="bootstrap"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/riftwalker.webp" id="rift"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/synthforged.webp" id="synth"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/voidbinder.webp" id="void"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/riftwalker.webp" id="icon1"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/synthforged.webp" id="icon2"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/channeler.webp" id="icon3"]
-[ext_resource type="Script" path="res://addons/uiJuicer/Bouncer.gd" id="bouncer"]
+
+[ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="bootstrap"]
+[ext_resource type="Script" uid="uid://c7wfd2um7frkt" path="res://addons/uiJuicer/Bouncer.gd" id="bouncer"]
+[ext_resource type="Texture2D" uid="uid://bglsgt37jfyvs" path="res://assets/rift/entities/riftwalker.webp" id="icon1"]
+[ext_resource type="Texture2D" uid="uid://b8a41bmwfci83" path="res://assets/rift/entities/synthforged.webp" id="icon2"]
+[ext_resource type="Texture2D" uid="uid://3h337puowjhi" path="res://assets/rift/entities/channeler.webp" id="icon3"]
+[ext_resource type="Texture2D" uid="uid://43cnhkfbefvq" path="res://assets/rift/menus/riftwalker.webp" id="rift"]
+[ext_resource type="Script" uid="uid://cyu764cjss5qf" path="res://scenes/menus/class_selector.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://bg32jeeoeqj2g" path="res://assets/rift/menus/synthforged.webp" id="synth"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" uid="uid://cr2iiv2qmmi2r" path="res://assets/rift/menus/voidbinder.webp" id="void"]
+
 [sub_resource type="Gradient" id="gradient"]
 offsets = PackedFloat32Array(0, 0.42, 0.74, 1)
-colors = PackedColorArray(0.025,0.04,0.065,1, 0.025,0.04,0.065,0.98, 0.025,0.04,0.065,0.25, 0.025,0.04,0.065,0.1)
+colors = PackedColorArray(0.025, 0.04, 0.065, 1, 0.025, 0.04, 0.065, 0.98, 0.025, 0.04, 0.065, 0.25, 0.025, 0.04, 0.065, 0.1)
+
 [sub_resource type="GradientTexture2D" id="veil"]
 gradient = SubResource("gradient")
-fill_from = Vector2(0, 0)
-fill_to = Vector2(1, 0)
-[node name="ClassSelector" type="Control"]
+
+[node name="ClassSelector" type="Control" unique_id=432393558]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
 script = ExtResource("script")
 run_bootstrap = ExtResource("bootstrap")
-[node name="RiftwalkerBackground" type="TextureRect" parent="."]
-anchors_preset = 15
+
+[node name="RiftwalkerBackground" type="TextureRect" parent="." unique_id=1281343517]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("rift")
 expand_mode = 1
 stretch_mode = 6
-mouse_filter = 2
-[node name="SynthforgedBackground" type="TextureRect" parent="."]
+
+[node name="SynthforgedBackground" type="TextureRect" parent="." unique_id=663859978]
 visible = false
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("synth")
 expand_mode = 1
 stretch_mode = 6
-mouse_filter = 2
-[node name="VoidbinderBackground" type="TextureRect" parent="."]
+
+[node name="VoidbinderBackground" type="TextureRect" parent="." unique_id=52495879]
 visible = false
-anchors_preset = 15
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("void")
 expand_mode = 1
 stretch_mode = 6
-mouse_filter = 2
-[node name="Veil" type="TextureRect" parent="."]
-anchors_preset = 15
+
+[node name="Veil" type="TextureRect" parent="." unique_id=580360662]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = SubResource("veil")
 mouse_filter = 2
-[node name="ClassPanel" type="VBoxContainer" parent="."]
-theme_type_variation = &"ContentStack"
+texture = SubResource("veil")
+
+[node name="ClassPanel" type="VBoxContainer" parent="." unique_id=1695686462]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 96.0
 offset_top = 96.0
 offset_right = 736.0
 offset_bottom = 980.0
-[node name="Eyebrow" type="Label" parent="ClassPanel"]
+theme_type_variation = &"ContentStack"
+
+[node name="Eyebrow" type="Label" parent="ClassPanel" unique_id=1850562232]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "ECHOES OF THE RIFT / NEW EXPEDITION"
-[node name="ClassNameLabel" type="Label" parent="ClassPanel"]
+
+[node name="ClassNameLabel" type="Label" parent="ClassPanel" unique_id=1289477792]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"CharacterTitle"
 text = "Riftwalker"
-[node name="ScrollContainer" type="ScrollContainer" parent="ClassPanel"]
-layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ClassPanel" unique_id=2009648061]
 custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
 horizontal_scroll_mode = 0
-[node name="ClassDescription" type="RichTextLabel" parent="ClassPanel/ScrollContainer"]
-theme_type_variation = &"CharacterDescription"
+
+[node name="ClassDescription" type="RichTextLabel" parent="ClassPanel/ScrollContainer" unique_id=630109242]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"CharacterDescription"
 bbcode_enabled = true
-fit_content = true
 text = "Class description"
-[node name="RelicCaption" type="Label" parent="ClassPanel"]
+fit_content = true
+
+[node name="RelicCaption" type="Label" parent="ClassPanel" unique_id=1589111404]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "STARTING RELIC"
-[node name="StartingRelicLabel" type="Label" parent="ClassPanel"]
-theme_type_variation = &"RunClockText"
+
+[node name="StartingRelicLabel" type="Label" parent="ClassPanel" unique_id=1765051208]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"RunClockText"
 text = "Phase Key"
-[node name="ChooseCaption" type="Label" parent="ClassPanel"]
+
+[node name="ChooseCaption" type="Label" parent="ClassPanel" unique_id=97223554]
 layout_mode = 2
 theme_type_variation = &"Eyebrow"
 text = "CHOOSE YOUR TRAVELER"
-[node name="Classes" type="HBoxContainer" parent="ClassPanel"]
+
+[node name="Classes" type="HBoxContainer" parent="ClassPanel" unique_id=2062981158]
+layout_mode = 2
 theme_type_variation = &"ChoiceRow"
-layout_mode = 2
-[node name="RiftwalkerButton" type="Button" parent="ClassPanel/Classes"]
-theme_type_variation = &"SelectedClassButton"
+
+[node name="RiftwalkerButton" type="Button" parent="ClassPanel/Classes" unique_id=8946873]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
+layout_mode = 2
+theme_type_variation = &"SelectedClassButton"
 text = "Riftwalker"
 icon = ExtResource("icon1")
 expand_icon = true
-[node name="Bouncer" type="Node" parent="ClassPanel/Classes/RiftwalkerButton"]
+
+[node name="Bouncer" type="Node" parent="ClassPanel/Classes/RiftwalkerButton" unique_id=1337728302]
 unique_name_in_owner = true
 script = ExtResource("bouncer")
 AutoStart = false
-[node name="SynthforgeButton" type="Button" parent="ClassPanel/Classes"]
-theme_type_variation = &"SelectedClassButton"
+
+[node name="SynthforgeButton" type="Button" parent="ClassPanel/Classes" unique_id=177130334]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
+layout_mode = 2
+theme_type_variation = &"SelectedClassButton"
 text = "Synthforged"
 icon = ExtResource("icon2")
 expand_icon = true
-[node name="VoidbinderButton" type="Button" parent="ClassPanel/Classes"]
-theme_type_variation = &"LockedClassButton"
+
+[node name="VoidbinderButton" type="Button" parent="ClassPanel/Classes" unique_id=954278214]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(202, 80)
+layout_mode = 2
+theme_type_variation = &"LockedClassButton"
 disabled = true
 text = "Voidbinder
 Locked"
 icon = ExtResource("icon3")
 expand_icon = true
-[node name="Spacer" type="Control" parent="ClassPanel"]
+
+[node name="Spacer" type="Control" parent="ClassPanel" unique_id=1375589362]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-[node name="StartButton" type="Button" parent="ClassPanel"]
+
+[node name="StartButton" type="Button" parent="ClassPanel" unique_id=728780228]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "Enter the Rift  →"
-[node name="BackButton" type="Button" parent="."]
-anchors_preset = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=1201051576]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -216.0
@@ -148,8 +172,8 @@ offset_top = 48.0
 offset_right = -64.0
 offset_bottom = 104.0
 text = "Back"
-[connection signal="pressed" from="ClassPanel/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="ClassPanel/Classes/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
-[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 
+[connection signal="pressed" from="ClassPanel/Classes/RiftwalkerButton" to="." method="_on_riftwalker_button_pressed"]
 [connection signal="pressed" from="ClassPanel/Classes/SynthforgeButton" to="." method="_on_synthforge_button_pressed"]
+[connection signal="pressed" from="ClassPanel/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

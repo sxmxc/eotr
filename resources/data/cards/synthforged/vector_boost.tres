@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_3s4gv"]
 [ext_resource type="Texture2D" uid="uid://dsp6vn8d4s8m6" path="res://assets/rift/cards/vector_boost.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/vector_boost.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://4j2keo45vhbn" path="res://ui/fx/synthforged/vector_boost.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_3s4gv"]
 script = ExtResource("2_3s4gv")

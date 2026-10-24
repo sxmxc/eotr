@@ -1,15 +1,18 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[gd_scene format=3 uid="uid://dbgchha0cmaf5"]
+
 [ext_resource type="Resource" path="res://resources/data/enemies/rift/corruption_weaver.tres" id="e0"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound.tres" id="e1"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[node name="root_lesson" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
+[ext_resource type="Resource" uid="uid://dsskhbdr6lgtm" path="res://resources/data/enemies/rift/shard_hound.tres" id="e1"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+
+[node name="root_lesson" type="Node2D" unique_id=433559145]
+
+[node name="Obelisk" parent="." unique_id=1419621834 instance=ExtResource("obelisk")]
 spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1")])
-[node name="Unit0" parent="." instance=ExtResource("moving")]
+
+[node name="Unit0" parent="." unique_id=1329110000 instance=ExtResource("moving")]
 stats = ExtResource("e0")
-[node name="Unit1" parent="." instance=ExtResource("moving")]
+
+[node name="Unit1" parent="." unique_id=738252476 instance=ExtResource("moving")]
 stats = ExtResource("e1")

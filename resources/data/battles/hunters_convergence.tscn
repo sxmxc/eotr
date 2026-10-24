@@ -1,22 +1,24 @@
-[gd_scene format=3]
-[ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
-[ext_resource type="PackedScene" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
-[ext_resource type="Resource" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
-[ext_resource type="Script" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/shard_hound_pouncer.tres" id="e0"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/hollow_siphon_stalker.tres" id="e1"]
-[ext_resource type="Resource" path="res://resources/data/enemies/rift/horror_reaper.tres" id="e2"]
+[gd_scene format=3 uid="uid://bx4aeb60ubhm4"]
 
-[node name="hunters_convergence" type="Node2D"]
-[node name="Obelisk" parent="." instance=ExtResource("obelisk")]
-stats = ExtResource("obelisk_stats")
+[ext_resource type="Resource" uid="uid://bx06uhnnrcty8" path="res://resources/data/enemies/rift/shard_hound_pouncer.tres" id="e0"]
+[ext_resource type="Resource" uid="uid://cs4yagqvktvvf" path="res://resources/data/enemies/rift/hollow_siphon_stalker.tres" id="e1"]
+[ext_resource type="Resource" uid="uid://caw27yqsckpjy" path="res://resources/data/enemies/rift/horror_reaper.tres" id="e2"]
+[ext_resource type="PackedScene" uid="uid://ypq2eyjf2e5m" path="res://scenes/enemy/moving_enemy.tscn" id="moving"]
+[ext_resource type="PackedScene" uid="uid://clybmd6dqmpt8" path="res://scenes/enemy/obelisk/obelisk_enemy.tscn" id="obelisk"]
+[ext_resource type="Resource" uid="uid://c8h36iwvcmede" path="res://scenes/enemy/obelisk/obelisk_t1_enemy.tres" id="obelisk_stats"]
+[ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="stats_script"]
+
+[node name="hunters_convergence" type="Node2D" unique_id=1348245867]
+
+[node name="Obelisk" parent="." unique_id=439603121 instance=ExtResource("obelisk")]
 spawn_pool = Array[ExtResource("stats_script")]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2")])
+stats = ExtResource("obelisk_stats")
 
-[node name="Unit0" parent="." instance=ExtResource("moving")]
+[node name="Unit0" parent="." unique_id=1143285751 instance=ExtResource("moving")]
 stats = ExtResource("e0")
 
-[node name="Unit1" parent="." instance=ExtResource("moving")]
+[node name="Unit1" parent="." unique_id=2058870118 instance=ExtResource("moving")]
 stats = ExtResource("e1")
 
-[node name="Unit2" parent="." instance=ExtResource("moving")]
+[node name="Unit2" parent="." unique_id=1045858797 instance=ExtResource("moving")]
 stats = ExtResource("e2")

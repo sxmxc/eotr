@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="1_6vn2s"]
 [ext_resource type="Script" uid="uid://lf8kuqf6k6sk" path="res://resources/data/cards/riftwalker/echo.gd" id="1_echo"]
 [ext_resource type="Texture2D" uid="uid://1wao0006unxh" path="res://assets/rift/cards/echo.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/echo_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://nejg1ris67mu" path="res://ui/fx/echo_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_echo")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_ryv6i"]
 [ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="4_dglv3"]
 [ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="5_lgwkx"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/thruster_assault.tscn" id="fx"]
+[ext_resource type="PackedScene" uid="uid://c0msycsecndxp" path="res://ui/fx/synthforged/thruster_assault.tscn" id="fx"]
 [ext_resource type="Texture2D" uid="uid://kdstxointy43" path="res://assets/rift/cards/flanking_maneuver.webp" id="rift_art"]
 [ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
 

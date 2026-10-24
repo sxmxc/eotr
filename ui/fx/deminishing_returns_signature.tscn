@@ -1,50 +1,49 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://jancaeqojcug"]
 
-[ext_resource type="Script" path="res://ui/fx/spell_signature.gd" id="script"]
-[ext_resource type="Shader" path="res://scripts/shaders/spell_strike.gdshader" id="shader"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/phase_cut_frames.tres" id="illustration"]
-[ext_resource type="Shader" path="res://scripts/shaders/illustrated_palette.gdshader" id="palette_shader"]
-[ext_resource type="Script" path="res://ui/fx/spell_layer.gd" id="layer_script"]
-[ext_resource type="SpriteFrames" path="res://resources/vfx/phase_cut_frames.tres" id="art_phase_cut"]
-[sub_resource type="ShaderMaterial" id="palette"]
-shader = ExtResource("palette_shader")
+[ext_resource type="SpriteFrames" uid="uid://cehq86vnpv4at" path="res://resources/vfx/phase_cut_frames.tres" id="art_phase_cut"]
+[ext_resource type="Script" uid="uid://cy4k0c4g6cjke" path="res://ui/fx/spell_layer.gd" id="layer_script"]
+[ext_resource type="Shader" uid="uid://cautnflmbs1fp" path="res://scripts/shaders/illustrated_palette.gdshader" id="palette_shader"]
+[ext_resource type="Script" uid="uid://c52rkf1sy48td" path="res://ui/fx/spell_signature.gd" id="script"]
+[ext_resource type="Shader" uid="uid://cjfh5wbxskvxe" path="res://scripts/shaders/spell_strike.gdshader" id="shader"]
+
+[sub_resource type="ShaderMaterial" id="material"]
+resource_local_to_scene = true
+shader = ExtResource("shader")
+shader_parameter/progress = 0.0
+shader_parameter/variant = 4
 shader_parameter/accent = Color(1, 0.62, 0.32, 1)
 
 [sub_resource type="Gradient" id="white"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [sub_resource type="GradientTexture2D" id="canvas"]
 gradient = SubResource("white")
 width = 128
 height = 128
-[sub_resource type="ShaderMaterial" id="material"]
-resource_local_to_scene = true
-shader = ExtResource("shader")
-shader_parameter/variant = 4
+
+[sub_resource type="ShaderMaterial" id="palette"]
+shader = ExtResource("palette_shader")
 shader_parameter/accent = Color(1, 0.62, 0.32, 1)
-[node name="DeminishingReturnsFX" type="Node2D"]
+shader_parameter/strength = 1.0
+
+[node name="DeminishingReturnsFX" type="Node2D" unique_id=1630164423]
 z_index = 8
 script = ExtResource("script")
 duration = 0.35
-grounded = false
-[node name="Surface" type="Sprite2D" parent="."]
+
+[node name="Surface" type="Sprite2D" parent="." unique_id=1636246069]
+self_modulate = Color(1, 1, 1, 0.14)
 texture_filter = 2
-texture = SubResource("canvas")
 material = SubResource("material")
 scale = Vector2(0.640625, 0.640625)
-self_modulate = Color(1, 1, 1, 0.14)
+texture = SubResource("canvas")
 
-[node name="Illustration" type="AnimatedSprite2D" parent="."]
-material = SubResource("palette")
+[node name="Illustration" type="AnimatedSprite2D" parent="." unique_id=1260474367]
 texture_filter = 2
-position = Vector2(0, 0)
+material = SubResource("palette")
 rotation = -0.8
-scale = Vector2(0.13276212, 0.21934611)
+scale = Vector2(0.13276212, 0.2193461)
 sprite_frames = ExtResource("art_phase_cut")
-animation = &"default"
 script = ExtResource("layer_script")
-begins = 0
-ends = 1
 drift = Vector2(4, 6)
 final_scale = Vector2(0.8, 1.25)
-first_frame = 0
-last_frame = 7

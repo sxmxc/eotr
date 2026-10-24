@@ -1,67 +1,82 @@
 [gd_scene format=3 uid="uid://coupj55agy31s"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Script" path="res://scenes/relic_handler/relic_tooltip.gd" id="script"]
-[node name="RelicTooltip" type="Control"]
+
+[ext_resource type="Script" uid="uid://bk8nwhbgicue0" path="res://scenes/relic_handler/relic_tooltip.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+
+[node name="RelicTooltip" type="Control" unique_id=1791999275]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
 script = ExtResource("script")
-[node name="Background" type="ColorRect" parent="."]
-anchors_preset = 15
+
+[node name="Background" type="ColorRect" parent="." unique_id=937157525]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0.008, 0.014, 0.025, 0.91)
-[node name="Card" type="Panel" parent="."]
-anchors_preset = 8
+
+[node name="Card" type="Panel" parent="." unique_id=2028519768]
+layout_mode = 0
 anchor_left = 0.5
-anchor_right = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -410.0
-offset_right = 410.0
 offset_top = -240.0
+offset_right = 410.0
 offset_bottom = 240.0
-mouse_filter = 0
-[node name="Caption" type="Label" parent="Card"]
+
+[node name="Caption" type="Label" parent="Card" unique_id=941407138]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 32.0
 offset_right = 700.0
 offset_bottom = 60.0
 theme_type_variation = &"Eyebrow"
 text = "RELIC / YOUR EXPEDITION"
-[node name="RelicIcon" type="TextureRect" parent="Card"]
+
+[node name="RelicIcon" type="TextureRect" parent="Card" unique_id=1404813272]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 48.0
 offset_top = 130.0
 offset_right = 216.0
 offset_bottom = 298.0
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
-[node name="RelicName" type="Label" parent="Card"]
+
+[node name="RelicName" type="Label" parent="Card" unique_id=1467117048]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 264.0
 offset_top = 124.0
 offset_right = 760.0
 offset_bottom = 186.0
 theme_type_variation = &"RelicTitle"
 text = "Relic"
-[node name="RelicDescription" type="RichTextLabel" parent="Card"]
-theme_type_variation = &"RelicDescription"
+
+[node name="RelicDescription" type="RichTextLabel" parent="Card" unique_id=1523678050]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 264.0
 offset_top = 204.0
 offset_right = 760.0
 offset_bottom = 348.0
+theme_type_variation = &"RelicDescription"
 bbcode_enabled = true
 text = "Relic description"
-[node name="BackButton" type="Button" parent="Card"]
+
+[node name="BackButton" type="Button" parent="Card" unique_id=245470578]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 600.0
 offset_top = 384.0
 offset_right = 776.0
 offset_bottom = 440.0
 text = "Close"
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

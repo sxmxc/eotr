@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyStats" format=3 uid="uid://bt1n7ljxh76c3"]
 
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_4dh1t"]
-[ext_resource type="Texture2D" path="res://assets/rift/entities/bulwark.webp" id="2_3eklm"]
+[ext_resource type="Texture2D" uid="uid://b12ukme0nggbm" path="res://assets/rift/entities/bulwark.webp" id="2_3eklm"]
 [ext_resource type="PackedScene" uid="uid://cfa8ewg4fgihv" path="res://scenes/enemy/bulwark/bulwark_enemy_ai.tscn" id="2_540fs"]
 [ext_resource type="AudioStream" uid="uid://vvoahg31dnus" path="res://assets/audio/Monster Sounds/Behemoth/Behemoth_Emerge.ogg" id="4_ygybj"]
 

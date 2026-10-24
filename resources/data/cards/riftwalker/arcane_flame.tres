@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bk81qkmvarevg" path="res://resources/data/cards/riftwalker/arcane_flame.gd" id="1_uyrpw"]
 [ext_resource type="AudioStream" uid="uid://bj8mxvnbytfvg" path="res://assets/audio/spells/explode3.wav" id="2_43f7b"]
 [ext_resource type="Texture2D" uid="uid://b8hpvmy17tmlo" path="res://assets/rift/cards/arcane_flame.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/arcane_flame_signature.tscn" id="signature"]
+[ext_resource type="PackedScene" uid="uid://dxcevn5lbdm7e" path="res://ui/fx/arcane_flame_signature.tscn" id="signature"]
 
 [resource]
 script = ExtResource("1_uyrpw")

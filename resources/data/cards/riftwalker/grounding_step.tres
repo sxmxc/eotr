@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_a00pt"]
 [ext_resource type="Texture2D" uid="uid://deergqeuhx0n4" path="res://assets/rift/ui/focus.svg" id="4_jfn0o"]
 [ext_resource type="Script" uid="uid://ocoxu4wrph77" path="res://resources/data/statuses/attunement.gd" id="5_kiqbi"]
-[ext_resource type="PackedScene" path="res://ui/fx/focus_signature.tscn" id="fx"]
+[ext_resource type="PackedScene" uid="uid://dx22mmtwgwn8b" path="res://ui/fx/focus_signature.tscn" id="fx"]
 [ext_resource type="Texture2D" uid="uid://cmnpj3b7wqn7r" path="res://assets/rift/cards/grounding_step.webp" id="rift_art"]
 [ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
 

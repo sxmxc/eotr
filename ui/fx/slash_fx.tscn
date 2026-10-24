@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b0rgvbdigmehm"]
 
-[ext_resource type="Script" path="res://ui/fx/spark_fx.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/fx/claw_slash.webp" id="texture"]
+[ext_resource type="Script" uid="uid://chiqijepcu5b3" path="res://ui/fx/spark_fx.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://536mrrvxh536" path="res://assets/rift/fx/claw_slash.webp" id="texture"]
 
 [sub_resource type="CanvasItemMaterial" id="canvas"]
 particles_animation = true
@@ -18,11 +18,9 @@ gradient = SubResource("gradient")
 [sub_resource type="ParticleProcessMaterial" id="process"]
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 4
+emission_sphere_radius = 4.0
 direction = Vector3(0, -1, 0)
 spread = 180.0
-initial_velocity_min = 0
-initial_velocity_max = 0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.378
 scale_max = 0.378
@@ -30,18 +28,18 @@ color_ramp = SubResource("ramp")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
-[node name="slash_fx" type="Node2D"]
+[node name="slash_fx" type="Node2D" unique_id=1744300175]
 z_index = 8
 script = ExtResource("script")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2018338756]
 texture_filter = 2
 material = SubResource("canvas")
 emitting = false
 amount = 1
+texture = ExtResource("texture")
 lifetime = 0.32
 one_shot = true
 explosiveness = 1.0
 visibility_rect = Rect2(-56, -56, 112, 112)
-texture = ExtResource("texture")
 process_material = SubResource("process")

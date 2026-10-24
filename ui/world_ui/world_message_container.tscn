@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://e60o5h6j0kyg" path="res://ui/world_ui/world_message_container.gd" id="1_8c5or"]
 
 [node name="WorldMessageContainer" type="VBoxContainer" unique_id=326132880]
-theme_type_variation = &"WorldMessageStack"
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -11,33 +10,34 @@ anchor_bottom = 1.0
 offset_left = -538.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_type_variation = &"WorldMessageStack"
 script = ExtResource("1_8c5or")
 
-[node name="LiveScroll" type="ScrollContainer" parent="."]
+[node name="LiveScroll" type="ScrollContainer" parent="." unique_id=1452758036]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="LiveRows" type="VBoxContainer" parent="LiveScroll"]
+[node name="LiveRows" type="VBoxContainer" parent="LiveScroll" unique_id=199491403]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"WorldMessageStack"
 
-[node name="HistoryToggle" type="Button" parent="."]
+[node name="HistoryToggle" type="Button" parent="." unique_id=1093773283]
 layout_mode = 2
-text = "Recent events"
 toggle_mode = true
+text = "Recent events"
 
-[node name="HistoryScroll" type="ScrollContainer" parent="."]
+[node name="HistoryScroll" type="ScrollContainer" parent="." unique_id=1817815223]
 visible = false
 custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="HistoryText" type="RichTextLabel" parent="HistoryScroll"]
+[node name="HistoryText" type="RichTextLabel" parent="HistoryScroll" unique_id=18706496]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_type_variation = &"WorldMessageText"
 fit_content = true
 scroll_active = false
-mouse_filter = 2

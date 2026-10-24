@@ -1,11 +1,13 @@
-[gd_resource type="Resource" format=3]
-[ext_resource type="Script" path="res://resources/data/relics/journey_relic.gd" id="script"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/draw.svg" id="icon"]
+[gd_resource type="Resource" format=3 uid="uid://d4gfbxfwpdlq7"]
+
+[ext_resource type="Texture2D" uid="uid://cjcxrt6ax1awk" path="res://assets/rift/ui/draw.svg" id="icon"]
+[ext_resource type="Script" uid="uid://dgfhrfofbrovp" path="res://resources/data/relics/journey_relic.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
-id = "memory_sieve"
-relic_name = "Memory Sieve"
-type = 4
 gift = 1
+relic_name = "Memory Sieve"
+id = "memory_sieve"
+type = 4
 icon = ExtResource("icon")
 description = "The first Skill card each turn draws one card."

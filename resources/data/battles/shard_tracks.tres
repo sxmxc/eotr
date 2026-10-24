@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
-[ext_resource type="Script" path="res://scripts/resources/encounter_definition.gd" id="script"]
-[ext_resource type="PackedScene" path="res://resources/data/battles/shard_tracks.tscn" id="composition"]
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3 uid="uid://dn8r7a3jyyccq"]
+
+[ext_resource type="PackedScene" uid="uid://dlcki1t206o6r" path="res://resources/data/battles/shard_tracks.tscn" id="composition"]
+[ext_resource type="Script" uid="uid://dypkpglsm47yj" path="res://scripts/resources/encounter_definition.gd" id="script"]
+
 [resource]
 script = ExtResource("script")
-encounter_id = "shard_tracks"
-encounter_name = "Shard Tracks"
-battle_tier = 0
-category = 0
 weight = 1.0
 gold_reward_min = 55
 gold_reward_max = 75
@@ -15,7 +13,9 @@ resource_reward_max = 4
 enemies = ExtResource("composition")
 battle_field_width = 10
 battle_field_height = 10
-collapse_frequency = 4
-corruption_weight = 10
+encounter_id = "shard_tracks"
+encounter_name = "Shard Tracks"
 minimum_player_distance = 3
+collapse_frequency = 4
 arena_shape = 0
+corruption_weight = 10

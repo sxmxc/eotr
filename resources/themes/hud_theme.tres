@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://xso5aetv5tyl"]
 
-[ext_resource type="SystemFont" path="res://resources/themes/body_font.tres" id="4_dce3w"]
+[ext_resource type="SystemFont" uid="uid://bh2lp6h1inb5r" path="res://resources/themes/body_font.tres" id="4_dce3w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlbhd"]
 content_margin_left = 15.0

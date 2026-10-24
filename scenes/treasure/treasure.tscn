@@ -1,10 +1,4 @@
 [gd_scene format=3 uid="uid://2lbb3o8s61p3"]
-[ext_resource type="Script" path="res://scenes/treasure/treasure.gd" id="script"]
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Texture2D" path="res://scenes/rest/rest.tres" id="background"]
-[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
-[ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
-[ext_resource type="Texture2D" path="res://assets/rift/ui/chest.svg" id="emblem"]
 
 [ext_resource type="Script" uid="uid://bub7h53ncapx2" path="res://scripts/resources/relic.gd" id="2_8auyv"]
 [ext_resource type="Resource" uid="uid://b3cnm8pclsxek" path="res://resources/data/relics/unstable_core.tres" id="3_bbvtr"]
@@ -13,8 +7,16 @@
 [ext_resource type="Resource" uid="uid://cd45n3jrdgucm" path="res://resources/data/relics/feedback_circuit.tres" id="6_bbvtr"]
 [ext_resource type="Resource" uid="uid://7a20icoma78i" path="res://resources/data/relics/instability_emulator.tres" id="7_ko1oj"]
 [ext_resource type="Resource" uid="uid://d0vl20m61tb65" path="res://resources/data/relics/prospector_helmet.tres" id="8_2i7av"]
-[ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="9_energy"]
-[node name="Treasure" type="Control"]
+[ext_resource type="Resource" uid="uid://beokydv3urxdh" path="res://resources/data/relics/energy_condenser.tres" id="9_energy"]
+[ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
+[ext_resource type="Texture2D" uid="uid://h8nhe1yvg062" path="res://scenes/rest/rest.tres" id="background"]
+[ext_resource type="Texture2D" uid="uid://fkj8do4w4vo" path="res://assets/rift/ui/chest.svg" id="emblem"]
+[ext_resource type="Script" uid="uid://ci0s82s7h0wph" path="res://scenes/treasure/treasure.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="theme"]
+[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="world_illustration"]
+
+[node name="Treasure" type="Control" unique_id=1678851679]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -23,92 +25,95 @@ theme = ExtResource("theme")
 script = ExtResource("script")
 treasure_relic_pool = Array[ExtResource("2_8auyv")]([ExtResource("3_bbvtr"), ExtResource("5_ab3yx"), ExtResource("4_ko1oj"), ExtResource("6_bbvtr"), ExtResource("7_ko1oj"), ExtResource("8_2i7av"), ExtResource("9_energy")])
 
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1446310257]
 layer = 0
 
-[node name="Illustration" type="TextureRect" parent="BackgroundLayer"]
+[node name="Illustration" type="TextureRect" parent="BackgroundLayer" unique_id=415245386]
+modulate = Color(0.32, 0.35, 0.38, 1)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource("world_illustration")
 expand_mode = 1
 stretch_mode = 6
-modulate = Color(0.32, 0.35, 0.38, 1)
-mouse_filter = 2
 
-[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer"]
+[node name="BackgroundGradiant" type="TextureRect" parent="BackgroundLayer" unique_id=525681002]
+modulate = Color(0.13, 0.19, 0.24, 0.68)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-modulate = Color(0.13, 0.19, 0.24, 0.68)
 texture = ExtResource("background")
 
-[node name="ParticlesLayer" parent="." instance=ExtResource("ambient_particles")]
+[node name="ParticlesLayer" parent="." unique_id=1151073584 instance=ExtResource("ambient_particles")]
 layer = 2
 
-[node name="UILayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=896685401]
 layer = 3
 
-[node name="RoomLayout" type="VBoxContainer" parent="UILayer"]
+[node name="RoomLayout" type="VBoxContainer" parent="UILayer" unique_id=1199390323]
 unique_name_in_owner = true
-anchor_left = 0.30
+anchors_preset = -1
+anchor_left = 0.3
 anchor_top = 0.23
-anchor_right = 0.70
+anchor_right = 0.7
 anchor_bottom = 0.86
 theme = ExtResource("theme")
 theme_type_variation = &"TreasureStack"
 alignment = 1
 
-[node name="Title" type="Label" parent="UILayer/RoomLayout"]
+[node name="Title" type="Label" parent="UILayer/RoomLayout" unique_id=1048240919]
 layout_mode = 2
 theme_type_variation = &"RoomEyebrow"
 text = "TREASURE"
 horizontal_alignment = 1
 
-[node name="Cache" type="PanelContainer" parent="UILayer/RoomLayout"]
+[node name="Cache" type="PanelContainer" parent="UILayer/RoomLayout" unique_id=735298853]
 layout_mode = 2
 theme_type_variation = &"OpenStage"
 
-[node name="Content" type="VBoxContainer" parent="UILayer/RoomLayout/Cache"]
+[node name="Content" type="VBoxContainer" parent="UILayer/RoomLayout/Cache" unique_id=1494950366]
 layout_mode = 2
 theme_type_variation = &"TreasureStack"
 
-[node name="EmblemCenter" type="CenterContainer" parent="UILayer/RoomLayout/Cache/Content"]
+[node name="EmblemCenter" type="CenterContainer" parent="UILayer/RoomLayout/Cache/Content" unique_id=829203423]
 layout_mode = 2
 
-[node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/Cache/Content/EmblemCenter"]
+[node name="Emblem" type="TextureRect" parent="UILayer/RoomLayout/Cache/Content/EmblemCenter" unique_id=371977799]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(240, 240)
+layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("emblem")
 expand_mode = 1
 stretch_mode = 5
-mouse_filter = 2
 
-[node name="Heading" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+[node name="Heading" type="Label" parent="UILayer/RoomLayout/Cache/Content" unique_id=1759290599]
 layout_mode = 2
 theme_type_variation = &"EncounterTitle"
 text = "Sealed cache"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Subtitle" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+[node name="Subtitle" type="Label" parent="UILayer/RoomLayout/Cache/Content" unique_id=1092076251]
 layout_mode = 2
 theme_type_variation = &"RoomMuted"
 text = "A sealed cache rests where the old road ends."
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Story" type="Label" parent="UILayer/RoomLayout/Cache/Content"]
+[node name="Story" type="Label" parent="UILayer/RoomLayout/Cache/Content" unique_id=1718833195]
 layout_mode = 2
 theme_type_variation = &"RoomBody"
 text = "Open the cache to claim a relic."
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="OpenButton" type="Button" parent="UILayer/RoomLayout/Cache/Content"]
+[node name="OpenButton" type="Button" parent="UILayer/RoomLayout/Cache/Content" unique_id=1469492983]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"RoomPrimaryButton"
 text = "Open the cache"

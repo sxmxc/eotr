@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://bwug28qd00xeg" path="res://resources/themes/hud_panel_background.tres" id="2_etnbh"]
 [ext_resource type="StyleBox" uid="uid://bg04es6qgwvqt" path="res://resources/themes/hud_panel_forground.tres" id="3_ttywx"]
-[ext_resource type="SystemFont" path="res://resources/themes/body_font.tres" id="5_0x5bx"]
+[ext_resource type="SystemFont" uid="uid://bh2lp6h1inb5r" path="res://resources/themes/body_font.tres" id="5_0x5bx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlbhd"]
 content_margin_left = 15.0

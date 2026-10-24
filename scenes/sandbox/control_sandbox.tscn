@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bq88gcnwe4rar"]
 
-[ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="1_fc3my"]
+[ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_fc3my"]
 [ext_resource type="PackedScene" uid="uid://dwiv2oit73vcs" path="res://ui/card_ui/card_ui.tscn" id="2_fc3my"]
 [ext_resource type="Texture2D" uid="uid://dmtmnwy38fivy" path="res://assets/particles/kenney-particles/magic_05.png" id="3_6vsj7"]
 [ext_resource type="PackedScene" uid="uid://0jq70ruwt2li" path="res://ui/fx/smoke_fx.tscn" id="4_ycgp5"]
@@ -76,14 +76,45 @@ offset_top = -121.0
 offset_right = -1830.0
 offset_bottom = -961.0
 
-[node name="Visuals" parent="CardUI" index="0"]
-anchor_left = 0.0
-anchor_top = 0.0
-offset_left = 0.0
-offset_top = 0.0
+[node name="Visuals" parent="CardUI" index="0" unique_id=981619667]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardBackgroundTexture" parent="CardUI/Visuals" index="0"]
+layout_mode = 0
+
+[node name="ArtWell" parent="CardUI/Visuals" index="1"]
+layout_mode = 0
+
+[node name="CardArt" parent="CardUI/Visuals" index="2"]
+layout_mode = 0
+
+[node name="CardTextBackground" parent="CardUI/Visuals" index="3"]
+anchors_preset = 0
+
+[node name="MarginContainer" parent="CardUI/Visuals/CardTextBackground" index="0"]
+layout_mode = 0
+anchors_preset = 0
 
 [node name="CardTextLabel" parent="CardUI/Visuals/CardTextBackground/MarginContainer" index="0"]
 theme_type_variation = &"SandboxMicroRules"
+
+[node name="Rarity" parent="CardUI/Visuals" index="4"]
+layout_mode = 0
+
+[node name="CardTypeLabel" parent="CardUI/Visuals" index="5"]
+layout_mode = 0
+
+[node name="CardCost" parent="CardUI/Visuals" index="6"]
+layout_mode = 0
+
+[node name="CardCostLabel" parent="CardUI/Visuals/CardCost" index="0"]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="CardNameLabel" parent="CardUI/Visuals" index="7"]
+layout_mode = 0
+theme_override_font_sizes/font_size = 18
 
 [node name="CardTrailFX" type="GPUParticles2D" parent="." unique_id=1831339361]
 visible = false

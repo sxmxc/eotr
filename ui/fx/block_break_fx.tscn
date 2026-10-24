@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3]
-[ext_resource type="Script" path="res://ui/fx/block_break_fx.gd" id="1"]
-[node name="BlockBreakFX" type="Node2D"]
+[gd_scene format=3 uid="uid://de286cldvx5vr"]
+
+[ext_resource type="Script" uid="uid://c0fl8x1u6eu2y" path="res://ui/fx/block_break_fx.gd" id="1"]
+
+[node name="BlockBreakFX" type="Node2D" unique_id=259000196]
 script = ExtResource("1")

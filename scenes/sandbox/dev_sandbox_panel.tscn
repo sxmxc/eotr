@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c58hrt62dgue2"]
 
 [ext_resource type="Script" uid="uid://qevmdyyes1eq" path="res://scenes/sandbox/dev_sandbox_panel.gd" id="6_devpanel_script"]
 
@@ -18,13 +18,13 @@ offset_right = 669.0
 offset_bottom = 310.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1088785418]
-theme_type_variation = &"InsetContent"
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"InsetContent"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=848317999]
 layout_mode = 2
@@ -64,15 +64,14 @@ text = "Zoom Out"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Free Camera"
-button_pressed = false
 
 [node name="EnemyRow" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=804887800]
 layout_mode = 2
 
 [node name="EnemyTierFilter" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/EnemyRow" unique_id=420537928]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
 size_flags_horizontal = 0
 fit_to_longest_item = false
 
@@ -97,8 +96,8 @@ layout_mode = 2
 
 [node name="CardRarityFilter" type="OptionButton" parent="Panel/MarginContainer/VBoxContainer/CardRow" unique_id=1598849347]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
 size_flags_horizontal = 0
 fit_to_longest_item = false
 

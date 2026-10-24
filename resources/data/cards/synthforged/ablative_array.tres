@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_kqs5a"]
 [ext_resource type="Texture2D" uid="uid://bjc1j6xoshoiu" path="res://assets/rift/cards/ablative_array.webp" id="rift_art"]
-[ext_resource type="PackedScene" path="res://ui/fx/synthforged/ablative_array.tscn" id="vfx"]
+[ext_resource type="PackedScene" uid="uid://bckceap5bs7xr" path="res://ui/fx/synthforged/ablative_array.tscn" id="vfx"]
 
 [sub_resource type="Resource" id="Resource_kqs5a"]
 script = ExtResource("2_kqs5a")

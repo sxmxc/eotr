@@ -1,5 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cs8eckwq8kjtp"]
 
-[node name="DebugReadout" type="Label"]
+[node name="DebugReadout" type="Label" unique_id=2134868860]
 theme_type_variation = &"BodySmall"
-mouse_filter = 2
