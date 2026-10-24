@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://cpe6ild3806ty"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://cpe6ild3806ty"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_xddre"]
 [ext_resource type="Texture2D" uid="uid://b2ojsup8gbqs6" path="res://assets/rift/cards/precision_shot.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/precision_shot.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_xddre"]
+script = ExtResource("2_xddre")
+amount = 8
+analyzed_bonus = 4
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -13,5 +19,6 @@ name = "Precision Shot"
 description = "Deal 8 damage. Deal 4 more if Analyzed."
 energy_cost = 1
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_xddre")]([SubResource("Resource_xddre")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

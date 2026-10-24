@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_xlust"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/spotter.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/target_scan.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/synthforged/spotter.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+target_type = 1
+id = "spotter"
+name = "Spotter"
+description = "Apply 1 Analyze per construct in range of the target (maximum 3)."
+energy_cost = 1
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

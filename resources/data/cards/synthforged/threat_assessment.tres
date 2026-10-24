@@ -1,9 +1,35 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://d012rt11a1q0r"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://d012rt11a1q0r"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_wmjg3"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reactive_plating.tscn" id="3_rmtbk"]
+[ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="4_oeu0p"]
+[ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="5_opamc"]
 [ext_resource type="Texture2D" uid="uid://dgaw1cingptjv" path="res://assets/rift/cards/threat_assessment.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/threat_assessment.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_n2rm2"]
+script = ExtResource("2_wmjg3")
+effect_type = 1
+amount = 6
+target = 1
+visual_fx = ExtResource("3_rmtbk")
+
+[sub_resource type="Resource" id="Resource_8i0k4"]
+script = ExtResource("5_opamc")
+id = "analyzed"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("4_oeu0p")
+tooltip = "Analyze: +1 damage per stack from direct player and construct hits (maximum 3). Persists until consumed or combat ends."
+
+[sub_resource type="Resource" id="Resource_30fdm"]
+script = ExtResource("2_wmjg3")
+effect_type = 6
+target = 4
+visual_fx = ExtResource("vfx")
+status = SubResource("Resource_8i0k4")
 
 [resource]
 script = ExtResource("1")
@@ -13,5 +39,6 @@ name = "Threat Assessment"
 description = "Gain 6 block. Apply 1 Analyze to adjacent visible enemies."
 energy_cost = 1
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_wmjg3")]([SubResource("Resource_n2rm2"), SubResource("Resource_30fdm")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

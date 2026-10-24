@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://dmt8hja47jm05"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_wpfmi"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/field_repairs.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://bjshdnmr4l37m" path="res://assets/rift/cards/scrap_order.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_wpfmi"]
+script = ExtResource("2_wpfmi")
+effect_type = 11
+visual_fx = ExtResource("fx")
+
+[sub_resource type="Resource" id="Resource_uxb7g"]
+script = ExtResource("2_wpfmi")
+effect_type = 4
+amount = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+target_type = 9
+id = "scrap_order"
+name = "Scrap Order"
+description = "Dismantle a construct. Gain 2 energy. Exhaust."
+exhaust = true
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_wpfmi")]([SubResource("Resource_wpfmi"), SubResource("Resource_uxb7g")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

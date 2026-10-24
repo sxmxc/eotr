@@ -61,8 +61,7 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
 			var aoe_targets: Array[Node] = []
 			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
-				var enemy_tile_position = enemy.current_tile_position
-				if surrounding_tiles.has(enemy_tile_position):
+				if enemy.intersects_tiles(surrounding_tiles, true):
 					aoe_targets.append(enemy)
 			return aoe_targets
 		_:
@@ -114,12 +113,18 @@ func get_default_description() -> String:
 
 
 func get_modified_description(
-	_player_modifiers: ModifierHandler, _enemy_modifiers: ModifierHandler
+	player_modifiers: ModifierHandler, enemy_modifiers: ModifierHandler
 ) -> String:
+	for config in effect_configs:
+		if config.effect_type in [CardEffectConfig.EffectType.DAMAGE, CardEffectConfig.EffectType.MULTI_DAMAGE]:
+			return description.replace("Deal %d" % config.amount, "Deal %d" % config.get_preview_amount(player_modifiers, enemy_modifiers))
 	return description
 
 
-func is_card_modified(_player_modifiers: ModifierHandler) -> bool:
+func is_card_modified(player_modifiers: ModifierHandler) -> bool:
+	for config in effect_configs:
+		if config.effect_type in [CardEffectConfig.EffectType.DAMAGE, CardEffectConfig.EffectType.MULTI_DAMAGE] and config.get_effect_amount(player_modifiers) != config.amount:
+			return true
 	return false
 
 
@@ -143,12 +148,18 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			enemies.append(enemy)
 	
 	match target_type:
+		Enums.TargetType.ALLY:
+			var cells: Array[Vector2i] = []
+			var world := tilemap.get_parent() as GameWorld
+			if world:
+				for unit in world.summons.living(): cells.append(unit.current_tile_position)
+			return cells
 		Enums.TargetType.SINGLE_TILE:
 			return tilemap.base_layer.get_used_cells()
 		Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ALL_ENEMIES:
 			var tiles: Array[Vector2i] = []
 			for enemy: Enemy in enemies:
-				tiles.append(enemy.current_tile_position)
+				tiles.append_array(enemy.visible_tiles())
 			return tiles
 		Enums.TargetType.SELF:
 			var tile_pos = tilemap.player_position
@@ -156,7 +167,7 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 		Enums.TargetType.EVERYONE:
 			var tiles_all: Array[Vector2i] = []
 			for enemy: Enemy in enemies:
-				tiles_all.append(enemy.current_tile_position)
+				tiles_all.append_array(enemy.visible_tiles())
 			tiles_all.append(tilemap.player_position)
 			return tiles_all
 		Enums.TargetType.SURROUNDING_ENEMIES, Enums.TargetType.ADJACENT_ENEMY:
@@ -164,14 +175,15 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
 			var aoe_targets: Array[Vector2i] = []
 			for enemy: Enemy in enemies:
-				var enemy_tile_position = enemy.current_tile_position
-				if surrounding_tiles.has(enemy_tile_position):
-					aoe_targets.append(enemy_tile_position)
+				if enemy.intersects_tiles(surrounding_tiles, true):
+					for cell in enemy.visible_tiles():
+						if surrounding_tiles.has(cell):
+							aoe_targets.append(cell)
 			return aoe_targets
 		_:
 			return []
 
 
 func _sync_effect_configs() -> void:
-	# Override in subclasses when they dynamically build configs.
-	pass
+	for config in effect_configs:
+		CardEffectConfigHelper.apply_card_defaults(self, config, config.attach_visual_to_effect)

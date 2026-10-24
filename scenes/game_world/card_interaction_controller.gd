@@ -168,7 +168,8 @@ func valid_cells(ui: CardUI) -> Array[Vector2i]:
 	if ui.card.target_type in [Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ADJACENT_ENEMY]:
 		for enemy: Enemy in world.enemy_handler.get_children():
 			if _valid_target(ui, enemy, candidates):
-				visible.append(enemy.current_tile_position)
+				for cell in enemy.visible_tiles():
+					if candidates.has(cell): visible.append(cell)
 	else:
 		for cell: Vector2i in candidates:
 			if world.tilemap.is_within_bounds(cell) and not world.tilemap.is_tile_behind_fog(cell):
@@ -189,7 +190,7 @@ func _valid_target(ui: CardUI, target: Node, cells: Array[Vector2i]) -> bool:
 			return false
 		if ui.card.target_type not in [Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ADJACENT_ENEMY]:
 			return false
-		cell = target.current_tile_position
+		return target.intersects_tiles(cells, true) and ui.card.is_valid_target([target], ui.player_modifiers)
 	elif target is Construct:
 		if target.get_parent() != world.summons or target.is_dying or target.stats.health <= 0 or ui.card.target_type != Enums.TargetType.ALLY:
 			return false

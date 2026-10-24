@@ -101,8 +101,19 @@ func setup_enemies(battle_stats: EncounterDefinition, reserved_tiles: Array[Vect
 		var spawn := tilemap.get_center_tile_coord() if instance is Obelisk else tilemap.get_random_valid_tile(reserved)
 		if spawn_index < battle_stats.enemy_start_cells.size():
 			var authored := battle_stats.enemy_start_cells[spawn_index]
-			if tilemap.is_tile_valid(authored) and not reserved_tiles.has(authored) and tilemap.is_tile_free(authored):
+			if tilemap.can_place_actor(instance, authored, instance.stats.flying) and not reserved_tiles.has(authored):
 				spawn = authored
+		if not tilemap.can_place_actor(instance, spawn, instance.stats.flying):
+			var found := false
+			for candidate in tilemap.base_layer.get_used_cells():
+				if not reserved.has(candidate) and tilemap.can_place_actor(instance, candidate, instance.stats.flying):
+					spawn = candidate
+					found = true
+					break
+			if not found:
+				push_error("No legal footprint placement for " + instance.stats.enemy_name)
+				instance.free()
+				continue
 		spawn_index += 1
 		add_enemy(instance, spawn)
 		reserved.append(spawn)

@@ -55,12 +55,14 @@ func perform_boss_turn(action: EnemyAction, generation: int) -> void:
 		tilemap.player.stats.draw_pile.add_card(preload("res://resources/data/cards/common/void_residue.tres").duplicate())
 	for hit in hits:
 		feedback = 1.0
+		present_attack("windup")
 		reaping = true
 		reap_progress = 0.0
 		await get_tree().create_timer(Utils.presentation_duration(0.22)).timeout
 		if not action_is_live(action, generation):
 			return
 		reaping = false
+		present_attack("release")
 		strike_player(3, REAP_SOUND)
 		if not await wait_for_player_effects(action, generation):
 			return
@@ -69,6 +71,7 @@ func perform_boss_turn(action: EnemyAction, generation: int) -> void:
 	update_intent()
 
 func _draw() -> void:
+	super._draw()
 	if is_dying or encounter_finished or not is_instance_valid(sprite_2d) or not sprite_2d.texture:
 		return
 	var texture := sprite_2d.texture

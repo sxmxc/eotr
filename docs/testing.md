@@ -26,7 +26,7 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Combat legality, action completion and teardown | `--combat-automation` |
 | Lunge cancellation only | `--combat-automation --attack-cancellation-only` |
 | Status expiration and modifier cleanup | `--status-lifecycle` |
-| Synthforged's 28 cards, Overclock, Analyze, constructs, targeting and class save/shop/reward integration | `--synthforged` |
+| Synthforged's 36 cards, both classes' expansion cards, shared eligibility, Overclock, constructs and save recovery | `--synthforged` |
 | Occupancy/movement query checks and profiling | `--board-queries` |
 | Watch pause/step/speed/stop | `--autowalker-controls` |
 | Local/upload routing with fake transport, no server | `--autowalker-telemetry` |

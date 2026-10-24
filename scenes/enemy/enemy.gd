@@ -18,6 +18,7 @@ const DEATH_FADE_DURATION := 0.35
 @export var stats_ui: EnemyStatsUI
 @export var tilemap: ProcGenTilemap
 @export var status_handler: StatusHandler
+@export var footprint: Array[Vector3i] = [Vector3i.ZERO]
 
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var modifier_handler: ModifierHandler = $ModifierHandler
@@ -37,6 +38,31 @@ var queue_button: Button = null
 var queue_hovered: bool = false
 var is_dying := false
 var pending_damage := 0
+
+func occupied_tiles() -> Array[Vector2i]:
+	return tilemap.footprint_cells(self, current_tile_position)
+
+func visible_tiles() -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	for cell in occupied_tiles():
+		if tilemap.is_within_bounds(cell) and not tilemap.is_tile_behind_fog(cell):
+			cells.append(cell)
+	return cells
+
+func is_revealed() -> bool:
+	return not visible_tiles().is_empty()
+
+func intersects_tiles(cells: Array[Vector2i], visible_only: bool = false) -> bool:
+	for cell in visible_tiles() if visible_only else occupied_tiles():
+		if cells.has(cell):
+			return true
+	return false
+
+func distance_to_tile(cell: Vector2i, visible_only: bool = false) -> int:
+	var distance := 999
+	for occupied in visible_tiles() if visible_only else occupied_tiles():
+		distance = mini(distance, SummonHandler.distance(tilemap, occupied, cell))
+	return distance
 
 func set_current_action(value: EnemyAction) -> void:
 	current_action = value
@@ -58,7 +84,7 @@ func _ready():
 func _physics_process(_delta):
 	# Taller illustrations must not leak out from under neighboring fog cells.
 	if is_instance_valid(tilemap):
-		visible = not tilemap.is_tile_behind_fog(current_tile_position)
+		visible = is_revealed()
 	
 
 func set_stats(value: EnemyStats) -> void:
@@ -270,7 +296,7 @@ func get_player_tile_position() -> Vector2i:
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("left_mouse"):
-		if tilemap.is_tile_behind_fog(current_tile_position):
+		if not is_revealed():
 			return
 		Events.enemy_selected.emit(self)
 		if is_instance_valid(queue_button):
@@ -279,7 +305,7 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 
 
 func _on_area_2d_mouse_entered() -> void:
-	if tilemap.is_tile_behind_fog(current_tile_position):
+	if not is_revealed():
 		return
 	hovered = true
 	circle_indicator.show()

@@ -7,6 +7,7 @@ var output := ""
 var events: Array = []
 var seen := 0
 var done := false
+var expansion_fixture := false
 var synthforged_fixture := false
 var synthforged_started := false
 var ruin_fixture := false
@@ -24,6 +25,9 @@ func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg == "--capture-frames": capture_frames = true
 		if arg == "--fixture=synthforged": synthforged_fixture = true
+		if arg == "--fixture=expansion":
+			expansion_fixture = true
+			synthforged_fixture = true
 		if arg == "--fixture=ruin": ruin_fixture = true
 		if arg.begins_with("--duration="): duration = float(arg.get_slice("=", 1))
 		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
@@ -101,6 +105,13 @@ func _capture_ruin_phases(stage: int) -> void:
 
 
 func _run_synthforged_fixture() -> void:
+	if expansion_fixture:
+		var expansion := ExpansionCardFixture.new()
+		mark("fixture_setup", {"fixture": "expansion", "class": runner.world.player_stats.player_class_name, "note": "Real CardUI with controlled resources/statuses/terrain/allies; no natural-run claim."})
+		var findings := await expansion.run(runner.world, _capture_synthforged)
+		mark("fixture_completed", {"failures": findings})
+		for finding in findings: printerr("Expansion visual fixture: " + finding)
+		return
 	var fixture := SynthforgedCardFixture.new()
 	mark("fixture_setup", {"fixture": "synthforged", "note": "Authored cards through CardUI; high energy/hostile HP, revealed resource cells, repositioned targets, fresh allies per card."})
 	var failures := await fixture.run(runner.world, _capture_synthforged)

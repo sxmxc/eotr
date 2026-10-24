@@ -1,0 +1,45 @@
+[gd_resource type="Resource" format=3 uid="uid://hx3krvumpw0l"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_ryv6i"]
+[ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="4_dglv3"]
+[ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="5_lgwkx"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/thruster_assault.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://kdstxointy43" path="res://assets/rift/cards/flanking_maneuver.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_45i15"]
+script = ExtResource("2_ryv6i")
+effect_type = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[sub_resource type="Resource" id="Resource_rl2ml"]
+script = ExtResource("5_lgwkx")
+id = "analyzed"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("4_dglv3")
+tooltip = "Analyze: +1 damage per stack from direct player and construct hits (maximum 3). Persists until consumed or combat ends."
+
+[sub_resource type="Resource" id="Resource_jt72l"]
+script = ExtResource("2_ryv6i")
+effect_type = 6
+target = 4
+visual_fx = ExtResource("fx")
+status = SubResource("Resource_rl2ml")
+
+[resource]
+script = ExtResource("script")
+movement_distance = 2
+card_type = 7
+target_type = 5
+id = "flanking_maneuver"
+name = "Flanking Maneuver"
+card_rarity = 1
+description = "Move up to %s hex(es). Apply 1 Analyze to adjacent visible enemies."
+energy_cost = 1
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_ryv6i")]([SubResource("Resource_45i15"), SubResource("Resource_jt72l")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

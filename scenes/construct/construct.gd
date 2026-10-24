@@ -68,7 +68,7 @@ func destroy() -> void:
 	if DisplayServer.get_name() == "headless":
 		queue_free()
 	else:
-		SynthforgedFX.play_on(self, "construct_death")
+		SynthforgedFX.play_on(self, preload("res://ui/fx/synthforged/construct_death.tscn"))
 		var duration := Utils.presentation_duration(0.24)
 		var death := create_tween()
 		death.tween_property(sprite_2d, "modulate:a", 0.0, duration)
@@ -79,12 +79,12 @@ func attack_target() -> Enemy:
 	var candidates: Array[Enemy] = []
 	for node: Node in get_tree().get_nodes_in_group("enemy"):
 		if node is Enemy and not node.is_dying and node.stats.health > 0 \
-			and not tilemap.is_tile_behind_fog(node.current_tile_position) \
-			and SummonHandler.distance(tilemap, current_tile_position, node.current_tile_position) <= definition.attack_range:
+			and node.is_revealed() \
+			and node.distance_to_tile(current_tile_position, true) <= definition.attack_range:
 			candidates.append(node)
 	candidates.sort_custom(func(a: Enemy, b: Enemy) -> bool:
-		var da := SummonHandler.distance(tilemap, current_tile_position, a.current_tile_position)
-		var db := SummonHandler.distance(tilemap, current_tile_position, b.current_tile_position)
+		var da := a.distance_to_tile(current_tile_position, true)
+		var db := b.distance_to_tile(current_tile_position, true)
 		if da != db:
 			return da < db
 		if a.stats.health != b.stats.health:

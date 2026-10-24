@@ -1,0 +1,25 @@
+[gd_resource type="Resource" format=3 uid="uid://b2nguqm6lqink"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_4nt0n"]
+[ext_resource type="PackedScene" uid="uid://bt7yw4ibpicds" path="res://ui/fx/eldritch_barrier_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://bhdkbwo4tmbql" path="res://assets/rift/cards/afterimage.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://gfqtallap2fo" path="res://resources/data/cards/riftwalker/afterimage.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_1wjma"]
+script = ExtResource("2_4nt0n")
+effect_type = 1
+amount = 5
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 1
+id = "afterimage"
+name = "Afterimage"
+description = "Gain 5 block. If you moved this turn, gain 6 more."
+energy_cost = 1
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_4nt0n")]([SubResource("Resource_1wjma")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

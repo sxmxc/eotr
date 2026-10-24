@@ -1,9 +1,27 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://bu6hvow23jjcr"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://bu6hvow23jjcr"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_h7nps"]
+[ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="3_p70gg"]
+[ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="4_yycbb"]
 [ext_resource type="Texture2D" uid="uid://coqq2nqqyeop1" path="res://assets/rift/cards/wideband_scan.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/wideband_scan.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_hyw7q"]
+script = ExtResource("4_yycbb")
+id = "analyzed"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("3_p70gg")
+tooltip = "Analyze: +1 damage per stack from direct player and construct hits (maximum 3). Persists until consumed or combat ends."
+
+[sub_resource type="Resource" id="Resource_wxbjj"]
+script = ExtResource("2_h7nps")
+effect_type = 6
+target = 3
+visual_fx = ExtResource("vfx")
+status = SubResource("Resource_hyw7q")
 
 [resource]
 script = ExtResource("1")
@@ -15,5 +33,6 @@ card_rarity = 1
 description = "Apply 1 Analyze to all visible enemies."
 energy_cost = 1
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_h7nps")]([SubResource("Resource_wxbjj")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

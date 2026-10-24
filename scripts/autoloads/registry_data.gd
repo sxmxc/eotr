@@ -5,7 +5,8 @@ extends Node
 @export var enemy_catalog: EnemyCatalog
 @export var card_registry_paths: Array[String] = [
 	"res://resources/data/registries/card_registry_riftwalker.tres",
-	"res://resources/data/registries/card_registry_synthforged.tres"
+	"res://resources/data/registries/card_registry_synthforged.tres",
+	"res://resources/data/registries/card_registry_shared.tres"
 ]
 @export var encounter_registry_paths: Array[String] = [
 	"res://resources/data/registries/encounter_registry_act1.tres",

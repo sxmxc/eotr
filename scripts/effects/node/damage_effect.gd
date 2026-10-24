@@ -57,7 +57,7 @@ func get_player_cause() -> String:
 		return cause
 	if is_instance_valid(source_actor) and source_actor is Enemy:
 		var attacker := source_actor as Enemy
-		if not is_instance_valid(attacker.tilemap) or attacker.tilemap.is_tile_behind_fog(attacker.current_tile_position):
+		if not is_instance_valid(attacker.tilemap) or not attacker.is_revealed():
 			return "An unseen attacker"
 		return attacker.stats.enemy_name
 	return "Damage"

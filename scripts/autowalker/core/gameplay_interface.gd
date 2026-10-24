@@ -13,9 +13,9 @@ func observe() -> Dictionary:
 		return progression.observe()
 	var enemies: Array = []
 	for node in world.enemy_handler.get_children():
-		if node is Enemy and not node.is_dying and not world.tilemap.is_tile_behind_fog(node.current_tile_position):
+		if node is Enemy and not node.is_dying and node.is_revealed():
 			enemies.append({"name": node.stats.enemy_name, "health": node.stats.health, "block": node.stats.block,
-				"tile": [node.current_tile_position.x, node.current_tile_position.y], "obelisk": node is Obelisk,
+				"tile": [node.visible_tiles()[0].x, node.visible_tiles()[0].y], "obelisk": node is Obelisk,
 				"intent": node.current_action.intent.current_text if node.current_action and node.current_action.intent else "No action"})
 	var state := {"turn": world.current_round, "phase": BattleStateController.Phase.keys()[world.battle_state.phase],
 		"health": world.player_stats.health, "energy": world.player_stats.energy, "block": world.player_stats.block,
@@ -31,7 +31,7 @@ func observe() -> Dictionary:
 		for index in enemies.size():
 			var cell := Vector2i(enemies[index].tile[0], enemies[index].tile[1])
 			for enemy: Enemy in world.enemy_handler.get_children():
-				if enemy.current_tile_position == cell: enemies[index]["analyze"] = AnalyzedStatus.count(enemy)
+				if enemy.visible_tiles().has(cell): enemies[index]["analyze"] = AnalyzedStatus.count(enemy)
 	return state
 
 func legal_actions() -> Array[Dictionary]:
@@ -92,7 +92,7 @@ func _target(card: Card, cell: Vector2i) -> Node:
 		for unit in world.summons.living():
 			if unit.current_tile_position == cell: return unit
 	for node in world.enemy_handler.get_children():
-		if node is Enemy and node.current_tile_position == cell and node.stats.health > 0 and not node.is_dying:
+		if node is Enemy and node.visible_tiles().has(cell) and node.stats.health > 0 and not node.is_dying:
 			return node
 	return null
 

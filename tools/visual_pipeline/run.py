@@ -56,7 +56,7 @@ def main():
             compare(args.baseline.resolve(), output, args.ffmpeg)
         expected = scenario.get("expect_card")
         found = not expected or any(e["details"].get("name") == expected for e in data["events"])
-        if scenario.get("fixture") == "synthforged":
+        if scenario.get("fixture") in ("synthforged", "expansion"):
             completed = [e for e in data["events"] if e["kind"] == "fixture_completed"]
             found = found and bool(completed) and not completed[-1]["details"].get("failures")
         review = ROOT / "ai/visual/reviews" / f"{args.label}.md"

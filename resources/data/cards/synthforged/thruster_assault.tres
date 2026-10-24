@@ -1,19 +1,34 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://bwvuo3ohpx5gc"]
+[gd_resource type="Resource" format=3 uid="uid://bwvuo3ohpx5gc"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_cct47"]
 [ext_resource type="Texture2D" uid="uid://75w7k4gnp5xu" path="res://assets/rift/cards/thruster_assault.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/thruster_assault.tscn" id="vfx"]
 
+[sub_resource type="Resource" id="Resource_cct47"]
+script = ExtResource("2_cct47")
+effect_type = 2
+target = 1
+visual_fx = ExtResource("vfx")
+
+[sub_resource type="Resource" id="Resource_mf53a"]
+script = ExtResource("2_cct47")
+effect_type = 1
+amount = 6
+target = 1
+visual_fx = ExtResource("vfx")
+
 [resource]
 script = ExtResource("1")
+movement_distance = 2
 card_type = 7
 target_type = 5
 id = "thruster_assault"
 name = "Thruster Assault"
 card_rarity = 1
-description = "Move to a free cell within 2 hexes. Gain 6 block."
+description = "Move to a free cell within %s hex(es). Gain 6 block."
 energy_cost = 1
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_cct47")]([SubResource("Resource_cct47"), SubResource("Resource_mf53a")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

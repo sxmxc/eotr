@@ -60,7 +60,7 @@ Run it through the same launcher:
 python tools/visual_pipeline/run.py synthforged-cards --label synthforged-review --godot "$godot"
 ```
 
-The development-only `fixture: "synthforged"` supplies all 28 authored cards to
+The development-only `fixture: "synthforged"` supplies the original 28 authored cards to
 real CardUI, with high energy/hostile HP, revealed resource cells, repositioned
 targets and fresh constructs. Shared runtime fixtures assert authorization,
 costs, outcomes and piles; then exercise all four construct attacks, the actual
@@ -181,3 +181,14 @@ budgets, not performance measurements.
 Agent production/critique procedures remain in [ai/visual/](../ai/README.md),
 including event specs and explicit evidence gates. Human contributors use the
 same capture commands and runtime contracts.
+
+## Expanded-card fixture
+
+The supported `fixture: "expansion"` uses ExpansionCardFixture to play the selected
+class's eight additions and all six shared cards through real CardUI. Run
+`card-expansion-riftwalker` or `card-expansion-synthforged` through the normal visual
+launcher. Each uses 65 seconds of native still capture with controlled energy,
+health, gold, terrain, statuses and fresh constructs; it is not a natural run.
+Before/recovery captures and the fixture-completion failures in timing.json must
+be inspected alongside console errors. Card definitions own all effects; fixture
+code supplies legal starting states and asserts outcomes only.

@@ -66,7 +66,7 @@ func get_all_cards(class_id: String = "") -> Array[Card]:
 			continue
 		var card: Card = entry.get("card", null)
 		if card:
-			results.append(card.duplicate())
+			results.append(card.duplicate(true))
 	return results
 
 
@@ -138,10 +138,10 @@ func pick_random_card(
 		accumulated += entry_weight
 		if roll <= accumulated:
 			var picked: Card = entry.get("card", null)
-			return picked.duplicate() if picked else null
+			return picked.duplicate(true) if picked else null
 
 	var fallback: Card = candidates.back().get("card", null)
-	return fallback.duplicate() if fallback else null
+	return fallback.duplicate(true) if fallback else null
 
 
 func set_rng(rng: RandomNumberGenerator) -> void:

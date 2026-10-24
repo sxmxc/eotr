@@ -65,6 +65,17 @@ func fit_zoom() -> float:
 	var usable := combat_rect().size
 	return minf(usable.x / maxf(bounds.size.x, 1.0), usable.y / maxf(bounds.size.y, 1.0))
 
+func combatant_bounds() -> Rect2:
+	var bounds := Rect2(world.player.global_position - Vector2(48, 96), Vector2(96, 128))
+	for enemy: Enemy in world.enemy_handler.get_children():
+		if enemy.is_dying or not enemy.is_revealed(): continue
+		var body := enemy.sprite_2d.global_transform * enemy.sprite_2d.get_rect()
+		# Include the existing intent label above the grounded body.
+		body.position.y -= 32.0
+		body.size.y += 32.0
+		bounds = bounds.merge(body)
+	return bounds.grow(24.0)
+
 func frame_battle(fit := false) -> void:
 	if aiming or world.tilemap.tile_map_data.is_empty():
 		return
@@ -73,12 +84,16 @@ func frame_battle(fit := false) -> void:
 	var bounds := board_bounds()
 	if not fit:
 		bounds = board_bounds(true)
+	var boss_stage := world.battle_stats != null and world.battle_stats.category == EncounterDefinition.Category.BOSS
+	if boss_stage and not fit:
+		bounds = combatant_bounds()
 	# Do not sacrifice character readability to fit a large encounter.
 	var usable := combat_rect().size
 	tactical_zoom = clampf(minf(usable.x / bounds.size.x, usable.y / bounds.size.y), TACTICAL_MIN, TACTICAL_MAX)
-	set_zoom(Vector2.ONE * (minf(fit_zoom(), TACTICAL_MAX) if fit else tactical_zoom))
+	var boss_zoom := minf(minf(usable.x / bounds.size.x, usable.y / bounds.size.y), TACTICAL_MAX)
+	set_zoom(Vector2.ONE * (minf(fit_zoom(), TACTICAL_MAX) if fit else boss_zoom if boss_stage else tactical_zoom))
 	var center := bounds.get_center()
-	if not fit and fit_zoom() < TACTICAL_MIN and is_instance_valid(world.player):
+	if not fit and not boss_stage and fit_zoom() < TACTICAL_MIN and is_instance_valid(world.player):
 		center = world.player.global_position
 		# Keep the player in view without wasting space beyond a nearby board edge.
 		var half_view := combat_rect().size / (zoom * 2.0)

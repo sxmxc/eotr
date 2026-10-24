@@ -1,0 +1,46 @@
+[gd_resource type="Resource" format=3 uid="uid://dfxigilq03ye6"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_bb1ui"]
+[ext_resource type="Texture2D" uid="uid://deergqeuhx0n4" path="res://assets/rift/ui/focus.svg" id="3_dxgsy"]
+[ext_resource type="Script" uid="uid://ocoxu4wrph77" path="res://resources/data/statuses/attunement.gd" id="4_lw3o7"]
+[ext_resource type="PackedScene" path="res://ui/fx/focus_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://cqqsmsinpgkef" path="res://assets/rift/cards/drink_deep.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://cs42dato7i67g" path="res://resources/data/cards/riftwalker/drink_deep.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_xfboe"]
+script = ExtResource("4_lw3o7")
+id = "attunement"
+type = 2
+stack_type = 1
+stacks = 2
+icon = ExtResource("3_dxgsy")
+tooltip = "Arcane spells do [b]%s[/b] more damage"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"
+
+[sub_resource type="Resource" id="Resource_rxsf8"]
+script = ExtResource("2_bb1ui")
+effect_type = 6
+target = 1
+visual_fx = ExtResource("fx")
+status = SubResource("Resource_xfboe")
+
+[sub_resource type="Resource" id="Resource_iw6d5"]
+script = ExtResource("2_bb1ui")
+effect_type = 5
+amount = 1
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+id = "drink_deep"
+name = "Drink Deep"
+card_rarity = 1
+description = "On a mana well: gain 2 Attunement and draw 1. Exhaust."
+energy_cost = 1
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_bb1ui")]([SubResource("Resource_rxsf8"), SubResource("Resource_iw6d5")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

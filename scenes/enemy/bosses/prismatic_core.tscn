@@ -2,6 +2,17 @@
 [ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
 [ext_resource type="Script" path="res://scenes/enemy/bosses/prismatic_core.gd" id="behavior"]
 [ext_resource type="Resource" path="res://scenes/enemy/bosses/prismatic_core.tres" id="stats"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
 [node name="prismatic_core" instance=ExtResource("body")]
 script = ExtResource("behavior")
 stats = ExtResource("stats")
+body_scale = Vector2(0.34, 0.34)
+footprint = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(1, 0, -1), Vector3i(0, 1, -1)])
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.34, 0.34)
+[node name="ImpactAnchor" parent="." index="9"]
+position = Vector2(0, -65)
+[node name="SpellOrigin" parent="." index="8"]
+position = Vector2(18, -65)
+[node name="BossMotion" parent="." instance=ExtResource("presentation")]

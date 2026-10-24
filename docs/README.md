@@ -10,6 +10,7 @@ Start with [development setup](development.md), then read the
 | --- | --- |
 | Understand acts, bosses, rewards or save/resume | [Campaign and progression](campaign.md) |
 | Add cards, relics, enemies or encounters | [Content authoring](content-authoring.md) |
+| Inspect expanded card pools and card ownership | [Card pool expansion](card-pool-expansion.md) |
 | Choose a check and investigate failures | [Testing and QA](testing.md) |
 | Reproduce a battle, watch bot decisions or compare seeds | [AutoWalker](autowalker.md) |
 | Modify automation or interpret replay boundaries | [AutoWalker internals](autowalker-internals.md) |

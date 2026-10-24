@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://du45c01yt27ld"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_6v3b8"]
+[ext_resource type="Texture2D" uid="uid://b0tp5sktl811" path="res://assets/rift/ui/weakened.svg" id="3_lowpw"]
+[ext_resource type="Script" uid="uid://c3jderjdibqnc" path="res://resources/data/statuses/weakened.gd" id="4_d2m4s"]
+[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://5ncnl5b03q5d" path="res://assets/rift/cards/borrowed_spark.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_6nvc0"]
+script = ExtResource("4_d2m4s")
+id = "weakened"
+stack_type = 2
+can_expire = true
+duration = 1
+icon = ExtResource("3_lowpw")
+tooltip = "Takes [b]50%%[/b] more damage. Lasts for [b]%s[/b] turn(s)."
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"
+
+[sub_resource type="Resource" id="Resource_mubyy"]
+script = ExtResource("2_6v3b8")
+effect_type = 6
+target = 1
+visual_fx = ExtResource("fx")
+status = SubResource("Resource_6nvc0")
+
+[sub_resource type="Resource" id="Resource_ek8d6"]
+script = ExtResource("2_6v3b8")
+effect_type = 4
+amount = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+id = "borrowed_spark"
+name = "Borrowed Spark"
+description = "Gain 2 energy. Gain 1 turn of Weakened. Exhaust."
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_6v3b8")]([SubResource("Resource_mubyy"), SubResource("Resource_ek8d6")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

@@ -43,7 +43,7 @@ def _capture(scenario, output, godot, temporary):
         replay = Path(scenario["replay"]).resolve()
         command.append(f"--replay={replay.as_posix()}")
     if scenario.get("fixture"):
-        if scenario["fixture"] not in ("ruin", "synthforged"):
+        if scenario["fixture"] not in ("ruin", "synthforged", "expansion"):
             raise ValueError("Unknown visual fixture")
         command.append(f"--fixture={scenario['fixture']}")
     (output / "command.json").write_text(json.dumps(command, indent=2))

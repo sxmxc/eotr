@@ -10,11 +10,10 @@ const AMBER := Color(1.0, 0.64, 0.18)
 const IVORY := Color(0.96, 0.9, 0.72)
 const RED := Color(1.0, 0.25, 0.16)
 
-static func play_on(target: Node2D, ability: String) -> void:
+static func play_on(target: Node2D, scene: PackedScene) -> void:
 	if DisplayServer.get_name() == "headless" or not is_instance_valid(target): return
-	var fx := load("res://ui/fx/synthforged/%s.tscn" % ability) as PackedScene
-	if not fx: return
-	var instance := fx.instantiate() as VisualFX
+	if not scene: return
+	var instance := scene.instantiate() as VisualFX
 	target.add_child(instance)
 	instance.execute()
 

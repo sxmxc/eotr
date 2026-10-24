@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_gdrwu"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/keep_distance.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/eldritch_barrier_signature.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/shared/keep_distance.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_gdrwu"]
+script = ExtResource("2_gdrwu")
+effect_type = 1
+amount = 12
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 1
+id = "keep_distance"
+name = "Keep Distance"
+description = "With no adjacent visible enemies: gain 12 block."
+energy_cost = 1
+tags = Array[String](["shared", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_gdrwu")]([SubResource("Resource_gdrwu")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

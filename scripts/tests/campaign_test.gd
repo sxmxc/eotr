@@ -556,6 +556,8 @@ func _test_bosses() -> void:
 		for enemy: Enemy in world.enemy_handler.get_children():
 			check(world.tilemap.is_within_bounds(enemy.current_tile_position), "Boss spawns on surviving terrain")
 			check(not world.tilemap.is_tile_free(enemy.current_tile_position), "Boss spawn reserves occupancy")
+		if primary.footprint.size() > 1:
+			await _test_footprint(world, primary)
 		if index == 0:
 			var route: Array = primary.ram_cells.duplicate()
 			for cell in world.tilemap.base_layer.get_surrounding_cells(world.tilemap.player_position):
@@ -598,8 +600,95 @@ func _test_bosses() -> void:
 			await get_tree().create_timer(0.4).timeout
 			check(not world.victory_committed and hud.get_node("Layout/Health").value > 0, "Core-first death cannot imply victory while relays remain")
 		var cells := world.tilemap.base_layer.get_used_cells().size()
+		var falling := preload("res://scenes/enemy/bosses/siege_bulwark.tscn").instantiate() as RiftBoss
+		var falling_body: Array[Vector2i] = []
+		var edge := world.tilemap.get_battlemap_edge_clockwise()
+		for anchor in world.tilemap.base_layer.get_used_cells():
+			if edge.has(anchor) or not world.tilemap.can_place_actor(falling, anchor): continue
+			var candidate := world.tilemap.footprint_cells(falling, anchor)
+			if candidate.any(func(part: Vector2i) -> bool: return edge.has(part)):
+				world.enemy_handler.add_enemy(falling, anchor)
+				falling.stats.block = 999
+				falling_body = candidate
+				break
+		check(not falling_body.is_empty(), "Collapse fixture has a safe anchor with an endangered flank")
+		if falling_body.is_empty(): falling.free()
 		await world.tilemap.shrink_map(1)
+		await get_tree().create_timer(0.3).timeout
+		if not falling_body.is_empty():
+			check(not is_instance_valid(falling) or falling.is_dying, "Collapse of a non-anchor body cell is lethal through block")
+			for cell in falling_body:
+				check(not world.tilemap.occupants_at(cell).has(falling), "Collapse/death releases the complete footprint")
 		check(world.tilemap.base_layer.get_used_cells().size() < cells, "Boss stage uses authoritative tile collapse")
 		world.queue_free()
 		relics.queue_free()
 		await get_tree().process_frame
+
+
+func _test_footprint(world: GameWorld, boss: RiftBoss) -> void:
+	var board := world.tilemap
+	var origin := boss.current_tile_position
+	var body := boss.occupied_tiles()
+	check(body.size() == 3, "Bulwark and Core have three true occupied cells")
+	for cell in body:
+		check(board.occupants_at(cell).has(boss) and not board.is_tile_free(cell), "Every body cell blocks normal placement")
+	for column in [4, 5]:
+		var cells := board.footprint_cells(boss, Vector2i(column, 5))
+		check(cells.size() == body.size(), "Footprint survives odd/even offset translation")
+		for cell in cells:
+			check(SummonHandler.distance(board, Vector2i(column, 5), cell) <= 1, "Translated body remains connected")
+	var card := load("res://resources/data/cards/riftwalker/arcane_bolt.tres").duplicate() as Card
+	world.player_handler.player_hand.add_card(card)
+	var ui := world.player_handler.player_hand.get_cards().back() as CardUI
+	await get_tree().process_frame
+	var fog := board.fog_state.duplicate()
+	for cell in body: board.fog_state.erase(cell)
+	check(not boss.is_revealed(), "Fully fogged footprint hides the entity")
+	check(not world.card_interaction.is_preview_target(ui, boss), "Fully fogged body cannot be targeted")
+	board.fog_state[body[1]] = true
+	world.target_selector._reset_cache()
+	check(boss.is_revealed() and board.is_tile_behind_fog(origin), "Visible flank reveals entity while anchor remains hidden")
+	check(world.card_interaction.is_preview_target(ui, boss), "Visible non-anchor body authorizes ordinary targeting")
+	check(world.card_interaction.valid_cells(ui).has(body[1]) and not world.card_interaction.valid_cells(ui).has(origin), "Highlights reveal only visible body cells")
+	board.fog_state = fog
+	world.target_selector._reset_cache()
+	# A duplicate intersection list must never multiply the same area hit.
+	var before := boss.stats.health
+	var amount := 2
+	var resolver := CardResolver.new()
+	var damage := CardEffectConfig.for_damage(amount)
+	await resolver.resolve(card, [boss, boss, boss], world.player_stats, null, [damage])
+	await get_tree().create_timer(0.3).timeout
+	check(boss.stats.health == before - amount, "AoE intersecting three body cells damages the entity once")
+	boss.stats.health = before
+	var destination := MovingEnemy.INVALID_TILE
+	for cell in board.base_layer.get_surrounding_cells(origin):
+		if boss.can_move_to_tile(cell):
+			destination = cell
+			break
+	if destination != MovingEnemy.INVALID_TILE:
+		var future := board.footprint_cells(boss, destination)
+		var part := future[-1]
+		for cell in future:
+			if not body.has(cell): part = cell
+		var blocker := Node2D.new()
+		world.add_child(blocker)
+		board.register_occupant(blocker, part)
+		check(not boss.can_move_to_tile(destination), "Non-anchor collision rejects whole destination")
+		check(boss._find_path(origin, destination).is_empty(), "Pathfinder cannot exempt a blocked large-body goal")
+		board.remove_occupant(blocker)
+		blocker.free()
+		board.reserve_movement(boss, origin, destination)
+		for cell in body + future:
+			check(board.occupants_at(cell).has(boss), "Movement reserves origin and destination footprints")
+		board.update_occupant(boss, origin)
+		check(boss.set_movement_target(destination), "Legal full-footprint move begins")
+		await boss.movement_finished
+		check(boss.current_tile_position == destination, "Large body commits movement")
+		check(boss.set_movement_target(origin), "Self-overlap permits return move")
+		await boss.movement_finished
+		for cell in future:
+			if not body.has(cell): check(not board.occupants_at(cell).has(boss), "Movement releases obsolete body reservations")
+	else:
+		check(false, "Boss fixture supplies legal neighboring footprint")
+	world.player_handler.player_hand.discard_card(ui)

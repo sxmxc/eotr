@@ -1,0 +1,35 @@
+[gd_resource type="Resource" format=3 uid="uid://qhxyifw8kue"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_8c01e"]
+[ext_resource type="PackedScene" path="res://ui/fx/phase_step_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://douq32cpj5btn" path="res://assets/rift/cards/slipstream.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_8c01e"]
+script = ExtResource("2_8c01e")
+effect_type = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[sub_resource type="Resource" id="Resource_nmd6d"]
+script = ExtResource("2_8c01e")
+effect_type = 5
+amount = 1
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+movement_distance = 2
+card_type = 7
+target_type = 5
+id = "slipstream"
+name = "Slipstream"
+card_rarity = 1
+description = "Move up to %s hex(es). Draw 1. Exhaust."
+energy_cost = 1
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_8c01e")]([SubResource("Resource_8c01e"), SubResource("Resource_nmd6d")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

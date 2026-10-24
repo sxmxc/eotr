@@ -90,3 +90,17 @@ Presentation children animate without moving occupancy/collision roots.
 [AutoWalker internals](autowalker-internals.md) explains observation, legal-action
 validation, replay checkpoints and cancellation. For new definitions, follow
 [content authoring](content-authoring.md).
+
+## Finding a card's behavior
+
+Start with its `.tres` under `resources/data/cards/<pool>/`. Pulse Rifle is a
+straight example: its resource declares one six-damage CardEffectConfig and uses
+Card directly. Card pays/emits once, CardResolver selects the normal effect, and
+DamageEffect applies the authoritative hit. No class-wide card-ID switch exists.
+For a condition/tradeoff, its script sits beside the resource (for example
+`riftwalker/cash_out.gd`). Ordinary movement reuses Phase Step; actual construct
+placement belongs to ConstructSummonCard and SummonHandler. The historical
+`synthforged_card.gd` path contains that summon behavior only, retained for saved
+resource compatibility. Cosmetic scenes are explicit PackedScene references,
+not paths synthesized from a card ID. See [content authoring](content-authoring.md)
+and [the expansion inventory](card-pool-expansion.md).

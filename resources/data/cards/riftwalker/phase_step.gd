@@ -8,6 +8,7 @@ func _init() -> void:
 
 
 func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
+	if targets.is_empty(): return false
 	var tilemap_target = targets[0] as TilemapTarget
 	if tilemap_target == null or not tilemap_target.tilemap:
 		return false
@@ -75,7 +76,7 @@ func get_valid_targets(card_ui: CardUI, modifiers: ModifierHandler) -> Array[Vec
 		current_cells = next_level_cells
 	var cells : Array[Vector2i]
 	cells.append_array(all_cells_in_range)
-	return cells
+	return cells.filter(func(cell: Vector2i) -> bool: return tilemap.is_tile_free(cell))
 	
 func get_default_description() -> String:
 	return description % movement_distance

@@ -57,7 +57,7 @@ func _enemy_updated(value: Enemy) -> void:
 			refresh()
 
 func _is_revealed() -> bool:
-	return is_instance_valid(enemy) and (not is_instance_valid(enemy.tilemap) or not enemy.tilemap.is_tile_behind_fog(enemy.current_tile_position))
+	return is_instance_valid(enemy) and (not is_instance_valid(enemy.tilemap) or enemy.is_revealed())
 
 func refresh() -> void:
 	if not is_instance_valid(enemy) or not bound_stats:

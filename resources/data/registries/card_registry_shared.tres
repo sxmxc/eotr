@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardRegistry" format=3]
+[ext_resource type="Script" path="res://scripts/resources/registry/card_registry.gd" id="script"]
+[ext_resource type="Resource" path="res://resources/data/cards/shared/sure_footing.tres" id="new_sure_footing"]
+[ext_resource type="Resource" path="res://resources/data/cards/shared/keep_distance.tres" id="new_keep_distance"]
+[ext_resource type="Resource" path="res://resources/data/cards/shared/travel_light.tres" id="new_travel_light"]
+[ext_resource type="Resource" path="res://resources/data/cards/shared/unbuckle.tres" id="new_unbuckle"]
+[ext_resource type="Resource" path="res://resources/data/cards/shared/strip_supplies.tres" id="new_strip_supplies"]
+[ext_resource type="Resource" path="res://resources/data/cards/shared/reserve_rations.tres" id="new_reserve_rations"]
+
+[resource]
+script = ExtResource("script")
+entries = Array[Dictionary]([{"card": ExtResource("new_sure_footing"), "class_id": "", "rarity": 0, "allow_draft": true, "tags": Array[String](["shared", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_keep_distance"), "class_id": "", "rarity": 0, "allow_draft": true, "tags": Array[String](["shared", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_travel_light"), "class_id": "", "rarity": 1, "allow_draft": true, "tags": Array[String](["shared", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_unbuckle"), "class_id": "", "rarity": 1, "allow_draft": true, "tags": Array[String](["shared", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_strip_supplies"), "class_id": "", "rarity": 1, "allow_draft": true, "tags": Array[String](["shared", "reward", "shop"]), "unlocked": true, "weight": 1.0}, {"card": ExtResource("new_reserve_rations"), "class_id": "", "rarity": 0, "allow_draft": true, "tags": Array[String](["shared", "reward", "shop"]), "unlocked": true, "weight": 1.0}])
