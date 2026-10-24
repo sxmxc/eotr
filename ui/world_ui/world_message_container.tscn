@@ -12,3 +12,32 @@ offset_left = -538.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("1_8c5or")
+
+[node name="LiveScroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="LiveRows" type="VBoxContainer" parent="LiveScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"WorldMessageStack"
+
+[node name="HistoryToggle" type="Button" parent="."]
+layout_mode = 2
+text = "Recent events"
+toggle_mode = true
+
+[node name="HistoryScroll" type="ScrollContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(0, 190)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="HistoryText" type="RichTextLabel" parent="HistoryScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"WorldMessageText"
+fit_content = true
+scroll_active = false
+mouse_filter = 2

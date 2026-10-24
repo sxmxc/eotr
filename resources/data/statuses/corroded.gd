@@ -18,6 +18,7 @@ func apply_status(target: Node) -> void:
 		stats.block = max(stats.block - shred_amount, 0)
 
 	var damage_effect := DamageEffect.new()
+	damage_effect.cause = "Corrosion"
 	damage_effect.amount = damage_per_stack * stacks_to_apply
 	damage_effect.direct = true
 	damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN

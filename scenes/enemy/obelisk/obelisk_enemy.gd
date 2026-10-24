@@ -50,7 +50,8 @@ func spawn_random_enemy() -> bool:
 		"Obelisk spawns a %s from the void" % new_spawn.stats.enemy_name,
 		WorldMessageData.Priority.IMPORTANT
 	)
-	Events.world_message_requested.emit(world_message)
+	if not tilemap.is_tile_behind_fog(current_tile_position) and not tilemap.is_tile_behind_fog(new_spawn.current_tile_position):
+		Events.world_message_requested.emit(world_message)
 	_refresh_spawn_tiles()
 	return true
 

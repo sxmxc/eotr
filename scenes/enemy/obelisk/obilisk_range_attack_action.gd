@@ -12,6 +12,7 @@ func perform_action() -> void:
 		return
 		
 	var damage_effect := DamageEffect.new()
+	damage_effect.source_actor = enemy
 	var target_array: Array[Node] = [target]
 	var cam = get_tree().get_first_node_in_group("map_camera")
 	var projectile := OBELISK_PROJECTILE_FX.instantiate() as ProjectileFX

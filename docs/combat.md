@@ -130,3 +130,26 @@ describes the distinct boss fights and aggregate hostile-health HUD.
 Use [AutoWalker](autowalker.md) for reproducible turn/occupancy failures, focused
 [combat tests](testing.md) for lifecycle contracts, and native
 [visual QA](visual-production.md) for timing, fog, camera and feedback.
+
+## Combat event feed
+
+DamageEffect carries an explicit source actor or named cause (Burn, Poison,
+Corrosion, Ancient ruin); collapse supplies its own cause. Player reports the
+health delta inside the actual application callback, after modifiers, block and
+HP clamping. Prevented damage is a separate outcome. Floating player numbers use
+that same received amount. Enemy names come from EnemyStats, never node IDs.
+Visibility is sampled from board fog when the effect resolves, independent of
+camera position. Currently fogged enemies are anonymous, matching the enemy rail;
+there is no persistent enemy-identity knowledge model. Narration and spawn notices
+also respect fog. Damage effects retain their cause after their creator exits.
+
+The left event feed uses chronological, borderless rows with a restrained accent
+for consequential events. Routine messages expire after at least three seconds,
+extended for length, and cannot evict outcomes. Four live rows in a bounded scrolling area limit its footprint;
+overflow remains available through Recent events, a chronological 40-entry
+battle-local history. Overflow discards routine history before outcomes, and
+consecutive identical routine messages are suppressed. Important outcomes remain through enemy resolution and get
+at least ten seconds after control returns (extended for longer messages); ending
+that turn cancels expiry and the next player turn restarts the reading window.
+New outcomes replace the oldest live row only when all slots are occupied; history
+keeps individual hits and prevented attacks. No aggregate turn total is generated.

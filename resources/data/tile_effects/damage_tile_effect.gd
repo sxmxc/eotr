@@ -4,5 +4,6 @@ extends RuinTileEffect
 
 func execute(targets: Array[Node], _modifiers: ModifierHandler) -> void:
 	var damage_effect := DamageEffect.new()
+	damage_effect.cause = "Ancient ruin"
 	damage_effect.amount = base_amount
 	damage_effect.execute(targets)

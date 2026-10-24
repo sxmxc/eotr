@@ -10,9 +10,7 @@ func _init() -> void:
 func perform_action() -> void:
 	if not enemy or not target:
 		return
-	print("%s attacks!" % enemy.name)
-	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
-	Events.world_message_requested.emit(world_message)
+	print("%s attacks!" % enemy.stats.enemy_name)
 	var tween := create_lunge_tween().set_trans(Tween.TRANS_QUINT)
 	# Flying idle also writes Sprite2D.position; pause it for the authored lunge.
 	var idle := enemy.get_node_or_null("AnimationPlayer") as AnimationPlayer
@@ -22,6 +20,7 @@ func perform_action() -> void:
 	var start := enemy.sprite_2d.position
 	var end := start + enemy.to_local(target.global_position).normalized() * 5.0
 	var damage_effect := DamageEffect.new()
+	damage_effect.source_actor = enemy
 	var target_array: Array[Node] = [target]
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound

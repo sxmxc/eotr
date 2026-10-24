@@ -185,6 +185,22 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_combat_event"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.035, 0.055, 0.075, 0.82)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_combat_important"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.07, 0.055, 0.065, 0.92)
+border_width_left = 2
+border_color = Color(0.8, 0.43, 0.34, 1)
+
 [sub_resource type="StyleBoxFlat" id="consent_surface"]
 content_margin_left = 40.0
 content_margin_top = 32.0
@@ -563,6 +579,10 @@ CollapseDanger/colors/font_color = Color(0.937, 0.533, 0.478, 1)
 CollapseLabel/base_type = &"Label"
 CollapseLabel/colors/font_color = Color(0.929, 0.902, 0.839, 1)
 CollapseLabel/font_sizes/font_size = 22
+CombatEvent/base_type = &"PanelContainer"
+CombatEvent/styles/panel = SubResource("StyleBox_combat_event")
+CombatEventImportant/base_type = &"PanelContainer"
+CombatEventImportant/styles/panel = SubResource("StyleBox_combat_important")
 CompactRow/base_type = &"HBoxContainer"
 CompactRow/constants/separation = 10
 CompactStack/base_type = &"VBoxContainer"
@@ -1118,6 +1138,6 @@ VictoryInset/constants/margin_top = 24
 VictoryTitle/base_type = &"MediumLabel"
 VictoryTitle/colors/font_color = Color(0.88, 0.86, 0.77, 1)
 WorldMessageStack/base_type = &"VBoxContainer"
-WorldMessageStack/constants/separation = 15
+WorldMessageStack/constants/separation = 4
 WorldMessageText/base_type = &"RichTextLabel"
 WorldMessageText/font_sizes/normal_font_size = 20

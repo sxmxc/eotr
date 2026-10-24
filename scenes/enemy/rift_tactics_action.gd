@@ -99,6 +99,7 @@ func perform_action() -> void:
 				if not is_instance_valid(target) or target.stats.health <= 0:
 					break
 				var damage := DamageEffect.new()
+				damage.source_actor = enemy
 				var debt := mini(target.stats.energy, 3) * 2 if p.role == EnemyTactics.Role.DEBT_EATER else 0
 				damage.amount = enemy.modifier_handler.get_modified_value(p.damage + debt, Enums.ModifierType.DMG_DEALT)
 				damage.visual_fx = CUT_FX if p.preferred_range <= 1 else RANGED_FX

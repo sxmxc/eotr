@@ -54,7 +54,7 @@ func update_player() -> void:
 
 	
 func take_damage(
-	damage: int, which_modifier: Enums.ModifierType, direct: bool = false, impact_profile: ImpactProfile = null
+	damage: int, which_modifier: Enums.ModifierType, direct: bool = false, impact_profile: ImpactProfile = null, cause: String = "Damage"
 ) -> void:
 	if stats.health <= 0:
 		return
@@ -73,7 +73,7 @@ func take_damage(
 		Utils.apply_hitstop(profile.hitstop_scale, profile.hitstop_duration)
 	var tween := create_tween()
 	var text_fx := TEXT_FX.instantiate() as TextFX
-	text_fx.text = str(modified_damage)
+	text_fx.text = ""
 	add_child(text_fx)
 	text_fx.position = $ImpactAnchor.position
 	if fully_blocked:
@@ -89,11 +89,17 @@ func take_damage(
 	if cam:
 		tween.tween_callback(Utils.shake.bind(cam, profile.shake_strength, profile.shake_duration))
 	if direct:
-		tween.tween_callback(stats.take_direct_damage.bind(modified_damage))
+		tween.tween_callback(func():
+			var health_before := stats.health
+			stats.take_direct_damage(modified_damage)
+			_report_damage(health_before, cause, text_fx)
+		)
 	else:
 		tween.tween_callback(func():
+			var health_before := stats.health
 			var block_before := stats.block
 			stats.take_damage(modified_damage)
+			_report_damage(health_before, cause, text_fx)
 			# A cast is transient. Only a damaging hit that exhausts existing
 			# block gets fracture feedback; turn resets and bypass damage do not.
 			if block_before > 0 and stats.block == 0:
@@ -160,3 +166,11 @@ func _spawn_phase_trace() -> void:
 	get_parent().add_child(trace)
 	trace.global_transform = sprite_2d.global_transform
 	trace.execute()
+
+func _report_damage(health_before: int, cause: String, text_fx: TextFX) -> void:
+	var received := maxi(0, health_before - stats.health)
+	text_fx.label.text = str(received) if received > 0 else "Prevented"
+	var message := "%s deals %d damage to you" % [cause, received]
+	if received == 0:
+		message = "%s: damage prevented" % cause
+	Events.world_message_requested.emit(WorldMessageData.new(message, WorldMessageData.Priority.IMPORTANT))

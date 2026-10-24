@@ -660,7 +660,7 @@ func shrink_map(amount) -> void:
 			# Damage player if on this tile
 			if player_position == cell:
 				var death_damage = player.stats.health
-				player.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
+				player.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true, null, "Battlefield collapse")
 				return
 				
 			var tile_sprite = TILE_SPRITE.instantiate()
