@@ -58,11 +58,22 @@ func show_message(data: WorldMessageData) -> void:
 		oldest.queue_free()
 	var message := WORLD_MESSAGE.instantiate() as WorldMessage
 	$LiveScroll/LiveRows.add_child(message)
-	$LiveScroll.ensure_control_visible.call_deferred(message)
+	_scroll_to_latest_message.call_deferred()
 	message.show_message(data)
 
 	if _player_control and not routine:
 		_expire_message(message, _generation)
+
+func _scroll_to_latest_message() -> void:
+	if not is_inside_tree() or is_queued_for_deletion():
+		return
+	# Bursts can evict earlier rows before deferred layout work runs.
+	var rows := $LiveScroll/LiveRows.get_children()
+	for index in range(rows.size() - 1, -1, -1):
+		var row := rows[index] as WorldMessage
+		if row and not row.is_queued_for_deletion():
+			$LiveScroll.ensure_control_visible(row)
+			return
 
 func _on_player_turn_ended() -> void:
 	_player_control = false

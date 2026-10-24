@@ -44,6 +44,12 @@ controlled fog, health and positioning states in the real battle scene, not a
 natural combat sequence. Fullscreen switching and multi-monitor behavior still
 need a manual display check.
 
+The settings/rail suite also sends a same-frame burst through the real combat
+message container, checking its four-row limit, history retention and scrolling
+after eviction. It empties the live list before deferred scrolling runs to cover
+detached-control errors; unexpected engine errors fail the launcher even when
+the assertion count is zero.
+
 `--combat-automation --card-lifecycle-only` covers shared card authorization
 (stale phase/cost, foreign/freed targets, lock ownership and invalid release),
 repeatable ruin feedback and lethal movement teardown.
