@@ -7,7 +7,7 @@ var world: GameWorld
 var generation := 0
 
 static func distance(board: ProcGenTilemap, source: Vector2i, destination: Vector2i) -> int:
-	return board.hex_distance(board.offset_to_cube(source), board.offset_to_cube(destination))
+	return board.cell_distance(source, destination)
 
 func living() -> Array[Construct]:
 	var result: Array[Construct] = []

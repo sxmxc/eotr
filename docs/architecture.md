@@ -104,3 +104,30 @@ placement belongs to ConstructSummonCard and SummonHandler. The historical
 resource compatibility. Cosmetic scenes are explicit PackedScene references,
 not paths synthesized from a card ID. See [content authoring](content-authoring.md)
 and [the expansion inventory](card-pool-expansion.md).
+
+## Hex geometry and sight queries
+
+ProcGenTilemap owns cell geometry. The authored TileSet uses diamond-down axial
+Vector2i coordinates, not staggered offset columns. `offset_to_cube` and
+`cube_to_offset` retain historical names for compatibility: a cell (x, y) maps to
+cube (x, y, -x-y). `hex_distance` accepts cubes; gameplay callers use
+`cell_distance`. This matches all six TileMap neighbors, including negative cells.
+Cube footprint offsets therefore translate consistently at every anchor.
+
+`get_tiles_in_range` returns a geometric disk including its center;
+`get_tiles_in_ring` returns exactly the boundary. Zero radius gives the center;
+negative radius gives no cells. Both use deterministic cube-loop ordering and
+can include absent terrain. Callers apply terrain, occupancy and fog rules.
+Cards use the shared ring for adjacent targeting; constructs, bosses and AI
+weights use shared cell distance. SummonHandler.distance remains a compatibility
+wrapper. `get_surrounding_tiles_in_radius` intentionally retains its existing
+bounded neighbor traversal: it cannot cross missing terrain, preserves traversal
+order and can revisit the center for radius >= 2. Movement, spawn searches,
+support and deployment callers retain that behavior instead of using a disk.
+
+`has_line_of_sight(source, target)` implements current player sight: both cells
+must exist and the destination must be persistently revealed. There is no ray
+occlusion by terrain, corruption or actors, and intermediate fog is not a blocker.
+Enemy visible footprints and card previews share this rule. Enemy AI remains
+independent of player fog; range/path reachability and live card authorization
+remain separate checks. Do not introduce ray blocking by replacing this contract.

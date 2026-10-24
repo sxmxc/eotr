@@ -86,7 +86,7 @@ func reserve_movement(actor: Node2D, origin: Vector2i, destination: Vector2i) ->
 		_set_occupant_cells(actor, cells)
 
 
-# Cube offsets keep a footprint invariant across odd/even offset columns.
+# Cube offsets keep a footprint invariant across axial anchors.
 func footprint_cells(actor: Node2D, anchor: Vector2i) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	if actor is Enemy:
@@ -479,6 +479,11 @@ func get_surrounding_tiles_in_radius(center: Vector2i, radius: int) -> Array[Vec
 func is_tile_behind_fog(pos: Vector2i) -> bool:
 	return !fog_state.has(pos)
 	
+# Current sight contract: persistent revealed terrain; no ray/occupant occlusion.
+# Enemy AI does not use player fog and must not call this to authorize attacks.
+func has_line_of_sight(source: Vector2i, target: Vector2i) -> bool:
+	return is_within_bounds(source) and is_within_bounds(target) and not is_tile_behind_fog(target)
+
 func get_battlemap_edge_clockwise() -> Array[Vector2i]:
 	var valid_tiles := base_layer.get_used_cells()
 	var edge_tiles: Array[Vector2i] = []
@@ -590,30 +595,38 @@ func _get_available_tiles_of_type(
 
 func _sort_tiles_by_center(a: Vector2i, b: Vector2i) -> bool:
 	var center := get_center_tile_coord()
-	var distance_a := hex_distance(offset_to_cube(a), offset_to_cube(center))
-	var distance_b := hex_distance(offset_to_cube(b), offset_to_cube(center))
+	var distance_a := cell_distance(a, center)
+	var distance_b := cell_distance(b, center)
 	if distance_a == distance_b:
 		if a.x == b.x:
 			return a.y < b.y
 		return a.x < b.x
 	return distance_a < distance_b
 	
-# Convert from offset coordinates to cube coordinates
-func offset_to_cube(offset: Vector2i) -> Vector3i:
-	var q = offset.x
-	var r = offset.y - (offset.x - (offset.x & 1)) / 2
-	var s = -q - r
-	return Vector3i(q, r, s)
+# Historical method names retained for callers; authored cells are axial, not offset.
+func offset_to_cube(cell: Vector2i) -> Vector3i:
+	return Vector3i(cell.x, cell.y, -cell.x - cell.y)
 
-# Convert from cube coordinates to offset coordinates
 func cube_to_offset(cube: Vector3i) -> Vector2i:
-	var x = cube.x
-	var y = cube.y + (cube.x - (cube.x & 1)) / 2
-	return Vector2i(x, y)
+	return Vector2i(cube.x, cube.y)
 
 # Get hex distance between two positions in cube coordinates
 func hex_distance(a: Vector3i, b: Vector3i) -> int:
 	return max(abs(a.x - b.x), abs(a.y - b.y), abs(a.z - b.z))
+
+# Diamond-down axial cell coordinates, including negative coordinates.
+func cell_distance(a: Vector2i, b: Vector2i) -> int:
+	return hex_distance(offset_to_cube(a), offset_to_cube(b))
+
+# Geometric ring only: terrain, fog and occupancy remain caller-owned filters.
+func get_tiles_in_ring(center: Vector2i, radius: int) -> Array[Vector2i]:
+	var results: Array[Vector2i] = []
+	if radius < 0:
+		return results
+	for cell: Vector2i in get_tiles_in_range(center, radius):
+		if cell_distance(center, cell) == radius:
+			results.append(cell)
+	return results
 
 func get_tiles_of_type(type: Enums.TileType) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []

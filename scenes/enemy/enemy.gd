@@ -45,7 +45,7 @@ func occupied_tiles() -> Array[Vector2i]:
 func visible_tiles() -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	for cell in occupied_tiles():
-		if tilemap.is_within_bounds(cell) and not tilemap.is_tile_behind_fog(cell):
+		if tilemap.has_line_of_sight(tilemap.player_position, cell):
 			cells.append(cell)
 	return cells
 

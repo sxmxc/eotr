@@ -86,7 +86,7 @@ func retreat_from_collapse(action: EnemyAction, generation: int) -> bool:
 		var path := _find_path(current_tile_position, cell)
 		if path.is_empty() or path.size() > 3:
 			continue
-		var d := tilemap.hex_distance(tilemap.offset_to_cube(cell), tilemap.offset_to_cube(center))
+		var d := tilemap.cell_distance(cell, center)
 		if d < distance:
 			best = cell
 			distance = d

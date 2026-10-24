@@ -165,7 +165,7 @@ func _get_tile_distance_to_target() -> float:
 
 	var enemy_tile := enemy.tilemap.base_layer.local_to_map(enemy.position)
 	var target_tile := enemy.tilemap.base_layer.local_to_map(target.position)
-	return Vector2(enemy_tile).distance_to(Vector2(target_tile))
+	return float(enemy.tilemap.cell_distance(enemy_tile, target_tile))
 
 
 func get_queue_summary() -> String:

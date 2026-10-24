@@ -109,7 +109,7 @@ func _get_tile_distance_to_player() -> float:
 
 	var enemy_tile := enemy.tilemap.base_layer.local_to_map(enemy.position)
 	var player_tile := enemy.tilemap.base_layer.local_to_map(target.position)
-	return Vector2(enemy_tile).distance_to(Vector2(player_tile))
+	return float(enemy.tilemap.cell_distance(enemy_tile, player_tile))
 
 
 func _get_first_chance_based_action() -> EnemyAction:

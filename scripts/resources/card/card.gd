@@ -58,7 +58,7 @@ func _get_targets(targets: Array[Node]) -> Array[Node]:
 			return tree.get_nodes_in_group("player") + tree.get_nodes_in_group("enemy")
 		Enums.TargetType.SURROUNDING_ENEMIES:
 			var player_tile = tilemap.player_position
-			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
+			var surrounding_tiles = tilemap.get_tiles_in_ring(player_tile, 1)
 			var aoe_targets: Array[Node] = []
 			for enemy: Enemy in tree.get_nodes_in_group("enemy"):
 				if enemy.intersects_tiles(surrounding_tiles, true):
@@ -172,7 +172,7 @@ func get_valid_targets(card_ui: CardUI, _modifiers: ModifierHandler) -> Array[Ve
 			return tiles_all
 		Enums.TargetType.SURROUNDING_ENEMIES, Enums.TargetType.ADJACENT_ENEMY:
 			var player_tile = tilemap.player_position
-			var surrounding_tiles = tilemap.base_layer.get_surrounding_cells(player_tile)
+			var surrounding_tiles = tilemap.get_tiles_in_ring(player_tile, 1)
 			var aoe_targets: Array[Vector2i] = []
 			for enemy: Enemy in enemies:
 				if enemy.intersects_tiles(surrounding_tiles, true):

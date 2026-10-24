@@ -80,7 +80,7 @@ func _update_overlap_targets() -> void:
 	if (current_card.card.target_type == Enums.TargetType.SINGLE_TILE or interaction.is_relocating(current_card)):
 		return
 	var cell := tilemap.world_to_cell(get_global_mouse_position())
-	if not tilemap.is_tile_behind_fog(cell):
+	if tilemap.has_line_of_sight(tilemap.player_position, cell):
 		for occupant: Node in tilemap.occupants_at(cell):
 			if occupant is Enemy and interaction.is_preview_target(current_card, occupant):
 				_set_current_target(occupant)

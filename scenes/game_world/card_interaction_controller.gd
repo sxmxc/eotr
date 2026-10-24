@@ -172,7 +172,7 @@ func valid_cells(ui: CardUI) -> Array[Vector2i]:
 					if candidates.has(cell): visible.append(cell)
 	else:
 		for cell: Vector2i in candidates:
-			if world.tilemap.is_within_bounds(cell) and not world.tilemap.is_tile_behind_fog(cell):
+			if world.tilemap.has_line_of_sight(world.tilemap.player_position, cell):
 				visible.append(cell)
 	return visible
 

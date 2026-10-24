@@ -52,6 +52,8 @@ func run() -> void:
 
 func _test_lifecycle(world: GameWorld) -> void:
 	var board := world.tilemap
+	_test_hex_geometry(board)
+	_test_sight(board)
 	var occupied: Dictionary = {board.player_position: true}
 	var mover: MovingEnemy
 	for enemy: Enemy in world.enemy_handler.get_children():
@@ -152,3 +154,36 @@ func _move_player_inside(board: ProcGenTilemap, edge: Array[Vector2i]) -> void:
 			board.move_player(cell, false)
 			return
 	check(false, "Collapse fixture requires a safe interior player cell")
+
+func _test_hex_geometry(board: ProcGenTilemap) -> void:
+	for center: Vector2i in [Vector2i.ZERO, Vector2i(1, 2), Vector2i(-3, -4), Vector2i(-2, 3)]:
+		check(board.cube_to_offset(board.offset_to_cube(center)) == center, "Offset round trip at %s" % center)
+		for neighbor: Vector2i in board.base_layer.get_surrounding_cells(center):
+			check(board.cell_distance(center, neighbor) == 1, "Engine neighbors match shared hex distance")
+		for radius in range(4):
+			var disk := board.get_tiles_in_range(center, radius)
+			var ring := board.get_tiles_in_ring(center, radius)
+			check(disk.size() == 1 + 3 * radius * (radius + 1), "Hex disk cardinality")
+			check(ring.size() == (1 if radius == 0 else 6 * radius), "Hex ring cardinality")
+			var unique: Dictionary = {}
+			for cell: Vector2i in disk:
+				unique[cell] = true
+				var distance := board.cell_distance(center, cell)
+				check(distance <= radius and distance == board.cell_distance(cell, center), "Disk distance and symmetry")
+				check(ring.has(cell) == (distance == radius), "Ring contains exactly the disk boundary")
+			check(unique.size() == disk.size(), "Geometric disk contains no duplicates")
+		check(board.get_tiles_in_ring(center, -1).is_empty(), "Negative radius has no ring")
+
+func _test_sight(board: ProcGenTilemap) -> void:
+	var cells := board.base_layer.get_used_cells()
+	var source := board.player_position
+	var target := cells[0]
+	var saved_fog := board.fog_state.duplicate()
+	board.fog_state.erase(target)
+	check(not board.has_line_of_sight(source, target), "Hidden destination rejects sight")
+	board.fog_state.clear()
+	board.fog_state[target] = false
+	check(board.has_line_of_sight(source, target), "Revealed destination grants sight even with other cells hidden")
+	check(not board.has_line_of_sight(source, Vector2i(999, 999)), "Sight rejects absent target terrain")
+	check(not board.has_line_of_sight(Vector2i(999, 999), target), "Sight rejects absent source terrain")
+	board.fog_state.assign(saved_fog)

@@ -610,14 +610,14 @@ backlog:
   - id: BKL-046
     title: "Expose shared hex range/LOS helpers for cards and AI"
     priority: P3
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Hex distance and ring queries exist in proc-gen-tilemap.gd but are reimplemented per action/selector."
-    next_steps:
-      - "Add utility functions for hex distance, range rings, and LOS checks and route card/AI targeting through them."
-      - "Document expected coordinate systems (offset vs cube) for contributors."
+      - "Shared cell distance, disk/ring and current fog-based sight APIs live on ProcGenTilemap. Corrected historical offset conversion to the authored diamond-down axial layout; all six engine neighbors now agree."
+      - "Cards/selectors, enemy visibility, boss queries, construct distance and AI scoring use shared helpers. Bounded neighbor traversal remains distinct for movement/spawn semantics. Coordinate and sight contracts documented in docs/architecture.md and docs/combat.md."
+      - "Board, full combat, card lifecycle, Synthforged and boss checks pass; offline AutoWalker win in 9 turns/38 actions. See ai/state/journal-bkl-046.md for evidence and limits."
+    next_steps: []
 
   - id: BKL-047
     title: "Consolidate enemy intent/stats UI (queue vs floating panels)"
