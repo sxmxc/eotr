@@ -108,6 +108,11 @@ reachable player-side unit, preferring the player on ties. Boss signatures,
 rooted rift seals and player-energy-specific attacks retain their authored focus.
 Intent descriptions identify attacks aimed at constructs.
 
+The shared construct scene authors independent damage-dealt and damage-taken
+modifiers, matching other combatants. Statuses such as Weakened use those slots
+through the normal StatusHandler lifecycle: Weakened increases received damage
+by 50% until expiry/removal, then releases only its own modifier value.
+
 Redeployment selects a construct and then an adjacent legal resource cell. Either
 stage may be cancelled without spending energy. Source and destination are both
 revalidated at commitment. Death, collapse and battle shutdown release occupancy

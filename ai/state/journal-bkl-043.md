@@ -52,3 +52,7 @@ Evidence: `.qa-tmp/bkl-043/walk/{godot.log,summary.json,simulation-27.json}`.
 Existing certificate-store diagnostic and Void Spectre UID fallback remain.
 No rendered visual-quality, continuous-motion/audio, performance, human balance,
 full campaign or export claim. No backend contact, commit, push or deployment.
+
+Follow-up: the user requested committing BKL-043, then fixing the construct
+assertion. BKL-043 was committed as `e8b5a2b`. The construct modifier fix and clean
+rerun are recorded in [journal-construct-modifiers.md](journal-construct-modifiers.md).

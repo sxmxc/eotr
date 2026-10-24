@@ -128,6 +128,7 @@ func run() -> void:
 	unit.stats.block = 5
 	world.summons.start_turn()
 	check(unit.stats.block == 0, "Construct block resets at player start")
+	await test_construct_modifiers(unit)
 	unit.take_damage(5, Enums.ModifierType.NO_MODIFIER)
 	await card("field_repairs").play([unit], world.player_stats, world.player.modifier_handler)
 	check(unit.stats.health == 12, "Repairs clamp at maximum HP")
@@ -169,6 +170,38 @@ func run() -> void:
 	await test_progression()
 	await Utils.stop_audio_for_shutdown()
 	finish()
+
+func test_construct_modifiers(unit: Construct) -> void:
+	var taken := unit.modifier_handler.get_modifier(Enums.ModifierType.DMG_TAKEN)
+	var dealt := unit.modifier_handler.get_modifier(Enums.ModifierType.DMG_DEALT)
+	check(taken != null and dealt != null, "Deployed constructs author both damage modifier slots")
+	if not taken or not dealt:
+		return
+	var other := world.summons.living()[1]
+	check(other.modifier_handler.get_modifier(Enums.ModifierType.DMG_TAKEN) != taken,
+		"Construct instances own independent damage modifiers")
+	var weakened: Status = preload("res://resources/data/statuses/weakened.tres").duplicate(true)
+	weakened.duration = 1
+	var effect := StatusEffect.new()
+	effect.status = weakened
+	effect.execute([unit])
+	var health := unit.stats.health
+	unit.take_damage(4, Enums.ModifierType.DMG_TAKEN)
+	check(unit.stats.health == health - 6, "Weakened amplifies real construct damage by 50 percent")
+	check(other.modifier_handler.get_modified_value(4, Enums.ModifierType.DMG_TAKEN) == 4,
+		"Weakened does not affect another construct")
+	unit.status_handler.apply_statuses_by_type(weakened.type)
+	await unit.status_handler.statuses_applied
+	check(taken.get_value("weakened") == null, "Construct Weakened expiry removes its modifier")
+	health = unit.stats.health
+	unit.take_damage(4, Enums.ModifierType.DMG_TAKEN)
+	check(unit.stats.health == health - 4, "Construct damage returns to normal after expiry")
+	effect.execute([unit])
+	check(taken.get_modified_value(4) == 6, "Construct Weakened can be reapplied after expiry")
+	unit.status_handler.remove_status("weakened")
+	check(taken.get_modified_value(4) == 4, "Explicit construct status removal cleans the modifier")
+	unit.stats.health = unit.stats.max_health
+
 
 func test_redeployment_and_enemy_targets() -> void:
 	world.summons.reset()

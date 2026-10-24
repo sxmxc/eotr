@@ -78,6 +78,10 @@ must agree, and becoming ineligible clears the selection immediately. Quantum
 Rift checks all broad candidate cells against its live tile predicate, including
 rejected corrupted cells. These are state assertions, not rendered visual review.
 
+The Synthforged suite also applies Weakened through StatusEffect to a deployed
+construct, verifies real damage before/after expiry, reapplication and explicit
+removal, and checks that another construct's damage modifier remains independent.
+
 Other targeted flags include `--mana-wells-only`,
 `--utility-review` and `--vfx-only`; inspect their owning test-scene branch before
 using them as evidence. `--capture-ui` switches from headless to native offscreen
