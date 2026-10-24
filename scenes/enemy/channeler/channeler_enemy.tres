@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmnb4jshnwq7q" path="res://scripts/resources/stats/enemy_stats.gd" id="1_wkdtb"]
 [ext_resource type="PackedScene" uid="uid://et3k0fasmcna" path="res://scenes/enemy/channeler/channeler_enemy_ai.tscn" id="2_4vdri"]
-[ext_resource type="Texture2D"  path="res://assets/rift/ui/eye.svg" id="2_vs1y3"]
+[ext_resource type="Texture2D"  path="res://assets/rift/entities/channeler.webp" id="2_vs1y3"]
 [ext_resource type="AudioStream" uid="uid://bg35vann4lwj2" path="res://assets/audio/Monster Sounds/Ghost/Ghost_Emerge.ogg" id="4_n8bso"]
 
 [resource]
