@@ -12,16 +12,22 @@ theme = ExtResource("theme")
 script = ExtResource("script")
 
 [node name="Background" type="Panel" parent="." unique_id=1381985748]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_type_variation = &"ModalScrim"
 
 [node name="Center" type="CenterContainer" parent="." unique_id=212947663]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="Surface" type="PanelContainer" parent="Center" unique_id=745699101]

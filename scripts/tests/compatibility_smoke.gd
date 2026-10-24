@@ -102,6 +102,7 @@ func _run() -> void:
 		var encounter := MapNode.new()
 		encounter.battle_stats = load("res://resources/data/battles/tier_1_channelers_bulwark.tres").duplicate(true)
 		await _test_reward_and_shop(run_scene, encounter)
+		await _test_card_popup_hosts()
 		run_scene.queue_free()
 		await get_tree().process_frame
 		print("Compatibility smoke test: %d failures" % failures)
@@ -393,8 +394,32 @@ func _press_escape() -> void:
 	await get_tree().process_frame
 
 
-func _check_card_popup_layout(popup: CardPopup) -> void:
-	var viewport_rect := popup.get_viewport_rect()
+func _test_card_popup_hosts() -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 100
+	add_child(layer)
+	var fixture := Control.new()
+	layer.add_child(fixture)
+	for path: String in ["res://ui/card_pile/card_pile_view.tscn", "res://ui/card_selection/card_cost_selection.tscn"]:
+		var host := load(path).instantiate() as Control
+		fixture.add_child(host)
+		host.show()
+		var popup := host.get_node("CardPopup") as CardPopup
+		popup.show_popup(load("res://resources/data/cards/riftwalker/second_thought.tres"))
+		for dimensions: Vector2 in [Vector2(1920, 1080), Vector2(1280, 720)]:
+			fixture.size = dimensions
+			await _settle_ui()
+			_check_card_popup_layout(popup, fixture.get_global_rect())
+			await _capture("popup-%s-%d" % [host.name, dimensions.x])
+		popup.hide_popup()
+		host.queue_free()
+		await get_tree().process_frame
+	layer.queue_free()
+	await get_tree().process_frame
+
+
+func _check_card_popup_layout(popup: CardPopup, bounds := Rect2()) -> void:
+	var viewport_rect := popup.get_viewport_rect() if bounds.size == Vector2.ZERO else bounds
 	var scrim := popup.get_node("Background") as Control
 	var center := popup.get_node("Center") as Control
 	var surface := popup.get_node("Center/Surface") as Control
