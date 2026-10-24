@@ -77,5 +77,6 @@ text = "Skip card reward"
 
 [node name="CardPopup" parent="." unique_id=1960597125 instance=ExtResource("popup")]
 visible = false
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 15
 confirmation_enabled = true

@@ -41,6 +41,11 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Native terrain/collapse breakup | `--combat-automation --terrain-only --capture-ui` |
 | Native combat/collapse movie fixture | `--combat-automation --motion-review --capture-ui` |
 
+`--ui-transactions-only` checks reward/shop confirmation layout as well as
+transactions: CardPopup and its scrim fill the host, the surface centers, and
+preview/actions remain inside the host. It also exercises deck and card-selection
+inspection hosts at 1920x1080 and 1280x720; `--capture-ui` captures these states.
+
 `--settings-rail-only --capture-ui` also checks native window sizing and VSync,
 and retains reviewed settings/rail PNGs under `.qa-tmp/settings-rail/`. It uses
 controlled fog, health and positioning states in the real battle scene, not a

@@ -19,7 +19,10 @@ screen regions, and minimum sizes describe intrinsic art/icon bounds. Use
 HFlowContainer for collections that wrap. A scaled card preview needs a measuring
 frame that reserves its full drawn size, otherwise containers can overlap the
 purchase or confirmation controls. Shared menu previews use CardMenuUI; gameplay
-CardUI retains its hand/aim pivot.
+CardUI retains its hand/aim pivot. CardPopup and its scrim/centering
+container must retain full-rect anchors with anchor layout mode; reward instances
+must not override them with the top-left preset. The popup fills its host so its
+surface centers and its scrim covers underlying choices, including after resizing.
 
 Scripts can update text/visibility, select theme variations, instantiate repeated
 scene instances and handle interaction. Dynamic hand geometry, cursor aiming,
