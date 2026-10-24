@@ -9,6 +9,10 @@ shader_parameter/outerRadius = 4.00000019
 shader_parameter/MainAlpha = 0.800000038
 shader_parameter/vignette_color = Color(0.008, 0.015, 0.03, 1)
 
+[sub_resource type="Environment" id="Environment_2l1mm"]
+background_mode = 3
+glow_enabled = true
+
 [node name="PostFX" type="Node2D" unique_id=1067642187]
 script = ExtResource("1_2l1mm")
 
@@ -23,3 +27,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2131603899]
+environment = SubResource("Environment_2l1mm")

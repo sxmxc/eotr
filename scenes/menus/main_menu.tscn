@@ -3,20 +3,20 @@
 [ext_resource type="Script" uid="uid://cus2iy6lkqd8v" path="res://scenes/menus/main_menu.gd" id="2_2o76q"]
 [ext_resource type="Resource" uid="uid://c1icg70td725p" path="res://scenes/run/run_bootstrap.tres" id="3_imvie"]
 [ext_resource type="Script" uid="uid://dno27ykycjlv8" path="res://scripts/nodes/version_label.gd" id="4_6bivr"]
-[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="4_8r73w"]
+[ext_resource type="PackedScene" uid="uid://wmnm8fbbo2ot" path="res://scenes/menus/menu_environment.tscn" id="4_8r73w"]
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="5_ng0o5"]
 [ext_resource type="Script" uid="uid://cxwnehr2avcec" path="res://addons/uiJuicer/Fader.gd" id="7_50h1w"]
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 
 [sub_resource type="Gradient" id="Gradient_50h1w"]
-colors = PackedColorArray(0.025, 0.04, 0.065, 0.5, 0.025, 0.04, 0.065, 0.36)
+colors = PackedColorArray(0.025, 0.04, 0.065, 0.5, 0.025, 0.04, 0.065, 0.1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_xqga4"]
 gradient = SubResource("Gradient_50h1w")
 
-[sub_resource type="Environment" id="Environment_bre17"]
+[sub_resource type="Environment" id="Environment_8r73w"]
 background_mode = 3
-tonemap_mode = 2
+tonemap_mode = 4
 glow_enabled = true
 
 [node name="MainMenu" type="Control" unique_id=360297674]
@@ -31,14 +31,8 @@ script = ExtResource("2_2o76q")
 run_bootstrap = ExtResource("3_imvie")
 metadata/_edit_horizontal_guides_ = [549.0]
 
-[node name="Background" type="TextureRect" parent="." unique_id=197901643]
+[node name="Background" parent="." unique_id=2048530405 instance=ExtResource("4_8r73w")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_8r73w")
 
 [node name="Gradient" type="TextureRect" parent="." unique_id=1156032522]
 layout_mode = 1
@@ -47,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("GradientTexture1D_xqga4")
 
 [node name="ParticlesLayer" parent="." unique_id=856989179 instance=ExtResource("ambient_particles")]
@@ -65,7 +60,6 @@ theme = ExtResource("5_ng0o5")
 
 [node name="Title" type="Control" parent="UILayer/Control" unique_id=1333165821]
 layout_mode = 1
-anchors_preset = 8
 anchor_left = 0.234375
 anchor_top = 0.22
 anchor_right = 0.234375
@@ -129,7 +123,7 @@ metadata/_custom_type_script = "uid://cxwnehr2avcec"
 
 [node name="Buttons" type="MarginContainer" parent="UILayer/Control" unique_id=1319771817]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = -1
 anchor_top = 0.52
 anchor_bottom = 0.52
 offset_left = 240.0
@@ -169,19 +163,36 @@ theme = ExtResource("5_ng0o5")
 theme_type_variation = &"MainMenuButton"
 text = "Settings"
 
-[node name="DeveloperTools" type="HBoxContainer" parent="UILayer/Control"]
+[node name="ExitButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1896684852]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme = ExtResource("5_ng0o5")
+theme_type_variation = &"MainMenuButton"
+text = "Exit"
+
+[node name="Fader" type="Node" parent="UILayer/Control/Buttons" unique_id=554410555]
+script = ExtResource("7_50h1w")
+FadeInTime = 2.0
+FadeOutTime = 2.0
+metadata/_custom_type_script = "uid://cxwnehr2avcec"
+
+[node name="DeveloperTools" type="HBoxContainer" parent="UILayer/Control" unique_id=1861574592]
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 290.0
-offset_right = 700.0
 offset_top = -96.0
+offset_right = 700.0
 offset_bottom = -48.0
 theme_type_variation = &"ContentRow"
-[node name="Caption" type="Label" parent="UILayer/Control/DeveloperTools"]
+
+[node name="Caption" type="Label" parent="UILayer/Control/DeveloperTools" unique_id=1462633368]
 layout_mode = 2
 theme_type_variation = &"Microcopy"
 text = "WORKSHOP"
 vertical_alignment = 1
+
 [node name="SandboxButton" type="Button" parent="UILayer/Control/DeveloperTools" unique_id=1012888355]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
@@ -198,43 +209,30 @@ theme = ExtResource("5_ng0o5")
 theme_type_variation = &"QuietButton"
 text = "Data Editor"
 
-[node name="ExitButton" type="Button" parent="UILayer/Control/Buttons/VBoxContainer" unique_id=1896684852]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-theme = ExtResource("5_ng0o5")
-theme_type_variation = &"MainMenuButton"
-text = "Exit"
-
-[node name="Fader" type="Node" parent="UILayer/Control/Buttons" unique_id=554410555]
-script = ExtResource("7_50h1w")
-FadeInTime = 2.0
-FadeOutTime = 2.0
-metadata/_custom_type_script = "uid://cxwnehr2avcec"
-
 [node name="Version" type="Label" parent="UILayer/Control" unique_id=1335728534]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -350.0
 offset_top = -74.0
 offset_right = -32.0
 offset_bottom = -24.0
-theme_type_variation = &"Microcopy"
-horizontal_alignment = 2
+grow_horizontal = 0
 grow_vertical = 0
+theme_type_variation = &"Microcopy"
 text = "vX.X.X.X-build"
+horizontal_alignment = 2
 script = ExtResource("4_6bivr")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=991796566]
-environment = SubResource("Environment_bre17")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=813972350]
+environment = SubResource("Environment_8r73w")
 
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/DeveloperTools/SandboxButton" to="." method="_on_sandbox_button_pressed"]
 [connection signal="pressed" from="UILayer/Control/DeveloperTools/DataEditorButton" to="." method="_on_data_editor_button_pressed"]
-[connection signal="pressed" from="UILayer/Control/Buttons/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
