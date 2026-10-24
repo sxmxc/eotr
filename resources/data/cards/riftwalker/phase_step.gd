@@ -49,8 +49,11 @@ func is_valid_target(targets: Array[Node], modifiers: ModifierHandler) -> bool:
 	return false
 
 func get_valid_targets(card_ui: CardUI, modifiers: ModifierHandler) -> Array[Vector2i]:
-	var player: Player = card_ui.get_tree().get_first_node_in_group("player")
-	var tilemap: ProcGenTilemap = card_ui.get_tree().get_first_node_in_group("map_layer")
+	var world := card_ui.get_battle_world()
+	if not world:
+		return []
+	var player := world.player
+	var tilemap := world.tilemap
 	var player_tile: Vector2i = tilemap.base_layer.local_to_map(player.position)
 	# Start with the center cell
 	var current_cells : Array[Vector2i] = [player_tile]

@@ -643,15 +643,14 @@ backlog:
   - id: BKL-049
     title: "Reduce get_tree() coupling in card/effect/selector scripts"
     priority: P3
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Cards and selectors repeatedly call get_first_node_in_group for map_camera, fx_layer, tilemap."
-      - "Makes testing and scene reuse harder; contributes to per-frame GC churn."
-    next_steps:
-      - "Inject required references (tilemap, cameras, fx layer, player/enemy handlers) from parent controllers."
-      - "Add assertions or typed exports to surface missing dependencies in editor."
+      - "Selectors already receive their board/controller. All five card candidate-query implementations now use the injected battle through CardUI, with no global board/player lookup; missing or disposed bindings return no candidates."
+      - "CardUI completion, pending-effect checks and discard/exhaust feedback use the same battle's actors/HUD. Shared Card resources retain no battle references. Legacy effect resolution group discovery remains supported; no new context framework or gameplay change."
+      - "Evidence and validation limits: ai/state/journal-bkl-049.md."
+    next_steps: []
 
   - id: BKL-050
     title: "Consolidate card visuals/projectile sourcing into shared helpers"

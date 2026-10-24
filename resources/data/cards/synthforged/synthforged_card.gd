@@ -21,8 +21,10 @@ func play(targets: Array[Node], stats: PlayerStats, modifiers: ModifierHandler) 
 	stats.fabrication_discount = false
 
 func get_valid_targets(ui: CardUI, _modifiers: ModifierHandler) -> Array[Vector2i]:
-	var board := ui.get_tree().get_first_node_in_group("map_layer") as ProcGenTilemap
-	var world := board.get_parent() as GameWorld
+	var world := ui.get_battle_world()
+	if not world:
+		return []
+	var board := world.tilemap
 	var cells: Array[Vector2i] = []
 	for cell in board.get_surrounding_tiles_in_radius(board.player_position, 2):
 		if world.summons.can_deploy(cell): cells.append(cell)

@@ -1,8 +1,10 @@
 extends Card
 
 func get_valid_targets(ui: CardUI, modifiers: ModifierHandler) -> Array[Vector2i]:
-	var board := ui.get_tree().get_first_node_in_group("map_layer") as ProcGenTilemap
-	var world := board.get_parent() as GameWorld
+	var world := ui.get_battle_world()
+	if not world:
+		return []
+	var board := world.tilemap
 	var selected: Construct = ui.interaction_controller.relocation_unit if ui.interaction_controller else null
 	if not is_instance_valid(selected) or ui.interaction_controller.active_card != ui:
 		return super.get_valid_targets(ui, modifiers)
