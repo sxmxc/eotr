@@ -8,9 +8,9 @@ enum Priority {
 }
 
 const DEFAULT_LIFETIMES := {
-	Priority.ROUTINE: 1.2,
-	Priority.IMPORTANT: 2.2,
-	Priority.CRITICAL: 3.0,
+	Priority.ROUTINE: 3.0,
+	Priority.IMPORTANT: 8.0,
+	Priority.CRITICAL: 10.0,
 }
 
 var message: String
@@ -29,4 +29,4 @@ func _init(
 func _resolve_lifetime(custom_lifetime: float) -> float:
 	if custom_lifetime > 0.0:
 		return custom_lifetime
-	return DEFAULT_LIFETIMES.get(priority, DEFAULT_LIFETIMES[Priority.ROUTINE])
+	return maxf(DEFAULT_LIFETIMES.get(priority, 3.0), message.length() / 18.0)

@@ -45,6 +45,7 @@ func perform_action() -> void:
 			sealed_cells.append(warning_cell)
 		else:
 			var damage := DamageEffect.new()
+			damage.source_actor = enemy
 			damage.amount = 3
 			damage.execute([target])
 	marker.hide()

@@ -3,7 +3,7 @@ class_name WorldMessage
 
 @export var fade_seconds := 0.35
 
-@onready var message_text_label = %MessageTextLabel
+@onready var message_text_label: RichTextLabel = %MessageTextLabel
 
 var tween: Tween
 var _visible: bool
@@ -21,9 +21,11 @@ func show_message(data: WorldMessageData) -> void:
 		tween.kill()
 		
 	message_text_label.text = data.message
+	theme_type_variation = &"CombatEvent" if data.priority == WorldMessageData.Priority.ROUTINE else &"CombatEventImportant"
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(self, "modulate", Color.WHITE, fade_seconds)
-	get_tree().create_timer(data.lifetime, false).timeout.connect(hide_message)
+	if data.priority == WorldMessageData.Priority.ROUTINE:
+		get_tree().create_timer(data.lifetime, false).timeout.connect(hide_message)
 
 func hide_message() -> void:
 	if not is_inside_tree() or is_queued_for_deletion():
@@ -44,3 +46,6 @@ func get_priority() -> int:
 	if _data == null:
 		return WorldMessageData.Priority.ROUTINE
 	return _data.priority
+
+func get_lifetime() -> float:
+	return _data.lifetime if _data else 3.0

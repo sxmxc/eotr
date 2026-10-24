@@ -36,8 +36,9 @@ func perform_action() -> void:
 	status_effect.visual_fx = visual_fx
 	status_effect.execute([enemy])
 
-	var world_message := WorldMessageData.new("%s braces behind heavy plating" % enemy.name)
-	Events.world_message_requested.emit(world_message)
+	var world_message := WorldMessageData.new("%s braces behind heavy plating" % enemy.stats.enemy_name)
+	if not enemy.tilemap.is_tile_behind_fog(enemy.current_tile_position):
+		Events.world_message_requested.emit(world_message)
 
 	Events.enemy_action_completed.emit(enemy)
 

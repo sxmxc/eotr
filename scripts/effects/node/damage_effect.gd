@@ -4,6 +4,7 @@ class_name DamageEffect
 const TEXT_FX = preload("res://ui/fx/text_fx.tscn")
 
 var amount := 0
+var cause := ""
 # Explicit provenance; DoT, terrain, and enemy effects leave this false.
 var player_side_attack := false
 var source_actor: Node2D
@@ -31,7 +32,10 @@ func execute(targets: Array[Node]) -> void:
 				if visual_effect is SynthforgedFX: visual_effect.caster = source_actor
 				visual_effect.execute()
 			var attack_bonus := AnalyzedStatus.count(target) if player_side_attack else 0
-			target.take_damage(amount + attack_bonus, receiver_modifier_type, direct, resolved_profile)
+			if target is Player:
+				target.take_damage(amount + attack_bonus, receiver_modifier_type, direct, resolved_profile, get_player_cause())
+			else:
+				target.take_damage(amount + attack_bonus, receiver_modifier_type, direct, resolved_profile)
 			if pre_health != null:
 				print(
 					"[DamageEffect] %s took %s (mod type %s, direct=%s) | health %s -> %s, block %s -> %s"
@@ -47,3 +51,13 @@ func execute(targets: Array[Node]) -> void:
 					]
 				)
 			
+
+func get_player_cause() -> String:
+	if not cause.is_empty():
+		return cause
+	if is_instance_valid(source_actor) and source_actor is Enemy:
+		var attacker := source_actor as Enemy
+		if not is_instance_valid(attacker.tilemap) or attacker.tilemap.is_tile_behind_fog(attacker.current_tile_position):
+			return "An unseen attacker"
+		return attacker.stats.enemy_name
+	return "Damage"

@@ -60,6 +60,7 @@ func wait_for_player_effects(action: EnemyAction, generation: int) -> bool:
 
 func strike_player(amount: int, sound: AudioStream) -> void:
 	var effect := DamageEffect.new()
+	effect.source_actor = self
 	effect.amount = modifier_handler.get_modified_value(amount, Enums.ModifierType.DMG_DEALT)
 	effect.sound_fx = sound
 	effect.execute([tilemap.player])

@@ -17,8 +17,9 @@ func perform_action() -> void:
 	if not enemy or not target:
 		return
 
-	var world_message := WorldMessageData.new("%s swings a cleaving slam" % enemy.name)
-	Events.world_message_requested.emit(world_message)
+	var world_message := WorldMessageData.new("%s swings a cleaving slam" % enemy.stats.enemy_name)
+	if not enemy.tilemap.is_tile_behind_fog(enemy.current_tile_position):
+		Events.world_message_requested.emit(world_message)
 
 	var tween := create_lunge_tween().set_trans(Tween.TRANS_QUINT)
 	# Flying idle also writes Sprite2D.position; pause it for the authored lunge.
@@ -30,6 +31,7 @@ func perform_action() -> void:
 	var end := start + enemy.to_local(target.global_position).normalized() * 5.0
 
 	var damage_effect := DamageEffect.new()
+	damage_effect.source_actor = enemy
 	var target_array: Array[Node] = [target]
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound

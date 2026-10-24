@@ -17,9 +17,7 @@ func perform_action() -> void:
 	var generation := action_generation
 	if not enemy:
 		return
-	var world_message = WorldMessageData.new("%s moves closer to player" % enemy.name)
-	Events.world_message_requested.emit(world_message)
-	print("%s moves once" % enemy.name)
+	print("%s moves once" % enemy.stats.enemy_name)
 	enemy.perform_turn_based_move(tiles_per_turn)
 	await enemy.movement_finished
 	if generation != action_generation:
@@ -36,7 +34,7 @@ func perform_action() -> void:
 		complete_movement_action(generation, .6)
 		return
 		 
-	print("%s moves again" % enemy.name)
+	print("%s moves again" % enemy.stats.enemy_name)
 	enemy.perform_turn_based_move(tiles_per_turn)
 	await enemy.movement_finished
 	if generation != action_generation:

@@ -60,6 +60,7 @@ func add_status(status: Status) -> void:
 		new_status_ui.status.status_applied.connect(_on_status_applied)
 		new_status_ui.status.initialize_status(status_owner)
 		status.status_changed.connect(_on_status_changed.bind(status))
+		_announce_player_status(status)
 		status_added.emit()
 		return
 
@@ -68,12 +69,14 @@ func add_status(status: Status) -> void:
 
 	if status.can_expire and status.stack_type == Enums.StatusStackType.DURATION:
 		_get_status(status.id).duration += status.duration
+		_announce_player_status(status)
 		status_added.emit()
 		return
 
 	if status.stack_type == Enums.StatusStackType.INTENSITY:
 		var existing := _get_status(status.id)
 		existing.stacks = mini(existing.stacks + status.stacks, 3) if existing is AnalyzedStatus else existing.stacks + status.stacks
+		_announce_player_status(status)
 		status_added.emit()
 	
 
@@ -138,3 +141,9 @@ func _on_status_applied(status: Status) -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_mouse"):
 		Events.status_tooltip_requested.emit(_get_all_statuses())
+
+func _announce_player_status(status: Status) -> void:
+	if status_owner is Player:
+		Events.world_message_requested.emit(WorldMessageData.new(
+			"%s applied to you" % status.id.capitalize(), WorldMessageData.Priority.IMPORTANT
+		))

@@ -39,8 +39,9 @@ func perform_action() -> void:
 
 	intent.current_text = intent.base_text
 
-	var message := WorldMessageData.new("%s empowers the swarm" % enemy.name, WorldMessageData.Priority.IMPORTANT)
-	Events.world_message_requested.emit(message)
+	var message := WorldMessageData.new("%s empowers the swarm" % enemy.stats.enemy_name, WorldMessageData.Priority.IMPORTANT)
+	if not enemy.tilemap.is_tile_behind_fog(enemy.current_tile_position):
+		Events.world_message_requested.emit(message)
 
 	block_effect.execute(allies)
 	strength_effect.execute(allies)

@@ -178,3 +178,9 @@ Headless checks establish behavior, not visual readability.
 native renderer with disposable captures in system temp, removed after exit.
 Use [visual QA](visual-production.md) when evidence must remain available for
 review. Report renderer/window settings and the states actually inspected.
+
+Combat messages use the scene-authored WorldMessage/WorldMessageContainer and
+shared CombatEvent theme roles. The bounded live scroll area shares its space
+with the expandable Recent events history, keeping camera help and tile details
+clear. See [combat event feed](combat.md#combat-event-feed) for attribution,
+fog disclosure, retention and timing behavior.

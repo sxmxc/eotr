@@ -20,8 +20,9 @@ func perform_action() -> void:
 		Events.enemy_action_completed.emit(enemy)
 		return
 
-	var world_message := WorldMessageData.new("%s channels a weakening bolt" % enemy.name)
-	Events.world_message_requested.emit(world_message)
+	var world_message := WorldMessageData.new("%s channels a weakening bolt" % enemy.stats.enemy_name)
+	if not enemy.tilemap.is_tile_behind_fog(enemy.current_tile_position):
+		Events.world_message_requested.emit(world_message)
 
 	if projectile_scene and DisplayServer.get_name() != "headless":
 		var projectile := projectile_scene.instantiate() as ProjectileFX
@@ -32,6 +33,7 @@ func perform_action() -> void:
 		await projectile.complete
 
 	var damage_effect := DamageEffect.new()
+	damage_effect.source_actor = enemy
 	damage_effect.amount = damage
 	damage_effect.sound_fx = sound
 	damage_effect.visual_fx = visual_fx

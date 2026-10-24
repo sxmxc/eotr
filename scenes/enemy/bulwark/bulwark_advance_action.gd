@@ -17,8 +17,9 @@ func perform_action() -> void:
 	if not enemy:
 		return
 
-	var world_message := WorldMessageData.new("%s braces forward" % enemy.name)
-	Events.world_message_requested.emit(world_message)
+	var world_message := WorldMessageData.new("%s braces forward" % enemy.stats.enemy_name)
+	if not enemy.tilemap.is_tile_behind_fog(enemy.current_tile_position):
+		Events.world_message_requested.emit(world_message)
 	enemy.perform_turn_based_move(tiles_per_turn)
 	await enemy.movement_finished
 

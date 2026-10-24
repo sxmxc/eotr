@@ -16,8 +16,6 @@ func perform_action() -> void:
 	if not player:
 		return
 	
-	var world_message = WorldMessageData.new("%s attacks!" % enemy.name)
-	Events.world_message_requested.emit(world_message)
 
 	var tween := create_lunge_tween().set_trans(Tween.TRANS_QUINT)
 	# Flying idle also writes Sprite2D.position; pause it for the authored lunge.
@@ -29,6 +27,7 @@ func perform_action() -> void:
 	var end := start + enemy.to_local(target.global_position).normalized() * 5.0
 
 	var damage_effect := DamageEffect.new()
+	damage_effect.source_actor = enemy
 	var target_array: Array[Node] = [target]
 	var modified_dmg := enemy.modifier_handler.get_modified_value(
 		damage, Enums.ModifierType.DMG_DEALT
