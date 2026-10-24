@@ -227,7 +227,6 @@ offset_top = 2.0
 offset_right = 172.0
 offset_bottom = 40.0
 theme_type_variation = &"CardName"
-theme_override_font_sizes/font_size = 18
 text = "Card name"
 vertical_alignment = 1
 autowrap_mode = 3
