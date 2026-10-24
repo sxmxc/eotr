@@ -1,9 +1,34 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://cur627afq1np7"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://cur627afq1np7"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_5rn5p"]
+[ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="3_jw7le"]
+[ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="4_k8poh"]
 [ext_resource type="Texture2D" uid="uid://gxpkxdlcekjx" path="res://assets/rift/cards/combat_network.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/combat_network.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_8ahot"]
+script = ExtResource("4_k8poh")
+id = "analyzed"
+type = 2
+stack_type = 1
+stacks = 3
+icon = ExtResource("3_jw7le")
+tooltip = "Analyze: +1 damage per stack from direct player and construct hits (maximum 3). Persists until consumed or combat ends."
+
+[sub_resource type="Resource" id="Resource_ojyoa"]
+script = ExtResource("2_5rn5p")
+effect_type = 6
+target = 3
+visual_fx = ExtResource("vfx")
+status = SubResource("Resource_8ahot")
+
+[sub_resource type="Resource" id="Resource_d6ls2"]
+script = ExtResource("2_5rn5p")
+effect_type = 5
+amount = 2
+target = 1
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -16,5 +41,6 @@ description = "Apply 3 Analyze to all visible enemies. Draw 2. Exhaust."
 energy_cost = 2
 exhaust = true
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_5rn5p")]([SubResource("Resource_ojyoa"), SubResource("Resource_d6ls2")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

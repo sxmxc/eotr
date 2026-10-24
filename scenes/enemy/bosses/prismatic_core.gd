@@ -77,14 +77,17 @@ func perform_boss_turn(action: EnemyAction, generation: int) -> void:
 	if had_link and not live:
 		return
 	feedback = 1.0
+	present_attack("windup")
 	discharging = true
 	discharge_progress = 0.0
 	await get_tree().create_timer(Utils.presentation_duration(0.3)).timeout
 	discharging = false
 	if action_is_live(action, generation):
+		present_attack("release")
 		strike_player(9 if live else 4, DISCHARGE_SOUND)
 
 func _draw() -> void:
+	super._draw()
 	if not is_instance_valid(tilemap) or is_dying or encounter_finished:
 		return
 	if discharging and is_instance_valid(tilemap.player):

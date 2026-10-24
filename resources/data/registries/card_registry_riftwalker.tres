@@ -30,6 +30,14 @@
 [ext_resource type="Resource" uid="uid://dsxowmpws0hp2" path="res://resources/data/cards/riftwalker/void_fracture.tres" id="28_void_fracture"]
 [ext_resource type="Resource" uid="uid://br5m0y8n8mifq" path="res://resources/data/cards/riftwalker/void_shard.tres" id="29_void_shard"]
 [ext_resource type="Resource" uid="uid://dsu4lma4q6fs8" path="res://resources/data/cards/riftwalker/void_surge.tres" id="30_void_surge"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/afterimage.tres" id="new_afterimage"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/backwash.tres" id="new_backwash"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/borrowed_spark.tres" id="new_borrowed_spark"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/cash_out.tres" id="new_cash_out"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/drink_deep.tres" id="new_drink_deep"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/grounding_step.tres" id="new_grounding_step"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/second_thought.tres" id="new_second_thought"]
+[ext_resource type="Resource" path="res://resources/data/cards/riftwalker/slipstream.tres" id="new_slipstream"]
 
 [resource]
 script = ExtResource("1_script")
@@ -210,6 +218,70 @@ entries = Array[Dictionary]([{
 "card": ExtResource("30_void_surge"),
 "class_id": "Riftwalker",
 "tags": ["riftwalker", "reward", "shop"],
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_slipstream"),
+"class_id": "Riftwalker",
+"rarity": 1,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_grounding_step"),
+"class_id": "Riftwalker",
+"rarity": 0,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_drink_deep"),
+"class_id": "Riftwalker",
+"rarity": 1,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_afterimage"),
+"class_id": "Riftwalker",
+"rarity": 0,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_cash_out"),
+"class_id": "Riftwalker",
+"rarity": 1,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_borrowed_spark"),
+"class_id": "Riftwalker",
+"rarity": 0,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_second_thought"),
+"class_id": "Riftwalker",
+"rarity": 1,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
+"unlocked": true,
+"weight": 1.0
+}, {
+"allow_draft": true,
+"card": ExtResource("new_backwash"),
+"class_id": "Riftwalker",
+"rarity": 2,
+"tags": Array[String](["riftwalker", "reward", "shop"]),
 "unlocked": true,
 "weight": 1.0
 }])

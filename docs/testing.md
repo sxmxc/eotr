@@ -26,7 +26,7 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Combat legality, action completion and teardown | `--combat-automation` |
 | Lunge cancellation only | `--combat-automation --attack-cancellation-only` |
 | Status expiration and modifier cleanup | `--status-lifecycle` |
-| Synthforged's 28 cards, Overclock, Analyze, constructs, targeting and class save/shop/reward integration | `--synthforged` |
+| Synthforged's 36 cards, both classes' expansion cards, shared eligibility, Overclock, constructs and save recovery | `--synthforged` |
 | Occupancy/movement query checks and profiling | `--board-queries` |
 | Watch pause/step/speed/stop | `--autowalker-controls` |
 | Local/upload routing with fake transport, no server | `--autowalker-telemetry` |
@@ -43,6 +43,12 @@ and retains reviewed settings/rail PNGs under `.qa-tmp/settings-rail/`. It uses
 controlled fog, health and positioning states in the real battle scene, not a
 natural combat sequence. Fullscreen switching and multi-monitor behavior still
 need a manual display check.
+
+The settings/rail suite also sends a same-frame burst through the real combat
+message container, checking its four-row limit, history retention and scrolling
+after eviction. It empties the live list before deferred scrolling runs to cover
+detached-control errors; unexpected engine errors fail the launcher even when
+the assertion count is zero.
 
 `--combat-automation --card-lifecycle-only` covers shared card authorization
 (stale phase/cost, foreign/freed targets, lock ownership and invalid release),

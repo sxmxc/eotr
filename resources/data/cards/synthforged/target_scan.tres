@@ -1,9 +1,33 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://u3uq4ch6mu3t"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://u3uq4ch6mu3t"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_esucv"]
+[ext_resource type="Texture2D" uid="uid://fix2ffeuuagn" path="res://assets/rift/ui/analyzed.svg" id="3_tbphc"]
+[ext_resource type="Script" uid="uid://y68j1hmsyjpb" path="res://resources/data/statuses/analyzed.gd" id="4_em27w"]
 [ext_resource type="Texture2D" uid="uid://vy0oitdpoirt" path="res://assets/rift/cards/target_scan.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/target_scan.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_0plvs"]
+script = ExtResource("4_em27w")
+id = "analyzed"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("3_tbphc")
+tooltip = "Analyze: +1 damage per stack from direct player and construct hits (maximum 3). Persists until consumed or combat ends."
+
+[sub_resource type="Resource" id="Resource_ncseo"]
+script = ExtResource("2_esucv")
+effect_type = 6
+visual_fx = ExtResource("vfx")
+status = SubResource("Resource_0plvs")
+
+[sub_resource type="Resource" id="Resource_t5nri"]
+script = ExtResource("2_esucv")
+effect_type = 5
+amount = 1
+target = 1
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -14,5 +38,6 @@ name = "Target Scan"
 description = "Apply 1 Analyze. Draw 1. Exhaust."
 exhaust = true
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_esucv")]([SubResource("Resource_ncseo"), SubResource("Resource_t5nri")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

@@ -41,11 +41,22 @@ occupancy and cancellation lifecycle. `ui/world_ui/boss_health.gd` shows aggrega
 actual hostile health. Victory still requires all hostiles, including surviving
 relays after killing their core.
 
+Bulwark and Core occupy three real hexes each. Spectre remains a one-cell mobile
+apparition: its Anchor is a separate positional dependency. Each boss has its own
+illustrated sprite and authored scale, with a shared native AnimationPlayer for
+arrival, restrained idle, windup and release. Existing hit/death feedback remains.
+Phantom Camera initially frames revealed combatants below the health meter; movement follow,
+pan, zoom and overview remain available.
+
 **Bulwark** (`tier_2_bulwark_channelers`, tier 2) commits a short ram route toward
 the player's position at preparation. Subsequent movement does not redirect it.
-The ram deals 10 blockable damage; recovery takes 50% increased ordinary incoming
+The ram sweeps its full three-cell body along the announced route, stops at the
+first actor/terrain collision, and deals 10 blockable damage once to contacted
+player-side units. It depletes resource cells it actually traverses. Recovery takes 50% increased ordinary incoming
 damage. Sidestep, block or exploit recovery. It checks surviving cells/occupancy
 and can abandon the ram to escape collapse.
+Escape searches a legal path of at most two steps with its whole body off the
+edge; it does not teleport through intervening blockers.
 
 **Void Spectre** (`tier_2_void_spectre`, tier 5) alternates listening and reaping.
 Attack cards add chorus voices; other cards remove them, capped at three. Reap

@@ -62,11 +62,31 @@ static func load_data() -> SaveGame:
 			data.run_stats.completed_floors = 0
 		if data:
 			var restored := data.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) as SaveGame
+			restored._restore_legacy_synthforged_cards()
 			restored._restore_missing_obelisk_compositions()
 			return restored
 		return null
 
 	return null
+
+
+func _restore_legacy_synthforged_cards() -> void:
+	# Old checkpoints embedded the former all-card Synthforged script, sometimes
+	# before its lazy effect configuration ran. Rebind those saved identities to
+	# their authored cards. The retained script path now owns actual summons only.
+	if not current_deck: return
+	for index in current_deck.cards.size():
+		var saved := current_deck.cards[index]
+		if not saved is ConstructSummonCard: continue
+		for entry: Dictionary in RegistryData.card_registry.entries:
+			var definition := entry.card as Card
+			if definition.id != saved.id or entry.get("class_id", "") != "Synthforged": continue
+			if saved.get_script() != definition.get_script() or saved.effect_configs.is_empty():
+				var restored := definition.duplicate(true) as Card
+				restored.energy_cost = saved.energy_cost
+				restored.exhaust = saved.exhaust
+				current_deck.cards[index] = restored
+			break
 
 
 func _has_valid_map_graph() -> bool:

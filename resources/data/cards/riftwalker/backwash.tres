@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_ynqr1"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/backwash.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/eldritch_barrier_signature.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/riftwalker/backwash.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+card_type = 1
+target_type = 1
+id = "backwash"
+name = "Backwash"
+card_rarity = 2
+description = "Consume target's Corroded. Gain 4 block per stack consumed, up to 16. Exhaust."
+energy_cost = 1
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

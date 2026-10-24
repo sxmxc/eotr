@@ -2,6 +2,16 @@
 [ext_resource type="PackedScene" path="res://scenes/enemy/moving_enemy.tscn" id="body"]
 [ext_resource type="Script" path="res://scenes/enemy/bosses/listening_spectre.gd" id="behavior"]
 [ext_resource type="Resource" path="res://scenes/enemy/bosses/listening_spectre.tres" id="stats"]
+[ext_resource type="PackedScene" path="res://scenes/enemy/bosses/boss_presence.tscn" id="presentation"]
 [node name="listening_spectre" instance=ExtResource("body")]
 script = ExtResource("behavior")
 stats = ExtResource("stats")
+body_scale = Vector2(0.29, 0.29)
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.29, 0.29)
+[node name="ImpactAnchor" parent="." index="9"]
+position = Vector2(0, -65)
+[node name="SpellOrigin" parent="." index="8"]
+position = Vector2(18, -65)
+[node name="BossMotion" parent="." instance=ExtResource("presentation")]

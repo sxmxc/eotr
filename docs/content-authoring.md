@@ -8,8 +8,10 @@ integration. [Architecture](architecture.md) explains those owners.
 
 ## Cards
 
-1. Inspect `resources/data/cards/riftwalker/arcane_bolt.gd` and its `.tres`, then
-   create a Card subclass/resource under the appropriate class directory. Give it
+1. Inspect a nearby resource. Ordinary effects belong directly in a Card `.tres`;
+   use a script beside it only for custom behavior, as in existing Riftwalker
+   cards. Reuse Phase Step for ordinary movement and ConstructSummonCard for
+   deployment. Give the resource
    a stable ID, name, cost, rarity, target type, description and artwork.
 2. Prefer `effect_configs` with CardEffectConfig factories and `_sync_effect_configs`
    for standard damage, block, energy and other supported effects. CardResolver
@@ -52,14 +54,19 @@ AutoWalker run for lifecycle-sensitive changes; use native captures for new art/
 
 ## Synthforged content
 
-Synthforged has 28 authored cards (12 common, 10 uncommon, six rare). Seven starter
+Synthforged has 36 authored cards (15 common, 14 uncommon, seven rare). Seven starter
 identities supply an 11-card deck and are registry-visible with `allow_draft=false`;
-the remaining 21 form the draft/shop/reward pool. The historical
+the remaining 29 form its class draft/shop/reward pool. The historical
 `synthforged_starting_dec.tres` path and UID are retained for compatibility.
-`SynthforgedCard` composes ordinary effects and the construct operations from
-CardEffectConfig; each card resource supplies its own illustration and VFX scene.
+Ordinary effects and construct operations are serialized CardEffectConfig resources
+on each card. ConstructSummonCard owns deployment/fabrication only; conditional
+cards own their behavior beside their resource. There is no card-ID dispatcher.
+See [card pool expansion](card-pool-expansion.md) for eligibility, all 22 additions
+and saved-card recovery. Each card resource supplies its illustration and VFX.
 
-ConstructDefinition authors identity, HP, attack damage/range and texture. Add
+ConstructDefinition authors identity, HP, attack damage/range and texture.
+ConstructSummonCard owns the selected profile and binds it to its SUMMON effect;
+do not author a second profile choice inside that effect. Add
 profiles under `resources/data/constructs/` and use SUMMON/REPAIR/COMMAND/DISMANTLE/
 RELOCATE configurations through CardResolver. Never add constructs to the enemy
 group or bypass the battle-owned SummonHandler's placement and occupancy checks.
@@ -141,3 +148,6 @@ existing data editor; definitions must be saved before registry references.
 
 For artwork dimensions, packaging and inventories, see
 [visual production](visual-production.md). For layout, see [UI authoring](ui-authoring.md).
+
+Registry picks and pile copies deep-duplicate card effect configurations, so a
+conditional card or modified copy cannot mutate an authored resource or sibling.

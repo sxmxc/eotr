@@ -68,18 +68,50 @@ var _occupied_cells: Dictionary[Vector2i, Array] = {}
 var _occupant_cells: Dictionary[Node2D, Array] = {}
 
 func register_occupant(actor: Node2D, cell: Vector2i) -> void:
-	_set_occupant_cells(actor, [cell])
+	_set_occupant_cells(actor, footprint_cells(actor, cell))
 	var cleanup := remove_occupant.bind(actor)
 	if not actor.tree_exiting.is_connected(cleanup):
 		actor.tree_exiting.connect(cleanup)
 
 func update_occupant(actor: Node2D, cell: Vector2i) -> void:
 	if _occupant_cells.has(actor):
-		_set_occupant_cells(actor, [cell])
+		_set_occupant_cells(actor, footprint_cells(actor, cell))
 
 func reserve_movement(actor: Node2D, origin: Vector2i, destination: Vector2i) -> void:
 	if _occupant_cells.has(actor):
-		_set_occupant_cells(actor, [origin, destination])
+		var cells := footprint_cells(actor, origin)
+		for cell in footprint_cells(actor, destination):
+			if not cells.has(cell):
+				cells.append(cell)
+		_set_occupant_cells(actor, cells)
+
+
+# Cube offsets keep a footprint invariant across odd/even offset columns.
+func footprint_cells(actor: Node2D, anchor: Vector2i) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	if actor is Enemy:
+		var center := offset_to_cube(anchor)
+		for offset: Vector3i in actor.footprint:
+			var cell := cube_to_offset(center + offset)
+			if not cells.has(cell):
+				cells.append(cell)
+	if not cells.has(anchor):
+		cells.push_front(anchor)
+	return cells
+
+
+func can_place_actor(actor: Node2D, anchor: Vector2i, flying: bool = false) -> bool:
+	for cell in footprint_cells(actor, anchor):
+		if not is_within_bounds(cell) or (not flying and is_tile_corrupt(cell)):
+			return false
+		for occupant: Node2D in _occupied_cells.get(cell, []):
+			if occupant != actor:
+				return false
+	return true
+
+
+func occupants_at(cell: Vector2i) -> Array:
+	return _occupied_cells.get(cell, []).duplicate()
 
 func remove_occupant(actor: Node2D) -> void:
 	for cell: Vector2i in _occupant_cells.get(actor, []):
@@ -652,7 +684,7 @@ func shrink_map(amount) -> void:
 					continue
 				if enemy is MovingEnemy:
 					(enemy as MovingEnemy).cancel_movement()
-				if enemy.current_tile_position == cell:
+				if enemy.occupied_tiles().has(cell):
 					var death_damage = enemy.stats.health
 					enemy.take_damage(death_damage, Enums.ModifierType.NO_MODIFIER, true)
 					remove_occupant(enemy)

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" format=3 uid="uid://ccb73q3n7qlfb"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_k721c"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/fire_command.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://d4egna1bvfes3" path="res://assets/rift/cards/relay_orders.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://bfucic102mcxy" path="res://resources/data/cards/synthforged/relay_orders.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_k721c"]
+script = ExtResource("2_k721c")
+effect_type = 10
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+target_type = 9
+id = "relay_orders"
+name = "Relay Orders"
+card_rarity = 2
+description = "Selected construct and adjacent constructs attack immediately. Exhaust."
+energy_cost = 2
+exhaust = true
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_k721c")]([SubResource("Resource_k721c")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

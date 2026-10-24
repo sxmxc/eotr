@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_2e08h"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/cash_out.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/mana_surge_signature.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/riftwalker/cash_out.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+id = "cash_out"
+name = "Cash Out"
+card_rarity = 1
+description = "Consume all your Attunement. Gain 1 energy per stack, up to 3. Exhaust."
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

@@ -184,3 +184,6 @@ shared CombatEvent theme roles. The bounded live scroll area shares its space
 with the expandable Recent events history, keeping camera help and tile details
 clear. See [combat event feed](combat.md#combat-event-feed) for attribution,
 fog disclosure, retention and timing behavior.
+Deferred live-feed scrolling selects the newest surviving row after burst eviction;
+it does not retain a removed row as a scroll target. Clearing the live list before
+the callback runs leaves history intact and performs no scroll.

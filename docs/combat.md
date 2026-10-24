@@ -46,11 +46,28 @@ must respect visibility; tall sprites/effects must not expose hidden enemies.
 rebuilds from map generation and presentation-change notifications. Neither owns
 a parallel occupancy map.
 
+Enemies export an anchor-relative cube-coordinate `footprint`. ProcGenTilemap
+expands it to offset cells and remains the only occupancy owner. Registration,
+destination legality, path queries and movement reservations use the whole body;
+reservations cover both origin and destination until completion/cancellation.
+Self-overlap is legal; unrelated actors, missing cells and (for grounded units)
+corruption reject placement. Single-cell actors use the same APIs.
+
+An enemy is revealed when any surviving body cell is visible. Target highlights
+include only visible occupied cells; selecting one resolves to the one enemy.
+Adjacent attacks and construct range use the nearest visible occupied cell.
+An area intersecting multiple body cells still produces one recipient per hit;
+intentional multi-hit effects remain separate hits. Current bosses have one
+health/status identity, with no independently damageable body parts.
+
 Collapse removes outer cells on the encounter's cadence (default three rounds).
 BattleStateController decides when; GameWorld/ProcGenTilemap perform the shrink
 and entity checks. Warnings follow visible endangered cells. Falling artwork is
 cosmetic evidence of an authoritative erase, not the event that decides whether
 a cell exists. Collapse is lethal terrain loss, not an ordinary blockable attack.
+Losing any currently occupied body cell kills the enemy through block and releases
+its complete footprint. A cancelled move does not fall merely because its abandoned
+destination collapsed. No act boss has collapse immunity.
 
 ## Synthforged and allied constructs
 

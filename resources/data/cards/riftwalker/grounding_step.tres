@@ -1,0 +1,45 @@
+[gd_resource type="Resource" format=3 uid="uid://bmiv85s5ioax6"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_a00pt"]
+[ext_resource type="Texture2D" uid="uid://deergqeuhx0n4" path="res://assets/rift/ui/focus.svg" id="4_jfn0o"]
+[ext_resource type="Script" uid="uid://ocoxu4wrph77" path="res://resources/data/statuses/attunement.gd" id="5_kiqbi"]
+[ext_resource type="PackedScene" path="res://ui/fx/focus_signature.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://cmnpj3b7wqn7r" path="res://assets/rift/cards/grounding_step.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://ddw3ddv6h7kiw" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_akmcm"]
+script = ExtResource("2_a00pt")
+effect_type = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[sub_resource type="Resource" id="Resource_e0s4f"]
+script = ExtResource("5_kiqbi")
+id = "attunement"
+type = 2
+stack_type = 1
+stacks = 1
+icon = ExtResource("4_jfn0o")
+tooltip = "Arcane spells do [b]%s[/b] more damage"
+metadata/_custom_type_script = "uid://cf5k4m2kshtxs"
+
+[sub_resource type="Resource" id="Resource_7qjo1"]
+script = ExtResource("2_a00pt")
+effect_type = 6
+target = 1
+visual_fx = ExtResource("fx")
+status = SubResource("Resource_e0s4f")
+
+[resource]
+script = ExtResource("script")
+card_type = 7
+target_type = 5
+id = "grounding_step"
+name = "Grounding Step"
+description = "Move %s hex(es). Gain 1 Attunement. Exhaust."
+energy_cost = 1
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_a00pt")]([SubResource("Resource_akmcm"), SubResource("Resource_7qjo1")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

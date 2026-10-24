@@ -1,0 +1,188 @@
+{
+  "provider": "built-in image_gen",
+  "spec": "ai/visual/specs/card-expansion-boss-presence.md",
+  "note": "Generator source paths are provenance only. Runtime assets are packaged under assets/rift. Initial Synthforged, Cash Out hand, class-specific shared art and horn-bearing Spectre revisions were rejected and moved to .qa-tmp/expansion/rejected-art. Initial Riftwalker generation source paths were not retained when its batch was stopped; its prompts are recorded by the per-card scene descriptions and style spec. No rejected revision is a runtime dependency.",
+  "sources": [
+    {
+      "key": "slipstream",
+      "runtime_asset": "assets/rift/cards/slipstream.webp",
+      "source_path": null,
+      "scene_prompt": "A teal-cloaked ivory-masked Riftwalker slipping between two falling slate slabs on a thin cyan wake; clear lateral motion.",
+      "mechanic_prompt": "Move up to 2 hexes. Draw 1. Exhaust.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "grounding_step",
+      "runtime_asset": "assets/rift/cards/grounding_step.webp",
+      "source_path": null,
+      "scene_prompt": "Riftwalker's brown boot planting into cracked slate as a cyan current climbs into a gloved hand.",
+      "mechanic_prompt": "Move 1 hex. Gain 1 Attunement. Exhaust.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "drink_deep",
+      "runtime_asset": "assets/rift/cards/drink_deep.webp",
+      "source_path": null,
+      "scene_prompt": "Ivory-masked teal-sleeved spellcaster kneeling at a stone mana basin, drawing a narrow cyan stream through cupped brown gloves.",
+      "mechanic_prompt": "On a mana well: gain 2 Attunement and draw 1. Exhaust.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "afterimage",
+      "runtime_asset": "assets/rift/cards/afterimage.webp",
+      "source_path": null,
+      "scene_prompt": "A violet claw striking an empty translucent teal cloak while the real masked Riftwalker braces to one side.",
+      "mechanic_prompt": "Gain 5 block. If you moved this turn, gain 6 more.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "borrowed_spark",
+      "runtime_asset": "assets/rift/cards/borrowed_spark.webp",
+      "source_path": null,
+      "scene_prompt": "Riftwalker's glove prying a cyan spark from a cracked conductor, wrist recoiling, ivory mask half-lit.",
+      "mechanic_prompt": "Gain 2 energy. Gain 1 turn of Weakened. Exhaust.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "second_thought",
+      "runtime_asset": "assets/rift/cards/second_thought.webp",
+      "source_path": null,
+      "scene_prompt": "Riftwalker catching a single curling cyan spell-page before it drops into a dark stone fissure.",
+      "mechanic_prompt": "Return the most recent other Skill in your discard to hand at its normal cost. Exhaust.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "backwash",
+      "runtime_asset": "assets/rift/cards/backwash.webp",
+      "source_path": null,
+      "scene_prompt": "Corrosive green-violet stains lifting off a chitinous creature into a slate barrier before a teal-gloved caster.",
+      "mechanic_prompt": "Consume target's Corroded. Gain 4 block per stack consumed, up to 16. Exhaust.",
+      "references": [
+        "assets/rift/cards/arcane_bolt.webp",
+        "assets/rift/entities/riftwalker.webp"
+      ]
+    },
+    {
+      "key": "scrap_order_v2",
+      "id": "scrap_order",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: Synthforged kneels on image-right, unplugging an amber power capsule from the reference sentry on image-left. The stationary sentry is powered down, barrel lowered. Medium shot showing the whole kneeling figure and construct; keep arms and hands small, natural and connected. Focal point is the cable disconnect. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-58b11e9f-8194-4912-bf34-47d585f5f641.png"
+    },
+    {
+      "key": "crossfire_v2",
+      "id": "crossfire",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: HIGH OVERHEAD view: two exact reference sentry constructs placed on separate slate ledges shoot two narrow amber tracers into one purple armored creature between them. The exact Synthforged player watches from the lower-left, small but recognizable. Distinct combined-arms geometry, no giant hands, no extra turrets. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-ce733ea4-5dd6-4035-8a06-9941ae72020e.png"
+    },
+    {
+      "key": "spotter_v2",
+      "id": "spotter",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: SIDE PROFILE: exact Synthforged crouching behind the shield of the exact Pike construct. Synthforged's cyan eye and the Pike's amber barrel align toward a distant purple chitin creature at right. A single restrained red sight line from the construct, simple misty slate backdrop. Emphasize optical coverage, not firing. Full connected limbs. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-e971b797-9104-42d6-a2b3-9c5e4ab98be9.png"
+    },
+    {
+      "key": "relay_orders_v2",
+      "id": "relay_orders",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: MEDIUM REAR THREE-QUARTER: exact Synthforged stands on a low slate step, one black mechanical hand raised in a compact command gesture. Two exact reference sentries cluster within arm's reach, one at each side, barrels aiming outward in coordinated directions. One restrained red signal chevron near each barrel, no floating text. Natural two arms only. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-05647fbc-b38b-4852-b1c8-e5114ebc93db.png"
+    },
+    {
+      "key": "power_tap_v2",
+      "id": "power_tap",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: CLOSE SIDE VIEW of exact Synthforged from head to waist plugging one thick brass cable from the exact Pike's shield capacitor into its own gauntlet. Pike shield at left visibly goes dark as a narrow amber light enters the character's cyan gauntlet. Both mechanical forearms visible and anatomically connected, no giant disembodied hands. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-4f431354-6371-4126-9074-c03a46ca0536.png"
+    },
+    {
+      "key": "flanking_maneuver_v2",
+      "id": "flanking_maneuver",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: DYNAMIC SIDE VIEW of exact Synthforged making a low lateral dash across two adjacent slate slabs, torso turning its cyan faceplate toward a single purple armored creature in the foreground. One amber thruster streak behind a boot, a red aiming corner beside the creature. Full body, exactly two naturally attached arms and legs, clean directional silhouette. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-3720a357-3186-4cf9-a18f-e2b0fbbe3015.png"
+    },
+    {
+      "key": "maintenance_window_v2",
+      "id": "maintenance_window",
+      "prompt": "Use case: illustration-story. ONE original finished landscape 3:2 fantasy card illustration for a 148x99 art window. Image 1 approved Arcane Bolt is STYLE ONLY: bold dark outlines, simplified cel-shaded planes, clean expressive silhouettes, atmospheric painted environment. Image 2 is the EXACT Synthforged CHARACTER identity; preserve angular ivory helmet with black faceplate and CYAN eye slit, ivory armor, gunmetal articulated limbs, brass circular joints, black mechanical fingers, compact cyan gauntlet. Image 3 is the EXACT construct identity; keep its stationary base, weapon and plates. Image 4 is an existing CARD ART reference for action/material consistency, do not copy its composition. Mechanic-specific scene: CALM HIGH THREE-QUARTER view: exact Synthforged kneels beside an exact battered Pike construct, studying three small blank diagnostic slates laid on the ground. The Pike has cracked ivory plating but stays upright; the character has one black mechanical hand on its own knee and the other holding a slate. Readable inventory of damage, no extra arms or symbols. Use central 80% with safe margins, simple slate background, restrained detail, focal clarity at small scale. No realistic surface texture or lighting, no dense debris, no composited sprites, no tiny machine details replacing silhouette. No text, writing, frames, UI, watermark. Verify shoulder-elbow-wrist continuity, correct thumb side, exactly two arms on the character. No Riftwalker, no generic invented robot, no swapping the character for a construct.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-251fe79f-b9a6-4604-a3e5-5ca2d8a94ac8.png"
+    },
+    {
+      "key": "sure_footing_v2",
+      "prompt": "Use case: illustration-story. ONE finished landscape 3:2 card illustration, composed for 148x99 small viewport. Input is approved Arcane Bolt STYLE REFERENCE ONLY: thick dark ink contours, simplified clean cel-shaded color planes, atmospheric painted background, expressive large shapes; DO NOT copy its character or composition. This is a SHARED card for both classes, so no identifiable class character, teal masked mage, humanoid robot, mechanical gauntlets, or class-exclusive motifs. Card Sure Footing. Specific scene: LOW CLOSE-UP of two ordinary brown travel boots over charcoal cloth trousers stepping off an unstable slate slab onto one solid pale stone. A small plain leather buckler rests against a rock at right. No cloak, no sleeves, no hands, no mask, no armor, no magic. Dust falls only from the abandoned slab. Central subject within central 80%, safe margins, sparse background, no realistic material texture, photorealistic lighting, dense small debris, particles, composited sprites, letters, glyph overlays, text, UI or card frame.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-58a7d10f-1658-4a09-aa3e-7fd7681916b6.png"
+    },
+    {
+      "key": "keep_distance_v2",
+      "prompt": "Use case: illustration-story. ONE finished landscape 3:2 card illustration, composed for 148x99 small viewport. Input is approved Arcane Bolt STYLE REFERENCE ONLY: thick dark ink contours, simplified clean cel-shaded color planes, atmospheric painted background, expressive large shapes; DO NOT copy its character or composition. This is a SHARED card for both classes, so no identifiable class character, teal masked mage, humanoid robot, mechanical gauntlets, or class-exclusive motifs. Card Keep Distance. Specific scene: HIGH OVERHEAD environmental composition: an ordinary round wooden buckler and brown travel satchel at lower left on a safe stone ledge, separated from approaching purple thorny limbs at upper right by a broad empty gap of pale mist and broken stone. No person visible. Empty space is the dominant shape, shield is secondary. Central subject within central 80%, safe margins, sparse background, no realistic material texture, photorealistic lighting, dense small debris, particles, composited sprites, letters, glyph overlays, text, UI or card frame.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-51bb44b4-7409-4cc6-826c-32cbba260f63.png"
+    },
+    {
+      "key": "travel_light",
+      "prompt": "Use case: illustration-story. ONE finished landscape 3:2 card illustration, composed for 148x99 small viewport. Input is approved Arcane Bolt STYLE REFERENCE ONLY: thick dark ink contours, simplified clean cel-shaded color planes, atmospheric painted background, expressive large shapes; DO NOT copy its character or composition. This is a SHARED card for both classes, so no identifiable class character, teal masked mage, humanoid robot, mechanical gauntlets, or class-exclusive motifs. Card Travel Light. Specific scene: A plain brown canvas travel pack stands OPEN on a warm ochre campsite ledge, heavy discarded metal plates lying beside it. Two blank parchment map slips lift in a simple breeze toward a narrow stone footbridge in the background. No character, no hands, no teal cloak, no robots, no text. Lightness and new choices, not a magical attack. Central subject within central 80%, safe margins, sparse background, no realistic material texture, photorealistic lighting, dense small debris, particles, composited sprites, letters, glyph overlays, text, UI or card frame.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-eb1d6f49-28e8-43c3-a79e-a8c1e6b8dce6.png"
+    },
+    {
+      "key": "strip_supplies",
+      "prompt": "Use case: illustration-story. ONE finished landscape 3:2 card illustration, composed for 148x99 small viewport. Input is approved Arcane Bolt STYLE REFERENCE ONLY: thick dark ink contours, simplified clean cel-shaded color planes, atmospheric painted background, expressive large shapes; DO NOT copy its character or composition. This is a SHARED card for both classes, so no identifiable class character, teal masked mage, humanoid robot, mechanical gauntlets, or class-exclusive motifs. Card Strip Supplies. Specific scene: ONE iron prybar embedded in a fractured ochre crystal resource deposit on a slate floor. Useful ore is visibly smashed to grit, one strong amber energy filament escapes upward. No person, no hands, no machines or teal clothing. LOW intimate view under a cave overhang, sparse broad forms. Central subject within central 80%, safe margins, sparse background, no realistic material texture, photorealistic lighting, dense small debris, particles, composited sprites, letters, glyph overlays, text, UI or card frame.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-192b71fe-3bf3-4ad6-9a21-758520dbeba7.png"
+    },
+    {
+      "key": "unbuckle",
+      "prompt": "Use case: illustration-story. ONE finished landscape 3:2 card illustration, composed for 148x99 small viewport. Input is approved Arcane Bolt STYLE REFERENCE ONLY: thick dark ink contours, simplified clean cel-shaded color planes, atmospheric painted background, expressive large shapes; DO NOT copy its character or composition. This is a SHARED card for both classes, so no identifiable class character, teal masked mage, humanoid robot, mechanical gauntlets, or class-exclusive motifs. Card Unbuckle. Specific scene: ONE worn round wooden shield tipped on its side in the foreground, its leather arm straps visibly open; two blank parchment cards slide free from beneath it. Quiet dusty plum cave interior and a warm shaft of sunlight, no person, no hands, no magic. Strong diagonal shield-to-parchment flow. Central subject within central 80%, safe margins, sparse background, no realistic material texture, photorealistic lighting, dense small debris, particles, composited sprites, letters, glyph overlays, text, UI or card frame.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-005f2f35-3959-407e-a59f-c9c25f32fc63.png"
+    },
+    {
+      "key": "reserve_rations",
+      "prompt": "Use case: illustration-story. ONE finished landscape 3:2 card illustration, composed for 148x99 small viewport. Input is approved Arcane Bolt STYLE REFERENCE ONLY: thick dark ink contours, simplified clean cel-shaded color planes, atmospheric painted background, expressive large shapes; DO NOT copy its character or composition. This is a SHARED card for both classes, so no identifiable class character, teal masked mage, humanoid robot, mechanical gauntlets, or class-exclusive motifs. Card Reserve Rations. Specific scene: Quiet CLOSE still life of a weathered brown coin purse, a small group of brass coins, a roll of cream bandage and a wrapped ration on a flat ochre camp stone. Warm restrained light, dark blue tent fabric softly behind, no character, no hands, no potion, no magic, no text. Coins traded for tangible recovery. Central subject within central 80%, safe margins, sparse background, no realistic material texture, photorealistic lighting, dense small debris, particles, composited sprites, letters, glyph overlays, text, UI or card frame.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-690e13df-308d-435b-8841-08f692c6a1d8.png"
+    },
+    {
+      "key": "service_cycle_v2",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-f3ce0cd5-d065-4bbd-8a6e-6319ea37a197.png",
+      "prompt": "Use case: illustration-story. Asset: landscape 3:2 card art for The Rift, no text or borders. Inputs: image 1 is the EXACT Synthforged player character to preserve; image 2 is the EXACT Pike construct to preserve; image 3 is existing approved Deploy Sentry card illustrating scene style. Draw the SAME Synthforged (ivory angular helmet with black faceplate and cyan vertical eye slit, ivory armor over dark articulated joints, brass circular bearings, black mechanical fingers; NOT a human in a hood, NOT a giant hand, NOT an invented robot) crouched beside the SAME Pike construct (stationary ivory shield plate and brass-jointed lance barrel on small mechanical feet). The Synthforged's two arms must connect naturally from their own shoulders to elbows to wrists. One black mechanical hand uses a short repair tool on the construct's damaged base; its other hand braces on its own knee. Keep fingers small and simple with correct thumbs. Pike's barrel points toward a distant violet creature as its repaired mechanism resumes activity. Medium shot, full enough to verify both arms. Thick ink contours, controlled cel shading, ruined slate battlefield, warm brass hardware and focused cyan eye; composition communicates repairing then commanding an existing construct. Preserve exact character identity from the references."
+    },
+    {
+      "key": "cash_out_v3",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-8429f6ea-f5bf-428a-8199-e4a403e33545.png",
+      "prompt": "ONE original finished landscape 3:2 card illustration for The Rift, Cash Out. Image 1 approved Arcane Bolt STYLE ONLY; image 2 exact original Riftwalker CHARACTER reference, image 3 existing Focus card action reference. Preserve original teal hood and layered tunic, tapered ivory mask and long black eye openings, brass clasp, brown gloves and boots. NEW COMPOSITION: high three-quarter medium shot, Riftwalker sits at a broken ochre stone table. Both brown-gloved hands are CLOSED LOOSE FISTS held together at the chest, elbows tucked naturally against the torso. No open palm, no foreshortened hand, no extended arm. Three small cyan spell wisps unravel out of the cloak clasp toward one compact ivory-cyan energy flame above the table, communicating spending established magical power for immediate energy. Exactly two arms correctly connected to shoulders, modest small fists with thumbs lying naturally over fingers. Simplified bold ink contours and cel-shaded planes, broad muted plum vaulted chamber in background, sparse details, clear 148x99 read. No text, letters, glyphs, UI, border or watermark. Do not repeat the previous palm-up composition."
+    },
+    {
+      "key": "spectre_v2",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-658ddc67-bc28-4213-9675-0f7cb2a7090a.png",
+      "prompt": "Single transparent full-body tactical boss sprite for The Rift. Image 1 is the exact EXISTING Void Spectre CHARACTER identity to preserve; image 2 approved Arcane Bolt STYLE ONLY. Redesign the same spectre into a more imposing tall apparition: same torn TEAL hood and cloak, same tapered hollow ivory mask with long black eye openings, same exposed cyan chest flame, same long thin PLUM spectral arms and clawed hands, same plum tapering spectral lower body. Broaden the torn cloak like a ragged winged mantle, shoulders slightly hunched in a listening posture, hands lowered and relaxed with anatomically coherent long digits. Large empty dark silhouette around the small cyan chest core, pointed face angled right. No horn, no instrument, no weapons, no boots, no legs, no gold ornaments beyond original clasp, no invented accessories, no recolored purple hood. Full silhouette with safe margins, slightly elevated tactical view, bold dark ink contours, simplified clean cel shading and textured interior accents matching original. Genuine transparent background, no floor, backdrop, halo, particles or text. Distinct boss-scale silhouette, preserve character identity."
+    },
+    {
+      "key": "flanking_v3",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-78cc9bd0-5513-4812-8514-249de551a727.png",
+      "prompt": "Edit only the cyan attack beam and its impact in this existing Flanking Maneuver card illustration. This card causes movement and Analyze, ZERO DAMAGE: remove the entire beam between the Synthforged gauntlet and creature and remove the impact flare. The cyan gauntlet may retain a small quiet rim light but emits nothing. The purple creature must be intact with no recoil, no incoming projectile, no injuries or sparks. Keep the subtle red targeting brackets beside it. Preserve exactly the character, pose, anatomical limbs, ivory/brass/dark joints, cyan faceplate, scene, camera, boots' small amber movement streak and 3:2 framing. The image should read as a lateral dash into a scanning position rather than a shot. No new objects, symbols or text."
+    },
+    {
+      "key": "listening_spectre_art",
+      "prompt": "Use case: stylized-concept. Asset type: single transparent full-body tactical game boss sprite for The Rift. Style references: approved Arcane Bolt and original Riftwalker, thick dark ink contours, textured interiors and controlled cel shading. Subject: A towering floating shrouded apparition, sweeping torn plum mantle forming a broad bell silhouette, a small ivory mask sunken under a deep slate hood, long thin hands holding a crooked ivory listening horn close to the mask, trailing cloak ribbons form a crescent underneath. Recognizably a ghost, not a mechanical knight. Face and hands quiet, ominous listening posture. No floating extra faces, those will be animated in game. Three-quarter view, slightly elevated tactical camera; full silhouette with margin, 1024-square or larger source, strong small-scale readability, slate/ivory/plum with focused accents. Transparent background. No scenic backdrop, no text, no UI, no particles or glow halo.",
+      "hint": "Generated images are saved to C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910 as C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-61c1b08e-0fea-433f-8c68-1d279dbfb3b7.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-61c1b08e-0fea-433f-8c68-1d279dbfb3b7.png"
+    },
+    {
+      "key": "prismatic_core_art",
+      "prompt": "Use case: stylized-concept. Asset type: single transparent full-body tactical game boss sprite for The Rift. Style references: approved Arcane Bolt and original Riftwalker, thick dark ink contours, textured interiors and controlled cel shading. Subject: A colossal stationary prismatic siege engine: broad three-footed broken slate plinth supporting a tall suspended faceted amethyst crystal, thick dark stone ribs curve up on either side like an open cage, muted ivory broken plate and small brass sockets at three base corners, a thin white-violet fissure down the crystal. Strong broad triangular silhouette and heavy grounded mass. No humanoid, no backdrop, no external relays (separate actors in game). Three-quarter view, slightly elevated tactical camera; full silhouette with margin, 1024-square or larger source, strong small-scale readability, slate/ivory/plum with focused accents. Transparent background. No scenic backdrop, no text, no UI, no particles or glow halo.",
+      "hint": "Generated images are saved to C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910 as C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-52be499d-430c-4f12-aa4b-0b7b9b1a513b.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "path": "C:\\Users\\steve\\.codex\\generated_images\\01a16e78-7dca-7de0-aeae-a399dfb23910\\exec-52be499d-430c-4f12-aa4b-0b7b9b1a513b.png"
+    }
+  ]
+}

@@ -64,7 +64,7 @@ func is_eligible() -> bool:
 	if not is_instance_valid(target):
 		return false
 	if target_range > 0:
-		return enemy.tilemap.get_surrounding_tiles_in_radius(enemy.current_tile_position, target_range).has(enemy.get_player_tile_position())
+		return enemy.distance_to_tile(enemy.get_player_tile_position()) <= target_range
 	return true
 
 func is_performable() -> bool:

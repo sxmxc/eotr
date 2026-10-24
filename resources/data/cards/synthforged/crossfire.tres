@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_p1t2d"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/crossfire.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/burst_protocol.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/synthforged/crossfire.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+target_type = 1
+id = "crossfire"
+name = "Crossfire"
+card_rarity = 1
+description = "Deal 3 damage once per construct in range of the target."
+energy_cost = 1
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

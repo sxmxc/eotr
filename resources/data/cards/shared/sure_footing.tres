@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_xvhiu"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/sure_footing.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/eldritch_barrier_signature.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/riftwalker/phase_step.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_xvhiu"]
+script = ExtResource("2_xvhiu")
+effect_type = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[sub_resource type="Resource" id="Resource_vr6gr"]
+script = ExtResource("2_xvhiu")
+effect_type = 1
+amount = 4
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 7
+target_type = 5
+id = "sure_footing"
+name = "Sure Footing"
+description = "Move %s hex(es). Gain 4 block."
+energy_cost = 1
+tags = Array[String](["shared", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_xvhiu")]([SubResource("Resource_xvhiu"), SubResource("Resource_vr6gr")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")
+movement_distance = 1

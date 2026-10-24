@@ -1,0 +1,31 @@
+[gd_resource type="Resource" format=3 uid="uid://bjxlsihr2u12q"]
+
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_ing3n"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/field_repairs.tscn" id="fx"]
+[ext_resource type="Texture2D" uid="uid://buiggjb05ae3d" path="res://assets/rift/cards/service_cycle.webp" id="rift_art"]
+[ext_resource type="Script" uid="uid://c3c45wjcrnucr" path="res://resources/data/cards/synthforged/service_cycle.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_ing3n"]
+script = ExtResource("2_ing3n")
+effect_type = 9
+amount = 4
+visual_fx = ExtResource("fx")
+
+[sub_resource type="Resource" id="Resource_jnclh"]
+script = ExtResource("2_ing3n")
+effect_type = 10
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+target_type = 9
+id = "service_cycle"
+name = "Service Cycle"
+card_rarity = 1
+description = "A damaged construct restores 4 HP, then attacks immediately."
+energy_cost = 1
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_ing3n")]([SubResource("Resource_ing3n"), SubResource("Resource_jnclh")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_2olyq"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/power_tap.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reserve_capacitor.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/synthforged/power_tap.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+target_type = 9
+id = "power_tap"
+name = "Power Tap"
+card_rarity = 1
+description = "Consume a construct's block (at least 4). Gain 1 energy per 4 block, up to 2. Exhaust."
+exhaust = true
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

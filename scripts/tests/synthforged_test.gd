@@ -22,8 +22,8 @@ func settle() -> void:
 		await get_tree().process_frame
 	check(false, "Effects settle within bounded frame budget")
 
-func card(id: String) -> SynthforgedCard:
-	return load("res://resources/data/cards/synthforged/%s.tres" % id).duplicate(true) as SynthforgedCard
+func card(id: String) -> Card:
+	return load("res://resources/data/cards/synthforged/%s.tres" % id).duplicate(true) as Card
 
 func run() -> void:
 	GameSettings.show_tutorial = false
@@ -47,20 +47,34 @@ func run() -> void:
 	await settle()
 	check(world.player_stats.max_health == 35 and world.player_stats.deck.cards.size() == 11, "Synthforged starting stats and deck")
 	var registry := load("res://resources/data/registries/card_registry_synthforged.tres") as CardRegistry
-	check(registry.entries.size() == 28, "28 unique authored cards")
-	check(world.player_stats.draftable_cards.cards.size() == 21, "21 non-starter draft identities")
+	check(registry.entries.size() == 36, "36 unique authored cards")
+	check(world.player_stats.draftable_cards.cards.size() == 29, "29 non-starter draft identities")
 	var ids: Dictionary[String, bool] = {}
 	var rarity_counts := [0, 0, 0]
 	for entry: Dictionary in registry.entries:
-		var resource := entry.card as SynthforgedCard
+		var resource := entry.card as Card
 		check(resource != null and not ids.has(resource.id), "Stable unique card identity")
 		check(resource.card_art != null and resource.card_art.get_size() == Vector2(592, 396), "Imported canonical card illustration: " + resource.id)
 		ids[resource.id] = true
 		rarity_counts[resource.card_rarity] += 1
 		resource._sync_effect_configs()
-		check(not resource.effect_configs.is_empty(), "Configured effects: " + resource.id)
-	check(rarity_counts == [12, 10, 6], "Complete rarity distribution")
-	check(RegistryData.card_registry.get_all_cards("Synthforged").size() == 30, "Merged registry retains neutral cards and Synthforged")
+		check(resource.tags.has("expansion") or not resource.effect_configs.is_empty(), "Configured effects: " + resource.id)
+	check(rarity_counts == [15, 14, 7], "Complete rarity distribution")
+	check(RegistryData.card_registry.get_all_cards("Synthforged").size() == 44, "Merged registry retains neutral cards and Synthforged")
+	await test_shared_pools()
+	var authored := load("res://resources/data/cards/synthforged/pulse_rifle.tres") as Card
+	var pile := CardPile.new()
+	pile.cards.assign([authored, authored])
+	var independent := pile.duplicate_cards()
+	independent[0].effect_configs[0].amount = 99
+	check(independent[1].effect_configs[0].amount == 6 and authored.effect_configs[0].amount == 6, "Authored effect resources remain isolated between deck copies")
+	var legacy := SaveGame.new()
+	legacy.current_deck = load("res://scripts/tests/fixtures/legacy_synthforged_deck.tres").duplicate(true)
+	legacy._restore_legacy_synthforged_cards()
+	check(legacy.current_deck.cards[0].effect_configs[0].amount == 6, "Legacy lazy card restores authored damage")
+	check(legacy.current_deck.cards[1].get_script().resource_path.ends_with("phase_step.gd"), "Legacy movement restores its real behavior owner")
+	check(legacy.current_deck.cards[1].energy_cost == 0 and legacy.current_deck.cards[1].exhaust, "Legacy recovery preserves saved cost and exhaust")
+	check(legacy.current_deck.cards[2] is ConstructSummonCard and not legacy.current_deck.cards[2].effect_configs.is_empty(), "Legacy summon restores its deployment configuration")
 	for turn in range(2, 9):
 		world.player_handler.cancel_turn()
 		world.player_handler.start_turn()
@@ -138,6 +152,12 @@ func run() -> void:
 	var fixture := SynthforgedCardFixture.new()
 	var findings := await fixture.run(world)
 	for finding in findings: check(false, finding)
+	var expansion := ExpansionCardFixture.new()
+	for finding in await expansion.run(world): check(false, finding)
+	world.player_stats.player_class_name = "Riftwalker"
+	var walker_cards := ExpansionCardFixture.new()
+	for finding in await walker_cards.run(world): check(false, finding)
+	world.player_stats.player_class_name = "Synthforged"
 	await test_redeployment_and_enemy_targets()
 	var lifecycle := SynthforgedLifecycleFixture.new()
 	for finding in await lifecycle.run(world): check(false, finding)
@@ -233,8 +253,7 @@ func test_progression() -> void:
 		add_child(run)
 		await get_tree().process_frame
 		check(run.player_stats.player_class_name.to_lower() == class_id, "New run selects " + class_id)
-		var class_registry := load("res://resources/data/registries/card_registry_%s.tres" % class_id) as CardRegistry
-		var class_cards := class_registry.get_all_cards(run.player_stats.player_class_name)
+		var class_cards := RegistryData.card_registry.get_all_cards(run.player_stats.player_class_name)
 		run._on_shop_entered()
 		await get_tree().process_frame
 		var shop := run.current_view.get_child(0) as Shop
@@ -266,3 +285,42 @@ func test_progression() -> void:
 func finish() -> void:
 	print("Synthforged tests: %d failures" % failures)
 	get_tree().quit(1 if failures else 0)
+
+func test_shared_pools() -> void:
+	var shared := load("res://resources/data/registries/card_registry_shared.tres") as CardRegistry
+	check(shared.entries.size() == 6, "Six genuinely shared player identities")
+	for class_id in ["Riftwalker", "Synthforged"]:
+		var found: Array[Card] = []
+		var seeded := RandomNumberGenerator.new()
+		seeded.seed = 41
+		for rarity: Enums.CardRarity in [Enums.CardRarity.COMMON, Enums.CardRarity.UNCOMMON, Enums.CardRarity.RARE]:
+			for attempt in 80:
+				var picked := RegistryData.card_registry.pick_random_card(rarity, found, class_id, [], true, seeded)
+				if not picked: break
+				check(picked.id not in ["void_residue", "void_slime", "void_shard"], "Negative/generated cards never enter drafts")
+				found.append(picked)
+		for entry: Dictionary in shared.entries:
+			check(found.any(func(card: Card) -> bool: return card.id == entry.card.id), "Shared card accessible to " + class_id + ": " + entry.card.id)
+		# Use the real reward and shop consumers with an explicit shared-only
+		# registry to force the case without depending on a lucky random roll.
+		var rewards := preload("res://scenes/battle_rewards/battle_rewards.tscn").instantiate() as BattleRewards
+		rewards.card_registry = shared
+		add_child(rewards)
+		var reward := rewards._pick_card_reward(Enums.CardRarity.COMMON, [], [], class_id)
+		check(reward != null and shared.entries.any(func(entry: Dictionary) -> bool: return entry.card.id == reward.id), "Real reward consumer accepts shared classless cards: " + class_id)
+		rewards.queue_free()
+		var shop := preload("res://scenes/shop/shop.tscn").instantiate() as Shop
+		shop.card_registry = shared
+		shop.player_stats = world.player_stats
+		var original_class := world.player_stats.player_class_name
+		world.player_stats.player_class_name = class_id
+		shop.run_stats = world.run_stats
+		add_child(shop)
+		await get_tree().process_frame
+		shop._generate_shop_cards()
+		check(shop.cards.get_child_count() == 3, "Real shop supplies three shared cards: " + class_id)
+		for item: ShopCard in shop.cards.get_children():
+			check(shared.entries.any(func(entry: Dictionary) -> bool: return entry.card.id == item.card.id), "Shop uses shared eligibility: " + class_id)
+		world.player_stats.player_class_name = original_class
+		shop.queue_free()
+		await get_tree().process_frame

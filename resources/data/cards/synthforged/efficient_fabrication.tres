@@ -1,9 +1,21 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://cd5fj24wep3sx"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://cd5fj24wep3sx"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_xm4dh"]
 [ext_resource type="Texture2D" uid="uid://cmo75w05frrmd" path="res://assets/rift/cards/efficient_fabrication.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/efficient_fabrication.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_xm4dh"]
+script = ExtResource("2_xm4dh")
+effect_type = 5
+amount = 1
+target = 1
+visual_fx = ExtResource("vfx")
+
+[sub_resource type="Resource" id="Resource_g4ocj"]
+script = ExtResource("2_xm4dh")
+effect_type = 13
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -14,5 +26,6 @@ card_rarity = 1
 description = "Draw 1. Your next summon this turn costs 1 less. Exhaust."
 exhaust = true
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_xm4dh")]([SubResource("Resource_xm4dh"), SubResource("Resource_g4ocj")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

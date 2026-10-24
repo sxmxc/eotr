@@ -106,7 +106,7 @@ func _visibility_changed() -> void:
 
 
 func _can_inspect() -> bool:
-	return is_instance_valid(bound_enemy) and not bound_enemy.is_dying and (not is_instance_valid(_bound_board) or not _bound_board.is_tile_behind_fog(bound_enemy.current_tile_position))
+	return is_instance_valid(bound_enemy) and not bound_enemy.is_dying and (not is_instance_valid(_bound_board) or bound_enemy.is_revealed())
 
 
 func _refresh_visibility() -> void:

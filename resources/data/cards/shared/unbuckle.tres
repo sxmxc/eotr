@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_rs6xg"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/unbuckle.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/adrenaline_rush_signature.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/shared/unbuckle.gd" id="script"]
+
+[sub_resource type="Resource" id="Resource_rs6xg"]
+script = ExtResource("2_rs6xg")
+effect_type = 5
+amount = 2
+target = 1
+visual_fx = ExtResource("fx")
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+id = "unbuckle"
+name = "Unbuckle"
+card_rarity = 1
+description = "With at least 6 block: lose all block and draw 2. Exhaust."
+exhaust = true
+tags = Array[String](["shared", "reward", "shop", "expansion"])
+effect_configs = Array[ExtResource("2_rs6xg")]([SubResource("Resource_rs6xg")])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

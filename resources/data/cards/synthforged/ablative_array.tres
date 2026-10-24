@@ -1,9 +1,23 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://dcsuh5vadha33"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://dcsuh5vadha33"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_kqs5a"]
 [ext_resource type="Texture2D" uid="uid://bjc1j6xoshoiu" path="res://assets/rift/cards/ablative_array.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/ablative_array.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_kqs5a"]
+script = ExtResource("2_kqs5a")
+effect_type = 1
+amount = 8
+target = 1
+visual_fx = ExtResource("vfx")
+
+[sub_resource type="Resource" id="Resource_u7rx6"]
+script = ExtResource("2_kqs5a")
+effect_type = 1
+amount = 4
+target = 2
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -14,5 +28,6 @@ card_rarity = 1
 description = "Gain 8 block. All constructs gain 4 block."
 energy_cost = 1
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_kqs5a")]([SubResource("Resource_kqs5a"), SubResource("Resource_u7rx6")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

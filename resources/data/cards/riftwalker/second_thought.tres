@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_x6cq5"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/second_thought.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/echo_signature.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/riftwalker/second_thought.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+id = "second_thought"
+name = "Second Thought"
+card_rarity = 1
+description = "Return the most recent other Skill in your discard to hand at its normal cost. Exhaust."
+energy_cost = 1
+exhaust = true
+tags = Array[String](["riftwalker", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

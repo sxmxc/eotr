@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://i76nhd403pw2"]
+[gd_resource type="Resource" script_class="ConstructSummonCard" format=3 uid="uid://i76nhd403pw2"]
 
 [ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
 [ext_resource type="Resource" uid="uid://o2oyx5wo3auh" path="res://resources/data/constructs/pike.tres" id="3"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="3_h8iwg"]
 [ext_resource type="Texture2D" uid="uid://d1aet1i4jrjge" path="res://assets/rift/cards/deploy_pike.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/deploy_pike.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_h8iwg"]
+script = ExtResource("3_h8iwg")
+effect_type = 8
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -16,5 +21,6 @@ name = "Deploy Pike"
 description = "Deploy a Pike Emplacement: 18 HP, 5 damage, range 1. Attacks at turn end. Maximum 3 constructs."
 energy_cost = 2
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("3_h8iwg")]([SubResource("Resource_h8iwg")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

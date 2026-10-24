@@ -6,6 +6,7 @@ func _run() -> void:
 	await _settings_checks()
 	await _pause_checks()
 	await _rail_checks()
+	await _message_feed_checks()
 	print("Settings and rail tests: %d failures" % failures)
 	await Utils.stop_audio_for_shutdown()
 	get_tree().quit(1 if failures else 0)
@@ -168,6 +169,31 @@ func _rail_checks() -> void:
 	_check(not entry.visible, "Dying hidden enemies do not leave placeholders")
 	world.queue_free()
 	relics.queue_free()
+	await get_tree().process_frame
+
+func _message_feed_checks() -> void:
+	var feed := preload("res://ui/world_ui/world_message_container.tscn").instantiate() as WorldMessageContainer
+	add_child(feed)
+	feed.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	feed.size = Vector2(260, 240)
+	# A burst evicts rows before their deferred scrolling callbacks run.
+	for index in 6:
+		feed.show_message(WorldMessageData.new("Outcome %d: " % index + "received 4 damage. ".repeat(8), WorldMessageData.Priority.IMPORTANT))
+	await _settle_ui()
+	var rows := feed.get_node("LiveScroll/LiveRows") as VBoxContainer
+	_check(rows.get_child_count() == 4 and feed.history.size() == 6, "Message bursts keep four live outcomes and all history")
+	var latest := rows.get_child(-1) as WorldMessage
+	_check(latest.message_text_label.text.begins_with("Outcome 5:"), "Message burst retains the newest outcome")
+	var scroll := feed.get_node("LiveScroll") as ScrollContainer
+	_check(scroll.scroll_vertical > 0, "Message burst scrolls to the surviving newest outcome")
+	# The list may also be emptied before deferred presentation work executes.
+	feed.show_message(WorldMessageData.new("Final outcome", WorldMessageData.Priority.CRITICAL))
+	for row in rows.get_children():
+		rows.remove_child(row)
+		row.queue_free()
+	await _settle_ui()
+	_check(rows.get_child_count() == 0 and feed.history.size() == 7, "Emptying live rows before scrolling preserves history")
+	feed.queue_free()
 	await get_tree().process_frame
 
 func _capture(screen: String) -> void:

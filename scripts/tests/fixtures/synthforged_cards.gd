@@ -14,6 +14,8 @@ func run(world: GameWorld, capture: Callable = Callable()) -> Array[String]:
 	var registry := load("res://resources/data/registries/card_registry_synthforged.tres") as CardRegistry
 	var target := world.enemy_handler.get_child(0) as Enemy
 	for entry: Dictionary in registry.entries:
+		# Conditional expansion cards have their own setup/outcome fixture.
+		if entry.card.tags.has("expansion"): continue
 		for ui: CardUI in hand.get_cards(): hand.discard_card(ui)
 		for unit in world.summons.living(): unit.destroy()
 		await world.get_tree().process_frame
@@ -36,7 +38,7 @@ func run(world: GameWorld, capture: Callable = Callable()) -> Array[String]:
 		world.player_stats.block = 0
 		world.player_stats.energy = 100
 		world.player_stats.fabrication_discount = false
-		var card := entry.card.duplicate(true) as SynthforgedCard
+		var card := entry.card.duplicate(true) as Card
 		var construct: Construct
 		if card.target_type == Enums.TargetType.ALLY or card.id in ["ablative_array", "fortress_protocol"]:
 			for cell in board.get_surrounding_tiles_in_radius(origin, 2):

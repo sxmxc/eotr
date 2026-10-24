@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://clfmpqi83n704"]
+[gd_resource type="Resource" script_class="Card" format=3 uid="uid://clfmpqi83n704"]
 
-[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dowqpbo6y3vlr" path="res://scripts/resources/card/card.gd" id="1"]
 [ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_imsp5"]
 [ext_resource type="Texture2D" uid="uid://cw0ysb56xt0tc" path="res://assets/rift/cards/execution_algorithm.webp" id="rift_art"]
 [ext_resource type="PackedScene" path="res://ui/fx/synthforged/execution_algorithm.tscn" id="vfx"]
+
+[sub_resource type="Resource" id="Resource_imsp5"]
+script = ExtResource("2_imsp5")
+amount = 18
+consume_analyze = 6
+visual_fx = ExtResource("vfx")
 
 [resource]
 script = ExtResource("1")
@@ -14,5 +20,6 @@ card_rarity = 2
 description = "Deal 18 damage. Consume Analyze for +6 damage per stack."
 energy_cost = 3
 tags = Array[String](["synthforged"])
+effect_configs = Array[ExtResource("2_imsp5")]([SubResource("Resource_imsp5")])
 card_art = ExtResource("rift_art")
 visual_fx = ExtResource("vfx")

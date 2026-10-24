@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Card" format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/card/card_effect_config.gd" id="2_f7evd"]
+[ext_resource type="Texture2D" path="res://assets/rift/cards/maintenance_window.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/tactical_cache.tscn" id="fx"]
+[ext_resource type="Script" path="res://resources/data/cards/synthforged/maintenance_window.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+card_type = 2
+id = "maintenance_window"
+name = "Maintenance Window"
+description = "Draw 1 card per damaged construct (maximum 3)."
+energy_cost = 1
+tags = Array[String](["synthforged", "reward", "shop", "expansion"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("fx")

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardPile" format=3]
+[ext_resource type="Script" path="res://scripts/resources/card/card_pile.gd" id="pile"]
+[ext_resource type="Script" path="res://scripts/resources/card/card.gd" id="card"]
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="legacy"]
+[sub_resource type="Resource" id="attack"]
+script = ExtResource("legacy")
+id = "pulse_rifle"
+energy_cost = 1
+[sub_resource type="Resource" id="movement"]
+script = ExtResource("legacy")
+id = "vector_boost"
+energy_cost = 0
+exhaust = true
+[sub_resource type="Resource" id="summon"]
+script = ExtResource("legacy")
+id = "deploy_sentry"
+energy_cost = 2
+[resource]
+script = ExtResource("pile")
+cards = Array[ExtResource("card")]([SubResource("attack"), SubResource("movement"), SubResource("summon")])

@@ -248,6 +248,15 @@ func calculate_next_tile_move(tiles_moved_per_turn: int) -> Vector2i:
 				return not inner.has(cell)
 		)
 
+	if footprint.size() > 1:
+		engagement_cells.clear()
+		for anchor in tilemap.base_layer.get_used_cells():
+			if anchor != current_tile_position and not _can_move_to_tile(anchor): continue
+			var nearest := 999
+			for part in tilemap.footprint_cells(self, anchor):
+				nearest = mini(nearest, SummonHandler.distance(tilemap, part, get_player_tile_position()))
+			if nearest == engagement_range: engagement_cells.append(anchor)
+
 	for cell in engagement_cells:
 		if cell == current_tile_position or _can_move_to_tile(cell):
 			distance[cell] = 0
@@ -330,7 +339,7 @@ func _movement_score(
 ) -> float:
 	var score: float = float(distances.get(cell, 1000))
 
-	if cell in danger:
+	if tilemap.footprint_cells(self, cell).any(func(part: Vector2i) -> bool: return danger.has(part)):
 		score += 30.0
 
 	if tilemap.is_tile_corrupt(cell):
@@ -396,13 +405,7 @@ func _can_move_to_tile(tile: Vector2i) -> bool:
 	if tile == INVALID_TILE:
 		return false
 
-	if flying:
-		return (
-			tilemap.is_within_bounds(tile)
-			and tilemap.is_tile_free(tile)
-		)
-
-	return tilemap.is_tile_valid(tile)
+	return tilemap.can_place_actor(self, tile, flying)
 
 
 func _notify_move_finished(target_tile: Vector2i) -> void:
@@ -500,7 +503,7 @@ func _find_path(
 				continue
 
 			if (
-				neighbor != goal
+				(neighbor != goal or footprint.size() > 1)
 				and not _can_move_to_tile(neighbor)
 			):
 				continue
