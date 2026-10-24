@@ -14,7 +14,7 @@ var chips: Dictionary = {}
 func _process(_delta: float) -> void:
 	if not is_instance_valid(unit) or not unit.is_node_ready():
 		return
-	if unit is Enemy and unit.is_dying:
+	if (unit is Enemy or unit is Construct) and unit.is_dying:
 		hide()
 		return
 	show()
@@ -24,6 +24,10 @@ func _process(_delta: float) -> void:
 	var block: int = unit.stats.block if unit.stats else 0
 	block_panel.visible = block > 0
 	block_label.text = str(block)
+	%Health.visible = unit is Construct
+	if unit is Construct:
+		%HealthLabel.text = "%d/%d" % [unit.stats.health, unit.stats.max_health]
+		%Health.tooltip_text = unit.definition.display_name + ": current / maximum health"
 	var sprite := unit.get_node("Sprite2D") as Sprite2D
 	if not sprite.texture:
 		return
@@ -40,6 +44,8 @@ func _sync_intent() -> void:
 	var plan: Intent = null
 	if unit is Enemy and unit.current_action:
 		plan = unit.current_action.intent
+	elif unit is Construct:
+		plan = unit.attack_intent
 	intent_panel.visible = plan != null
 	if not plan:
 		return

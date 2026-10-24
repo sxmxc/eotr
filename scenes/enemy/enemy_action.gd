@@ -73,6 +73,9 @@ func is_performable() -> bool:
 func perform_action() -> void:
 	pass
 
+func get_intent_target() -> Node2D:
+	return target if target_range > 0 else null
+
 func get_weight(_decision_context: Dictionary = {}) -> float:
 	if type != Type.CHANCE_BASED:
 		return 0.0
@@ -81,7 +84,7 @@ func get_weight(_decision_context: Dictionary = {}) -> float:
 	return max(chance_weight, 0.0)
 
 func get_expected_player_damage(raw_damage: int, hits: int = 1, ignore_block: bool = false) -> float:
-	var player := target as Player
+	var player: Node2D = target
 	if not player or not player.stats:
 		return 0.0
 
@@ -118,7 +121,7 @@ func get_attack_weight(raw_damage: int, hits: int = 1, decision_context: Diction
 	if expected_damage <= 0.0:
 		return base_weight * distance_penalty * 0.2
 
-	var player := target as Player
+	var player: Node2D = target
 	var finisher_bonus: float = 1.0
 	if player and player.stats and player.stats.health <= expected_damage:
 		finisher_bonus = 1.6
@@ -134,11 +137,11 @@ func get_block_weight(_block_amount: int, decision_context: Dictionary = {}) -> 
 	var health_ratio: float = float(enemy.stats.health) / float(max(enemy.stats.max_health, 1))
 	var low_health_bonus: float = lerpf(1.0, 1.8, clamp(1.0 - health_ratio, 0.0, 1.0))
 
-	var player := target as Player
+	var player: Node2D = target
 	var player_energy: float = 0.0
 	var player_block: float = 0.0
 	if player and player.stats:
-		player_energy = float(player.stats.energy)
+		player_energy = float(player.stats.energy) if player is Player else 0.0
 		player_block = float(player.stats.block)
 	player_energy = decision_context.get("player_energy", player_energy)
 	player_block = decision_context.get("player_block", player_block)

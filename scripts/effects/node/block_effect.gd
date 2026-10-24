@@ -8,7 +8,7 @@ func execute(targets: Array[Node]) -> void:
 	for target in targets:
 		if not target:
 			continue
-		if target is Enemy or target is Player:
+		if target is Enemy or target is Player or target is Construct:
 			target.stats.block += amount
 			SoundManager.play_sound_random_pitch(sound_fx)
 			if visual_fx != null:

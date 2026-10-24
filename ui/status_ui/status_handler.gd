@@ -72,7 +72,8 @@ func add_status(status: Status) -> void:
 		return
 
 	if status.stack_type == Enums.StatusStackType.INTENSITY:
-		_get_status(status.id).stacks += status.stacks
+		var existing := _get_status(status.id)
+		existing.stacks = mini(existing.stacks + status.stacks, 3) if existing is AnalyzedStatus else existing.stacks + status.stacks
 		status_added.emit()
 	
 

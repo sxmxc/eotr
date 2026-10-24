@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_c8ln4"]
 [ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="2_iju21"]
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
-[ext_resource type="Texture2D" uid="uid://bvc1wka1kiw3j" path="res://assets/splash/banner1-2560x1440.png" id="4_iju21"]
+[ext_resource type="Texture2D" uid="uid://c11h8ov45s1qp" path="res://assets/splash/Voidmoose Logo with Raised Emblem.png" id="4_iju21"]
 
 [sub_resource type="Animation" id="splash_reset"]
 length = 0.001
@@ -64,6 +64,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_c8ln4")
 script = ExtResource("2_ttpkl")
 

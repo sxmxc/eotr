@@ -23,6 +23,10 @@ var discard: CardPile
 var draw_pile: CardPile
 var exhaust_pile: CardPile
 var is_running: bool = false
+var fabrication_discount := false:
+	set(value):
+		fabrication_discount = value
+		stats_changed.emit()
 
 func set_resources(value: int) -> void:
 	resources = value

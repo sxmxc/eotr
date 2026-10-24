@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://bbx57usgn27rd"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_hryou"]
+[ext_resource type="Texture2D" uid="uid://dh71grmpevvwt" path="res://assets/rift/cards/reactor_release.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reactor_release.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 2
+id = "reactor_release"
+name = "Reactor Release"
+card_rarity = 2
+description = "Gain 4 energy. Exhaust."
+energy_cost = 1
+exhaust = true
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

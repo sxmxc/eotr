@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://cvia5brdr1d3u"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_q1hjl"]
+[ext_resource type="Texture2D" uid="uid://bwbbvlmvxewpj" path="res://assets/rift/cards/field_repairs.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/field_repairs.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 2
+target_type = 9
+id = "field_repairs"
+name = "Field Repairs"
+card_rarity = 1
+description = "Restore 8 HP to a construct. Draw 1."
+energy_cost = 1
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

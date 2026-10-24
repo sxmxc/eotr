@@ -19,7 +19,6 @@
 [ext_resource type="Resource" path="res://resources/data/relics/energy_condenser.tres" id="11_energy"]
 [ext_resource type="PackedScene" uid="uid://df2c0yk0s36i2" path="res://scenes/modifier_handler/modifier_handler.tscn" id="15_k5co3"]
 [ext_resource type="PackedScene" uid="uid://b4lg8wqjoa8py" path="res://scenes/modifier_handler/modifier.tscn" id="16_6kbe7"]
-[ext_resource type="Resource" uid="uid://b84eu1klb7uxe" path="res://resources/data/registries/card_registry_riftwalker.tres" id="17_card_registry"]
 
 
 
@@ -34,7 +33,6 @@ mouse_filter = 2
 theme = ExtResource("1_ctpgp")
 script = ExtResource("1_100s2")
 shop_relics = Array[ExtResource("3_131kw")]([ExtResource("4_xoc10"), ExtResource("5_k5co3"), ExtResource("6_6kbe7"), ExtResource("7_hbyua"), ExtResource("8_hbyua"), ExtResource("9_36j3v"), ExtResource("10_5y7fm"), ExtResource("11_energy")])
-card_registry = ExtResource("17_card_registry")
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = 0

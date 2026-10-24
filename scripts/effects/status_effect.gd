@@ -7,7 +7,7 @@ func execute(targets: Array[Node]) -> void:
 	for target in targets:
 		if not target:
 			continue
-		if not (target is Enemy or target is Player):
+		if not (target is Enemy or target is Player or target is Construct):
 			continue
 		if not status:
 			continue

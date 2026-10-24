@@ -2,7 +2,6 @@
 [ext_resource type="PackedScene" path="res://ui/fx/ambient_particles.tscn" id="ambient_particles"]
 [ext_resource type="Script" path="res://scenes/battle_rewards/battle_rewards.gd" id="script"]
 [ext_resource type="Theme" path="res://resources/themes/rift_ui.tres" id="theme"]
-[ext_resource type="Resource" path="res://resources/data/registries/card_registry_riftwalker.tres" id="registry"]
 [ext_resource type="Texture2D" path="res://assets/rift/menus/main_menu.webp" id="illustration"]
 
 [sub_resource type="Animation" id="reveal"]
@@ -18,7 +17,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource("theme")
 script = ExtResource("script")
-card_registry = ExtResource("registry")
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = 1
 [node name="Illustration" type="TextureRect" parent="BackgroundLayer"]

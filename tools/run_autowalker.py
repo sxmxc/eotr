@@ -70,8 +70,9 @@ def run(temporary, argv=None):
     parser.add_argument("--telemetry-upload", action="store_true", help="Explicitly consent to configured QA uploads for this launch, including isolated saves")
     parser.add_argument("--verify-watch", action="store_true", help="Run rendered playback, save a capture and exit after the simulation")
     parser.add_argument("--mode", choices=["encounter", "run"], default="encounter")
+    parser.add_argument('--class', dest='player_class', choices=['riftwalker', 'synthforged'], default='riftwalker', help='Player class; defaults preserve existing Riftwalker reports')
     parser.add_argument('--loadout', choices=['tier', 'starter', 'tier_0', 'tier_1', 'tier_2', 'legacy'], default='tier', help='Encounter build: tier selects the encounter tier; legacy reproduces the old relic-free starter harness')
-    parser.add_argument('--health-percent', type=int, default=100, help='Encounter starting health, 1–100 percent of maximum')
+    parser.add_argument('--health-percent', type=int, default=100, help='Encounter starting health, 1â€“100 percent of maximum')
     parser.add_argument("--replay")
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--policy", choices=["random", "greedy", "stress"], default="greedy")
@@ -113,7 +114,7 @@ def run(temporary, argv=None):
             print(f'Encounter {index}/{len(paths)}: {path.stem}', flush=True)
             child_output = suite_output / path.stem
             child_args = ['--godot', args.godot, '--encounter', 'res://' + path.relative_to(root).as_posix(),
-                          '--output', str(child_output), '--policy', args.policy, '--loadout', args.loadout, '--health-percent', str(args.health_percent)]
+                          '--output', str(child_output), '--class', args.player_class, '--policy', args.policy, '--loadout', args.loadout, '--health-percent', str(args.health_percent)]
             for key in ('seed', 'count', 'max_turns', 'max_actions', 'max_actions_per_turn', 'timeout'):
                 child_args.extend(['--' + key.replace('_', '-'), str(getattr(args, key))])
             if args.telemetry_local:
@@ -170,6 +171,7 @@ def run(temporary, argv=None):
     maintenance(active=False)
     command = [args.godot, *( ["--windowed", "--resolution", "1920x1080"] if args.watch or args.verify_watch else ["--headless"] ), "--path", str(project),
                "res://scenes/developer/autowalker/watch.tscn", "--log-file", str(output / "godot.log"), "--", "--autostart"]
+    command.append(f"--class={args.player_class}")
     for key in ("mode", "seed", "policy", "count", "max_turns", "max_actions", "max_actions_per_turn", "timeout", "encounter", "loadout", "health_percent"):
         command.append(f"--{key.replace('_', '-')}={getattr(args, key)}")
     command.append(f"--output={output.as_posix()}")

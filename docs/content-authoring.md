@@ -50,6 +50,27 @@ description. Play it through CardUI, inspect energy and resulting state, then en
 the turn to check pile/exhaust behavior. Use focused combat checks and a short
 AutoWalker run for lifecycle-sensitive changes; use native captures for new art/FX.
 
+## Synthforged content
+
+Synthforged has 28 authored cards (12 common, 10 uncommon, six rare). Seven starter
+identities supply an 11-card deck and are registry-visible with `allow_draft=false`;
+the remaining 21 form the draft/shop/reward pool. The historical
+`synthforged_starting_dec.tres` path and UID are retained for compatibility.
+`SynthforgedCard` composes ordinary effects and the construct operations from
+CardEffectConfig; each card resource supplies its own illustration and VFX scene.
+
+ConstructDefinition authors identity, HP, attack damage/range and texture. Add
+profiles under `resources/data/constructs/` and use SUMMON/REPAIR/COMMAND/DISMANTLE/
+RELOCATE configurations through CardResolver. Never add constructs to the enemy
+group or bypass the battle-owned SummonHandler's placement and occupancy checks.
+ALLY targets use the same CardInteractionController as attacks and movement.
+
+RegistryData merges the explicit class registry paths in order, deduplicating
+stable card IDs. Shops and battle rewards default to this merged registry and
+filter by the player's class; explicit custom registries remain supported. Do not
+bind their default scenes to a single class registry. New class registries must
+still be added to RegistryData's explicit path list.
+
 ## Relics and statuses
 
 Relic resources/scripts live in `resources/data/relics/`; the base class is

@@ -439,19 +439,18 @@ backlog:
   - id: BKL-034
     title: "Introduce tower defense style summon cards that place defensive objects on the battlefield for v0.0.7.0"
     priority: P2
-    status: ready
-    owner: unassigned
+    status: complete
+    owner: Codex
     blockers: []
     context:
-      - "Current card mechanics lack tower defense style summon cards."
-      - "Will need new card types and summon mechanics that follow class themes."
-      - "Summons should have health and can be targeted by enemies."
-      - "Need ranged and melee summon variants."
-      - "Summons are stationary and occupy tiles on the battlefield."
+      - "Implemented with Synthforged: 28 cards, Overclock, Analyze and four stationary melee/ranged constructs."
+      - "Constructs own health/block/statuses and occupancy; ordinary enemies target reachable player-side units."
+      - "Allied activations, repairs, command, relocation, destruction and collapse have focused runtime coverage."
+      - "Art follows assets/rift/source/synthforged.webp; all card treatments exercised through native gameplay."
+      - "Evidence and limitations: ai/state/journal-synthforged.md."
     next_steps:
-      - "Design new summon card types that fit class themes."
-      - "Implement summon mechanics that allow placement of defensive objects on the battlefield."
-      - "Create ranged and melee summon variants with distinct behaviors."
+      - "Human balance playtests for summon survival, placement and Analyze burst damage."
+      - "Continuous motion, camera and audio review when FFmpeg is available; current evidence uses native stills."
       
   - id: BKL-035
     title: "Redesign enemy intent display for clarity and consistency"
@@ -697,4 +696,4 @@ backlog:
 in_progress: []
 in_review: []
 
-ideas_icebox: [BKL-034]
+ideas_icebox: []

@@ -8,6 +8,7 @@ enum Phase {
 	ENEMY_TURN,
 	SHRINKING,
 	TRANSITION,
+	ALLY_TURN,
 }
 
 @export var game_world: GameWorld
@@ -37,6 +38,8 @@ func start_battle() -> void:
 
 func end_battle() -> void:
 	battle_active = false
+	if is_instance_valid(game_world) and is_instance_valid(game_world.summons):
+		game_world.summons.cancel()
 	if is_instance_valid(player_handler):
 		player_handler.cancel_turn()
 	if is_instance_valid(enemy_handler):
@@ -84,6 +87,10 @@ func _on_player_turn_ended() -> void:
 
 func _on_player_hand_discarded() -> void:
 	if not _validate_transition(Phase.PLAYER_CLEANUP, "player hand discard"):
+		return
+	_set_phase(Phase.ALLY_TURN)
+	await game_world.summons.activate_all()
+	if not battle_active:
 		return
 	_set_phase(Phase.ENEMY_TURN)
 	enemy_handler.start_turn()

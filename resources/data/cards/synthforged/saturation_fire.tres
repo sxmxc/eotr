@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://dlhplrsdkrig8"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_01oje"]
+[ext_resource type="Texture2D" uid="uid://wbfoscca5t78" path="res://assets/rift/cards/saturation_fire.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/saturation_fire.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+target_type = 3
+id = "saturation_fire"
+name = "Saturation Fire"
+card_rarity = 2
+description = "Deal 4 damage three times to all visible enemies. Exhaust."
+energy_cost = 3
+exhaust = true
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

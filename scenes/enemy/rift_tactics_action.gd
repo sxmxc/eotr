@@ -12,13 +12,16 @@ const RANGED_FX = preload("res://ui/fx/void_shard_signature.tscn")
 const HEX_FX = preload("res://ui/fx/curse_fx.tscn")
 
 func is_performable() -> bool:
-	return enemy != null and enemy.stats.tactics != null and target is Player
+	return enemy != null and enemy.stats.tactics != null and (target is Player or target is Construct)
 
 func _profile() -> EnemyTactics:
 	return enemy.stats.tactics
 
+func get_intent_target() -> Node2D:
+	return target if _plan() == "Strike" else null
+
 func _in_range(radius: int) -> bool:
-	return enemy.tilemap.get_surrounding_tiles_in_radius(enemy.current_tile_position, radius).has(enemy.tilemap.player_position)
+	return enemy.tilemap.get_surrounding_tiles_in_radius(enemy.current_tile_position, radius).has(enemy.get_player_tile_position())
 
 func _allies() -> Array[Node]:
 	var result: Array[Node] = []

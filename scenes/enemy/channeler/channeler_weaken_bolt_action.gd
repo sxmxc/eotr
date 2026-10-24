@@ -15,7 +15,7 @@ func perform_action() -> void:
 	if not enemy or not target:
 		return
 
-	var player := target as Player
+	var player: Node2D = target
 	if not player:
 		Events.enemy_action_completed.emit(enemy)
 		return
@@ -54,11 +54,11 @@ func perform_action() -> void:
 func update_intent_text() -> void:
 	if !is_instance_valid(target):
 		return
-	var player := target as Player
+	var player: Node2D = target
 	if not player:
 		return
 
-	var modified_dmg := player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
+	var modified_dmg: int = player.modifier_handler.get_modified_value(damage, Enums.ModifierType.DMG_TAKEN)
 	modified_dmg = enemy.modifier_handler.get_modified_value(modified_dmg, Enums.ModifierType.DMG_DEALT)
 	var summary := "%d/%d" % [modified_dmg, weaken_duration]
 	intent.current_text = intent.base_text % summary

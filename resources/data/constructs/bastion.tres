@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ConstructDefinition" format=3 uid="uid://bbxso8n8dg4go"]
+
+[ext_resource type="Script" uid="uid://cqhu1elni0llg" path="res://scripts/resources/construct_definition.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ter1ouqd7w0o" path="res://assets/rift/entities/synthforged_bastion.webp" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "bastion"
+display_name = "Bastion Automaton"
+max_health = 30
+damage = 4
+attack_range = 1
+texture = ExtResource("2")

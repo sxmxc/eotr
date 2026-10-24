@@ -1,0 +1,12 @@
+{
+  "event": "All 28 Synthforged cards through real CardUI",
+  "encounter": "res://resources/data/battles/tier_0_blobs.tres",
+  "player_class": "synthforged",
+  "loadout": "starter",
+  "fixture": "synthforged",
+  "seed": 27,
+  "policy": "greedy",
+  "duration": 65,
+  "fps": 30,
+  "stills_only": true
+}

@@ -7,6 +7,8 @@ var output := ""
 var events: Array = []
 var seen := 0
 var done := false
+var synthforged_fixture := false
+var synthforged_started := false
 var ruin_fixture := false
 var ruin_stage := 0
 var ruin_time := 0.0
@@ -21,9 +23,11 @@ func _ready() -> void:
 		return
 	for arg in OS.get_cmdline_user_args():
 		if arg == "--capture-frames": capture_frames = true
+		if arg == "--fixture=synthforged": synthforged_fixture = true
 		if arg == "--fixture=ruin": ruin_fixture = true
 		if arg.begins_with("--duration="): duration = float(arg.get_slice("=", 1))
 		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+	if capture_frames: Engine.max_fps = 60
 	Events.card_played.connect(func(card: Card): mark("card_played", {"card": card.id, "name": card.name}))
 	Events.enemy_action_completed.connect(func(enemy: Enemy): mark("enemy_action_completed", {"name": enemy.stats.enemy_name}))
 	Events.player_turn_started.connect(func(): mark("player_turn_started", {}))
@@ -39,6 +43,11 @@ func _process(delta: float) -> void:
 	if capture_frames and frame_index < FRAME_TIMES.size() and elapsed >= FRAME_TIMES[frame_index]:
 		frame_index += 1
 		_capture_environment_frame(frame_index)
+	if synthforged_fixture and is_instance_valid(runner.world):
+		runner.paused = true
+		if not synthforged_started and runner.world.player_handler.hand_ready:
+			synthforged_started = true
+			_run_synthforged_fixture()
 	if ruin_fixture and is_instance_valid(runner.world):
 		runner.paused = true
 		if runner.world.tilemap.has_start_tile_effects_pending():
@@ -89,3 +98,20 @@ func _capture_ruin_phases(stage: int) -> void:
 		var filename := "ruin-%d-%s.png" % [stage, phase]
 		get_viewport().get_texture().get_image().save_png(output.path_join(filename))
 		mark("ruin_frame", {"file": filename, "phase": phase})
+
+
+func _run_synthforged_fixture() -> void:
+	var fixture := SynthforgedCardFixture.new()
+	mark("fixture_setup", {"fixture": "synthforged", "note": "Authored cards through CardUI; high energy/hostile HP, revealed resource cells, repositioned targets, fresh allies per card."})
+	var failures := await fixture.run(runner.world, _capture_synthforged)
+	var lifecycle := SynthforgedLifecycleFixture.new()
+	failures.append_array(await lifecycle.run(runner.world, _capture_synthforged))
+	mark("fixture_completed", {"failures": failures})
+	for failure: String in failures: printerr("Synthforged visual fixture: " + failure)
+
+func _capture_synthforged(card_id: String, phase: String, delay: float) -> void:
+	if delay > 0: await get_tree().create_timer(delay).timeout
+	await RenderingServer.frame_post_draw
+	var filename := "synthforged-%s-%s.png" % [card_id, phase]
+	get_viewport().get_texture().get_image().save_png(output.path_join(filename))
+	mark("synthforged_frame", {"card": card_id, "phase": phase, "file": filename})

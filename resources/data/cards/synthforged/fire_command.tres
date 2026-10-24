@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://dneo8ce8e5vva"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_owh4k"]
+[ext_resource type="Texture2D" uid="uid://iuj6qgx75ssd" path="res://assets/rift/cards/fire_command.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/fire_command.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 2
+target_type = 9
+id = "fire_command"
+name = "Fire Command"
+card_rarity = 1
+description = "A construct attacks immediately. Its normal activation is retained."
+energy_cost = 1
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

@@ -92,6 +92,12 @@ func start_turn() -> void:
 	if !is_instance_valid(player):
 		return
 	player_turn_count += 1
+	for relic_ui in relics._get_all_relic_ui_nodes():
+		if relic_ui.relic is OverclockCore:
+			relic_ui.relic.turn = player_turn_count
+			relic_ui.tooltip_text = relic_ui.relic.get_description()
+			if player_turn_count % 4 == 0:
+				relic_ui.flash()
 	Events.player_turn_started.emit()
 	print("Starting player turn %d" % player_turn_count)
 	free_movement_refund_available = true
@@ -99,6 +105,13 @@ func start_turn() -> void:
 	player.phantom_camera_2d.priority = 20
 	player_stats.block = 0
 	player_stats.reset_energy()
+	player_stats.fabrication_discount = false
+	var world := get_parent() as GameWorld
+	if world and world.summons:
+		world.summons.start_turn()
+	if player_stats.player_class_name == "Synthforged" and player_turn_count % 4 == 0:
+		_grant_energy_bonus(2, "Overclock")
+		SynthforgedFX.play_on(player, "overclock")
 	var pending_start_tile_effects := tilemap and tilemap.has_start_tile_effects_pending()
 	if tilemap.is_tile_mana_well(tilemap.player_position) and not pending_start_tile_effects:
 		_grant_energy_bonus(1, MANA_WELL_LABEL)
@@ -243,6 +256,7 @@ func _on_obelisk_destroyed() -> void:
 
 
 func _on_obelisk_damage_taken(amount: int) -> void:
+	if not _is_riftwalker(): return
 	if amount <= 0:
 		return
 	if obelisk_first_hit_awarded:
@@ -264,6 +278,7 @@ func _grant_energy_bonus(amount: int, label: String) -> void:
 
 
 func _refund_movement_energy(card: Card) -> void:
+	if not _is_riftwalker(): return
 	if not free_movement_refund_available:
 		return
 	free_movement_refund_available = false

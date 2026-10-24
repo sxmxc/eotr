@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://df44qbihnpmya"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_5aqll"]
+[ext_resource type="Texture2D" uid="uid://dcbc65ivaimyo" path="res://assets/rift/cards/burst_protocol.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/burst_protocol.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+target_type = 1
+id = "burst_protocol"
+name = "Burst Protocol"
+card_rarity = 1
+description = "Deal 4 damage three times."
+energy_cost = 2
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

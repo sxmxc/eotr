@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://cdgs7448rsa74"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_gyavp"]
+[ext_resource type="Texture2D" uid="uid://c67alh43wi811" path="res://assets/rift/cards/tactical_cache.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/tactical_cache.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 2
+id = "tactical_cache"
+name = "Tactical Cache"
+description = "Draw 2 cards."
+energy_cost = 1
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

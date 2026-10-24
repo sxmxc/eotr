@@ -23,6 +23,8 @@ extends Node2D
 @onready var tutorial_ui: TutorialUI = $TutorialUI
 @onready var battle_presentation: BattlePresentation = $BattlePresentation
 
+var summons: SummonHandler
+
 var audio_stream_player : AudioStreamPlayer
 var current_round : int : 
 	set = set_current_round
@@ -36,6 +38,10 @@ var initial_healing := 0
 var encounter_started_ms := 0
 
 func _ready():
+	summons = SummonHandler.new()
+	summons.name = "SummonHandler"
+	summons.world = self
+	add_child(summons)
 	card_interaction.bind_world(self)
 	game_world_ui.hand.interaction_controller = card_interaction
 	game_world_ui.bind_world(player, tilemap, map_camera)
@@ -66,6 +72,7 @@ func start_world() -> void:
 	battle_over_handled = false
 	victory_committed = false
 	battle_state.end_battle()
+	summons.reset()
 	battle_state.shrink_frequency = shrink_frequency
 	get_tree().paused = false
 	Events.enemy_died.connect(_on_enemy_died)

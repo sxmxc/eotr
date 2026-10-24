@@ -1563,6 +1563,174 @@
       "old": "default/inherited",
       "new": "res://assets/rift/cards/void_surge.webp",
       "status": "generated from fixed masters, integrated, loaded and rendered in shared CardVisuals"
+    },
+    {
+      "card": "resources/data/cards/synthforged/pulse_rifle.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/pulse_rifle.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/servo_strike.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/servo_strike.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/reactive_plating.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/reactive_plating.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/vector_boost.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/vector_boost.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/salvage_probe.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/salvage_probe.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/target_scan.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/target_scan.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/deploy_sentry.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/deploy_sentry.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/deploy_pike.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/deploy_pike.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/precision_shot.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/precision_shot.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/tactical_cache.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/tactical_cache.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/reserve_capacitor.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/reserve_capacitor.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/threat_assessment.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/threat_assessment.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/rail_lance.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/rail_lance.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/burst_protocol.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/burst_protocol.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/ablative_array.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/ablative_array.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/wideband_scan.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/wideband_scan.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/field_repairs.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/field_repairs.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/fire_command.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/fire_command.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/thruster_assault.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/thruster_assault.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/redeployment.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/redeployment.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/efficient_fabrication.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/efficient_fabrication.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/deploy_bastion.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/deploy_bastion.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/deploy_siege_platform.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/deploy_siege_platform.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/saturation_fire.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/saturation_fire.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/reactor_release.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/reactor_release.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/fortress_protocol.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/fortress_protocol.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/execution_algorithm.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/execution_algorithm.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
+    },
+    {
+      "card": "resources/data/cards/synthforged/combat_network.tres",
+      "old": "new content",
+      "new": "res://assets/rift/cards/combat_network.webp",
+      "status": "Original reference-guided illustration; individually packaged; native shared CardUI capture reviewed"
     }
   ],
   "exceptions": [
@@ -1571,7 +1739,7 @@
     "Existing third-party particles, audio, fonts and addons retained for their legitimate uses."
   ],
   "counts": {
-    "cards": 29,
+    "cards": 57,
     "battlefield_and_class_sprites": 32,
     "shadow": 1,
     "ui_icons": 32,
@@ -1580,5 +1748,24 @@
     "retained_compositor_inputs": 5,
     "final_assets": 104,
     "superseded_sources_removed": 88
+  },
+  "synthforged_additions": {
+    "character_reference": "assets/rift/source/synthforged.webp",
+    "cards": 28,
+    "constructs": [
+      "assets/rift/entities/synthforged_sentry.webp",
+      "assets/rift/entities/synthforged_pike.webp",
+      "assets/rift/entities/synthforged_bastion.webp",
+      "assets/rift/entities/synthforged_siege_platform.webp"
+    ],
+    "icons": [
+      "assets/rift/ui/analyzed.svg",
+      "assets/rift/ui/overclock_core.svg"
+    ],
+    "provenance": [
+      "synthforged-art.json",
+      "synthforged-construct-art.json"
+    ],
+    "review": "ai/visual/reviews/synthforged-reviewed.md"
   }
 }

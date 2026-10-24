@@ -4,6 +4,7 @@ extends Node
 var world: GameWorld
 var resolving_card: CardUI
 var active_card: CardUI
+var relocation_unit: Construct
 var _cards: Dictionary[int, WeakRef] = {}
 var _shutting_down := false
 var _input_was_open := false
@@ -92,6 +93,7 @@ func transition(ui: CardUI, from: CardState, to: CardState.State) -> void:
 		active_card = null
 		_gesture_state = CardState.State.BASE
 		if to == CardState.State.BASE:
+			relocation_unit = null
 			ui.targets.clear()
 	ui.card_state_machine.change_state(to)
 	ui.drop_point_detector.set_deferred("monitoring", to in [CardState.State.CLICKED, CardState.State.DRAGGING])
@@ -119,6 +121,7 @@ func _end_feedback(state: CardState.State, keep_target := false) -> void:
 
 
 func cancel_active(restore_hand := true) -> void:
+	relocation_unit = null
 	var ui := active_card
 	_end_feedback(_gesture_state, is_instance_valid(resolving_card) and not _shutting_down)
 	if is_instance_valid(ui):
@@ -187,20 +190,30 @@ func _valid_target(ui: CardUI, target: Node, cells: Array[Vector2i]) -> bool:
 		if ui.card.target_type not in [Enums.TargetType.SINGLE_ENEMY, Enums.TargetType.ADJACENT_ENEMY]:
 			return false
 		cell = target.current_tile_position
+	elif target is Construct:
+		if target.get_parent() != world.summons or target.is_dying or target.stats.health <= 0 or ui.card.target_type != Enums.TargetType.ALLY:
+			return false
+		cell = target.current_tile_position
 	elif target is TilemapTarget:
-		if target.tilemap != world.tilemap or ui.card.target_type != Enums.TargetType.SINGLE_TILE:
+		if target.tilemap != world.tilemap or (ui.card.target_type != Enums.TargetType.SINGLE_TILE and not is_relocating(ui)):
 			return false
 		cell = target.tile_position
 	else:
 		return false
+	var targets: Array[Node] = []
+	targets.assign([relocation_unit, target] if is_relocating(ui) and target is TilemapTarget else [target])
 	return cells.has(cell) and not world.tilemap.is_tile_behind_fog(cell) \
-		and ui.card.is_valid_target([target], ui.player_modifiers)
+		and ui.card.is_valid_target(targets, ui.player_modifiers)
+
+
+func is_relocating(ui: CardUI) -> bool:
+	return active_card == ui and ui.card.id == "redeployment" and is_instance_valid(relocation_unit) and not relocation_unit.is_dying
 
 
 func select_target(ui: CardUI, target: Node) -> void:
 	if active_card != ui or not is_preview_target(ui, target):
 		return
-	ui.targets.assign([target])
+	ui.targets.assign([relocation_unit, target] if is_relocating(ui) and target is TilemapTarget else [target])
 	ui.request_description()
 	if target is Enemy:
 		Events.enemy_selected.emit(target)
@@ -226,7 +239,7 @@ func enemy_modifiers(ui: CardUI) -> ModifierHandler:
 func refresh_preview() -> void:
 	if not is_instance_valid(active_card) or not active_card.card.is_single_targeted():
 		return
-	if not active_card.targets.is_empty() and not is_preview_target(active_card, active_card.targets[0]):
+	if not active_card.targets.is_empty() and not is_preview_target(active_card, active_card.targets[-1]):
 		active_card.targets.clear()
 	show_targets(active_card)
 	active_card.request_description()
@@ -278,11 +291,20 @@ func handle_input(state: CardState, event: InputEvent) -> void:
 
 
 func _cancel(state: CardState) -> void:
+	relocation_unit = null
 	state.card_ui.targets.clear()
 	state.transition_requested.emit(state, CardState.State.BASE)
 
 
 func _release(state: CardState) -> void:
+	var ui := state.card_ui
+	if ui.card.id == "redeployment" and not is_relocating(ui) and ui.targets.size() == 1 and ui.targets[0] is Construct:
+		relocation_unit = ui.targets[0]
+		ui.targets.clear()
+		world.target_selector._reset_cache()
+		return
+	if ui.card.id == "redeployment" and is_relocating(ui) and ui.targets.size() != 2:
+		return
 	state.card_ui.get_viewport().set_input_as_handled()
 	state.transition_requested.emit(state, CardState.State.RELEASED)
 
@@ -312,8 +334,12 @@ func can_execute(ui: CardUI, selected_targets: Array[Node]) -> bool:
 		if target is TilemapTarget:
 			if target.tilemap != world.tilemap:
 				return false
+		elif target is Construct:
+			if target.get_parent() != world.summons or target.is_dying: return false
 		elif target != world.player and target != world.game_world_ui.card_drop_area and target.get_parent() != world.enemy_handler:
 			return false
+	if ui.card.id == "redeployment":
+		return selected_targets.size() == 2 and selected_targets[0] is Construct and selected_targets[1] is TilemapTarget and ui.card.is_valid_target(selected_targets, ui.player_modifiers) and not world.tilemap.is_tile_behind_fog(selected_targets[0].current_tile_position)
 	if ui.card.is_single_targeted():
 		return selected_targets.size() == 1 and _valid_target(ui, selected_targets[0], ui.card.get_valid_targets(ui, ui.player_modifiers))
 	return ui.card.is_valid_target(selected_targets, ui.player_modifiers)
@@ -337,6 +363,7 @@ func finish_play(ui: CardUI) -> void:
 	if resolving_card != ui:
 		return
 	resolving_card = null
+	relocation_unit = null
 	if is_instance_valid(world) and is_instance_valid(world.player_handler):
 		world.player_handler.resolving_action = false
 		if is_instance_valid(world.target_selector):

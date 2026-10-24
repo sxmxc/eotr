@@ -59,7 +59,7 @@ func _physics_process(_delta: float) -> void:
 		electric_arc_fx.points = points
 
 	_update_overlap_targets()
-	if current_card.card.target_type == Enums.TargetType.SINGLE_TILE:
+	if (current_card.card.target_type == Enums.TargetType.SINGLE_TILE or interaction.is_relocating(current_card)):
 		_update_tile_hover()
 
 
@@ -77,7 +77,7 @@ func get_cached_targets(card_ui: CardUI) -> Array[Vector2i]:
 func _update_overlap_targets() -> void:
 	if not area_2d or not current_card:
 		return
-	if current_card.card.target_type == Enums.TargetType.SINGLE_TILE:
+	if (current_card.card.target_type == Enums.TargetType.SINGLE_TILE or interaction.is_relocating(current_card)):
 		return
 	var best_target: Node = null
 	var best_distance := INF

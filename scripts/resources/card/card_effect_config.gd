@@ -1,12 +1,15 @@
 extends Resource
 class_name CardEffectConfig
 
-enum EffectType { DAMAGE, BLOCK, MOVE, GATHER, ENERGY, DRAW, STATUS, MULTI_DAMAGE }
-enum Targeting { CARD_TARGETS, PLAYER }
+enum EffectType { DAMAGE, BLOCK, MOVE, GATHER, ENERGY, DRAW, STATUS, MULTI_DAMAGE, SUMMON, REPAIR, COMMAND, DISMANTLE, RELOCATE, FABRICATE }
+enum Targeting { CARD_TARGETS, PLAYER, CONSTRUCTS, VISIBLE_ENEMIES, ADJACENT_ENEMIES }
 enum ProjectileMode { AUTO, FIRST_TARGET_ONLY, EACH_TARGET_SEQUENTIAL, EACH_TARGET_PARALLEL }
 
 @export var effect_type: EffectType = EffectType.DAMAGE
 @export var amount: int = 0
+@export var construct: ConstructDefinition
+@export var consume_analyze: int = 0
+@export var analyzed_bonus: int = 0
 @export var receiver_modifier_type: Enums.ModifierType = Enums.ModifierType.DMG_TAKEN
 @export var target: Targeting = Targeting.CARD_TARGETS
 @export var projectile_fx: PackedScene
@@ -113,6 +116,8 @@ func get_preview_amount(
 ) -> int:
 	var value := get_effect_amount(player_modifiers)
 	if (effect_type == EffectType.DAMAGE or effect_type == EffectType.MULTI_DAMAGE) and enemy_modifiers:
+		var stacks := AnalyzedStatus.count(enemy_modifiers.get_parent())
+		value += stacks * consume_analyze if consume_analyze > 0 else stacks + (analyzed_bonus if stacks > 0 else 0)
 		value = enemy_modifiers.get_modified_value(value, Enums.ModifierType.DMG_TAKEN)
 	return value
 

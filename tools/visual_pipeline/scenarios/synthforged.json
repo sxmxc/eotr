@@ -1,0 +1,11 @@
+{
+  "event": "Synthforged functional baseline: cards and constructs",
+  "encounter": "res://resources/data/battles/tier_0_blobs.tres",
+  "player_class": "synthforged",
+  "loadout": "starter",
+  "seed": 27,
+  "policy": "greedy",
+  "duration": 16,
+  "fps": 30,
+  "expect_card": "Pulse Rifle"
+}

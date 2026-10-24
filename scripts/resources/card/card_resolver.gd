@@ -111,6 +111,8 @@ func _resolve_effect(config: CardEffectConfig, context: ResolveContext) -> void:
 			await _resolve_draw(config, context)
 		CardEffectConfig.EffectType.STATUS:
 			await _resolve_status(config, context)
+		CardEffectConfig.EffectType.SUMMON, CardEffectConfig.EffectType.REPAIR, CardEffectConfig.EffectType.COMMAND, CardEffectConfig.EffectType.DISMANTLE, CardEffectConfig.EffectType.RELOCATE, CardEffectConfig.EffectType.FABRICATE:
+			await _resolve_construct(config, context)
 		_:
 			pass
 
@@ -139,6 +141,8 @@ func _resolve_damage(config: CardEffectConfig, context: ResolveContext) -> void:
 	effect.amount = amount
 	effect.receiver_modifier_type = config.receiver_modifier_type
 	effect.direct = config.direct_damage
+	effect.player_side_attack = true
+	effect.source_actor = context.player
 	effect.sound_fx = _select_sound(config, context.card)
 	effect.visual_fx = (
 		_select_visual(config, context.card) if config.attach_visual_to_effect else null
@@ -146,7 +150,15 @@ func _resolve_damage(config: CardEffectConfig, context: ResolveContext) -> void:
 	effect.impact_profile = config.impact_profile
 
 	await _maybe_play_pre_fx(config, context, targets)
-	effect.execute(targets)
+	for target: Node in targets:
+		if not is_instance_valid(target): continue
+		var stacks := AnalyzedStatus.count(target)
+		effect.amount = amount
+		if config.consume_analyze > 0:
+			effect.amount += AnalyzedStatus.consume(target) * config.consume_analyze
+		elif stacks > 0:
+			effect.amount += config.analyzed_bonus
+		effect.execute([target])
 
 	var profile: ImpactProfile = config.impact_profile
 	if not profile:
@@ -165,6 +177,8 @@ func _resolve_multi_damage(config: CardEffectConfig, context: ResolveContext) ->
 	effect.amount = amount
 	effect.receiver_modifier_type = config.receiver_modifier_type
 	effect.direct = config.direct_damage
+	effect.player_side_attack = true
+	effect.source_actor = context.player
 	effect.sound_fx = _select_sound(config, context.card)
 	effect.visual_fx = (
 		_select_visual(config, context.card) if config.attach_visual_to_effect else null
@@ -179,7 +193,14 @@ func _resolve_multi_damage(config: CardEffectConfig, context: ResolveContext) ->
 
 	var tree: SceneTree = _get_scene_tree(context)
 	for i in hits:
-		effect.execute(targets)
+		var living: Array[Node] = []
+		for candidate in targets:
+			if is_instance_valid(candidate) and candidate.stats.health > 0:
+				living.append(candidate)
+		effect.execute(living)
+		for target: Node in living:
+			while is_instance_valid(target) and ((target is Enemy and target.pending_damage > 0) or (target is Construct and target.pending_effects > 0)):
+				await tree.process_frame
 		_apply_camera_impact(profile, config, context)
 		if i < hits - 1 and config.hit_interval > 0.0 and tree:
 			await tree.create_timer(config.hit_interval).timeout
@@ -217,6 +238,8 @@ func _resolve_move(config: CardEffectConfig, context: ResolveContext) -> void:
 	)
 	await _maybe_play_pre_fx(config, context, targets)
 	effect.execute(targets)
+	if context.card is SynthforgedCard:
+		SynthforgedFX.play_on(context.player, context.card.id)
 
 
 func _resolve_gather(config: CardEffectConfig, context: ResolveContext) -> void:
@@ -266,6 +289,8 @@ func _resolve_draw(config: CardEffectConfig, context: ResolveContext) -> void:
 	effect.amount = config.get_effect_amount(context.player_modifiers)
 	await _maybe_play_pre_fx(config, context, targets)
 	effect.execute(targets)
+	if context.card.id in ["tactical_cache", "efficient_fabrication"]:
+		SynthforgedFX.play_on(context.player, context.card.id)
 
 
 func _resolve_status(config: CardEffectConfig, context: ResolveContext) -> void:
@@ -290,13 +315,26 @@ func _get_targets_for_config(config: CardEffectConfig, context: ResolveContext) 
 	if config.should_use_player_targets():
 		var player_targets: Array[Node] = context.get_player_targets()
 		return player_targets
+	if config.target == CardEffectConfig.Targeting.CONSTRUCTS:
+		var result: Array[Node] = []
+		if context.player:
+			var world := context.player.get_parent() as GameWorld
+			result.assign(world.summons.living())
+		return result
+	if config.target in [CardEffectConfig.Targeting.VISIBLE_ENEMIES, CardEffectConfig.Targeting.ADJACENT_ENEMIES]:
+		var result: Array[Node] = []
+		for enemy: Node in context.player.get_tree().get_nodes_in_group("enemy"):
+			if enemy is Enemy and not enemy.is_dying and not context.tilemap.is_tile_behind_fog(enemy.current_tile_position):
+				if config.target == CardEffectConfig.Targeting.VISIBLE_ENEMIES or context.tilemap.base_layer.get_surrounding_cells(context.tilemap.player_position).has(enemy.current_tile_position):
+					result.append(enemy)
+		return result
 	return context.targets
 
 
 func _filter_damage_targets(targets: Array[Node]) -> Array[Node]:
 	var filtered: Array[Node] = []
 	for target in targets:
-		if target is Enemy or target is Player:
+		if target is Enemy or target is Player or target is Construct:
 			filtered.append(target)
 	return filtered
 
@@ -370,3 +408,34 @@ func _get_first_valid_target(targets: Array[Node]) -> Node:
 		if target:
 			return target
 	return null
+
+
+func _resolve_construct(config: CardEffectConfig, context: ResolveContext) -> void:
+	if not is_instance_valid(context.player): return
+	var world := context.player.get_parent() as GameWorld
+	if not world or not world.battle_state.battle_active: return
+	var targets := _get_targets_for_config(config, context)
+	match config.effect_type:
+		CardEffectConfig.EffectType.SUMMON:
+			var tile := _find_tile_target(context.targets)
+			if tile:
+				var unit := world.summons.deploy(config.construct, tile.tile_position)
+				if unit: SynthforgedFX.play_on(unit, context.card.id)
+		CardEffectConfig.EffectType.FABRICATE:
+			context.player_stats.fabrication_discount = true
+		CardEffectConfig.EffectType.RELOCATE:
+			var tile := _find_tile_target(context.targets)
+			if tile and context.targets[0] is Construct:
+				world.summons.relocate(context.targets[0], tile.tile_position)
+				SynthforgedFX.play_on(context.targets[0], context.card.id)
+		_:
+			for target: Node in targets:
+				if not is_instance_valid(target) or not target is Construct or target.is_dying: continue
+				match config.effect_type:
+					CardEffectConfig.EffectType.REPAIR:
+						target.stats.heal(config.amount)
+						SynthforgedFX.play_on(target, context.card.id)
+					CardEffectConfig.EffectType.COMMAND:
+						SynthforgedFX.play_on(target, context.card.id)
+						await target.activate()
+					CardEffectConfig.EffectType.DISMANTLE: target.destroy()

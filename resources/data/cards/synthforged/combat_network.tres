@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://cur627afq1np7"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_5rn5p"]
+[ext_resource type="Texture2D" uid="uid://gxpkxdlcekjx" path="res://assets/rift/cards/combat_network.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/combat_network.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 2
+target_type = 3
+id = "combat_network"
+name = "Combat Network"
+card_rarity = 2
+description = "Apply 3 Analyze to all visible enemies. Draw 2. Exhaust."
+energy_cost = 2
+exhaust = true
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

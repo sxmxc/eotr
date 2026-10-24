@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SynthforgedCard" format=3 uid="uid://d0gw0itvwwt6g"]
+
+[ext_resource type="Script" uid="uid://dwbnqpyjhlqk5" path="res://resources/data/cards/synthforged/synthforged_card.gd" id="1"]
+[ext_resource type="Script" uid="uid://dp3ynfwkdsmvm" path="res://scripts/resources/card/card_effect_config.gd" id="2_dpl00"]
+[ext_resource type="Texture2D" uid="uid://jo3dcc20ncro" path="res://assets/rift/cards/reserve_capacitor.webp" id="rift_art"]
+[ext_resource type="PackedScene" path="res://ui/fx/synthforged/reserve_capacitor.tscn" id="vfx"]
+
+[resource]
+script = ExtResource("1")
+card_type = 2
+id = "reserve_capacitor"
+name = "Reserve Capacitor"
+description = "Gain 2 energy. Exhaust."
+exhaust = true
+tags = Array[String](["synthforged"])
+card_art = ExtResource("rift_art")
+visual_fx = ExtResource("vfx")

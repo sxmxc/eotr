@@ -51,6 +51,25 @@ a new label rather than expecting the retry to overwrite it.
 
 ## Scenarios, replays and controlled fixtures
 
+Scenarios may select `player_class: "synthforged"` (default Riftwalker) and a
+supported AutoWalker `loadout`. `stills_only: true` uses the native renderer and
+saves PNGs without requiring FFmpeg; it cannot establish continuous motion/audio.
+Run it through the same launcher:
+
+```powershell
+python tools/visual_pipeline/run.py synthforged-cards --label synthforged-review --godot "$godot"
+```
+
+The development-only `fixture: "synthforged"` supplies all 28 authored cards to
+real CardUI, with high energy/hostile HP, revealed resource cells, repositioned
+targets and fresh constructs. Shared runtime fixtures assert authorization,
+costs, outcomes and piles; then exercise all four construct attacks, the actual
+allied/enemy phase, Overclock and authoritative collapse. Each card records
+before/contact/recovery stills. These are controlled initial conditions, not a
+natural run. Fixture failures or missing completion fail the capture command.
+Review actual PNGs and timing.json before acceptance. `--baseline` comparison
+requires movie captures.
+
 Reusable inputs live in `tools/visual_pipeline/scenarios/`. Copy a nearby JSON
 and provide `event`, real encounter resource, seed, policy (`greedy`, `random` or
 `stress`), duration greater than zero and at most 120 seconds, and fps from 1 to 60.
@@ -71,17 +90,10 @@ repeatable tile feedback, not a natural movement replay. Ruin timing/frame event
 and six native phase PNGs support inspection without FFmpeg extraction; that
 fixture fallback is not a general movie/extraction replacement.
 
-For bounded campaign stills without FFmpeg:
-
-```powershell
-python tools/review_campaign_visuals.py --godot "$godot" --bosses-only
-```
-
-This uses the same capture implementation in stills-only mode and expects three
-native frames per boss. Output goes to `.qa-tmp/bkl-031/visual/final-<act>-boss/`;
-these fixed labels can be reused/overwritten. Copy evidence first if needed.
-Omitting `--bosses-only` also captures normal/Elite examples. It does not exercise
-an entire campaign or certify continuous animation/audio.
+For campaign encounters, use the same scenario format with the desired encounter
+resource. `stills_only: true` saves native frames without FFmpeg. Use a new label
+for each capture; encounter stills do not certify a full campaign or continuous
+animation/audio.
 
 ## Compare and investigate
 
@@ -119,10 +131,8 @@ lists supported categories; `SOURCE KEY cards` preserves the full composition,
 `SOURCE KEY entities` validates transparency/fits the silhouette, and `SOURCE KEY fx`
 packages sheets/particle extracts. Packaging writes canonical assets: inspect the
 selected source and output before invoking it. `--frame-inset` reserves sheet gutters.
-`tools/build_rift_presentation.py` handles retained variants/menu packaging, not
-card illustration generation. `tools/build_rift_icons.py` rebuilds its authored
-icon/atlas outputs; inspect its current scope before overwriting selected art.
-The obsolete `build_rift_cards.py` collage compositor no longer exists.
+Edit shipped SVG icons directly. Menu textures and enemy variants are authored
+assets; the one-off scripts that originally generated them are retired.
 
 Active animations reference original PNG sources under `assets/rift/fx/atlases/`
 through explicit AtlasTexture rectangles and padded margins. Consuming sprites
@@ -135,8 +145,9 @@ Maintained source manifests and per-ability direction are in
 [ai/visual/reference/](../ai/visual/reference/README.md). Tool-consumed inventories
 are preserved there. Some provenance entries record historical production and
 external generator paths; they are not runtime dependencies or promises that old
-captures remain available. `python tools/audit_visual_effects.py` regenerates its
-VFX inventory; `python tools/validate_rift_art.py` checks actual references, alpha,
+captures remain available. The VFX inventory retains historical source coverage;
+verify current consumers before using it. `python tools/validate_rift_art.py`
+checks actual references, alpha,
 dimensions, footprints and unused outputs.
 
 ## Preserve runtime authority

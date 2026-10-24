@@ -1,0 +1,285 @@
+{
+  "character_reference": "assets/rift/source/synthforged.webp",
+  "cards": [
+    {
+      "id": "pulse_rifle",
+      "name": "Pulse Rifle",
+      "rarity": 0,
+      "cost": 1,
+      "type": 0,
+      "target": 1,
+      "exhaust": false,
+      "description": "Deal 6 damage."
+    },
+    {
+      "id": "servo_strike",
+      "name": "Servo Strike",
+      "rarity": 0,
+      "cost": 1,
+      "type": 0,
+      "target": 11,
+      "exhaust": false,
+      "description": "Deal 8 melee damage."
+    },
+    {
+      "id": "reactive_plating",
+      "name": "Reactive Plating",
+      "rarity": 0,
+      "cost": 1,
+      "type": 1,
+      "target": 0,
+      "exhaust": false,
+      "description": "Gain 10 block."
+    },
+    {
+      "id": "vector_boost",
+      "name": "Vector Boost",
+      "rarity": 0,
+      "cost": 1,
+      "type": 7,
+      "target": 5,
+      "exhaust": false,
+      "description": "Move to a free cell within 2 hexes."
+    },
+    {
+      "id": "salvage_probe",
+      "name": "Salvage Probe",
+      "rarity": 0,
+      "cost": 1,
+      "type": 6,
+      "target": 5,
+      "exhaust": false,
+      "description": "Gather resources from your tile."
+    },
+    {
+      "id": "target_scan",
+      "name": "Target Scan",
+      "rarity": 0,
+      "cost": 0,
+      "type": 2,
+      "target": 1,
+      "exhaust": true,
+      "description": "Apply 1 Analyze. Draw 1. Exhaust."
+    },
+    {
+      "id": "deploy_sentry",
+      "name": "Deploy Sentry",
+      "rarity": 0,
+      "cost": 2,
+      "type": 5,
+      "target": 5,
+      "exhaust": false,
+      "description": "Deploy a Sentry Turret: 12 HP, 3 damage, range 3. Attacks at turn end. Maximum 3 constructs."
+    },
+    {
+      "id": "deploy_pike",
+      "name": "Deploy Pike",
+      "rarity": 0,
+      "cost": 2,
+      "type": 5,
+      "target": 5,
+      "exhaust": false,
+      "description": "Deploy a Pike Emplacement: 18 HP, 5 damage, range 1. Attacks at turn end. Maximum 3 constructs."
+    },
+    {
+      "id": "precision_shot",
+      "name": "Precision Shot",
+      "rarity": 0,
+      "cost": 1,
+      "type": 0,
+      "target": 1,
+      "exhaust": false,
+      "description": "Deal 8 damage. Deal 4 more if Analyzed."
+    },
+    {
+      "id": "tactical_cache",
+      "name": "Tactical Cache",
+      "rarity": 0,
+      "cost": 1,
+      "type": 2,
+      "target": 0,
+      "exhaust": false,
+      "description": "Draw 2 cards."
+    },
+    {
+      "id": "reserve_capacitor",
+      "name": "Reserve Capacitor",
+      "rarity": 0,
+      "cost": 0,
+      "type": 2,
+      "target": 0,
+      "exhaust": true,
+      "description": "Gain 2 energy. Exhaust."
+    },
+    {
+      "id": "threat_assessment",
+      "name": "Threat Assessment",
+      "rarity": 0,
+      "cost": 1,
+      "type": 1,
+      "target": 0,
+      "exhaust": false,
+      "description": "Gain 6 block. Apply 1 Analyze to adjacent visible enemies."
+    },
+    {
+      "id": "rail_lance",
+      "name": "Rail Lance",
+      "rarity": 1,
+      "cost": 2,
+      "type": 0,
+      "target": 1,
+      "exhaust": false,
+      "description": "Deal 12 damage. Consume Analyze for +4 damage per stack."
+    },
+    {
+      "id": "burst_protocol",
+      "name": "Burst Protocol",
+      "rarity": 1,
+      "cost": 2,
+      "type": 0,
+      "target": 1,
+      "exhaust": false,
+      "description": "Deal 4 damage three times."
+    },
+    {
+      "id": "ablative_array",
+      "name": "Ablative Array",
+      "rarity": 1,
+      "cost": 1,
+      "type": 1,
+      "target": 0,
+      "exhaust": false,
+      "description": "Gain 8 block. All constructs gain 4 block."
+    },
+    {
+      "id": "wideband_scan",
+      "name": "Wideband Scan",
+      "rarity": 1,
+      "cost": 1,
+      "type": 2,
+      "target": 3,
+      "exhaust": false,
+      "description": "Apply 1 Analyze to all visible enemies."
+    },
+    {
+      "id": "field_repairs",
+      "name": "Field Repairs",
+      "rarity": 1,
+      "cost": 1,
+      "type": 2,
+      "target": 9,
+      "exhaust": false,
+      "description": "Restore 8 HP to a construct. Draw 1."
+    },
+    {
+      "id": "fire_command",
+      "name": "Fire Command",
+      "rarity": 1,
+      "cost": 1,
+      "type": 2,
+      "target": 9,
+      "exhaust": false,
+      "description": "A construct attacks immediately. Its normal activation is retained."
+    },
+    {
+      "id": "thruster_assault",
+      "name": "Thruster Assault",
+      "rarity": 1,
+      "cost": 1,
+      "type": 7,
+      "target": 5,
+      "exhaust": false,
+      "description": "Move to a free cell within 2 hexes. Gain 6 block."
+    },
+    {
+      "id": "redeployment",
+      "name": "Redeployment",
+      "rarity": 1,
+      "cost": 0,
+      "type": 2,
+      "target": 9,
+      "exhaust": true,
+      "description": "Select a construct, then a free adjacent resource cell. Move it there. Exhaust."
+    },
+    {
+      "id": "efficient_fabrication",
+      "name": "Efficient Fabrication",
+      "rarity": 1,
+      "cost": 0,
+      "type": 2,
+      "target": 0,
+      "exhaust": true,
+      "description": "Draw 1. Your next summon this turn costs 1 less. Exhaust."
+    },
+    {
+      "id": "deploy_bastion",
+      "name": "Deploy Bastion",
+      "rarity": 1,
+      "cost": 2,
+      "type": 5,
+      "target": 5,
+      "exhaust": false,
+      "description": "Deploy a Bastion Automaton: 30 HP, 4 damage, range 1. Attacks at turn end. Maximum 3 constructs."
+    },
+    {
+      "id": "deploy_siege_platform",
+      "name": "Deploy Siege Platform",
+      "rarity": 2,
+      "cost": 3,
+      "type": 5,
+      "target": 5,
+      "exhaust": false,
+      "description": "Deploy a Siege Platform: 16 HP, 8 damage, range 4. Attacks at turn end. Maximum 3 constructs."
+    },
+    {
+      "id": "saturation_fire",
+      "name": "Saturation Fire",
+      "rarity": 2,
+      "cost": 3,
+      "type": 0,
+      "target": 3,
+      "exhaust": true,
+      "description": "Deal 4 damage three times to all visible enemies. Exhaust."
+    },
+    {
+      "id": "reactor_release",
+      "name": "Reactor Release",
+      "rarity": 2,
+      "cost": 1,
+      "type": 2,
+      "target": 0,
+      "exhaust": true,
+      "description": "Gain 4 energy. Exhaust."
+    },
+    {
+      "id": "fortress_protocol",
+      "name": "Fortress Protocol",
+      "rarity": 2,
+      "cost": 2,
+      "type": 1,
+      "target": 0,
+      "exhaust": true,
+      "description": "Gain 16 block. All constructs gain 8 block. Exhaust."
+    },
+    {
+      "id": "execution_algorithm",
+      "name": "Execution Algorithm",
+      "rarity": 2,
+      "cost": 3,
+      "type": 0,
+      "target": 1,
+      "exhaust": false,
+      "description": "Deal 18 damage. Consume Analyze for +6 damage per stack."
+    },
+    {
+      "id": "combat_network",
+      "name": "Combat Network",
+      "rarity": 2,
+      "cost": 2,
+      "type": 2,
+      "target": 3,
+      "exhaust": true,
+      "description": "Apply 3 Analyze to all visible enemies. Draw 2. Exhaust."
+    }
+  ]
+}

@@ -26,6 +26,7 @@ than combining every flag into a larger suite. `--help` lists all current option
 | Combat legality, action completion and teardown | `--combat-automation` |
 | Lunge cancellation only | `--combat-automation --attack-cancellation-only` |
 | Status expiration and modifier cleanup | `--status-lifecycle` |
+| Synthforged's 28 cards, Overclock, Analyze, constructs, targeting and class save/shop/reward integration | `--synthforged` |
 | Occupancy/movement query checks and profiling | `--board-queries` |
 | Watch pause/step/speed/stop | `--autowalker-controls` |
 | Local/upload routing with fake transport, no server | `--autowalker-telemetry` |
@@ -111,8 +112,7 @@ Art validation requires Pillow: `python tools/validate_rift_art.py`. It checks
 bindings, dimensions, alpha, footprints and unused/superseded asset references;
 it does not approve artistic quality. It currently flags 12 intentionally
 retained legacy WebP FX sheets plus `shuffle.svg` as unused; do not delete retained
-art automatically to make this check green. `python tools/audit_visual_effects.py`
-regenerates a source inventory and is a writing operation, not just a test.
+art automatically to make this check green.
 
 If the backend submodule is present, from `backend/telemetry/` run
 `python -m unittest discover -s ingest -p test_service.py -v` and

@@ -4,7 +4,8 @@ extends Node
 @export var encounter_registry: EncounterRegistry
 @export var enemy_catalog: EnemyCatalog
 @export var card_registry_paths: Array[String] = [
-	"res://resources/data/registries/card_registry_riftwalker.tres"
+	"res://resources/data/registries/card_registry_riftwalker.tres",
+	"res://resources/data/registries/card_registry_synthforged.tres"
 ]
 @export var encounter_registry_paths: Array[String] = [
 	"res://resources/data/registries/encounter_registry_act1.tres",
@@ -26,11 +27,16 @@ func _ready() -> void:
 func _ensure_card_registry() -> void:
 	if card_registry:
 		return
+	card_registry = CardRegistry.new()
+	var seen: Dictionary[String, bool] = {}
 	for path: String in card_registry_paths:
 		var res := load(path)
 		if res is CardRegistry:
-			card_registry = res
-			return
+			for entry: Dictionary in res.entries:
+				var card := entry.get("card") as Card
+				if card and not seen.has(card.id):
+					seen[card.id] = true
+					card_registry.entries.append(entry)
 
 
 func _ensure_encounter_registry() -> void:
