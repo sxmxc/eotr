@@ -33,6 +33,7 @@ func deploy(definition: ConstructDefinition, cell: Vector2i) -> Construct:
 	unit.tilemap = world.tilemap
 	unit.current_tile_position = cell
 	add_child(unit)
+	unit.stats.stats_changed.connect(world.target_selector._reset_cache)
 	unit.global_position = world.tilemap.cell_to_world(cell)
 	world.tilemap.register_occupant(unit, cell)
 	changed()

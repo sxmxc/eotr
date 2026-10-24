@@ -170,6 +170,19 @@ func valid_cells(ui: CardUI) -> Array[Vector2i]:
 			if _valid_target(ui, enemy, candidates):
 				for cell in enemy.visible_tiles():
 					if candidates.has(cell): visible.append(cell)
+	elif ui.card.target_type == Enums.TargetType.ALLY and not is_relocating(ui):
+		for unit in world.summons.living():
+			if _valid_target(ui, unit, candidates):
+				visible.append(unit.current_tile_position)
+	elif ui.card.target_type == Enums.TargetType.SINGLE_TILE or is_relocating(ui):
+		# Candidate cells are a broad preview, not permission. Reuse one detached
+		# token for pure validation; picking/commit still require a live tree target.
+		var token := TilemapTarget.new(Vector2i.ZERO, world.tilemap)
+		for cell: Vector2i in candidates:
+			token.tile_position = cell
+			if _valid_cell_target(ui, token, candidates):
+				visible.append(cell)
+		token.free()
 	else:
 		for cell: Vector2i in candidates:
 			if world.tilemap.has_line_of_sight(world.tilemap.player_position, cell):
@@ -178,13 +191,12 @@ func valid_cells(ui: CardUI) -> Array[Vector2i]:
 
 
 func is_preview_target(ui: CardUI, target: Node) -> bool:
-	return _valid_target(ui, target, valid_cells(ui))
+	return _valid_target(ui, target, world.target_selector.get_cached_targets(ui))
 
 
 func _valid_target(ui: CardUI, target: Node, cells: Array[Vector2i]) -> bool:
 	if not is_instance_valid(target) or not target.is_inside_tree() or target.is_queued_for_deletion():
 		return false
-	var cell: Vector2i
 	if target is Enemy:
 		if target.get_parent() != world.enemy_handler or target.is_dying or target.stats.health <= 0:
 			return false
@@ -194,13 +206,16 @@ func _valid_target(ui: CardUI, target: Node, cells: Array[Vector2i]) -> bool:
 	elif target is Construct:
 		if target.get_parent() != world.summons or target.is_dying or target.stats.health <= 0 or ui.card.target_type != Enums.TargetType.ALLY:
 			return false
-		cell = target.current_tile_position
 	elif target is TilemapTarget:
 		if target.tilemap != world.tilemap or (ui.card.target_type != Enums.TargetType.SINGLE_TILE and not is_relocating(ui)):
 			return false
-		cell = target.tile_position
 	else:
 		return false
+	return _valid_cell_target(ui, target, cells)
+
+
+func _valid_cell_target(ui: CardUI, target: Node, cells: Array[Vector2i]) -> bool:
+	var cell: Vector2i = target.tile_position if target is TilemapTarget else target.current_tile_position
 	var targets: Array[Node] = []
 	targets.assign([relocation_unit, target] if is_relocating(ui) and target is TilemapTarget else [target])
 	return cells.has(cell) and not world.tilemap.is_tile_behind_fog(cell) \
