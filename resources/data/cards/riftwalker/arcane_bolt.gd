@@ -55,8 +55,7 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 func _sync_effect_configs() -> void:
 	# Ensure a damage config exists and carries visuals/shake.
 	if effect_configs.is_empty():
-		var damage_effect := CardEffectConfig.for_damage(base_damage)
-		effect_configs = [damage_effect]
+		effect_configs = [CardEffectConfig.for_damage(base_damage)]
 	var damage_effect := effect_configs[0]
 	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, false)
 	damage_effect.camera_shake_strength = 16.0

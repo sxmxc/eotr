@@ -36,11 +36,11 @@ func is_card_modified(player_modifiers: ModifierHandler) -> bool:
 
 func _sync_effect_configs() -> void:
 	if effect_configs.is_empty():
-		var damage_effect := CardEffectConfig.for_damage(base_damage)
-		damage_effect.camera_shake_strength = 16.0
-		damage_effect.camera_shake_duration = 0.15
-		damage_effect.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
-		effect_configs = [damage_effect]
+		var initial_config := CardEffectConfig.for_damage(base_damage)
+		initial_config.camera_shake_strength = 16.0
+		initial_config.camera_shake_duration = 0.15
+		initial_config.receiver_modifier_type = Enums.ModifierType.DMG_TAKEN
+		effect_configs = [initial_config]
 	var damage_effect := effect_configs[0]
 	CardEffectConfigHelper.apply_card_defaults(self, damage_effect, true)
 	damage_effect.amount = base_damage
