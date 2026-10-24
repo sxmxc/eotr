@@ -1,3 +1,4 @@
 [gd_resource type="SystemFont" format=3 uid="uid://bh2lp6h1inb5r"]
 
 [resource]
+font_names = PackedStringArray("Atkinson Hyperlegible")

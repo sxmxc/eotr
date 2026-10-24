@@ -80,7 +80,7 @@ func _draw() -> void:
 		# Physical weapon contact: short tracers, directional fragments, central peak.
 		var heavy := mode in ["rail_lance", "execution_algorithm", "siege_attack"]
 		if source != Vector2.ZERO and mode not in ["servo_strike", "construct_death", "pike_attack", "bastion_attack"]:
-			draw_line(source.lerp(Vector2.ZERO, progress * 0.6), Vector2(8, -2), amber, 3 if heavy else 1.5, true)
+			draw_line(source.lerp(Vector2.ZERO, progress * 0.6), Vector2(8, -2), amber, 3.0 if heavy else 1.5, true)
 		for i in (10 if heavy else 6):
 			var direction := Vector2.from_angle(i * 2.399)
 			draw_line(direction * progress * 24, direction * (progress * 24 + 7 * alpha), amber, 2, true)

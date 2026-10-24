@@ -1,0 +1,201 @@
+[gd_scene format=3 uid="uid://wmnm8fbbo2ot"]
+
+[ext_resource type="Texture2D" uid="uid://d32fcrq1kqyvg" path="res://assets/rift/menus/layered_v2/bridge_portal.png" id="bridge"]
+[ext_resource type="Shader" uid="uid://wi3owq1mgrgk" path="res://scenes/menus/menu_portal.gdshader" id="portal_shader"]
+[ext_resource type="Texture2D" uid="uid://xwwljk1l8fkq" path="res://assets/rift/menus/layered_v2/floating_ruins.png" id="ruins"]
+[ext_resource type="Script" uid="uid://ew66ln2a0tcq" path="res://scenes/menus/menu_environment.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://cj8ik5h742lsg" path="res://assets/rift/menus/layered_v2/atmosphere.png" id="sky"]
+
+[sub_resource type="ShaderMaterial" id="PortalMaterial"]
+resource_local_to_scene = true
+shader = ExtResource("portal_shader")
+shader_parameter/energy = 0.0
+
+[sub_resource type="CanvasItemMaterial" id="PortalHaloBlend"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="PortalHaloGradient"]
+colors = PackedColorArray(0.78, 0.26, 0.58, 0.22, 0.78, 0.26, 0.58, 0)
+
+[sub_resource type="GradientTexture2D" id="PortalHaloTexture"]
+gradient = SubResource("PortalHaloGradient")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Animation" id="Reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame/Atmosphere:scroll_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.75, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frame/Architecture/Artwork:material:shader_parameter/energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Frame/Ruins:scroll_offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Frame/Architecture/PortalHalo:self_modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.3]
+}
+
+[sub_resource type="Animation" id="Ambient"]
+resource_name = "ambient"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame/Atmosphere:scroll_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(-0.75, 0), Vector2(0.75, 0), Vector2(-0.75, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frame/Architecture/Artwork:material:shader_parameter/energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.27, 0.9, 0.27]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Frame/Ruins:scroll_offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 2), Vector2(0, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Frame/Architecture/PortalHalo:self_modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.3, 0.8, 0.3]
+}
+
+[sub_resource type="AnimationLibrary" id="Animations"]
+_data = {
+&"RESET": SubResource("Reset"),
+&"ambient": SubResource("Ambient")
+}
+
+[node name="Background" type="Control" unique_id=2065963094]
+texture_filter = 2
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("script")
+
+[node name="Frame" type="Node2D" parent="." unique_id=1963746919]
+position = Vector2(-33.6, -12.12)
+scale = Vector2(1.1885, 1.1885)
+
+[node name="Atmosphere" type="Parallax2D" parent="Frame" unique_id=286906384]
+scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(-0.75, 0)
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Artwork" type="Sprite2D" parent="Frame/Atmosphere" unique_id=1510562299]
+texture = ExtResource("sky")
+centered = false
+
+[node name="Ruins" type="Parallax2D" parent="Frame" unique_id=951706104]
+scroll_scale = Vector2(0, 0.52)
+scroll_offset = Vector2(0, -2)
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Artwork" type="Sprite2D" parent="Frame/Ruins" unique_id=1148226438]
+position = Vector2(-277.15604, -37.761883)
+scale = Vector2(0.9646875, 0.9702619)
+texture = ExtResource("ruins")
+centered = false
+
+[node name="Artwork2" type="Sprite2D" parent="Frame/Ruins" unique_id=1261737003]
+position = Vector2(858.7294, 493.1594)
+scale = Vector2(0.9646875, 0.9702619)
+texture = ExtResource("ruins")
+centered = false
+
+[node name="Architecture" type="Parallax2D" parent="Frame" unique_id=260906286]
+scroll_scale = Vector2(0, 0)
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Artwork" type="Sprite2D" parent="Frame/Architecture" unique_id=1215416628]
+material = SubResource("PortalMaterial")
+texture = ExtResource("bridge")
+centered = false
+
+[node name="PortalHalo" type="Sprite2D" parent="Frame/Architecture" unique_id=198230422]
+self_modulate = Color(1, 1, 1, 0.3)
+material = SubResource("PortalHaloBlend")
+position = Vector2(1302, 459)
+scale = Vector2(0.65, 0.9)
+texture = SubResource("PortalHaloTexture")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=543611707]
+libraries/ = SubResource("Animations")
+autoplay = &"ambient"

@@ -1,0 +1,18 @@
+{
+  "generator": "built-in image_gen",
+  "reference": "assets/rift/menus/main_menu.webp",
+  "status": "new separate artwork; not bound to live menu",
+  "prompts": [
+    {
+      "output": "assets/rift/menus/layered_v2/atmosphere.png",
+      "prompt": "Use case: stylized-concept. Generate layer 1 of a coordinated 16:9 Godot menu environment, inspired by reference image's inked dark fantasy illustration style, slate blue void, cyan cloudy atmospheric spirals and restrained plum accents. This is ONLY the opaque distant atmosphere background plate, full bleed landscape 1920x1080 composition. A vast deep blue cloudy abyss, very faint remote floating rock silhouettes along lower third, cyan swirling luminous cloud formations in upper right. Left 40 percent dark calm negative space for existing menu UI. Soft atmospheric depth but retain hand-painted cel shaded ink aesthetic. No foreground, no bridge, no columns, no portal, no obelisk, no distinct midground islands. Absolutely no text, labels, borders, UI, panels or layer diagrams. Reconstruct complete uninterrupted background across whole frame so separately generated architecture can overlay it with small parallax motion. This is new companion art, not exact original extraction."
+    },
+    {
+      "output": "assets/rift/menus/layered_v2/floating_ruins.png",
+      "prompt": "Use case: stylized-concept. Generate ONLY a transparent MIDGROUND layer for a coordinated 16:9 main menu, matching supplied original illustration's inked hand-painted dark fantasy stone ruins, slate blue shadows, muted ochre edges, restrained burgundy foliage. Landscape 1920x1080 canvas. Real alpha transparency everywhere except islands; no sky, clouds, fog, backdrop, ground plane, bridge, portal, obelisk or text. Three complete disconnected floating ruined islands, with thin dangling rock fragments, spaced apart: main island centered at normalized (0.52,0.30) occupies about 0.15 canvas width and 0.36 height, carrying two broken classical columns and one small arch; smaller island centered (0.35,0.23) occupies 0.08 width and 0.20 height; tiny distant island centered (0.86,0.28) occupies 0.055 width and 0.14 height. All silhouettes fully inside canvas with generous transparent margins. Leftmost 25 percent clear for menu. Reserve lower half and right central area for a separately layered bridge leading to portal. Consistent warm light from right and blue ambient shadows. Fine clean silhouettes, arch holes transparent, no rectangular matte, no checkerboard painted into art, no glow outline, no drop shadow on transparency. Preserve scene perspective of original but this is new layer artwork, no need to copy exact original pixels. No labels or diagram."
+    },
+    {
+      "output": "assets/rift/menus/layered_v2/bridge_portal.png"
+    }
+  ]
+}

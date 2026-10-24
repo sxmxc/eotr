@@ -110,6 +110,39 @@ include damage × hits and range, with Siphon's healing cue. Full descriptions
 remain in tooltips and inspection. Row height follows the authored content's
 minimum size; intent text is capped at two lines and the rail scrolls for crowds.
 
+## Main-menu environment
+
+`scenes/menus/menu_environment.tscn` owns the layered artwork behind the menu.
+Its native Parallax2D nodes use authored `scroll_scale` values: the current
+only floating ruins respond to the pointer, vertically. Atmosphere drift is
+independent of pointer input; the foreground bridge and tower are locked.
+Keep the extra ruin instances and their scene-authored transforms
+independent of the common viewport fit. Do not animate the bridge perspective.
+The common frame uses uniform cover scaling with 3.5% overscan and a small
+vertical framing adjustment. Architectural textures never repeat.
+
+The coordinator smooths viewport pointer events with frame-rate-independent
+exponential interpolation. Window exit, lost focus, keyboard/controller input
+and resizing recenter its target. A newly instantiated menu starts at neutral.
+While the menu is open, its viewport disables transform pixel snapping so slow
+movement retains subpixel precision; removal restores the previous setting for
+gameplay. The environment explicitly uses linear texture filtering.
+The eight-second native AnimationPlayer loop eases both ends of a horizontal
+atmospheric drift, a small vertical island bob and the existing portal light;
+the idle movements continue without mouse input. Equal endpoint values and zero
+endpoint velocity avoid a loop snap. The portal shader affects only existing
+plum pixels, with per-instance material state. UI layout, focus, navigation,
+music and scene transitions remain owned by the existing main-menu scene/script.
+
+The main menu's `Gradient` ColorRect uses `menu_veil.gdshader` for a stationary
+slate vignette and a stronger directional veil behind the title/actions. Its
+material exposes edge and menu strengths; it ignores mouse input and renders
+below the UI CanvasLayer. Do not strengthen the global PostFX autoload to tune
+this menu. Portal highlights receive a local HDR emission lift and a soft radial
+GradientTexture2D halo, pulsed by the same authored animation. The halo stays
+attached to the locked architecture; its per-instance state does not affect
+other menus or gameplay.
+
 ## Settings
 
 The same authored settings scene opens from the main menu and inside pause.

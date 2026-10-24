@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://d3ll2gasnw28g"]
 
 [ext_resource type="Theme" uid="uid://cqnyge8wpni86" path="res://resources/themes/rift_ui.tres" id="1_c8ln4"]
-[ext_resource type="Texture2D" uid="uid://bo0ljhjmllmqk" path="res://assets/rift/menus/main_menu.webp" id="2_iju21"]
 [ext_resource type="Script" uid="uid://3ekule3puwad" path="res://scenes/splash_screens/splash_screen.gd" id="2_ttpkl"]
+[ext_resource type="PackedScene" uid="uid://wmnm8fbbo2ot" path="res://scenes/menus/menu_environment.tscn" id="3_iju21"]
 [ext_resource type="Texture2D" uid="uid://c11h8ov45s1qp" path="res://assets/splash/Voidmoose Logo with Raised Emblem.png" id="4_iju21"]
 
 [sub_resource type="Animation" id="splash_reset"]
@@ -69,15 +69,8 @@ grow_vertical = 2
 theme = ExtResource("1_c8ln4")
 script = ExtResource("2_ttpkl")
 
-[node name="Background" type="TextureRect" parent="." unique_id=1489375642]
-modulate = Color(0.45, 0.5, 0.55, 1)
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-texture = ExtResource("2_iju21")
-expand_mode = 1
-stretch_mode = 6
+[node name="Background" parent="." unique_id=2065963094 instance=ExtResource("3_iju21")]
+layout_mode = 1
 
 [node name="Shade" type="ColorRect" parent="." unique_id=817620876]
 layout_mode = 0
@@ -173,6 +166,7 @@ theme_type_variation = &"RoomButton"
 text = "Share gameplay data"
 
 [node name="Splash" type="TextureRect" parent="." unique_id=1688896645]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
