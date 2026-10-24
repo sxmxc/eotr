@@ -688,6 +688,70 @@ func _test_interaction_world_teardown() -> void:
 	Events.card_drag_ended.disconnect(on_end)
 
 
+func _test_target_predicate_parity(world: GameWorld) -> void:
+	var board := world.tilemap
+	board.hide_fog()
+	var unit: Construct
+	for cell in board.get_tiles_in_range(board.player_position, 2):
+		if world.summons.can_deploy(cell):
+			unit = world.summons.deploy(preload("res://resources/data/constructs/sentry.tres"), cell)
+			break
+	check(unit != null, "Target parity fixture deploys through the real summon handler")
+	if not unit:
+		return
+	var hand := world.player_handler.player_hand
+	var controller := world.card_interaction
+	for path: String in ["service_cycle", "power_tap"]:
+		var card: Card = load("res://resources/data/cards/synthforged/%s.tres" % path).duplicate(true)
+		card.energy_cost = 0
+		hand.add_card(card)
+		var ui := hand.get_cards().back() as CardUI
+		await get_tree().process_frame
+		ui.card_state_machine._on_transition_requested(ui.card_state_machine.current_state, CardState.State.AIMING)
+		var cell := unit.current_tile_position
+		check(not controller.valid_cells(ui).has(cell) and not controller.is_preview_target(ui, unit) and not ui.can_execute([unit]),
+			"Ineligible ally is absent from highlights, picking and play: " + path)
+		if path == "service_cycle":
+			unit.stats.health -= 1
+		else:
+			unit.stats.block = 4
+		check(controller.valid_cells(ui).has(cell) and controller.is_preview_target(ui, unit) and ui.can_execute([unit]),
+			"Eligible ally agrees across highlights, picking and play: " + path)
+		controller.select_target(ui, unit)
+		if path == "service_cycle":
+			unit.stats.health = unit.stats.max_health
+		else:
+			unit.stats.block = 0
+		check(ui.targets.is_empty() and not controller.valid_cells(ui).has(cell),
+			"Ally stat changes immediately clear invalid selection and highlights: " + path)
+		controller.cancel_active()
+		hand.discard_card(ui)
+		await get_tree().process_frame
+	unit.destroy()
+	await get_tree().process_frame
+	var teleport: Card = preload("res://resources/data/cards/riftwalker/quantum_rift.tres").duplicate(true)
+	teleport.energy_cost = 0
+	hand.add_card(teleport)
+	var tile_ui := hand.get_cards().back() as CardUI
+	await get_tree().process_frame
+	var token := TilemapTarget.new(board.player_position, board)
+	world.target_selector.add_child(token)
+	var candidates := world.target_selector.get_cached_targets(tile_ui)
+	var highlights := controller.valid_cells(tile_ui)
+	var rejected := 0
+	for cell: Vector2i in candidates:
+		token.tile_position = cell
+		var legal := teleport.is_valid_target([token], tile_ui.player_modifiers)
+		check(highlights.has(cell) == legal and controller.is_preview_target(tile_ui, token) == legal and tile_ui.can_execute([token]) == legal,
+			"Quantum Rift tile predicate agrees across highlights, picking and play")
+		if not legal: rejected += 1
+	check(rejected > 0, "Tile parity fixture includes rejected broad candidates")
+	token.free()
+	controller.cancel_active()
+	hand.discard_card(tile_ui)
+	await get_tree().process_frame
+
+
 func _test_interaction_lifetime(world: GameWorld) -> void:
 	var hand := world.player_handler.player_hand
 	var controller := world.card_interaction
@@ -1197,6 +1261,7 @@ func run() -> void:
 		get_tree().quit(1 if failures else 0)
 		return
 	if OS.get_cmdline_user_args().has("--card-lifecycle-only"):
+		await _test_target_predicate_parity(world)
 		await _test_projectile_card_contacts(world)
 		await _test_card_authorization(world)
 		await _test_interaction_lifetime(world)
@@ -1264,6 +1329,7 @@ func run() -> void:
 	await _test_attack_tween_cancellation(world)
 	await _test_movement_cancellation(world)
 	await _test_card_authorization(world)
+	await _test_target_predicate_parity(world)
 	await _test_interaction_lifetime(world)
 	await _test_mouse_card_commits(world)
 	await _test_instability_costs(world, relics)

@@ -570,16 +570,13 @@ backlog:
   - id: BKL-043
     title: "Unify targeting/aiming selectors and cache valid targets"
     priority: P1
-    status: in_review
+    status: complete
     owner: Codex
     blockers: []
     context:
-      - "card_target_selector.gd and movement_target_selector.gd duplicate arc drawing, hover, and validity checks."
-      - "CardStateMachine recomputes valid targets per input event and re-queries the tree."
-    next_steps:
-      - "Build a single TargetSelector with pluggable validators (self/enemy/tile/radius/adjacent/LOS/fog)."
-      - "Cache valid target sets per frame/phase and share between UI highlighting and play validation."
-      - "Audit card target types (TargetType enums) to ensure parity with selector behaviors."
+      - "Verified ordinary and movement scenes already share TargetSelector, controller-owned picking and invalidated candidate caching. Card predicates supply custom validation; commitment recomputes live candidates."
+      - "Closed remaining ally/tile highlight predicate mismatch and construct health/block invalidation gap. Audited authored target types and documented reserved multi-select enums. Focused headless/native lifecycle and Synthforged suites pass; see ai/state/journal-bkl-043.md for integration evidence and limits."
+    next_steps: []
 
   - id: BKL-044
     title: "Normalize status lifecycle and modifier cleanup"

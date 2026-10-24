@@ -72,6 +72,12 @@ With `--capture-ui`, each must attach exactly one contact visual across the
 projectile and effect paths. These are native node-count assertions, not an
 artistic or continuous-motion review.
 
+Target predicate parity checks deploy a real construct and exercise Service Cycle
+and Power Tap before/after health and block changes: highlights, picking and play
+must agree, and becoming ineligible clears the selection immediately. Quantum
+Rift checks all broad candidate cells against its live tile predicate, including
+rejected corrupted cells. These are state assertions, not rendered visual review.
+
 Other targeted flags include `--mana-wells-only`,
 `--utility-review` and `--vfx-only`; inspect their owning test-scene branch before
 using them as evidence. `--capture-ui` switches from headless to native offscreen

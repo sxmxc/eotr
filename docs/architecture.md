@@ -76,6 +76,24 @@ and CardFxRunner; legacy custom cards can override effect hooks. Effects update 
 than a separate UI model. Async damage, movement and status completion matter:
 awaiting a single card method is not always the whole action boundary.
 
+TargetSelector implements both ordinary and movement aiming; the movement scene
+only enables its electric arc. It caches each CardUI's broad candidate cells until
+movement, enemy/tile/board changes, player stats, construct stats or relocation
+stage changes invalidate them; ending aim clears the cache. Card predicates remain
+live: CardInteractionController filters enemy, ally and tile highlights with the
+same validation used for picking. Service Cycle requires missing health and Power
+Tap requires four block, so those highlights and any selected ally update when
+construct stats change. Tile preview validation uses a temporary detached
+TilemapTarget; predicates must be side-effect free and use its board/cell fields.
+Actual picking and play still require a live, battle-owned target. Commitment
+recomputes candidate cells rather than trusting the preview cache.
+
+SINGLE_ENEMY, ADJACENT_ENEMY, SINGLE_TILE and ALLY use aimed selection (Redeployment
+switches from ally to tile after its first selection). SELF, ALL_ENEMIES,
+SURROUNDING_ENEMIES, EVERYONE and NO_TARGET use the authored drop area and Card's
+effect target expansion. MULTIPLE_ENEMIES, MULTIPLE_TILES and EVERYTHING are
+reserved enum values without authored cards or an interactive multi-select flow.
+
 Cross-system notifications use `scripts/autoloads/events.gd`. RNG owns seeded
 gameplay randomness; policies have a separate stream and cosmetics must not
 consume the gameplay stream. GameSettings owns player settings/telemetry consent.
