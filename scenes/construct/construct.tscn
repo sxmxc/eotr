@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scenes/construct/construct.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/modifier_handler/modifier_handler.gd" id="2"]
 [ext_resource type="Script" path="res://ui/status_ui/status_handler.gd" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/modifier_handler/modifier.tscn" id="4"]
 [sub_resource type="CircleShape2D" id="shape"]
 radius = 22.0
 
@@ -13,6 +14,9 @@ status_handler = NodePath("StatusHandler")
 scale = Vector2(0.12, 0.12)
 [node name="ModifierHandler" type="Node" parent="."]
 script = ExtResource("2")
+[node name="DamageDealtModifier" parent="ModifierHandler" instance=ExtResource("4")]
+[node name="DamageTakenModifier" parent="ModifierHandler" instance=ExtResource("4")]
+type = 1
 [node name="StatusHandler" type="GridContainer" parent="."]
 visible = false
 script = ExtResource("3")
